@@ -1,0 +1,185 @@
+<!--yml
+category: 未分类
+date: 2024-10-13 06:31:06
+-->
+
+# Set up GO Workspace and Hello World Program
+
+> 来源：[https://golangbyexample.com/workspace-hello-world-golang/](https://golangbyexample.com/workspace-hello-world-golang/)
+
+This is the chapter 3 of the golang comprehensive tutorial series. Refer to this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+
+**Next Tutorial** – [Packages and Modules – Part 1](https://golangbyexample.com/packages-modules-go-first)
+**Previous Tutorial** – [GO Installation](https://golangbyexample.com/golang-installation)
+
+Now let’s check out the current tutorial. Below is the table of contents for the current tutorial.
+
+Table of Contents
+
+ **   [Overview](#Overview "Overview")
+*   [GO Workspace](#GO_Workspace "GO Workspace")
+    *   [GOROOT](#GOROOT "GOROOT")
+    *   [GOPATH](#GOPATH "GOPATH")
+    *   [GOBIN](#GOBIN "GOBIN")
+*   [Run Hello World](#Run_Hello_World "Run Hello World")
+*   [Conclusion:](#Conclusion "Conclusion:")*  *# **Overview**
+
+This is the third tutorial of the golang comprehensive tutorial series. Refer to this link for other chapters of the series.
+
+In chapter one we saw an intro to Go and basic advantages of GO and in chapter 2 we have already seen how to install GO. It is now time to set up the workspace for GO and run our first hello world program.
+
+# **GO Workspace**
+
+Before we proceed let’s understand some important GO ENV variables:
+
+## **GOROOT**
+
+It is the location of your GO SDK. GO binary distribution assumes this location to be **/usr/local/go** for Linux/MAC platforms and  c:\Go for Windows. But GO SDK can also be installed in a custom location. In case it is installed to a custom location, then GOROOT should point to that directory.  GOROOT should only be set when installing GO to a custom location or when you want to maintain different versions of GO
+
+For example if you have installed GO to the location ~/Documents/go on Linux/MAC platform, then make below entry to the ~/$HOME/.profile file.
+
+```
+export GOROOT=~/Documents/go
+export PATH=$PATH:$GOROOT/bin
+```
+
+## **GOPATH**
+
+The discussion for GOPATH will revolve around whether you are using GO version 1.13 higher or lower. In version 1.13, GO introduced a new feature for dependency management called GO modules. Let’s first understand the legacy behavior of **GOPATH** and then we will discuss what has changed with respect to **GOPATH** after GO version 1.13.
+
+**Before GO version 1.13**
+
+The **GOPATH** env variable was used for resolving go imports statements as well as it also specifies the location of your GO workspace. It is the root of GO workspace. A dependency cannot be imported if it is not inside GOPATH. Hence earlier version required all your source code to be inside **GOPATH**. So basically **GOPATH** is used for
+
+*   Resolving imports. A dependency cannot be imported if it is not inside GOPATH. Hence it still requires your code to be inside GOPATH
+
+*   Packages are installed in the directory $GOPATH/pkg/$GOOS_$GOARCH.
+
+*   Store compiled application binary in $GOPATH/bin (This can be overridden by setting $GOBIN to a different path)
+
+It contains the following folders
+
+*   **src** –
+    *   Source file location. It contains .go and other source files
+    *   When installing any dependency package using ‘go get’, all the package files are stored in this location.
+
+*   **pkg** –
+    *   Stores the compilation output of your actual source code present in src. directory. It contains .a files
+    *   Basically, it contains the GO packages compiled from the src/ directory. They are then used at link time to create binary executables which are then placed in the bin/ directory.
+    *   It is a good idea to compile a package once and used it to create different binary executables.
+    *   Each pair of Operating System and Architecture will have its own subdirectory in pkg. (eg: pkg/GOOS_GOARCH)
+
+*   **bin** – location of executables built by Go
+
+**With Go version 1.13 or later**
+
+In version **1.13,** GO announced a new feature of dependency management called GO modules. We will learn about this feature in upcoming tutorials. For now, you can imagine that with the new feature, GO doesn’t require putting all GO code in the Go workspace or in the $GOAPTH/src directory. You can create the directory anywhere and put your Go program there. Note that all legacy behavior of GOPATH is still valid for version 1.1.3 and higher.  Also note that with this new GO module feature, GO programs can be run in two ways. 
+
+*   **Using modules:** when using modules, **GOPATH** is not used for resolving imports. However, when using modules for running GO programs,  GOPATH will be used for
+    *   Store download source code in $GOPATH/pkg/mod directory.
+    *   Store compiled application binary in $GOPATH/bin (This can be overridden by setting $GOBIN to a different path)
+
+*   **Not using modules**:  It is still possible to run a GO program in the legacy ways even with version 1.13 or later. When not using modules while running GO programs, $GOPATH behavior is same as earlier versions which is the same as mentioned above
+
+**Set Up GOPATH.**
+
+If this env variable is unset, it defaults **$HOME/go** on Unix systems and **%USERPROFILE%\go** on Windows. If your workspace location is ~**/Desktop/go**, then make below entry to the **~/$HOME/.profile** file. It is good idea to always have the **GOPATH** set up as **GOPATH** is used even with the introduction of modules
+
+```
+export GOPATH=~/Desktop/go
+```
+
+## **GOBIN**
+
+**GOBIN** env variable specifies the directory where go will place the compiled application binary after building the main package. It defaults to **$GOPATH/bin** or **$HOME/go/bin** if the **GOPATH** environment variable is not set. .  Also it is good idea to add **GOBIN** path to **PATH** env as well so that binary installed can be run without specifying full path of the binary. Set GOBIN in the **~/.$HOME/.profile** file and add it to PATH as well.
+
+```
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+```
+
+# **Run Hello World**
+
+In this example, we will be creating our first hello world program. So far here is the value of **GOROOT**, **GOPATH**, and **GOBIN**.
+
+```
+echo $GOROOT will give installed directory for GO
+echo $GOPATH will give ~/Desktop/go
+echo $GOBIN will give ~/Desktop/go/bin
+```
+
+A typical program has **.go** file extension. Now let’s create a “Hello World” program. For that first create a directory named hello outside $GOPATH/src.  Since the project is getting creating outside $GOPATH/src we also need to create a **go.mod** file with import path as **[sample.com](http://sample.com)/hello** .  We will look at the import path, go.mod file and module in detail in the upcoming tutorial. For now, let’s create a simple module so that we can see how the hello world program looks like in go. Use the below command for that
+
+```
+go mod init sample.com/hello
+```
+
+It will create go.mod file as below.
+
+**go.mod**
+
+```
+module sample.com/hello
+
+go 1.14
+```
+
+Now create file hello.go with below contents.
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello World")
+}
+```
+
+There are three different commands to run the above GO program. First cd to the **‘hello’** directory.
+
+1.  ‘**go install’**
+
+It will compile the program and place the binary at the **$GOBIN** folder. Type below command, Make sure you are in the **hello** directory which contains the **hello.go** file.
+
+It will create a binary named hello in the $GOBIN directory. The name of the binary is same as last part of the import path of the module. The import path of the module is **[sample.com](http://sample.com)/hello** and last part of import path is simply **hello**. Hence binary name will be **hello** in our case. Type hello on the terminal, it will give below output
+
+```
+Hello World
+```
+
+Output of ‘which hello’ will be **‘~/Desktop/go/bin/hello’** . Remember our **GOBIN** path was ‘**~/Desktop/go/bin**.’ Hence the binary hello was copied to this directory.
+
+2.  ‘**go build’**
+
+It will compile the program and place the binary in the current working directory. Type the below command
+
+```
+go build
+```
+
+In our case it will create the binary named **‘hello’**  same as impbeside **hello.go** file. To run the binary type **‘./hello’** on the terminal. It will give below output
+
+```
+Hello World
+```
+
+3.  **‘go run hello.go’**
+
+This command will compile and then execute the binary. Type the below command.
+
+```
+go run hello.go 
+```
+
+It will output
+
+```
+Hello World
+```
+
+# **Conclusion:**
+
+That all for this tutorial. Hope you have liked this article. please share feedback/mistakes/improvements in comments.
+
+****Next Tutorial** –** [Packages and Modules – Part 1](https://golangbyexample.com/packages-modules-go-first) ****Previous Tutorial** –** [GO Installation](https://golangbyexample.com/golang-installation)*

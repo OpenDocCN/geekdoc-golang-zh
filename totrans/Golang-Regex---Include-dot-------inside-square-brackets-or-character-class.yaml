@@ -1,87 +1,137 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: '<!--yml  '
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类：未分类  '
 - en: 'date: 2024-10-13 06:35:17'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期：2024-10-13 06:35:17  '
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: '-->  '
 - en: Golang Regex – Include dot – ‘.’ inside square brackets or character class
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 'Golang正则表达式 – 在方括号或字符类中包含点 – ‘.’  '
 - en: 来源：[https://golangbyexample.com/dot-square-bracket-regex-golang/](https://golangbyexample.com/dot-square-bracket-regex-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: '来源：[https://golangbyexample.com/dot-square-bracket-regex-golang/](https://golangbyexample.com/dot-square-bracket-regex-golang/)  '
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '目录  '
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")  '
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**  '
 - en: Dot or **‘.’** is treated as a literal character inside the square brackets
     or character class. It doesn’t need to be escaped inside that. Let’s see a working
     program for the same as well
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '点或**‘.’**在方括号或字符类内被视为字面字符。在那里面不需要转义。让我们看看一个工作的程序。  '
 - en: We will be using **regexp** package in golang in our example that provides regular
     expression searching capabilities
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '我们将在示例中使用**regexp**包，它提供正则表达式搜索功能。  '
 - en: '[https://golang.org/pkg/regexp/](https://golang.org/pkg/regexp/)'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/regexp/](https://golang.org/pkg/regexp/)  '
 - en: '**Program**'
+  id: totrans-12
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**  '
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This regex
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '此正则表达式  '
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: will match a single dot or **‘.’**
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '将匹配单个点或**‘.’**  '
 - en: We first compile the given regex using the MustCompile function. This function
     panics if the given regex is not valid. After it is able to successfully compile
     the given regex, it returns the instance of regexp struct.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '我们首先使用MustCompile函数编译给定的正则表达式。如果给定的正则表达式无效，此函数会导致恐慌。成功编译后，它返回regexp结构的实例。  '
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: We can call the Match method on the regexp instance to match the given pattern
     with the regex. It returns true if the regex matches with the input string otherwise
     false. We need to pass in bytes of the input string to this method.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '我们可以在regexp实例上调用Match方法，将给定模式与正则表达式进行匹配。如果正则表达式与输入字符串匹配，则返回true，否则返回false。我们需要将输入字符串的字节传递给此方法。  '
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '此外，请查看我们的Golang高级教程系列 – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)  '
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*  '

@@ -1,118 +1,188 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '类别: 未分类'
 - en: 'date: 2024-10-13 06:37:12'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:37:12'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Case insensitive regular expression matching in Go (Golang)'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 'Golang 正则表达式: Go（Golang）中的大小写不敏感正则表达式匹配'
 - en: 来源：[https://golangbyexample.com/case-insensitive-regex-golang/](https://golangbyexample.com/case-insensitive-regex-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/case-insensitive-regex-golang/](https://golangbyexample.com/case-insensitive-regex-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: 'The default behavior for regular expression matching in golang is case sensitive.
     But the default behavior can be changed by adding a set of flags to the beginning
     of the regular expression. The flag we need to add to the beginning of regex is:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在golang中，正则表达式匹配的默认行为是大小写敏感的。但通过在正则表达式开头添加一组标志，可以更改默认行为。我们需要在正则表达式开头添加的标志是：
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The flag **‘i’** is used to indicate that the regex will be case insensitive.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 标志**‘i’**用于指示正则表达式将不区分大小写。
 - en: Here is the example regex for case sensitive and insensitive regex.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是大小写敏感和不敏感正则表达式的示例。
 - en: '**Case sensitive regex**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**大小写敏感正则表达式**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Case insensitive regex**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**大小写不敏感正则表达式**'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Program**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Let’s see a program for the same.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看相同的程序。
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Notice the regex in the above program. We prefixed the regex with **(?i)** flag
     to indicate that this regex will be case insensitive
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意上面程序中的正则表达式。我们用**(?i)**前缀正则表达式，以指示该正则表达式将不区分大小写。
 - en: '[PRE5]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: As we can notice from the output, it gives a correct match for text **“abc”**
     as well as text **“ABC”**.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中我们可以注意到，它对文本**“abc”**和**“ABC”**都给出了正确的匹配。
 - en: If we remove the prefix flag then it will  give afalse match for **“ABC”**
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们移除前缀标志，那么它将会对**“ABC”**产生错误匹配。
 - en: '[PRE6]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Notice the regex in the above program. We do not prefix the regex with **(?i)**
     flag. So it will fall back to the default behavior of being case sensitive.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意上面程序中的正则表达式。我们没有用**(?i)**前缀正则表达式。因此它将回退到默认的大小写敏感行为。
 - en: '[PRE8]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: As we can notice from the output, it gives a correct match for text **“abc”**
     but it does not give a match for text **“ABC”**.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中我们可以注意到，它对文本**“abc”**给出了正确匹配，但对文本**“ABC”**没有匹配。
 - en: This is all about case insensitive regex matching in golang. Hope you have liked
     this article.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于golang中大小写不敏感正则表达式匹配的全部内容。希望你喜欢这篇文章。
 - en: Please share the feedback in the comments.Also, check out our Golang advance
     tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 请在评论中分享反馈。此外，查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

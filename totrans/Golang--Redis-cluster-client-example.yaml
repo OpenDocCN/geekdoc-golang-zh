@@ -1,43 +1,70 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类: 未分类'
 - en: 'date: 2024-10-13 06:02:16'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:02:16'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang: Redis cluster client example'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 'Golang: Redis 集群客户端示例'
 - en: 来源：[https://golangbyexample.com/golang-redis-cluster-client-example/](https://golangbyexample.com/golang-redis-cluster-client-example/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-redis-cluster-client-example/](https://golangbyexample.com/golang-redis-cluster-client-example/)
 - en: First, we will write the Redis cluster layer that will have a function to initialize
     the Redis cluster client. The Redis cluster client will only be created once and
     used throughout. In the below code, initialize function will initialize the Redis.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，我们将编写 Redis 集群层，该层将具有初始化 Redis 集群客户端的功能。Redis 集群客户端只会创建一次，并在整个过程中使用。在下面的代码中，初始化函数将初始化
+    Redis。
 - en: '**client.go**'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**client.go**'
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**main.go**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**:'
 - en: '[PRE2]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'

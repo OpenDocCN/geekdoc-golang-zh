@@ -1,223 +1,351 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:37:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:37:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Backreferences'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang正则表达式：回溯引用
 - en: 来源：[https://golangbyexample.com/golang-regex-backreferences/](https://golangbyexample.com/golang-regex-backreferences/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-regex-backreferences/](https://golangbyexample.com/golang-regex-backreferences/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Program](#Program "Program")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "程序")'
 - en: '[First Example](#First_Example "First Example")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[第一个示例](#First_Example "第一个示例")'
 - en: '[Second Example](#Second_Example "Second Example")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[第二个示例](#Second_Example "第二个示例")'
 - en: '[Replace Matched String](#Replace_Matched_String "Replace Matched String")*  *##
     **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[替换匹配字符串](#Replace_Matched_String "替换匹配字符串")*  *## **概述**'
 - en: Golang regex package [regexp](https://golang.org/pkg/regexp/) uses the [re2
     engine](https://swtch.com/~rsc/regexp/regexp3.html) which doesn’t support backreferences.
     You can check the same here
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang正则表达式包[regexp](https://golang.org/pkg/regexp/)使用[re2引擎](https://swtch.com/~rsc/regexp/regexp3.html)，它不支持回溯引用。您可以在这里查看
 - en: '[https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax)'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax)'
 - en: It does mention that it doesn’t support backreferences.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 它确实提到它不支持回溯引用。
 - en: '**However, there is another golang package available that uses libpcre++, Perl
     regexes, and it supports backreferences.**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**然而，还有另一个可用的golang包，它使用libpcre++、Perl正则表达式，并且支持回溯引用。**'
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Program**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: So let’s see examples of backreferences in golang using this **pcre** package.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以让我们看看在golang中使用这个**pcre**包的回溯引用示例。
 - en: '**First Example**'
+  id: totrans-19
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**第一个示例**'
 - en: Let’s say we want to match the repetition of a digit. Valid inputs are
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们想匹配数字的重复。有效输入是
 - en: '[PRE1]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Regex to match for the same would be
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 匹配同样内容的正则表达式将是
 - en: '[PRE2]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Let’s dissect this regex
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们分析一下这个正则表达式
 - en: '**(\d)** – Matches a single digit. The single-digit is enclosed in parentheses
     so it acts as a capturing group.'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**(\d)** – 匹配单个数字。单个数字被括号包围，因此它作为捕获组。'
 - en: '**\1** – Backreferences the first sub match by capturing group. So it will
     reference the first digit'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\1** – 通过捕获组回溯引用第一个子匹配。因此它将引用第一个数字'
 - en: '**+** – One or more occurrences of the previous digit'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**+** – 前一个数字出现一次或多次'
 - en: Program for the same
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样的程序
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: As expected it gives a match for repetition of digits
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 如预期，它能匹配数字的重复
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: And it does not match for below as it is not a repetition
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 并且它不会匹配以下内容，因为这不是重复
 - en: '[PRE6]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Second Example**'
+  id: totrans-36
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**第二个示例**'
 - en: Let’s say we want to match the repetition of a word separated by a colon. Valid
     inputs are
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们想匹配以冒号分隔的单词重复。有效输入是
 - en: '[PRE7]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Regex to match for the same would be
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 匹配同样内容的正则表达式将是
 - en: '[PRE8]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Let’s dissect this regex
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们分析一下这个正则表达式
 - en: '**(\w+)** – Matches a word having more than one character. It is enclosed in
     parentheses so it acts as a capturing group.'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**(\w+)** – 匹配一个字符超过一个的单词。它被括号包围，因此它作为捕获组。'
 - en: '**\1** – Backreferences the first sub match by capturing group. So it will
     reference the matched word'
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\1** – 通过捕获组回溯引用第一个子匹配。因此它将引用匹配的单词'
 - en: Program for the same
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样的程序
 - en: '[PRE9]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: As expected it gives a match for a string that contains a substring having a
     repetition of a word
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 如预期，它能匹配包含重复单词子字符串的字符串
 - en: '[PRE11]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: And it does not match for below as it does not contain a repetition of a word
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 并且它不会匹配以下内容，因为它不包含单词的重复
 - en: '[PRE12]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Replace Matched String**'
+  id: totrans-52
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**替换匹配字符串**'
 - en: The **pcre** package also provides functionality to replace the matched string.
     Below is an example of the same.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '**pcre**包还提供了替换匹配字符串的功能。以下是相同的示例。'
 - en: '[PRE13]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output**'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE14]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: In the above example, we have a regex with a backreference that matches a repetition
     of a digit. We then redact this repetition of digit using the **ReplaceAll** method
     of the **pcre** package
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的例子中，我们有一个包含回溯引用的正则表达式，用于匹配数字的重复。然后我们使用**ReplaceAll**方法对该数字的重复进行修饰
 - en: '[PRE15]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: And as expected from the output, the repetition of the digit is correctly redacted
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 如预期，输出中数字的重复被正确修饰
 - en: '[PRE16]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: Hope you have liked this tutorial. Please share the feedback in the comments
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 希望您喜欢这个教程。请在评论中分享反馈
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[backreference](https://golangbyexample.com/tag/backreference/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [regex](https://golangbyexample.com/tag/regex/)*'
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[反向引用](https://golangbyexample.com/tag/backreference/)*   [去](https://golangbyexample.com/tag/go/)*   [Go语言](https://golangbyexample.com/tag/golang/)*   [正则表达式](https://golangbyexample.com/tag/regex/)*'

@@ -1,229 +1,356 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:38:19'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:38:19
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Match a floating-point number in Regular Expression'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang 正则表达式：在正则表达式中匹配浮点数
 - en: 来源：[https://golangbyexample.com/golang-regex-floating-point-number/](https://golangbyexample.com/golang-regex-floating-point-number/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-regex-floating-point-number/](https://golangbyexample.com/golang-regex-floating-point-number/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: A floating-point number could have below properties
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 浮点数可能具有以下属性
 - en: It could have a negative and positive sign
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它可以有负号和正号
 - en: The integer part could be optional when the decimal part is present
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当小数部分存在时，整数部分可以是可选的
 - en: The dot and decimal part could be optional if the integer part is present
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果整数部分存在，点和小数部分可以是可选的
 - en: It could have an exponent or not
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它可以有指数，也可以没有
 - en: So below are valid floating-point numbers
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以下面是有效的浮点数
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Below are invalid floating points
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是无效的浮点数
 - en: An empty string
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个空字符串
 - en: + or – sign only
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅有 + 或 – 号
 - en: A single dot
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个点
 - en: A prefix of multiple 0\. For eg 00.1 or 001
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 多个 0 的前缀。例如 00.1 或 001
 - en: Anything like +. or –
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 任何类似 +. 或 –
 - en: A dot just before exponent.  Eg 1.e2
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 指数前的一个点。例如 1.e2
 - en: Any other char before or after the floating-point number. Eg a1.3 or a1.3b or
     1.3b
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 浮点数前后可以有其他字符。例如 a1.3 或 a1.3b 或 1.3b
 - en: Below are examples of invalid floats
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是无效浮点数的示例
 - en: '[PRE1]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s first see a simple regex which only matches only the integer, dot, and
     decimal parts.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们首先看看一个简单的正则表达式，它只匹配整数、点和小数部分。
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: On a high level, the entire regex has two parts which are in OR relation
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在高层次上，整个正则表达式有两个部分，它们是或关系
 - en: '**(?:0|[1-9]\d*)(?:\.\d*)? –** This captures the part where the integer part
     is always present and the decimal part is optional'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**(?:0|[1-9]\d*)(?:\.\d*)? –** 这捕获整数部分始终存在且小数部分可选的部分'
 - en: '**\.\d+ –** This captures the part where the integer part is not present and
     the decimal part is always present.'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\.\d+ –** 这捕获整数部分缺失且小数部分始终存在的部分。'
 - en: Let’s dissect this regex
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们分析这个正则表达式
 - en: '![](img/1b9cc3d5bb25add0bded2dae2b98f995.png)'
+  id: totrans-32
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/1b9cc3d5bb25add0bded2dae2b98f995.png)'
 - en: Let’s make it more complex by having it accept a negative or a positive sign.
     Note that negative or positive sign is optional
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们更复杂一点，使其接受负号或正号。请注意，负号或正号是可选的
 - en: '[PRE3]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The regex is the same as the earlier regex. We just added the optional positive
     negative sign in front
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 正则表达式与之前的正则表达式相同。我们只是添加了可选的正负号在前面
 - en: '**[+\-] –** Match either positive or negative sign.'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[+\-] –** 匹配正号或负号。'
 - en: '**?** – Matching either positive or negative sign is optional'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**?** – 匹配正号或负号是可选的'
 - en: Let’s also add an exponent part to the regex. Again note that the exponent part
     is optional. This regex is the same as the previous regex. We just added the exponent
     part at the end
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们再往正则表达式中添加一个指数部分。同样注意，指数部分是可选的。这个正则表达式与之前的正则表达式相同。我们只是将指数部分添加到末尾
 - en: '[PRE4]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Let’s dissect the exponent part
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们分析指数部分
 - en: '**(?: –** It means non-capturing group'
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**(?: –** 它表示非捕获组'
 - en: '**\d** – Match one digit. This is to prevent numbers like 1.e2'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\d** – 匹配一个数字。这是为了防止出现像 1.e2 这样的数字'
 - en: '**[eE]** – Match either lowercase e or uppercase E'
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[eE]** – 匹配小写字母 e 或大写字母 E'
 - en: '**[+\-] –** Match either positive or negative sign. The matching either positive
     or negative sign is optional'
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[+\-] –** 匹配正号或负号。匹配正号或负号是可选的'
 - en: '**\d+ –** Match zero or more digits'
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\d+ –** 匹配零个或多个数字'
 - en: '**)? –** Entire regex  expression is optional'
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**)? –** 整个正则表达式是可选的'
 - en: '**Program**'
+  id: totrans-47
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Now see an example of this regular expression in action
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在看这个正则表达式的一个示例
 - en: '[PRE5]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: For all the valid inputs discussed above the program prints true
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于上述讨论的所有有效输入，程序打印为真
 - en: '[PRE7]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: And for all the invalid inputs discussed above it gives false
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于上述讨论的所有无效输入，它返回假
 - en: '[PRE8]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Please try it out and post in the comments if in any case, this regex doesn’t
     work.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 请尝试一下，如果在任何情况下这个正则表达式不工作，请在评论中发布。
 - en: The above regex is used to validate if a given string is a number. If you want
     to find if an input string contains a number as a substring then we need to remove
     the anchor characters at the start and the end which is removing the **caret (^)**
     at the start and the dollar **($)** character at the end
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述正则表达式用于验证给定字符串是否为数字。如果您想查找输入字符串是否包含数字作为子串，那么我们需要去掉开头和结尾的锚字符，即去掉开头的 **脱字符 (^)**
+    和结尾的美元 **($)** 字符
 - en: So the regex will be
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以正则表达式将是
 - en: '[PRE9]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: This is all about matching floating point numbers through regex in golang. Hope
     you have liked this article. Please share feedback in the comments.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 这篇文章主要讨论如何在 Golang 中通过正则表达式匹配浮点数。希望你喜欢这篇文章。请在评论中分享反馈。
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，请查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[floating](https://golangbyexample.com/tag/floating/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [number](https://golangbyexample.com/tag/number/)*   [point](https://golangbyexample.com/tag/point/)*   [regex](https://golangbyexample.com/tag/regex/)*'
+  id: totrans-62
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[浮点数](https://golangbyexample.com/tag/floating/)*   [Go](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [数字](https://golangbyexample.com/tag/number/)*   [点](https://golangbyexample.com/tag/point/)*   [正则表达式](https://golangbyexample.com/tag/regex/)*'

@@ -1,31 +1,50 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '类别: 未分类'
 - en: 'date: 2024-10-13 06:00:06'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:00:06'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Golang net/http Package – Detecting Timeout
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang net/http 包 – 检测超时
 - en: 来源：[https://golangbyexample.com/net-http-timeout/](https://golangbyexample.com/net-http-timeout/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/net-http-timeout/](https://golangbyexample.com/net-http-timeout/)
 - en: Below is a sample code piece to know if there is a timeout for an upstream call
     that is using net/http package. Http Client is created with 1 nanosecond timeout
     so that it always times out on google.com
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是一个示例代码，用于检测使用 net/http 包的上游调用是否存在超时。Http 客户端创建时设置为 1 纳秒超时，因此它在访问 google.com
+    时总是会超时。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:** true'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出:** true'

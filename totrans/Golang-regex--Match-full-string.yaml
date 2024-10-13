@@ -1,117 +1,183 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:36:47'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:36:47
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang regex: Match full string'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang正则表达式：匹配完整字符串
 - en: 来源：[https://golangbyexample.com/golang-regex-match-full-string/](https://golangbyexample.com/golang-regex-match-full-string/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-regex-match-full-string/](https://golangbyexample.com/golang-regex-match-full-string/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")**'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: Golang regex contains two anchor characters that can be used to match a full
     string. These two characters are
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang正则表达式包含两个锚字符，可以用来匹配完整字符串。这两个字符是
 - en: '**Caret Character ‘^’ –** It is an anchor character that is used at the start
     of the regex to make sure that the given input string is matched with the regex
     from the start.  It matches the beginning of the input string'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**插入符号‘^’ –** 这是一个锚字符，用于正则表达式的开始，以确保给定的输入字符串从开始与正则表达式匹配。它匹配输入字符串的开头。'
 - en: '**Dollar Character ‘$’ –** It is also an anchor character that is used at the
     end of the regex to make sure that the given input string is matched with the
     regex at the end.  It matches the end of the input string'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**美元字符‘$’ –** 这是一个锚字符，用于正则表达式的末尾，以确保给定的输入字符串与正则表达式在末尾匹配。它匹配输入字符串的末尾。'
 - en: Caret and Dollar Metacharacters are anchor characters that are used to match
     the start and end of the string respectively. Let’s first understand what happens
     if we don’t use these anchor characters. Let’s say we have below regex having
     three simple characters.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 插入符号和美元元字符是锚字符，用于分别匹配字符串的开始和结束。首先，让我们理解如果不使用这些锚字符会发生什么。假设我们有以下正则表达式，其中包含三个简单字符。
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This regex will match any string having **abc** as a substring. See below example
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个正则表达式将匹配任何包含**abc**作为子字符串的字符串。请看下面的示例。
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: The above program gives a match for all the strings which contain **“abc”**
     as a substring.  Therefore it gives matches for
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序会匹配所有包含**“abc”**作为子字符串的字符串。因此，它会匹配
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Basically, it will give a match for any input string which contains **“abc”**
     as a substring.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本上，它会匹配任何包含**“abc”**作为子字符串的输入字符串。
 - en: '**Program**'
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: If we only want to match the complete string then we need to anchor the string
     with the **caret** character at the start and the **dollar** character at the
     end. This will enable us to do a full-string match. See the below example.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们只想匹配完整字符串，那么我们需要在开头用**插入符号**字符和在末尾用**美元**字符锚定字符串。这将使我们能够进行完整字符串匹配。请看下面的示例。
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program, the regex is
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，正则表达式是
 - en: '[PRE6]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: The above program gives a match for
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序会匹配
 - en: '[PRE7]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: But doesn’t give a match for below as it only matches the full string
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 但对于下面的内容不匹配，因为它仅匹配完整字符串。
 - en: '[PRE8]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*

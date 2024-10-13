@@ -1,173 +1,273 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:36:57'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:36:57
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Match prefix or suffix of a string'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang 正则表达式：匹配字符串的前缀或后缀
 - en: 来源：[https://golangbyexample.com/regex-prefix-suffix-golang/](https://golangbyexample.com/regex-prefix-suffix-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/regex-prefix-suffix-golang/](https://golangbyexample.com/regex-prefix-suffix-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Prefix Matching](#Prefix_Matching "Prefix Matching")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[前缀匹配](#Prefix_Matching "前缀匹配")'
 - en: '[Suffix Matching](#Suffix_Matching "Suffix Matching")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[后缀匹配](#Suffix_Matching "后缀匹配")*  *## **概述**'
 - en: Golang regex contains two anchor characters that can be used to match the prefix
     and suffix of a string given a regular expression. These two characters are
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang 正则表达式包含两个锚字符，可以用于匹配给定正则表达式的字符串的前缀和后缀。这两个字符是
 - en: '**Caret Character ‘^’ –** It is an anchor character that can be used to match
     the prefix of a string.'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**插入符号字符‘^’ –** 它是一个锚字符，可以用来匹配字符串的前缀。'
 - en: '**Dollar Character ‘$’ –** It is an anchor character that can be used to match
     the suffix of a string.'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**美元字符‘$’ –** 它是一个锚字符，可以用来匹配字符串的后缀。'
 - en: Let’s look at prefix and suffix matching one by one
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐个查看前缀和后缀匹配。
 - en: '**Prefix Matching**'
+  id: totrans-14
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**前缀匹配**'
 - en: It is an anchor character that can be used to match the prefix of a string. 
     It is used at the start of the regex to make sure that the given input string
     is matched with the regex from the start.  Basically, matches the beginning of
     the input string
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 它是一个锚字符，可以用来匹配字符串的前缀。它在正则表达式的开始处使用，以确保给定的输入字符串从开头与正则表达式匹配。基本上，它匹配输入字符串的开头。
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above example, we used below regex
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们使用了以下正则表达式
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Notice the caret character at the start. It will match any string which starts
     with **“abc”**. The trailing character doesn’t matter.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意开头的插入符号字符。它将匹配任何以**“abc”**开头的字符串。尾部字符无关紧要。
 - en: It gives matches for all the string which start with **“abc”.** That is why
     it gives a match for
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 它匹配所有以**“abc”**开头的字符串。这就是它能匹配的原因。
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: and does not give a match for
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 并且不会匹配以下内容。
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Suffix Matching**'
+  id: totrans-26
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**后缀匹配**'
 - en: It is an anchor character that can be used to match the suffix of a string.
     It is used at the end of the regex to make sure that the given input string is
     matched with the regex at the end. It matches the end of the input string.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 它是一个锚字符，可以用来匹配字符串的后缀。它在正则表达式的末尾使用，以确保给定的输入字符串与正则表达式在末尾匹配。它匹配输入字符串的结尾。
 - en: '[PRE5]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: In the above example, we used below regex
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们使用了以下正则表达式
 - en: '[PRE7]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Notice the dollar character at the end. It will match any string which ends
     with **“abc”**. The starting characters doesn’t matter.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意末尾的美元字符。它将匹配任何以**“abc”**结尾的字符串。开头的字符无关紧要。
 - en: It gives matches for all the string which end with **“abc”.** That is why it
     gives a match for
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 它匹配所有以**“abc”**结尾的字符串。这就是它能匹配的原因。
 - en: '[PRE8]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: and does not give a match for
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 并且不会匹配以下内容。
 - en: '[PRE9]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: If we only want to match the complete string then we need to anchor the string
     with the **caret** character at the start and the **dollar** character at the
     end. This will enable us to do a full-string match. See the below example.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们只想匹配完整字符串，则需要在开头用**插入符号**字符和在末尾用**美元符号**字符将字符串锚定。这样我们就能进行完整字符串匹配。请参见下面的示例。
 - en: '[PRE10]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: In the above program, the regex is
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，正则表达式是
 - en: '[PRE12]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: The above program gives a match for
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 上面的程序为
 - en: '[PRE13]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: But doesn’t give a match for below as it only matches the full string
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 但不会匹配以下内容，因为它仅匹配完整字符串。
 - en: '[PRE14]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请查看我们的Golang进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

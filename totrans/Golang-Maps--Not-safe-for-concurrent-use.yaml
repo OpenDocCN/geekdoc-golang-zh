@@ -1,45 +1,71 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:00:11'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:00:11
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Maps: Not safe for concurrent use'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang映射：不安全用于并发使用
 - en: 来源：[https://golangbyexample.com/go-maps-concurrency/](https://golangbyexample.com/go-maps-concurrency/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-maps-concurrency/](https://golangbyexample.com/go-maps-concurrency/)
 - en: If you are a golang web application developer, then you often might encounter
     a use case of storing some data in memory in a go map for frequent access. If
     that is the case with you then you need to be careful because go maps are not
     safe for concurrent use.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你是一名Golang网页应用开发者，你可能会遇到将一些数据存储在内存中的用例，以便频繁访问。如果是这种情况，你需要小心，因为Golang映射在并发使用时并不安全。
 - en: '**Buggy code:** Below is buggy code. It might result in a crash if concurrent
     read and write of map happen.'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**有缺陷的代码：** 以下是有缺陷的代码。如果发生映射的并发读写，可能会导致崩溃。'
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'Possible Output: fatal error: concurrent map read and map write'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 可能的输出：致命错误：并发映射读和映射写
 - en: '**Correct Code:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**正确代码：**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:** Some Data'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 一些数据'

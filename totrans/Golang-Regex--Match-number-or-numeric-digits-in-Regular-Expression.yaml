@@ -1,166 +1,264 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:38:13'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:38:13
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Match number or numeric digits in Regular Expression'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang 正则表达式：在正则表达式中匹配数字或数值数字。
 - en: 来源：[https://golangbyexample.com/golang-regex-match-number/](https://golangbyexample.com/golang-regex-match-number/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-regex-match-number/](https://golangbyexample.com/golang-regex-match-number/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Match a single digit](#Match_a_single_digit "Match a single digit")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[匹配单个数字](#Match_a_single_digit "Match a single digit")'
 - en: '[Match Repetition of digit](#Match_Repetition_of_digit "Match Repetition of
     digit")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[匹配数字重复](#Match_Repetition_of_digit "Match Repetition of digit")*  *## **概述**'
 - en: '**\d** can be used to match digits in golang. In fact, **\d** can be used to
     match the entire range.'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**\d** 可用于在 Golang 中匹配数字。实际上，**\d** 可用于匹配整个范围。'
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The regular expression for matching any digit will be
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 匹配任何数字的正则表达式将是。
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In case you want to match only a particular digit, let’s say 5 then the regular
     expression will be that digit.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你只想匹配特定数字，比如说5，那么正则表达式就是那个数字。
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: If you want to match two digits then below will be the regex
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想匹配两个数字，那么下面是正则表达式。
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Match a single digit**'
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**匹配单个数字**'
 - en: Let’s see an example
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个示例。
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program, we have examples of  two regexes
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们有两个正则表达式的示例。
 - en: '**\d** – Match any digit'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\d** – 匹配任何数字。'
 - en: '**5**  – Match only five'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**5**  – 仅匹配数字五。'
 - en: The first matches any single digit. That is why it matches
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个匹配任何单个数字。这就是它的匹配原因。
 - en: '[PRE6]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: And it doesn’t match
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 它不会匹配。
 - en: '[PRE7]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: The same is also evident from the output
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中也可以明显看出这一点。
 - en: The second regex matches only **“5”** and it doesn’t match **“6”** as is evident
     from the output
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二个正则表达式只匹配 **“5”**，而不匹配 **“6”**，这从输出中可以明显看出。
 - en: '[PRE8]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Match Repetition of digit**'
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**匹配数字重复**'
 - en: Quantifiers can be used to match the repetition of digits. Example
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 量词可用于匹配数字的重复。示例
 - en: '**\d+** – Match one or more digits'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\d+** – 匹配一个或多个数字。'
 - en: '**\d*** – Match zero or more digits'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\d*** – 匹配零个或多个数字。'
 - en: '**\d{N}** – Match N number of digits'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\d{N}** – 匹配 N 个数字。'
 - en: '[PRE9]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: In the above program, we have examples of  three regexes
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们有三个正则表达式的示例。
 - en: '**\d+**'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\d+**'
 - en: '**\d***'
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\d***'
 - en: '**\d{N}**'
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**\d{N}**'
 - en: '**\d+** regex gives a match for **“12345”** but fails for an empty string'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**\d+** 正则表达式会匹配 **“12345”**，但对空字符串失败。'
 - en: '**\d***  gives a match for **“12345”** as well as an empty string'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**\d*** 会匹配 **“12345”** 以及一个空字符串。'
 - en: '**\d{2}** matches a sequence of two digits. That is why it matches for **“12”**
     for fails for **“1”**'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**\d{2}** 匹配两个数字的序列。这就是为什么它能匹配 **“12”** 但对 **“1”** 失败。'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*

@@ -1,342 +1,522 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:25:13'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:25:13
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Error in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 中的错误 (Golang)
 - en: 来源：[https://golangbyexample.com/error-in-golang/](https://golangbyexample.com/error-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/error-in-golang/](https://golangbyexample.com/error-in-golang/)
 - en: This is the  chapter 26 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是 Golang 综合教程系列的第 26 章。有关系列的其他章节，请参考此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Error -Part 2](https://golangbyexample.com/error-in-golang-advanced/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一教程** – [错误 - 第 2 部分](https://golangbyexample.com/error-in-golang-advanced/)'
 - en: '**Previous Tutorial** – [Select Statement](https://golangbyexample.com/select-statement-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一教程** – [选择语句](https://golangbyexample.com/select-statement-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们来看看当前的教程。以下是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Using type which implements error interface](#Using_type_which_implements_error_interface
     "Using type which implements error interface")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用实现错误接口的类型](#Using_type_which_implements_error_interface "使用实现错误接口的类型")'
 - en: '[Advantages of using error as a type](#Advantages_of_using_error_as_a_type
     "Advantages of using error as a type")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[将错误作为类型的优点](#Advantages_of_using_error_as_a_type "将错误作为类型的优点")'
 - en: '[Different ways of creating an error](#Different_ways_of_creating_an_error
     "Different ways of creating an error")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[创建错误的不同方式](#Different_ways_of_creating_an_error "创建错误的不同方式")'
 - en: '[Using errors.New(“some_error_message”)](#Using_errorsNewsome_error_message
     "Using errors.New(“some_error_message”)")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 errors.New(“some_error_message”)](#Using_errorsNewsome_error_message "使用
+    errors.New(“some_error_message”)")'
 - en: '[Using fmt.Errorf(“error is %s”, “some_error_message”).](#Using_fmtErrorferror_is_s_some_error_message
     "Using fmt.Errorf(“error is %s”, “some_error_message”). ")'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 fmt.Errorf(“error is %s”, “some_error_message”).](#Using_fmtErrorferror_is_s_some_error_message
+    "使用 fmt.Errorf(“error is %s”, “some_error_message”). ")'
 - en: '[Creating Custom error](#Creating_Custom_error "Creating Custom error")'
+  id: totrans-17
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[创建自定义错误](#Creating_Custom_error "创建自定义错误")'
 - en: '[Ignoring errors](#Ignoring_errors "Ignoring errors")'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[忽略错误](#Ignoring_errors "忽略错误")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "结论")*  *# **概述**'
 - en: In this tutorial, we will study how to do error handling in golang. As compared
     to other conventional languages go doesn’t have exceptions and try-catch for handling
     the error.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将学习如何在 Golang 中进行错误处理。与其他传统语言相比，Go 并没有异常和 try-catch 来处理错误。
 - en: The error handling in golang can be done in two ways
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang 中的错误处理可以通过两种方式进行。
 - en: Using type which implements **error** interface –   it is a conventional way
     to represent an error and  also idiomatic
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用实现 **error** 接口的类型 –   这是一种传统的表示错误的方式，也是习惯用法。
 - en: Using panic and recover
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 panic 和 recover
 - en: We will only be discussing the first part in this article.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本文中我们只讨论第一部分。
 - en: '**Using type which implements error interface**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用实现错误接口的类型**'
 - en: Go’s way of dealing with an error is to explicitly return the error as a separate
     value.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 处理错误的方式是显式地将错误作为一个单独的值返回。
 - en: The crux to understanding error in golang is to understand the **error** interface.
     This is how the **error** interface looks as defined in the **builtin** package
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 理解 Golang 中错误的关键是理解 **error** 接口。以下是 **builtin** 包中定义的 **error** 接口的样子。
 - en: '[https://golang.org/pkg/builtin/#error](https://golang.org/pkg/builtin/#error)'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/builtin/#error](https://golang.org/pkg/builtin/#error)'
 - en: '[PRE0]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The **error** interface is the conventional way to represent an error condition
     in golang. If this is nil then it means no error. So in go error is treated as
     a value. This value implements the **error** interface and which can be passed
     around to a function, returned from a function, and which can be stored in variables.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**error** 接口是 Golang 中表示错误条件的传统方式。如果它是 nil，则意味着没有错误。因此，在 Go 中，错误被视为一个值。这个值实现了
+    **error** 接口，可以传递给函数，可以从函数返回，也可以存储在变量中。'
 - en: So any type which defines the **Error** method is set to be implementing the
     **error** interface.  As we mentioned earlier that go doesn’t have exceptions
     and try-catch so an idiomatic way of handling error condition is to return the
     error as the last return value. The value can then be checked for nil. If it is
     nil then the  called function did not return the  error otherwise the called function
     returned the error. So let’s see a program which demonstrates what we just talked.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 任何定义了**Error**方法的类型都被视为实现了**error**接口。正如我们之前提到的，Go没有异常和try-catch，因此处理错误条件的惯用方式是将错误作为最后一个返回值返回。然后可以检查该值是否为nil。如果是nil，则调用的函数没有返回错误，否则返回了错误。现在让我们看看一个演示我们刚才讨论内容的程序。
 - en: '[PRE1]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program, we are calling the **os.Open** function to open a non-existing
     file. Since the file does not exist it gives the above error message in the output.
     But from where is this error message coming from. Let’s understand that.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们调用**os.Open**函数打开一个不存在的文件。由于该文件不存在，它在输出中给出了上述错误消息。但是，这条错误消息是从哪里来的呢？让我们理解一下。
 - en: Below is the signature of **os.Open** function
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是**os.Open**函数的签名。
 - en: '[PRE3]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: It takes one argument as an input which is the file path to be opened. It has
     two return values.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 它接受一个参数作为输入，即要打开的文件路径。它有两个返回值。
 - en: The pointer to the file struct if the file is present
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果文件存在，则返回文件结构的指针。
 - en: If there is an error, then it returns the type ***PathError** which implements
     the **error** interface.
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果有错误，则返回类型为***PathError**，它实现了**error**接口。
 - en: Check out the **PathError** struct type here- [https://golang.org/src/os/error.go](https://golang.org/src/os/error.go)
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 请查看**PathError**结构体类型这里- [https://golang.org/src/os/error.go](https://golang.org/src/os/error.go)
 - en: '[PRE4]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The pointer to **PathError** struct defines the **Error()** method
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**PathError**结构体的指针定义了**Error()**方法。'
 - en: '[PRE5]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Since it defines the **Error** method hence ***PathError** implements the **error**
     interface.   That is why **error** can be returned as the second return value
     from the **os.Open** function.  Now notice how in the **main** function we check
     for the presence of error by only comparing it with nil.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于它定义了**Error**方法，因此***PathError**实现了**error**接口。因此，**error**可以作为**os.Open**函数的第二个返回值返回。现在注意，在**main**函数中，我们通过仅与nil比较来检查错误的存在。
 - en: The reason we compare it with nil because the default zero value of interface
     is nil and since **error** is also an interface its default zero value is also
     nil.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们之所以与nil进行比较，是因为接口的默认零值是nil，且**error**也是接口，其默认零值也是nil。
 - en: Also **fmt.Println** function internally checks if a type passed as an argument
     to it implements the **error** interface. If yes then it calls the **Error** method
     on that type. That is what this line
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，**fmt.Println**函数内部检查传递给它的类型是否实现了**error**接口。如果是，则会调用该类型的**Error**方法。这就是这一行的意思。
 - en: '[PRE6]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: gives output
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出结果
 - en: '[PRE7]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Using any type as error**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**使用任何类型作为错误**'
 - en: Even though we have an error interface in go and we expect every error in go
     to follow this interface as seen above, still it is not a mandatory requirement.
     Any type can be treated as an error in go, but generally, it is not recommended
     that as well as it is not an idiomatic way to code in go. We are mentioning here
     for the sake of completion and as well as the discussion.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然我们在Go中有一个错误接口，并且我们期望Go中的每个错误都遵循这个接口，如上所见，但这仍然不是强制要求。在Go中，任何类型都可以被视为错误，但通常不推荐这样做，这也不是Go中惯用的编码方式。我们在这里提及是为了完整性和讨论。
 - en: '**Advantages of using error as a type**'
+  id: totrans-53
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用错误作为类型的优点**'
 - en: It allows more control over handling the error. The error can be checked at
     each step
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它允许更好地控制错误处理。可以在每一步检查错误。
 - en: Prevents the ugly code of try-catch and exception handling
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 避免了try-catch和异常处理的丑陋代码。
 - en: '**Different ways of creating an error**'
+  id: totrans-56
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**创建错误的不同方法**'
 - en: Let’s see now different methods of creating an **error**
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看创建**错误**的不同方法。
 - en: '**Using errors.New(“some_error_message”)**'
+  id: totrans-58
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用errors.New("some_error_message")**'
 - en: '[PRE8]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Using fmt.Errorf(“error is %s”, “some_error_message”).**'
+  id: totrans-62
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用fmt.Errorf("error is %s", "some_error_message")。**'
 - en: This way creates error with formatting of error messages
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种方式创建格式化的错误消息。
 - en: '[PRE10]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output:**'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE11]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Creating Custom error**'
+  id: totrans-67
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**创建自定义错误**'
 - en: The below example illustrates the use of custom error. In below example
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的示例说明了自定义错误的使用。在下面的示例中。
 - en: inputError is a struct that has the Error() method hence it is of type error
     interface
+  id: totrans-69
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: inputError是一个具有Error()方法的结构体，因此它属于错误接口类型。
 - en: You can also add additional information to the custom error by extending its
     fields or by adding new methods. inputError has an additional field named **missingFields**
     and a function **getMissingFields** function.
+  id: totrans-70
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 你还可以通过扩展其字段或添加新方法来为自定义错误添加额外信息。inputError有一个名为**missingFields**的额外字段和一个**getMissingFields**函数。
 - en: We can use type assertion to convert from **error** to **inputError**
+  id: totrans-71
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们可以使用类型断言将**错误**转换为**输入错误**。
 - en: '**Example:**'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例：**'
 - en: '[PRE12]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output:**'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE13]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Ignoring errors**'
+  id: totrans-76
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**忽略错误**'
 - en: Underscore (‘_’) operator can be used to ignore the error returned from a function
     call.  Before we see a program it’s important to note that error should never
     be ignored. It is not a recommended way. Let’s see a program
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 下划线（‘_’）操作符可用于忽略函数调用返回的错误。在查看程序之前，重要的是要注意错误绝不应该被忽略。这并不是推荐的做法。让我们来看一个程序。
 - en: '[PRE14]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output**'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE15]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: In the above program, we used the underscore operator to ignore the error while
     opening a non-existing file. That is why the file instance returned by the function
     is nil. Therefore it is better to check for an error before using any other argument
     returned by the function as that can be nil and would result in unwanted issues
     and also sometimes it might also result in a panic.
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们使用了下划线操作符来忽略打开不存在的文件时的错误。这就是为什么函数返回的文件实例是nil。因此，在使用函数返回的任何其他参数之前，最好检查是否有错误，因为它可能是nil，这会导致不必要的问题，有时还可能导致恐慌。
 - en: '**Conclusion**'
+  id: totrans-82
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about the error in golang. We will discuss advanced topics related
     to the error in next chapter.
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于golang中错误的全部内容。我们将在下一章讨论与错误相关的高级主题。
 - en: Hope you have liked this article. Please share feedback/improvements/mistakes
     in comments.
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Error -Part 2](https://golangbyexample.com/error-in-golang-advanced/)'
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一篇教程** – [错误 - 第2部分](https://golangbyexample.com/error-in-golang-advanced/)'
 - en: '**Previous Tutorial** – [Select Statement](https://golangbyexample.com/select-statement-golang/)'
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一篇教程** – [选择语句](https://golangbyexample.com/select-statement-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-87
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

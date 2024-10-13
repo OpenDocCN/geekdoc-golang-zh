@@ -1,65 +1,103 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:26:53'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:26:53
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Evaluation of defer arguments in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中的 defer 参数评估
 - en: 来源：[https://golangbyexample.com/defer-arguments-evaluation-go/](https://golangbyexample.com/defer-arguments-evaluation-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/defer-arguments-evaluation-go/](https://golangbyexample.com/defer-arguments-evaluation-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")'
 - en: '[Output](#Output "Output")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[输出](#Output "Output")*  *# **概述**'
 - en: '**defer** arguments are evaluated at the time defer statement is evaluated'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**defer** 参数在 defer 语句被评估时进行计算。'
 - en: Let’s see a program for that
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序。
 - en: '**Example**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program when the defer statement was evaluated the value of the **sample**
     variable was **“abc”**. In the defer function, we print the  sample variable.
     After the defer statement we change the value of the **sample** variable to **“xyz”**. 
     But the program outputs **“abc”** instead of **“xyz”** because when the defer
     arguments were evaluated the value of the  sample variable was **“abc”**.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，当 defer 语句被评估时，**sample** 变量的值为 **“abc”**。在 defer 函数中，我们打印 sample 变量。在
+    defer 语句之后，我们将 **sample** 变量的值更改为 **“xyz”**。但是程序输出 **“abc”** 而不是 **“xyz”**，因为当
+    defer 参数被评估时，sample 变量的值为 **“abc”**。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

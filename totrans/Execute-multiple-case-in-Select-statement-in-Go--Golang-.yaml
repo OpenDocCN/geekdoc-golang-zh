@@ -1,68 +1,105 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:24:03'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:24:03
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Execute multiple case in Select statement in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 的 Select 语句中执行多个案例
 - en: 来源：[https://golangbyexample.com/execute-multiple-case-select-go/](https://golangbyexample.com/execute-multiple-case-select-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/execute-multiple-case-select-go/](https://golangbyexample.com/execute-multiple-case-select-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: The select statement only executes one of the cases on which either send or
     receive channel operation is ready.  It cannot execute multiple cases but there
     is a workaround to it. We can have a for loop outside the set statement. This
     for loop will call the select statement equal to the number of iterations in the
     loop.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: select 语句仅在发送或接收通道操作准备好的情况下执行其中一个案例。它不能执行多个案例，但有一个变通办法。我们可以在 set 语句外部放一个 for
+    循环。这个 for 循环会调用 select 语句，次数等于循环的迭代次数。
 - en: Let’s see an example.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。
 - en: '**Code**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program  we put a for loop of length two across the select statement.
     Hence  the select statement is executed twice and   prints the received value
     from each of the case statement.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们在 select 语句上放置了一个长度为二的 for 循环。因此，select 语句执行了两次，并打印出每个案例语句接收到的值。
 - en: This way we can execute multiple  case statement but do note that it is not
     deterministic.  If there are multiple operations available on the same channel
     for a particular case statement then that case can be executed every time in all
     iterations of the for loop
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 这样我们可以执行多个案例语句，但请注意这并不是确定性的。如果对于特定的案例语句，在同一通道上有多个操作可用，那么该案例在所有迭代中都可以被执行。
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

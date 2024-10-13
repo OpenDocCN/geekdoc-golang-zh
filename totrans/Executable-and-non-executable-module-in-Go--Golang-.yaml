@@ -1,141 +1,209 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:29:45'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:29:45'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Executable and non-executable module in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的可执行和非可执行模块
 - en: 来源：[https://golangbyexample.com/type-module-golang/](https://golangbyexample.com/type-module-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/type-module-golang/](https://golangbyexample.com/type-module-golang/)
 - en: Module is a directory containing nested go packages. So essentially module can
     be treated as a package only which contains the nested package. Now package can
     be either executable package or utility package (non-executable). Similar to package,
     modules can be of two types.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 模块是包含嵌套Go包的目录。因此，模块本质上可以被视为仅包含嵌套包的包。现在，包可以是可执行包或实用包（非可执行）。类似于包，模块也可以分为两种类型。
 - en: '**Executable module** – We already know that **main** is the executable package
     in GoLang. Hence a module containing the main package is the executable module. 
     The main package will contain a main function that denotes the start of a program.
     On installing the module having the **main** package it will create an executable
     in the $GOBIN directory.'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**可执行模块** – 我们已经知道**main**是GoLang中的可执行包。因此，包含main包的模块就是可执行模块。main包将包含一个主函数，表示程序的开始。安装包含**main**包的模块时，它将在$GOBIN目录中创建一个可执行文件。'
 - en: '**Non-Executable module or Utility Module**– Any package other than **main**
     package is a non-executable package. It is not self-executable. It just contains
     the utility function and other utility things that can be utilized by an executable
     package. Hence if the module doesn’t contain the **main** package then it will
     be a non-executable or utility module.  This module is meant to be used as a utility
     and will be imported by other modules.'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**非可执行模块或实用模块**– 除**main**包外的任何包都是非可执行包。它不是自我可执行的。它仅包含可以被可执行包使用的实用函数和其他实用内容。因此，如果模块不包含**main**包，则它将是非可执行或实用模块。此模块旨在作为实用工具使用，将被其他模块导入。'
 - en: Let’s see an example to understand both. We have to create a module that can
     be used by others (Non-Executable module or Utility Module) and a module(Executable
     module) that can import that module. For that let’s create two modules
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子以理解两者。我们需要创建一个可供他人使用的模块（非可执行模块或实用模块）和一个可以导入该模块的模块（可执行模块）。为此，让我们创建两个模块
 - en: '**sample.com/math** module – This will be the Non-Executable module or Utility
     Module'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**sample.com/math**模块 – 这将是非可执行模块或实用模块'
 - en: '**school** module – This will be the executable module. This will contain the
     main package and main function'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**school**模块 – 这将是可执行模块。它将包含main包和主函数'
 - en: '**school** module will be calling code of the **sample.com/math** module'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**school**模块将调用**sample.com/math**模块的代码'
 - en: Let’s first create the **sample.com/math** module which will be used by **school**
     module
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先创建将由**school**模块使用的**sample.com/math**模块
 - en: Make a **math** directory
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个**math**目录
 - en: Create a module with an import path as **sample.com/math**
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个导入路径为**sample.com/math**的模块
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Create a file **math.go** with below contents  in the **math** directory
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在**math**目录中创建一个名为**math.go**的文件，内容如下
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Nowlet’s create the school module
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们创建school模块
 - en: Create a **school** directory in the same path as **math** directory side by
     side
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在与**math**目录并排的同一路径下创建一个**school**目录
 - en: Create a module name **school**
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个模块名为**school**
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Now let’s modify the **go.mod** file to import the math module in the school
     module. To import a local module that is not pushed to VCS, we are going to use
     replace directory. The replace directory will replace the module path with the
     path you specify.
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在让我们修改**go.mod**文件，以在school模块中导入math模块。为了导入未推送到VCS的本地模块，我们将使用replace目录。replace目录将用您指定的路径替换模块路径。
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Create file **school.go** which is going to use the **Add** function in **[sample.com](http://sample.com)/math**
     module
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建文件**school.go**，将使用**[sample.com](http://sample.com)/math**模块中的**Add**函数
 - en: '[PRE4]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Now do a go run
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在执行`go run`
 - en: '[PRE5]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It is able to call the Add function of the **[sample.com](http://sample.com)/math**
     module and correctly gives the output as 6.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 它能够调用**[sample.com](http://sample.com)/math**模块的Add函数，并正确输出为6。
 - en: So essentially
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以本质上
 - en: '**sample.com/math** is a Non-Executable module or Utility Module'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**sample.com/math**是一个非可执行模块或实用模块'
 - en: '**school** module is a executable module'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**school**模块是一个可执行模块'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)'

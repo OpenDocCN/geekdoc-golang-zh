@@ -1,134 +1,210 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:37:18'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:37:18
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Matching raw or literal string'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang 正则表达式：匹配原始或字面字符串
 - en: 来源：[https://golangbyexample.com/golang-regex-literal-strin/](https://golangbyexample.com/golang-regex-literal-strin/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-regex-literal-strin/](https://golangbyexample.com/golang-regex-literal-strin/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[MatchCompile Function](#MatchCompile_Function "MatchCompile Function")'
+  id: totrans-8
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[MatchCompile 函数](#MatchCompile_Function)'
 - en: '[Match Method](#Match_Method "Match Method")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[匹配方法](#Match_Method "Match Method")*  *## **概述**'
 - en: We will be using **regexp** package in golang in our example that provides regular
     expression searching capabilities[https://golang.org/pkg/regexp/](https://golang.org/pkg/regexp/)
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们的示例中，我们将使用 Golang 中的 **regexp** 包，它提供了正则表达式搜索功能 [https://golang.org/pkg/regexp/](https://golang.org/pkg/regexp/)
 - en: Before looking into the regex itself, let’s look at some basic functions or
     methods provided by Go to do a regex match.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在查看正则表达式本身之前，让我们先看一些 Go 提供的基本函数或方法来进行正则匹配。
 - en: '**MatchCompile Function**'
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**MatchCompile 函数**'
 - en: '[https://golang.org/pkg/regexp/#MustCompile](https://golang.org/pkg/regexp/#MustCompile)'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/regexp/#MustCompile](https://golang.org/pkg/regexp/#MustCompile)'
 - en: Below is the signature of the function
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: We first compile the given regex string using the **MustCompile** function.
     This function panics if the given regex is not valid. After it is able to successfully
     compile the given regex, it returns the instance of regexp struct.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们首先使用 **MustCompile** 函数编译给定的正则表达式字符串。如果给定的正则表达式无效，该函数将引发恐慌。成功编译给定的正则表达式后，它返回
+    regexp 结构的实例。
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Match Method**'
+  id: totrans-18
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**匹配方法**'
 - en: '[https://golang.org/pkg/regexp/#Regexp.Match](https://golang.org/pkg/regexp/#Regexp.Match)'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/regexp/#Regexp.Match](https://golang.org/pkg/regexp/#Regexp.Match)'
 - en: Below is the signature of the method
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该方法的签名
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: We can call the **Match** method on the regexp instance to match the given pattern
     with the regex. It returns true if the regex matches with the input string otherwise
     false. We need to pass in bytes of the input string to this method.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以在 regexp 实例上调用 **Match** 方法，将给定模式与正则表达式进行匹配。如果正则表达式与输入字符串匹配，则返回 true，否则返回
+    false。我们需要将输入字符串的字节传递给此方法。
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Let’s see a simple program for a basic regex having a literal or raw string
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个具有字面或原始字符串的基本正则表达式的简单程序
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program, we have a simple literal string regular expression
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有一个简单的字面字符串正则表达式
 - en: We first call **MustCompile** to check if the given regular expression is valid.
     After that, we match it with the below sample string or text
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们首先调用 **MustCompile** 来检查给定的正则表达式是否有效。之后，我们将其与下面的示例字符串或文本进行匹配
 - en: '**String “abc”** – It gives a match and prints true'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**字符串 “abc”** – 它匹配并返回 true'
 - en: '**String “1abc2”** – It gives a match and prints true. It matches as it contains
     **“abc”** as a substring.'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**字符串 “1abc2”** – 它匹配并返回 true。它匹配是因为它包含 **“abc”** 作为子字符串。'
 - en: '**String “xyz”** – It does not give a match and prints false'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**字符串 “xyz”** – 它不匹配，返回 false'
 - en: As we can notice in the above program that if the given string or text contains
     the regex as a substring then also it gives a match. If we want to do full string
     matches then we need to use the anchor characters at the start and end of the
     regex.  **Caret** anchor character will be used at the start and **Dollar** anchor
     character will be used at the end.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 从上面的程序中可以看到，如果给定的字符串或文本包含正则表达式作为子字符串，它仍然会返回匹配。如果我们想进行全字符串匹配，则需要在正则表达式的开始和结束使用锚字符。**插入符号**锚字符将在开头使用，**美元符号**锚字符将在末尾使用。
 - en: Please refer to this article for details around full string matches
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 有关全字符串匹配的详细信息，请参考本文
 - en: '[https://golangbyexample.com/golang-regex-match-full-string](https://golangbyexample.com/golang-regex-match-full-string/)'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golangbyexample.com/golang-regex-match-full-string](https://golangbyexample.com/golang-regex-match-full-string/)'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，查看我们的 Golang 进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*

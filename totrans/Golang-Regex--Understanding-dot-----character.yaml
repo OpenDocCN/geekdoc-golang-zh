@@ -1,253 +1,401 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:37:23'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:37:23
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Understanding dot ‘.’ character'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang正则表达式：理解点字符‘.’。
 - en: 来源：[https://golangbyexample.com/dot-chracter-golang-regex/](https://golangbyexample.com/dot-chracter-golang-regex/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/dot-chracter-golang-regex/](https://golangbyexample.com/dot-chracter-golang-regex/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[MatchCompile Function](#MatchCompile_Function "MatchCompile Function")'
+  id: totrans-8
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[MatchCompile函数](#MatchCompile_Function "MatchCompile Function")'
 - en: '[Match Method](#Match_Method "Match Method")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[匹配方法](#Match_Method "Match Method")'
 - en: '[Using Dot as a literal character](#Using_Dot_as_a_literal_character "Using
     Dot as a literal character")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[将点作为字面字符使用](#Using_Dot_as_a_literal_character "Using Dot as a literal character")'
 - en: '[Dot character inside a character class](#Dot_character_inside_a_character_class
     "Dot character inside a character class")*  *## **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[字符类中的点字符](#Dot_character_inside_a_character_class "Dot character inside a
+    character class")*  *## **概述**'
 - en: Dot ‘.’ character is one of the most commonly used metacharacters in the regular
     expression. It is used to match any character. It can also match a new line if
     a specific flag is added to the regular expression which we going to discuss later.
     By default, it doesn’t match a new line.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 点字符‘.’是正则表达式中最常用的元字符之一。它用于匹配任何字符。如果在正则表达式中添加特定的标志，它也可以匹配新行，稍后我们会讨论这个。默认情况下，它不匹配新行。
 - en: Before looking into the regex itself and usage of Dot ‘**.’** character, let’s
     look at some basic functions or methods provided by Go to do a regex match.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在查看正则表达式本身和点字符‘**.’**的用法之前，让我们看一下Go提供的一些基本函数或方法来进行正则匹配。
 - en: '**MatchCompile Function**'
+  id: totrans-14
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**MatchCompile函数**'
 - en: '[https://golang.org/pkg/regexp/#MustCompile](https://golang.org/pkg/regexp/#MustCompile)
     . Below is the signature of the function'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/regexp/#MustCompile](https://golang.org/pkg/regexp/#MustCompile)。以下是该函数的签名。'
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: We first compile the given regex string using the **MustCompile** function.
     This function panics if the given regex is not valid. After it can successfully
     compile the given regex, it returns the instance of **regexp** struct.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们首先使用**MustCompile**函数编译给定的正则表达式字符串。如果给定的正则表达式无效，该函数会引发错误。在成功编译给定的正则表达式后，它返回**regexp**结构的实例。
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Match Method**'
+  id: totrans-19
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**匹配方法**'
 - en: '[https://golang.org/pkg/regexp/#Regexp.Match](https://golang.org/pkg/regexp/#Regexp.Match)'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/regexp/#Regexp.Match](https://golang.org/pkg/regexp/#Regexp.Match)'
 - en: Below is the signature of the method
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该方法的签名。
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: We can call the **Match** method on the **regexp** struct instance to match
     the given pattern with the regex. It returns true if the regex matches with the
     input string otherwise false. We need to pass in bytes of the input string to
     this method.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以在**regexp**结构实例上调用**Match**方法，将给定模式与正则表达式匹配。如果正则表达式与输入字符串匹配，则返回true，否则返回false。我们需要将输入字符串的字节传递给此方法。
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: We will see these two functions in action later in the examples.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 稍后我们将在示例中看到这两个函数的实际应用。
 - en: Now let’s see a simple program for Dot ‘.’ character
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看一个简单的点字符‘.’程序。
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program, we have a simple regex containing only one dot character.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们有一个仅包含一个点字符的简单正则表达式。
 - en: '[PRE6]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: It matches below characters and string.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 它匹配以下字符和字符串。
 - en: '[PRE7]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: It matches **ab** because by default the regex doesn’t do the match the full
     string unless we use the anchor characters (Caret and Dollar character). That
     is why it matches the first character ‘a’ in ‘ab’ and reports a match.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 它匹配**ab**，因为默认情况下正则表达式不会匹配完整字符串，除非我们使用锚字符（插入符号和美元符号）。这就是它在‘ab’中匹配第一个字符‘a’并报告匹配的原因。
 - en: It doesn’t match an empty string.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 它不匹配空字符串。
 - en: Let’s see another example where we have two dots in the regex.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看另一个示例，其中正则表达式中有两个点。
 - en: '[PRE8]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: In the above program, we have a simple regex containing two dots.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们有一个包含两个点的简单正则表达式。
 - en: '[PRE10]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: It will match any given string which has at least two characters as a substring.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将匹配包含至少两个字符的给定字符串作为子字符串。
 - en: That is why it gives a match for
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是它给出匹配的原因。
 - en: '[PRE11]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: and doesn’t give a match for
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 并且不匹配
 - en: '[PRE12]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: 'The dot **‘.’** as we mentioned before as well doesn’t match the new line.
     But the default behavior can be changed by adding a set of flags to the beginning
     of the regular expression. The flag we need to add to the beginning of regex is:'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 如前所述，点**‘.’**也不匹配新行。但可以通过在正则表达式的开头添加一组标志来改变默认行为。我们需要添加到正则表达式开头的标志是：
 - en: '[PRE13]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Let’s see a program for the same
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个相同的程序。
 - en: '[PRE14]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE15]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '[PRE16]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: and
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 和
 - en: '[PRE17]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: In the second regex, we have added the additional flag. That is why it gives
     a match for a new line while the first regex without a flag doesn’t give a match.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第二个正则表达式中，我们添加了额外的标志。这就是为什么它能够匹配换行符，而第一个没有标志的正则表达式则无法匹配。
 - en: '**Using Dot as a literal character**'
+  id: totrans-57
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**将点作为字面字符使用**'
 - en: If you want to use **Dot ‘.’** as a literal character, we need to escape it
     with a backslash. Once escaped it will match a literal dot character.  For example,
     if we want to match the literal below string or text
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想将**点‘.’**作为字面字符使用，我们需要用反斜杠进行转义。转义后，它将匹配一个字面点字符。例如，如果我们想匹配以下的字面字符串或文本。
 - en: '[PRE18]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: Then the regex for the same will be
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么相应的正则表达式将是。
 - en: '[PRE19]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Here is the program for the same
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是相应的程序。
 - en: '[PRE20]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Output**'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE21]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Dot character inside a character class**'
+  id: totrans-66
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**字符类中的点字符**'
 - en: Dot or **‘.’** is treated as a literal character inside the square brackets
     or character class. It doesn’t need to be escaped inside that. Let’s see a working
     program for the same as well
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 点或**‘.’**在方括号或字符类内被视为字面字符。在那里面不需要转义。让我们看看一个相应的工作程序。
 - en: '[PRE22]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: '**Output**'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE23]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '[PRE24]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-72
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

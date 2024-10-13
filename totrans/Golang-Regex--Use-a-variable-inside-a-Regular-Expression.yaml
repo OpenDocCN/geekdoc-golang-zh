@@ -1,67 +1,107 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:41:07'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:41:07
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Use a variable inside a Regular Expression'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang 正则表达式：在正则表达式中使用变量
 - en: 来源：[https://golangbyexample.com/variable-regex-golang/](https://golangbyexample.com/variable-regex-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/variable-regex-golang/](https://golangbyexample.com/variable-regex-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: The **regexp.MustCompile** function is used to compile the given regex string.
     So the input to the MustCompile function is a string only. And since it is a string
     we can concatenate any variable with the rest of the pattern.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**regexp.MustCompile** 函数用于编译给定的正则表达式字符串。因此，传递给 MustCompile 函数的仅是一个字符串。由于它是一个字符串，我们可以将任何变量与其余模式连接起来。'
 - en: For example
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: So here we are doing concatenation to get the whole pattern
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，在这里我们正在进行连接以获取整个模式。
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s see a running program for the same.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个运行程序。
 - en: '**Program**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

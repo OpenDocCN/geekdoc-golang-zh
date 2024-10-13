@@ -1,316 +1,499 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:38:08'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:38:08
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Optional Operator or question mark (?) in regular expression'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang 正则表达式：正则表达式中的可选操作符或问号（?）
 - en: 来源：[https://golangbyexample.com/optional-operator-regex-golang/](https://golangbyexample.com/optional-operator-regex-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/optional-operator-regex-golang/](https://golangbyexample.com/optional-operator-regex-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")**'
 - en: '[Program](#Program "Program")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")'
 - en: '[Question Mark Operator is non-lazy](#Question_Mark_Operator_is_non-lazy "Question
     Mark Operator is non-lazy")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[问号操作符是非懒惰](#Question_Mark_Operator_is_non-lazy "Question Mark Operator is
+    non-lazy")'
 - en: '[About the double question mark operator](#About_the_double_question_mark_operator
     "About the double question mark operator")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[关于双问号操作符](#About_the_double_question_mark_operator "About the double question
+    mark operator")'
 - en: '[Question Mark after quantifiers](#Question_Mark_after_quantifiers "Question
     Mark after quantifiers")*  *## **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[量词后的问号](#Question_Mark_after_quantifiers "Question Mark after quantifiers")*  *##
+    **概述**'
 - en: Question Mark is the optional operator in regex. This means that it optionally
     matches the preceding character before the question mark
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 问号是正则表达式中的可选操作符。这意味着它可选地匹配问号之前的字符。
 - en: Eg.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如。
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This will match both **“abc”** and **“abcd”**.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将匹配**“abc”**和**“abcd”**。
 - en: '**Program**'
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Let’s see an example for the same.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个相同的例子。
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Several characters can also be made optional by closing them with parentheses
     and then putting the question mark behind them. Eg
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过用括号将多个字符闭合并在它们后面加上问号，也可以使多个字符变为可选。例如
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It matches **“abc”**  and **“abcde”**.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 它匹配**“abc”**和**“abcde”**。
 - en: It also matched **“abcd”**. You must be wondering why it matched **“abcd”**.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 它也匹配了**“abcd”**。你一定在想为什么它会匹配**“abcd”**。
 - en: If the given string or text contains the regex as a substring then also it gives
     a match. That is why it gave a match as **“abcd”** contains **“abc”** as a substring
     which is a match for regex. If we want to do full string matches then we need
     to use the anchor characters at the start and end of the regex.  **Caret** anchor
     character will be used at the start and **Dollar** anchor character will be used
     at the end.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果给定的字符串或文本包含正则表达式作为子字符串，那么它也会返回匹配。这就是为什么它会匹配，因为**“abcd”**包含**“abc”**作为子字符串，这对正则表达式来说是一个匹配。如果我们想进行完整字符串匹配，那么我们需要在正则表达式的开头和结尾使用锚字符。**插入符号**锚字符将用于开头，**美元符号**锚字符将用于结尾。
 - en: Let’s see an example for the same.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个相同的例子。
 - en: '[PRE6]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Question Mark Operator is non-lazy**'
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**问号操作符是非懒惰的**'
 - en: Question Mark Operator is non-lazy or greedy. This means that it will match
     the optional pattern first.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 问号操作符是非懒惰或贪婪的。这意味着它将首先匹配可选模式。
 - en: In the regular expression world, non-lazy(or sometimes also called greedy) 
     means trying to match as much as possible. While lazy(or sometimes also called
     non-greedy) means matching only as much as needed.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 在正则表达式的世界中，非懒惰（有时也称为贪婪）意味着尽可能多地匹配。而懒惰（有时也称为非贪婪）意味着仅匹配所需的部分。
 - en: For example for the given regex
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，对于给定的正则表达式
 - en: '[PRE8]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: If you try to match the below input string
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你尝试匹配以下输入字符串
 - en: '[PRE9]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Then there are two options
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后有两个选项
 - en: Match **http**
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 匹配**http**
 - en: Match **https**
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 匹配**https**
 - en: Then it will always match **https** and never **http**. The reason is that it
     is non-lazy.  Even when it matches **http** it doesn’t stop and tries to match
     the optional character as well. If the optional character matches then it returns
     **https** otherwise it returns **http**.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后它将总是匹配**https**而从不匹配**http**。原因在于它是非懒惰的。即使它匹配**http**，也不会停止，而是尝试匹配可选字符。如果可选字符匹配，则返回**https**，否则返回**http**。
 - en: Let’s see an example for the same
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个相同的例子。
 - en: '[PRE10]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: In the above program, we have used the **Find** function which returns the actual
     substring that matched with a regex. As you can notice in the output it matched
     **“https”** and not **“http”** because the question mark operator is non-lazy
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们使用了**查找**函数，该函数返回与正则表达式匹配的实际子字符串。正如你在输出中注意到的，它匹配了**“https”**而不是**“http”**，因为问号操作符是非懒惰的。
 - en: '**About the double question mark operator**'
+  id: totrans-49
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**关于双问号操作符**'
 - en: It is lazy.  As soon it finds the first match, it does not try to match further.
     So for the above text, it will always give result as **“http”** and never **“https”**.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 它是懒惰的。它一旦找到第一个匹配，就不再尝试进一步匹配。因此，对于上述文本，它总是返回结果为**“http”**，而从不返回**“https”**。
 - en: Let’s see an example
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个例子。
 - en: '[PRE12]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output**'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE13]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Question Mark after quantifiers**'
+  id: totrans-55
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**量词后的问号**'
 - en: The question mark ‘?’ after quantifiers is lazy or non-greedy. The quantifiers
     could be
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 在量词后的问号‘?’是懒惰或非贪婪的。量词可以是
 - en: '**Plus ‘+’** – One or more'
+  id: totrans-57
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**加号‘+’** – 一个或多个'
 - en: '**Asterisk ‘*’**  – Zero or more'
+  id: totrans-58
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**星号‘*’** – 零个或多个'
 - en: See below example
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 见下面的示例
 - en: '[PRE14]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output**'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE15]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: In the above program, we have two cases
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有两种情况
 - en: Question mark after a **plus** operator
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在**加号**运算符后面加上问号
 - en: Qusetion mark after **asterisk** operator
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在**星号**运算符后面的问号
 - en: In both the case the input string is
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这两种情况下，输入字符串是
 - en: '[PRE16]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: In the first case, we used a question mark after the plus operator in the regex
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第一种情况下，我们在正则表达式中的加号运算符后使用了问号
 - en: '[PRE17]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: It gives below match as **“https”** instead of **“httpsss”** as question mark
     when used after the **Plus** operator is non-greedy
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 它返回的匹配是**“https”**而不是**“httpsss”**，因为在**加号**运算符后使用的问号是非贪婪的
 - en: In the second case, we used a question mark after the asterisk sign in the regex
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第二种情况下，我们在正则表达式中的星号符号后使用了问号
 - en: '[PRE18]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: It gives match as **“http”** instead of **“httpsss”** as the question mark when
     used after the **Asterisk** operator is non-greedy
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 它返回的匹配是**“http”**而不是**“httpsss”**，因为在**星号**运算符后使用的问号是非贪婪的
 - en: Let’s see another example
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看另一个示例
 - en: '[PRE19]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**Output**'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE20]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: In the above program, again we have two cases
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们又有两种情况
 - en: A question mark after a plus operator
+  id: totrans-79
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在加号运算符后加上问号
 - en: A question mark after asterisk operator
+  id: totrans-80
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在星号运算符后加上问号
 - en: In the first case, we have regex with two capture groups
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第一种情况下，我们有带有两个捕获组的正则表达式
 - en: '[PRE21]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: The first capture group gives a single match of **‘a’** while the second capture
     group gives the rest. This show question mark operator used after the **Plus**
     operator is non-greedy or lazy
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个捕获组给出一个匹配**‘a’**，而第二个捕获组给出其余部分。这表明问号运算符在**加号**运算符后使用是非贪婪或懒惰的
 - en: In the second case, we have regex again with two capture groups
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第二种情况下，我们再次有带有两个捕获组的正则表达式
 - en: '[PRE22]'
+  id: totrans-85
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: The first capture group gives a zero match of **‘a’** while the second capture
     group gives the rest. This show question mark operator used after **Asterisk**
     operator is non-greedy or lazy
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个捕获组给出零个匹配**‘a’**，而第二个捕获组给出其余部分。这表明问号运算符在**星号**运算符后使用是非贪婪或懒惰的
 - en: This is all about the question mark operator in Go. Hope you have liked this
     article. Please share feedback in the comments.
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于Go中问号运算符的全部内容。希望你喜欢这篇文章。请在评论中分享反馈。
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [optional](https://golangbyexample.com/tag/optional/)*   [question](https://golangbyexample.com/tag/question/)*'
+  id: totrans-89
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [可选](https://golangbyexample.com/tag/optional/)*   [问题](https://golangbyexample.com/tag/question/)*'

@@ -1,252 +1,394 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:40:57'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:40:57
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Understanding Curly Braces in Regular Expressions'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang正则表达式：理解正则表达式中的花括号
 - en: 来源：[https://golangbyexample.com/curly-braces-regex-golang/](https://golangbyexample.com/curly-braces-regex-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/curly-braces-regex-golang/](https://golangbyexample.com/curly-braces-regex-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Examples](#Examples "Examples")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Examples "示例")'
 - en: '[Curly braces applied to a grouping](#Curly_braces_applied_to_a_grouping "Curly
     braces applied to a grouping")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[花括号应用于分组](#Curly_braces_applied_to_a_grouping "花括号应用于分组")'
 - en: '[Curly Braces applied to a Character Class](#Curly_Braces_applied_to_a_Character_Class
     "Curly Braces applied to a Character Class")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[花括号应用于字符类](#Curly_Braces_applied_to_a_Character_Class "花括号应用于字符类")'
 - en: '[How to use the curly brace as a literal character in regex. ](#How_to_use_the_curly_brace_as_a_literal_character_in_regex
     "How to use the curly brace as a literal character in regex. ")*  *# **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[如何在正则表达式中将花括号作为字面字符使用。](#How_to_use_the_curly_brace_as_a_literal_character_in_regex
+    "如何在正则表达式中将花括号作为字面字符使用。")*  *# **概述**'
 - en: Curly braces act as a repetition quantifier in regex. They specify the number
     of times a character before preceding it can appear in the input string or text.
     They can also be used to specify a range i.e specify the minimum and maximum of
     times a  character can appear.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 花括号在正则表达式中作为重复量词。它们指定前面字符在输入字符串或文本中可以出现的次数。它们也可以用于指定范围，即指定字符出现的最小和最大次数。
 - en: Its syntax is
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 它的语法是
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: where
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中
 - en: '**min** denotes the minimum number of times a character can appear'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**min**表示字符可以出现的最小次数'
 - en: '**max** denotes the maximum number of times a character can appear'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**max**表示字符可以出现的最大次数'
 - en: For example
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This specifies that character “a” can appear exactly n times. Similarly for
     the below regex
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 这指定字符“a”可以恰好出现n次。类似地，对于以下正则表达式
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: This specifies that any digit can appear exactly n times. Curly braces can also
     be used to define a range.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这指定任何数字可以恰好出现n次。花括号也可以用于定义范围。
 - en: For example
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '**{m,n}** – Atleast **m** and up to **n** times'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**{m,n}** – 至少**m**次，最多**n**次'
 - en: '**{m, }** – Atleast **m** times'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**{m, }** – 至少**m**次'
 - en: '**{, n}** – Upto **n** times'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**{, n}** – 最多**n**次'
 - en: Let’s see an example for the same
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个相同的例子
 - en: '**Examples**'
+  id: totrans-28
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: By default, curly braces are greedy or non-lazy. What does it mean? They will
     match all the possible characters and always prefers more. It is also possible
     to make the curly braces operator non-greedy or lazy. This can be done by adding
     a question mark after the curly braces operator. Let’s see an example for the
     same.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 默认情况下，花括号是贪婪或非懒惰的。这意味着什么？它们会匹配所有可能的字符，并且总是更倾向于更多。也可以使花括号操作符非贪婪或懒惰。这可以通过在花括号操作符后添加问号来实现。让我们看一个相同的例子。
 - en: As you can see from the output that after adding a question mark operator after
     the curly brace operator, it tries to match the minimum number of characters as
     possible i.e it becomes nongreedy
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中可以看到，在花括号操作符后添加问号操作符后，它尝试匹配尽可能少的字符，即变得非贪婪。
 - en: That is why given regex
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是给定正则表达式的原因
 - en: '[PRE5]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It gives a match **abb** for all below input strings
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于以下所有输入字符串，它给出匹配**abb**
 - en: '[PRE6]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Program for the same
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 相同的程序
 - en: '[PRE7]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: while
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 同时
 - en: '**ab{2,4}?** will always give match as **abb** for all the above input strings'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**ab{2,4}?** 对于上述所有输入字符串，将始终给出匹配**abb**'
 - en: Program for the same
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 相同的程序
 - en: '[PRE9]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Curly braces applied to a grouping**'
+  id: totrans-48
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**花括号应用于分组**'
 - en: A part of the regular expression can be placed inside a balanced parenthesis.
     This part is one group now. We can additionally apply curly braces to this group.
     The curly braces will be added after the grouping
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 正则表达式的一部分可以放置在平衡括号内。这部分现在是一个组。我们还可以将花括号应用于此组。花括号将在分组后添加。
 - en: Let’s see an example of the same.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个相同的例子。
 - en: '[PRE11]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Output**'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE12]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Curly Braces applied to a Character Class**'
+  id: totrans-54
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**花括号应用于字符类**'
 - en: Curly Brace quantifier can also be applied to the entire character class. Its
     meaning remains the same though. A character class is represented by square brackets
     in regex. Let’s see a program for the same.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 花括号量词也可以应用于整个字符类。其含义保持不变。字符类在正则表达式中由方括号表示。让我们看一个相同的程序。
 - en: We have below regex in the above program
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们有以下正则表达式
 - en: '[PRE13]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: It means it would match a string of length exactly 4 and comprised of characters
     **‘a’** and **‘b’** in any order
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 这意味着它将匹配一个长度恰好为4并由字符**‘a’**和**‘b’**以任何顺序组成的字符串
 - en: That is why the regex matches the below strings
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是为什么正则表达式匹配下面的字符串
 - en: '[PRE14]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: And it does not match
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 而且它不匹配
 - en: '[PRE15]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**How to use the curly brace as a literal character in regex. **'
+  id: totrans-63
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**如何在正则表达式中将大括号用作字面字符。**'
 - en: The escaping character can be placed before the opening brace or closing brace
     if they are needed to be used in a literal way.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 转义字符可以放在开括号或闭合括号之前，如果需要以字面方式使用它们。
 - en: A closing brace that is not preceded by an opening is treated as a literal closing
     brace.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果一个闭合括号前没有开括号，它会被视为字面意义上的闭合括号。
 - en: That is all about curly braces in regex in golang. Hope you have liked this
     article. Please share feedback in the comments
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是在Golang中正则表达式中大括号的所有内容。希望你喜欢这篇文章。请在评论中分享反馈
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，我们尽力覆盖所有概念并提供示例。这个教程适合那些希望获得专业知识和对Golang有深入理解的人
+    – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-69
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

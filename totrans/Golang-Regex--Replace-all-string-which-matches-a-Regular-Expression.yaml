@@ -1,357 +1,570 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:37:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:37:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Golang Regex: Replace all string which matches a Regular Expression'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang正则表达式：替换所有匹配正则表达式的字符串
 - en: 来源：[https://golangbyexample.com/regex-replace-string-golang/](https://golangbyexample.com/regex-replace-string-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/regex-replace-string-golang/](https://golangbyexample.com/regex-replace-string-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Replacement string as a literal string](#Replacement_string_as_a_literal_string
     "Replacement string as a literal string")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[替换字符串作为字面字符串](#Replacement_string_as_a_literal_string "替换字符串作为字面字符串")'
 - en: '[A string having capturing group unnamed sub matches](#A_string_having_capturing_group_unnamed_sub_matches
     "A string having capturing group unnamed sub matches")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[一个包含未命名子匹配的捕获组的字符串](#A_string_having_capturing_group_unnamed_sub_matches "一个包含未命名子匹配的捕获组的字符串")'
 - en: '[A string having Capturing groups with named sub matches](#A_string_having_Capturing_groups_with_named_sub_matches
     "A string having Capturing groups with named sub matches")*  *## **Overview**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[一个包含命名子匹配的捕获组的字符串](#A_string_having_Capturing_groups_with_named_sub_matches
+    "一个包含命名子匹配的捕获组的字符串")*  *## **概述**'
 - en: Golang **regexp** package provides a method which provides a method named **ReplaceAllString** which
     given a string can be used to replace all substring within that string that matches
     a regular expression.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang **regexp** 包提供了一种名为 **ReplaceAllString** 的方法，该方法可以用来替换与正则表达式匹配的字符串中的所有子字符串。
 - en: '[https://golang.org/pkg/regexp/#Regexp.ReplaceAllString](https://golang.org/pkg/regexp/#Regexp.ReplaceAllString)'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/regexp/#Regexp.ReplaceAllString](https://golang.org/pkg/regexp/#Regexp.ReplaceAllString)'
 - en: Below is the signature of the method
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是该方法的签名
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It accepts two arguments
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 它接受两个参数
 - en: First is the input string
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个是输入字符串
 - en: The second is the replacement string.
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个是替换字符串。
 - en: ReplaceAll returns a copy of the **src** string, replacing matches of the Regexp
     with the replacement string **repl**
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: ReplaceAll返回**src**字符串的副本，将正则表达式的匹配项替换为替换字符串**repl**。
 - en: The replacement string can be
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 替换字符串可以是
 - en: A literal string
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个字面字符串
 - en: A string having capturing group unnamed sub matches.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个包含未命名子匹配的捕获组的字符串。
 - en: A string having Capturing groups named sub matches
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个包含命名子匹配的捕获组的字符串
 - en: Sounds confusing? It will all be clear when we see examples of all. Let’s see
     them
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 听起来很混乱？当我们看到所有的示例时，一切都会变得清晰。让我们来看看它们
 - en: '**Replacement string as a literal string**'
+  id: totrans-24
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**替换字符串作为字面字符串**'
 - en: The replacement string is a literal string in this case. Below is an example
     of the same.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，替换字符串是一个字面字符串。下面是相同的示例。
 - en: '[PRE1]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above example, we have below regex
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们有下面的正则表达式
 - en: '[PRE3]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: It matches the name and age pair of the form
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 它匹配形式的名称和年龄对
 - en: '[PRE4]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Then we have below input string which has three **name:age** pairs
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们有下面的输入字符串，它包含三个**name:age**对
 - en: '[PRE5]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: We redacted all the **name:age** pair by replacing it with the redacted keyword.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们通过用屏蔽关键字替换它，删除了所有的**name:age**对。
 - en: '[PRE6]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Notice that the replacement string is a literal string that is
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，替换字符串是一个字面字符串
 - en: '[PRE7]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**A string having capturing group unnamed sub matches**'
+  id: totrans-39
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**一个包含未命名子匹配的捕获组的字符串**'
 - en: This is the case when we have capturing group in the regex. To know the details
     about capturing group, please refer to this article
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是我们在正则表达式中有捕获组的情况。有关捕获组的详细信息，请参考这篇文章
 - en: In the replacement string
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 在替换字符串中
 - en: '**$1** or **${1}** represents the first sub match'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**$1** 或 **${1}** 代表第一个子匹配'
 - en: '**$2** or **${2}** represents the second sub match'
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**$2** 或 **${2}** 代表第二个子匹配'
 - en: …and so on
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: …等等
 - en: Let’s see the below example then it will be more clear
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看下面的示例，这样会更清楚
 - en: '[PRE8]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: In the above example, we have below regex
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们有下面的正则表达式
 - en: '[PRE10]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: It matches the **name** and **age** pair same as above but it has two capturing
     groups (enclosed with parentheses) where **$1** captures name and **$2** captures
     age
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 它与上面相同，匹配**name**和**age**对，但它有两个捕获组（用括号括起来），其中**$1**捕获名称，**$2**捕获年龄
 - en: '**$0** or **${0}** – entire match'
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**$0** 或 **${0}** – 完整匹配'
 - en: '[PRE11]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**$1** or **${1}** – first submatch'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**$1** 或 **${1}** – 第一个子匹配'
 - en: '[PRE12]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**$2** -or **${2}** – second submatch'
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**$2** -或 **${2}** – 第二个子匹配'
 - en: '[PRE13]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Then we have below input string which has three **name:age** pairs
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们有下面的输入字符串，它包含三个**name:age**对
 - en: '[PRE14]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Then in the replacement string, we swapped to have **age** first and then **name**
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后在替换字符串中，我们交换了顺序，使**age**先于**name**
 - en: '[PRE15]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: That is why in the output we have **age** first and then **name**
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是为什么在输出中我们先有**age**然后是**name**
 - en: '[PRE16]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: You can also replace only one of the sub-match. For example, if you want to
     redact age only then that can be done as well. See below program
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 你也可以只替换一个子匹配。例如，如果你只想遮蔽年龄，那也可以做到。见下面的程序。
 - en: '[PRE17]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Output**'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE18]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: In the above code, the replacement string is
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的代码中，替换字符串是。
 - en: '[PRE19]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: So it replaces the entire **name:age** pair with the only name.
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以它用仅有的姓名替换整个**姓名:年龄**对。
 - en: You can also use **$0**. It will represent the entire match
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 你也可以使用**$0**。它代表整个匹配。
 - en: '[PRE20]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Output**'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE21]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: In the above example, we added **‘-‘** before and after **$0**.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们在**$0**前后添加了**‘-‘**。
 - en: '[PRE22]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: That is why the output is as above
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是为什么输出如上所示。
 - en: In case the replacement string contains literal dollar then we can use the method
     **ReplaceAllLiteralString** method.
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果替换字符串包含字面美元符号，我们可以使用**ReplaceAllLiteralString**方法。
 - en: '[https://golang.org/pkg/regexp/#Regexp.ReplaceAllLiteralString](https://golang.org/pkg/regexp/#Regexp.ReplaceAllLiteralString)'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/regexp/#Regexp.ReplaceAllLiteralString](https://golang.org/pkg/regexp/#Regexp.ReplaceAllLiteralString)'
 - en: In this the replacement string is substituted directly without any kind of analysis
     on it i.e it is used literally. See below example
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，替换字符串直接被替代，没有任何分析，即被字面使用。见下面的示例。
 - en: '[PRE23]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Output**'
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE24]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: As the output suggests above, it prints the literal dollar sign.
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 如上所示，输出打印了字面上的美元符号。
 - en: '**A string having Capturing groups with named sub matches**'
+  id: totrans-85
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**一个包含命名子匹配的捕获组字符串**'
 - en: This is the case when we have named capturing group in the regex. To know the
     details about capturing group, please refer to this article
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是当我们在正则表达式中有命名捕获组的情况。要了解捕获组的详细信息，请参阅这篇文章。
 - en: Let’s see a program first in which we will see named capturing group. We will
     dissect this program to understand more clearly after that.
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先让我们看看一个程序，在这个程序中我们将看到命名捕获组。然后我们会详细分析这个程序以更清楚地理解。
 - en: '[PRE25]'
+  id: totrans-88
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: '**Output**'
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE26]'
+  id: totrans-90
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: In the above example, we have below regex
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们有以下正则表达式。
 - en: '[PRE27]'
+  id: totrans-92
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: It matches the name and age pair same as above but it has two name capturing
     groups
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 它与上述的姓名和年龄配对相匹配，但有两个姓名捕获组。
 - en: The first capturing group name is **“Name”**
+  id: totrans-94
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个捕获组的名称是**“姓名”**。
 - en: '[PRE28]'
+  id: totrans-95
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: The second capturing group name is **“Age”**
+  id: totrans-96
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个捕获组的名称是**“年龄”**。
 - en: '[PRE29]'
+  id: totrans-97
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: Then we have below input string which has three **name:age** pairs
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们有下面的输入字符串，它包含三个**姓名:年龄**对。
 - en: '[PRE30]'
+  id: totrans-99
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: Then in the replacement string, we swapped to have **age** first and then **name**
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后在替换字符串中，我们交换了位置，使**年龄**在前，**姓名**在后。
 - en: '[PRE31]'
+  id: totrans-101
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE31]'
 - en: That is why in the output we have **age** first and then **name**
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是为什么在输出中我们先有**年龄**，然后是**姓名**。
 - en: '[PRE32]'
+  id: totrans-103
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE32]'
 - en: This is all about replacing a string that matches a regular expression in golang.
     Hope you have liked this article. Please share feedback in the comments.
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于在Golang中替换匹配正则表达式的字符串。希望你喜欢这篇文章。请在评论中分享反馈。
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。

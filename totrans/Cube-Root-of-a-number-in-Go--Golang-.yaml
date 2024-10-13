@@ -1,73 +1,115 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:15:06'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:15:06
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Cube Root of a number in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中的数字立方根
 - en: 来源：[https://golangbyexample.com/cube-root-number-golang/](https://golangbyexample.com/cube-root-number-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/cube-root-number-golang/](https://golangbyexample.com/cube-root-number-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "代码：")*  *# **概述**'
 - en: '**math** package of GO provides a **Cbrt** method that can be used to get the
     cube root of that number.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: GO 的 **math** 包提供了一个 **Cbrt** 方法，可以用于获取该数字的立方根。
 - en: Below is the signature of the function. It takes input a float and also returns
     a float.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名。它接受一个浮点数作为输入，并返回一个浮点数。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Some special cases of Cbrt function are
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: Cbrt 函数的一些特殊情况是
 - en: Cbrt(±0) = ±0
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Cbrt(±0) = ±0
 - en: Cbrt(±Inf) = ±Inf
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Cbrt(±Inf) = ±Inf
 - en: Cbrt(NaN) = NaN
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Cbrt(NaN) = NaN
 - en: '**Code:**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[cube root](https://golangbyexample.com/tag/cube-root/)*   [go](https://golangbyexample.com/tag/go/)*   [number](https://golangbyexample.com/tag/number/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[立方根](https://golangbyexample.com/tag/cube-root/)*   [go](https://golangbyexample.com/tag/go/)*   [数字](https://golangbyexample.com/tag/number/)*'

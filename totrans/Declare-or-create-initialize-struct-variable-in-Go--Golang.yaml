@@ -1,240 +1,373 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:19:50'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:19:50
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Declare or create/initialize struct variable in Go (Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中声明或创建/初始化结构变量
 - en: 来源：[https://golangbyexample.com/declare-initialize-struct-variable-golang/](https://golangbyexample.com/declare-initialize-struct-variable-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/declare-initialize-struct-variable-golang/](https://golangbyexample.com/declare-initialize-struct-variable-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Declaring a struct type](#Declaring_a_struct_type "Declaring a struct type")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[声明一个结构类型](#Declaring_a_struct_type "声明一个结构类型")'
 - en: '[Creating a struct variable](#Creating_a_struct_variable "Creating a struct
     variable")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[创建一个结构变量](#Creating_a_struct_variable "创建一个结构变量")*  *# **概述**'
 - en: GO struct is named collection of data fields which can be of different types.
     Struct acts as a container that has different heterogeneous data types which together
     represents an entity.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: GO 结构是不同类型数据字段的命名集合。结构充当容器，具有不同的异构数据类型，共同表示一个实体。
 - en: For example, different attributes are used to represent an employee in an organization.
     Employee can have
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，不同的属性用于表示组织中的员工。员工可以拥有
 - en: Name of string type
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 字符串类型的名称
 - en: Age of int type
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 整数类型的年龄
 - en: DOB of time.Time type
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 时间类型的出生日期
 - en: Salary of int type
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 整数类型的薪水
 - en: .. and so on. A struct can be used to represent an employee
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: .. 以及其他内容。结构可以用于表示员工
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: A struct in golang can be compared to a class in Object Oriented Languages
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Golang 中，结构可以与面向对象语言中的类相比较
 - en: '**Declaring a struct type**'
+  id: totrans-19
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**声明一个结构类型**'
 - en: Below is the format for declaring a struct
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是声明结构的格式
 - en: '[PRE1]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above format, **struct_name** is the name of the struct. It has a field
     named **field_name1** of type **field_type1** and a field named **field_name2**
     of type **field_type2**. This declares a new named struct type which acts as a
     blueprint. The type keyword is used to introduce a new type
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述格式中，**struct_name** 是结构的名称。它有一个名为 **field_name1** 的字段，类型为 **field_type1**，还有一个名为
+    **field_name2** 的字段，类型为 **field_type2**。这声明了一个新的命名结构类型，作为蓝图。type 关键字用于引入新类型
 - en: Example
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: The above declaration declares a new struct named **point** which has two field
     **x** and **y**. Both fields are of **float64** type.Once a new struct type is
     declared we can define new concrete struct variable from it as we will see in
     next section
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述声明声明了一个名为 **point** 的新结构，它有两个字段 **x** 和 **y**。两个字段都是 **float64** 类型。一旦声明了新的结构类型，我们可以从中定义新的具体结构变量，如下节所示
 - en: '**Creating a struct variable**'
+  id: totrans-26
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**创建一个结构变量**'
 - en: Declaring a struct just declares a named struct type. Creating a struct variable,
     creates an instance of that struct with memory being initialized as well. We can
     create a empty struct variable without given any value to any of the field
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 声明一个结构只是声明一个命名的结构类型。创建一个结构变量，会创建该结构的一个实例，同时内存也会被初始化。我们可以创建一个空的结构变量，而不为任何字段赋值
 - en: '[PRE3]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In this case, all the fields in the struct are initialized with a default zero
     value of that field type. We can also intialize value for each struct field while
     creating a struct variable. There are two variations
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，结构中的所有字段都被初始化为该字段类型的默认零值。我们在创建结构变量时也可以为每个结构字段初始化值。这里有两种变体
 - en: On the same line
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在同一行
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Each field on different lines
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个字段在不同的行上
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It is also ok to initialize only some of the fields with value. The field which
     are not initialized with value will get the default zero value of their type
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 仅初始化某些字段的值也是可以的。未初始化的字段将获得其类型的默认零值
 - en: '[PRE6]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: In the above case, salary will get the default value of zero since it is not
     initialized
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述情况下，薪水将得到默认的零值，因为它没有被初始化
 - en: 'Let’s see a working code illustrating above points:'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个演示上述要点的工作代码：
 - en: '[PRE7]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: For above program
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于上述程序
 - en: We first declare an **employee** struct.
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们首先声明一个 **employee** 结构。
 - en: emp1’s fields are all intialized with default zero value of its type i.e name
     with “”, age and salary with 0.
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: emp1 的所有字段都被初始化为其类型的默认零值，即名称为“”，年龄和薪水为 0。
 - en: emp2 has been initialized with all field on the same line. Its fields are correctly
     printed with their value
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: emp2 已在同一行上初始化了所有字段。其字段正确打印了它们的值
 - en: emp3’s has been initialized with all fields on different lines. Its fields are
     correctly printed with their value
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: emp3 的所有字段都在不同的行上初始化。其字段正确打印了它们的值
 - en: emp4’s salary field is initialized with a default zero value of 0\. While other
     two fields are correctly printed with their value.
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: emp4 的薪水字段被初始化为默认零值 0。其他两个字段正确打印了它们的值。
 - en: It is to be noted that in the initialization of a struct, every new line with
     in curly braces has to end with a comma. So below initialization will raise error
     as
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 需要注意的是，在结构体的初始化中，每个在大括号内的新行必须以逗号结尾。因此，下面的初始化会引发错误，因为
 - en: '[PRE9]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: doesn’t end with a comma.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 不以逗号结束。
 - en: '[PRE10]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: The below will be fine as last brace is on the same line as last field
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的代码是可以的，因为最后的括号与最后一个字段在同一行。
 - en: '[PRE11]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Without field names**'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '**没有字段名称**'
 - en: struct can also be initialized without specifying the field names. But in this
     case, all values for each of the field has to be provided in sequence
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体也可以在不指定字段名称的情况下进行初始化。但在这种情况下，每个字段的所有值必须按顺序提供。
 - en: '[PRE12]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: A compiler error will be raised if all values are not provided when field name
     is not used.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果没有使用字段名称而没有提供所有值，将会引发编译器错误。
 - en: Let’s see a program
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个程序。
 - en: '[PRE13]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output**'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE14]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Uncomment the line
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 取消注释这一行。
 - en: '[PRE15]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: in the above program, and it will raise compiler error
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，它将引发编译器错误。
 - en: '[PRE16]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,394 +1,598 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:20:36'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:20:36
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Declare/Initialize/Create an array or slice in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中声明/初始化/创建数组或切片
 - en: 来源：[https://golangbyexample.com/declare-initialize-create-array-slice-golang/](https://golangbyexample.com/declare-initialize-create-array-slice-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/declare-initialize-create-array-slice-golang/](https://golangbyexample.com/declare-initialize-create-array-slice-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "概述")**'
 - en: '[Creating a slice](#Creating_a_slice "Creating a slice")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[创建切片](#Creating_a_slice "创建切片")'
 - en: '[Using the []<type>{} format](#Using_the_format "Using the []<type>{} format")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 []<类型>{} 格式](#Using_the_format "使用 []<类型>{} 格式")'
 - en: '[Creating a slice from another slice or array](#Creating_a_slice_from_another_slice_or_array
     "Creating a slice from another slice or array")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[从另一个切片或数组创建切片](#Creating_a_slice_from_another_slice_or_array "从另一个切片或数组创建切片")'
 - en: '[Create a slice from Array](#Create_a_slice_from_Array "Create a slice from
     Array")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[从数组创建切片](#Create_a_slice_from_Array "从数组创建切片")'
 - en: '[Create a slice from slice](#Create_a_slice_from_slice "Create a slice from
     slice")'
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[从切片创建切片](#Create_a_slice_from_slice "从切片创建切片")'
 - en: '[Using the make function](#Using_the_make_function "Using the make function")'
+  id: totrans-13
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 make 函数](#Using_the_make_function "使用 make 函数")'
 - en: '[Using the new function](#Using_the_new_function "Using the new function")'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用新函数](#Using_the_new_function "使用新函数")'
 - en: '[Create an array](#Create_an_array "Create an array")*  *# **Overview**'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[创建数组](#Create_an_array "创建数组") *# **概述**'
 - en: Similar to any other programming language, golang also has an array data structure.
     But in go, arrays behave little differently than other languages and also we have
     something called slice in golang which is like a reference to an array. Slice
     is more powerful and convenient to use than an array.  Slice, in fact, is more
     analogous to arrays in another programming language.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 与其他编程语言类似，Golang 也有数组数据结构。但在 Go 中，数组的行为与其他语言略有不同，我们还有一种叫切片的结构，它类似于数组的引用。切片比数组更强大且更方便使用。事实上，切片在其他编程语言中更类似于数组。
 - en: In this article, we will learn how to
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这篇文章中，我们将学习如何
 - en: Create a slice instance
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建切片实例
 - en: Create an array instance
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建数组实例
 - en: '**Creating a slice**'
+  id: totrans-20
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**创建切片**'
 - en: There are four ways of creating a slice
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建切片的方式有四种
 - en: Using the []<type>{} format
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 []<类型>{} 格式
 - en: Creating a slice from another slice or array
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从另一个切片或数组创建切片
 - en: Using make
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 make
 - en: Using new
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用新方法
 - en: Let’s look at each of above method one by one.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐一查看上述每种方法。
 - en: '**Using the []<type>{} format**'
+  id: totrans-27
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用 []<类型>{} 格式**'
 - en: The most common way of declaring a slice is this
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 声明切片的最常见方式是这样的
 - en: '[PRE0]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It declares an empty of slice of 0 length and 0 capacity. We can also initialise
     the slice during declaration
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 它声明了一个长度为0、容量为0的空切片。我们也可以在声明时初始化切片。
 - en: '[PRE1]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: It declares a slice of integers of length 2 and also the capacity of 2\. The
     capacity will be equal to the actual slice elements specified. We also have two
     library functions provided by go which can be used to know the **length** and
     **capacity** of a slice.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 它声明了一个长度为2、容量也为2的整数切片。容量等于实际指定的切片元素数量。我们还有两个由 Go 提供的库函数可以用来获取切片的 **长度** 和 **容量**。
 - en: '**len()** function – for  length of the slice'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**len()** 函数 – 用于切片的长度'
 - en: '**cap()** function – for capacity of the slice'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**cap()** 函数 – 用于切片的容量'
 - en: Let’s see a small program which shows the above points
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个小程序，展示以上几点。
 - en: '[PRE2]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: When the actual elements are not specified, then both length and capacity of
     the slice is zero. When actual elements are specified , both  length and capacity
     is equal to the number of actual elements specified.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 当实际元素未指定时，切片的长度和容量均为零。当指定实际元素时，长度和容量等于指定的实际元素数量。
 - en: '**Creating a slice from another slice or array**'
+  id: totrans-40
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**从另一个切片或数组创建切片**'
 - en: A slice can be created by re-slicing an exiting slice or array.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 切片可以通过重新切片现有切片或数组来创建。
 - en: '**Create a slice from Array**'
+  id: totrans-42
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**从数组创建切片**'
 - en: The format for creating a new slice by re-slicing an existing array is
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过重新切片现有数组创建新切片的格式为
 - en: '[PRE4]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The above operation will return a new slice from the arraystarting from index
     **start** to index **end-1\.** So the element at index **end** is not included
     in the newly created slice. While re-slicing, both start, and the end index are
     optional.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述操作将返回一个新切片，从数组的索引 **start** 开始到索引 **end-1**。因此，索引 **end** 的元素不包含在新创建的切片中。在重新切片时，起始和结束索引都是可选的。
 - en: The default value of the start index is zero
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 起始索引的默认值为零
 - en: The default value of the end index is the length of the array
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结束索引的默认值是数组的长度。
 - en: Let’s see an example.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个例子。
 - en: '[PRE5]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Notice in above example that
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意上面的例子中：
 - en: length of newly created slice = (**end**–**start**)
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 新创建切片的长度 = (**end**–**start**)
 - en: capacity of newly created slice = (**length_of_array**–**start**)
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 新创建切片的容量 = (**length_of_array**–**start**)
 - en: The **num1** slice would look like
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '**num1**切片的样子如下。'
 - en: '![](img/33586fc71a4b7b6f0294dc7dc24f41df.png)'
+  id: totrans-56
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/33586fc71a4b7b6f0294dc7dc24f41df.png)'
 - en: The newly created slices still refer the original array. To check this change
     element at any one of the index of the array and then reprint the slice
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 新创建的切片仍然引用原始数组。要检查这一点，可以在数组的任意索引处更改元素，然后重新打印切片。
 - en: '[PRE7]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: 'Here is the output:'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出如下：
 - en: '[PRE8]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: This proves that each of the new slice is still referring to the original array.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 这证明每个新切片仍然引用原始数组。
 - en: '**Create a slice from slice**'
+  id: totrans-62
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**从切片创建切片**'
 - en: Whatever we discussed about re-slicing from an array also applies here as well.
     See below example which illustrates same thin
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们关于从数组重新切片的讨论同样适用于这里。请参见下面的例子以说明同样的内容。
 - en: '[PRE9]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Here also the newly created slices refer to the same underlying array that was
     being referred to by the original slice.  To check this change element at any
     one of the index of the original slice and then reprint all the newly created
     slices
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，新创建的切片也引用与原始切片所引用的相同基础数组。要检查这一点，可以在原始切片的任意索引处更改元素，然后重新打印所有新创建的切片。
 - en: '[PRE11]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Using the make function**'
+  id: totrans-69
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用make函数**'
 - en: '**make** is a builtin function provided by go that can also be used to create
     a slice. Below is the signature of make function'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: '**make**是Go提供的一个内置函数，也可以用来创建切片。以下是make函数的签名。'
 - en: '[PRE12]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Capacity is an optional parameter while creating slice using the make function.
     When capacity is omitted, the capacity of the slice is equal length specified
     for the slice. When using make function, behind the scenes go allocates an array
     equal to the capacity. All the elements of the allocated array are initialized
     with default zero value of the type. Let’s see a program illustrating this point.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建切片时，`make`函数的容量是一个可选参数。当省略容量时，切片的容量等于指定的长度。使用`make`函数时，Go背后会分配一个与容量相等的数组。分配的数组的所有元素都初始化为该类型的默认零值。让我们看看一个说明这一点的程序。
 - en: '[PRE13]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output**'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE14]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Using the new function**'
+  id: totrans-76
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用new函数**'
 - en: '**new** is a builtin function provided by go that can also be used to create
     a slice. It is not a very popular way of creating a slice as **make** is much
     more flexible in terms of functionalities . It is not generally used and also
     using **new** function returns a pointer to nil slice. Let’s see an example. In
     below example we are using the dereferencing operator **‘*’** as **new** function
     returns a pointer to the nil slice'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: '**new**是Go提供的一个内置函数，也可以用来创建切片。这种创建切片的方式并不常用，因为**make**在功能上更加灵活。一般情况下不常使用，并且使用**new**函数会返回指向nil切片的指针。让我们看一个例子。在下面的例子中，我们使用解引用操作符**‘*’**，因为**new**函数返回指向nil切片的指针。'
 - en: '[PRE15]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Output**'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE16]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Create an array**'
+  id: totrans-81
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**创建一个数组**'
 - en: Both number of elements and actual elements are optional in the array declaration.
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组声明中的元素数量和实际元素都是可选的。
 - en: In below example, we see 4 ways of creating of an array
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的例子中，我们看到创建数组的4种方式。
 - en: Specifying both the length of the array and actual elements. Eg.
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 同时指定数组的长度和实际元素。例如：
 - en: '[PRE17]'
+  id: totrans-85
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Only length – In this case all the actual elements are filled up with default
     value zero of that type. Eg
+  id: totrans-86
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅长度——在这种情况下，所有实际元素都填充为该类型的默认值零。例如：
 - en: '[PRE18]'
+  id: totrans-87
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: Only actual elements – In this case, the length of the array will be equal to
     the number of actual elements. The symbol **‘…’** needs to be used within square
     brackets like this […] when not specifying the length. The symbol is an instruction
     to the compiler to calculate the length.
+  id: totrans-88
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅实际元素——在这种情况下，数组的长度将等于实际元素的数量。符号**‘…’**在不指定长度时需要在方括号内使用，例如[…]。该符号是指令，指示编译器计算长度。
 - en: '[PRE19]'
+  id: totrans-89
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Without length and actual elements – an empty array will be created in this
     case. Similar to above the symbol **‘…’** also needs to be used in this case as
     well.
+  id: totrans-90
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 没有长度和实际元素——在这种情况下，将创建一个空数组。与上述相似，符号**‘…’**在这种情况下也需要使用。
 - en: '[PRE20]'
+  id: totrans-91
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: Let’s see a code example illustrating above points. Also please keep in mind
     that the builtin function **len()** can be used to calculate the length of an
     array. In below program we are using **len()** function to calculate the length
     of the array.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个代码示例来说明上述要点。还请记住，可以使用内置函数**len()**来计算数组的长度。在下面的程序中，我们使用**len()**函数来计算数组的长度。
 - en: '[PRE21]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Output**'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE22]'
+  id: totrans-95
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: Notice in the above example that for **sample3** variable the actual elements
     are filled up with the default value of int which is 0.
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，上述示例中，对于**sample3**变量，实际元素用默认值0填充。
 - en: It is also ok if the actual elements specified are less than the length of the
     array. The rest of the elements are filled up with the default value of the type
     specified. See the below example. The length of the array specified is 4 while
     only 2 actual elements are declared. Hence the remaining two elements are assigned
     value 0 which is the default zero value of an **int**.
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果指定的实际元素少于数组的长度也是可以的。其余元素将用指定类型的默认值填充。请参见下面的示例。指定的数组长度为4，而只有2个实际元素被声明。因此，剩余的两个元素被赋值为0，这是**int**的默认零值。
 - en: '[PRE23]'
+  id: totrans-98
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Output**'
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE24]'
+  id: totrans-100
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-101
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go](https://golangbyexample.com/tag/go/)*'

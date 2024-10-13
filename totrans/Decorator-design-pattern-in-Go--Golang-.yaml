@@ -1,218 +1,334 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类。
 - en: 'date: 2024-10-13 06:31:46'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:31:46。
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Decorator design pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的装饰器设计模式。
 - en: 来源：[https://golangbyexample.com/decorator-pattern-golang/](https://golangbyexample.com/decorator-pattern-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/decorator-pattern-golang/](https://golangbyexample.com/decorator-pattern-golang/)。
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录。
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**。'
 - en: '[UML Diagram](#UML_Diagram "UML Diagram")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML图](#UML_Diagram "UML Diagram")。'
 - en: '[Code](#Code "Code")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")。'
 - en: '[Full Working Code](#Full_Working_Code "Full Working Code")*  *# **Overview**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码](#Full_Working_Code "Full Working Code") *  *# **概述**。'
 - en: Decorator design pattern is a structural design pattern. It lets you provide
     additional functionality or decorates an object without altering that object.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 装饰器设计模式是一种结构型设计模式。它允许你提供额外功能或装饰一个对象，而不改变该对象。
 - en: It is better understood with an example. Imagine you are opening a pizza chain.
     You started with two kinds of pizzas
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 用一个例子会更好理解。假设你要开一家比萨连锁店，你开始时有两种比萨。
 - en: Veggie Mania Pizza
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 素食狂热比萨。
 - en: Peppy Tofu pizza
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**活力豆腐比萨**。'
 - en: Each of the above pizza had its price. So you would create a pizza interface
     as below
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述每种比萨都有其价格。因此你将创建如下比萨接口。
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: You need to also create two pizza struct with a **getPrice** function which
     will return the price. These two pizza structs implement the pizza interface as
     they define the getPrice() method
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 你还需要创建两个比萨结构体，具有一个**getPrice**函数，返回价格。这两个比萨结构体实现比萨接口，因为它们定义了getPrice()方法。
 - en: Later on, you started to offer toppings along with the pizza with some additional
     price for each of the topping. So the original base pizza now needs to be decorated
     with a topping. Imaging you added below two toppings to the menu
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 之后，你开始提供配料，并为每种配料额外收费。因此，原始基础比萨现在需要添加配料。想象一下你在菜单中增加了下面两种配料。
 - en: Tomato Topping
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 番茄配料。
 - en: Cheese Topping
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 奶酪配料。
 - en: Also, remember that pizza along with the topping is also a pizza. Customer can
     choose their pizza in different ways. For eg
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请记住，带配料的比萨仍然是一种比萨。顾客可以以不同的方式选择他们的比萨。例如。
 - en: Veggie mania with tomato topping
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 带番茄配料的素食狂热。
 - en: Veggie main with tomato and cheese topping
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 带番茄和奶酪配料的素食主菜。
 - en: Peppy Paneer pizza without any topping
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 不带任何配料的活力印度奶酪比萨。
 - en: Peppy Paneer pizza with cheese topping
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 带奶酪配料的活力印度奶酪比萨。
 - en: …
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: …
 - en: So how would you design now given that you now have the toppings as well. Decorator
     pattern will come into picture. It can help additional functionality without actually
     modifying any of the existing structs.  Decorator pattern recommends in this case
     to create separate structs for each of the topping available.  Each topping struct
     will implement the pizza interface above and also have an embed and instance of
     pizza.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么现在考虑到你也有配料，你会如何设计呢？装饰器模式将会发挥作用。它可以在不实际修改任何现有结构体的情况下提供额外功能。装饰器模式建议在这种情况下为每种可用配料创建单独的结构体。每个配料结构体将实现上述比萨接口，并嵌入一个比萨实例。
 - en: We now have separate structs for different types of pizza and separate struct
     for the types of topping available. Each of the pizza and topping has its own
     price. And whenever you add any topping to a pizza then price of that topping
     is added to the price of base pizza and that is how you get a resultant price.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们有不同类型比萨的单独结构体和可用配料的单独结构体。每种比萨和配料都有自己的价格。每当你给比萨添加任何配料时，该配料的价格就会加到基础比萨的价格上，这样你就得到了最终价格。
 - en: So the decorator pattern let’s you decorate the original base pizza object without
     altering that pizza object. The pizza object knows nothing about toppings. It
     just knows its price and nothing else.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，装饰器模式允许你在不改变原始基础比萨对象的情况下装饰该比萨对象。比萨对象对配料一无所知，只知道其价格，别无他物。
 - en: '**UML Diagram**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**UML图**。'
 - en: Below is UML diagram for the decorator design pattern
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是装饰器设计模式的UML图。
 - en: '![](img/64c0b97898f5ff5d009eb2ce6e7608c7.png)'
+  id: totrans-32
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/64c0b97898f5ff5d009eb2ce6e7608c7.png)'
 - en: The concrete component (**Veggie Mania** and **Peppy Tofu** here) and concrete
     decorator (**Toppings** here) implement the component  interface (**Pizza** here).
     Also  concrete decorator  would embed an instance of component as well.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 具体组件（这里的**素食狂热**和**活力豆腐**）和具体装饰器（这里的**配料**）实现组件接口（这里的**比萨**）。此外，具体装饰器还会嵌入一个组件实例。
 - en: As in below example we have
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 如下面的例子所示。
 - en: The component is represented by pizza interface
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该组件由比萨接口表示。
 - en: The concrete component is represented by **veggieMania** and **peppyPanner**
     **struct**. They both implement the pizza interface
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 具体组件由**veggieMania**和**peppyPanner** **结构**表示。它们都实现了披萨接口。
 - en: Concrete decorators are represented by cheeseTopping and tomatoTopping struct.
     They both implement the pizza interface.  Also, they embed an instance of type
     **pizza** as well
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 具体装饰器由cheeseTopping和tomatoTopping结构表示。它们都实现了披萨接口。此外，它们还嵌入了一个**pizza**类型的实例。
 - en: '**Code**'
+  id: totrans-38
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '**pizza.go**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**pizza.go**'
 - en: '[PRE1]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**peppyPaneer.go**'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**peppyPaneer.go**'
 - en: '[PRE2]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**veggeMania.go**'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**veggeMania.go**'
 - en: '[PRE3]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**cheeseTopping.go**'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**cheeseTopping.go**'
 - en: '[PRE4]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**tomatoTopping.go**'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**tomatoTopping.go**'
 - en: '[PRE5]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**main.go**'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE6]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Full Working Code**'
+  id: totrans-53
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**完整工作代码**'
 - en: '[PRE8]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '[decorator](https://golangbyexample.com/tag/decorator/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-57
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[装饰器](https://golangbyexample.com/tag/decorator/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

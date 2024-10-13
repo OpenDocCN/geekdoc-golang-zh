@@ -1,83 +1,128 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类。
 - en: 'date: 2024-10-13 06:10:57'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:10:57
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pass function as an argument to another function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中将函数作为参数传递给另一个函数。
 - en: 来源：[https://golangbyexample.com/func-as-func-argument-go/](https://golangbyexample.com/func-as-func-argument-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/func-as-func-argument-go/](https://golangbyexample.com/func-as-func-argument-go/)
 - en: Golang function are first-order variables meaning that
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang 函数是一级变量，意味着。
 - en: They can be assigned to a variable
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它们可以被赋值给一个变量。
 - en: Passed around as function argument
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 作为函数参数传递。
 - en: Returned from a function
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从函数返回。
 - en: In GO function is also a type. Two functions are of the same type if they have
     the same arguments and the same return values. While passing a function as an
     argument to another function, the exact signature of the function has to be specified
     in the argument list. As in below example print function accept first argument
     which is a function of type **func(int, int) int**
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，函数也是一种类型。如果两个函数具有相同的参数和相同的返回值，它们就是同一种类型。在将一个函数作为参数传递给另一个函数时，必须在参数列表中指定函数的确切签名。如下例所示，print
+    函数接受的第一个参数是类型为 **func(int, int) int** 的函数。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Some more things to note about the below program
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于下面程序还有一些需要注意的事项。
 - en: function **area** is a function of  **func(int, int) int**
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数 **area** 是类型为 **func(int, int) int** 的函数。
 - en: function **sum** is a function of type **func(int, int) int**
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数 **sum** 是类型为 **func(int, int) int** 的函数。
 - en: '**area** and **sum** are of same type as they have same arguments type and
     same return values type'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**area** 和 **sum** 是同一种类型，因为它们具有相同的参数类型和相同的返回值类型。'
 - en: '**print** function accepts a function as its first argument of type **func(int,
     int) int**'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**print** 函数接受一个类型为 **func(int, int) int** 的函数作为其第一个参数。'
 - en: Thus both **area** and **sum** function can be passed as an argument to the
     **print** function.
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 因此，**area** 和 **sum** 函数可以作为参数传递给 **print** 函数。
 - en: '**Code:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'

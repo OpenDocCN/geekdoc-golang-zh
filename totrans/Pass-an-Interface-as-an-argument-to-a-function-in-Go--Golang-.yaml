@@ -1,104 +1,162 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:21:40'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:21:40
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pass an Interface as an argument to a function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 将接口作为参数传递给Go（Golang）中的函数。
 - en: 来源：[https://golangbyexample.com/pass-interface-as-argument-function-go/](https://golangbyexample.com/pass-interface-as-argument-function-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/pass-interface-as-argument-function-go/](https://golangbyexample.com/pass-interface-as-argument-function-go/)
 - en: A function can accept an argument of an interface type. That interface type
     can be either
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数可以接受接口类型的参数。该接口类型可以是任意类型。
 - en: Regular Interface
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 常规接口
 - en: Empty Interface
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 空接口
 - en: Let’s see example for both of them one by one
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐个看一下这两个示例。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Regular Interface](#Regular_Interface "Regular Interface")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [常规接口](#Regular_Interface "常规接口")'
 - en: '[Empty Interface](#Empty_Interface "Empty Interface")*  *# **Regular Interface**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[空接口](#Empty_Interface "空接口")*  *# **常规接口**'
 - en: A function can accept an argument of an interface type. Any type which implements
     that interface can be passed as an argument to that function.  Let’s understand
     with an example. Let’s say we have an animal interface as below
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数可以接受接口类型的参数。任何实现该接口的类型都可以作为参数传递给该函数。让我们通过一个示例来理解。假设我们有如下动物接口。
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: We have two struct types implementing that interface
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们有两个结构类型实现该接口。
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: and
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 和
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In below code we have **callBreathe** and **callWalk** function which accept
     an argument of **animal** interface type. Both **lion** and **dog** instance can
     be passed to this function. We create an instance of both **lion** and **dog**
     type and pass it to the function. During compilation no type is checked while
     calling the function,  instead it is enough to check that the type passed to the
     function does implement **breathe** and **walk** method.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的代码中，我们有**callBreathe**和**callWalk**函数，它们接受**动物**接口类型的参数。**狮子**和**狗**实例都可以传递给该函数。我们创建**狮子**和**狗**类型的实例并将其传递给该函数。在编译期间，调用函数时不会检查类型，而只需检查传递给函数的类型是否实现了**呼吸**和**行走**方法。
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Empty Interface**'
+  id: totrans-23
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**空接口**'
 - en: An empty interface has no methods , hence by default all types implement the
     empty interface. If you write a function that accepts an empty interface then
     you can pass any type to that function. See working code below
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个空接口没有方法，因此默认情况下所有类型都实现空接口。如果你编写一个接受空接口的函数，那么你可以将任何类型传递给该函数。请参见下面的工作代码。
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

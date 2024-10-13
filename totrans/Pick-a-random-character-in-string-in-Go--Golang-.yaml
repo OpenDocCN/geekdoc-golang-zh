@@ -1,40 +1,61 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:16:15'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:16:15
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pick a random character in string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中随机选择字符串中的字符
 - en: 来源：[https://golangbyexample.com/pick-random-character-string-golang/](https://golangbyexample.com/pick-random-character-string-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/pick-random-character-string-golang/](https://golangbyexample.com/pick-random-character-string-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: '**‘mat/rand’** package of golang contains a **Intn** function that can be used
     to generate a pseudo-random number between [0,n). Bracket at the end means that
     n is exclusive. This function can be utilized to pick a random element in a string.
     We can generate a random between 0 and length-1 of string. Then we can use that
     random number to index into the string and get the result.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**‘mat/rand’** 包含一个 **Intn** 函数，可以用来生成一个在 [0,n) 之间的伪随机数。末尾的括号意味着 n 是不包括的。这个函数可以用来从字符串中选择一个随机元素。我们可以在
+    0 到字符串长度减 1 之间生成一个随机数。然后我们可以用这个随机数来索引字符串并得到结果。'
 - en: But there is one problem in above approach. In Golang string is a sequence of
     bytes. A string literal actually represents a UTF-8 sequence of bytes. In UTF-8,
     ASCII characters are single-byte corresponding to the first 128 Unicode characters. All
@@ -42,30 +63,48 @@
     a character in a string.  In GO, rune data type represents a Unicode point.  Once
     a string is converted to an array of rune then it is possible to index a character
     in that array of rune.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是上述方法存在一个问题。在 Golang 中，字符串是字节的序列。字符串字面量实际上表示的是 UTF-8 字节序列。在 UTF-8 中，ASCII 字符是对应于前
+    128 个 Unicode 字符的单字节。所有其他字符占用 1 到 4 个字节。因此，无法在字符串中索引一个字符。在 Go 中，rune 数据类型表示一个
+    Unicode 点。一旦字符串被转换为 rune 数组，就可以在该数组中索引字符。
 - en: You can learn more the above issue here – [https://golangbyexample.com/number-characters-string-golang/](https://golangbyexample.com/number-characters-string-golang/)
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在这里了解更多关于上述问题的信息 – [https://golangbyexample.com/number-characters-string-golang/](https://golangbyexample.com/number-characters-string-golang/)
 - en: For this reason in below program for picking a random in a given string , we 
     are first converting a string into a rune array so that we can index into the
     rune array and then return the random character.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，在下面的程序中，为了从给定字符串中选择一个随机字符，我们首先将字符串转换为 rune 数组，以便能够索引这个 rune 数组，然后返回随机字符。
 - en: '**Code**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[character](https://golangbyexample.com/tag/character/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [pick](https://golangbyexample.com/tag/pick/)*   [random](https://golangbyexample.com/tag/random/)*   [string](https://golangbyexample.com/tag/string/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[字符](https://golangbyexample.com/tag/character/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [选择](https://golangbyexample.com/tag/pick/)*   [随机](https://golangbyexample.com/tag/random/)*   [字符串](https://golangbyexample.com/tag/string/)*'

@@ -1,133 +1,210 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:11:06'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:06
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pass Variable Number of Arguments to a function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中向函数传递可变数量的参数。
 - en: 来源：[https://golangbyexample.com/go-variadic-function/](https://golangbyexample.com/go-variadic-function/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-variadic-function/](https://golangbyexample.com/go-variadic-function/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Different number of parameters but of the same type](#Different_number_of_parameters_but_of_the_same_type
     "Different number of parameters but of the same type")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[不同数量的参数但类型相同](#Different_number_of_parameters_but_of_the_same_type "不同数量的参数但类型相同")'
 - en: '[Different number of parameters and of different types](#Different_number_of_parameters_and_of_different_types
     "Different number of parameters and of different types")*  *# Overview'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[不同数量的参数且类型不同](#Different_number_of_parameters_and_of_different_types "不同数量的参数且类型不同")*  *#
+    概述'
 - en: In Go, a function that can accept a dynamic number of arguments is called a
     Variadic function. Below is the syntax for variadic function. Three dots are used
     as a prefix before type.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，能够接受动态数量参数的函数称为变长函数。下面是变长函数的语法。三个点用作类型前缀。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The above function can be called with zero or more arguments
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述函数可以用零个或多个参数调用。
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The variadic param which is **numbers,** in this case, gets converted into a
     slice inside the function which can be iterated using **range**
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在此情况下，变长参数**numbers**会在函数内部转换为切片，可以使用**range**进行迭代。
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: If you already have a slice and you need to pass it as a variadic param then
     that can be done by adding three dots (…) after the argument while calling the
     function
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你已经有一个切片，并且需要将其作为变长参数传递，那么可以在调用函数时在参数后添加三个点（…）。
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In case there is a need to pass variadic as well as non-variadic arguments to
     a function, then the non-variadic needs to be passed as initial arguments and
     variadic argument need to be the last.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果需要将变长参数和非变长参数传递给函数，则非变长参数需要作为初始参数传递，而变长参数需要作为最后一个参数传递。
 - en: '[PRE4]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The best example of a variadic function used in GO library is the **fmt.Println()**
     function. This is the signature of the function
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 GO 库中，变长函数的最佳示例是**fmt.Println()**函数。以下是该函数的签名。
 - en: '[PRE5]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: While using variadic functions there can be a couple of cases related to the
     variadic argument.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用变长函数时，可能会出现与变长参数相关的一些情况。
 - en: '**Different number of parameters but of the same type**'
+  id: totrans-23
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**不同数量的参数但类型相同**'
 - en: The above case can easily be handled using variadic functions. Notice in below
     code the parameter is of one type i.e. **int.**
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述案例可以很容易地通过变长函数处理。注意下面的代码中参数是单一类型，即**int。**
 - en: '[PRE6]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Different number of parameters and of different types**'
+  id: totrans-28
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**不同数量的参数且类型不同**'
 - en: This case can be handled using both variadic function and empty interface
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个案例可以使用变长函数和空接口来处理。
 - en: '[PRE8]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: We can also use a switch case to get the exact parameters and use them accordingly.
     See the below example.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还可以使用 switch case 来获取精确的参数并相应地使用它们。请参见下面的示例。
 - en: '[PRE10]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Note:** Wherever the arg is not passed it is substituted as default.'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 如果没有传递参数，则用默认值替代。'
 - en: '**Output:**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE11]*'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE11]*'

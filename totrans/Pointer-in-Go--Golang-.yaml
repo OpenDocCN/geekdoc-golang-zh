@@ -1,367 +1,572 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:28:47'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:28:47
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pointer in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 语言中的指针
 - en: 来源：[https://golangbyexample.com/pointer-golang/](https://golangbyexample.com/pointer-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/pointer-golang/](https://golangbyexample.com/pointer-golang/)
 - en: This is the  chapter 15 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是 Go 语言综合教程系列的第 15 章。有关该系列其他章节，请参阅此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Struct](https://golangbyexample.com/struct-in-golang-complete-guide/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一教程** – [结构体](https://golangbyexample.com/struct-in-golang-complete-guide/)'
 - en: '**Previous Tutorial** – [Defer keyword](https://golangbyexample.com/defer-golang)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一篇教程** – [Defer 关键字](https://golangbyexample.com/defer-golang)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看当前的教程。以下是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Declaration of a Pointer](#Declaration_of_a_Pointer "Declaration of a Pointer")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[指针的声明](#Declaration_of_a_Pointer "Declaration of a Pointer")'
 - en: '[Initialization of a Pointer](#Initialization_of_a_Pointer "Initialization
     of a Pointer")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[指针的初始化](#Initialization_of_a_Pointer "Initialization of a Pointer")'
 - en: '[Using the new operator](#Using_the_new_operator "Using the new operator")'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 new 运算符](#Using_the_new_operator "Using the new operator")'
 - en: '[Using the ambersand ‘&’ operator](#Using_the_ambersand_operator "Using the
     ambersand ‘&’ operator")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用符号 ‘&’ 运算符](#Using_the_ambersand_operator "Using the ambersand ‘&’ operator")'
 - en: '[About * or dereferencing pointer](#About_or_dereferencing_pointer "About *
     or dereferencing pointer")'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[关于 * 或解引用指针](#About_or_dereferencing_pointer "About * or dereferencing pointer")'
 - en: '[Pointer to a Pointer](#Pointer_to_a_Pointer "Pointer to a Pointer")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[指向指针的指针](#Pointer_to_a_Pointer "Pointer to a Pointer")'
 - en: '[Pointer Arithmetic](#Pointer_Arithmetic "Pointer Arithmetic")'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[指针算术](#Pointer_Arithmetic "Pointer Arithmetic")'
 - en: '[Default Zero Value of Pointer](#Default_Zero_Value_of_Pointer "Default Zero
     Value of Pointer")'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[指针的默认零值](#Default_Zero_Value_of_Pointer "Default Zero Value of Pointer")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "Conclusion")*  *# **概述**'
 - en: Pointer is a variable that holds a memory address of another variable.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 指针是一个变量，它保存另一个变量的内存地址。
 - en: '**Declaration of a Pointer**'
+  id: totrans-22
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**指针的声明**'
 - en: In the below example, **ex** is the pointer of **T** type.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的示例中，**ex** 是 **T** 类型的指针。
 - en: '[PRE0]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In declaration the pointer value is set to its default zero value which is nil.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 在声明中，指针值被设置为其默认零值，即 nil。
 - en: '**Initialization of a Pointer**'
+  id: totrans-26
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**指针的初始化**'
 - en: There are two ways to initialize a pointer
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 初始化指针有两种方法
 - en: Using the **new** operator
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 **new** 运算符
 - en: Using the ambersand **‘&’** operator
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用符号 **‘&’** 运算符
 - en: '**Using the new operator**'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用 new 运算符**'
 - en: Pointers can  be initialized using **new** operator
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 指针可以使用 **new** 运算符进行初始化
 - en: '[PRE1]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '***** operator can be used to dereference a pointer which means getting the
     value at address stored in the pointer'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '***** 运算符可用于解引用指针，意味着获取存储在指针中的地址的值'
 - en: '[PRE2]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Using the ambersand **‘&’** operator
+  id: totrans-35
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 使用符号 **‘&’** 运算符
 - en: '**&** used to get the address of a variable'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**&** 用于获取变量的地址'
 - en: '[PRE3]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '![](img/565d66437e9b9289852dee3b5af111b0.png)'
+  id: totrans-38
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/565d66437e9b9289852dee3b5af111b0.png)'
 - en: Let’s see a working code covering all above points
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个涵盖以上所有要点的工作代码
 - en: '[PRE4]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**About * or dereferencing pointer**'
+  id: totrans-43
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**关于 * 或解引用指针**'
 - en: '***** operator can be used to:'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '***** 运算符可用于：'
 - en: Dereference a pointer which means getting the value at address stored in the
     pointer.
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 解引用指针意味着获取存储在指针中的地址的值。
 - en: Change the value at that pointer location as well
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 也可以更改该指针位置的值
 - en: '[PRE6]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Both **a** and ***b** refer to same variable internally.  Hence changing value
     of one reflects in another . Also ***** and **&** can be used together as well.
     But they will  cancel out each other.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '**a** 和 ***b** 在内部指向同一个变量。因此更改一个的值会反映在另一个上。此外，***** 和 **&** 也可以一起使用，但它们会互相抵消。'
 - en: Hence below two are equivalent and will print 2
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此下面的两种方法是等效的，将打印 2
 - en: a
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: a
 - en: '*&a'
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*&a'
 - en: Also below three are equivalent and will print the address of variable a which
     is stored in b variable
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的三种方法是等效的，并将打印存储在变量 b 中的变量 a 的地址
 - en: b
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: b
 - en: '*&b'
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*&b'
 - en: '&*b'
+  id: totrans-57
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '&*b'
 - en: Note:  *a is not a valid operation as a is not a pointer
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意： *a 不是有效操作，因为 a 不是指针
 - en: '**Pointer to a Pointer**'
+  id: totrans-59
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**指向指针的指针**'
 - en: It is also possible to create a pointer to a pointer in go
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中也可以创建指向指针的指针
 - en: '[PRE8]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**c** is a pointer to a pointer here. It stores the address of **b** which
     in turn stores the address of **a**. Double dereferencing using the ***** operator
     the can be used to print the value at pointer to pointer. Hence****c** will print
     the value at which 2'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '**c**在这里是一个指向指针的指针。它存储**b**的地址，而**b**又存储**a**的地址。使用*****运算符进行双重解引用可以打印指向指针的值。因此，****c**将打印值2'
 - en: Below diagram depicits pointer to pointer.
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下图示描绘了指向指针的指针。
 - en: '**b** contains the address of **a**'
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**b**包含**a**的地址'
 - en: '**c** contains the address of **b**'
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**c**包含**b**的地址'
 - en: '![](img/648843d5f7bbd0caf2d036d24bddb2bd.png)'
+  id: totrans-66
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/648843d5f7bbd0caf2d036d24bddb2bd.png)'
 - en: Let’s see. a program depicting pointer to pointer
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看看，一个描绘指向指针的程序
 - en: '[PRE9]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: From output is clear that
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出可以清楚地看到
 - en: Below are equivalent and equal to value of variable a which is 2
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是与变量a的值相等且等同于2
 - en: a
+  id: totrans-73
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: a
 - en: '*&a'
+  id: totrans-74
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*&a'
 - en: '*b'
+  id: totrans-75
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*b'
 - en: '**c'
+  id: totrans-76
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**c'
 - en: '**Below are equivalent and equal to value of variable b which is address of
     a**'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: '**以下是与变量b的值相等且等同于a的地址**'
 - en: '***   &a'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '***   &a'
 - en: b
+  id: totrans-79
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: b
 - en: '&*b'
+  id: totrans-80
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '&*b'
 - en: '*&b'
+  id: totrans-81
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*&b'
 - en: '*c'
+  id: totrans-82
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*c'
 - en: '****Below are equivalent and equal to value of variable c which is address
     of b****'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: '****以下是与变量c的值相等且等同于b的地址****'
 - en: '*****   b'
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: '*****   b'
 - en: '*c'
+  id: totrans-85
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*c'
 - en: '**Pointer Arithmetic**'
+  id: totrans-86
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**指针算术**'
 - en: Pointer arithmetic is not possible in golang unlike C language. It raises compilation
     error.
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 在golang中，指针算术是不可能的，这与C语言不同。这会引发编译错误。
 - en: '[PRE11]'
+  id: totrans-88
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Output**'
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: Above program raises compilation error
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序引发编译错误
 - en: '[PRE12]'
+  id: totrans-91
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Default Zero Value of Pointer**'
+  id: totrans-92
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**指针的默认零值**'
 - en: Default zero value of a pointer is nil.. Let’s see a program for it
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 指针的默认零值是nil。让我们来看一个示例程序
 - en: '[PRE13]'
+  id: totrans-94
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output:**'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE14]'
+  id: totrans-96
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Conclusion**'
+  id: totrans-97
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about pointers in golang. Hope you have liked this article. Please
     share feedback/improvements/mistakes in comments
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是golang中的指针。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误
 - en: '**Next Tutorial** – [Struct](https://golangbyexample.com/struct-in-golang-complete-guide/)'
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一教程** – [结构体](https://golangbyexample.com/struct-in-golang-complete-guide/)'
 - en: '**Previous Tutorial** – [Defer keyword](https://golangbyexample.com/defer-golang)'
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一篇教程** – [defer关键字](https://golangbyexample.com/defer-golang)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*******'
+  id: totrans-101
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *******'

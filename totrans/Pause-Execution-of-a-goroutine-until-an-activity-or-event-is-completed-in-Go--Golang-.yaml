@@ -1,104 +1,160 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:34:50'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:34:50
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pause Execution of a goroutine until an activity or event is completed in Go
     (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 暂停Goroutine的执行，直到Go（Golang）中的活动或事件完成。
 - en: 来源：[https://golangbyexample.com/pause-goroutine/](https://golangbyexample.com/pause-goroutine/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/pause-goroutine/](https://golangbyexample.com/pause-goroutine/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: Channels can be used to pause the execution of a goroutine until an activity
     is completed. For a
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 通道可用于暂停Goroutine的执行，直到活动完成。对于一个
 - en: '**Unbuffered Channel**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**无缓冲通道**'
 - en: Goroutine will block on send operation if there is no other goroutine to receive
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当没有其他Goroutine接收时，Goroutine将在发送操作上阻塞。
 - en: Goroutine will block on receive operation if there is no other goroutine to
     send on the other side
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当没有其他Goroutine在另一端发送时，Goroutine将在接收操作上阻塞。
 - en: '**Buffered Channel**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**缓冲通道**'
 - en: Goroutine will block on send operation if the buffer is full.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当缓冲区满时，Goroutine将在发送操作上阻塞。
 - en: Goroutine will block on receive operation if the buffer is empty
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当缓冲区为空时，Goroutine将在接收操作上阻塞。
 - en: If we want a goroutine to pause until an activity is complete, we can use any
     of the above four ways. For simplicity in this tutorial, we are going to use an
     unbuffered channel. The goroutine will do a receive operation on that channel
     and it will pause. It will only resume if a send operation is done on that channel
     in a different goroutine.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们希望Goroutine暂停直到活动完成，我们可以使用上述四种方法中的任何一种。为了简化，本教程中我们将使用一个无缓冲通道。Goroutine将在该通道上进行接收操作并暂停。只有在另一个Goroutine在该通道上完成发送操作时，它才会恢复。
 - en: '**Program**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE0]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, we create an unbuffered channel.  We start a goroutine
     which waits for a receive operation on that channel. It will be blocked until
     a send operation is done.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了一个无缓冲通道。我们启动一个Goroutine，等待该通道上的接收操作。它将在发送操作完成之前被阻塞。
 - en: We then send the value in the main goroutine. Once the send is complete, then
     the goroutine resumes execution. That is why
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们在主Goroutine中发送值。一旦发送完成，Goroutine恢复执行。这就是为什么
 - en: '[PRE2]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: is always printed before
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 始终在之前打印
 - en: '[PRE3]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Also, check out our Golang comprehensive tutorial Series - [Golang Comprehensive
     Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，请查看我们的Golang综合教程系列 - [Golang综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

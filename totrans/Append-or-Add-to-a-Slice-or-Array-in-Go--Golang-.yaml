@@ -1,211 +1,321 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:39:40'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:39:40
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Append or Add to a Slice or Array in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中追加或添加到切片或数组。
 - en: 来源：[https://golangbyexample.com/append-slice-array-golang/](https://golangbyexample.com/append-slice-array-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/append-slice-array-golang/](https://golangbyexample.com/append-slice-array-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "概述")**'
 - en: '[append() Function](#append_Function "append() Function")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[append() 函数](#append_Function "append() 函数")'
 - en: '[When slice length is less than capacity](#When_slice_length_is_less_than_capacity
     "When slice length is less than capacity")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[当切片长度小于容量时](#When_slice_length_is_less_than_capacity "当切片长度小于容量时")'
 - en: '[When slice length is equal to the capacity](#When_slice_length_is_equal_to_the_capacity
     "When slice length is equal to the capacity")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[当切片长度等于容量时](#When_slice_length_is_equal_to_the_capacity "当切片长度等于容量时")'
 - en: '[append() Function for string](#append_Function_for_string "append() Function
     for string")*  *## **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[append() 函数用于字符串](#append_Function_for_string "append() 函数用于字符串")*  *## **概述**'
 - en: In golang, the size of the **array** is part of its type. That is why the length
     of the array is fixed during creation and cannot be changed later.  This is where
     the **slice** comes into the picture. Slice is more powerful and convenient to
     use than an array.  Slice, in fact, is more analogous to arrays in another programming
     language. In this tutorial, we will look at how we can add or append to a slice.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在golang中，**数组**的大小是其类型的一部分。这就是为什么数组的长度在创建时是固定的，之后不能更改。这就是**切片**发挥作用的地方。切片比数组更强大和方便使用。实际上，切片更类似于其他编程语言中的数组。在本教程中，我们将探讨如何向切片添加或追加内容。
 - en: Internally a slice is represented by three things.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 切片在内部由三个部分表示。
 - en: Pointer to the underlying array
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 指向底层数组的指针。
 - en: The current length of the underlying array
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 底层数组的当前长度
 - en: Total Capacity which is the maximum capacity to which the underlying array can
     expand.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 总容量是底层数组可以扩展的最大容量。
 - en: Read more about slice here – [https://golangbyexample.com/slice-in-golang/](https://golangbyexample.com/slice-in-golang/)
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 在此处了解更多关于切片的信息 – [https://golangbyexample.com/slice-in-golang/](https://golangbyexample.com/slice-in-golang/)
 - en: '**append() Function**'
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**append() 函数**'
 - en: go **builtin** package provides an **append** function that can be used to append
     or add to a slice at the end. Below is the signature of this function
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: go **builtin**包提供了一个**append**函数，可以在切片末尾追加或添加。以下是此函数的签名。
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The first argument is the slice itself. The second is the variable number of
     arguments which is
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个参数是切片本身。第二个参数是可变数量的参数。
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**‘…’** operator is the variadic syntax. So basically **…Type** means that
     the append function can accept a variable number of arguments of type **Type**.
     Below is the way for using this function. In the below code, we are appending
     4 to a slice that has two elements. It appends at the end and returns the original
     slice. That is why we are collecting results again in the **numbers** variable.
     It is also ok to assign the result to some other variable.'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**‘…’**运算符是可变参数语法。因此，基本上**…Type**表示追加函数可以接受类型为**Type**的可变数量的参数。以下是使用此函数的方法。在下面的代码中，我们正在向一个有两个元素的切片追加4。它会在末尾追加并返回原始切片。这就是为什么我们再次将结果收集到**numbers**变量中的原因。将结果赋值给其他变量也是可以的。'
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: It is also ok to append any number of elements because the second argument is
     the variadic argument.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 追加任意数量的元素也是可以的，因为第二个参数是可变参数。
 - en: '[PRE3]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This function in the background increases the length and capacity of the slice.
     There are two cases
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 该函数在后台增加切片的长度和容量。有两种情况。
 - en: When slice length is less than capacity
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当切片长度小于容量时
 - en: When slice length is equal to capacity
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当切片长度等于容量时
 - en: '**When slice length is less than capacity**'
+  id: totrans-30
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**当切片长度小于容量时**'
 - en: In this case, by using the append function,  the length of the slice will be
     increased by one without any change in its capacity. Let’s see an example
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，通过使用追加函数，切片的长度将增加1，而容量不会发生变化。让我们看一个例子。
 - en: '[PRE4]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Capacity in all cases doesn’t change and it is 5 while length increases by 1.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 在所有情况下，容量不会改变，始终是5，而长度增加1。
 - en: '**When slice length is equal to the capacity**'
+  id: totrans-36
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**当切片长度等于容量时**'
 - en: In this case, since there is no more capacity, so no new elements can be accommodated. 
     So in this case under the hood, an array of double the capacity will be allocated.
     The current array pointed by the slice will be copied to that new array. Now the
     slice will start pointing to this new array. Hence the capacity will be doubled
     and length will be increased by 1\. Let’s see an example
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，由于没有更多的容量，所以无法容纳新的元素。因此，在后台，将分配一个容量为两倍的数组。切片指向的当前数组将被复制到那个新数组。现在切片将开始指向这个新数组。因此，容量将翻倍，长度将增加1。让我们看一个例子。
 - en: '[PRE6]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Notice in the above example that the capacity is doubled.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意上面的例子中容量翻倍。
 - en: It is also possible to append one slice to another slice. Below is the format
     for that.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 也可以将一个切片附加到另一个切片。下面是该格式。
 - en: '[PRE8]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Notice **‘…’** after the second slice.** ‘…’ **is the operator which means that
     the argument is a variadic parameter. Meaning that during run time slice2 will
     be expanded to its individual elements which are passed as multiple arguments
     to the append function.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意第二个切片后面的**‘…’**。**‘…’**是表示参数为可变参数的操作符。这意味着在运行时，slice2将扩展为其单独元素，并作为多个参数传递给append函数。
 - en: '[PRE9]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**append() Function for string**'
+  id: totrans-48
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**append()函数用于字符串**'
 - en: A string in go is nothing but a sequence of bytes. Hence it is legal to append
     a string to a slice of bytes. Below is the program for that. Notice the **‘…’** at
     the end of the string
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: Go中的字符串只是字节序列。因此，将字符串附加到字节切片是合法的。下面是该程序。注意字符串末尾的**‘…’**
 - en: '[PRE11]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Output**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE12]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,112 +1,160 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:21:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:21:52
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Basic HTTP Server Implementation Using Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 基于Go（Golang）的基本HTTP服务器实现
 - en: 来源：[https://golangbyexample.com/basic-http-server-go/](https://golangbyexample.com/basic-http-server-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/basic-http-server-go/](https://golangbyexample.com/basic-http-server-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Request](#Request "Request")'
+  id: totrans-8
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[请求](#Request "请求")'
 - en: '[Response](#Response "Response")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[响应](#Response "响应")'
 - en: '[Pair of API signature and its handler](#Pair_of_API_signature_and_its_handler
     "Pair of API signature and its handler")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[API签名及其处理程序的配对](#Pair_of_API_signature_and_its_handler "API签名及其处理程序的配对")'
 - en: '[Mux](#Mux "Mux")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[路由器](#Mux "路由器")'
 - en: '[Listener](#Listener "Listener")'
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[监听器](#Listener "监听器")'
 - en: '[Using server’s ListenAndServe function](#Using_servers_ListenAndServe_function
     "Using server’s ListenAndServe function")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用服务器的ListenAndServe函数](#Using_servers_ListenAndServe_function "使用服务器的ListenAndServe函数")'
 - en: '[Using http''s ListenAndServe function](#Using_https_ListenAndServe_function
     "Using http''s ListenAndServe function")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用http的ListenAndServe函数](#Using_https_ListenAndServe_function "使用http的ListenAndServe函数")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "结论")*  *# **概述**'
 - en: HTTP (Hypertext Transfer Protocol) is an application layer protocol and works
     in client-server mode. HTTP server is basically a program running on a machine.
     It listens and responds to HTTP requests on its IP address with a particular port.
     As HTTP is the foundation of the World Wide Web and is used to load any web pages,
     every software developer comes across the situation where it is required to implement
     an HTTP Server to respond an HTTP request.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: HTTP（超文本传输协议）是应用层协议，以客户端-服务器模式工作。HTTP服务器基本上是运行在机器上的程序。它监听并响应其IP地址上的HTTP请求，指定端口。由于HTTP是万维网的基础，并用于加载任何网页，因此每个软件开发人员都面临需要实现HTTP服务器以响应HTTP请求的情况。
 - en: This article covers the HTTP server implementation in Go programming language.
     There is a go package **net**, that contains the utility packages to handle networking
     functions.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 本文涵盖Go编程语言中的HTTP服务器实现。Go包**net**包含处理网络功能的实用程序包。
 - en: '**net** package contains http package that provides both HTTP client (to make
     http requests) and HTTP server (listens to http requests) implementations. In
     this article, we will learn about HTTP server. Below is the statement to import
     the http package:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**net**包包含http包，提供HTTP客户端（用于发送http请求）和HTTP服务器（监听http请求）实现。本文将讨论HTTP服务器。下面是导入http包的语句：'
 - en: '[PRE0]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The crux to understanding the http server implementation is understanding below
     things
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 理解HTTP服务器实现的关键在于理解以下内容
 - en: '**Request** – it defines the request parameters i.e, Method, Api Signature,
     request headers, body, query params etc'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**请求** – 它定义请求参数，即方法、API签名、请求头、主体、查询参数等。'
 - en: '**Response** – defines the response parameters i.e, Status code, response body,
     headers'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**响应** – 定义响应参数，即状态码、响应体、头部'
 - en: '**Pair of API signature and its handler** – Each API signature corresponds
     to a handler. You can think of handler as a function which is invoked when a request
     is made for that particular API signature. The **mux** registers these pairs of
     API signature and its handler'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**API签名及其处理程序的配对** – 每个API签名对应一个处理程序。你可以把处理程序想象成一个在请求该特定API签名时被调用的函数。**mux**注册这些API签名及其处理程序的配对。'
 - en: '**Mux**– It acts as a router. Depending upon API signature of the request,
     it routes the request to the registered handler for that API signature. The handler
     will handle that incoming request and provide the response . For eg an API call
@@ -114,229 +162,343 @@
     with **“/v2/students”** might be handled by some other function. So basically
     based upon API signature( and also request method sometimes) , it decides which
     handler to invoke.'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**路由器**– 它充当路由器。根据请求的API签名，它将请求路由到该API签名的注册处理程序。处理程序将处理该传入请求并提供响应。例如，API调用**“/v2/teachers”**可能由不同的函数处理，而API调用**“/v2/students”**可能由另一个函数处理。因此，基本上根据API签名（有时也考虑请求方法），它决定调用哪个处理程序。'
 - en: '**Listener** – It runs on the machine, which listens to a particular port.
     Whenever it receives the request on that port it forwards the request to the **mux**.
     It also handles other functionalities as well but we will not discuss those it
     in this article.'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**监听器** – 它在机器上运行，监听特定端口。每当它在该端口接收到请求时，就会将请求转发给**mux**。它还处理其他功能，但我们在本文中不会讨论这些。'
 - en: There is more when it comes to HTTP, but for simplicity, we talked about only
     the above five things. The diagram below shows the interaction for an API request
     originating from the client.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 HTTP 方面还有更多内容，但为了简单起见，我们只讨论了以上五个要点。下面的图示展示了来自客户端的 API 请求的交互。
 - en: Let’s see an example. Below two pairs of API Signature and handlers are registered
     with the **mux.**
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。下面两个 API 签名和处理程序对在 **mux** 中注册。
 - en: '**“/v1/abc”**  and **handlerfunc_1**'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**“/v1/abc”** 和 **handlerfunc_1**。'
 - en: '**“/v1/xyz”** and **handlerfunc_2**'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**“/v1/xyz”** 和 **handlerfunc_2**。'
 - en: Client calling **“/v1/abc”** API. Listener forwards it to the **mux** and the
     **mux** routes it to the appropriate handler **handlerfunc_1**
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 客户端调用 **“/v1/abc”** API。监听器将其转发到 **mux**，而 **mux** 将其路由到适当的处理程序 **handlerfunc_1**。
 - en: '![](img/5b69ea6521708789ec3500c4f7df7da2.png)'
+  id: totrans-31
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/5b69ea6521708789ec3500c4f7df7da2.png)'
 - en: Client calling **“/v1/xyz”** API. Listener forwards it to the **mux** and the
     **mux** routes it to the appropriate handler **handlerfunc_2**
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 客户端调用 **“/v1/xyz”** API。监听器将其转发到 **mux**，而 **mux** 将其路由到适当的处理程序 **handlerfunc_2**。
 - en: '![](img/657a569f2d49c3504b4335c7e7d29648.png)'
+  id: totrans-33
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/657a569f2d49c3504b4335c7e7d29648.png)'
 - en: Now we have understood the above parts so let’s move on to see how each of the
     above is implemented in GO and then in the end we will see a complete program
     with the entire end to end flow
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们已经理解了以上部分，所以让我们继续看看以上每一部分在 Go 中是如何实现的，最后我们将看到一个完整的程序及整个端到端流程。
 - en: '**Request**'
+  id: totrans-35
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**请求**'
 - en: In GO a request is represented by the **Request** Struct.  Here is the link
     to the struct – [https://golang.org/pkg/net/http/#Request](https://golang.org/pkg/net/http/#Request)
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，请求由 **Request** 结构表示。这里是结构的链接 – [https://golang.org/pkg/net/http/#Request](https://golang.org/pkg/net/http/#Request)。
 - en: It contains the request method, Api Signature, request headers, body, query
     params, etc.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 它包含请求方法、API 签名、请求头、主体、查询参数等。
 - en: '**Response**'
+  id: totrans-38
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**响应**'
 - en: In GO a response is represented by the **ResponseWriter** Interface.  Here is
     the link to the interface – [https://golang.org/pkg/net/http/#ResponseWriter](https://golang.org/pkg/net/http/#ResponseWriter)ResponseWriter
     interface is used by an HTTP handler to construct an HTTP response. It provides
     three functions to set the response parameters
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，响应由 **ResponseWriter** 接口表示。这里是接口的链接 – [https://golang.org/pkg/net/http/#ResponseWriter](https://golang.org/pkg/net/http/#ResponseWriter)。ResponseWriter
+    接口由 HTTP 处理程序用于构造 HTTP 响应。它提供三个函数来设置响应参数。
 - en: Header – For writing response header
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 头部 – 用于编写响应头。
 - en: Write([]byte) – For writing response body
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Write([]byte) – 用于写入响应主体。
 - en: WriteHeader(statusCode int) – For writing the http status code
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: WriteHeader(statusCode int) – 用于写入 HTTP 状态码。
 - en: '**Pair of API signature and its handler**'
+  id: totrans-43
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**API 签名及其处理程序的对。**'
 - en: An API signature and its handler are paired. Then handler is called by the mux
     when it receives an API call matching the API signature. A golang handler can
     be either a **function** or a **type**
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: API 签名和它的处理程序是成对的。当接收到与 API 签名匹配的 API 调用时，mux 会调用处理程序。一个 Go 处理程序可以是一个 **函数**
+    或一个 **类型**。
 - en: '**Function** – the function should have below signature'
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**函数** – 函数应具有以下签名。'
 - en: '[PRE1]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Type** – the type should implement the the **Handler** interface'
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**类型** – 该类型应实现 **Handler** 接口。'
 - en: '[PRE2]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Let’s look at each one by one
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐一查看每个。
 - en: '**Function –** A handler can just be a simple function having below signature.'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**函数 –** 处理程序可以只是具有以下签名的简单函数。'
 - en: '[PRE3]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: It takes input has two arguments. The first one is ResponseWriter and the second
     one is a pointer to the Request struct. We discussed both of these earlier as
     well.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 它接受两个参数作为输入。第一个是 ResponseWriter，第二个是指向 Request 结构的指针。我们之前也讨论过这两个。
 - en: If an API signature and a function having signature as above are registered
     as a pair in the **mux**, then this function will be called when an API call is
     made matching the API signature.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果 API 签名和具有上述签名的函数在 **mux** 中注册为一对，则当发出与 API 签名匹配的 API 调用时，将调用该函数。
 - en: '**Type –** the type should implement the **Handler** Interface – [https://golang.org/pkg/net/http/#Handler](https://golang.org/pkg/net/http/#Handler)'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**类型 –** 该类型应实现 **Handler** 接口 – [https://golang.org/pkg/net/http/#Handler](https://golang.org/pkg/net/http/#Handler)。'
 - en: '[PRE4]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The **Handler** interface defines a **ServeHttp** function. If an API signature
     and a type that implements the **Handler** interface are registered as a pair
     in the mux, then the **ServeHTTP** method for this type will be invoked when an
     API call is made matching the API signature.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Handler** 接口定义了 **ServeHttp** 函数。如果 API 签名和实现了 **Handler** 接口的类型在 mux 中注册为一对，则在进行与
+    API 签名匹配的 API 调用时，该类型的 **ServeHTTP** 方法将被调用。'
 - en: If you will notice the API signature of the **function** used as a handler and
     **ListenAndServe** function is the same which is
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你注意到，作为处理程序的**function**的API签名和**ListenAndServe**函数是相同的。
 - en: '[PRE5]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: These functions will be called by mux depending upon the type of handler. Also
     to note that two different API Signature can have the same handler
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些函数将根据处理程序的类型由mux调用。还要注意的是，两种不同的API签名可以具有相同的处理程序。
 - en: '**Mux**'
+  id: totrans-60
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**Mux**'
 - en: The job of mux or multiplexer is to route request to the registered handler
     based upon API signature (and also request Method sometimes). If the signature
     and its handler is not registered with the mux, it raises a 404
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: mux或多路复用器的工作是根据API签名（有时也根据请求方法）将请求路由到注册的处理程序。如果签名及其处理程序未在mux中注册，则会引发404错误。
 - en: Go provides a default mux built in the language – [https://golang.org/pkg/net/http/#ServeMux](https://golang.org/pkg/net/http/#ServeMux).
     There are also other mux available in the market for golang. Different web frameworks
     such as gin provide there own mux
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: Go提供了一个内置的默认mux – [https://golang.org/pkg/net/http/#ServeMux](https://golang.org/pkg/net/http/#ServeMux)。市场上还有其他可用于golang的mux。不同的Web框架，如gin，提供自己的mux。
 - en: This is how we create a mux
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是我们创建mux的方式。
 - en: '[PRE6]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Let’s see how we register a pair of API Signature and its handler with the mux.
     There are two cases
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看如何将一对API签名及其处理程序与mux注册。这里有两种情况。
 - en: When the handler is a **function** . It registers the pattern which is API signature
     and the function as a handler
+  id: totrans-66
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当处理程序是一个**function**时，它注册的是API签名的模式和作为处理程序的函数。
 - en: '[PRE7]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: When the handler is a **type** implementing the **Handler** interface
+  id: totrans-68
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当处理程序是实现了**Handler**接口的**type**时。
 - en: '[PRE8]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Listener**'
+  id: totrans-70
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**Listener**'
 - en: The listener listens to a port and the forwards the request to the **mux** and
     then waits for response. Once it receives the response it sends it back to the
     client. A listener in golang can be implemented using the server struct – [https://golang.org/pkg/net/http/#Server](https://golang.org/pkg/net/http/#Server)
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 监听器监听一个端口，并将请求转发到**mux**，然后等待响应。一旦接收到响应，它会将其发送回客户端。在golang中，可以使用服务器结构实现监听器 –
+    [https://golang.org/pkg/net/http/#Server](https://golang.org/pkg/net/http/#Server)。
 - en: This is how we create a server. There are also some other parameters that we
     can specify while creating a server such as ReadTimeout, WriteTimeout etc., but
     that is out of scope for this tutorial. All parameters which are not provided
     take the default zero value.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是我们创建服务器的方式。创建服务器时，我们还可以指定一些其他参数，例如ReadTimeout、WriteTimeout等，但这超出了本教程的范围。所有未提供的参数都取默认零值。
 - en: '[PRE9]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: The **Addr** attribute of type string is the address of the machine on which
     the HTTP server will be launched.
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Addr**属性的类型为字符串，是将在其上启动HTTP服务器的机器的地址。'
 - en: This address is in the form of
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 该地址的形式为。
 - en: '[PRE10]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: If only :{port} is used as **addr** argument then that means HTTP server is
     reachable from all the ip addresses (loopback, public ip, internal ip) of the
     machine.
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果仅使用:{port}作为**addr**参数，那么这意味着HTTP服务器可以从机器的所有IP地址（回环地址、公共IP、内部IP）访问。
 - en: One can also use **“:http”** as the **addr** argument value for address port **“:80”** and **“:https” **for
     address port **“:443”**
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 还可以将**“:http”**作为**addr**参数值，用于地址端口**“:80”**，将**“:https”**用于地址端口**“:443”**。
 - en: A very important thing to note here is that **ServerMux** which is default mux
     built in the language also has a **ServeHttp** method  [https://golang.org/pkg/net/http/#ServeMux.ServeHTTP](https://golang.org/pkg/net/http/#ServeMux.ServeHTTP).
     So **ServerMux** also implements the **Handler** interface since it defines the
@@ -346,190 +508,301 @@
     of **ServerMux** while creating server. This is important to understand that **ServerMux**
     is of type **Handler** interface apart from registering different pairs of API
     signatures and their handlers.
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里需要注意的一件非常重要的事情是，**ServerMux**是语言中内置的默认mux，它也有一个**ServeHttp**方法 [https://golang.org/pkg/net/http/#ServeMux.ServeHTTP](https://golang.org/pkg/net/http/#ServeMux.ServeHTTP)。因此，**ServerMux**也实现了**Handler**接口，因为它定义了**ServeHttp**方法。在创建服务器时，你可能注意到我们必须提供一个类型为**Handler**接口的处理程序。这就是**ServerMux**实现**Handler**接口的便利之处，因为我们可以在创建服务器时传递**ServerMux**的实例。理解**ServerMux**是**Handler**接口的一种类型这一点很重要，此外它还注册了不同的API签名及其处理程序。
 - en: After the server is created we call the **ListenAndServe** method of the **server**
     . The server then starts listening to the provided port and upon receiving any
     api call on that port it calls the **ServeHttp** of the **mux** which in turns
     routes the request to the registered handlerHope above five things are clear now.
     Let’s see a working program illustrating above points
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 在服务器创建后，我们调用 **server** 的 **ListenAndServe** 方法。然后，服务器开始监听提供的端口，并在该端口收到任何 API
+    调用时调用 **mux** 的 **ServeHttp**，进而将请求路由到注册的处理程序。希望以上五个内容现在清晰了。让我们看看一个演示上述要点的工作程序。
 - en: '**Using server’s ListenAndServe function**'
+  id: totrans-81
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用服务器的 ListenAndServe 函数**'
 - en: '**main.go**'
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE11]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Let’s first understand the program before running it
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 在运行程序之前，我们先了解一下它。
 - en: We defined a function named **teacherHandler** which has signature accepting
     the **http.ResponseWriter** and pointer to **http.Request**
+  id: totrans-85
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们定义了一个名为 **teacherHandler** 的函数，该函数的签名接受 **http.ResponseWriter** 和指向 **http.Request**
+    的指针。
 - en: '[PRE12]'
+  id: totrans-86
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: We define a struct named **studentHandler** which defines the **ServeHTTP**
     method. So **studentHandler** is a type which implements the **Handler** interface
+  id: totrans-87
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们定义了一个名为 **studentHandler** 的结构体，该结构体定义了 **ServeHTTP** 方法。因此，**studentHandler**
+    是一个实现了 **Handler** 接口的类型。
 - en: '[PRE13]'
+  id: totrans-88
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: We create an instance of **ServerMux**
+  id: totrans-89
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们创建了一个 **ServerMux** 的实例。
 - en: '[PRE14]'
+  id: totrans-90
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: We registered the pair of API signature  “/v1/teachers” and its handler **teacherHandler**
+  id: totrans-91
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们注册了 API 签名“/v1/teachers”及其处理程序 **teacherHandler**。
 - en: '[PRE15]'
+  id: totrans-92
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: We registered the pair of API signature  “/v1/students” and its handler **studentHandler**
     which is a type implementing **Handler** interface
+  id: totrans-93
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们注册了 API 签名“/v1/students”及其处理程序 **studentHandler**，它是一个实现了 **Handler** 接口的类型。
 - en: '[PRE16]'
+  id: totrans-94
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: We created the server and provided it the instance of **ServerMux** and the
     port to listen to which is 8080\. Then the  **ListenAndServe** method on the server’s
     instance was called.
+  id: totrans-95
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们创建了服务器，并提供了 **ServerMux** 的实例和要监听的端口，即 8080。然后调用了服务器实例上的 **ListenAndServe**
+    方法。
 - en: '[PRE17]'
+  id: totrans-96
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Let’s run the server  now
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们运行服务器。
 - en: '[PRE18]'
+  id: totrans-98
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: It will start listening to port 8080\. This program never exits and process
     remains locked until terminated forcefully, which is recommended as any HTTP server
     should be up and running all the time. Now make api calls
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将开始监听 8080 端口。这个程序不会退出，进程会保持锁定状态，直到被强制终止，这是推荐的，因为任何 HTTP 服务器都应始终处于运行状态。现在进行
+    API 调用。
 - en: Calling **“v1/teachers”** api – It returns correct response – ‘**V1 of teacher’s
     called’** along with correct status code of 200
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: 调用 **“v1/teachers”** API – 它返回正确的响应 – ‘**V1 of teacher’s called’**，以及正确的状态码
+    200。
 - en: '[PRE19]'
+  id: totrans-101
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Calling **"v1/students"** api - It returns correct response - '**V1 of student's
     called'** along with correct status code of 200
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 调用 **"v1/students"** API - 它返回正确的响应 - '**V1 of student's called'**，以及正确的状态码
+    200。
 - en: '[PRE20]'
+  id: totrans-103
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: You can also try these apis on the browser
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: 你也可以在浏览器上尝试这些 API。
 - en: For api **"/v1/teachers"**
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于 API **"/v1/teachers"**。
 - en: '![](img/17984f2c37684d92033949e76b60be87.png)'
+  id: totrans-106
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/17984f2c37684d92033949e76b60be87.png)'
 - en: For api **"/v1/students"**
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于 API **"/v1/students"**。
 - en: '![](img/af4b2215673cf8b402db2c2937e89137.png)'
+  id: totrans-108
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/af4b2215673cf8b402db2c2937e89137.png)'
 - en: '**Using http''s ListenAndServe function**'
+  id: totrans-109
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 http 的 ListenAndServe 函数**。'
 - en: So we looked at a program where we built a **mux**, then we added pairs of API
     signature and their handlers. Finally we created a server and started it. **net/http**
     package also provides a function **ListenAndServe** which creates a default server
     and uses the default **mux** to achieve the same what we discussed above. It is
     a short way of doing starting a http server
+  id: totrans-110
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以我们查看了一个程序，在那里我们构建了一个 **mux**，然后添加了一对 API 签名及其处理程序。最后，我们创建了一个服务器并启动了它。**net/http**
+    包还提供了一个 **ListenAndServe** 函数，该函数创建一个默认服务器并使用默认的 **mux** 实现我们上面讨论的内容。这是一种启动 HTTP
+    服务器的简便方法。
 - en: The **ListenAndServe** function has an **addr** and **handler** as its input
     arguments and it starts a HTTP server. It starts listening to incoming HTTP requests
     and serve the requests when received any.Below is the signature of the **ListenAndServe**
     function
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: '**ListenAndServe** 函数有一个 **addr** 和 **handler** 作为输入参数，并启动一个 HTTP 服务器。它开始监听传入的
+    HTTP 请求，并在收到请求时进行服务。下面是 **ListenAndServe** 函数的签名。'
 - en: '[PRE21]'
+  id: totrans-112
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: Below is way to call this function
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是调用此函数的方法。
 - en: '[PRE22]'
+  id: totrans-114
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: If you will notice above we called **ListenAndServe** function with nil value
     for handler
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你注意到上面，我们以 nil 值调用了 **ListenAndServe** 函数。
 - en: '[PRE23]'
+  id: totrans-116
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: In that situation a default instance of **ServeMux** ([https://golang.org/pkg/net/http/#ServeMux](https://golang.org/pkg/net/http/#ServeMux)
     ) will be created
+  id: totrans-117
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，将创建一个默认实例的 **ServeMux** ([https://golang.org/pkg/net/http/#ServeMux](https://golang.org/pkg/net/http/#ServeMux)
+    )。
 - en: '[PRE24]'
+  id: totrans-118
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: net/http package provides the **HandleFunc** and **Handle.** These function
     works in the same way as mux's methods.
+  id: totrans-119
   prefs: []
   type: TYPE_NORMAL
+  zh: net/http 包提供了 **HandleFunc** 和 **Handle**。这两个函数的工作方式与 mux 的方法相同。
 - en: Run the server
+  id: totrans-120
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行服务器。
 - en: '[PRE25]'
+  id: totrans-121
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: The output will be same as we discussed above. This is all about basic HTTP
     server implementation in golang.
+  id: totrans-122
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出将与我们之前讨论的一样。这就是 golang 中基本 HTTP 服务器实现的全部内容。
 - en: '**Conclusion**'
+  id: totrans-123
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: We learned that we can create a HTTP server in two ways
+  id: totrans-124
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们了解到可以通过两种方式创建 HTTP 服务器。
 - en: Using server.ListenAndServe - [https://golang.org/pkg/net/http/#Server.ListenAndServe](https://golang.org/pkg/net/http/#Server.ListenAndServe)
+  id: totrans-125
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 server.ListenAndServe - [https://golang.org/pkg/net/http/#Server.ListenAndServe](https://golang.org/pkg/net/http/#Server.ListenAndServe)
 - en: Using http.ListenAndServe - [https://golang.org/pkg/net/http/#ListenAndServe](https://golang.org/pkg/net/http/#ListenAndServe)
+  id: totrans-126
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 http.ListenAndServe - [https://golang.org/pkg/net/http/#ListenAndServe](https://golang.org/pkg/net/http/#ListenAndServe)
 - en: Internally both of them are doing the same thing. The second one uses default
     for everything while the first one lets you create mux and server instance explicitly
     so that you can specify more options and hence first option is more flexible.
+  id: totrans-127
   prefs: []
   type: TYPE_NORMAL
+  zh: 从内部来看，它们执行的都是相同的操作。第二种使用默认设置，而第一种则明确允许你创建 mux 和服务器实例，从而可以指定更多选项，因此第一种选项更灵活。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-128
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

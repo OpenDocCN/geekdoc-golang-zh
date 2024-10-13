@@ -1,69 +1,104 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:22:16'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:22:16
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Benefits of Interface in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中接口的好处
 - en: 来源：[https://golangbyexample.com/benefits-of-interface-golang/](https://golangbyexample.com/benefits-of-interface-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/benefits-of-interface-golang/](https://golangbyexample.com/benefits-of-interface-golang/)
 - en: Below are some benefits of using interface.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是使用接口的一些好处。
 - en: Helps write more modular and decoupled code between different parts of the codebase
     – It can help reduce dependency between different parts of the codebase and provide
     loose coupling.
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 有助于在代码库的不同部分之间编写更模块化和解耦的代码——这有助于减少代码库不同部分之间的依赖关系，并提供松耦合。
 - en: For eg imagine an application interacting with a database layer. If the application
     interacts with the database using the interface, then it never gets to know about
     what kind of database is being used in the background. You can change the type
     of database in the background, let’s say from arango db to mongo db without any
     change in the application layer as it interacts with the database layer via an
     interface which both arango db and mongo db implement.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，想象一个与数据库层交互的应用程序。如果应用程序通过接口与数据库交互，那么它就不会知道后台使用的是哪种数据库。你可以在后台更改数据库类型，比如从 Arango
+    DB 更改为 Mongo DB，而无需对应用层进行任何更改，因为它是通过实现了接口的数据库层与数据库交互的。
 - en: Interface can be used to achieve run time polymorphism in golang. RunTime Polymorphism
     means that a call is resolved at runtime. Let’s understand how an interface can
     be used to achieve runtime polymorphism with an example
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接口可以用于实现 Golang 中的运行时多态性。运行时多态性意味着调用在运行时解析。让我们通过一个示例理解接口如何用于实现运行时多态性。
 - en: Different countries have different ways of calculating the tax. This can be
     represented by means of an interface.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 不同国家有不同的税收计算方式。这可以通过接口来表示。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Now different countries can have their own struct and can implement the **calculateTax()**
     method. The same **calculateTax** method is used in different contexts to calculate
     tax. When the compiler sees this call it delays which exact method to be called
     at run time.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，不同国家可以拥有自己的结构并实现 **calculateTax()** 方法。相同的 **calculateTax** 方法在不同的上下文中用于计算税款。当编译器看到这个调用时，它会推迟在运行时调用哪个具体的方法。
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)'

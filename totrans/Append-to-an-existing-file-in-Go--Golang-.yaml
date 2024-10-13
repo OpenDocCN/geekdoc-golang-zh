@@ -1,52 +1,82 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类: 未分类'
 - en: 'date: 2024-10-13 06:07:29'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:07:29'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Append to an existing file in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中追加到现有文件
 - en: 来源：[https://golangbyexample.com/append-file-golang/](https://golangbyexample.com/append-file-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/append-file-golang/](https://golangbyexample.com/append-file-golang/)
 - en: '**os.OpenFile()** function of the os package can be used to open to a file
     in an append mode and then write to it'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: os包的**os.OpenFile()**函数可以用于以追加模式打开文件，然后写入内容
 - en: 'Let’s see an example. In the below program:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。在下面的程序中：
 - en: First, write to a file using **ioutil** package
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 首先，使用**ioutil**包写入文件
 - en: Open the file again in Append mode and write the second line to it
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 再次以追加模式打开文件并写入第二行
 - en: Read the file to verify the content.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 读取文件以验证内容。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[file](https://golangbyexample.com/tag/file/)*   [go](https://golangbyexample.com/tag/go/)'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[文件](https://golangbyexample.com/tag/file/) *   [go](https://golangbyexample.com/tag/go/)'

@@ -1,63 +1,99 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:06:05'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:06:05'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Binary Search Tree in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的二叉搜索树
 - en: 来源：[https://golangbyexample.com/binary-search-tree-in-go/](https://golangbyexample.com/binary-search-tree-in-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/binary-search-tree-in-go/](https://golangbyexample.com/binary-search-tree-in-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction](#Introduction "Introduction")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍](#Introduction "Introduction")'
 - en: '[Full Working Code](#Full_Working_Code "Full Working Code")*  *# **Introduction**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码](#Full_Working_Code "Full Working Code")*  *# **介绍**'
 - en: A binary search tree abbreviated as BST is a binary tree. For each node in a
     Binary Search Tree
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 二叉搜索树（BST）是一个二叉树。每个节点在二叉搜索树中
 - en: Value of each node in the left  subtree is less than the current node value
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 左子树中每个节点的值都小于当前节点的值
 - en: Value of each node in the right subtree is greater than the current node value
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 右子树中每个节点的值都大于当前节点的值
 - en: Both left and right subtree are themselves Binary Search Tree
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 左右子树本身都是二叉搜索树
 - en: '**Full Working Code**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**完整工作代码**'
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[binary search tree in golang](https://golangbyexample.com/tag/binary-search-tree-in-golang/)*   [bst](https://golangbyexample.com/tag/bst/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go语言中的二叉搜索树](https://golangbyexample.com/tag/binary-search-tree-in-golang/)*   [bst](https://golangbyexample.com/tag/bst/)*'

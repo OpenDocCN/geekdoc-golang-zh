@@ -1,345 +1,542 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:32:23'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:32:23
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Base64 encoding/Decoding in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的 Base64 编码/解码
 - en: 来源：[https://golangbyexample.com/base64-golang/](https://golangbyexample.com/base64-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/base64-golang/](https://golangbyexample.com/base64-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[StdEncoding](#StdEncoding "StdEncoding")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[标准编码](#StdEncoding "StdEncoding")'
 - en: '[URLEncoding](#URLEncoding "URLEncoding")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[URL编码](#URLEncoding "URLEncoding")'
 - en: '[RawStdEncoding](#RawStdEncoding "RawStdEncoding")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[原始标准编码](#RawStdEncoding "RawStdEncoding")'
 - en: '[RawURLEncoding](#RawURLEncoding "RawURLEncoding")*  *# **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[原始 URL 编码](#RawURLEncoding "RawURLEncoding")*  *# **概述**'
 - en: Golang provides an **encoding/base64** package that can be used to encode strings
     to base64 and decode the base64 encoded string back to the original string. [https://golang.org/pkg/encoding/base64/](https://golang.org/pkg/encoding/base64/)
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang 提供了一个 **encoding/base64** 包，可用于将字符串编码为 base64 并将 base64 编码的字符串解码回原始字符串。[https://golang.org/pkg/encoding/base64/](https://golang.org/pkg/encoding/base64/)
 - en: Go supports base64 in 4 different ways.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 支持四种不同方式的 base64。
 - en: '**StdEncoding**– Standard 64 characters with padding. It encodes into below
     characters'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**标准编码**– 标准的 64 个字符，带有填充。它编码为以下字符'
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**URLEncoding** –  Same as StdEncoding just that in this, the **‘+’** and **‘\’**
     sign is replaced with **‘-‘** and **‘_’**. They are replaced to make them compatible
     with filenames and URLs. Below is the character set for base64 URL encoding'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**URL编码** – 与标准编码相同，只是其中的 **‘+’** 和 **‘\’** 符号被替换为 **‘-‘** 和 **‘_’**。它们被替换以使其与文件名和
+    URL 兼容。以下是 base64 URL 编码的字符集'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**RawStdEncoding** – This is the same as StdEncoding just that it omits padding
     characters.  So it is unpadded base64  STD encoding.'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**原始标准编码** – 这与标准编码相同，只是省略了填充字符。因此，它是未填充的 base64 标准编码。'
 - en: '**RawURLEncoding** – This is also the same as URL encoding just that it omits
     padding characters. So it is unpadded base64 URL encoding.'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**原始 URL 编码** – 这也与 URL 编码相同，只是省略了填充字符。因此，它是未填充的 base64 URL 编码。'
 - en: Each of the above encodings is represented by the Encoding struct
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述每个编码由 Encoding 结构表示
 - en: '[https://golang.org/pkg/encoding/base64/#Encoding](https://golang.org/pkg/encoding/base64/#Encoding)'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/encoding/base64/#Encoding](https://golang.org/pkg/encoding/base64/#Encoding)'
 - en: Encoding struct further defines two methods for encoding and decoding
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: Encoding 结构进一步定义了两个编码和解码的方法
 - en: '**EncodeToString** – Below is the signature of the method. It takes bytes as
     an input and returns the base64 encoded string depending upon which one of the
     above 4 encodings is used.'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**编码为字符串** – 以下是该方法的签名。它将字节作为输入，并根据使用的四种编码之一返回 base64 编码的字符串。'
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**DecodeString** – Below is the signature of the method. It takes the encoded
     string as an input and returns the original string depending upon which one of
     the above 4 encodings is used.'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**解码字符串** – 以下是该方法的签名。它将编码字符串作为输入，并根据使用的四种编码之一返回原始字符串。'
 - en: '[PRE3]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Let’s see a detailed example of each
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们详细看看每一个例子
 - en: '**StdEncoding**'
+  id: totrans-28
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**标准编码**'
 - en: This is the standard base64 encoding which is defined in RFC 4648\. It uses
     the below 64 characters set along with padding character **‘=’.**
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是标准的 base64 编码，定义在 RFC 4648 中。它使用以下 64 个字符集以及填充字符 **‘=’**。
 - en: '[PRE4]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Let’s see an example of this
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个这个的例子
 - en: '**Example**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**例子**'
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Notice that in the above example we are encoding the below string using base64
     Std encoding
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在上面的例子中，我们使用 base64 标准编码对下面的字符串进行编码
 - en: '[PRE7]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Then we are decoding the base64 encoded string back to the original string
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们将 base64 编码的字符串解码回原始字符串
 - en: '[PRE8]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: It correctly outputs the original string back on decoding
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 它在解码时正确输出原始字符串
 - en: '**URLEncoding**'
+  id: totrans-41
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**URL编码**'
 - en: In this, the **‘+’** and **‘\’** sign is replaced with **‘-‘** and **‘_’**.
     They are replaced to make them compatible with filenames and URLs.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，**‘+’** 和 **‘\’** 符号被替换为 **‘-‘** 和 **‘_’**。它们被替换以使其与文件名和 URL 兼容。
 - en: '**URL**: In URLs **‘+’** and **‘\’**  are further encoded into hexadecimal
     sequences due to URL encoding thereby further increasing the length of the URL.
     For eg **‘+’** will be converted to ‘%2B’ and **‘\’** will be encoded to ‘%2F’
     in the URL encoding.'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**URL**：在 URL 中，**‘+’** 和 **‘\’** 由于 URL 编码而进一步编码为十六进制序列，从而进一步增加了 URL 的长度。例如，**‘+’**
+    将被转换为 ‘%2B’，**‘\’** 将在 URL 编码中编码为 ‘%2F’。'
 - en: '**Filenames**:  **‘\’** is used in file paths in both Unix and Windows. Hence
     it ‘\’ is replaced with **‘_’**'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**文件名**：在 Unix 和 Windows 中，文件路径使用 **‘\’**。因此，它将 **‘\’** 替换为 **‘_’**。'
 - en: Let’s see an example
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子
 - en: '[PRE9]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Notice that in the above example we have taken the example of the below string
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意在上述示例中，我们取了下面字符串的示例
 - en: '[PRE11]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Then we are printing both the StdEncoding as well as URL Encoding of the above
     string
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们打印上述字符串的标准编码和 URL 编码
 - en: '[PRE12]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Notice the difference in output
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意输出中的区别
 - en: For URL encoding it prints
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于 URL 编码，它输出
 - en: '[PRE13]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: while for STD encoding, it prints
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 而对于标准编码，它输出
 - en: '[PRE14]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: This is because **‘+’** is present in STD encoding but in URL encoding **‘+’**
     is replaced with **‘-‘**
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是因为在标准编码中存在 **‘+’**，而在 URL 编码中 **‘+’** 被替换为 **‘-‘**
 - en: '**RawStdEncoding**'
+  id: totrans-59
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**原始标准编码**'
 - en: This is the same as StdEncoding just that it omits padding characters.  So it
     is unpadded STD base64 encoding. Let’s see an example. Before we see an example
     of Raw STD encoding we want to explain why the raw version of std encoding exists
     which omits padding characters.  That brings a very important topic related to
     base64 encoding which is **‘Is padding necessary’.** The answer is that it depends
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 这与标准编码相同，只是省略了填充字符。因此这是未填充的标准 base64 编码。让我们看一个例子。在我们看到原始标准编码的例子之前，我们想解释为什么存在省略填充字符的标准编码的原始版本。这涉及到一个非常重要的主题，即
+    base64 编码中的 **‘填充是否必要’**。答案是这取决于情况。
 - en: Padding is not necessary when you are sending a single string.
+  id: totrans-61
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你发送单个字符串时，填充不是必需的。
 - en: Padding is important when you are concatenating base64 encodings of multiple
     strings. If unpadded strings are concatenated then it will be impossible to get
     the original string as information about the bytes added will be lost. As an illustration,
     consider below
+  id: totrans-62
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你串联多个字符串的 base64 编码时，填充是重要的。如果未填充的字符串被串联，那么将不可能得到原始字符串，因为关于添加的字节的信息将会丢失。作为说明，请考虑以下内容
 - en: '| **Actual String** | **Base64 Encoded with Padding** | **Base64 Encoded without
     Padding** |'
+  id: totrans-63
   prefs: []
   type: TYPE_TB
+  zh: '| **实际字符串** | **带填充的 Base64 编码** | **不带填充的 Base64 编码** |'
 - en: '| a | YQ== | YQ |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '| a | YQ== | YQ |'
 - en: '| bc | YmM= | YmM |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '| bc | YmM= | YmM |'
 - en: '| def | ZGVm | ZGVm |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '| def | ZGVm | ZGVm |'
 - en: Now let’s consider both cases.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们考虑这两种情况。
 - en: '**When the concatenation is sent without padding**'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: '**当串联发送时不需要填充**'
 - en: In this case, the concatenated Base64 string will be
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，串联的 Base64 字符串将是
 - en: '[PRE15]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: Try decoding it and you will get the final string as below which is incorrect
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试解码它，你将得到如下的最终字符串，这是不正确的
 - en: '[PRE16]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**When the concatenation is sent with padding**'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: '**当串联发送时需要填充**'
 - en: In this case, the concatenated Base64 string will be
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，串联的 Base64 字符串将是
 - en: '[PRE17]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Try decoding it in groups of 4 characters and you will get the final string
     as below which is correct
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试按 4 个字符分组解码，你将得到如下的最终字符串，这是正确的
 - en: '[PRE18]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: Now again the question that comes to mind is why do you need to concatenate
     multiple base64 encoded strings. The answer is that it is always good in cases
     where there is streaming data and you want to send the base64 encoded data as
     it comes. For example, buffering of video.
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在再次浮现的问题是，为什么需要串联多个 base64 编码的字符串。答案是，在有流数据的情况下，想要随着数据的到来发送 base64 编码的数据总是好的。例如，视频的缓冲。
 - en: So that is why padding is encouraged though not absolutely not necessary in
     all cases. Now let’s see an example of Raw Std Encoding
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以这就是为什么填充是被鼓励的，尽管在所有情况下并非绝对必要。现在让我们看一个原始标准编码的例子。
 - en: '[PRE19]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**Output**'
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE20]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: In the above example we are printing both the result of both **StdEncoding**
     as well as **RawStdEncoding**
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们打印了 **标准编码** 和 **原始标准编码** 的结果。
 - en: '[PRE21]'
+  id: totrans-84
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: Notice the difference in output
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意输出中的区别
 - en: For STD encoding it prints
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于标准编码，它输出
 - en: '[PRE22]'
+  id: totrans-87
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: while for Raw STD encoding, it prints
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 而对于原始标准编码，它输出
 - en: '[PRE23]'
+  id: totrans-89
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: As you can notice that RAW STD Encoding omits padding characters.
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如你所注意到的，原始标准编码省略了填充字符。
 - en: '**RawURLEncoding**'
+  id: totrans-91
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**原始 URL 编码**'
 - en: This is also the same as URL encoding just that it omits padding characters.
     So it is unpadded STD base64 encoding.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 这与 URL 编码相同，只是它省略了填充字符。所以这是未填充的标准 base64 编码。
 - en: '[PRE24]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Output**'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE25]'
+  id: totrans-95
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: In the above example, we are again printing the result of both URL encoding
     and as well as RAW URL encoding and you can notice that padding character **‘=’**
     is omitted in the Raw URL encoding.*
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们再次打印了 URL 编码和原始 URL 编码的结果，你可以注意到填充字符 **‘=’** 在原始 URL 编码中被省略了。

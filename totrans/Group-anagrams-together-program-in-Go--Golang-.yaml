@@ -1,108 +1,167 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:44:26'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:44:26
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Group anagrams together program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中将字母异位词组合在一起的程序
 - en: 来源：[https://golangbyexample.com/group-anagrams-together-go/](https://golangbyexample.com/group-anagrams-together-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/group-anagrams-together-go/](https://golangbyexample.com/group-anagrams-together-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: Given an array of strings, write a program to group all anagrams together. 
     From Wikipedia
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个字符串数组，编写一个程序将所有字母异位词组合在一起。来自维基百科
 - en: An **anagram** is a word or phrase formed by rearranging the letters of a different
     word or phrase, typically using all the original letters exactly once. For example,
     the word *anagram* itself can be rearranged into *nagaram*, also the word *binary* into *brainy*^, and
     the word *adobe* into the *abode*.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**字母异位词**是通过重新排列不同单词或短语的字母形成的单词或短语，通常使用所有原始字母一次。例如，单词*anagram*本身可以重新排列为*nagaram*，单词*binary*可以变为*brainy*^，单词*adobe*可以变为*abode*。'
 - en: For eg
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Below will the strategy.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是策略。
 - en: Duplicate the original array. Sort each string in the duplicate array. After
     sorting the duplicate array will look like this
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 复制原始数组。对副本数组中的每个字符串进行排序。排序后的副本数组将如下所示
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Create a map to store the output
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个映射以存储输出
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Build a trie for the above duplicate array with all strings sorted. Update the
     map above after inserting each element. Map should look like as below for “art”
     as art has its anagrams at 0,2 and 5 positions in the original array.
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 为上述副本数组构建一个前缀树，所有字符串都已排序。插入每个元素后更新上述映射。对于“art”，映射应如下所示，因为art在原始数组中的位置为0、2和5。
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Iterate over the map and print the output by indexing in the input array of
     strings
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 遍历映射并通过在输入字符串数组中索引打印输出
 - en: '**Program**'
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的程序
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的Golang高级教程。本系列的教程内容详尽，我们尝试覆盖所有概念及示例。本教程适合希望获得专业知识和对golang有深入理解的学习者
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

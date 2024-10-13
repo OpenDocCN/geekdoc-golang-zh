@@ -1,117 +1,180 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:27:03'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:27:03
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: How does defer works in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: defer在Go（Golang）中是如何工作的
 - en: 来源：[https://golangbyexample.com/how-defer-works-golang/](https://golangbyexample.com/how-defer-works-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/how-defer-works-golang/](https://golangbyexample.com/how-defer-works-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Single Defer](#Single_Defer "Single Defer")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[单个Defer](#Single_Defer "单个Defer")'
 - en: '[Multiple Defer function within a particular function](#Multiple_Defer_function_within_a_particular_function
     "Multiple Defer function within a particular function")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[特定函数中的多个Defer函数](#Multiple_Defer_function_within_a_particular_function "特定函数中的多个Defer函数")'
 - en: '[Multiple Defer function in different functions](#Multiple_Defer_function_in_different_functions
     "Multiple Defer function in different functions")*  *# **Overview**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[不同函数中的多个Defer函数](#Multiple_Defer_function_in_different_functions "不同函数中的多个Defer函数")*  *#
+    **概述**'
 - en: When the compiler encounters a defer statement in a function it pushes it onto
     a list. This list internally implements a stack-like data structure.  All the
     encountered defer statement in the same function are pushed onto this list. When
     the surrounding function returns then all the functions in the stack starting
     from top to bottom are executed before execution can begin in the calling function.
     Now the same thing will happen in the calling function as well.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 当编译器在一个函数中遇到defer语句时，它会将其推入一个列表。该列表内部实现了类似堆栈的数据结构。同一函数中遇到的所有defer语句都会被推入这个列表。当外部函数返回时，堆栈中的所有函数将从上到下依次执行，然后才能开始调用函数的执行。调用函数中也会发生相同的事情。
 - en: Let’s see three cases of defer to better understand how defer works in go
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看三个defer的例子，更好地理解defer在Go中的工作原理。
 - en: Single defer
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 单个defer
 - en: Multiple defer in the same function
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 同一函数中的多个defer
 - en: Different defer in different function
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 不同函数中的不同defer
 - en: Let’s see an example of each of them
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看每个示例
 - en: '**Single Defer**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**单个Defer**'
 - en: '[PRE0]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program there is a **defer** statement calling the custom function
     named **test**. As seen from the output, the **test** function is called after
     everything in the main is executed and before main returns. That is why
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，有一个**defer**语句调用了名为**test**的自定义函数。从输出可以看出，**test**函数在主函数的所有内容执行完后被调用，并在主函数返回之前执行。这就是原因。
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: is printed before
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在此之前会打印
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Multiple Defer function within a particular function**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**特定函数中的多个Defer函数**'
 - en: In case we have multiple defer functions within a particular function, then
     all the  defer functions will be executed in last in first out order which is
     similar to what we mentioned above
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果在特定函数中有多个defer函数，则所有defer函数将按照后进先出的顺序执行，这与我们上述提到的相似。
 - en: Let’s see a program for that
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一下这个程序。
 - en: '[PRE4]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program we have three **defer** function each printing the value
     of **i**. The variable **i** is incremented before each defer. The code outputs
     3 first meaning that third defer function is executed first.  Then it outputs
@@ -119,54 +182,82 @@
     that first defer is executed last. This shows that when there are multiple defer
     functions within a particular function then the follow the “Last in first out”
     rule. And that is why program outputs
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有三个**defer**函数，每个函数打印**i**的值。变量**i**在每个defer之前递增。代码首先输出3，表示第三个defer函数首先执行。然后输出2，表示第二个defer在其后执行，最后输出1，表示第一个defer最后执行。这表明，当特定函数中有多个defer函数时，遵循“后进先出”的规则。这就是程序输出的原因。
 - en: '[PRE6]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Multiple Defer function in different functions**'
+  id: totrans-33
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**不同函数中的多个Defer函数**'
 - en: Let’s understand what happens when we have multiple defer functions in different
     functions.. Imagine a function call from **main** function to **f1** function
     to **f2** function
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们理解当在不同函数中有多个defer函数时会发生什么。想象一下从**main**函数调用**f1**函数，再调用**f2**函数的情况。
 - en: '**main**->**f1**->**f2**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main**->**f1**->**f2**'
 - en: Below is the sequence that will be happening after f2 returns
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是f2返回后将发生的顺序
 - en: Defer functions in **f2** will be executed if present. Control will return to
     the caller which is a function **f1**.
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果存在**f2**中的defer函数，将执行这些defer函数。控制将返回给调用者，即函数**f1**。
 - en: Defer functions in **f1** will be executed if present. Control will return to
     the caller which is a function **main**. Note that if there are more functions
     in between then the process will continue up the stack in a similar way
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果在**f1**中存在defer函数，它们将被执行。控制将返回给调用者，即函数**main**。请注意，如果中间有更多函数，处理将以类似的方式向上继续执行。
 - en: After main returns the defer  function if present in main will be executed
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在主函数返回后，如果主函数中存在defer函数，它将被执行。
 - en: Let’s see a program for that
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个程序示例。
 - en: '[PRE7]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

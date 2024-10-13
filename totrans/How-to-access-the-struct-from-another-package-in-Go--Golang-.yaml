@@ -1,95 +1,151 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:34:44'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:34:44
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: How to access the struct from another package in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 如何在Go（Golang）中从另一个包访问结构体
 - en: 来源：[https://golangbyexample.com/struct-another-package-golang/](https://golangbyexample.com/struct-another-package-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/struct-another-package-golang/](https://golangbyexample.com/struct-another-package-golang/)。
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: The struct name in another package must start with a capital letter so that
     it is public outside its package. If the struct name starts with lowercase then
     it will not be visible outside its package.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个包中的结构体名称必须以大写字母开头，这样它才能在包外公开。如果结构体名称以小写字母开头，则在包外不可见。
 - en: To access a struct outside its package we need to import the package first which
     contains that struct.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 要在包外访问一个结构体，我们需要先导入包含该结构体的包。
 - en: '**Program**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the code for the same
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相应的代码
 - en: '**go.mod**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**model/person.go**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**model/person.go**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**main.go**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this program, we first import the **model** package from the **main** package
     as below.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个程序中，我们首先从**main**包导入**model**包，如下所示。
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Then we access the **Person** struct as below from the **main** package
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们从**main**包访问**Person**结构体如下。
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: This works because **Person** struct name is in uppercase.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 之所以可行，是因为**Person**结构体名称是大写的。
 - en: Let’s change the struct name to lower case and run this program. It gives the
     below compilation error
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们将结构体名称改为小写并运行这个程序。它会产生以下编译错误
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Also, check out our Golang comprehensive tutorial Series – [Golang Comprehensive
     Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 另请查看我们的Golang综合教程系列 – [Golang综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

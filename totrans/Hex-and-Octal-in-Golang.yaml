@@ -1,108 +1,168 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:06:37'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:37
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Hex and Octal in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中的十六进制和八进制
 - en: 来源：[https://golangbyexample.com/hex-and-octal-in-golang/](https://golangbyexample.com/hex-and-octal-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/hex-and-octal-in-golang/](https://golangbyexample.com/hex-and-octal-in-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Hex Numbers](#Hex_Numbers "Hex Numbers")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[十六进制数字](#Hex_Numbers "Hex Numbers")'
 - en: '[Octal Numbers](#Octal_Numbers "Octal Numbers")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[八进制数字](#Octal_Numbers "Octal Numbers")'
 - en: '[Combined Example of Octal and Hex](#Combined_Example_of_Octal_and_Hex "Combined
     Example of Octal and Hex")*  *# **Overview**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[八进制与十六进制的组合示例](#Combined_Example_of_Octal_and_Hex "Combined Example of Octal
+    and Hex")*  *# **概述**'
 - en: Hex numbers are base 16
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 十六进制数字是基数16。
 - en: Octal numbers are base 8
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 八进制数字是基数8。
 - en: '**Hex Numbers**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**十六进制数字**'
 - en: Hex numbers can be written using prefix 0x or 0X in GO. When Go sees any number
     starting with 0x or 0X, it treats it as a hexadecimal number. In the below example,
     we added  **0x14** in hexadecimal to number 10\. **0x14** in hexadecimal is equal
     to **20** in decimal. Therefore the output will be 30\. See conversion table –
     [https://ascii.cl/conversion.htm](https://ascii.cl/conversion.htm)
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 十六进制数字可以在Go中使用前缀0x或0X表示。当Go看到任何以0x或0X开头的数字时，它将其视为十六进制数字。在下面的例子中，我们将**0x14**以十六进制添加到数字10。**0x14**的十六进制等于**20**的十进制。因此输出将是30。请参见转换表
+    – [https://ascii.cl/conversion.htm](https://ascii.cl/conversion.htm)
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Octal Numbers**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**八进制数字**'
 - en: Octal numbers can be written using prefix **0** in Go. When Go sees any number
     starting with **0**, it treats it as a octal number. In the below example, we
     added  **024** in **octal** to 10\. **024** in **octal** is equal to **20** in
     decimal. Therefore the output will be 30
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 八进制数字可以在Go中使用前缀**0**表示。当Go看到任何以**0**开头的数字时，它将其视为八进制数字。在下面的例子中，我们将**024**以**八进制**添加到10。**024**的八进制等于**20**的十进制。因此输出将是30。
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Combined Example of Octal and Hex**'
+  id: totrans-23
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**八进制与十六进制的组合示例**'
 - en: In the below example, **0x14** in **hexa** is added to **024** in **octa** and
     **10**. **0x14** in **hexa** is equal to **20** in **decimal**. **024** in **octal**
     is equal to **20** in **decimal**. Therefore the output is 50
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的例子中，**0x14**的**十六进制**与**024**的**八进制**和**10**相加。**0x14**的**十六进制**等于**20**的**十进制**。**024**的**八进制**等于**20**的**十进制**。因此输出是50。
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*   [hex](https://golangbyexample.com/tag/hex/)*   [octal](https://golangbyexample.com/tag/octal/)*'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*   [hex](https://golangbyexample.com/tag/hex/)*   [octal](https://golangbyexample.com/tag/octal/)*'

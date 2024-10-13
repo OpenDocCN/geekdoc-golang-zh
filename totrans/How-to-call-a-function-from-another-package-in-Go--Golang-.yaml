@@ -1,101 +1,161 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:34:39'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:34:39
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: How to call a function from another package in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 如何在Go (Golang)中从另一个包调用函数
 - en: 来源：[https://golangbyexample.com/functoin-different-package-go/](https://golangbyexample.com/functoin-different-package-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/functoin-different-package-go/](https://golangbyexample.com/functoin-different-package-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: The function in another package must start with a capital letter so that it
     is public outside its package. If the function name starts with lowercase then
     it will not be visible outside its package.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个包中的函数必须以大写字母开头，以便在其包外部是公共的。如果函数名以小写字母开头，则在其包外部将不可见。
 - en: To use a function outside its package we need to import the package first which
     contains that function.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 要在包外使用函数，我们需要先导入包含该函数的包。
 - en: '**Program**'
+  id: totrans-11
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the code for the same
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相同的代码。
 - en: '**go.mod**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**hello/hello.go**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**hello/hello.go**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**main.go**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In this program, we first import the **hello** package from the **main** package
     as below.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个程序中，我们首先从**main**包导入**hello**包，如下所示。
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Then we call the **SayHello** function as below from the **main** package
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们从**main**包调用**SayHello**函数，如下所示。
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: This works because **SayHello** function is uppercase.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 之所以有效，是因为**SayHello**函数是大写的。
 - en: Change the function to lower case and run this program. It gives the below compilation
     error
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 将函数改为小写并运行此程序。它会产生以下编译错误。
 - en: '[PRE6]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Also check out our Golang comprehensive tutorial Series – [Golang Comprehensive
     Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 还可以查看我们的Golang综合教程系列 – [Golang综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

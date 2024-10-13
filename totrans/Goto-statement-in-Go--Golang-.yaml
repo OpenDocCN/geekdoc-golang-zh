@@ -1,108 +1,169 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:30:53'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:30:53
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Goto statement in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的Goto语句
 - en: 来源：[https://golangbyexample.com/goto-statement-go/](https://golangbyexample.com/goto-statement-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/goto-statement-go/](https://golangbyexample.com/goto-statement-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example") *  *# **概述**'
 - en: Goto statement allows unconditional jump to a labeled statement with in the
     same function . Below is the format of the goto statement
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: Goto语句允许无条件跳转到同一函数中的标记语句。下面是goto语句的格式
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The label can be valid go statement other than a keyword. As soon as the goto
     statement is encountered the control is transferred to the referred label and
     execution continues from there. The label is only visible inside the function
     where it has been declared. Any reference from outside the function will result
     in a compilation error.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 标签可以是有效的go语句，不能是关键字。一旦遇到goto语句，控制就会转移到指定的标签，并从那里继续执行。标签仅在声明它的函数内部可见，函数外部的任何引用都会导致编译错误。
 - en: '**Example**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see a simple example of goto statement
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个简单的goto语句示例
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above example we have a **goto** statement as
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们有一个**goto**语句，如下所示。
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The **FINISH** label is as below
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**FINISH**标签如下'
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: As soon as the program encounters the **goto** statement it jumps to the referred
     label. That is why below line never gets executed and **b** is never printed.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦程序遇到**goto**语句，它就会跳转到指定的标签。因此，下面的代码行永远不会被执行，**b**也不会被打印。
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Both label and goto need to belong to same function otherwise it will raise
     compilation error. This is because scope of label is within the function in which
     it is declared as mentioned above. For example below program raises a compilation
     error
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 标签和goto需要属于同一函数，否则会引发编译错误。这是因为标签的作用域在声明它的函数内部。如上所述，下面的程序会引发编译错误。
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[PRE7]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: The label can be before goto statement as well. See below example. The program
     can be use to print all odd numbers before 10\. Notice that label  **START** lies
     before goto here
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 标签也可以在goto语句之前。见下面的示例。该程序可以用于打印10之前的所有奇数。注意标签**START**在这里位于goto之前。
 - en: '[PRE8]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Use of Goto is not recommended practice as readability is bad and is generally
     a source of lot of bugs too.  Any thing which is achieved using goto can be achieved
     using other go constructs
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 不建议使用Goto，因为可读性差，通常也是许多错误的来源。任何通过goto实现的功能都可以通过其他go结构来实现。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

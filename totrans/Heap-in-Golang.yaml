@@ -1,85 +1,134 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:05:48'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:48
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Heap in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang 中的堆
 - en: 来源：[https://golangbyexample.com/heap-in-golang/](https://golangbyexample.com/heap-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/heap-in-golang/](https://golangbyexample.com/heap-in-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction](#Introduction "Introduction")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍](#Introduction "Introduction")'
 - en: '[Implementation of MinHeap](#Implementation_of_MinHeap "Implementation of MinHeap")*  *#
     **Introduction**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[MinHeap 的实现](#Implementation_of_MinHeap "Implementation of MinHeap")*  *#
+    **介绍**'
 - en: 'A Heap is a complete binary tree. A complete binary tree is a binary tree in
     which all levels are full except the last level. Heap is of two types:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 堆是一种完整的二叉树。完整的二叉树是指除最后一层外，所有层都是满的。堆有两种类型：
 - en: '**MinHeap**: A MinHeap is a complete binary tree in which the value of the
     parent node is lesser than or equal to the value of its left and right child.'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**MinHeap**：MinHeap 是一种完整的二叉树，其中父节点的值小于或等于其左右子节点的值。'
 - en: '**MaxHeap** : A MaxHeap is a complete binary tree in which the value of the
     parent node is greater than or equal to the value of its left and right child.'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**MaxHeap**：MaxHeap 是一种完整的二叉树，其中父节点的值大于或等于其左右子节点的值。'
 - en: Below is a representation of a minheap. Notice that the parent node is always
     smaller than or equal to the child nodes
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是一个 minheap 的表示。注意父节点总是小于或等于子节点
 - en: '![](img/693dba4ca31661ce2f15e7001b645441.png)'
+  id: totrans-13
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/693dba4ca31661ce2f15e7001b645441.png)'
 - en: Below is a representation of a maxheap.  Notice that the parent node is always
     greater than or equal to the child nodes
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是一个 maxheap 的表示。注意父节点总是大于或等于子节点
 - en: '![](img/32fb0e4c70c6a9b75511ddafc2106833.png)'
+  id: totrans-15
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/32fb0e4c70c6a9b75511ddafc2106833.png)'
 - en: Let’s look at the implementation of a minheap in GO in this post.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这篇文章中，让我们来看一下 Go 中 minheap 的实现。
 - en: MaxHeap implementation you can find at link – [https://golangbyexample.com/maxheap-in-golang/](https://golangbyexample.com/maxheap-in-golang/)
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: MaxHeap 的实现可以在链接中找到 – [https://golangbyexample.com/maxheap-in-golang/](https://golangbyexample.com/maxheap-in-golang/)
 - en: MinHeap full description can be found at link –[https://golangbyexample.com/minheap-in-golang/](https://golangbyexample.com/minheap-in-golang/)
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: MinHeap 的完整描述可以在链接中找到 – [https://golangbyexample.com/minheap-in-golang/](https://golangbyexample.com/minheap-in-golang/)
 - en: '**Implementation of MinHeap**'
+  id: totrans-19
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**MinHeap 的实现**'
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[heap](https://golangbyexample.com/tag/heap/)*   [heap in go](https://golangbyexample.com/tag/heap-in-go/)*   [maxheap](https://golangbyexample.com/tag/maxheap/)*   [minheap](https://golangbyexample.com/tag/minheap/)*'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[heap](https://golangbyexample.com/tag/heap/)*   [heap in go](https://golangbyexample.com/tag/heap-in-go/)*   [maxheap](https://golangbyexample.com/tag/maxheap/)*   [minheap](https://golangbyexample.com/tag/minheap/)*'

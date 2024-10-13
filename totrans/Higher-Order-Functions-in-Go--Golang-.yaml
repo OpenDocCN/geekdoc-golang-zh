@@ -1,98 +1,152 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:11:15'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:15
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Higher-Order Functions in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的高阶函数
 - en: 来源：[https://golangbyexample.com/gohigher-order-functions/](https://golangbyexample.com/gohigher-order-functions/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/gohigher-order-functions/](https://golangbyexample.com/gohigher-order-functions/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code:](#Code "Code:")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")'
 - en: '[Example 1](#Example_1 "Example 1")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例 1](#Example_1 "Example 1")'
 - en: '[Example 2:](#Example_2 "Example 2:")*  *# **Overview**'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例 2：](#Example_2 "Example 2:")*  *# **概述**'
 - en: Higher-order functions are those functions that either accept a function as
     a type or return function. Since a function is a first-order variable in Golang
     they can be passed around and also returned from some function and assigned to
     a variable.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 高阶函数是指那些接受一个函数作为参数或返回一个函数的函数。由于在 Golang 中函数是一个一阶变量，它们可以被传递、返回，并赋值给一个变量。
 - en: '**Code:**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: In below Example 1
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的示例 1 中
 - en: '**print** function takes a function of type **func(int, int) int** as an argument'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**print** 函数接受一个类型为 **func(int, int) int** 的函数作为参数'
 - en: '**getAreafunc** returns a function of type **func(int, int) int**'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**getAreafunc** 返回一个类型为 **func(int, int) int** 的函数'
 - en: '**Example 1**'
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例 1**'
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Example 2:**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例 2：**'
 - en: Let’s see one more little complex example where
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们再来看一个稍微复杂的例子，其中
 - en: Two functions are passed as an argument
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 两个函数作为参数传递
 - en: Two functions are returned from a function
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个函数返回两个函数
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**：'
 - en: '[PRE3]*'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE3]*'

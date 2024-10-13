@@ -1,66 +1,102 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:21:35'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:21:35
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Hello World in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的Hello World（Golang）
 - en: 来源：[https://golangbyexample.com/hello-world-golang/](https://golangbyexample.com/hello-world-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/hello-world-golang/](https://golangbyexample.com/hello-world-golang/)
 - en: Let’s see how to write a simple Hello World program in golang. Create a file
     with an extension .go. Let’s name this file **helloworld.go**. Below will be the
     contents of the file.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看如何用golang编写一个简单的Hello World程序。创建一个扩展名为.go的文件。我们将这个文件命名为**helloworld.go**。下面是文件的内容。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Some points to note about above program
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于上述程序需要注意的几点
 - en: Every go file starts with a package name. In the above case it is package **main**
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个go文件都以包名开始。在上述情况下，它是包**main**
 - en: Only **main** package is executable.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 只有**main**包是可执行的。
 - en: The **main** package will contain a **main** function that denotes the start
     of a program
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**main**包将包含一个**main**函数，标志着程序的开始'
 - en: We are using the **Println** function of **fmt** package to print the **Hello
     World** string
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们使用**fmt**包的**Println**函数来打印**Hello World**字符串
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s run this file now. For running, go to the directory which contains this
     file. Type below command to run the file. What this command will do is compile
     the go file and immediately run it.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们运行这个文件。要运行，请转到包含此文件的目录。输入下面的命令来运行该文件。这个命令的作用是编译go文件并立即运行它。
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'

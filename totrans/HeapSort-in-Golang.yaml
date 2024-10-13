@@ -1,102 +1,158 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:06:01'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:06:01'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: HeapSort in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中的堆排序
 - en: 来源：[https://golangbyexample.com/heapsort-in-golang/](https://golangbyexample.com/heapsort-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/heapsort-in-golang/](https://golangbyexample.com/heapsort-in-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction](#Introduction "Introduction")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍](#Introduction "介绍")'
 - en: '[Steps for HeapSort:](#Steps_for_HeapSort "Steps for HeapSort:")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[堆排序步骤：](#Steps_for_HeapSort "堆排序步骤：")'
 - en: '[Full Working Code](#Full_Working_Code "Full Working Code")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码](#Full_Working_Code "完整工作代码")'
 - en: '[Time Complexity](#Time_Complexity "Time Complexity")*  *# **Introduction**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[时间复杂度](#Time_Complexity "时间复杂度")*  *# **介绍**'
 - en: HeapSort is a comparison-based sorting algorithm that uses the Heap Data Structure.
     Please refer to this link for more information about Heap –[https://golangbyexample.com/heap-in-golang/](https://golangbyexample.com/heap-in-golang/)
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 堆排序是一种基于比较的排序算法，它使用堆数据结构。有关堆的更多信息，请参考此链接 – [https://golangbyexample.com/heap-in-golang/](https://golangbyexample.com/heap-in-golang/)
 - en: We demonstrate the heapsort in this article using min-heap. The same can be
     achieved using max heap as well.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 本文演示了使用最小堆进行堆排序。也可以使用最大堆实现相同的功能。
 - en: Left Child – 2*i + 1
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 左子节点 – 2*i + 1
 - en: Right Child – 2*i + 2
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 右子节点 – 2*i + 2
 - en: Below is a representation of a minheap
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是最小堆的表示
 - en: '![](img/693dba4ca31661ce2f15e7001b645441.png)'
+  id: totrans-16
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/693dba4ca31661ce2f15e7001b645441.png)'
 - en: '**Steps for HeapSort:**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**堆排序步骤：**'
 - en: Build minheap. After the minheap is built, the first element becomes the smallest
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 构建最小堆。在最小堆构建完成后，第一个元素变为最小值
 - en: Move the first element to the last in the array. Call heapify again with size-1\.
     Repeat it for the size of the array
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将第一个元素移动到数组的最后。再次调用堆化，大小减一。对数组的大小重复此操作
 - en: The final array is sorted from largest to smallest
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 最终数组从大到小排序
 - en: '**Full Working Code**'
+  id: totrans-21
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**完整工作代码**'
 - en: '[PRE0]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Time Complexity**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**时间复杂度**'
 - en: Time Complexity of Heap Sort is  O(nLogn).
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 堆排序的时间复杂度为 O(nLogn)。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [heapsort](https://golangbyexample.com/tag/heapsort/)*   [heapsort
     in go](https://golangbyexample.com/tag/heapsort-in-go/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [heapsort](https://golangbyexample.com/tag/heapsort/)*   [golang中的堆排序](https://golangbyexample.com/tag/heapsort-in-go/)*'

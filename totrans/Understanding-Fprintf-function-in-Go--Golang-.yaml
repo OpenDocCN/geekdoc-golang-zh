@@ -1,271 +1,416 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:35:59'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:35:59
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding Fprintf function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解Go（Golang）中的Fprintf函数
 - en: 来源：[https://golangbyexample.com/fprintf-golang/](https://golangbyexample.com/fprintf-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/fprintf-golang/](https://golangbyexample.com/fprintf-golang/)
 - en: '![Fprintf Image](img/9dcf336e99223726fb9611b41749a744.png)'
+  id: totrans-6
   prefs: []
   type: TYPE_IMG
+  zh: '![Fprintf 图像](img/9dcf336e99223726fb9611b41749a744.png)'
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Formatting a string variable](#Formatting_a_string_variable "Formatting a
     string variable")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[格式化字符串变量](#Formatting_a_string_variable "Formatting a string variable")'
 - en: '[Formatting an integer](#Formatting_an_integer "Formatting an integer")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[格式化整数](#Formatting_an_integer "Formatting an integer")'
 - en: '[Formatting a struct](#Formatting_a_struct "Formatting a struct")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[格式化结构体](#Formatting_a_struct "Formatting a struct")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: '**Fprintf** is defined in the **fmt** package and is used to format a string
     and write that formatted string to **io.Writer** instance passed to it as one
     of the arguments.'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Fprintf**在**fmt**包中定义，用于格式化字符串并将格式化后的字符串写入传递给它的**io.Writer**实例。'
 - en: '[https://golang.org/pkg/fmt/#Fprint](https://golang.org/pkg/fmt/#Fprint)'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/fmt/#Fprint](https://golang.org/pkg/fmt/#Fprint)'
 - en: Golang provides another similar function **Printf**. The only difference between
     **Frprintf** and **Printf** is that **Fprintf** writes to the **io.Writer** instance
     passed to it while **Printf** function writes to the standard output
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang提供了另一个类似的函数**Printf**。**Fprintf**和**Printf**之间唯一的区别是，**Fprintf**将数据写入传递给它的**io.Writer**实例，而**Printf**函数则写入标准输出。
 - en: Below is the function prototype of **Fprintf**
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是**Fprintf**的函数原型
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Fprintf** is also a variadic function meaning that it can have multiple arguments. Here
     are the details about its arguments'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Fprintf**也是一个可变参数函数，意味着它可以有多个参数。以下是关于其参数的详细信息'
 - en: The first argument is the **io.Writer** instance to which it writes
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个参数是要写入的**io.Writer**实例
 - en: The second argument is a **format** or **template** string. The string contains
     the custom specifiers like **%s** for **string**, **%d** for **int,** etc
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个参数是一个**format**或**template**字符串。该字符串包含自定义说明符，如**%s**用于**string**，**%d**用于**int**等。
 - en: The next is a variable number of arguments. Each of the arguments in this list
     could be string, int, struct, or anything. That is why it is an empty interface.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接下来是一个可变数量的参数。这个列表中的每个参数可以是字符串、整数、结构体或其他任何类型。这就是为什么它是一个空接口。
 - en: '**Fprintf** formats the string using custom specifiers. The **format** or **template**
     string contains the actual string that needs to be formatted plus some formating
     verbs. These formating verbs tell how the trailing arguments will be formatted
     in the final string.  So basically the format string argument contains certain
     symbols which are replaced by trailing arguments.'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Fprintf**使用自定义说明符格式化字符串。**format**或**template**字符串包含需要格式化的实际字符串及一些格式动词。这些格式动词指示如何在最终字符串中格式化后续参数。因此，格式字符串参数包含某些符号，这些符号将被后续参数替换。'
 - en: Also to note about the **Fprintf** function is that it also doesn’t add a new
     line. We need to use the new line identifier to add a new line **“\n”**.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 还需要注意的是**Fprintf**函数不会添加新行。我们需要使用新行标识符来添加新行**“\n”**。
 - en: Eg
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例
 - en: '**Formatting a string variable**'
+  id: totrans-25
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**格式化字符串变量**'
 - en: '**%s** symbol is used'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%s**符号被使用'
 - en: Example
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE1]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The output will be as below. It will be written to **os.Stdout** which is standard
     output. See we pass **os.Stdout** as the first argument.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出将如下所示。它将写入**os.Stdout**，即标准输出。请注意，我们将**os.Stdout**作为第一个参数传递。
 - en: '[PRE2]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Formatting an integer**'
+  id: totrans-31
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**格式化整数**'
 - en: '**%d** symbol is used'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%d**符号被使用'
 - en: Example
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE3]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The output will be as below. It will be written to **os.Stdout** which is standard
     output.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出将如下所示。它将写入**os.Stdout**，即标准输出。
 - en: '**Formatting a struct**'
+  id: totrans-36
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**格式化结构体**'
 - en: For example, there are three format specifiers for printing a struct.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，打印结构体时有三种格式说明符。
 - en: '**%v** – It will print only values. The field name will not be printed. This
     is the default way of printing a struct when using Println'
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%v** – 它只会打印值。字段名称不会被打印。这是使用Println打印结构体时的默认方式。'
 - en: '**%+v – **It will print both field and value.'
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%+v – **它将打印字段和值。'
 - en: '**%#v – **It will print the struct, also both field name and value'
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%#v – **它将打印结构体，包括字段名称和值'
 - en: That is why
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是为什么
 - en: '[PRE4]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: writes below respectively to the **os.Stdout** instance
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 分别写入以下内容到**os.Stdout**实例
 - en: '[PRE5]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It is as per the explanation above. Also, note that this function returns the
     number of characters printed and any error if happens. It does not add a new line.
     You will have to add **“\n”** explicitly.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 这与上述解释相符。此外，请注意，此函数返回打印的字符数和任何发生的错误。它不会添加新行。你需要明确地添加**“\n”**。
 - en: '**Program**'
+  id: totrans-46
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the working program for the same
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相应的工作程序。
 - en: '[PRE6]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: In all the **Fprintf** function above we pass it the instance of **os.Stdout**
     to it which implements the **io.Writer** interface. Basically with **os.Stdout**,
     **Fprintf** writes to standard output. This is how **os.Stdout** defined.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的所有**Fprintf**函数中，我们将**os.Stdout**的实例传递给它，该实例实现了**io.Writer**接口。基本上，使用**os.Stdout**时，**Fprintf**写入标准输出。这就是**os.Stdout**的定义。
 - en: '[PRE8]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Notice that in below **Fprintf**
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意下面的**Fprintf**。
 - en: '[PRE9]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**%s** is replaced by name.'
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%s**被名字替换。'
 - en: '**%d** is replaced by age.'
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%d**被年龄替换。'
 - en: So basically the symbols or verbs in the format string argument are replaced
     by trailing arguments in order
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以基本上，格式字符串参数中的符号或动词按照顺序被后续参数替换。
 - en: '**Fprintf** can also be used to write to a file. Since the file instance in
     golang implements the **io.Writer**, this is not a problem. Below is the program
     for the same'
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Fprintf**也可以用于写入文件。由于文件实例在golang中实现了**io.Writer**，因此这不是问题。下面是相应的程序。'
 - en: '[PRE10]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: It will create file name **temp.txt** in the current directory with the below
     contents. In this program we replaced **os.Stdou**t with the file created.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将在当前目录中创建文件名**temp.txt**，并包含以下内容。在此程序中，我们将**os.Stdout**替换为创建的文件。
 - en: '[PRE11]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: If the number of format specifiers in the format string does not match the number
     of next variable arguments then the format specifier will be printed as is. For
     example, in the below code, we have two format specifier
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果格式字符串中的格式说明符数量与下一个可变参数的数量不匹配，则格式说明符将原样打印。例如，在下面的代码中，我们有两个格式说明符。
 - en: '**%d**'
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%d**'
 - en: '**%s**'
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%s**'
 - en: While the next variable number of arguments is only one. Hence when we call
     it then it will write the second format specifier as is with MISSING as a warning
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 而下一个可变参数只有一个。因此，当我们调用它时，它将把第二个格式说明符原样写出，并发出MISSING警告。
 - en: '[PRE12]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output**'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE13]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-71
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

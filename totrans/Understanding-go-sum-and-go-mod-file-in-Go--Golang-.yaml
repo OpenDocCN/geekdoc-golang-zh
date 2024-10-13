@@ -1,252 +1,389 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:30:03'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:30:03
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding go.sum and go.mod file in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解 Go（Golang）中的 go.sum 和 go.mod 文件。
 - en: 来源：[https://golangbyexample.com/go-mod-sum-module/](https://golangbyexample.com/go-mod-sum-module/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-mod-sum-module/](https://golangbyexample.com/go-mod-sum-module/)
 - en: '**Note:** If you are interested in learning Golang, then for that we have a
     golang comprehensive tutorial series. Do check it out – [Golang Comprehensive
     Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/).
     Now let’s see the current tutorial. Below is the table of contents.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 如果你有兴趣学习 Golang，那么我们有一个全面的 golang 教程系列。请查看一下 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。现在让我们看看当前的教程。下面是内容目录。'
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")'
 - en: '[Example of indirect dependency in go.mod file](#Example_of_indirect_dependency_in_gomod_file
     "Example of indirect dependency in go.mod file")*  *# **Overview**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go.mod 文件中的间接依赖示例](#Example_of_indirect_dependency_in_gomod_file "go.mod 文件中的间接依赖示例")
+    * # **概述**'
 - en: Module is go support for dependency management. A module by definition is a
     collection of related packages with **go.mod** at its root.  The **go.mod** file
     defines the
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 模块是 go 对依赖管理的支持。根据定义，模块是一个相关包的集合，其根目录下有 **go.mod** 文件。 **go.mod** 文件定义了该模块的
 - en: Module import path.
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块导入路径。
 - en: The version of go with which the module is created
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建模块时所使用的 go 版本。
 - en: Dependency requirements of the module for a successful build. It defines both
     project’s dependencies requirement and also locks them to their correct version.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块成功构建的依赖要求。它定义了项目的依赖要求，并将其锁定到正确的版本。
 - en: '**go.sum**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.sum**'
 - en: This file lists down the checksum of direct and indirect dependency required
     along with the version. It is to be mentioned that the **go.mod** file is enough
     for a successful build. They why **go.sum** file is needed?. The checksum present
     in **go.sum** file is used to validate the checksum of each of direct and indirect
     dependency to confirm that none of them has been modified.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 该文件列出了所需的直接和间接依赖的校验和及其版本。值得一提的是，**go.mod** 文件对于成功构建是足够的。那么为什么需要 **go.sum** 文件呢？
+    **go.sum** 文件中的校验和用于验证每个直接和间接依赖的校验和，以确认它们没有被修改。
 - en: We mentioned above that go.mod file lists down the dependency requirement of
     the module. Now a dependency of a module can be of two kind
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们上面提到过，go.mod 文件列出了模块的依赖要求。现在，一个模块的依赖可以分为两种类型。
 - en: '**Direct** -A direct dependency is a dependency which the module directly imports.'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**直接** - 直接依赖是模块直接导入的依赖。'
 - en: '**Indirect** – It is the dependency that is imported by the module’s direct
     dependencies. Also, any dependency that is mentioned in the **go.mod** file but
     not imported in any of the source files of the module is also treated as an indirect
     dependency.'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**间接** – 这是模块的直接依赖所导入的依赖。此外，任何在 **go.mod** 文件中提到但未在模块的任何源文件中导入的依赖也被视为间接依赖。'
 - en: '**go.mod** file only records the direct dependency. However, it may record
     an indirect dependency in the below case'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod** 文件仅记录直接依赖。然而，在以下情况下，它可能记录间接依赖。'
 - en: Any indirect dependency which is not listed in the **go.mod** file of your direct
     dependency or if direct dependency doesn’t have a go.mod file, then that dependency
     will be added to the **go.mod** file with **//indirect** as the suffix. We will
     see an example of this later in the article to know this better.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 任何不在你的直接依赖的 **go.mod** 文件中列出的间接依赖，或者如果直接依赖没有 **go.mod** 文件，那么该依赖将以 **//indirect**
+    作为后缀添加到 **go.mod** 文件中。我们将在文章后面看到一个示例以便更好地理解这一点。
 - en: Also please note that both **go.mod** as well as **go.sum** file should be checked
     into the Version Control System (VCS) such as git
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 还请注意，**go.mod** 和 **go.sum** 文件都应当被检查到版本控制系统（VCS）中，例如 git。
 - en: '**Example**'
+  id: totrans-23
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see an example to understand what ever we talked above about **go.mod**
     and **go.sum** file. For that let’s first create a module
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子来理解我们刚才谈到的 **go.mod** 和 **go.sum** 文件。为此，让我们先创建一个模块。
 - en: '[PRE0]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This command will create a **go.mod** file in the same directory. Let’s examine
     the contents of this file. Do a cat **go.mod**
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 此命令将在同一目录下创建一个 **go.mod** 文件。让我们检查一下这个文件的内容。执行 cat **go.mod**。
 - en: '[PRE1]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: When the module is first created using the init command, the **go.mod** file
     will have two things only
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 当模块使用 init 命令首次创建时，**go.mod** 文件将只包含两个内容。
 - en: Import path of the module at the top
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块的导入路径在顶部。
 - en: '[PRE2]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Version of go with which the module was created
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建模块时使用的go版本
 - en: '[PRE3]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Since it is an empty module it doesn’t have any direct dependency specified
     yet. Let’s create a file named **uuid.go** in the same directory with below contents
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于这是一个空模块，因此尚未指定任何直接依赖项。我们在同一目录中创建一个名为**uuid.go**的文件，内容如下：
 - en: '**uuid.go**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**uuid.go**'
 - en: '[PRE4]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Notice that we have imported the dependency in the uuid.go as well
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，我们在uuid.go中也导入了依赖项。
 - en: '[PRE5]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Let’s run the below command
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行以下命令：
 - en: '[PRE6]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: This command will download all the dependencies that are required in your source
     files and update **go.mod** file with that dependency. After running this command
     let’s now let’s again examine the contents of **go.mod** file . Do a cat **go.mod**
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 此命令将下载源文件中所需的所有依赖项，并用该依赖项更新**go.mod**文件。运行此命令后，让我们再次检查**go.mod**文件的内容。执行`cat
+    go.mod`
 - en: '[PRE7]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: It lists direct dependency which was specified in the uuid file along with exact
     version of the dependency as well. Now let’s check the **go.sum** file as well
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 它列出了在uuid文件中指定的直接依赖项及其确切版本。现在让我们检查一下**go.sum**文件。
 - en: Do a cat **go.sum**
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 执行`cat go.sum`
 - en: '[PRE8]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**go.sum** file lists down the checksum of direct and indirect dependency required
     by the module.  **[github.com](http://github.com)/google/uuid** is internally
     used by the **[github.com](http://github.com)/pborman/uuid** . It is an indirect
     dependency of the module and hence it is recorded in the **go.sum** file.'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.sum**文件列出了模块所需的直接和间接依赖项的校验和。**[github.com](http://github.com)/google/uuid**被**[github.com](http://github.com)/pborman/uuid**内部使用。它是该模块的间接依赖项，因此记录在**go.sum**文件中。'
 - en: We can also run this file now and it will give the correct output
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们现在也可以运行这个文件，它将给出正确的输出。
 - en: '[PRE9]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Example of indirect dependency in go.mod file**'
+  id: totrans-50
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**go.mod文件中的间接依赖示例**'
 - en: We mentioned above that **go.mod** file might contain an indirect dependency
     in the below case.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在上面提到，**go.mod**文件在以下情况下可能包含间接依赖项。
 - en: Any indirect dependency which is not listed in the **go.mod** file of your direct
     dependency or if direct dependency doesn’t have a go.mod file , then that dependency
     will be added to the **go.mod** file with **//indirect** as the suffix. We will
     see an example of this later in the article to know this better.
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 任何未在直接依赖项的**go.mod**文件中列出的间接依赖项，或者如果直接依赖项没有go.mod文件，那么该依赖项将以**//indirect**作为后缀添加到**go.mod**文件中。我们将在本文后面看到一个示例以更好地了解这一点。
 - en: Let’s understand it with an example. For that let’s first create a module again
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们通过一个示例来理解。为此，我们先再次创建一个模块。
 - en: '[PRE11]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Now create a file **learn.go**
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在创建一个文件**learn.go**
 - en: '[PRE12]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Notice that we have specified the dependency in the **learn.go** as
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，我们在**learn.go**中指定的依赖项如下：
 - en: '[PRE13]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: So **github.com/gocolly/colly** is a direct dependency of the learn module as
     it is directly imported in the module. Now let’s run the below command
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，**github.com/gocolly/colly**是learn模块的直接依赖项，因为它在模块中被直接导入。现在让我们运行以下命令：
 - en: '[PRE14]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: After running this command let’s now let’s again examine the contents of **go.mod**
     file. Since colly version v1.2.0 doesn’t have a go.mod file , all dependencies
     required by colly will be added to the **go.mod** file with //indirect as suffix
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行此命令后，让我们再次检查**go.mod**文件的内容。由于colly版本v1.2.0没有go.mod文件，colly所需的所有依赖项将以//indirect作为后缀添加到**go.mod**文件中。
 - en: Do a **cat go.mod**
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 执行`cat go.mod`
 - en: '[PRE15]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: All other dependencies are suffixed by **//indirect**. Also checksum of all
     direct and indirect dependencies will be recorded in the go.sum file.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有其他依赖项都以**//indirect**结尾。所有直接和间接依赖项的校验和将记录在go.sum文件中。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

@@ -1,214 +1,329 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:07:42'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:07:42
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding Rune in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解 Go 语言中的 Rune
 - en: 来源：[https://golangbyexample.com/understanding-rune-in-golang/](https://golangbyexample.com/understanding-rune-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/understanding-rune-in-golang/](https://golangbyexample.com/understanding-rune-in-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[What is Unicode](#What_is_Unicode "What is Unicode")'
+  id: totrans-8
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[什么是 Unicode](#What_is_Unicode "What is Unicode")'
 - en: '[UTF-8](#UTF-8 "UTF-8")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UTF-8](#UTF-8 "UTF-8")'
 - en: '[When to Use](#When_to_Use "When to Use")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[何时使用](#When_to_Use "When to Use")'
 - en: '[Code:](#Code "Code:")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")'
 - en: '[Rune array to string and vice versa](#Rune_array_to_string_and_vice_versa
     "Rune array to string and vice versa")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Rune 数组转字符串及反向操作](#Rune_array_to_string_and_vice_versa "Rune array to string
+    and vice versa")'
 - en: '[Rune array to string](#Rune_array_to_string "Rune array to string")'
+  id: totrans-13
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Rune 数组转字符串](#Rune_array_to_string "Rune array to string")'
 - en: '[String to Rune Array](#String_to_Rune_Array "String to Rune Array")*  *# **Overview**'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[字符串转 Rune 数组](#String_to_Rune_Array "String to Rune Array")*  *# **概述**'
 - en: '**rune** in Go is an alias for int32 meaning it is an integer value. This integer
     value is meant to represent a Unicode Code Point. To understand rune you have
     to know what Unicode is. Below is short description but you can refer to the famous
     blog post about it –'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 语言中，**rune** 是 int32 的别名，这意味着它是一个整数值。这个整数值用于表示一个 Unicode 代码点。要理解 rune，你必须知道什么是
+    Unicode。下面是简短的描述，但你可以参考关于它的著名博客文章 –
 - en: '[The Absolute Minimum Every Software Developer Absolutely, Positively Must
     Know About Unicode and Character Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html)'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '[每个软件开发者绝对、一定要知道的关于 Unicode 和字符集的最低要求（没有借口！）](http://www.joelonsoftware.com/articles/Unicode.html)'
 - en: '**What is Unicode**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**什么是 Unicode**'
 - en: Unicode is a superset of ASCII characters which assigns a unique number to every
     character that exists. This unique number is called Unicode Code Point.For eg
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: Unicode 是 ASCII 字符的超集，它为每个存在的字符分配一个唯一的编号。这个唯一的编号称为 Unicode 代码点。例如
 - en: Digit **0** is represented as Unicode Point **U+0030 (Decimal Value – 48)**
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 数字 **0** 表示为 Unicode 点 **U+0030 (十进制值 – 48)**
 - en: Small Case **b** is represented as Unicode Point  **U+0062 (Decimal Value –
     98)**
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 小写字母 **b** 的 Unicode 点表示为 **U+0062 (十进制值 – 98)**
 - en: A pound symbol **£ **is represented as Unicode Point **U+00A3 (Decimal Value
     – 163)**
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 英镑符号 **£** 表示为 Unicode 点 **U+00A3 (十进制值 – 163)**
 - en: Visit[https://en.wikipedia.org/wiki/List_of_Unicode_characters](https://en.wikipedia.org/wiki/List_of_Unicode_characters)
     to know about Unicode Point of other characters. But Unicode doesn’t talk about
     how these code points will be saved in memory. This is where **utf-8** comes into
     picture
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 访问 [https://en.wikipedia.org/wiki/List_of_Unicode_characters](https://en.wikipedia.org/wiki/List_of_Unicode_characters)
+    了解其他字符的 Unicode 点。但 Unicode 不会讨论这些代码点如何在内存中保存。这就是 **utf-8** 的用武之地。
 - en: '**UTF-8**'
+  id: totrans-23
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**UTF-8**'
 - en: utf-8 saves every Unicode Point either using 1, 2, 3 or 4 bytes. ASCII points
     are stored using 1 byte. That is why rune is an alias for int32 because a Unicode
     Point can be of max 4 bytes in Go as source code in GO is encoded using utf-8,
     hence every string is also encoded in utf-8
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: utf-8 将每个 Unicode 点保存为 1、2、3 或 4 字节。ASCII 点使用 1 字节存储。这就是为什么 rune 是 int32 的别名，因为
+    Unicode 点在 Go 中最多可以为 4 字节，源代码在 Go 中是使用 utf-8 编码的，因此每个字符串也编码为 utf-8。
 - en: Every rune is intended to refer to one Unicode Point. For eg if you print a
     string after typecasting it to a rune array then it will print the Unicode Point
     for each of character. For for below string **“0b£”** output will be – **[U+0030
     U+0062 U+00A3]**
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个 rune 旨在引用一个 Unicode 点。例如，如果你在类型转换为 rune 数组后打印字符串，它将打印每个字符的 Unicode 点。对于下面的字符串
+    **“0b£”**，输出将为 – **[U+0030 U+0062 U+00A3]**
 - en: '[PRE0]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**When to Use**'
+  id: totrans-27
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**何时使用**'
 - en: You should use a rune when you intend to save Unicode Code Point in the rune
     value. A rune array should be used when all values in the array are meant to be
     a Unicode Code Point.
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你打算在 rune 值中保存 Unicode 代码点时，应使用 rune。当数组中的所有值都意味着一个 Unicode 代码点时，应使用 rune 数组。
 - en: Rune is also used to represent a character.
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Rune 也用于表示一个字符。
 - en: '**Declare Rune**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**声明 Rune**'
 - en: A rune is declared using a character between single quotes like below declaring
     a variable named **‘rPound’**
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个 rune 使用单引号中的字符声明，如下所示，声明一个名为 **‘rPound’** 的变量。
 - en: '[PRE1]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: After declaring Rune you can perform below things as well
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 声明 Rune 后，你还可以执行以下操作
 - en: '**Print Type –** Output will be **int32**'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**打印类型 –** 输出将为 **int32**'
 - en: '[PRE2]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Print Unicode Code Point –** Output will be **U+00A3**'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**打印 Unicode 代码点 –** 输出将为 **U+00A3**'
 - en: '[PRE3]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Print Character –** Output will be **£**'
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**打印字符 –** 输出将为 **£**'
 - en: '[PRE4]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Code:**'
+  id: totrans-40
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: Below is the code illustrating each point we discussed
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是演示我们讨论的每个要点的代码
 - en: '[PRE5]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Rune array to string and vice versa**'
+  id: totrans-45
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**符文数组转换为字符串及其反向操作**'
 - en: '**Rune array to string**'
+  id: totrans-46
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**符文数组转为字符串**'
 - en: '[PRE7]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output:**'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE8]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**String to Rune Array**'
+  id: totrans-50
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**字符串转为符文数组**'
 - en: '[PRE9]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output:**'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE10]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [rune](https://golangbyexample.com/tag/rune/)*'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go语言](https://golangbyexample.com/tag/go/)*   [符文](https://golangbyexample.com/tag/rune/)*'

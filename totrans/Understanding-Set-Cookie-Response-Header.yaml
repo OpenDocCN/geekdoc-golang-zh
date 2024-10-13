@@ -1,75 +1,95 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
 - en: 'date: 2024-10-13 06:34:34'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
 - en: Understanding Set-Cookie Response Header
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: 来源：[https://golangbyexample.com/set-cookie-response-header/](https://golangbyexample.com/set-cookie-response-header/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
 - en: '**   [Overview of Set-Cookie Response Header](#Overview_of_Set-Cookie_Response_Header
     "Overview of Set-Cookie Response Header")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
 - en: '[Examples](#Examples "Examples")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Program](#Program "Program")*  *# **Overview of Set-Cookie Response Header**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: The web server can send the Set-Cookie header back to the client or browsers
     or any other user agent. The client is then supposed to store this cookie at its
     end. This client will send this cookie to the server on each request.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
 - en: You can read about HTTP cookie in general here – [https://en.wikipedia.org/wiki/HTTP_cookie](https://en.wikipedia.org/wiki/HTTP_cookie)
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
 - en: Below is the syntax of the Set-Cookie header
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Below are the fields of the Set-Cookie header. These fields are joined by **‘;’**
     to create the final Set-Cookie header value
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
 - en: '**name=value** – This is the name-value pair that denotes the <cookie-name>
     and <cookie-value>. Name and Value separated by **‘=’**.  This is a mandatory
     field of a cookie. All other fields are optional fields'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**Expires={some_date}** – It specifies the max lifetime of a cookie. It is
     in date format and the cookie will expire after that.'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**Max-Age={some_integer}** – it represents the number of seconds after which
     the cookie will expire. Max-Age has precedence if both Expires and Max-Date is
     specified'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**Domain={some_domain}** – It specifies the domain to which the request will
     be sent'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
@@ -78,21 +98,25 @@
     will not send the cookie. The higher level path matches the lower level path. 
     Hence / will match all paths. While /employee will match /employee, /employee/name,
     /employee/details'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**Secure** – This flag means that cookie will only be sent to the server if
     an HTTPS request is made'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**HttpOnly** – With this flag on,  javascript will not be able to access the
     cookie. This is to prevent CSRF attacks'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**SameSite**=**Strict** or **Lax** or **None** – This option controls whether
     the cookies can be sent when the browser makes a cross-origin call.'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
@@ -103,104 +127,156 @@
     can also send multiple **Set-Cookie** header in the response. All the name-value
     pair in all the Set-Cookie response header will be send to the server in subsequent
     calls.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
 - en: '**Examples**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: Here are some samples of Set-Cookie header
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
 - en: Only name-value pair
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE1]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: name-value pair with Expires field
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE2]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: name-value pair with other fields
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE3]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Program**'
+  id: totrans-32
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: Let’s see the **Set-Cookie** header in action.  We will see the example in golang.
     For that first create a golang server listening on port 8080\. Create two APIs
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看 **Set-Cookie** 头的实际效果。我们将看到 Golang 中的示例。为此，首先创建一个监听在 8080 端口的 Golang 服务器。创建两个
+    API。
 - en: '**localhost:8080/doc** – In this API the server will set the **Set-Cookie**
     header in the response. We are going to make this call from the browser. The browser
     is going to save this cookie at its end. The browser will then send the same cookie
     back to the server for any other request to localhost:8080'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**localhost:8080/doc** – 在这个 API 中，服务器将在响应中设置 **Set-Cookie** 头。我们将从浏览器发起这个调用。浏览器将在其端保存这个
+    cookie。然后，浏览器将在对 localhost:8080 的任何其他请求中将相同的 cookie 发送回服务器。'
 - en: '**localhost:8080/doc/id** – This is the example API to demonstrate that browser
     actually sends the same cookie in request which in received in response in the
     Set-Cookie header'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**localhost:8080/doc/id** – 这是示例 API，演示浏览器实际上在请求中发送的同一 cookie，它在 Set-Cookie
+    头中收到的响应中。'
 - en: Let’s first create a server
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，我们创建一个服务器。
 - en: '**go.mod**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE4]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**main.go**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE5]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: See in the above code we have two APIs as discussed above. Run the above program
     using
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 从上面的代码可以看到我们有两个 API，如上所述。使用以下命令运行上述程序。
 - en: '[PRE6]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: The server will start running  on port 8080
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 服务器将在 8080 端口启动。
 - en: Now make the API call **localhost:8080/doc** from a browser. The server is sending
     below **Set-Cookie** in the response
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在从浏览器发起 API 调用 **localhost:8080/doc**。服务器在响应中发送以下 **Set-Cookie**。
 - en: '[PRE7]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Same is also visible in the response headers of the API call. See screenshot
     below
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 这在 API 调用的响应头中也是可见的。请看下面的屏幕截图。
 - en: '![cookie_set_request](img/5743ff6b7299452f20052240e39f56a7.png)'
+  id: totrans-47
   prefs: []
   type: TYPE_IMG
+  zh: '![cookie_set_request](img/5743ff6b7299452f20052240e39f56a7.png)'
 - en: Now let’s make the other API call from a different tab.  Notice that same cookie
     is send back in the response. Also note that only name-value pair is send back
     as we mentioned above in the article
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，从不同的标签页发起另一个 API 调用。注意，在响应中发送回的是相同的 cookie。同时注意，正如我们在文章中提到的，只发送名称-值对。
 - en: '![cookie_send_request](img/a3c457587ceebc81af0674c0439a1889.png)'
+  id: totrans-49
   prefs: []
   type: TYPE_IMG
+  zh: '![cookie_send_request](img/a3c457587ceebc81af0674c0439a1889.png)'
 - en: Checkout our Golang comprehensive tutorial Series – [Golang Comprehensive Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 查看我们全面的 Golang 教程系列 – [Golang 综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*

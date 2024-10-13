@@ -1,49 +1,77 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:37:39'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:37:39
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding Println function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解 Go (Golang) 中的 Println 函数
 - en: 来源：[https://golangbyexample.com/println-golang/](https://golangbyexample.com/println-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/println-golang/](https://golangbyexample.com/println-golang/)
 - en: '![println](img/5327d9a5221455aba6ab8a7076afdfd2.png)'
+  id: totrans-6
   prefs: []
   type: TYPE_IMG
+  zh: '![println](img/5327d9a5221455aba6ab8a7076afdfd2.png)'
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: '**Println** is defined in the **fmt** package and is used to format a string
     and write to standard output'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Println** 定义在 **fmt** 包中，用于格式化字符串并写入标准输出。'
 - en: '[https://golang.org/pkg/fmt/#Println](https://golang.org/pkg/fmt/#Println)'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/fmt/#Println](https://golang.org/pkg/fmt/#Println)'
 - en: Below is the function prototype of **Println**
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是 **Println** 的函数原型。
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Println** formats the string using the default format specifier adds a new
     line after the string. **Println** takes a variable number of arguments where
     each argument is an empty interface. It returns the number of characters printed
@@ -52,68 +80,109 @@
     data type. Each of the arguments to the **Println** function is formatted according
     to the default format specifier of that argument type. For example, the struct
     will be formatted according to the below specifier'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Println** 使用默认格式说明符格式化字符串，并在字符串后添加换行。**Println** 接受可变数量的参数，每个参数都是一个空接口。它返回打印的字符数量以及发生的任何错误。由于参数类型是空接口，我们可以传递任何数据类型。我们可以传递字符串、整数、浮点数、结构体或任何其他数据类型。**Println**
+    函数的每个参数都根据该参数类型的默认格式说明符进行格式化。例如，结构体将根据下面的说明符进行格式化。'
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This format specifier only prints the Value part in the struct. Let’s  see an
     example
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 此格式说明符仅打印结构体中的值部分。让我们看一个例子。
 - en: '**Program**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Some important points to note about the **Println** function
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于 **Println** 函数的一些重要事项
 - en: It appends a newline at the end. That is why each of the output is on a different
     line
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它在末尾添加换行。这就是为什么每个输出都在不同的行上。
 - en: Each of the arguments will be separated by space in the output. That is why
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 输出中的每个参数将用空格分隔。这就是为什么
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: prints
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印
 - en: '[PRE5]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Space is introduced automatically between the two arguments.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 两个参数之间会自动引入空格。
 - en: It returns the number of characters printed or any error if happens
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它返回打印的字符数量或发生的任何错误。
 - en: '[PRE6]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: will output below
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输出如下
 - en: '[PRE7]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: The number of **bytesPrinted** is 14 as 14 characters are outputted
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**bytesPrinted** 的数量为 14，因为输出了 14 个字符。'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*

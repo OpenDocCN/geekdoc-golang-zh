@@ -1,88 +1,137 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:42:54'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:42:54
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Find the next permutation of a number in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go中找到一个数字的下一个排列
 - en: 来源：[https://golangbyexample.com/next-permuation-number-go/](https://golangbyexample.com/next-permuation-number-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/next-permuation-number-go/](https://golangbyexample.com/next-permuation-number-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: The objective is to find the next permutation of a given number based upon lexicographical
     sorting order. If the next permutation is not possible then return the same number
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是根据字典序排序找到给定数字的下一个排列。如果下一个排列不可行，则返回相同的数字
 - en: For eg
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Below will be the strategy
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面将是策略
 - en: Start from the left and find the first number which is less than the number
     on its right. Let’s say that number is found at index **“first”**
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从左侧开始，找到第一个小于其右侧数字的数字。假设该数字在索引**“first”**处找到
 - en: Then find the smallest greater than the number on the index **first** on the
     right part of the array after the **first** index. Then replace that number with
     the number on the index **first**
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后找到数组右侧在索引**first**之后大于该数字的最小值。然后用索引**first**的数字替换该数字
 - en: Sort the right part of the array after the index **first**
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对索引**first**之后的数组右部分进行排序
 - en: '**Program**'
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相同的程序
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的Golang高级教程。本系列的教程内容详尽，我们努力涵盖所有概念并提供示例。此教程适合希望获得专业知识和对Golang有扎实理解的人
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，那么这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

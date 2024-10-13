@@ -1,67 +1,108 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:13:41'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:13:41
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Find and delete in a array in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中查找并删除数组中的元素
 - en: 来源：[https://golangbyexample.com/find-delete-array-golang/](https://golangbyexample.com/find-delete-array-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/find-delete-array-golang/](https://golangbyexample.com/find-delete-array-golang/)
 - en: 'There can be two cases:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 可能有两种情况：
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Modify Original Array](#Modify_Original_Array "Modify Original Array")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [修改原数组](#Modify_Original_Array "Modify Original Array")'
 - en: '[Do not modify the original array](#Do_not_modify_the_original_array "Do not
     modify the original array")*  *# **Modify Original Array**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[请勿修改原数组](#Do_not_modify_the_original_array "Do not modify the original array")*  *#
+    **修改原数组**'
 - en: Keep copying to the original array skipping the item which needs to be deleted
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 继续复制到原数组，跳过需要删除的项。
 - en: Reslice at the end
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在最后进行切片。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Do not modify the original array**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**请勿修改原数组**'
 - en: Create a new array and keep inserting into it.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建一个新数组并持续插入数据。
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]*'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE3]*'

@@ -1,64 +1,101 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:13:45'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:13:45
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Find and delete a character in string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中查找并删除字符串中的字符
 - en: 来源：[https://golangbyexample.com/go-find-delete-character-in-string/](https://golangbyexample.com/go-find-delete-character-in-string/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-find-delete-character-in-string/](https://golangbyexample.com/go-find-delete-character-in-string/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")*  *# **概述**'
 - en: '**strings** package of GO provides a **ReplaceAll** method that can be used
     to replace all non-overlapping instances of a given substring with a new substring.
     We can use this method to delete a character by providing the replacement of the
     character to be deleted as an empty string'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: GO 的 **strings** 包提供了一个 **ReplaceAll** 方法，可以用于将给定子字符串的所有不重叠实例替换为一个新的子字符串。我们可以使用此方法通过将要删除的字符的替换设为空字符串来删除一个字符。
 - en: Below is the signature of the function. The function will replace all non-overlapping
     instances of **old** with **new** in string **s**. To delete a character we can
     supply that character as **old** and **new** as an empty string
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名。该函数将在字符串 **s** 中替换所有不重叠的 **old** 实例为 **new**。要删除一个字符，我们可以将该字符作为 **old**，将
+    **new** 作为一个空字符串。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s look at the working code
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看工作代码。
 - en: '**Code:**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*'

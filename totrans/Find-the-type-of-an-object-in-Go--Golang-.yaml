@@ -1,99 +1,158 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:05:03'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:03
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Find the type of an object in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中查找对象的类型
 - en: 来源：[https://golangbyexample.com/find-the-type-of-an-object-in-golang/](https://golangbyexample.com/find-the-type-of-an-object-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/find-the-type-of-an-object-in-golang/](https://golangbyexample.com/find-the-type-of-an-object-in-golang/)
 - en: This article will describe different ways of knowing the type of an object in
     Go
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 本文将描述在 Go 中了解对象类型的不同方法
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Using Reflect Package](#Using_Reflect_Package "Using Reflect Package")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [使用反射包](#Using_Reflect_Package "使用反射包")'
 - en: '[Using Type Assertion](#Using_Type_Assertion "Using Type Assertion")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用类型断言](#Using_Type_Assertion "使用类型断言")'
 - en: '[Using Switch](#Using_Switch "Using Switch")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 Switch](#Using_Switch "使用 Switch")'
 - en: '[Using printf or sprintf](#Using_printf_or_sprintf "Using printf or sprintf")*  *#
     **Using Reflect Package**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 printf 或 sprintf](#Using_printf_or_sprintf "使用 printf 或 sprintf")*  *#
+    **使用反射包**'
 - en: Reflect package provides some useful inspect functions that let us know the
     type
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 反射包提供了一些有用的检查函数，可以让我们了解类型
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Using Type Assertion**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用类型断言**'
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Using Switch**'
+  id: totrans-20
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 Switch**'
 - en: '[PRE4]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Using printf or sprintf**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 printf 或 sprintf**'
 - en: '[PRE6]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [object](https://golangbyexample.com/tag/object/)*   [type](https://golangbyexample.com/tag/type/)*'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [object](https://golangbyexample.com/tag/object/)*   [type](https://golangbyexample.com/tag/type/)*'

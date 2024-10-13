@@ -1,101 +1,158 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:43:45'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:43:45
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Find the pivot index in a sorted and pivoted array in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang) 中找到排序和基准化数组中的基准索引。
 - en: 来源：[https://golangbyexample.com/pivot-index-pivoted-array-go/](https://golangbyexample.com/pivot-index-pivoted-array-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/pivot-index-pivoted-array-go/](https://golangbyexample.com/pivot-index-pivoted-array-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")*  *## **Overview**'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")*  *## **概述**'
 - en: We have an input array that is sorted but is pivoted at a certain index. For
     example, consider below array
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们有一个已排序的输入数组，但在某个索引处被基准化。例如，考虑下面的数组。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It has been rotated and pivoted at index 3
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 它在索引3处被旋转和基准化。
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The objective is to find the pivot index. So the answer for the above array
     will be 3\. If the array is not pivoted then it should return -1\. For eg for
     below input array, it should return -1
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是找到基准索引。因此，上述数组的答案将是3。如果数组没有被基准化，则应返回-1。例如，对于下面的输入数组，它应该返回-1。
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Other examples
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 其他示例
 - en: '[PRE3]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The expected time complexity to find the pivot index is **O(logn)**. So we have
     to do a binary search with some modifications to find the pivot index.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 找到基准索引的预期时间复杂度为**O(logn)**。因此，我们必须进行一些修改的二分搜索来找到基准索引。
 - en: This will be the strategy
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将是策略。
 - en: Do a binary search. For every mid element check if **mid** or **mid+1** is the
     pivot
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 进行二分搜索。对于每个中间元素，检查**mid**或**mid+1**是否为基准。
 - en: If the value at **mid** is less than the value at the start of the input array
     then search on the left side of **mid**
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果**mid**的值小于输入数组的起始值，则在**mid**的左侧进行搜索。
 - en: If the value at mid is greater than the value at the start of the input array
     then search on the right side of **mid**
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果mid的值大于输入数组起始值，则在**mid**的右侧进行搜索。
 - en: Below is the program for the same.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序。
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尽力覆盖所有概念并附有示例。这个教程适合那些希望获得专业知识和对Golang有深入理解的人
+    - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,23 +1,35 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:13:32'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:13:32'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Reverse a string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中反转字符串
 - en: 来源：[https://golangbyexample.com/reverse-a-string-in-golang/](https://golangbyexample.com/reverse-a-string-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/reverse-a-string-in-golang/](https://golangbyexample.com/reverse-a-string-in-golang/)
 - en: In Golang string is a sequence of bytes. A string literal actually represents
     a UTF-8 sequence of bytes. In UTF-8, ASCII characters are single-byte corresponding
     to the first 128 Unicode characters. All other characters are between 1 -4 bytes.
@@ -25,20 +37,31 @@
     data type represents a Unicode point.  Once a string is converted to an array
     of rune then it is possible to index a character in that array of **rune**. You
     can learn more about rune here – [https://golangbyexample.com/understanding-rune-in-golang](https://golangbyexample.com/understanding-rune-in-golang)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中，字符串是一个字节序列。字符串字面量实际上表示的是一个UTF-8字节序列。在UTF-8中，ASCII字符是单字节的，对应于前128个Unicode字符。所有其他字符的字节数在1到4字节之间。因此，无法在字符串中索引一个字符。在GO中，`rune`数据类型表示一个Unicode点。一旦字符串被转换为`rune`数组，就可以在该数组中索引字符。你可以在这里了解更多关于`rune`的内容
+    – [https://golangbyexample.com/understanding-rune-in-golang](https://golangbyexample.com/understanding-rune-in-golang)
 - en: For this reason in the below program for reverse a string,  we are first converting
     a string into a rune array so that we can index the rune array to get the individual
     characters. Once we have the individual characters, we can keep appending it to
     a new string starting from the end to start.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，在下面的程序中为了反转一个字符串，我们首先将字符串转换为`rune`数组，以便可以索引该数组以获取单个字符。一旦我们获得了单个字符，就可以从末尾开始不断添加到一个新字符串中。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'

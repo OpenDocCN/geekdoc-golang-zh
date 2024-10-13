@@ -1,75 +1,119 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:17:01'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:17:01
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Return exit status code in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中返回退出状态码
 - en: 来源：[https://golangbyexample.com/return-exit-status-code-go/](https://golangbyexample.com/return-exit-status-code-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/return-exit-status-code-go/](https://golangbyexample.com/return-exit-status-code-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")**'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "代码")*  *# **概述**'
 - en: '**‘os’** package of golang provides an **Exit** function that can be used to
     exit the current program with a status code.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: golang 的 **‘os’** 包提供了一个 **Exit** 函数，可以用来以状态码退出当前程序。
 - en: Status code zero means success
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 状态码零表示成功
 - en: Non-zero status code means an error.
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 非零状态码表示错误。
 - en: Once this function is called the program exits immediately. Even the deferred
     functions are not called.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦调用此函数，程序会立即退出。即使是延迟函数也不会被调用。
 - en: Also to note that status code should be in the range [0, 125]
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 还需注意状态码应在范围 [0, 125] 内
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s see a working code
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个工作代码
 - en: '**Code**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: Try setting success to false to see a different output
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试将成功设置为 false，以查看不同的输出
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[code](https://golangbyexample.com/tag/code/)*   [exit](https://golangbyexample.com/tag/exit/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [os](https://golangbyexample.com/tag/os/)*   [status](https://golangbyexample.com/tag/status/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](https://golangbyexample.com/tag/code/)*   [退出](https://golangbyexample.com/tag/exit/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [操作系统](https://golangbyexample.com/tag/os/)*   [状态](https://golangbyexample.com/tag/status/)*'

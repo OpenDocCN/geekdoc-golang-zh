@@ -1,88 +1,140 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:38:03'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:38:03
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Reverse Doubly Linked List in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go中反转双向链表 (Golang)
 - en: 来源：[https://golangbyexample.com/reverse-doubly-linked-list-golang/](https://golangbyexample.com/reverse-doubly-linked-list-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/reverse-doubly-linked-list-golang/](https://golangbyexample.com/reverse-doubly-linked-list-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: 'A Doubly Linked List can be reversed by below two methods:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 双向链表可以通过以下两种方法反转：
 - en: By swapping previous and next pointers of nodes.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 通过交换节点的前后指针。
 - en: By using stack
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 通过使用栈
 - en: In this tutorial, we will cover the first method i.e by swapping previous and
     next pointers.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将介绍第一种方法，即通过交换前后指针。
 - en: Let’s say we have below doubly linked list
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有以下双向链表
 - en: '![dll_reverse1](img/370305dc6f9fcbe0b14eb0aec8026c81.png)'
+  id: totrans-14
   prefs: []
   type: TYPE_IMG
+  zh: '![dll_reverse1](img/370305dc6f9fcbe0b14eb0aec8026c81.png)'
 - en: 'After reversing, a doubly-linked list will be like below:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 反转后，双向链表将如下所示：
 - en: '![](img/fdb6f3f034a9dadb562eea9beb6a5886.png)'
+  id: totrans-16
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/fdb6f3f034a9dadb562eea9beb6a5886.png)'
 - en: '**Program**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: 'In this approach we need to take care of the below points:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种方法中，我们需要注意以下几点：
 - en: Swap head and tail of the doubly linked list
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 交换双向链表的头和尾
 - en: Swap previous and next pointers of all nodes
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 交换所有节点的前后指针
 - en: '[PRE0]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

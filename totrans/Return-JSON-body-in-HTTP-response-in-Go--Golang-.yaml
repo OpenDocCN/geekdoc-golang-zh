@@ -1,126 +1,196 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:39:02'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:39:02
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Return JSON body in HTTP response in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中返回JSON体作为HTTP响应
 - en: 来源：[https://golangbyexample.com/json-response-body-http-go/](https://golangbyexample.com/json-response-body-http-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/json-response-body-http-go/](https://golangbyexample.com/json-response-body-http-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")**'
 - en: '[Example](#Example "Example")*  *## **Overvie**w'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *## **概述**'
 - en: '**Write** method of the ResponseWriter interface in **net/http** package can
     be used to set the JSON body in an HTTP response'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**net/http**包中ResponseWriter接口的**Write**方法可用于在HTTP响应中设置JSON体'
 - en: In GO a response is represented by the **ResponseWriter** Interface.  Here is
     the link to the interface –
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在GO中，响应由**ResponseWriter**接口表示。这里是接口的链接 –
 - en: '[https://golang.org/pkg/net/http/#ResponseWriter](https://golang.org/pkg/net/http/#ResponseWriter)'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/net/http/#ResponseWriter](https://golang.org/pkg/net/http/#ResponseWriter)'
 - en: ResponseWriter interface is used by an HTTP handler to construct an HTTP response.
     It provides three functions to set the response parameters
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: ResponseWriter接口由HTTP处理程序用于构建HTTP响应。它提供三个函数来设置响应参数
 - en: Header – For writing response header
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 头部 – 用于写入响应头
 - en: Write([]byte) – For writing response body
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Write([]byte) – 用于写入响应体
 - en: WriteHeader(statusCode int) – For writing the http status code
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: WriteHeader(statusCode int) – 用于写入HTTP状态码
 - en: '**Write** function can be used to set the response body. It takes a slice of
     bytes as input. Also, there is a **Header** function. This function can be used
     to set the content type of the response body using the Content-Type header. For
     eg in the case of the JSON response body, we need to set the Content-Type header
     as **“application/json”.**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Write**函数可以用于设置响应体。它接受一个字节切片作为输入。此外，还有一个**Header**函数。该函数可用于通过Content-Type头设置响应体的内容类型。例如，在JSON响应体的情况下，我们需要将Content-Type头设置为**“application/json”。**'
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Also, note that **WriteHeader** function can be used to set the HTTP status
     code for the response
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，请注意**WriteHeader**函数可以用于设置响应的HTTP状态码
 - en: '**Example**'
+  id: totrans-19
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see an example of sending http status code and JSON response body
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个发送HTTP状态码和JSON响应体的示例
 - en: Below is the program for the same
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相同的程序
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, this is how we create a JSON response. We use the **json.Marshal**
     function to convert the **map[string]string** into json bytes.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，这就是我们如何创建JSON响应。我们使用**json.Marshal**函数将**map[string]string**转换为JSON字节。
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: It then uses the **Write** function to return the JSON response body. The above
     code returns the below JSON response body back in response
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后它使用**Write**函数返回JSON响应体。上述代码返回以下JSON响应体作为响应
 - en: '[PRE3]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Also, we are using the **WriteHeader** function to specify the 201 http status
     code.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，我们使用**WriteHeader**函数来指定201 HTTP状态码。
 - en: Run the above program. It will start a server on 8080 port on your local machine.
     Now make the below curl call to the server
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上述程序。它将在本地机器的8080端口启动一个服务器。现在请对服务器进行以下curl调用
 - en: '[PRE4]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Below will be the output
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下将是输出
 - en: '[PRE5]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: As you can see from the output, it will correctly return the **201** status
     code along with the JSON body.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中可以看到，它将正确返回**201**状态码以及JSON体。
 - en: Also, check out our Golang advance tutorial Series - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，请查看我们的Golang高级教程系列 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

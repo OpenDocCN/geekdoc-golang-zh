@@ -1,170 +1,260 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:11:24'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:24
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Returning Multiples values from a function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中从函数返回多个值
 - en: 来源：[https://golangbyexample.com/go-return-multiples-values-function/](https://golangbyexample.com/go-return-multiples-values-function/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-return-multiples-values-function/](https://golangbyexample.com/go-return-multiples-values-function/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Signature of a function](#Signature_of_a_function "Signature of a function")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[函数的签名](#Signature_of_a_function "Signature of a function")'
 - en: '[Return Values](#Return_Values "Return Values ")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[返回值](#Return_Values "Return Values ")'
 - en: '[Code:](#Code "Code:")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")'
 - en: '[Named Return Values](#Named_Return_Values "Named Return Values")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[命名返回值](#Named_Return_Values "Named Return Values")'
 - en: '[Code:](#Code-2 "Code:")*  *# **Overview**'
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code-2 "Code:")*  *# **概述**'
 - en: A function is a group of statements that perform a specific task.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数是一组执行特定任务的语句。
 - en: '**Signature of a function**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**函数的签名**'
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: A function in Golang can return multiple values. An example of a function. The
     below function is
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Golang 中，一个函数可以返回多个值。下面是一个函数的示例。
 - en: Has the name **“f”**
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 名称为 **“f”**
 - en: Accept two arguments of int type
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接受两个整型参数
 - en: Return a single value of type int
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 返回一个整型的单个值
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Return Values**'
+  id: totrans-21
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**返回值**'
 - en: 'As mentioned above a function can have one or more return values. Assume there
     is a function **sum_avg** that returns two values: Sum and Average. Note that
     when returning multiple values the returning value type has to be enclosed within
     parenthesis. Example of multiple return values.'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如上所述，一个函数可以有一个或多个返回值。假设有一个函数 **sum_avg** 返回两个值：总和和平均值。注意，当返回多个值时，返回值类型必须用括号括起来。多个返回值的示例。
 - en: '[PRE2]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: As a convention error is returned as the last argument in a function. Example
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 根据约定，错误作为函数的最后一个参数返回。示例
 - en: '[PRE3]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Collecting multiple return values in the caller function. In below example
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在调用函数中收集多个返回值。在下面的示例中
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Code:**'
+  id: totrans-28
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE5]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**:'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**：'
 - en: '[PRE6]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Named Return Values**'
+  id: totrans-32
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**命名返回值**'
 - en: A go function can have named return values. With named return values , the return
     values did not need to be initialised in the function**.** The named variables
     are specified in the signature itself. Without named values,  only return type
     is specified. It is also ok to name some of the return values. For other return
     values only type can be specified.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 函数可以具有命名返回值。使用命名返回值时，返回值在函数中不需要初始化。命名变量在签名中指定。没有命名值时，只指定返回类型。也可以为某些返回值命名。对于其他返回值，只能指定类型。
 - en: 'See example below: **result** is the named return value'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 见下面的示例：**result** 是命名返回值。
 - en: '[PRE7]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Multiple named return values
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 多个命名返回值
 - en: '[PRE8]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: With named return values , type of the consecutive same types can be specified
     only once
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用命名返回值时，相同类型的连续值只需指定一次类型。
 - en: '[PRE9]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: The named return values are initialized to the zero value of the type. Therefore
     we don’t need to reinitialize it in the function. In the below example **sum**
     and **avg** have not been initialized again with **:=** symbol.
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 命名返回值被初始化为该类型的零值。因此我们不需要在函数中重新初始化它。在下面的示例中，**sum** 和 **avg** 没有使用 **:=** 符号再次初始化。
 - en: '**Code:**'
+  id: totrans-41
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE10]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]*'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE11]*'

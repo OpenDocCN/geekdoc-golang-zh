@@ -1,128 +1,205 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:41:18'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:41:18
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Load a .env or environment file in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中加载 .env 或环境文件。
 - en: 来源：[https://golangbyexample.com/load-env-fiie-golang/](https://golangbyexample.com/load-env-fiie-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/load-env-fiie-golang/](https://golangbyexample.com/load-env-fiie-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program") *  *# **概述**'
 - en: '**gotenv** package in golang can be used to load **.env** or **environment**
     file in golang'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**gotenv** 包在 Golang 中可用于加载 **.env** 或 **环境** 文件。'
 - en: '[https://github.com/joho/godotenv](https://github.com/joho/godotenv)'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://github.com/joho/godotenv](https://github.com/joho/godotenv)'
 - en: Below is the signature of the function
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It takes a variable number of arguments where each argument can be the **.env**
     filenames that it needs to load
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 它接受可变数量的参数，每个参数可以是需要加载的 **.env** 文件名。
 - en: '**Program**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Create a file **local.env** with below contents
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建一个 **local.env** 文件，并包含以下内容。
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Here is the program
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是程序。
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: It loads the **local.env** file and gives the correct output
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 它加载 **local.env** 文件并给出正确的输出。
 - en: It can also be used to load multiple .env files. Create a new file **test.env**
     with below contents
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 它还可以用于加载多个 .env 文件。创建一个新的文件 **test.env**，并包含以下内容。
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: If you don’t supply any argument to the **Load** function then by default it
     will load the file named **.env** in the current directory.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你没有向 **Load** 函数提供任何参数，则默认情况下它将加载当前目录中的 **.env** 文件。
 - en: Create a file named .**env** with the below contents in the current directory
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在当前目录中创建一个名为 **.env** 的文件，并包含以下内容。
 - en: '[PRE7]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '[PRE8]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Notice in the above program that we didn’t pass any argument to the **Load**
     function
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在上述程序中，我们没有向 **Load** 函数传递任何参数。
 - en: '**Output**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: This was about loading **.env** files in golang
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 这部分是关于在 Golang 中加载 **.env** 文件的。
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的 Golang 高级教程。本系列教程详尽，我们尝试涵盖所有概念和示例。本教程适合希望深入理解 Golang 的人——[Golang
+    高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是，那么这篇文章适合你——[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)*'

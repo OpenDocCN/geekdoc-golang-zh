@@ -1,70 +1,108 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:05:32'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:32
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Linked List in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中的链表
 - en: 来源：[https://golangbyexample.com/singly-linked-list-in-golang/](https://golangbyexample.com/singly-linked-list-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/singly-linked-list-in-golang/](https://golangbyexample.com/singly-linked-list-in-golang/)
 - en: Singly-linked list is a simple kind of linked list that allows traversal in
     one direction i.e forward. Each node in the linked list contains the data part
     and the pointer to the next node in the linked list.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 单链表是一种简单的链表，只允许向一个方向遍历，即向前。链表中的每个节点包含数据部分和指向下一个节点的指针。
 - en: The linked list implemented below supports the following operations
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下实现的链表支持以下操作：
 - en: AddFront
+  id: totrans-8
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 添加前部
 - en: AddBack
+  id: totrans-9
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 添加后部
 - en: RemoveFront
+  id: totrans-10
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 移除前部
 - en: RemoveBack
+  id: totrans-11
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 移除后部
 - en: Traverse
+  id: totrans-12
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 遍历
 - en: Front
+  id: totrans-13
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 前部
 - en: Size
+  id: totrans-14
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 大小
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[data](https://golangbyexample.com/tag/data/)*   [go](https://golangbyexample.com/tag/go/)*   [linked](https://golangbyexample.com/tag/linked/)*   [single
     linked list](https://golangbyexample.com/tag/single-linked-list/)*   [singly](https://golangbyexample.com/tag/singly/)*   [structure](https://golangbyexample.com/tag/structure/)'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数据](https://golangbyexample.com/tag/data/)*   [go](https://golangbyexample.com/tag/go/)*   [链接](https://golangbyexample.com/tag/linked/)*   [单链表](https://golangbyexample.com/tag/single-linked-list/)*   [单一](https://golangbyexample.com/tag/singly/)*   [结构](https://golangbyexample.com/tag/structure/)'

@@ -1,145 +1,220 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:46:54'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:46:54
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Largest Rectangular Area in a Histogram in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的直方图最大矩形面积
 - en: 来源：[https://golangbyexample.com/largest-rectangular-area-histogram-go/](https://golangbyexample.com/largest-rectangular-area-histogram-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/largest-rectangular-area-histogram-go/](https://golangbyexample.com/largest-rectangular-area-histogram-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: There is a set of bars each of 1 unit width but different heights placed alongside.
     The height of the bars is represented using an array
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 有一组每个宽度为1单位但高度不同的柱子并排放置。柱子的高度用数组表示
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The array represents that
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组表示如下
 - en: The total number of bars is 5
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 柱子的总数为5
 - en: The first bar is of height 2
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一根柱子的高度为2
 - en: The second bar is of height 0
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二根柱子的高度为0
 - en: The third bar is of height 2
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第三根柱子的高度为2
 - en: The fourth bar is of height 1
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第四根柱子的高度为1
 - en: The fifth bar is of height 3
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第五根柱子的高度为3
 - en: The sixth bar is of height 1
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第六根柱子的高度为1
 - en: The objective is to find the maximum rectangular area in the histogram. As seen
     from the diagram the maximum rectangular area is 4.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是在直方图中找到最大的矩形面积。从图中可以看出，最大矩形面积为4。
 - en: '![](img/4ccccd1ceb90e3a1ef0bbed77118cc2a.png)'
+  id: totrans-20
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/4ccccd1ceb90e3a1ef0bbed77118cc2a.png)'
 - en: Below is the approach we can take to solve this question. We will use the stack
     and will find out the area at every index of the bar assuming that the bar is
     fully included in the largest rectangle.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是解决此问题的方法。我们将使用栈，并在每个柱子的索引处找出假设该柱子完全包含在最大矩形中的面积。
 - en: Push the first element of the given array to the stack. Traverse through the
     given array. For every bar, we need to find out the nearest smaller bar on the
     left side and the nearest smaller bar on the right side
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将给定数组的第一个元素压入栈中。遍历给定数组。对于每根柱子，我们需要找出左侧最近的较小柱子和右侧最近的较小柱子
 - en: For the current element, check if the height of the top element is greater than
     the height of the current element
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于当前元素，检查顶部元素的高度是否大于当前元素的高度
 - en: If yes then the current element is the nearest smaller bar on the right side.
     And the element in the stack after the top element is the nearest smaller bar
     on the left side.
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果是，那么当前元素就是右侧最近的较小柱子。栈中顶元素之后的元素是左侧最近的较小柱子。
 - en: Pop this element and calculate the largest rectangular area assuming that the
     bar is included fully. Keep track of the maximum rectangular area
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 弹出该元素并假设该柱子完全包含，计算最大的矩形面积。保持对最大矩形面积的跟踪
 - en: Repeat the above two steps till the stack is empty or the height of the top
     element is less than the current element
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重复上述两步，直到栈为空或顶部元素的高度小于当前元素
 - en: Push the current element to the stack
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将当前元素压入栈中
 - en: Return the maximum rectangular area at the end.
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 最后返回最大的矩形面积。
 - en: '**Program**'
+  id: totrans-29
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的程序。
 - en: '[PRE1]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列的教程详尽，我们尽量用示例涵盖所有概念。本教程适合那些希望获得专业知识并深入理解Golang的人
+    – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章适合你 –[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

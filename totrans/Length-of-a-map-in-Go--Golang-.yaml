@@ -1,44 +1,70 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:19:13'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:19:13
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Length of a map in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中映射的长度
 - en: 来源：[https://golangbyexample.com/length-map-golang/](https://golangbyexample.com/length-map-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/length-map-golang/](https://golangbyexample.com/length-map-golang/)
 - en: The golang builtin function **len()** can be used to get the length of the map
     which is number of key-value pairs present in the map. Below is the format for
     using this function on the map.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang 内置函数 **len()** 可用于获取映射的长度，即映射中键值对的数量。以下是使用此函数在映射上操作的格式。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s see a program
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个程序
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [length](https://golangbyexample.com/tag/length/)*   [map](https://golangbyexample.com/tag/map/)'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[去](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [长度](https://golangbyexample.com/tag/length/)*   [映射](https://golangbyexample.com/tag/map/)'

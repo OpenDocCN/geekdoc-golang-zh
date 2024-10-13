@@ -1,61 +1,97 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:09:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:09:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: List all env variables in Go
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 列出 Go 中的所有环境变量
 - en: 来源：[https://golangbyexample.com/list-all-env-variables-go/](https://golangbyexample.com/list-all-env-variables-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/list-all-env-variables-go/](https://golangbyexample.com/list-all-env-variables-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "代码：")*  *# **概述**'
 - en: '**os** package provides an **Environ()** function to get the list all environment
     variables.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os** 包提供了一个 **Environ()** 函数，用于获取所有环境变量的列表。'
 - en: Get all the env variables. It returns an array of string.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 获取所有环境变量。它返回一个字符串数组。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: There is also a way to clear all the env variables. **Clearenv()** function
     can be used to achieve the same.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有一种方法可以清除所有环境变量。**Clearenv()**函数可以用来实现同样的功能。
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Code:**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]*'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE3]*'

@@ -1,61 +1,97 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:16:56'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:16:56
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get Hostname in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中获取主机名
 - en: 来源：[https://golangbyexample.com/get-hostname-golang/](https://golangbyexample.com/get-hostname-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/get-hostname-golang/](https://golangbyexample.com/get-hostname-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: '**‘os’** package of golang provides a **Hostname** function that can be used
     to get the hostname that is reported by the kernel'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: golang的**‘os’**包提供了一个**Hostname**函数，可用于获取内核报告的主机名
 - en: Below is the signature of this method. It returns an error if not able to successfully
     get the hostname
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是此方法的签名。如果无法成功获取主机名，则返回错误
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s see a working code
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个工作代码
 - en: '**Code**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**：'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [hostname](https://golangbyexample.com/tag/hostname/)*   [os](https://golangbyexample.com/tag/os/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [主机名](https://golangbyexample.com/tag/hostname/)*   [os](https://golangbyexample.com/tag/os/)*'

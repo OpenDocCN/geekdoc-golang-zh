@@ -1,45 +1,73 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:17:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:17:52'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get Current User’s Home Directory in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 获取当前用户的主目录（Go/Golang）
 - en: 来源：[https://golangbyexample.com/get-current-user-home-directory-go/](https://golangbyexample.com/get-current-user-home-directory-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/get-current-user-home-directory-go/](https://golangbyexample.com/get-current-user-home-directory-go/)
 - en: '**Overview**'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**概述**'
 - en: '**‘os/user’** package can be used to get the current user home directory'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**‘os/user’** 包可用于获取当前用户的主目录'
 - en: Let’s see a working code
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个工作示例
 - en: '**Code**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[directory](https://golangbyexample.com/tag/directory/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [home](https://golangbyexample.com/tag/home/)'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[目录](https://golangbyexample.com/tag/directory/)*   [去](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [主页](https://golangbyexample.com/tag/home/)'

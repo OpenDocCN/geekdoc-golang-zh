@@ -1,322 +1,492 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:31:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:31:52'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get JSON request body from a HTTP request in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 从HTTP请求中获取JSON请求体（Golang）
 - en: 来源：[https://golangbyexample.com/json-request-body-golang-http/](https://golangbyexample.com/json-request-body-golang-http/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/json-request-body-golang-http/](https://golangbyexample.com/json-request-body-golang-http/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: '**json/encoding** package contains methods that can be used to convert a  request
     body of an incoming HTTP request into a golang struct. Before we start just a
     word about the request body. The request body of an HTTP request is a sequence
     of bytes. It is the content-type of the HTTP request which denotes the format
     in which those bytes are represented and meant to be read back.  For a JSON request
     body, the content-type is'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**json/encoding**包包含可以用于将传入HTTP请求的请求体转换为Go语言结构体的方法。在开始之前，先说一句关于请求体的话。HTTP请求的请求体是一系列字节。请求体的内容类型表示这些字节的表示格式，并且意味着要被读取。对于JSON请求体，内容类型是'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Also two things about golang struct that you need to know
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外还有两件关于Go语言结构体你需要知道的事。
 - en: Only exported fields of the struct are visible to the external library. Hence
     only exported fields of the struct can be parsed into from an incoming HTTP request.
     Also to note that capitalized fields of a struct are exported in go.
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅导出的结构体字段对外部库可见。因此，只有导出的结构体字段才能从传入的HTTP请求中解析。需要注意的是，Go语言中大写的结构体字段是导出的。
 - en: Struct fields have a meta section that contains additional information about
     that field. These meta fields are used while parsing an incoming JSON request
     body into a struct. For eg let’s say we have the below struct
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体字段有一个元信息部分，包含关于该字段的附加信息。这些元字段在将传入的JSON请求体解析为结构体时使用。例如，假设我们有以下结构体：
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Notice meta tags associated with each of the fields annotated with name as ‘json’.
     These meta fields are used to map keys in the JSON to the fields of the struct.
     For eg if we have JSON as
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意与每个标记为‘json’的字段相关联的元标签。这些元字段用于将JSON中的键映射到结构体的字段。例如，如果我们有以下JSON：
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Then **name** key of the above JSON will map to the **Name** field of the **employee**
     struct and the **age** key in JSON will map to the **Age** field of the struct.
     Let’s say we have below struct and JSON
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后上述JSON的**name**键将映射到**employee**结构体的**Name**字段，JSON中的**age**键将映射到结构体的**Age**字段。假设我们有以下结构体和JSON：
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Then **‘n’** key of the JSON will map to the **Name** field of the struct and
     **‘ag’** key of the JSON will map to the **Age** field of the struct.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后JSON中的**‘n’**键将映射到结构体的**Name**字段，JSON中的**‘ag’**键将映射到结构体的**Age**字段。
 - en: Below two methods of the **json/encoding** package can be used to get the JSON
     request body of an incoming request.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以使用**json/encoding**包的以下两个方法获取传入请求的JSON请求体。
 - en: json.Unmarshal([]bye)
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: json.Unmarshal([]byte)
 - en: json.NewDecoder(io.Reader).Decode(interface{})
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: json.NewDecoder(io.Reader).Decode(interface{})
 - en: The second method is a preferred way to get the json request body for two reasons.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二种方法是获取JSON请求体的优选方式，原因有两个。
 - en: The request body of an incoming HTTP request is an io stream. **json.Unmarshal**
     will read the entire contents of the body first and then do an Unmarshal. It does
     no validation on the request body as it comes along. As compared Decode method
     will give an early parse error if the JSON is not valid. This comes in handy for
     a large invalid body being sent by the client. Unmarshal will detect that when
     the entire large body has been read while Decode will raise at the start only.
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 传入HTTP请求的请求体是一个io流。**json.Unmarshal**将首先读取请求体的全部内容，然后进行解组。它不会对请求体进行验证，而是直接处理。相比之下，Decode方法如果JSON无效会立即给出解析错误。这对于客户端发送的大型无效请求体非常有用。Unmarshal将在整个大请求体读取完毕后发现问题，而Decode在一开始就会抛出错误。
 - en: '**json.Decode** contains the **DisallowUnknownFields** method which raises
     an error if the incoming JSON contains keys which do not match any'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**json.Decode**包含**DisallowUnknownFields**方法，如果传入的JSON包含与任何字段不匹配的键，则会引发错误。'
 - en: Exported and
+  id: totrans-26
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 导出和
 - en: Non-ignored fields of the struct.
+  id: totrans-27
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 未被忽略的结构体字段。
 - en: There might be several issues that need to be taken care of when parsing the
     incoming JSON request body.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在解析传入的JSON请求体时，可能需要处理几个问题。
 - en: The body might not be a valid JSON
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 请求体可能不是有效的JSON。
 - en: It is a valid JSON but contains extra fields or none of the fields expected
     in the struct.
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这是一个有效的JSON，但包含额外的字段或没有任何结构体中预期的字段。
 - en: The JSON request body is too large.
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: JSON 请求体太大。
 - en: The field is expected but it contains a different type. For example for the
     Name field above the incoming HTTP request JSON body has a number while the expectation
     is a string.
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该字段是预期的，但它包含不同的类型。例如，对于上面的名称字段，传入的 HTTP 请求 JSON 主体有一个数字，而预期是一个字符串。
 - en: The req body contains extra fields.
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 请求体包含额外字段。
 - en: The **Decode** method can capture all of those issues and can return appropriate
     error messages as well except in one case when there is an unmarshaling error.
     Let’s see the error returned by the decode method in all cases
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Decode** 方法可以捕获所有这些问题，并能够返回适当的错误消息，除了在出现解组错误的情况下。让我们看看在所有情况下解码方法返回的错误。'
 - en: Imaging the incoming JSON need to converted into the **employee** struct we
     mentioned above
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 想象一下，传入的 JSON 需要转换成我们上面提到的**员工**结构。
 - en: Issues
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 问题
 - en: There is an extra field in the incoming JSON. For example, let’s say we have
     an additional **Gender** field present.
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 传入的 JSON 中有一个额外的字段。例如，假设我们有一个额外的**性别**字段。
 - en: '[PRE4]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The error returned by decode function will be
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 解码函数返回的错误将是
 - en: '[PRE5]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: The body is not a valid JSON
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 请求体不是有效的 JSON
 - en: '[PRE6]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: The error returned by the decode function will be
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 解码函数返回的错误将是
 - en: '[PRE7]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: The body is empty
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 请求体为空
 - en: '[PRE8]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: The error returned by decode function will be
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 解码函数返回的错误将是
 - en: '[PRE9]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: The type of one of the field is different than expected. For example, sending
     a string value of age where int is expected
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 某个字段的类型与预期不同。例如，发送一个字符串值的年龄，而预期是 int。
 - en: '[PRE10]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: The error returned by decode function will be
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 解码函数返回的错误将是
 - en: '[PRE11]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: In this case, the error returned by the decode function is returning internal
     information which is not an appropriate error to be returned back to the client.
     It is also possible to catch such type of error and return an appropriate error
     to the client. And that is what we are doing in the below program as well. Just 
     checking if it is an unmarshaling and returning custom error message after that
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，解码函数返回的错误包含内部信息，这不是应返回给客户端的适当错误。也可以捕获这种类型的错误并返回适当的错误给客户端。这正是我们在下面的程序中所做的。只需检查是否是解组错误，然后返回自定义错误消息。
 - en: Also in the code below we are setting the disallow unknown fields option on
     the **decoder** so that any extra fields in the incoming JSON body results in
     an error.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的代码中，我们还设置了**解码器**的禁止未知字段选项，因此传入 JSON 主体中的任何额外字段都会导致错误。
 - en: '[PRE12]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Example**'
+  id: totrans-56
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Below is full program for the same.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是完整的程序示例。
 - en: '[PRE13]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Run the above file. It will trigger a server that will listen to port 8080\.
     After the server is running, let’s make the API calls for some of the scenarios
     we have discussed above.
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上述文件。这将触发一个服务器，监听端口 8080。在服务器运行后，让我们对我们讨论过的一些场景进行 API 调用。
 - en: '**Correct Request**'
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**正确的请求**'
 - en: '[PRE14]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output**'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE15]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**There is an extra field in the incoming JSON**'
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**传入的 JSON 中有一个额外的字段**'
 - en: '[PRE16]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Output**'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE17]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**The body is not a valid JSON**'
+  id: totrans-68
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**请求体不是有效的 JSON**'
 - en: '[PRE18]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**Output**'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE19]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**The body is empty**'
+  id: totrans-72
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**请求体为空**'
 - en: '[PRE20]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Output**'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE21]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**The type of one of the field is different than expected. For example, sending
     a string value of age where int is expected**'
+  id: totrans-76
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**某个字段的类型与预期不同。例如，发送一个字符串值的年龄，而预期是 int**'
 - en: '[PRE22]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: '**Output**'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE23]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Content-type is not provided or not application/json**'
+  id: totrans-80
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**未提供内容类型或内容类型不是 application/json**'
 - en: '[PRE24]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Output**'
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE25]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [http](https://golangbyexample.com/tag/http/)*   [json](https://golangbyexample.com/tag/json/)*'
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [http](https://golangbyexample.com/tag/http/)*   [json](https://golangbyexample.com/tag/json/)*'

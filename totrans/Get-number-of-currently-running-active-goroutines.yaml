@@ -1,49 +1,79 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:09:42'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:09:42
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get number of currently running/active goroutines
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 获取当前运行/活动的 goroutine 数量
 - en: 来源：[https://golangbyexample.com/number-currently-running-active-goroutines/](https://golangbyexample.com/number-currently-running-active-goroutines/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/number-currently-running-active-goroutines/](https://golangbyexample.com/number-currently-running-active-goroutines/)
 - en: '**NumGoroutine** function of **runtime** package can be used to know the currently
     running/active goroutines.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**NumGoroutine** 函数来自 **runtime** 包，可用于了解当前运行/活动的 goroutine 数量。'
 - en: '[https://golang.org/pkg/runtime/#NumGoroutine](https://golang.org/pkg/runtime/#NumGoroutine)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/runtime/#NumGoroutine](https://golang.org/pkg/runtime/#NumGoroutine)'
 - en: Below is the signature of the function
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Working Code:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**工作代码：**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*   [goroutines](https://golangbyexample.com/tag/goroutines/)'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*   [goroutines](https://golangbyexample.com/tag/goroutines/)'

@@ -1,75 +1,117 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:17:16'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:17:16
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get File Name, Size, Permission Bits, Mode, Modified Time in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中获取文件名、大小、权限位、模式、修改时间
 - en: 来源：[https://golangbyexample.com/file-info-golang/](https://golangbyexample.com/file-info-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/file-info-golang/](https://golangbyexample.com/file-info-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: '**os.Stat()** function can be used to the info of a file in go. This function
     returns stats which can be used to get'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os.Stat()**函数可用于获取Go中文件的信息。该函数返回可用于获取的信息统计数据。'
 - en: Name of the file
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件的名称
 - en: Size of the file in bytes
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件的大小（以字节为单位）
 - en: Modified Time of the file
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件的修改时间
 - en: Permission Bits or Mode of the file
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件的权限位或模式
 - en: Below is the signature of the function. It takes in the named file and return
     **FileInfo** struct which defines utility method to get above information
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名。它接受指定的文件并返回**FileInfo**结构体，该结构体定义了获取上述信息的实用方法。
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Code**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [mode](https://golangbyexample.com/tag/mode/)*   [modified
     time](https://golangbyexample.com/tag/modified-time/)*   [permission bits](https://golangbyexample.com/tag/permission-bits/)*   [size](https://golangbyexample.com/tag/size/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [模式](https://golangbyexample.com/tag/mode/)*   [修改时间](https://golangbyexample.com/tag/modified-time/)*   [权限位](https://golangbyexample.com/tag/permission-bits/)*   [大小](https://golangbyexample.com/tag/size/)*'

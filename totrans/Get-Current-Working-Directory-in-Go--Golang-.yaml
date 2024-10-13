@@ -1,37 +1,59 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:07:20'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:07:20
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get Current Working Directory in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中获取当前工作目录
 - en: 来源：[https://golangbyexample.com/current-working-directory-golang/](https://golangbyexample.com/current-working-directory-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/current-working-directory-golang/](https://golangbyexample.com/current-working-directory-golang/)
 - en: '**os.Getwd()** is used to get the current working directory. Output will similar
     to **pwd** command on linux'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os.Getwd()** 用于获取当前工作目录。输出将类似于 linux 上的 **pwd** 命令'
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: 'Current Working Direcoty: <will be current working directory on the machine>'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 当前工作目录：<将是机器上的当前工作目录>
 - en: '[directory](https://golangbyexample.com/tag/directory/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [pwd](https://golangbyexample.com/tag/pwd/)'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[目录](https://golangbyexample.com/tag/directory/)*   [Go](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [pwd](https://golangbyexample.com/tag/pwd/)'

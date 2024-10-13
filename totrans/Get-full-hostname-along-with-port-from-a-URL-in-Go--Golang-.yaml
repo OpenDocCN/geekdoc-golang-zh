@@ -1,99 +1,155 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:40:37'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:40:37
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get full hostname along with port from a URL in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中获取URL的完整主机名及端口。
 - en: 来源：[https://golangbyexample.com/hostname-port-url-golang/](https://golangbyexample.com/hostname-port-url-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/hostname-port-url-golang/](https://golangbyexample.com/hostname-port-url-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概览](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概览**'
 - en: '**net/url** package of golang contains a Parse function that can be used to
     parse a given and return the URL instance of the URL struct[https://golang.org/pkg/net/url/#URL](https://golang.org/pkg/net/url/#URL)'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**golang的net/url包**包含一个解析函数，可以用来解析给定的URL并返回URL结构体的实例。[https://golang.org/pkg/net/url/#URL](https://golang.org/pkg/net/url/#URL)'
 - en: Once the given URL is parsed correctly, then it will return the URI object.
     We can then access the below information from the URI
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦给定的URL正确解析，将返回URI对象。我们可以从URI中访问以下信息。
 - en: Scheme
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 协议
 - en: User Info
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 用户信息
 - en: Hostname
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主机名
 - en: Port
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 端口
 - en: Pathname
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 路径名
 - en: Query Params
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 查询参数
 - en: Fragment
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 片段
 - en: Once we have all the parts we can concatenate them to get the full hostname
     along with the port. We will parse the below URL
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦我们拥有所有部分，就可以将它们连接起来，以获取完整的主机名及端口。我们将解析以下URL。
 - en: '[PRE0]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Then the full hostname along with port will be
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后完整的主机名及端口将为
 - en: '[PRE1]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Program**'
+  id: totrans-22
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的程序。
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

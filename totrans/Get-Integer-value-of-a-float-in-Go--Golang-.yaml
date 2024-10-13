@@ -1,73 +1,115 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:14:35'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:14:35
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get Integer value of a float in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中获取浮点数的整数值
 - en: 来源：[https://golangbyexample.com/integer-value-of-float/](https://golangbyexample.com/integer-value-of-float/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/integer-value-of-float/](https://golangbyexample.com/integer-value-of-float/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: '**math** package of GO provides a **Trunc** method that can be used to get
     integer value of a float'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: GO 的 **math** 包提供了一个 **Trunc** 方法，可以用来获取浮点数的整数值
 - en: Below is the signature of the function. It takes input a float and also returns
     a float.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名。它接受一个浮点数作为输入，并返回一个浮点数。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Some special cases of **Trunc** function are
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Trunc** 函数的一些特殊情况是'
 - en: Trunc(±0) = ±0
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Trunc(±0) = ±0
 - en: Trunc(±Inf) = ±Inf
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Trunc(±Inf) = ±Inf
 - en: Trunc(NaN) = NaN
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Trunc(NaN) = NaN
 - en: '**Code**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*   [integer value of float](https://golangbyexample.com/tag/integer-value-of-float/)*   [trunc](https://golangbyexample.com/tag/trunc/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*   [浮点数的整数值](https://golangbyexample.com/tag/integer-value-of-float/)*   [trunc](https://golangbyexample.com/tag/trunc/)*'

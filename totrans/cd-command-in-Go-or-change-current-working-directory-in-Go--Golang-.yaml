@@ -1,49 +1,79 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:17:57'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:17:57'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: cd command in Go or change current working directory in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go 中的 cd 命令或更改当前工作目录
 - en: 来源：[https://golangbyexample.com/change-current-working-directory-go/](https://golangbyexample.com/change-current-working-directory-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/change-current-working-directory-go/](https://golangbyexample.com/change-current-working-directory-go/)
 - en: '**Overview**'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**概述**'
 - en: '**os.Chdir()** is used to change the current working directory to the named
     directory in golang. It is similar to the cd command.'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os.Chdir()** 用于将当前工作目录更改为在 Golang 中指定的目录。它类似于 cd 命令。'
 - en: Below is the signature of the function
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Code**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[cd command](https://golangbyexample.com/tag/cd-command/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[cd 命令](https://golangbyexample.com/tag/cd-command/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'

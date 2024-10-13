@@ -1,220 +1,343 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类: 未分类'
 - en: 'date: 2024-10-13 06:02:54'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:02:54'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Chain of Responsibility Design Pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 责任链设计模式在 Go (Golang) 中的应用
 - en: 来源：[https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/](https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/](https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：如果您想了解所有其他设计模式如何在 GO 中实现，请查看这个完整参考 – [Go (Golang) 中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Definition: ](#Definition "Definition:  ")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [定义：](#Definition "定义： ")'
 - en: '[When to Use:](#When_to_Use "When to Use:")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用时机：](#When_to_Use "使用时机：")'
 - en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML 图：](#UML_Diagram "UML 图：")'
 - en: '[Mapping ](#Mapping "Mapping ")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射 ](#Mapping "映射 ")'
 - en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实际例子：](#Practical_Example "实际例子：")'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Definition: **'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "完整工作代码：")*  *## **定义： **'
 - en: 'Chain of Responsibility Design Pattern is a behavioral design pattern. It lets
     you create a chain of request handlers. For every incoming request, it is passed
     through the chain and each of the handler:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 责任链设计模式是一种行为设计模式。它允许您创建一条请求处理者链。对于每一个传入请求，它会在链中传递，每个处理者：
 - en: Processes the request or skips the processing.
+  id: totrans-15
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 处理请求或跳过处理。
 - en: Decides whether to pass the request to the next handler in the chain or not
+  id: totrans-16
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 决定是否将请求传递给链中的下一个处理者。
 - en: 'Chain of Responsibility Design pattern will be best understood with an example.
     Let’s take the case of a hospital. A hospital has multiple departments such as:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 责任链设计模式最好通过示例来理解。让我们以医院为例。医院有多个部门，例如：
 - en: Reception
+  id: totrans-18
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 接待
 - en: Doctor
+  id: totrans-19
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 医生
 - en: Medicine Room
+  id: totrans-20
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 药品室
 - en: Cashier
+  id: totrans-21
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 收银员
 - en: Whenever any patient arrives he first goes to **Reception** then to **Doctor**
     then to **Medicine Room** and then to **Cashier** and so on. In a way, a patient
     is sent into a chain of departments which when done, sends the patient to further
     departments. This is where the Chain of Responsibility pattern comes into the
     picture.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 每当有患者到达时，他首先去**接待处**，然后去**医生**，接着是**药品室**，然后是**收银员**，依此类推。患者以某种方式被送入一个部门链，在完成后，将患者发送到进一步的部门。这就是责任链模式发挥作用的地方。
 - en: '**When to Use:**'
+  id: totrans-23
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用时机：**'
 - en: The pattern is applicable when there are multiple candidates to process the
     same request.
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当有多个候选者处理相同请求时，该模式适用。
 - en: When you don’t want the client to choose the receiver as multiple objects can
     handle the request. Also, you want to decouple the client from receivers. The
     Client only needs to know the first element in the chain.
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当您不希望客户端选择接收者时，因为多个对象可以处理请求。此外，您希望将客户端与接收者解耦。客户端只需知道链中的第一个元素。
 - en: -As in the example of the hospital, a patient first goes to the reception and
     then reception based upon a patient’s current status sends up to the next handler
     in the chain.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 在医院的例子中，患者首先去接待处，然后接待处根据患者的当前状态将其发送到链中的下一个处理者。
 - en: '**UML Diagram:**'
+  id: totrans-27
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**UML 图：**'
 - en: '![](img/591e0120dcb7c23d14ad9fcd3f64fcf2.png)'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_IMG
+  zh: '![](img/591e0120dcb7c23d14ad9fcd3f64fcf2.png)'
 - en: Below is the corresponding mapping UML diagram with the practical example given
     below
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是与实际例子相对应的映射 UML 图。
 - en: '![](img/2703e8e31199ead7a67a5b7d80c3aade.png)'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_IMG
+  zh: '![](img/2703e8e31199ead7a67a5b7d80c3aade.png)'
 - en: '**Mapping **'
+  id: totrans-31
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**映射 **'
 - en: '| handler | department.go |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| 处理者 | department.go |'
 - en: '| Concrete Handler 1 | account.go |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| 具体处理者 1 | account.go |'
 - en: '| Concrete Handler 2 | doctor.go |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| 具体处理者 2 | doctor.go |'
 - en: '| Concrete Handler 3 | medical.go |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| 具体处理者 3 | medical.go |'
 - en: '| Concrete Handler 4 | cashier.go |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '| 具体处理者 4 | cashier.go |'
 - en: '| Client | main.go |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '| 客户端 | main.go |'
 - en: '**Practical Example:**'
+  id: totrans-38
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**实际例子：**'
 - en: '**department.go**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**department.go**'
 - en: '[PRE0]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**reception.go**'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**reception.go**'
 - en: '[PRE1]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**doctor.go**'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**doctor.go**'
 - en: '[PRE2]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**medical.go**'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**medical.go**'
 - en: '[PRE3]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**cashier.go**'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**cashier.go**'
 - en: '[PRE4]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**patient.go**'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '**patient.go**'
 - en: '[PRE5]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**main.go**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE6]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Full Working Code:**'
+  id: totrans-55
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE8]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '[chain of responsibility design pattern in golang](https://golangbyexample.com/tag/chain-of-responsibility-design-pattern-in-golang/)*   [chain
     of responsiblity](https://golangbyexample.com/tag/chain-of-responsiblity/)*   [design
     pattern in go](https://golangbyexample.com/tag/design-pattern-in-go/)*   [design
     pattern in golang](https://golangbyexample.com/tag/design-pattern-in-golang/)*'
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[责任链设计模式在Golang中的应用](https://golangbyexample.com/tag/chain-of-responsibility-design-pattern-in-golang/)
+    *   [责任链](https://golangbyexample.com/tag/chain-of-responsiblity/) *   [Go中的设计模式](https://golangbyexample.com/tag/design-pattern-in-go/)
+    *   [Golang中的设计模式](https://golangbyexample.com/tag/design-pattern-in-golang/)
+    *'

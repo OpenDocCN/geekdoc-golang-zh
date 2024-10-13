@@ -1,54 +1,84 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:31:38'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:31:38
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Canonical HTTP Header Key Meaning
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 规范的 HTTP 头部键含义
 - en: 来源：[https://golangbyexample.com/canonical-http-header-key/](https://golangbyexample.com/canonical-http-header-key/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/canonical-http-header-key/](https://golangbyexample.com/canonical-http-header-key/)
 - en: Canonical form means that first character and after that any character following
     a hyphen is in uppercase. All other characters will be in lowercase. Example of
     canonical forms are
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 规范形式意味着第一个字符和其后任何跟随的连字符后的字符均为大写。其他所有字符均为小写。规范形式的示例有
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: All the keys in the headers are represented in the canonical form only. For
     eg if there are below headers in an incoming http request
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有头部中的键都仅以规范形式表示。例如，如果在传入的 HTTP 请求中有以下头部
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Then at server most of the http library in different languages at server will
     interpret it in the canonical form. For example the above headers will be as below
     when we print headers at server end.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后在服务器端，不同语言的 HTTP 库大多会将其解释为规范形式。例如，当我们在服务器端打印头部时，上述头部将如下所示。
 - en: '[PRE2]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Note that
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意
 - en: '**content-type** is converted to canonical form **Content-Type**'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**content-type** 被转换为规范形式 **Content-Type**'
 - en: '**accept-encoding** is converted to canonical form **Accept-Encoding**'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**accept-encoding** 被转换为规范形式 **Accept-Encoding**'

@@ -1,882 +1,1355 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:24:19'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:24:19
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Channel in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的通道（Channel）
 - en: 来源：[https://golangbyexample.com/channel-golang/](https://golangbyexample.com/channel-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/channel-golang/](https://golangbyexample.com/channel-golang/)
 - en: This is the  chapter 24 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是Go语言综合教程系列的第24章。有关该系列其他章节，请参考此链接 – [Go语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Select Statement](https://golangbyexample.com/select-statement-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [选择语句](https://golangbyexample.com/select-statement-golang/)'
 - en: '**Previous Tutorial** – [Goroutines](https://golangbyexample.com/goroutines-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [协程](https://golangbyexample.com/goroutines-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们来看一下当前教程。以下是当前教程的目录
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Declaring Channels](#Declaring_Channels "Declaring Channels")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[声明通道](#Declaring_Channels "Declaring Channels")'
 - en: '[Operations on Channel](#Operations_on_Channel "Operations on Channel")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[通道上的操作](#Operations_on_Channel "Operations on Channel")'
 - en: '[Send Operation](#Send_Operation "Send Operation")'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[发送操作](#Send_Operation "Send Operation")'
 - en: '[Receive Operation](#Receive_Operation "Receive Operation")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[接收操作](#Receive_Operation "Receive Operation")'
 - en: '[Channel Direction](#Channel_Direction "Channel Direction")'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[通道方向](#Channel_Direction "Channel Direction")'
 - en: '[Only Send Channel](#Only_Send_Channel "Only Send Channel")'
+  id: totrans-17
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[仅发送通道](#Only_Send_Channel "Only Send Channel")'
 - en: '[Only Receive Channel](#Only_Receive_Channel "Only Receive Channel")'
+  id: totrans-18
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[仅接收通道](#Only_Receive_Channel "Only Receive Channel")'
 - en: '[Capacity of a channel using cap() function](#Capacity_of_a_channel_using_cap_function
     "Capacity of a channel using cap() function")'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用cap()函数获取通道的容量](#Capacity_of_a_channel_using_cap_function "Capacity of a
+    channel using cap() function")'
 - en: '[Length of a channel using len() function](#Length_of_a_channel_using_len_function
     "Length of a channel using len() function")'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用len()函数获取通道的长度](#Length_of_a_channel_using_len_function "Length of a channel
+    using len() function")'
 - en: '[Close operation on a channel](#Close_operation_on_a_channel "Close operation
     on a channel")'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[关闭通道的操作](#Close_operation_on_a_channel "Close operation on a channel")'
 - en: '[For range loop on a channel](#For_range_loop_on_a_channel "For range loop
     on a channel")'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在通道上的范围循环](#For_range_loop_on_a_channel "For range loop on a channel")'
 - en: '[Nil channel](#Nil_channel "Nil channel")'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[空通道](#Nil_channel "Nil channel")'
 - en: '[Summary table](#Summary_table "Summary table")'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[摘要表](#Summary_table "Summary table")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "Conclusion")*  *# **概述**'
 - en: 'Channel is a data type in Go which provides synchrounization and communication
     between goroutines. They can be thought of as pipes which is used by goroutines
     to communicate. This communication between goroutines doesn’t require any explicit
     locks. Locks are internally managed by channel themselves. Channel along with
     goroutine makes the go programming language concurrent. So we can say that golang
     has two  concurrency primitives:'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 通道是Go中的一种数据类型，提供了协程之间的同步和通信。可以将其视为管道，供协程之间进行通信。协程之间的这种通信不需要任何显式锁定，锁由通道自身内部管理。通道与协程一起使Go编程语言具有并发性。因此我们可以说，Go语言有两个并发原语：
 - en: '**Goroutine** – lightweight independent execution to achieve concurrency/parallelism.'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**协程** – 轻量级独立执行以实现并发/并行。'
 - en: '**Channels** – provides synchronization and communication between goroutines.'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**通道** – 提供协程之间的同步和通信。'
 - en: '**Declaring Channels**'
+  id: totrans-29
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**声明通道**'
 - en: Each channel variable can hold data only of a particular type. Go uses special
     keyword **chan** while declaring a channel. Below is the format for declaring
     a channel
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个通道变量只能容纳特定类型的数据。Go在声明通道时使用特殊关键字**chan**。下面是声明通道的格式
 - en: '[PRE0]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This only declares a channel which can hold data of type **<type>** and it creates
     a nil channel as default value of a channel is nil. Let’s see a program to confirm
     this.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 这仅仅声明了一个可以容纳**<type>**类型数据的通道，并且默认值为nil，因此创建了一个空通道。让我们看一个程序来确认这一点。
 - en: '[PRE1]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: To define the channel we can use the inbuilt function **make. **
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了定义通道，我们可以使用内置函数**make.**
 - en: '[PRE3]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: On your machine it might give a different address as output.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 在你的机器上，输出的地址可能会不同。
 - en: 'So what does make do here. A channel is internally represented by a **hchan**
     struct whose main elements are:'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么这里的make是干什么的呢？通道在内部由**hchan**结构表示，其主要元素是：
 - en: '[PRE5]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: When using **make**, an instance of **hchan** struct is created and all the
     fields are initialized to their default values.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**make**时，会创建一个**hchan**结构的实例，所有字段都初始化为其默认值。
 - en: '**Operations on Channel**'
+  id: totrans-44
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**通道上的操作**'
 - en: There are two major operations which can be done on a channel
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 通道上可以执行两个主要操作。
 - en: Send
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 发送
 - en: Receive
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接收
 - en: Let’s look at each of it one by one
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐一查看每个部分。
 - en: '**Send Operation**'
+  id: totrans-49
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**发送操作**'
 - en: The send operation is used to send data to the channel. Below is the format
     for sending to a channel
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 发送操作用于将数据发送到通道。以下是向通道发送的格式。
 - en: '[PRE6]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: where
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里
 - en: '**ch** is the channel variable'
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**ch**是通道变量'
 - en: '**val** is what being sent to the channel'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**val**是发送到通道的数据。'
 - en: Note that data type of **val** and data type of channel should match.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意**val**的数据类型和通道的数据类型应该匹配。
 - en: '**Receive Operation**'
+  id: totrans-56
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**接收操作**'
 - en: The receive operation is used to read data from the channel. Below is the format
     for receiving from  a channel
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 接收操作用于从通道读取数据。以下是从通道接收的格式。
 - en: '[PRE7]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: where
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里
 - en: '**ch** is the channel variable'
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**ch**是通道变量'
 - en: '**val** is a variable in which the read data from the channel will be stored.'
+  id: totrans-61
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**val**是一个变量，用于存储从通道读取的数据。'
 - en: Let's see an example of where we will send data from one goroutine and receive
     that data in another goroutine.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个示例，在这个示例中，我们将在一个goroutine中发送数据，并在另一个goroutine中接收该数据。
 - en: '[PRE8]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: In above program, we created a channel named **ch** whose data type is **int**
     which means that it can only transport date of type **int**. Function **send()**
     and **receive()** are started as a goroutine. We are sending data to the channel
     **ch** in send() goroutine and receiving data from **ch** in the receive() goroutine.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个名为**ch**的通道，其数据类型为**int**，这意味着它只能传输类型为**int**的数据。函数**send()**和**receive()**作为一个goroutine启动。我们在send()的goroutine中向通道**ch**发送数据，并在receive()的goroutine中从**ch**接收数据。
 - en: A very important point to note about the receive operation is that a particular
     value sent to the channel can only be received once in any of the goroutine. 
     As you can see there are no locks used in the goroutine while sending as well
     as receiving from the channel. Locks are internally managed by the channels and
     no explicit lock has to be used in the code.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于接收操作要注意一个非常重要的点是，发送到通道的特定值在任何goroutine中只能接收一次。正如你所见，在发送和接收通道时，goroutine中没有使用锁。锁是由通道内部管理的，代码中不需要使用显式锁。
 - en: By default when we create channel with make, it creates a unbuffered channel
     which essentially means that channel created cannot store any data. So any send
     on a channel is blocked until there is  another goroutine to receive it. So in
     the **send()** function, this line will block
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 默认情况下，当我们使用make创建通道时，它会创建一个无缓冲的通道，这意味着创建的通道不能存储任何数据。因此，任何对通道的发送在另一个goroutine接收之前都是阻塞的。因此在**send()**函数中，这一行将会被阻塞。
 - en: '[PRE10]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: until in **receive()** function the value is received
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 直到在**receive()**函数中接收到值。
 - en: '[PRE11]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Also we have kept a timeout in the main function to allow both send and receive
     function to complete. If we don't have a timeout in the end of main function,
     then the program will exit and the two goroutine might not get scheduled.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还在主函数中设置了一个超时，以允许发送和接收函数都完成。如果在主函数结束时没有超时，程序将退出，两个goroutine可能无法调度。
 - en: To illustrate blocking on send lets add a log after we send the value to channel
     **ch** in the **send()** function and a timeout in the **receive()** function
     before we receive value from **ch**
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了说明发送时的阻塞，让我们在**send()**函数中向通道**ch**发送值后添加一个日志，并在从**ch**接收值之前在**receive()**函数中设置一个超时。
 - en: '[PRE12]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output**'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE13]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: The log
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 日志
 - en: '[PRE14]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: will always be before
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 将始终位于之前
 - en: '[PRE15]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: Try out with changing to different values of timeout in the receive function
     . You will notice the above order always. This illustrates that send on an unbuffered
     channel is block until a receive happens on that channel in some other goroutine.
     The receive on a channel is also blocked unless there is another goroutine to
     send to that channel.
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试在接收函数中更改不同的超时值。你会发现上述顺序始终存在。这表明，在无缓冲通道上发送时会阻塞，直到在其他goroutine上发生接收。接收通道也是阻塞的，除非有另一个goroutine向该通道发送数据。
 - en: To illustrate blocking on receive lets add a log after we receive the value
     in the recieve() function and a timeout in the send() function before we send
     value
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了说明接收时的阻塞，让我们在receive()函数中接收值后添加一个日志，并在send()函数中发送值之前设置一个超时。
 - en: '[PRE16]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Output**'
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE17]'
+  id: totrans-85
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: In above program we added a timeout before sending to the channel.
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们在发送到通道之前添加了一个超时。
 - en: The log
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 日志
 - en: '[PRE18]'
+  id: totrans-88
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: will always be before
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: 将始终在之前。
 - en: '[PRE19]'
+  id: totrans-90
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Try out with changing to different values of timeout in the send() function
     . You will notice the above order always. This illustrates that receive on an
     unbuffered channel is block until a send happens on that channel in some other
     goroutine.
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试在send()函数中更改不同的超时值。你将注意到上述顺序始终存在。这说明在无缓冲通道上的接收会被阻塞，直到其他goroutine在该通道上进行发送。
 - en: We can also receive the value in the main function itself.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们也可以在主函数中接收这个值。
 - en: '[PRE20]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Output**'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE21]'
+  id: totrans-95
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: We have seen the example of an unbuffered channel till now. Unbuffered channel
     does not have any storage hence for an unbuffered channel
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 目前为止，我们已经看到无缓冲通道的例子。无缓冲通道没有任何存储，因此，对于无缓冲通道。
 - en: Send on a channel is block unless there is other goroutine to receive.
+  id: totrans-97
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 除非有其他goroutine来接收，否则在通道上发送会被阻塞。
 - en: Receive is block until there is other goroutine on the other side to send.
+  id: totrans-98
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接收会被阻塞，直到另一侧有其他goroutine发送。
 - en: 'In Go you can also create a buffered channel. A buffered channel has some capacity
     to hold data hence for a buffered channel:'
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go中，你也可以创建一个缓冲通道。缓冲通道有一定的容量来保存数据，因此，对于缓冲通道：
 - en: Send on a buffer channel only blocks if the buffer is full
+  id: totrans-100
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 只有在缓冲区满时，发送到缓冲通道才会被阻塞。
 - en: Receive is only block is channel is empty
+  id: totrans-101
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接收仅在通道为空时被阻塞。
 - en: This is the syntax for creating a buffered channel using the make function
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是使用make函数创建缓冲通道的语法。
 - en: '[PRE22]'
+  id: totrans-103
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: The second argument specifies the capacity of the channel. Unbuffered channel
     is of zero capacity .That is why sending is block if there is no receiver and
     receiving is block if there is no sender for unbuffered channel.
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二个参数指定通道的容量。无缓冲通道的容量为零。这就是为什么如果没有接收者，发送会被阻塞；如果没有发送者，接收会被阻塞。
 - en: Let's see a program for a buffered channel
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个缓冲通道的程序。
 - en: '[PRE23]'
+  id: totrans-106
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: In above program we created a buffered channel of length 1 like this
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个长度为1的缓冲通道，如此。
 - en: '[PRE24]'
+  id: totrans-108
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: We are sending a value and receiving the same in the main goroutine. This is
     possible as send to a buffered channel is not blocked if the channel is not full.
     So below line doesn’t block for a buffered channel.
+  id: totrans-109
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在主goroutine中发送一个值并接收同一个值。这是可能的，因为如果缓冲通道没有满，发送到缓冲通道不会被阻塞。因此，下面的行对于缓冲通道不会阻塞。
 - en: '[PRE25]'
+  id: totrans-110
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: The channel is created with a capacity of one. Hence sending to the channel
     is not blocked and the value is stored in the channel's buffer. So sending and
     receiving in the same goroutine is only possible for a buffered channel. Let's
     see two important points we mentioned above
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: 该通道的容量为一。因此，向通道发送数据不会被阻塞，值会存储在通道的缓冲区中。因此，在同一个goroutine中发送和接收仅对缓冲通道有效。让我们深入探讨上述提到的两个重要点。
 - en: Send on a channel is blocked when the channel is full
+  id: totrans-112
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当通道已满时，发送到通道会被阻塞。
 - en: Receive on a channel is blocked when the channel is empty
+  id: totrans-113
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当通道为空时，接收会被阻塞。
 - en: Let's see a program for each
+  id: totrans-114
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看每个程序。
 - en: '**Send on a channel is blocked when the channel is full**'
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
+  zh: '**当通道满时，发送被阻塞**'
 - en: '[PRE26]'
+  id: totrans-116
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: '**Output**'
+  id: totrans-117
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE27]'
+  id: totrans-118
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: In the above program we created a channel of capacity one.  After that, we send
     one value to the channel and post that we send another value to the channel.
+  id: totrans-119
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个容量为一的通道。之后，我们向通道发送一个值，然后再向通道发送另一个值。
 - en: '[PRE28]'
+  id: totrans-120
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: The second sent to the channel is blocked the because buffer is full and hence
     it results in a deadlock situation because the program cannot proceed and that
     is why as you can see the output is
+  id: totrans-121
   prefs: []
   type: TYPE_NORMAL
+  zh: 发送到通道的第二个请求被阻塞，因为缓冲区已满，因此导致了死锁情况，因为程序无法继续，这就是为什么你会看到输出为。
 - en: '[PRE29]'
+  id: totrans-122
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: '**Receive on a channel is blocked when the channel is empty**'
+  id: totrans-123
   prefs: []
   type: TYPE_NORMAL
+  zh: '**当通道为空时，接收被阻塞**'
 - en: '[PRE30]'
+  id: totrans-124
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: '**Output**'
+  id: totrans-125
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE31]'
+  id: totrans-126
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE31]'
 - en: In the above program as well we created a channel of capacity one, after that
     we send one value to the channel and after that, we receive one value from the
     channel.  Then we tried a second receive from the channel and it resulted in a
     deadlock situation because the program cannot proceed as the channel is empty
     and there is nothing to receive. That is why you can see the output is
+  id: totrans-127
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个容量为一的通道，之后我们向通道发送一个值，然后从通道接收一个值。接着，我们尝试第二次接收通道中的值，结果导致了死锁，因为程序无法继续，因为通道为空，无法接收。这就是为什么你会看到输出为。
 - en: '[PRE32]'
+  id: totrans-128
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE32]'
 - en: This illustrates that the received is blocked if the channel buffer is empty
+  id: totrans-129
   prefs: []
   type: TYPE_NORMAL
+  zh: 这说明如果通道缓冲区为空，接收将被阻塞。
 - en: '**Channel Direction**'
+  id: totrans-130
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**通道方向**'
 - en: So far we have seen bi-directional channels in which we can both send as well
     as receive data. It is also possible to create uni-directional channels in golang.
     A channel can be created to which we can only send data, as well as a channel,
     can be created from which we can only receive data. This is determined by the
     direction of the arrow of the channel.
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: 到目前为止，我们已经看到双向通道，既可以发送又可以接收数据。在golang中，也可以创建单向通道。可以创建一个只能发送数据的通道，也可以创建一个只能接收数据的通道。这由通道的箭头方向决定。
 - en: A channel to which we can only send data.
+  id: totrans-132
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 只能发送数据的通道。
 - en: This is the syntax for  such a channel
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是这种通道的语法
 - en: '[PRE33]'
+  id: totrans-134
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE33]'
 - en: A channel from which we can only send data
+  id: totrans-135
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 只能发送数据的通道
 - en: This is the syntax for  such a channel
+  id: totrans-136
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是这种通道的语法
 - en: '[PRE34]'
+  id: totrans-137
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE34]'
 - en: Now the question is, why would you want to create a channel through to which
     you can only send data or from which we can only receive data.  This comes in
     handy while passing the channel to a function where we want to restrict the  function
     too either  send the data or receiver rate
+  id: totrans-138
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在的问题是，为什么你想创建一个只能发送数据或只能接收数据的通道。这在将通道传递给函数时非常有用，因为我们希望限制函数只能发送数据或接收数据。
 - en: There are many ways in which a channel can be passed as a function argument.
     The direction of arrow for a channel specifies the direction of flow of data
+  id: totrans-139
   prefs: []
   type: TYPE_NORMAL
+  zh: 有多种方法可以将通道作为函数参数传递。通道的箭头方向指定数据流的方向。
 - en: '**chan**  :bidirectional channel (Both read and write)'
+  id: totrans-140
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**chan**  :双向通道（可读可写）'
 - en: '**chan <-**  :only writing to channel'
+  id: totrans-141
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**chan <-**  :仅向通道写入'
 - en: '**<- chan**  :only reading from channel (input channel)'
+  id: totrans-142
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**<- chan**  :仅从通道读取（输入通道）'
 - en: '**Only Send Channel**'
+  id: totrans-143
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**仅发送通道**'
 - en: Signature of the such a  channel to which only you can send,  will be like below
     when passed to a function as an argument.
+  id: totrans-144
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这种通道的签名只能发送数据，传递给函数作为参数时会如下所示。
 - en: '[PRE35]'
+  id: totrans-145
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE35]'
 - en: When trying to receive data from such a channel will give below error.
+  id: totrans-146
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试从这样的通道接收数据将出现以下错误。
 - en: '[PRE36]'
+  id: totrans-147
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE36]'
 - en: Try uncommenting below line in the code to see the above error
+  id: totrans-148
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试取消注释代码中的以下行以查看上述错误
 - en: '[PRE37]'
+  id: totrans-149
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE37]'
 - en: '**Code:**'
+  id: totrans-150
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE38]'
+  id: totrans-151
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE38]'
 - en: '**Output:** 2'
+  id: totrans-152
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 2'
 - en: '**Only Receive Channel**'
+  id: totrans-153
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**仅接收通道**'
 - en: Signature of the such a  channel from which you can only receive data, will
     be like below  when passed to a function as an argument
+  id: totrans-154
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这种通道的签名只能接收数据，传递给函数作为参数时会如下所示。
 - en: '[PRE39]'
+  id: totrans-155
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE39]'
 - en: When trying to send data to such a channel will give below error.
+  id: totrans-156
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试向这样的通道发送数据将出现以下错误。
 - en: '[PRE40]'
+  id: totrans-157
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE40]'
 - en: Try uncommenting below line in the code to see the above error
+  id: totrans-158
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试取消注释代码中的以下行以查看上述错误
 - en: '[PRE41]'
+  id: totrans-159
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE41]'
 - en: '**Code:**'
+  id: totrans-160
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE42]'
+  id: totrans-161
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE42]'
 - en: '**Output:** 2'
+  id: totrans-162
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 2'
 - en: '**Capacity of a channel using cap() function**'
+  id: totrans-163
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用cap()函数获取通道容量**'
 - en: The capacity of a buffered channel is the number of elements which that channel
     can hold. Capacity refers to the size of the buffer of the channel. The capacity
     of the channel can be specified during the creation of the channel while using
     the make function. The second argument is the capacity
+  id: totrans-164
   prefs: []
   type: TYPE_NORMAL
+  zh: 缓冲通道的容量是该通道可以容纳的元素数量。容量指通道的缓冲区大小。创建通道时可以在使用make函数时指定通道的容量。第二个参数是容量。
 - en: Capacity of unbuffered channel is always zero
+  id: totrans-165
   prefs: []
   type: TYPE_NORMAL
+  zh: 无缓冲通道的容量始终为零
 - en: '[PRE43]'
+  id: totrans-166
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE43]'
 - en: '**Output**'
+  id: totrans-167
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE44]'
+  id: totrans-168
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE44]'
 - en: In the above program we specified the capacity as 3 in the make function
+  id: totrans-169
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们在make函数中指定了容量为3
 - en: '[PRE45]'
+  id: totrans-170
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE45]'
 - en: '**Length of a channel using len() function**'
+  id: totrans-171
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用len()函数获取通道长度**'
 - en: Builtin **len()** function can be used to get the length of a channel. The length
     of a channel is the number of elements that are already there in the channel.
     So length actually represents the number of elements queued in the buffer of the
     channel. Length of a channel is always less than or equal to the capacity of the
     channel.
+  id: totrans-172
   prefs: []
   type: TYPE_NORMAL
+  zh: 内置的**len()**函数可用于获取通道的长度。通道的长度是通道中已存在的元素数量。因此，长度实际上表示通道缓冲区中排队的元素数量。通道的长度始终小于或等于通道的容量。
 - en: Length of unbuffered channel is always zero
+  id: totrans-173
   prefs: []
   type: TYPE_NORMAL
+  zh: 无缓冲通道的长度始终为零
 - en: '[PRE46]'
+  id: totrans-174
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE46]'
 - en: '**Output**'
+  id: totrans-175
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE47]'
+  id: totrans-176
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE47]'
 - en: In the above code, the first created a channel of capacity 3.  After that, we
     keep sending some value to the channel. As you can notice from your output that
     after each send operation to the length of channel increases by one as the length
     denotes the number of items in the buffer of the channel.
+  id: totrans-177
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述代码中，首先创建了一个容量为3的通道。之后，我们不断向通道发送一些值。正如你从输出中注意到的那样，每次发送操作后，通道的长度增加1，因为长度表示通道缓冲区中的项目数量。
 - en: '**Close operation on a channel**'
+  id: totrans-178
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**通道的关闭操作**'
 - en: Close is an inbuilt function that can be used to close a channel. Closing of
     a channel means that no more data can we send to the channel.  Channel is generally
     closed when all the data has been sent and there's no more data to be send. Let's
     see a program
+  id: totrans-179
   prefs: []
   type: TYPE_NORMAL
+  zh: 关闭是一个内置函数，可用于关闭通道。关闭通道意味着无法再向通道发送数据。通道通常在所有数据已发送且没有更多数据可发送时关闭。让我们看看一个程序。
 - en: '[PRE48]'
+  id: totrans-180
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE48]'
 - en: '**Output**'
+  id: totrans-181
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE49]'
+  id: totrans-182
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE49]'
 - en: In the above program, we created a channel.  Then we called the **sum** function
     in a goroutine. In the main function, we send 3 values to the channel and after
     that, we closed the channel indicating that no more values can be sent to the
     channel. The **sum** function iterates over the channel using the for loop and
     calculates the sum value.
+  id: totrans-183
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个通道。然后我们在一个goroutine中调用**sum**函数。在主函数中，我们向通道发送3个值，之后关闭通道，表示无法再向通道发送值。**sum**函数使用for循环遍历通道并计算总值。
 - en: Sending on a close channel will cause a panic.
+  id: totrans-184
   prefs: []
   type: TYPE_NORMAL
+  zh: 在关闭的通道上发送将导致恐慌。
 - en: See the program below
+  id: totrans-185
   prefs: []
   type: TYPE_NORMAL
+  zh: 请看下面的程序。
 - en: '[PRE50]'
+  id: totrans-186
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE50]'
 - en: '**Output**'
+  id: totrans-187
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE51]'
+  id: totrans-188
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE51]'
 - en: Also closing a already closed channel will cause a panic
+  id: totrans-189
   prefs: []
   type: TYPE_NORMAL
+  zh: 关闭已经关闭的通道也会导致恐慌。
 - en: While receiving from a  channel we can also use an additional variable to determine
     if the channel has been closed.  Below is the syntax for the  same
+  id: totrans-190
   prefs: []
   type: TYPE_NORMAL
+  zh: 在接收一个通道时，我们也可以使用一个额外的变量来确定通道是否已关闭。下面是相应的语法。
 - en: '[PRE52]'
+  id: totrans-191
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE52]'
 - en: The value of ok will be
+  id: totrans-192
   prefs: []
   type: TYPE_NORMAL
+  zh: ok的值将是
 - en: True if the channel is not closed
+  id: totrans-193
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果通道未关闭则为真。
 - en: False if the channel is closed
+  id: totrans-194
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果通道已关闭则为假。
 - en: '[PRE53]'
+  id: totrans-195
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE53]'
 - en: '**Output**'
+  id: totrans-196
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE54]'
+  id: totrans-197
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE54]'
 - en: In the above program created a channel of capacity one.  Then we send one value
     to the channel.  The **ok** variable in the first receive is true since the channel
     is not closed. The ok variable in the second  receive is  false because the channel
     is closed
+  id: totrans-198
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中创建了一个容量为1的通道。然后我们向通道发送了一个值。第一次接收中的**ok**变量为真，因为通道未关闭。第二次接收中的ok变量为假，因为通道已关闭。
 - en: '**For range loop on a channel**'
+  id: totrans-199
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**通道上的范围循环**'
 - en: For range loop can be used to receive data from the channel until it is closed.
+  id: totrans-200
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以使用范围循环从通道接收数据，直到其关闭。
 - en: '[PRE55]'
+  id: totrans-201
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE55]'
 - en: '**Output**'
+  id: totrans-202
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE56]'
+  id: totrans-203
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE56]'
 - en: In the above program,  we created a channel.   In the main function the send
     three values to the channel and after that, we closed the channel. Then we called
     the sum function and we passed the channel to that function. In the sum function,
     we did a for range loop over the channel.    After iterating over all the values
     in the channel the for range loop will exit  since the channel is closed
+  id: totrans-204
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个通道。在主函数中向通道发送了三个值，之后关闭了通道。然后我们调用求和函数，并将通道传递给该函数。在求和函数中，我们对通道进行了范围循环。在遍历完通道中的所有值后，范围循环将退出，因为通道已关闭。
 - en: Now the question which comes to the mind is that what happens if you don't close
     a channel in the main function.  Try commenting the line in which they are closing
     the channel. Now run the program.  It will also  output  deadlock because  for
     range loop will never finish in the sum function
+  id: totrans-205
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在脑海中浮现的问题是，如果在主函数中不关闭通道，会发生什么。尝试注释掉关闭通道的那一行。然后运行程序。它也会输出死锁，因为范围循环在求和函数中将永远不会完成。
 - en: '[PRE57]'
+  id: totrans-206
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE57]'
 - en: '**Nil channel**'
+  id: totrans-207
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**零通道**'
 - en: The zero value of the channel is nil. Hence only declaring a channel creates
     a nil channel as default zero value of the channel is nil. Let's see a program
     to demonstrate that
+  id: totrans-208
   prefs: []
   type: TYPE_NORMAL
+  zh: 通道的零值为零。因此，仅声明一个通道会创建一个默认的零通道，因为通道的零值为零。让我们看看一个演示程序。
 - en: '[PRE58]'
+  id: totrans-209
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE58]'
 - en: '**Output**'
+  id: totrans-210
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE59]'
+  id: totrans-211
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE59]'
 - en: Some points to note about nil channel
+  id: totrans-212
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于零通道需要注意的一些要点。
 - en: Sending to a  nil channel blocks forever
+  id: totrans-213
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 向零通道发送将永远阻塞。
 - en: Receiving from nil channel blocks forever
+  id: totrans-214
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从零通道接收将永远阻塞。
 - en: Closing a nil channel results in panic
+  id: totrans-215
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 关闭零通道会导致恐慌。
 - en: '**Summary table**'
+  id: totrans-216
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**摘要表**'
 - en: So far we have seen 5 operations on a channel.
+  id: totrans-217
   prefs: []
   type: TYPE_NORMAL
+  zh: 到目前为止，我们已经看到了5个关于通道的操作。
 - en: Send
+  id: totrans-218
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 发送
 - en: Receive
+  id: totrans-219
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接收
 - en: Close
+  id: totrans-220
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 关闭
 - en: Length
+  id: totrans-221
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 长度
 - en: Capacity
+  id: totrans-222
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 容量
 - en: Let's see a summary table which shows the result of each operation on the different
     types of channel
+  id: totrans-223
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个摘要表，展示不同类型通道上每个操作的结果。
 - en: '| **Command** | **Unbuffered Channel****(Not Closed and not nil)** | **Buffered
     Channel****(Not Closed and not nil)** | **Closed Channel** | **Nil Channel** |'
+  id: totrans-224
   prefs: []
   type: TYPE_TB
+  zh: '| **命令** | **无缓冲通道**（未关闭且非零） | **缓冲通道**（未关闭且非零） | **已关闭通道** | **零通道** |'
 - en: '| Send | Block if there is is no corresponding receiver otherwise success |
     Block if the channel is full otherwise success | Panic | Block forever |'
+  id: totrans-225
   prefs: []
   type: TYPE_TB
+  zh: '| 发送 | 如果没有对应接收者则阻塞，否则成功 | 如果通道已满则阻塞，否则成功 | 恐慌 | 永远阻塞 |'
 - en: '| Receive | Block if there is no corresponding sender otherwise success | Block
     if the channel is empty otherwise success | Receives the default value of data
     type from the channel if channel is empty else  receives the actual value | Block
     forever |'
+  id: totrans-226
   prefs: []
   type: TYPE_TB
+  zh: '| 接收 | 如果没有相应的发送者则阻塞，否则成功 | 如果通道为空则阻塞，否则成功 | 如果通道为空则接收数据类型的默认值，否则接收实际值 | 永远阻塞
+    |'
 - en: '| Close | Success | Success | Panic | Panic |'
+  id: totrans-227
   prefs: []
   type: TYPE_TB
+  zh: '| 关闭 | 成功 | 成功 | 恐慌 | 恐慌 |'
 - en: '| Length | 0 | Number of elements queued in the buffer of the channel | -0
     if unbuffered channel-Number of elements queued in the buffer if buffered channel
     | 0 |'
+  id: totrans-228
   prefs: []
   type: TYPE_TB
+  zh: '| 长度 | 0 | 通道缓冲区中排队的元素数量 | -0如果是无缓冲通道-如果是有缓冲通道则为缓冲区中排队的元素数量 | 0 |'
 - en: '| Capacity | 0 | Size of the buffer of the channel | -0 if unbuffered channel-Size
     of the buffer if buffered channel | 0 |'
+  id: totrans-229
   prefs: []
   type: TYPE_TB
+  zh: '| 容量 | 0 | 通道缓冲区的大小 | -0如果是无缓冲通道-如果是有缓冲通道则为缓冲区的大小 | 0 |'
 - en: '**Conclusion**'
+  id: totrans-230
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about channels in golang .Hope you have liked the article. Please
     share feedback/improvements/mistakes in comments.
+  id: totrans-231
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于golang中通道的所有内容。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Select Statement](https://golangbyexample.com/select-statement-golang/)'
+  id: totrans-232
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一篇教程** – [选择语句](https://golangbyexample.com/select-statement-golang/)'
 - en: '**Previous Tutorial** – [Goroutines](https://golangbyexample.com/goroutines-golang/)'
+  id: totrans-233
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一篇教程** – [协程](https://golangbyexample.com/goroutines-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-234
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

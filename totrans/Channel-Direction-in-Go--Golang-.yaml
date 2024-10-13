@@ -1,165 +1,257 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:24:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:24:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Channel Direction in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的通道方向
 - en: 来源：[https://golangbyexample.com/channel-direction-go/](https://golangbyexample.com/channel-direction-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/channel-direction-go/](https://golangbyexample.com/channel-direction-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Only Send to Channel](#Only_Send_to_Channel "Only Send to Channel")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[仅发送到通道](#Only_Send_to_Channel "Only Send to Channel")'
 - en: '[Only Receive from Channel](#Only_Receive_from_Channel "Only Receive from Channel")*  *#
     **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[仅接收来自通道](#Only_Receive_from_Channel "Only Receive from Channel")*  *# **概述**'
 - en: It is possible to create bidirectional as well as uni-directional channels in
     golang. A channel can be created to which we can only send data, as well as a
     channel, can be created from which we can only receive data. This is determined
     by the direction of the arrow of the channel. The direction of the arrow for a
     channel specifies the direction of flow of data
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 golang 中可以创建双向和单向通道。可以创建一个只能发送数据的通道，也可以创建一个只能接收数据的通道。这由通道的箭头方向决定。通道的箭头方向指定数据流动的方向。
 - en: '**chan**  :bidirectional channel (Both read and write)'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**chan**  :双向通道（同时读写）'
 - en: '**chan <-**  :only writing to channel'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**chan <-**  :仅向通道写入'
 - en: '**<- chan**  :only reading from channel (input channel)'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**<- chan**  :仅从通道读取（输入通道）'
 - en: '** A channel to which we can only send data. **'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**一个只能发送数据的通道。**'
 - en: This is the syntax for  such a channel
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是这样的通道的语法。
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**A channel from which we can only send data**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**一个只能发送数据的通道**'
 - en: This is the syntax for such a channel
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是这样的通道的语法。
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Now the question is, why would you want to create a channel through to which
     you can only send data or from which we can only receive data.  This comes in
     handy while passing the channel to a function where we want to restrict the  function
     too either  send the data or receiver rate
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在的问题是，为什么你想创建一个只能发送数据的通道或只能接收数据的通道。当我们希望将通道传递给一个函数，并限制该函数只能发送数据或接收数据时，这就很方便。
 - en: There are many ways in which a channel can be passed as a function argument.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 有很多方法可以将通道作为函数参数传递。
 - en: '**chan**  :bidirectional channel (Both read and write)'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**chan**  :双向通道（同时读写）'
 - en: '**chan <-**  :only writing to channel'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**chan <-**  :仅向通道写入'
 - en: '**<- chan**  :only reading from channel (input channel)'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**<- chan**  :仅从通道读取（输入通道）'
 - en: '**Only Send to Channel**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**仅发送到通道**'
 - en: Signature of the such a  channel to which only you can send,  will be like below
     when passed to a function as an argument.
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这样的通道只能发送数据，当作为参数传递给函数时，将如下所示。
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: When trying to receive data from such a channel will give below error.
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试从这样的通道接收数据将会产生以下错误。
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Try uncommenting below line in the code to see the above error
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试取消注释下面的代码行以查看上述错误。
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Code:**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:** 2'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 2'
 - en: '**Only Receive from Channel**'
+  id: totrans-35
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**仅接收来自通道**'
 - en: Signature of the such a  channel from which you can only receive data, will
     be like below  when passed to a function as an argument
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这样的通道的签名，当作为参数传递给函数时，将如下所示。
 - en: '[PRE6]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: When trying to send data to such a channel will give below error.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试向这样的通道发送数据将会产生以下错误。
 - en: '[PRE7]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Try uncommenting below line in the code to see the above error
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试取消注释下面的代码行以查看上述错误。
 - en: '[PRE8]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Code:**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE9]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output:** 2'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 2'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[去](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

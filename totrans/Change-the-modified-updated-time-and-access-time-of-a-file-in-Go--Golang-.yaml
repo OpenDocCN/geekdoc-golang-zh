@@ -1,43 +1,69 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类: 未分类'
 - en: 'date: 2024-10-13 06:10:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:10:22'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Change the modified/updated time and access time of a file in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中更改文件的修改/更新时间和访问时间
 - en: 来源：[https://golangbyexample.com/change-updated-time-file-go/](https://golangbyexample.com/change-updated-time-file-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/change-updated-time-file-go/](https://golangbyexample.com/change-updated-time-file-go/)
 - en: '**os.Chtimes()** function can be used to change the mtime(modified time) or
     atime(access time) of a file in Golang. Below is the signature of the function.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os.Chtimes()** 函数可以用来更改Golang中一个文件的mtime（修改时间）或atime（访问时间）。下面是该函数的签名。'
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Code:**'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码:**'
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出:**'
 - en: '[PRE2]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[updated](https://golangbyexample.com/tag/updated/)'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[更新](https://golangbyexample.com/tag/updated/)'

@@ -1,74 +1,116 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '类别: 未分类'
 - en: 'date: 2024-10-13 06:14:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:14:22'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Ceil of a number in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的向上取整
 - en: 来源：[https://golangbyexample.com/ceil-number-golang/](https://golangbyexample.com/ceil-number-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/ceil-number-golang/](https://golangbyexample.com/ceil-number-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码:](#Code "Code:")*  *# **概述**'
 - en: '**math** package of GO provides a **Ceil** method that can be used to get the
     ceil of a number. Ceil of a number is the least integer value greater than or
     equal to that number.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**math**包提供了一个**Ceil**方法，可以用于获取一个数字的向上取整值。一个数字的向上取整是大于或等于该数字的最小整数值。'
 - en: Below is the signature of the function. It takes input a float and also returns
     a float.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名。它接受一个浮点数作为输入，并返回一个浮点数。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Some special cases of ceil function are
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 向上取整函数的一些特殊情况是
 - en: Ceil(±0) = ±0
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 向上取整(±0) = ±0
 - en: Ceil(±Inf) = ±Inf
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 向上取整(±Inf) = ±Inf
 - en: Ceil(NaN) = NaN
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 向上取整(NaN) = NaN
 - en: '**Code:**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码:**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出:**'
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[ceil](https://golangbyexample.com/tag/ceil/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[向上取整](https://golangbyexample.com/tag/ceil/)*   [Golang](https://golangbyexample.com/tag/golang/)*'

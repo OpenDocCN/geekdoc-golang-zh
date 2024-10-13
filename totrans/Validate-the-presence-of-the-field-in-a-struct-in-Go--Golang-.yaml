@@ -1,141 +1,225 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:33:56'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:33:56
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Validate the presence of the field in a struct in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中验证结构体中字段的存在。
 - en: 来源：[https://golangbyexample.com/struct-field-validate-presence-golang/](https://golangbyexample.com/struct-field-validate-presence-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/struct-field-validate-presence-golang/](https://golangbyexample.com/struct-field-validate-presence-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[First Library (go-playground/validator)](#First_Library_go-playgroundvalidator
     "First Library (go-playground/validator)")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[第一个库 (go-playground/validator)](#First_Library_go-playgroundvalidator "第一个库
+    (go-playground/validator)")'
 - en: '[Second Library (asaskevich/govalidator)](#Second_Library_asaskevichgovalidator
     "Second Library (asaskevich/govalidator)")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[第二个库 (asaskevich/govalidator)](#Second_Library_asaskevichgovalidator "第二个库
+    (asaskevich/govalidator)")*  *# **概述**'
 - en: In this tutorial, we will explore two libraries that can be used to validate
     the field of a struct in Golang. The two libraries are
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将探讨两个可以用于验证Golang中结构体字段的库。这两个库是
 - en: gopkg.in/go-playground/validator.v9 – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: gopkg.in/go-playground/validator.v9 – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)
 - en: '[github.com](http://github.com)/asaskevich/govalidator – [https://github.com/asaskevich/govalidator](https://github.com/asaskevich/govalidator)'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[github.com](http://github.com)/asaskevich/govalidator – [https://github.com/asaskevich/govalidator](https://github.com/asaskevich/govalidator)'
 - en: For this tutorial, we will use the below employee struct
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于本教程，我们将使用下面的员工结构体。
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**First Library (go-playground/validator)**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**第一个库 (go-playground/validator)**'
 - en: Let’s first see the playground validator library. Below is the code for the
     same.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们首先看看playground验证库。下面是相应的代码。
 - en: '**go.mod**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**main.go**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: First, we need to declare the instance of Validate
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，我们需要声明Validate的实例。
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Notice here that we need to associate meta tags with fields of the struct to
     let the validator know that you want to validate this field. In the above example,
     we added the tag with the Name field. This tag is interpreted by the playground
     validate library.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，我们需要将元标签与结构体字段关联，以让验证器知道你想验证这个字段。在上述示例中，我们为Name字段添加了标签。该标签由playground验证库解释。
 - en: '[PRE5]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Then call the Struct method to validate the struct
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后调用Struct方法来验证结构体。
 - en: '[PRE6]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: It raises the correct error as we have passed the **Name** field as nil
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们将**Name**字段传递为nil时，它会引发正确的错误。
 - en: '**Second Library (asaskevich/govalidator)**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**第二个库 (asaskevich/govalidator)**'
 - en: '**go.mod**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE7]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**main.go**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE8]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Similar to the above example we associated tags with the Name field which govalidator
     can interpret
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 与上述示例类似，我们将标签与Name字段关联，govalidator可以解释这些标签。
 - en: '[PRE10]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Then we call the **ValidateStruct** function and it raises the correct error
     as we have passed the **Name** field as nil
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们调用**ValidateStruct**函数，当我们将**Name**字段传递为nil时，它会引发正确的错误。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [validation](https://golangbyexample.com/tag/validation/)*'
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [验证](https://golangbyexample.com/tag/validation/)*'

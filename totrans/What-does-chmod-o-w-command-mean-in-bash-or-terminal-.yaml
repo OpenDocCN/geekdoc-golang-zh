@@ -1,164 +1,252 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:50:02'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:50:02
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: What does chmod o-w command mean in bash or terminal￼
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: chmod o-w 命令在 bash 或终端中是什么意思？
 - en: 来源：[https://golangbyexample.com/chmod-ow-command/](https://golangbyexample.com/chmod-ow-command/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/chmod-ow-command/](https://golangbyexample.com/chmod-ow-command/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Permission Groups](#Permission_Groups "Permission Groups")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[权限组](#Permission_Groups "Permission Groups")'
 - en: '[Permission Types](#Permission_Types "Permission Types")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[权限类型](#Permission_Types "Permission Types")'
 - en: '[Operations Definitions](#Operations_Definitions "Operations Definitions")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[操作定义](#Operations_Definitions "Operations Definitions")'
 - en: '[Example](#Example "Example")*  *## **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *## **概述**'
 - en: There are three components that are in the picture when it comes to managing
     the permissions of a file.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在管理文件权限时，图中有三个组件。
 - en: '**Permission Groups**'
+  id: totrans-13
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**权限组**'
 - en: '**User** – Abbreviated by **‘u’**'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**用户** – 简写为 **‘u’**'
 - en: '**Group** – Abbreviated by **‘g’**'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**组** – 简写为 **‘g’**'
 - en: '**Other**– Abbreviated by **‘o’**'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**其他** – 简写为 **‘o’**'
 - en: '**All** – Abbreaviated by **‘a’**'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**所有** – 简写为 **‘a’**'
 - en: '**Permission Types**'
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**权限类型**'
 - en: '**Read Permission –** Abbreviated by **‘r’**'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**读取权限 –** 简写为 **‘r’**'
 - en: '**Write Permission –** Abbreviated by **‘w’**'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**写入权限 –** 简写为 **‘w’**'
 - en: '**Execute Permission –** Abbreviated by **‘x’**'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**执行权限 –** 简写为 **‘x’**'
 - en: '****Operations Definitions****'
+  id: totrans-22
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '****操作定义****'
 - en: '***   **+** is used to add a permission'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '***   **+** 用于添加权限。'
 - en: '**–** is used to remove a permission'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**–** 用于移除权限。'
 - en: '**=** is used to set a permission'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**=** 用于设置权限。'
 - en: So **o-w** means taking away **write** permission from the **other** user
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以 **o-w** 意味着从 **其他** 用户那里取消 **写入** 权限。
 - en: Before we see an example let’s see how file permissions are represented when
     you run **ls** command
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们查看示例之前，让我们先看看当你运行 **ls** 命令时，文件权限是如何表示的。
 - en: '![](img/b2cc19da19010470a5244967526784b2.png)'
+  id: totrans-28
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/b2cc19da19010470a5244967526784b2.png)'
 - en: Below are some points about the above diagram
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是关于上图的一些要点。
 - en: The first character represents the file type. ‘-‘ means regular file and ‘d’
     means directory
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个字符表示文件类型。‘-’表示常规文件，‘d’表示目录。
 - en: The second to fourth character represents the Read, Write and Execute Permission
     for the owner.
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二到第四个字符表示拥有者的读取、写入和执行权限。
 - en: The fourth to seventh character represents the Read, Write and Execute Permissions
     for the group
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第四到第七个字符表示组的读取、写入和执行权限。
 - en: The eighth to the tenth character represents the Read, Write and Execute Permissions
     for the other user
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第八到第十个字符表示其他用户的读取、写入和执行权限。
 - en: '**Example**'
+  id: totrans-34
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Create a file **temp.txt**. Check its permissions.
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个文件 **temp.txt**。检查其权限。
 - en: '[PRE0]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Notice that the **other** user only has permission to only **read**
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意 **其他** 用户仅有 **读取** 权限。
 - en: Now run command to give write permission to the other user
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在运行命令以给予其他用户写入权限。
 - en: '[PRE1]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: See output above. Execute permission is also given to the other user.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 参见上面的输出。执行权限也被赋予了其他用户。
 - en: Now run command to take away write permission to the other user
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在运行命令以取消其他用户的写入权限。
 - en: '[PRE2]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Notice how write permission is taken away from the other user***
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意其他用户的写入权限是如何被取消的。

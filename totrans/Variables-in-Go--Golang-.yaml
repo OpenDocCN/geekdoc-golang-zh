@@ -1,598 +1,905 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:18:02'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:18:02
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Variables in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 语言中的变量
 - en: 来源：[https://golangbyexample.com/variables-in-golang-complete-guide/](https://golangbyexample.com/variables-in-golang-complete-guide/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/variables-in-golang-complete-guide/](https://golangbyexample.com/variables-in-golang-complete-guide/)
 - en: This is the chapter 6 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是 Go 语言综合教程系列的第 6 章。请参考此链接了解该系列的其他章节 – [Go 语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [All basic data types](https://golangbyexample.com/all-basic-data-types-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [所有基本数据类型](https://golangbyexample.com/all-basic-data-types-golang/)'
 - en: '**Previous Tutorial** – [Packages and Modules – Part 2](https://golangbyexample.com/packages-modules-go-second/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [包和模块 – 第2部分](https://golangbyexample.com/packages-modules-go-second/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     the current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前的教程。以下是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [What is variable](#What_is_variable "What is variable")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [什么是变量](#What_is_variable "什么是变量")'
 - en: '[Naming Conventions](#Naming_Conventions "Naming Conventions")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[命名约定](#Naming_Conventions "命名约定")'
 - en: '[Declaring a variable](#Declaring_a_variable "Declaring a variable")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[声明变量](#Declaring_a_variable "声明变量")'
 - en: '[Single variable declaration without initial value](#Single_variable_declaration_without_initial_value
     "Single variable declaration without initial value")'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[无初始值的单变量声明](#Single_variable_declaration_without_initial_value "无初始值的单变量声明")'
 - en: '[Single variable declaration with initial value](#Single_variable_declaration_with_initial_value
     "Single variable declaration with initial value")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[带初始值的单变量声明](#Single_variable_declaration_with_initial_value "带初始值的单变量声明")'
 - en: '[Multiple variable declaration without initial value](#Multiple_variable_declaration_without_initial_value
     "Multiple variable declaration without initial value")'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[无初始值的多变量声明](#Multiple_variable_declaration_without_initial_value "无初始值的多变量声明")'
 - en: '[Multiple variable declaration with initial value](#Multiple_variable_declaration_with_initial_value
     "Multiple variable declaration with initial value")'
+  id: totrans-17
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[带初始值的多变量声明](#Multiple_variable_declaration_with_initial_value "带初始值的多变量声明")'
 - en: '[Declare variables of different types](#Declare_variables_of_different_types
     "Declare variables of different types")'
+  id: totrans-18
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[声明不同类型的变量](#Declare_variables_of_different_types "声明不同类型的变量")'
 - en: '[Variable Declaration with no type or Type Inference](#Variable_Declaration_with_no_type_or_Type_Inference
     "Variable Declaration with no type or Type Inference")'
+  id: totrans-19
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[无类型声明或类型推断](#Variable_Declaration_with_no_type_or_Type_Inference "无类型声明或类型推断")'
 - en: '[Short variable declaration](#Short_variable_declaration "Short variable declaration")'
+  id: totrans-20
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[短变量声明](#Short_variable_declaration "短变量声明")'
 - en: '[Important Points](#Important_Points "Important Points")'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[重要点](#Important_Points "重要点")'
 - en: '[Scope of a Variable (Local and Global Variable)](#Scope_of_a_Variable_Local_and_Global_Variable
     "Scope of a Variable (Local and Global Variable)")'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[变量的作用域（局部变量和全局变量）](#Scope_of_a_Variable_Local_and_Global_Variable "变量的作用域（局部变量和全局变量）")'
 - en: '[Local Variable](#Local_Variable "Local Variable")'
+  id: totrans-23
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[局部变量](#Local_Variable "局部变量")'
 - en: '[Global Variable](#Global_Variable "Global Variable")'
+  id: totrans-24
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[全局变量](#Global_Variable "全局变量")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **What is variable**'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "结论")*  *# **什么是变量**'
 - en: A variable is the name of a memory location. That memory location may store
     a value of any type. So each variable has a type associated with it which determines
     the size and range of that variable and also the operations defined on that variable.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 变量是内存位置的名称。该内存位置可以存储任何类型的值。因此，每个变量都有一个与之相关的类型，这决定了该变量的大小和范围，以及在该变量上定义的操作。
 - en: '**Naming Conventions**'
+  id: totrans-27
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**命名约定**'
 - en: A variable name can only start with a letter or an underscore.
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量名只能以字母或下划线开头。
 - en: It can be followed by any number of letters, numbers or underscores after that
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量名后可以跟任意数量的字母、数字或下划线。
 - en: Go is case sensitive so uppercase and lowercase letters are treated differently.
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Go 语言区分大小写，因此大写字母和小写字母被视为不同的字符。
 - en: The variable name cannot be any keyword name in Go
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量名不能是 Go 语言中的任何关键字。
 - en: There is no limit on the length of the variable name.
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量名的长度没有限制。
 - en: But it is advisable to have the variable name of optimum length.
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 但建议变量名应保持在最佳长度。
 - en: '**Declaring a variable**'
+  id: totrans-34
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**声明变量**'
 - en: In GO variables are declared using the **var** keyword but there are other ways
     of declaring a variable too as we will see later in this tutorial. Let’s explore
     different ways of declaring a variable
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 在GO中，变量是使用**var**关键字声明的，但还有其他声明变量的方法，稍后在本教程中我们将看到。让我们深入探索声明变量的不同方式。
 - en: '**Single variable declaration without initial value**'
+  id: totrans-36
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**单变量声明，无初始值**'
 - en: Below is the format of a single variable declaration without initial value being
     assigned. First is the **var** keyword, second is the **variable name** and third
     is the **variable type**.  Also note when the value is not provided , then the
     variable is initialised with the default value of that type which is also known
     as zero value of that type. In Go default value or zero value of **int** is zero
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是没有分配初始值的单变量声明格式。第一是**var**关键字，第二是**变量名**，第三是**变量类型**。还要注意，当未提供值时，变量会被初始化为该类型的默认值，这也被称为该类型的零值。在Go中，**int**的默认值或零值是零。
 - en: '**var <variable_name> <type>**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var <变量名> <类型>**'
 - en: See the below example, it declares a var named **aaa** of type **int**
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 见下面的示例，它声明了一个名为**aaa**的**int**类型的变量。
 - en: '[PRE0]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:** It will print the default value of int which is zero'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 将打印int的默认值，即零。'
 - en: '[PRE1]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Single variable declaration with initial value**'
+  id: totrans-43
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**带初始值的单变量声明**'
 - en: Below is the format of a single variable declaration with initial value being
     assigned. Everything is same as above, only thing additional is that we assign
     value to the variable at the end
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是分配初始值的单变量声明格式。与上面相同，唯一不同的是在末尾为变量分配值。
 - en: '**var <variable_name> <type> = <value>**'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var <变量名> <类型> = <值>**'
 - en: See below example, it declares a var named **aaa** of type **int** and gives
     a value **8** to it
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 见下面的示例，它声明了一个名为**aaa**的**int**类型的变量，并给它赋值为**8**。
 - en: '[PRE2]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Multiple variable declaration without initial value**'
+  id: totrans-50
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**没有初始值的多个变量声明**'
 - en: Below is the format of a multiple variable declaration without initial value
     being assigned. Please note only variables of same type can be declared together.
     The type comes at the end
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是没有分配初始值的多个变量声明的格式。请注意，只有相同类型的变量可以一起声明，类型位于末尾。
 - en: '**var <name1>, <name2>**,….**<nameN> <type>**'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var <名称1>, <名称2>**,….**<名称N> <类型>**'
 - en: See below example
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 见下面的示例
 - en: '[PRE4]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:** It will print the default or zero value of **int** which is zero
     for both **aaa** and **bbb**'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 将打印**int**的默认值或零值，对**aaa**和**bbb**都是零。'
 - en: '[PRE5]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Multiple variable declaration with initial value**'
+  id: totrans-57
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**带初始值的多个变量声明**'
 - en: Below is the format of a multiple variable declaration with initial value being
     assigned. Please note only variables of same type can be declared together. The
     type comes at the end
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是分配初始值的多个变量声明的格式。请注意，只有相同类型的变量可以一起声明，类型位于末尾。
 - en: '**var <name1>, <name2>, …..,<nameN> <type> = <value1>, <value2>, …..,<valueN>**'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var <名称1>, <名称2>, …..,<名称N> <类型> = <值1>, <值2>, …..,<值N>**'
 - en: See below code example. Variable **aaa** and **bbb** are given a value of 8
     and 9 respectively in a single declaration
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 见下面的代码示例。变量**aaa**和**bbb**在一次声明中分别被赋值为8和9。
 - en: '[PRE6]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Declare variables of different types**'
+  id: totrans-64
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**声明不同类型的变量**'
 - en: Below is the format for declaring multiple variables with different types. Value
     can or cannot be assigned to the variable at that time. Variables for which value
     is not assigned will get default value of that type. In below example we see three
     declarations.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是声明不同类型多个变量的格式。可以在那时为变量分配值，也可以不分配。没有分配值的变量将获得该类型的默认值。在下面的示例中，我们看到三个声明。
 - en: '[PRE8]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Variable Declaration with no type or Type Inference**'
+  id: totrans-69
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**没有类型或类型推断的变量声明**'
 - en: Variables can also be declared without specifying the type.
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 变量也可以在不指定类型的情况下声明。
 - en: The GO compiler based upon the value assigned to the variable will figure out
     the type. So if the variable has an initial value, then the type can be omitted. 
     This is also called **Type Inference**. Below is the format for such declaration
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: GO编译器会根据分配给变量的值确定类型。因此，如果变量有初始值，则可以省略类型。这也称为**类型推断**。以下是这种声明的格式。
 - en: '**var <varialbe_name> = <value>**'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var <变量名> = <值>**'
 - en: Below is the type inference table for basic types **int**, **float**, **complex
     numbers**, **string**, **boolean**, **characters**. It basically means that if
     the value is an integer the type of the variable inferred will be **int**, if
     the value is a float then type of the variable inferred will be **float64** and
     so on based upon below table.
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是基本类型 **int**、**float**、**复数**、**string**、**boolean**、**字符**的类型推断表。这基本上意味着，如果值是整数，则推断出的变量类型将是
+    **int**；如果值是浮点数，则推断出的变量类型将是 **float64**，依此类推。
 - en: '| Integers | int |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '| 整数 | int |'
 - en: '| Floats | float64 |'
+  id: totrans-75
   prefs: []
   type: TYPE_TB
+  zh: '| 浮点数 | float64 |'
 - en: '| Complex Numbers | complex128 |'
+  id: totrans-76
   prefs: []
   type: TYPE_TB
+  zh: '| 复数 | complex128 |'
 - en: '| Strings | string |'
+  id: totrans-77
   prefs: []
   type: TYPE_TB
+  zh: '| 字符串 | string |'
 - en: '| Booleans | bool |'
+  id: totrans-78
   prefs: []
   type: TYPE_TB
+  zh: '| 布尔值 | bool |'
 - en: '| Characters | int32 or rune |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '| 字符 | int32 或 rune |'
 - en: For other types such as **Array**, **Pointer**, **Structure,** etc, type Inference
     will happen based on the value. Let’s see a working example of the above point. 
     Notice that type of t is correctly inferred as int as the value assigned to it
     is 123 which is int. Similarly type of u is also correctly inferred as **string**
     as the value assigned to it is a **string**.
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于 **数组**、**指针**、**结构体** 等其他类型，类型推断将根据值进行。让我们看看上述观点的一个工作示例。注意，变量 t 的类型被正确推断为
+    int，因为赋值给它的是 123，这个值是 int。同样，变量 u 的类型也被正确推断为 **string**，因为赋值给它的是一个 **string**。
 - en: Also notice that the type of variable **z** is inferred correctly as a struct
     **main.sample**
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 还注意到变量 **z** 的类型被正确推断为结构体 **main.sample**。
 - en: '[PRE10]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output:**'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE11]'
+  id: totrans-84
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Short variable declaration**'
+  id: totrans-85
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**短变量声明**'
 - en: Go provides another way of declaring variables which is using the **:=** operator.
     When **:=** operator is used both **var** keyword and type info can be omitted.
     Below is the format for such declaration
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 还提供了另一种声明变量的方法，即使用 **:=** 运算符。当使用 **:=** 运算符时，可以省略 **var** 关键字和类型信息。下面是这种声明的格式。
 - en: '[PRE12]'
+  id: totrans-87
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Type inference will happen as explained above. Let’s see a working example
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 类型推断将如上所述进行。让我们看看一个工作示例。
 - en: '[PRE13]'
+  id: totrans-89
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output**'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE14]'
+  id: totrans-91
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Some points to be noted about the := operator
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于 := 运算符的一些注意事项。
 - en: := operator is only available within a function. It is not allowed outside the
     function.
+  id: totrans-93
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: := 运算符仅在函数内部可用，函数外部不允许使用。
 - en: A variable once declared using := cannot be redeclared using the := operator.
     So below statement will raise a compiler error  “**no new variables in the left
     side of :=”** .
+  id: totrans-94
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一旦使用 := 声明的变量，不能再次使用 := 运算符重新声明。因此，下面的语句将引发编译器错误“**左侧没有新变量**”。
 - en: '[PRE15]'
+  id: totrans-95
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: := operator can also be used to declare multiple variables in a single line.
     See below example
+  id: totrans-96
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: := 运算符还可以用来在一行中声明多个变量。见下面的例子。
 - en: '[PRE16]'
+  id: totrans-97
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: In case of multiple declaration, := can also be used again for a particular
     variable if atleast one of the variables on left hand side is new. See below example.
     Notice that b is again declared using := This is only possible if atleast one
     of the variable is new which is variable **c** here. In this case it acts as a
     assignment for variable **b**
+  id: totrans-98
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在多重声明的情况下，如果左侧至少有一个变量是新的，则可以再次使用 := 进行特定变量的声明。见下面的例子。注意 b 又是通过 := 声明的。这只有在至少有一个变量是新的情况下才能实现，这里是变量
+    **c**。在这种情况下，它作为变量 **b** 的赋值。
 - en: '[PRE17]'
+  id: totrans-99
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Output:**'
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE18]'
+  id: totrans-101
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**Important Points**'
+  id: totrans-102
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**重要事项**'
 - en: A unused variable will be reported as a compiler error. GO compiler doesn’t
     allow any unused variable. This is an optimization in GO. Same is applicable for
     constant too as we will see later. For eg below program will raise a compiler
     error
+  id: totrans-103
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未使用的变量将被报告为编译器错误。Go 编译器不允许任何未使用的变量。这是 Go 的一种优化。同样的规则适用于常量，稍后我们将看到。例如，下面的程序将引发编译器错误。
 - en: '[PRE19]'
+  id: totrans-104
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '[PRE20]'
+  id: totrans-105
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: A variable declared within an inner scope having the same name as variable declared
     in the outer scope will shadow the variable in the outer scope.
+  id: totrans-106
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在内层作用域中声明的变量如果与外层作用域中声明的变量同名，将会遮蔽外层作用域的变量。
 - en: '[PRE21]'
+  id: totrans-107
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Output:**'
+  id: totrans-108
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE22]'
+  id: totrans-109
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: Variable Expression – While the declaration variable can also be assigned an
     expression or a function call. See the below example.
+  id: totrans-110
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量表达式 – 在声明变量时，也可以将表达式或函数调用赋值给它。见下面的例子。
 - en: Variable **a** is declared with expression 5 +3
+  id: totrans-111
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量 **a** 是通过表达式 5 + 3 声明的。
 - en: Variable **b** is declared with a function call  math.Max(4, 5), whose result
     will be assigned to b at run time.
+  id: totrans-112
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量 **b** 是通过函数调用 math.Max(4, 5) 声明的，其结果将在运行时赋值给 b。
 - en: '[PRE23]'
+  id: totrans-113
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Output:**'
+  id: totrans-114
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE24]'
+  id: totrans-115
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: A variable once intialized with a particular type, cannot be assigned a value
     of different type later. This is applicable for short hand declaration is well.
     See below example
+  id: totrans-116
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一旦初始化为特定类型的变量，不能再赋值为不同类型的值。这对于简写声明同样适用。见下面的例子。
 - en: '[PRE25]'
+  id: totrans-117
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: '**Output:**'
+  id: totrans-118
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE26]'
+  id: totrans-119
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: Variable **aaa** has been assigned a type of **int**, hence compiler raises
     error on assigning a value of type string to it. For variable **bbb**, the type
     inferred is **int,** hence it also raises a compiler error on assigning a value
     of type string to it.
+  id: totrans-120
   prefs: []
   type: TYPE_NORMAL
+  zh: 变量 **aaa** 被赋予了 **int** 类型，因此在将字符串类型的值赋给它时，编译器会引发错误。对于变量 **bbb**，推断的类型是 **int**，因此在将字符串类型的值赋给它时也会引发编译器错误。
 - en: '**Scope of a Variable (Local and Global Variable)**'
+  id: totrans-121
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**变量的作用域（局部和全局变量）**'
 - en: A variable declaration can be done at the package level or a function level
     or a block level. Scope of a variable defines where that variable is accessible
     and also the life of the variable. Golang variables can be divided into two categories
     based on scope
+  id: totrans-122
   prefs: []
   type: TYPE_NORMAL
+  zh: 变量声明可以在包级、函数级或块级进行。变量的作用域定义了该变量可以访问的位置以及变量的生命周期。Golang 变量可以根据作用域分为两类。
 - en: Local Variable
+  id: totrans-123
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 局部变量
 - en: Global Variable
+  id: totrans-124
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 全局变量
 - en: '**Local Variable**'
+  id: totrans-125
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**局部变量**'
 - en: Local variables are variables which are defined within a block or a function
     level
+  id: totrans-126
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 局部变量是在块或函数级别定义的变量。
 - en: An example of the block is a for loop or a range loop etc.
+  id: totrans-127
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 块的一个例子是 for 循环或范围循环等。
 - en: These variables are only be accessed from within their block or function
+  id: totrans-128
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这些变量只能在它们的块或函数内部访问。
 - en: These variables only live till the end of the block or a function in which they
     are declared. After that, they are Garbage Collected.
+  id: totrans-129
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这些变量仅在声明它们的块或函数结束时存在。之后，它们会被垃圾回收。
 - en: See below example
+  id: totrans-130
   prefs: []
   type: TYPE_NORMAL
+  zh: 见下面的例子。
 - en: i is not available after the for loop
+  id: totrans-131
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在 for 循环之后，i 不可用。
 - en: Similarly aaa is not available outside the function in which it is declared.
+  id: totrans-132
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 同样，aaa 在声明它的函数外部不可用。
 - en: Hence below program will raise compiler error
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，下面的程序将引发编译器错误。
 - en: '[PRE27]'
+  id: totrans-134
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: '**Code:**'
+  id: totrans-135
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE28]'
+  id: totrans-136
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: '**Global Variable**'
+  id: totrans-137
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**全局变量**'
 - en: A variable will be global within a package if it is declared at the top of a
     file outside the scope of any function or block.
+  id: totrans-138
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果变量在文件顶部声明，并且在任何函数或块的作用域之外，则它将在包内成为全局变量。
 - en: If this variable name starts with a lowercase letter then it can be accessed
     from within the the package which contains this variable definition.
+  id: totrans-139
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果这个变量名以小写字母开头，则可以在包含该变量定义的包内访问。
 - en: If the variable name stats with a uppercase letter then it can be accessed from
     outside different package other than which it is declared.
+  id: totrans-140
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果变量名以大写字母开头，则可以从不同于声明所在包的外部访问。
 - en: Global variable are available throughout the lifetime of a program
+  id: totrans-141
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 全局变量在程序的整个生命周期内可用。
 - en: For example in below program variable **aaa** will be a global variable available
     throughout **main** package. It will be available in any function inside **main**
     package. Do note that variable name will not be available outside **main** package
     as its name starts with a lowercase letter.
+  id: totrans-142
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，在下面的程序中，变量 **aaa** 将是一个全局变量，在 **main** 包中可用。它将在 **main** 包内的任何函数中可用。请注意，由于变量名以小写字母开头，因此该变量名在
+    **main** 包之外不可用。
 - en: '[PRE29]'
+  id: totrans-143
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: '**Output:**'
+  id: totrans-144
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE30]'
+  id: totrans-145
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: '**Conclusion**'
+  id: totrans-146
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about variables  in golang. Hope you have liked this article. Please
     share feedback or improvements or mistakes in comments.
+  id: totrans-147
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于 Golang 中变量的全部内容。希望你喜欢这篇文章。请在评论中分享反馈、改进建议或错误。
 - en: '****Next Tutorial** – [All basic data types](https://golangbyexample.com/all-basic-data-types-golang/)'
+  id: totrans-148
   prefs: []
   type: TYPE_NORMAL
+  zh: '****下一教程** – [所有基本数据类型](https://golangbyexample.com/all-basic-data-types-golang/)'
 - en: '**Previous Tutorial** – [Packages and Modules – Part 2](https://golangbyexample.com/packages-modules-go-second/)**'
+  id: totrans-149
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一教程** – [包和模块 – 第 2 部分](https://golangbyexample.com/packages-modules-go-second/)**'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*   [understanding variables
     in go](https://golangbyexample.com/tag/understanding-variables-in-go/)*   [using
     variables in go](https://golangbyexample.com/tag/using-variables-in-go/)*'
+  id: totrans-150
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*   [理解 Go 中的变量](https://golangbyexample.com/tag/understanding-variables-in-go/)*   [在
+    Go 中使用变量](https://golangbyexample.com/tag/using-variables-in-go/)*'

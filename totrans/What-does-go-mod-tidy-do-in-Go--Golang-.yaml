@@ -1,143 +1,225 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:29:36'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:29:36
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: What does go mod tidy do in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中，go mod tidy的作用是什么
 - en: 来源：[https://golangbyexample.com/go-mod-tidy/](https://golangbyexample.com/go-mod-tidy/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-mod-tidy/](https://golangbyexample.com/go-mod-tidy/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: This command will basically match the **go.mod** file with the dependencies
     required in the source files.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 此命令将基本上将**go.mod**文件与源文件中所需的依赖项进行匹配。
 - en: Download all the dependencies that are required in your source files and update
     **go.mod** file with that dependency.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 下载源文件中所需的所有依赖项，并用该依赖项更新**go.mod**文件。
 - en: Remove all dependencies from the go.mod file which are not required in the source
     files.
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 移除**go.mod**文件中在源文件中不需要的所有依赖项。
 - en: Below is the usage format for the command
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是该命令的使用格式
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: With **-v** flag, go mod tidy will print information of all the unused modules
     removed from **go.mod** file if any
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**-v**标志，go mod tidy将打印从**go.mod**文件中删除的所有未使用模块的信息（如果有）。
 - en: '**Example**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see an an example. Create a module with import path as “**learn**“
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。创建一个导入路径为“**learn**”的模块。
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This command will create a **go.mod** file in the same directory. Since it is
     an empty module it doesn’t have any direct dependency specified yet. Let’s create
     a file named **uuid.go** in the same directory with the below contents
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 此命令将在同一目录中创建一个**go.mod**文件。由于这是一个空模块，因此尚未指定任何直接依赖项。让我们在同一目录中创建一个名为**uuid.go**的文件，其内容如下
 - en: '**uuid.go**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**uuid.go**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Notice that we have imported the dependency in the uuid.go as well
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，我们在uuid.go中也导入了该依赖项。
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Let’s run the below command
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行以下命令
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: This command will download all the dependencies that are required in your source
     files and update **go.mod** file with that dependency. After running this command
     let’s now let’s again examine the contents of **go.mod** file
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 此命令将下载源文件中所需的所有依赖项，并用该依赖项更新**go.mod**文件。运行此命令后，让我们再次检查**go.mod**文件的内容。
 - en: Do a cat **go.mod**
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 执行**cat go.mod**
 - en: '[PRE5]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It lists direct dependency which was specified in the uuid file along with exact
     version of the dependency as well. Now let’s check the **go.sum** file as well
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 它列出了在uuid文件中指定的直接依赖项，以及该依赖项的确切版本。现在让我们检查**go.sum**文件。
 - en: Do a **cat go.sum**
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 执行**cat go.sum**
 - en: '[PRE6]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Now let’s see one more example where **go mod tidy** will remove the dependency
     from **go.mod** file if it is not required in the source files. To illustrate
     this let’s remove the **uuid.go** file that we created above. Now run the command
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们再看一个示例，如果**go mod tidy**在源文件中不需要，则会从**go.mod**文件中移除依赖项。为此，让我们删除上面创建的**uuid.go**文件。现在运行该命令
 - en: '[PRE7]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: It will give below output
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将输出以下内容
 - en: '[PRE8]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Now examine the contents of **go.mod** file. It will be as below
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在检查**go.mod**文件的内容。它将如下所示
 - en: '[PRE9]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: The
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 该
 - en: '[PRE10]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: line will be removed as it is not required in any of the source files. Also
     all entries of **[github.com](http://github.com)/pborman/uuid** and its depedencies
     will be removed from the **go.sum** file as well.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 行将被删除，因为它在任何源文件中都不需要。此外，所有**[github.com](http://github.com)/pborman/uuid**及其依赖项的条目也将从**go.sum**文件中删除。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

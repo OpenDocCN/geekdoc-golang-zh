@@ -1,58 +1,92 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:08:58'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:08:58'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Validate an IP address in GO
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 GO 中验证 IP 地址
 - en: 来源：[https://golangbyexample.com/validate-an-ip-address-in-go/](https://golangbyexample.com/validate-an-ip-address-in-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/validate-an-ip-address-in-go/](https://golangbyexample.com/validate-an-ip-address-in-go/)
 - en: ParseIP function of the net package can be used to validate an IP address. The
     same function can be used to validate both IPV4 and IPV6 addresses. Below is the
     signature of the function
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: net 包的 ParseIP 函数可用于验证 IP 地址。该函数可以同时验证 IPV4 和 IPV6 地址。以下是该函数的签名。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '[https://golang.org/pkg/net/#ParseIP](https://golang.org/pkg/net/#ParseIP)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/net/#ParseIP](https://golang.org/pkg/net/#ParseIP)'
 - en: The ParseIP function
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: ParseIP 函数
 - en: Returns nil if the given IP address is not valid
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果给定的 IP 地址无效，则返回 nil。
 - en: Else it creates an instance of IP struct and returns that.
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 否则它会创建一个 IP 结构的实例并返回该实例。
 - en: 'Let’s see a working code:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个可运行的代码：
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[ipv6](https://golangbyexample.com/tag/ipv6/)'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[ipv6](https://golangbyexample.com/tag/ipv6/)'

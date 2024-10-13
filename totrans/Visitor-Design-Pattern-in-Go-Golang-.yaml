@@ -1,141 +1,211 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:04:34'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:04:34
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Visitor Design Pattern in Go(Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的访问者设计模式
 - en: 来源：[https://golangbyexample.com/visitor-design-pattern-go/](https://golangbyexample.com/visitor-design-pattern-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/visitor-design-pattern-go/](https://golangbyexample.com/visitor-design-pattern-go/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注：如果你有兴趣了解如何在GO中实现所有其他设计模式，请参阅此完整参考 – [Go语言中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction:](#Introduction "Introduction:")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍：](#Introduction "介绍：")'
 - en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML图：](#UML_Diagram "UML图：")'
 - en: '[Mapping ](#Mapping "Mapping ")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射](#Mapping "映射")'
 - en: '[Example](#Example "Example")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "示例")'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction:**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "完整工作代码：")*  *# **介绍：**'
 - en: Visitor Design Pattern is a Behavioural design pattern that lets you add behaviour
     to a struct without actually modifying the struct.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 访问者设计模式是一种行为型设计模式，它允许你在不实际修改结构体的情况下，为结构体添加行为。
 - en: Let’s understand the visitor pattern with an example. Let’s say you are the
     maintainer of a lib which has different shape structs such as
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们通过一个例子理解访问者模式。假设你是一个库的维护者，该库有不同形状的结构体，例如
 - en: Square
+  id: totrans-15
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 正方形
 - en: Circle
+  id: totrans-16
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 圆形
 - en: Triangle
+  id: totrans-17
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 三角形
 - en: Each of the above shape structs implements a common interface **shape.** There
     are many teams in your company which are using your lib. Now let’s say one of
     the team wants you to add one more behaviour (**getArea()**) to the Shape structs.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述每个形状结构体都实现了一个共同的接口**shape**。你公司中有很多团队在使用你的库。现在假设其中一个团队希望你为形状结构体添加一个新的行为(**getArea()**)。
 - en: There are many options to solve this problem
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 解决这个问题有很多选项
 - en: '**First Option**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**第一种选择**'
 - en: 'The first option that comes to the mind is to add **getArea()** method in the
     **shape** interface and then each shape struct can implement the getArea() method.
     This seems trivial but there are some problems:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个想到的选项是在**形状**接口中添加**getArea()**方法，然后每个形状结构体都可以实现getArea()方法。这看起来很简单，但有一些问题：
 - en: As a maintainer of the library, you don’t want to alter a highly tested code
     of your library by adding additional behaviours.
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 作为库的维护者，你不想通过添加额外的行为来更改库的高测试代码。
 - en: There might be more request by the teams using your library for more behaviours
     such as **getNumSides()**, **getMiddleCoordinates()**. Then, in this case, you
     don’t want to keep modifying your library. But you do want other teams to extend
     your library without actual modification of the code much.
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用你的库的团队可能会有更多请求，想要更多行为，比如**getNumSides()**、**getMiddleCoordinates()**。在这种情况下，你不想不断修改你的库。但你希望其他团队在不实际修改代码的情况下扩展你的库。
 - en: '**Second Option**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**第二种选择**'
 - en: The second option is that the team requesting the feature can write the logic
     for behaviour themselves. So based upon the shape struct type they like below
     code
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二种选择是请求特性的团队可以自己编写行为逻辑。因此，根据他们喜欢的形状结构体类型，可以使用以下代码
 - en: '[PRE0]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Above code is also problematic as you are not able to take the full advantage
     of interfaces and instead do an explicit type checking which is fragile. Second,
     getting the type at run time may have a performance impact or maybe even not possible
     in some languages.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 上面的代码也存在问题，因为你无法充分利用接口，反而进行脆弱的显式类型检查。其次，运行时获取类型可能会影响性能，甚至在某些语言中可能不可行。
 - en: '**Third Option**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**第三种选择**'
 - en: The third option is to solve the above problem using the visitor pattern. We
     define a visitor interface like below
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 第三种选择是使用访问者模式来解决上述问题。我们可以定义一个访问者接口，如下所示
 - en: '[PRE1]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The functions **visitforSquare(square), visitForCircle(circle), visitForTriangle**(**triangle**)
     allows us to add functionality to Square, Circle and Triangle respectively.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数**visitforSquare(square)、visitForCircle(circle)、visitForTriangle(三角形)**允许我们分别为正方形、圆形和三角形添加功能。
 - en: Now the question which comes to mind is why can’t we have a single method visit**(shape)**
     in the visitor interface. The reason we don’t have it because GO and also some
     other languages support method overloading. So a different method for each of
     the struct.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在脑海中浮现的问题是，为什么我们不能在访问者接口中使用单一方法visit**(shape)**。原因在于GO及其他一些语言支持方法重载。因此每个结构体都有不同的方法。
 - en: We add an **accept** method to the shape interface with below signature and
     each of the shape struct needs to define this method.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在形状接口中添加一个 accept 方法，其签名如下，每个形状结构需要定义此方法。
 - en: '[PRE2]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: But wait for a second, we just mentioned that we don’t want to modify our existing
     shape structs. But when using Visitor Pattern we do have to modify our shape structs
     but this modification will only be done once. In case adding any additional behaviour
@@ -144,163 +214,266 @@
     Basically the shape structs just need to be modified once and all future request
     of additional behaviours will be handled using the same accept function. Let’s
     see how.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 但等一下，我们刚提到我们不想修改现有的形状结构。但是使用访客模式时，我们确实需要修改形状结构，但这种修改只需进行一次。在添加任何额外行为（如 **getNumSides()**、**getMiddleCoordinates()**）时，将使用上述相同的
+    **accept(v visitor)** 函数，而无需进一步更改形状结构。基本上，形状结构只需修改一次，所有未来对额外行为的请求将通过相同的 accept
+    函数处理。让我们看看。
 - en: 'The square struct will implement an accept method like below:'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: square 结构将实现如下的 accept 方法：
 - en: '[PRE3]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: and similarly, circle and triangle will also define an accept function as above.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样，circle 和 triangle 也会定义一个如上所述的 accept 函数。
 - en: Now the team requesting for the **getArea()** behaviour can simply define the
     concrete implementation of visitor interface and write the area calculation logic
     in that concrete implementation.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在请求 **getArea()** 行为的团队可以简单定义访客接口的具体实现，并在该具体实现中编写面积计算逻辑。
 - en: '**areaCalculator.go**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**areaCalculator.go**'
 - en: '[PRE4]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: To calculate the area of a square we first create an instance of the square
     they can simply call.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 要计算正方形的面积，我们首先创建一个正方形实例，他们可以简单调用。
 - en: '[PRE5]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Similarly, other team requesting for **getMiddleCoordinates()** behaviour can
     define another concrete implementation of the visitor interface similar to above.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样，其他团队请求 **getMiddleCoordinates()** 行为可以定义类似于上述的访客接口的另一个具体实现。
 - en: '**middleCoordinates.go**'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**middleCoordinates.go**'
 - en: '[PRE6]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**UML Diagram:**'
+  id: totrans-47
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**UML 图：**'
 - en: '![](img/d728a8b95698322fae7c9e447f3d08a8.png)'
+  id: totrans-48
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/d728a8b95698322fae7c9e447f3d08a8.png)'
 - en: Below is the corresponding mapping UML diagram with the practical example of
     shape struct and areaCalculator we gave above
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是与我们上面给出的形状结构和 areaCalculator 的实际示例对应的映射 UML 图
 - en: '![](img/76c1c67ce396b6579fea7d6a93abd60b.png)'
+  id: totrans-50
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/76c1c67ce396b6579fea7d6a93abd60b.png)'
 - en: '**Mapping **'
+  id: totrans-51
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**映射**'
 - en: The below table represents the mapping from the UML diagram actors to actual
     implementation actors in **“Example”** below
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 下表表示 **“示例”** 中 UML 图演员到实际实现演员的映射
 - en: '| element | shape.go |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '| 元素 | shape.go |'
 - en: '| Concrete Element A | square.go |'
+  id: totrans-54
   prefs: []
   type: TYPE_TB
+  zh: '| 具体元素 A | square.go |'
 - en: '| Concrete Element B | circle.go |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '| 具体元素 B | circle.go |'
 - en: '| Concrete Element C | rectangle.go |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '| 具体元素 C | rectangle.go |'
 - en: '| Visitor | visitor.go |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '| 访客 | visitor.go |'
 - en: '| Concrete Visitor 1 | areaCalculator.go |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '| 具体访客 1 | areaCalculator.go |'
 - en: '| Concrete Visitor 2 | middleCoordinates.go |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '| 具体访客 2 | middleCoordinates.go |'
 - en: '| Client | main.go |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '| 客户端 | main.go |'
 - en: '**Example**'
+  id: totrans-61
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '**shape.go**'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '**shape.go**'
 - en: '[PRE7]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**square.go**'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**square.go**'
 - en: '[PRE8]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**circle.go**'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: '**circle.go**'
 - en: '[PRE9]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**rectangle.go**'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: '**rectangle.go**'
 - en: '[PRE10]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**visitor.go**'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: '**visitor.go**'
 - en: '[PRE11]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**areaCalculator.go**'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '**areaCalculator.go**'
 - en: '[PRE12]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**middleCoordinates.go**'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: '**middleCoordinates.go**'
 - en: '[PRE13]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**main.go**'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE14]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output:**'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE15]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Full Working Code:**'
+  id: totrans-80
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE16]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Output:**'
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE17]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '[design](https://golangbyexample.com/tag/design/)*   [go](https://golangbyexample.com/tag/go/)*   [visitor](https://golangbyexample.com/tag/visitor/)*'
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[设计](https://golangbyexample.com/tag/design/) *   [go](https://golangbyexample.com/tag/go/)
+    *   [访客](https://golangbyexample.com/tag/visitor/) *'

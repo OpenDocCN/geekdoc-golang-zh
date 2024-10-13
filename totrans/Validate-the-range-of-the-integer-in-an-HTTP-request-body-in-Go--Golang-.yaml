@@ -1,121 +1,190 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:34:06'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:34:06
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Validate the range of the integer in an HTTP request body in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中验证 HTTP 请求体中整数的范围。
 - en: 来源：[https://golangbyexample.com/validate-range-http-body-golang/](https://golangbyexample.com/validate-range-http-body-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/validate-range-http-body-golang/](https://golangbyexample.com/validate-range-http-body-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: The below library can be used to validate the range of an integer in an incoming
     JSON HTTP request body
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下库可用于验证传入 JSON HTTP 请求体中整数的范围。
 - en: '**gopkg.in/go-playground/validator.v9** – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**gopkg.in/go-playground/validator.v9** – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)'
 - en: For this tutorial, we will try to parse the incoming JSON request body into
     the below employee struct
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将尝试将传入的 JSON 请求体解析为以下员工结构。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Notice here that we need to associate meta tags with fields of the struct to
     let the validator know that you want to validate this field. In the above example,
     we added the tag with the Age field. This tag is interpreted by the playground
     validate library. Notice we added three validations for the **Age** field
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，我们需要将元标签与结构的字段关联，以便让验证器知道您希望验证此字段。在上述示例中，我们为年龄字段添加了标签。这个标签由 playground validate
+    库解释。请注意，我们为 **年龄** 字段添加了三个验证。
 - en: '**required** – validates that the field is present'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**必需** – 验证字段是否存在。'
 - en: '**gte** – validate that the field value is greater than equal to a particular
     value'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**gte** – 验证字段值是否大于等于特定值。'
 - en: '**lte** – validate that the field value is less than equal to a particular
     value'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**lte** – 验证字段值是否小于等于特定值。'
 - en: '**Program**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Run the program.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行程序。
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: It will start an HTTP server listening on port 8080\. Now make some curl API
     calls
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将启动一个监听在 8080 端口的 HTTP 服务器。现在进行一些 curl API 调用。
 - en: Below curl call
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 以下 curl 调用
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: gives below response as 5 is less than the minimum which is 10
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 返回以下响应，因为 5 小于最小值 10。
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Below curl call
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 以下 curl 调用
 - en: '[PRE5]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: gives below response as 10 is greater than the maximum which is 20
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 返回以下响应，因为 10 大于最大值 20。
 - en: '[PRE6]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Below curl call
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 以下 curl 调用
 - en: '[PRE7]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: gives response as success as 15 is greater than 10 and less than 20.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 返回成功，因为 15 大于 10 且小于 20。
 - en: '[PRE8]*'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE8]*'

@@ -1,114 +1,176 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '类别: 未分类'
 - en: 'date: 2024-10-13 06:27:08'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:27:08'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: What happens during panic in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中发生恐慌时会发生什么
 - en: 来源：[https://golangbyexample.com/what-happens-during-panic-go/](https://golangbyexample.com/what-happens-during-panic-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/what-happens-during-panic-go/](https://golangbyexample.com/what-happens-during-panic-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: Let’s understand what happens when panic happens in a program. Imagine a function
     call from **main** function to **f1** function to **f2** function
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们了解当程序发生恐慌时会发生什么。想象一个从**main**函数调用到**f1**函数再到**f2**函数的调用
 - en: '**main**->**f1**->**f2**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main**->**f1**->**f2**'
 - en: Now let’s say that panic happens in function **f2** then below will be the sequence
     of events that will be happening
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在假设在函数**f2**中发生了恐慌，以下是将发生的事件顺序
 - en: Execution of **f2** will stop. Defer functions in **f2** will be executed if
     present. Control will return to the caller which is a function **f1**.
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 执行**f2**将会停止。如果**f2**中存在延迟函数，则会执行这些延迟函数。控制将返回给调用者，也就是函数**f1**。
 - en: '**f1** function will behave in a similar way as if panic happened in that function
     and after that call will return to the caller which is **main** function. Note
     that if there are more functions in between then the process will continue up
     the stack in a similar way'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**f1**函数的行为将类似于在该函数中发生恐慌，之后调用将返回给调用者，即**main**函数。请注意，如果中间还有更多函数，则该过程将以类似方式向上延续堆栈'
 - en: '**main** function will also behave as if pannic happened in that function and
     after that, the program will crash'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**main**函数的行为也将像是在该函数中发生了恐慌，之后程序将崩溃'
 - en: Once the program crashes, it will print the panic message along with this stack
     trace
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一旦程序崩溃，将打印恐慌消息以及此堆栈跟踪
 - en: '**Program**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Let’s see a program for that
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序
 - en: '[PRE0]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, panic happened in the f2 function like below
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，恐慌发生在**f2**函数中，如下所示
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: the defer function in f2 is called after that and it prints the below message
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**f2**中的延迟函数在那之后被调用，并打印以下消息'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Notice that as soon as the panic happens in the **f2** function, its execution
     stops therefore below line if **f2** never gets executed
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，恐慌发生在**f2**函数中时，其执行停止，因此下面的代码行如果**f2**将不会被执行
 - en: '[PRE4]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Control returns to **f1** and it it has a defer function. The defer gets executed
     and it prints the below message
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 控制返回到**f1**，如果它有一个延迟函数，延迟函数将被执行，并打印以下消息
 - en: '[PRE5]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Control returns to main function after that and then the program crashes.The
     output prints the panic message along with the entire stack trace from main to
     f1 to f2.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 之后控制返回到主函数，然后程序崩溃。输出打印恐慌消息以及从主函数到**f1**再到**f2**的整个堆栈跟踪。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

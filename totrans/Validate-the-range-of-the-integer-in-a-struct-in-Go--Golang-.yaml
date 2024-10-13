@@ -1,146 +1,233 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:34:01'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:34:01
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Validate the range of the integer in a struct in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 验证 Go（Golang）中结构体中整数的范围
 - en: 来源：[https://golangbyexample.com/range-int-struct-validate-golang/](https://golangbyexample.com/range-int-struct-validate-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/range-int-struct-validate-golang/](https://golangbyexample.com/range-int-struct-validate-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: The below library can be used to validate the range of an integer in a struct
     in Golang
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的库可用于验证 Golang 中结构体中整数的范围
 - en: '**gopkg.in/go-playground/validator.v9** – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**gopkg.in/go-playground/validator.v9** – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)'
 - en: For this tutorial, we will use the below employee struct
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将使用以下员工结构体
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Example**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see an example for the same. Below is the code
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个相同的例子。以下是代码
 - en: '**go.mod**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**main.go**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: First, we need to declare the instance of Validate
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，我们需要声明 Validate 的实例
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Notice here that we need to associate meta tags with fields of the struct to
     let the validator know that you want to validate this field. In the above example,
     we added the tag with the Age field. This tag is interpreted by the playground
     validate library. Notice we added three validations for the **Age** field
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，我们需要将元标签与结构体的字段关联，以让验证器知道您想要验证此字段。在上面的示例中，我们为年龄字段添加了标签。该标签由 playground validate
+    库解析。请注意，我们为**年龄**字段添加了三种验证
 - en: '**required** – validates that the field is present'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**required** – 验证字段是否存在'
 - en: '**gte** – validate that the field value is greater than equal to a particular
     value'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**gte** – 验证字段值是否大于等于特定值'
 - en: '**lte** – validate that the field value is less than equal to a particular
     value'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**lte** – 验证字段值是否小于等于特定值'
 - en: '[PRE5]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Then call the Struct method to validate the struct
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后调用 Struct 方法来验证结构体
 - en: '[PRE6]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: For
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于
 - en: '[PRE7]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: it gives the output as below is **Age** field is empty
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出如下，因为**年龄**字段为空
 - en: '[PRE8]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: For
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于
 - en: '[PRE9]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: it gives the output as below as **Age** field value is 5 which is less than
     10
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出如下，因为**年龄**字段的值是5，小于10
 - en: '[PRE10]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: For
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于
 - en: '[PRE11]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: it gives the output as below as **Age** field value is 25 which is greater than
     20
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出如下，因为**年龄**字段的值是25，超过了20
 - en: '[PRE12]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*   [gp](https://golangbyexample.com/tag/gp/)*   [range](https://golangbyexample.com/tag/range/)*   [validation](https://golangbyexample.com/tag/validation/)*'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*   [gp](https://golangbyexample.com/tag/gp/)*   [range](https://golangbyexample.com/tag/range/)*   [validation](https://golangbyexample.com/tag/validation/)*'

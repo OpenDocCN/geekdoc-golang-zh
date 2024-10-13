@@ -1,53 +1,83 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:10:31'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:10:31
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Wait for all Go routines to finish execution in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 等待所有 Go 程序完成在 Golang 中的执行
 - en: 来源：[https://golangbyexample.com/wait-all-goroutines-go/](https://golangbyexample.com/wait-all-goroutines-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/wait-all-goroutines-go/](https://golangbyexample.com/wait-all-goroutines-go/)
 - en: '**sync** package of golang provides **WaitGroup** struct which can be used
     to wait for collection of goroutines to finish execution. The WaitGroup provides:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: golang 的 **sync** 包提供 **WaitGroup** 结构，可以用来等待一组 goroutine 完成执行。WaitGroup 提供：
 - en: '**Add** method to set the number of goroutines to wait for.'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**添加**方法以设置要等待的 goroutine 数量。'
 - en: '**Done** method which is called by each of the goroutines when finished.'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**完成**方法在每个 goroutine 完成时被调用。'
 - en: '**Wait** method which is used to block till all goroutines have finished and
     have called the **Done** method'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**等待**方法用于阻塞直到所有 goroutine 完成并调用 **完成** 方法'
 - en: Let’s see a working code
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个有效的代码
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [goroutines](https://golangbyexample.com/tag/goroutines/)'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [goroutines](https://golangbyexample.com/tag/goroutines/)'

@@ -1,94 +1,148 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:29:59'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:29:59
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Vendor dependencies of a module in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的模块供应商依赖
 - en: 来源：[https://golangbyexample.com/vendor-dependency-go/](https://golangbyexample.com/vendor-dependency-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/vendor-dependency-go/](https://golangbyexample.com/vendor-dependency-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: If you want to vendor your dependencies,  then below command can be used to
     achieve the same.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果您想供应您的依赖，可以使用下面的命令来实现。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Example**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see an example to better understand. First let’s create a module
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个示例以更好地理解。首先让我们创建一个模块
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This command will create a **go.mod** file in the same directory.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 该命令将在同一目录中创建一个**go.mod**文件。
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Since it is an empty module it doesn’t have any direct dependency specified
     yet. Let’s specify a dependency in the **go.mod** file
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于这是一个空模块，尚未指定任何直接依赖。让我们在**go.mod**文件中指定一个依赖。
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Create a file named **uuid.go** in the same directory with the below contents
     and use the dependency we added earlier in the **go.mod** file.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 在同一目录中创建一个名为**uuid.go**的文件，内容如下，并使用我们之前在**go.mod**文件中添加的依赖。
 - en: '**uuid.go**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**uuid.go**'
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Let’s run the below command
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行下面的命令
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It will create a vendor directory inside your project directory. The vendor
     directory will have all the direct and indirect dependencies downloaded. You can
     also check in the vendor directory to your VCS (Version Control System). This
     becomes useful in the sense that none of the dependency needs to be downloaded
     at run time as it is already present in the vendor folder checked into VCS.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将创建一个vendor目录在您的项目目录中。vendor目录将包含所有直接和间接下载的依赖。您还可以将vendor目录检查到您的版本控制系统（VCS）中。这在运行时不需要下载任何依赖，因为它们已经存在于检查到VCS的vendor文件夹中。
 - en: '**-v** flag can also be used with go mod vendor. When this flag is provided
     the command will print all the modules and packages which are vendored'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**-v**标志也可以与go mod vendor一起使用。当提供该标志时，命令将打印所有被引入的模块和包。'
 - en: '[PRE6]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

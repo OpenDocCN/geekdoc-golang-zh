@@ -1,62 +1,98 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:09:55'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:09:55
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Parse a string to float in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中将字符串解析为浮点数
 - en: 来源：[https://golangbyexample.com/parse-string-representation-float-go/](https://golangbyexample.com/parse-string-representation-float-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/parse-string-representation-float-go/](https://golangbyexample.com/parse-string-representation-float-go/)
 - en: '**strconv.ParseFloat()** function can be used to parse a string representation
     of a float'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**strconv.ParseFloat()**函数可以用于解析浮点数的字符串表示。'
 - en: '[https://golang.org/pkg/strconv/#ParseFloat](https://golang.org/pkg/strconv/#ParseFloat)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/strconv/#ParseFloat](https://golang.org/pkg/strconv/#ParseFloat)'
 - en: Below is the signature of the function
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Some points worth noting
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些值得注意的要点
 - en: The first argument is the string representation of a float
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个参数是浮点数的字符串表示。
 - en: The second argument is the bitSize which specifies the precision. It is 32 for
     float32 and 64 for float64
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个参数是bitSize，指定精度。float32为32，float64为64。
 - en: The return value will always be float64 but will be convertible to float32 without
     any change in its value.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 返回值始终为float64，但可以无损地转换为float32。
 - en: Let’s see a working code
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个工作代码
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'

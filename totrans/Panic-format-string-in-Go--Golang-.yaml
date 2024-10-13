@@ -1,74 +1,116 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '类别: 未分类'
 - en: 'date: 2024-10-13 06:25:56'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:25:56'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Panic format string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的 Panic 格式字符串
 - en: 来源：[https://golangbyexample.com/panic-format-string-go/](https://golangbyexample.com/panic-format-string-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/panic-format-string-go/](https://golangbyexample.com/panic-format-string-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")**'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: Below is the syntax of the panic function
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是panic函数的语法
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It takes empty interface as an argument. It does not provides any why to format
     the error string. However there is a workaround. **Sprintf** function of **fmt**
     package can be used to format the error message before passing it to the panic
     function. Let’s see a program for that
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将空接口作为参数。它并没有提供任何格式化错误字符串的方法。不过有一个变通办法。可以使用**fmt**包的**Sprintf**函数在将错误消息传递给panic函数之前进行格式化。让我们看看一个程序
 - en: '**Example**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program we have a function **checkAndPrint** which checks and prints
     slice element at an index passed in the argument. If the index passed is greater
     than the length of the array then the program panics. Notice how we format the
     error string before passing it to the panic in the **checkAndPrint** function
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印在参数中传递的索引处的切片元素。如果传递的索引大于数组的长度，则程序将发生panic。注意我们是如何在**checkAndPrint**函数中格式化错误字符串然后传递给panic的
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The program also outputs the correct formatted message
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 程序也输出正确格式化的消息
 - en: '[PRE4]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[去](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*'

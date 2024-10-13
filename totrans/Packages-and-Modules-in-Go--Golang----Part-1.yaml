@@ -2,149 +2,181 @@
   id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
   id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:30:26'
   id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:30:26
 - en: -->
   id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Packages and Modules in Go (Golang) – Part 1
   id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的包和模块 – 第1部分
 - en: 来源：[https://golangbyexample.com/packages-modules-go-first/](https://golangbyexample.com/packages-modules-go-first/)
   id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/packages-modules-go-first/](https://golangbyexample.com/packages-modules-go-first/)
 - en: This is the chapter 4 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
   id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是golang综合教程系列的第4章。有关该系列其他章节，请参考此链接 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Packages and Modules – Part 2](https://golangbyexample.com/packages-modules-go-second/)'
   id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [包和模块 – 第2部分](https://golangbyexample.com/packages-modules-go-second/)'
 - en: '**Previous Tutorial** – [Set up GO Workspace and Hello World Program](https://golangbyexample.com/workspace-hello-world-golang/)'
   id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [设置GO工作区和Hello World程序](https://golangbyexample.com/workspace-hello-world-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     the current tutorial.
   id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前教程。以下是当前教程的目录。
 - en: Table of Contents
   id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
   id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Modules](#Modules "Modules")'
   id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[模块](#Modules "Modules")'
 - en: '[Before Modules World](#Before_Modules_World "Before Modules World")'
   id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[模块世界之前](#Before_Modules_World "Before Modules World")'
 - en: '[Pre Go version 1.11](#Pre_Go_version_111 "Pre Go version 1.11")'
   id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go版本1.11之前](#Pre_Go_version_111 "Pre Go version 1.11")'
 - en: '[In Go version 1.11](#In_Go_version_111 "In Go version 1.11")'
   id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在Go版本1.11中](#In_Go_version_111 "In Go version 1.11")'
 - en: '[After Go Version 1.13](#After_Go_Version_113 "After Go Version 1.13")'
   id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go版本1.13之后](#After_Go_Version_113 "After Go Version 1.13")'
 - en: '[Understanding Package and Also Creating a module](#Understanding_Package_and_Also_Creating_a_module
     "Understanding Package and Also Creating a module")'
   id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[理解包及创建模块](#Understanding_Package_and_Also_Creating_a_module "Understanding
+    Package and Also Creating a module")'
 - en: '[Creating an application before Module](#Creating_an_application_before_Module
     "Creating an application before Module")'
   id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[模块之前创建应用程序](#Creating_an_application_before_Module "Creating an application
+    before Module")'
 - en: '[Exported vs Unexported Names](#Exported_vs_Unexported_Names "Exported vs Unexported
     Names")'
   id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[导出与未导出名称](#Exported_vs_Unexported_Names "Exported vs Unexported Names")'
 - en: '[Nested Packages](#Nested_Packages "Nested Packages")'
   id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[嵌套包](#Nested_Packages "Nested Packages")'
 - en: '[Aliasing in importing packages](#Aliasing_in_importing_packages "Aliasing
     in importing packages")'
   id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[导入包中的别名](#Aliasing_in_importing_packages "Aliasing in importing packages")'
 - en: '[Init Functions](#Init_Functions "Init Functions")'
   id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[初始化函数](#Init_Functions "Init Functions")'
 - en: '[Order of execution of a Go program](#Order_of_execution_of_a_Go_program "Order
     of execution of a Go program")'
   id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go程序的执行顺序](#Order_of_execution_of_a_Go_program "Order of execution of a Go
+    program")'
 - en: '[Blank Identifier in import](#Blank_Identifier_in_import "Blank Identifier
     in import")'
   id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[导入中的空标识符](#Blank_Identifier_in_import "Blank Identifier in import")'
 - en: '[Package Naming Convention](#Package_Naming_Convention "Package Naming Convention")'
   id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[包命名约定](#Package_Naming_Convention "Package Naming Convention")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
   id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "Conclusion") * *# **概述**'
 - en: Package is a way of code reusability in GO. As the name suggests, it is a way
     of grouping related code. Go modules is a way of dealing with dependencies in
     golang.
   id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 包是GO中代码重用的一种方式。顾名思义，它是将相关代码分组的一种方法。Go模块是处理golang中依赖关系的一种方式。
 - en: Every GO source file (.go file) in a GO application file belongs to a package.
     That is why every **.go** file starts with.
   id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: GO应用程序文件中的每个GO源文件（.go文件）都属于一个包。这就是每个**.go**文件以此开头的原因。
 - en: '[PRE0]'
   id: totrans-29
   prefs: []
@@ -155,6 +187,7 @@
   id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述称为**包声明**。请记住这个术语，因为在本教程中将多次使用。
 - en: All .go files present in the same directory will belong to the same package.
     A great misconception around packages is that package is the name of the directory
     which contains .go files. That is not correct. A directory is just a directory
@@ -164,10 +197,12 @@
   id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 同一目录下的所有.go文件都将属于同一包。关于包的一个很大误解是，包是包含.go文件的目录的名称。这并不正确。目录只是一个目录，而包的名称就是在**包声明**中出现的名称。那么目录名称的重要性是什么呢？将在教程中逐步解释。
 - en: Package can be of two types.
   id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 包可以分为两种类型。
 - en: '**Executable package** – Only **main** is the executable package in GoLang.
     A .go file might belong to the main package present within a specific directory.
     We will see later how the directory name or the **.go** file name matters.  The

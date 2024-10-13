@@ -1,184 +1,287 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:08:05'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:08:05
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Parse Time in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Golang 中解析时间
 - en: 来源：[https://golangbyexample.com/parse-time-in-golang/](https://golangbyexample.com/parse-time-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/parse-time-in-golang/](https://golangbyexample.com/parse-time-in-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: '**Parse** function of **time** package in golang can be used to parse the string
     representation of time into **time.Time** object'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**time** 包中的 **Parse** 函数可以用来解析时间的字符串表示为 **time.Time** 对象'
 - en: Package link – [https://golang.org/pkg/time/#Parse](https://golang.org/pkg/time/#Parse)
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 包链接 – [https://golang.org/pkg/time/#Parse](https://golang.org/pkg/time/#Parse)
 - en: If you have worked with time/date formatting/parsing in other languages you
     might have noticed that the other languages use special placeholders for time/date
     formatting. For eg ruby language uses
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你曾在其他语言中处理时间/日期格式化/解析，你可能会注意到其他语言使用特殊占位符来格式化时间/日期。例如，Ruby 语言使用
 - en: '%d for day'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '%d 表示天'
 - en: '%Y for year'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '%Y 表示年份'
 - en: 'etc. Golang, instead of using codes such as above, uses date and time format
     placeholders that look like date and time only. Go uses standard time, which is:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 等等。Golang 不使用上述代码，而是使用看起来像日期和时间的日期和时间格式占位符。Go 使用标准时间，标准时间是：
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: So if you notice Go uses
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以如果你注意到 Go 使用
 - en: 01 for the day of the month,
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 01表示月份中的天数，
 - en: 02 for the month
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 02为月份
 - en: 03 for hours,
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 03表示小时，
 - en: 04 for minutes
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 04表示分钟
 - en: 05 for second
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 05表示秒
 - en: and so on
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 依此类推
 - en: Below placeholder table describes the exact mapping. Go takes a more pragmatic
     approach where you don’t need to remember or lookup for the traditional formatting
     codes as in other languages
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的占位符表描述了确切的映射。Go 采用了更务实的方法，你无需记住或查找其他语言中的传统格式代码
 - en: '| **Type** | **Placeholder** |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| **类型** | **占位符** |'
 - en: '| Day | **2** or **02** or **_2** |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| 天 | **2** 或 **02** 或 **_2** |'
 - en: '| Day of Week | **Monday** or **Mon** |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| 星期几 | **星期一** 或 **Mon** |'
 - en: '| Month | **01** or **1** or **Jan** or **January** |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| 月 | **01** 或 **1** 或 **Jan** 或 **January** |'
 - en: '| Year | **2006** or **06** |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| 年 | **2006** 或 **06** |'
 - en: '| Hour | **03** or **3** or **15** |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| 小时 | **03** 或 **3** 或 **15** |'
 - en: '| Minutes | **04** or **4** |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| 分钟 | **04** 或 **4** |'
 - en: '| Seconds | **05** or **5** |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| 秒 | **05** 或 **5** |'
 - en: '| Milli Seconds  (ms) | **.000** //Trailing zero will be includedor **.999**
       //Trailing zero will be omitted |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| 毫秒 (ms) | **.000** //尾随零将包含或 **.999** //尾随零将省略 |'
 - en: '| Micro Seconds (μs) | **.000000** //Trailing zero will be includedor **.999999** 
           //Trailing zero will be omitted |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| 微秒 (μs) | **.000000** //尾随零将包含或 **.999999** //尾随零将省略 |'
 - en: '| Nano Seconds (ns) | **.000000000** //Trailing zero will be includedor **.999999999**
     //Trailing zero will be omitted |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| 纳秒 (ns) | **.000000000** //尾随零将包含或 **.999999999** //尾随零将省略 |'
 - en: '| am/pm | **PM** or **pm** |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| 上午/下午 | **PM** 或 **pm** |'
 - en: '| Timezone | **MST** |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '| 时区 | **MST** |'
 - en: '| Timezone offset | **Z0700** or **Z070000** or **Z07** or **Z07:00** or **Z07:00:00** 
     or **-0700** or  **-070000** or **-07** or **-07:00** or **-07:00:00** |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '| 时区偏移 | **Z0700** 或 **Z070000** 或 **Z07** 或 **Z07:00** 或 **Z07:00:00** 或 **-0700**
+    或 **-070000** 或 **-07** 或 **-07:00** 或 **-07:00:00** |'
 - en: Now coming back to time.Parse
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在回到 time.Parse
 - en: '**time.Parse** function takes in two arguments'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**time.Parse** 函数接受两个参数'
 - en: First argument is the layout consisting of time format placeholder
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个参数是包含时间格式占位符的布局
 - en: Second argument is the actual formatted string representing time.
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个参数是表示时间的实际格式化字符串。
 - en: The way you have to go about this is to make sure that the layout string (first
     argument ) matches the string representation (second argument) of the time you
     want to parse into time.Time.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要确保布局字符串（第一个参数）与要解析为 time.Time 的时间字符串表示（第二个参数）相匹配。
 - en: For parsing **2020-01-29**, layout string should be **06-01-02** or **2006-01-02**
     or something which maps correctly based on the above placeholder table.
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于解析 **2020-01-29**，布局字符串应为 **06-01-02** 或 **2006-01-02**，或基于上述占位符表正确映射的其他格式。
 - en: Similarly for parsing **“2020-Jan-29 Wednesday 12:19:25”** the layout string
     can be **“2006-Jan-02 Monday 03:04:05”**
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类似地，对于解析 **“2020-Jan-29 星期三 12:19:25”**，布局字符串可以是 **“2006-Jan-02 星期一 03:04:05”**
 - en: '**time.Parse** will raise an error if it encounters an error while parsing
     time.'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果 **time.Parse** 在解析时间时遇到错误，将会抛出错误。
 - en: '**Code**'
+  id: totrans-46
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: Below are the working Code Examples of **time.Parse().**
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是 **time.Parse()** 的工作代码示例。
 - en: '[PRE1]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]*'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE2]*'

@@ -1,38 +1,59 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:25:35'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:25:35
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Panic with Defer in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go 中使用 Defer 处理 Panic (Golang)
 - en: 来源：[https://golangbyexample.com/panic-with-defer-golang/](https://golangbyexample.com/panic-with-defer-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/panic-with-defer-golang/](https://golangbyexample.com/panic-with-defer-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Example](#Example "Example")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "示例")'
 - en: '[Using defer to recover from a panic](#Using_defer_to_recover_from_a_panic
     "Using defer to recover from a panic")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 defer 从 panic 中恢复](#Using_defer_to_recover_from_a_panic "使用 defer 从 panic
+    中恢复")*  *# **概述**'
 - en: '**defer** function will be executed even if **panic** happens in a program. In
     fact, **defer** function is the only function that is called after the **panic.**
     When the **panic** is raised in a function then the execution of that function
@@ -40,91 +61,144 @@
     in all the function calls in the stack will also be executed until all the functions
     have returned. At that time the program will exit and it will print the panic
     message'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 即使程序发生 **panic**，**defer** 函数也会被执行。事实上，**defer** 函数是唯一在 **panic** 之后被调用的函数。当在一个函数中引发
+    **panic** 时，该函数的执行将停止，任何被延迟的函数将被执行。实际上，所有堆栈中的延迟函数也将被执行，直到所有函数都返回。此时，程序将退出，并打印
+    panic 消息。
 - en: So if a defer function is present then it will be executed and the control will be returned
     back to the caller function which will again execute its defer function if present
     and the chain goes on until the program exists.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，如果存在 defer 函数，它将被执行，控制将返回到调用函数，如果存在的话，调用函数将再次执行其 defer 函数，这个链条将继续，直到程序退出。
 - en: '**Example**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see an example
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program we have a **defer** function first and then we manually
     create the panic. As you can see from the output that defer function got executed
     as below line is printed in the output
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们首先有一个 **defer** 函数，然后手动引发 panic。正如你从输出中看到的，defer 函数被执行，输出中打印了如下行。
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Using defer to recover from a panic**'
+  id: totrans-19
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 defer 从 panic 中恢复**'
 - en: Go provides a built-in function **recover** for recovering from a panic. Below
     is the signature of this function
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 提供了一个内置函数 **recover** 用于从 panic 中恢复。下面是这个函数的签名。
 - en: '[PRE3]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**defer** function is the only function that is called after the **panic**.
     So it makes sense to put the **recover** function in the **defer** function only.
     If the **recover**  function is not within the defer function then it will not
     stop **panic**.'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**defer** 函数是唯一在 **panic** 之后被调用的函数。因此，将 **recover** 函数放在 **defer** 函数中是合理的。如果
+    **recover** 函数不在 defer 函数中，它将无法停止 **panic**。'
 - en: Let’s see an example of recover
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看 recover 的一个例子。
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program we have a function **checkAndPrint** which checks and prints
     slice element at an index passed in the argument. If the index passed is greater
     than the length of the array then the program panics.  We have added a defer function
     named **handleOutIfBounds** as well at the start of the function **checkAndPrint**. This
     function contains the call to **recover** function as below
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们有一个函数 **checkAndPrint**，它检查并打印传入参数的索引处的切片元素。如果传入的索引大于数组的长度，则程序会发生 panic。我们在函数
+    **checkAndPrint** 的开头添加了一个名为 **handleOutIfBounds** 的 defer 函数。这个函数包含了对 **recover**
+    函数的调用，如下所示。
 - en: '[PRE6]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: The **recover** function will catch the panic and we can also print the message
     from the panic.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**recover** 函数将捕获 panic，我们还可以打印 panic 中的消息。'
 - en: '[PRE7]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: After the **recover** function the program continues and the control returns
     to the called function which is  **main** here. That is why we get output as
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 **recover** 函数之后，程序继续执行，控制返回到调用的函数，即这里的 **main**。这就是我们获得输出的原因。
 - en: '[PRE8]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[去](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,926 +1,1407 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:30:31'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:30:31
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Packages and Modules in Go (Golang) – Part 2
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的包与模块 – 第二部分
 - en: 来源：[https://golangbyexample.com/packages-modules-go-second/](https://golangbyexample.com/packages-modules-go-second/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/packages-modules-go-second/](https://golangbyexample.com/packages-modules-go-second/)
 - en: This is the  chapter 5 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是 Go 语言综合教程系列的第五章。有关该系列其他章节的信息，请参考此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Variables](https://golangbyexample.com/variables-in-golang-complete-guide/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [变量](https://golangbyexample.com/variables-in-golang-complete-guide/)'
 - en: '**Previous Tutorial** – [Packages and Modules – Part 1](https://golangbyexample.com/packages-modules-go-first)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [包和模块 – 第一部分](https://golangbyexample.com/packages-modules-go-first)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前的教程。下面是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Types of Modules](#Types_of_Modules "Types of Modules")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[模块的类型](#Types_of_Modules "Types of Modules")'
 - en: '[Package vs Module](#Package_vs_Module "Package vs Module")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[包与模块](#Package_vs_Module "Package vs Module")'
 - en: '[Add a dependency to your project](#Add_a_dependency_to_your_project "Add a
     dependency to your project")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[向你的项目添加依赖](#Add_a_dependency_to_your_project "Add a dependency to your project")'
 - en: '[Directly adding it to the go.mod file](#Directly_adding_it_to_the_gomod_file
     "Directly adding it to the go.mod file")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[直接添加到 go.mod 文件中](#Directly_adding_it_to_the_gomod_file "Directly adding it
+    to the go.mod file")'
 - en: '[Do a go get](#Do_a_go_get "Do a go get")'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[执行 go get](#Do_a_go_get "Do a go get")'
 - en: '[Add the dependency to your source code and do a go mod tidy](#Add_the_dependency_to_your_source_code_and_do_a_go_mod_tidy
     "Add the dependency to your source code and do a go mod tidy")'
+  id: totrans-17
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[将依赖添加到你的源代码并执行 go mod tidy](#Add_the_dependency_to_your_source_code_and_do_a_go_mod_tidy
+    "Add the dependency to your source code and do a go mod tidy")'
 - en: '[Adding a vendor directory](#Adding_a_vendor_directory "Adding a vendor directory")'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[添加供应商目录](#Adding_a_vendor_directory "Adding a vendor directory")'
 - en: '[Module Import Path](#Module_Import_Path "Module Import Path")'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[模块导入路径](#Module_Import_Path "Module Import Path")'
 - en: '[Importing package within same module](#Importing_package_within_same_module
     "Importing package within same module")'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在同一模块中导入包](#Importing_package_within_same_module "Importing package within
+    same module")'
 - en: '[Importing package from different module locally](#Importing_package_from_different_module_locally
     "Importing package from different module locally")'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[从不同模块本地导入包](#Importing_package_from_different_module_locally "Importing package
+    from different module locally")'
 - en: '[Selecting the version of library](#Selecting_the_version_of_library "Selecting
     the version of library")'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[选择库的版本](#Selecting_the_version_of_library "Selecting the version of library")'
 - en: '[Differ in minor or patch version](#Differ_in_minor_or_patch_version "Differ
     in minor or patch version")'
+  id: totrans-23
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在次要或补丁版本中不同](#Differ_in_minor_or_patch_version "Differ in minor or patch version")'
 - en: '[Differ in major version](#Differ_in_major_version "Differ in major version")'
+  id: totrans-24
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在主版本中不同](#Differ_in_major_version "Differ in major version")'
 - en: '[go mod command](#go_mod_command "go mod command")'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go mod 命令](#go_mod_command "go mod command")'
 - en: '[Direct vs Indirect Dependencies in go.mod file](#Direct_vs_Indirect_Dependencies_in_gomod_file
     "Direct vs Indirect Dependencies in go.mod file")'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go.mod 文件中的直接与间接依赖](#Direct_vs_Indirect_Dependencies_in_gomod_file "Direct
+    vs Indirect Dependencies in go.mod file")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "Conclusion")*  *# **概述**'
 - en: In the last tutorial we learn about package in detail and overview of modules.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上一个教程中，我们详细了解了包以及模块的概述。
 - en: In this tutorial we will focus on modules
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将重点关注模块。
 - en: '**Types of Modules**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**模块的类型**'
 - en: We learn that module is a directory containing nested go packages. So essentially
     module can be treated as a package only that contains nested packages. We have
     seen in the package tutorial can a package can be either an executable package
     or utility package (non-executable). Similar to package, modules can be of two
     types.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们了解到模块是一个包含嵌套 Go 包的目录。因此，模块本质上可以视为一个包，只是它包含嵌套的包。我们在包的教程中看到，包可以是可执行包或实用包（非可执行）。类似于包，模块也可以分为两种类型。
 - en: '**Executable module** – We already know that **main** is the executable package
     in GoLang. Hence a module containing the main package is the executable module
     .  The **main** package will contain a **main** function that denotes the start
     of a program. On installing the module having **main** package it will be create
     an executable in the $GOBIN directory.'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**可执行模块**——我们已经知道**main**是GoLang中的可执行包。因此，包含main包的模块是可执行模块。**main**包将包含一个**main**函数，表示程序的起始。在安装包含**main**包的模块时，它将在$GOBIN目录中创建一个可执行文件。'
 - en: '**Non-Executable module or Utility Module**– Any package other than **main**
     package is a non-executable package. It is not self executable. It just contains
     the utility function and other utility things which can be utilized by an executable
     package. Hence if the module doesn’t contain the **main** package then it will
     be a non-executable or utility module.  This module is meant to be used as a utility
     and will be imported by other modules.'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**非可执行模块或实用模块**——除了**main**包以外的任何包都是非可执行包。它不是自执行的。它仅包含实用函数和其他可被可执行包使用的实用内容。因此，如果模块不包含**main**包，那么它就是一个非可执行或实用模块。此模块旨在作为实用工具使用，将被其他模块导入。'
 - en: To create a executable for a module  (Only for module with main package)
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建模块的可执行文件（仅适用于具有主包的模块）。
 - en: Do a go build and it will create the executable in the current directory
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 执行`go build`，它将在当前目录中创建可执行文件。
 - en: Do a go install and it will create the executable in the $GOBIN directory
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 运行`go install`，它将在$GOBIN目录中创建可执行文件。
 - en: '**Package vs Module**'
+  id: totrans-37
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**包与模块**。'
 - en: As per module definition, it is a directory containing a collection of nested
     and related go packages **go.mod** at its root.  The **go.mod** file defines the
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据模块定义，它是一个包含嵌套和相关Go包的目录，根目录下有**go.mod**文件。**go.mod**文件定义了。
 - en: Module import path.
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块导入路径。
 - en: Dependency requirements of the module for a successful build. It defines both
     project’s dependencies requirement and also locks them to their correct version
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块成功构建的依赖要求。它定义了项目的依赖需求，并将其锁定到正确的版本。
 - en: Modules provides
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 模块提供了。
 - en: Dependency Management
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 依赖管理。
 - en: With modules go project doesn’t necessarily have to lie the **$GOPATH/sr**c
     folder.
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用模块时，Go项目不一定要位于**$GOPATH/src**文件夹。
 - en: Also in addition to **go.mod** file go also keeps a **go.sum** file which contains
     the cryptographic hash of bits of all project’s dependent modules. This to make
     validate that your project’s dependent modules are not changed.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了**go.mod**文件，Go还保持一个**go.sum**文件，其中包含所有项目依赖模块的加密哈希。这是为了验证项目的依赖模块没有被更改。
 - en: The behaviour of packages inside a module is same as earlier. So whatever applied
     for a package also applies now. There is no change in that. However a collection
     of packages can be called as module when there is a requirement to version them
     separately. Also when it is common piece of code and you want to share that code
     across multiple projects.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 模块内包的行为与之前相同。因此，任何适用于包的内容现在也适用。在这一点上没有变化。然而，当需要单独版本化时，多个包的集合可以称为模块。此外，当它是共享代码的一部分时，您希望在多个项目中共享该代码。
 - en: '**Add a dependency to your project**'
+  id: totrans-46
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**向项目添加依赖**。'
 - en: Let’s explore some ways of adding dependency to your project
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们探索一些将依赖添加到项目的方法。
 - en: Directly adding it to the **go.mod** file
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 直接添加到**go.mod**文件。
 - en: Do a **go get**
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 执行**go get**。
 - en: Add the dependency to your source code and do a **go mod tidy**
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将依赖添加到源代码并执行**go mod tidy**。
 - en: Before looking at each of the ways, again let’s create a module first
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 在查看每种方式之前，先创建一个模块。
 - en: '[PRE0]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Directly adding it to the go.mod file**'
+  id: totrans-53
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**直接添加到go.mod文件**。'
 - en: We can  add direct dependency to the go.mod file too. Let’s do that
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们也可以直接将依赖添加到go.mod文件。让我们来做这个。
 - en: Add below dependency to the **go.mod** file
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 将以下依赖添加到**go.mod**文件中。
 - en: '[PRE1]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: With this dependency go.mod file will look like below
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 添加此依赖后，go.mod文件将如下所示。
 - en: '[PRE2]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Now we need to download the newly added dependency as well. Fo that we can use
     the below command
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们也需要下载新添加的依赖。为此，我们可以使用下面的命令。
 - en: '[PRE3]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This command will download the **github.com/pborman/uuid** module as well all
     its dependencies. Also, it will update the **go.sum** file with the checksum and
     version of all direct and indirect dependencies. go build as well as go install
     also will download the dependencies and also build the binary. go run will also
     download and run the binary as well. go mod download command is used when you
     want to pre-download the dependencies without build or running it.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个命令将下载**github.com/pborman/uuid**模块及其所有依赖项。此外，它还会更新**go.sum**文件，包含所有直接和间接依赖项的校验和和版本。`go
+    build`和`go install`也会下载依赖项并构建二进制文件。`go run`也会下载并运行二进制文件。`go mod download`命令用于在不构建或运行的情况下预下载依赖项。
 - en: '**Do a go get**'
+  id: totrans-62
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**执行`go get`**'
 - en: Simply doing a go get will also the add the dependency in the go.mod file. Remove
     the uuid dependency we added above from go.mod file and clean up go.sum file.
     Now run below command
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 只需执行`go get`也会在`go.mod`文件中添加依赖项。将我们之前在`go.mod`中添加的uuid依赖项删除，并清理`go.sum`文件。现在运行下面的命令。
 - en: '[PRE4]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Now check the contents of go.mod file. Do a cat **go.mod**
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在检查`go.mod`文件的内容。执行`cat **go.mod**`。
 - en: '[PRE5]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: The dependency will be marked as **//indirect** as it is not being used in any
     of the source files. Once you do a go build after using this in the source files,
     the //indirect will be removed automatically by go. Also it will update the **go.sum**
     file with the checksum and version of all direct and indirect dependencies.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 该依赖项将标记为**//indirect**，因为它在任何源文件中都未被使用。一旦你在源文件中使用后执行`go build`，`//indirect`将会被go自动移除。同时，它还会更新**go.sum**文件，包含所有直接和间接依赖项的校验和和版本。
 - en: '**Add the dependency to your source code and do a go mod tidy**'
+  id: totrans-68
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**将依赖项添加到你的源代码中，并执行`go mod tidy`**'
 - en: Basically go mod tidy command makes sure that your go.mod files reflects the
     dependencies that you have actually used in your project. When we run go mod tidy
     command then it will do two things
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本上，`go mod tidy`命令确保你的`go.mod`文件反映了你在项目中实际使用的依赖项。当我们运行`go mod tidy`命令时，它会做两件事情。
 - en: Add any dependency which is imported in the source files
+  id: totrans-70
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 添加在源文件中导入的任何依赖项。
 - en: Remove any dependency which is mentioned in the **go.mod** file but not imported
     in any of the source files.
+  id: totrans-71
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 移除**go.mod**文件中提到但未在任何源文件中导入的依赖项。
 - en: Let’s see an example. Create a module with an import path as “**sample.com/learn**“
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。创建一个导入路径为“**sample.com/learn**”的模块。
 - en: '[PRE6]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Let’s create a file named **uuid.go** in the same directory with below contents
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们在同一目录中创建一个名为**uuid.go**的文件，内容如下。
 - en: '**uuid.go**'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: '**uuid.go**'
 - en: '[PRE7]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Notice that we have imported the dependency in the uuid.go as well
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意我们在`uuid.go`中也导入了依赖项。
 - en: '[PRE8]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Let’s run the below command
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行下面的命令。
 - en: '[PRE9]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: This command will download all the dependencies that are required in your source
     files and update **go.mod** file with that dependency. After running this command
     let’s now let’s again examine the contents of **go.mod** file. Do a cat **go.mod**
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个命令将下载在你的源文件中所需的所有依赖项，并使用该依赖项更新**go.mod**文件。运行此命令后，让我们再次检查**go.mod**文件的内容。执行`cat
+    **go.mod**`。
 - en: '[PRE10]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Adding a vendor directory**'
+  id: totrans-83
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**添加vendor目录**'
 - en: If you want to vendor your dependencies,  then below command can be used to
     achieve the same
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你想将依赖项放入vendor中，可以使用下面的命令来实现。
 - en: '[PRE11]'
+  id: totrans-85
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: It will create a vendor directory inside your project directory. You can also
     check in the vendor directory to your VCS (Version Control System). This becomes
     useful in sense that none of the dependency needs to be downloaded at run time
     as it is already present in the vendor folder checked into VCS
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将在你的项目目录中创建一个vendor目录。你也可以将vendor目录中的内容检查到你的版本控制系统（VCS）中。这在某种程度上变得有用，因为运行时不需要下载任何依赖项，因为它们已经存在于检查到VCS中的vendor文件夹中。
 - en: '**Module Import Path**'
+  id: totrans-87
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**模块导入路径**'
 - en: We have already seen that module import path is the prefix path that is used
     to import all packages within that module
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们已经看到模块导入路径是用于导入该模块内所有包的前缀路径。
 - en: There can be three cases that decide what import path name can be used with
     modules.
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: 有三种情况决定可以使用什么导入路径名与模块。
 - en: The module is a utility module and you plan to publish your module
+  id: totrans-90
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该模块是一个实用模块，并且你计划发布你的模块。
 - en: The module is a utility module and you don’t plan to publish your module
+  id: totrans-91
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该模块是一个实用模块，并且你不打算发布你的模块。
 - en: The module is a executable module
+  id: totrans-92
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该模块是一个可执行模块。
 - en: '**The module is a utility module and you plan to publish your module**'
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: '**该模块是一个实用模块，并且你计划发布你的模块**'
 - en: If you plan to publish your module then the module name should match the URL
     of the repo which host that module. Go tries to download dependencies from the
     VCS using the same import path of the module.
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你打算发布你的模块，则模块名称应与托管该模块的代码库的URL匹配。Go会尝试使用相同的导入路径从版本控制系统下载依赖项。
 - en: '**The module is a utility module and you don’t plan to publish your module**'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: '**该模块是一个工具模块，你不打算发布你的模块**。'
 - en: This is the case when you only mean to use the utility module locally only.
     In this case the import path can be anything.
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 当你只打算在本地使用工具模块时，就是这种情况。在这种情况下，导入路径可以是任何东西。
 - en: '**The module is a executable module**'
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: '**该模块是一个可执行模块**。'
 - en: In this case also module import path can be anything. The module import path
     can be a non-url even if you plan to commit your module into VCS as it will not
     be used by any other module
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，模块导入路径也可以是任何东西。即使你打算将模块提交到版本控制系统，模块导入路径也可以是非URL，因为它不会被其他模块使用。
 - en: However it is a good practice to use meaningful import path while creating module
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，在创建模块时使用有意义的导入路径是一个好习惯。
 - en: '**Importing package within same module**'
+  id: totrans-100
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**在同一模块中导入包**。'
 - en: Any package within the same module can be imported using the import path of
     module + directory containing that package. To illustrate lets create a module
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: 同一模块中的任何包都可以使用模块 + 包所在目录的导入路径进行导入。为了说明这一点，让我们创建一个模块。
 - en: Make a **learn** directory
+  id: totrans-102
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个**learn**目录。
 - en: Create a module with import path as **“sample.com/learn”**
+  id: totrans-103
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个导入路径为**“sample.com/learn”**的模块。
 - en: '[PRE12]'
+  id: totrans-104
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Now create main.go (Having main package and main function)
+  id: totrans-105
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在创建main.go（包含main包和main函数）。
 - en: And math/math.go – math package
+  id: totrans-106
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 以及math/math.go – 数学包。
 - en: '**main.go**'
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**。'
 - en: '[PRE13]'
+  id: totrans-108
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**math/math.go**'
+  id: totrans-109
   prefs: []
   type: TYPE_NORMAL
+  zh: '**math/math.go**。'
 - en: '[PRE14]'
+  id: totrans-110
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: See how we have imported the math package in the main.go file
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: 查看我们如何在main.go文件中导入数学包。
 - en: '[PRE15]'
+  id: totrans-112
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: Here the import path is import path of module which is **sample.com/learn**
     +  directory containing the package which is **math.** Hence “**sample.com/learn/math”**
     . Packages in nested directory can also be imported in the same way. The way it
     works is that since the prefix is the module import path, hence go will know that
     you are trying to import from the same module. So it will directly refer it instead
     of downloading it.
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里的导入路径是模块的导入路径，即**sample.com/learn** + 包所在的目录，即**math**。因此是“**sample.com/learn/math**”。嵌套目录中的包也可以以相同的方式导入。它的工作原理是，由于前缀是模块导入路径，因此Go会知道你正在尝试从同一模块导入。因此，它将直接引用，而不是下载。
 - en: '**Importing package from different module locally**'
+  id: totrans-114
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**从不同模块本地导入包**。'
 - en: There are cases when we want to import a module which is present locally. Let’s
     understand how we can import such a module. But first, we have to create a module
     that can be used by others and then import it into the other module. For that
     let’s create two modules
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
+  zh: 有时我们希望导入一个本地存在的模块。让我们了解如何导入这样的模块。但首先，我们必须创建一个可以被其他模块使用的模块，然后将其导入到其他模块中。为此，让我们创建两个模块。
 - en: '**sample.com/math** module'
+  id: totrans-116
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**sample.com/math**模块。'
 - en: '**school** module'
+  id: totrans-117
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**school**模块。'
 - en: '**school** module will be calling code of the **sample.com/math** module'
+  id: totrans-118
   prefs: []
   type: TYPE_NORMAL
+  zh: '**school**模块将调用**sample.com/math**模块的代码。'
 - en: Let’s first create the **sample.com/math** module which will be used by **school**
     module
+  id: totrans-119
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们首先创建将被**school**模块使用的**sample.com/math**模块。
 - en: Make a **math** directory
+  id: totrans-120
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个**math**目录。
 - en: Create a module with import path as **sample.com/math**
+  id: totrans-121
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个导入路径为**sample.com/math**的模块。
 - en: '[PRE16]'
+  id: totrans-122
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: Create a file **math.go** with below contents  in the **math** directory
+  id: totrans-123
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在**math**目录中创建一个名为**math.go**的文件，内容如下。
 - en: '[PRE17]'
+  id: totrans-124
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Nowlet’s create the school module
+  id: totrans-125
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们创建学校模块。
 - en: Nowcreate a **school** directory in the same path as **math** directory side
     by side
+  id: totrans-126
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在在与**math**目录并排的相同路径中创建一个**school**目录。
 - en: Create a module name **school**
+  id: totrans-127
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个模块名称为**school**。
 - en: '[PRE18]'
+  id: totrans-128
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: Now let’s modify the **go.mod** file to import the math module in the school
     module. To import a local module that is not pushed to VCS, we are going to use
     replace directory. The replace directory will replace the module path with the
     path you specify.
+  id: totrans-129
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在，让我们修改**go.mod**文件，以便在学校模块中导入数学模块。要导入一个未推送到版本控制系统的本地模块，我们将使用替换目录。替换目录将用你指定的路径替换模块路径。
 - en: '[PRE19]'
+  id: totrans-130
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Create file school.go which is going to use the Add function in **[sample.com](http://sample.com)/math**
     module
+  id: totrans-131
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个名为school.go的文件，它将使用**[sample.com](http://sample.com)/math**模块中的Add函数。
 - en: '[PRE20]'
+  id: totrans-132
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: Now do a go run
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在运行`go run`。
 - en: '[PRE21]'
+  id: totrans-134
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: It is able to call the Add function of the **[sample.com](http://sample.com)/math**
     module and correctly gives the output as 6.
+  id: totrans-135
   prefs: []
   type: TYPE_NORMAL
+  zh: 它能够调用**[sample.com](http://sample.com)/math**模块的Add函数，并正确输出为6。
 - en: Also it will update the go.mod with version information of the **[sample.com](http://sample.com)/math**
     module
+  id: totrans-136
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，它将更新**[sample.com](http://sample.com)/math**模块的go.mod版本信息。
 - en: '[PRE22]'
+  id: totrans-137
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: '**Selecting the version of library**'
+  id: totrans-138
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**选择库的版本**。'
 - en: To understand how does GO’s approach while selecting the version of the library
     of which two versions are specified in the **go.mod** file, we have to first understand
     Semantic Versioning
+  id: totrans-139
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了理解GO在选择在**go.mod**文件中指定的两个版本的库版本时的做法，我们必须先理解语义版本控制。
 - en: Semantic Versioning is comprised of three parts separated by dots. Below is
     the format for versioning.
+  id: totrans-140
   prefs: []
   type: TYPE_NORMAL
+  zh: 语义版本控制由三个部分组成，由点分隔。以下是版本控制的格式。
 - en: '[PRE23]'
+  id: totrans-141
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: where
+  id: totrans-142
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中
 - en: '**v** – it is just an indicator that it is a version'
+  id: totrans-143
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**v** – 它只是一个指示版本的标志。'
 - en: major_version – It represents the incompatible API changes in the library. So
     when there are changes in the library that is not backward compatible, in that
     case, major_version is incremented
+  id: totrans-144
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: major_version – 它表示库中不兼容的API变化。因此，当库中有不向后兼容的变化时，major_version会递增。
 - en: minor_version – It represents the change in functionality of the library in
     a backward-compatible manner. So when there are some functionality changes in
     the library but those changes are backward compatible then, in that case, the
     minor version is incremented
+  id: totrans-145
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: minor_version – 它表示库功能的向后兼容变化。因此，当库中有某些功能变化，但这些变化是向后兼容的情况下，minor版本会递增。
 - en: patch_version – It represents the bug fixes in the library in a backward-compatible
     manner. So when there are bug fixes to the existing functionality of the library,
     then in that case patch_version is incremented.
+  id: totrans-146
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: patch_version – 它表示库中以向后兼容的方式修复的错误。因此，当库的现有功能修复了错误时，在这种情况下，patch_version会递增。
 - en: Now there can be two cases
+  id: totrans-147
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在可以有两种情况。
 - en: Two versions of the same library is used which only differ in the minor and
     patch version. Their major version is the same.
+  id: totrans-148
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用了两个相同库的版本，它们只在小版本和补丁版本上有所不同。它们的主要版本是相同的。
 - en: Two versions of the same library is used which differ in the major.
+  id: totrans-149
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用了两个相同库的版本，它们在主要版本上有所不同。
 - en: Let’s see what approach does go follows in the above two cases
+  id: totrans-150
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看go在上述两种情况下遵循什么方法。
 - en: '**Differ in minor or patch version**'
+  id: totrans-151
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**在小版本或补丁版本上有所不同**。'
 - en: Go follows the minimum version policy approach while selecting the version of
     the library of which two versions are specified in the **go.mod** file which differ
     only in their minor or patch version.
+  id: totrans-152
   prefs: []
   type: TYPE_NORMAL
+  zh: Go在选择两个版本在**go.mod**文件中指定的库版本时遵循最小版本策略方法，这两个版本只在小版本或补丁版本上有所不同。
 - en: For example in case you are using the two versions of same library which are
+  id: totrans-153
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果你使用相同库的两个版本，它们是。
 - en: '[PRE24]'
+  id: totrans-154
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: and
+  id: totrans-155
   prefs: []
   type: TYPE_NORMAL
+  zh: 并且
 - en: '[PRE25]'
+  id: totrans-156
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: then go will choose 1.3.0 as it is the latest version.
+  id: totrans-157
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后go将选择1.3.0，因为它是最新版本。
 - en: '**Differ in major version**'
+  id: totrans-158
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**在主要版本上有所不同**。'
 - en: Go treats the major version as a different module itself. Now, what does that
     means? This essentially means that the import path will have a major version as
     its suffix. Let’s take the example of any go library with VCS as **github.com/sample**.
     Let’s latest semantic version is
+  id: totrans-159
   prefs: []
   type: TYPE_NORMAL
+  zh: Go将主要版本视为不同的模块。那这意味着什么呢？这本质上意味着导入路径将以主要版本作为后缀。让我们以任何go库的VCS为**github.com/sample**为例。让我们最新的语义版本是。
 - en: '[PRE26]'
+  id: totrans-160
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: Then the go.mod file will like below
+  id: totrans-161
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后go.mod文件将如下所示。
 - en: '[PRE27]'
+  id: totrans-162
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: It has major version in its import path. So any library which is using this
     sample library have to import it like
+  id: totrans-163
   prefs: []
   type: TYPE_NORMAL
+  zh: 它在导入路径中有主要版本。因此，任何使用此示例库的库必须像这样导入。
 - en: '[PRE28]'
+  id: totrans-164
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: If in future **v9** version is released than it has to be imported in the application
     like
+  id: totrans-165
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果未来发布**v9**版本，则必须像这样导入到应用程序中。
 - en: '[PRE29]'
+  id: totrans-166
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: Also the library will change its go.mod file to reflect the v9 major version
+  id: totrans-167
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，该库将更改其go.mod文件以反映v9主要版本。
 - en: '[PRE30]'
+  id: totrans-168
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: What it essentially allows is to use different major version of the same library
     to be used within same go application.  We can also give meaningful names when
     different major version of the same library is imported in the same application.
     For eg
+  id: totrans-169
   prefs: []
   type: TYPE_NORMAL
+  zh: 它本质上允许在同一go应用程序中使用相同库的不同主要版本。当在同一应用程序中导入相同库的不同主要版本时，我们还可以给出有意义的名称。例如。
 - en: '[PRE31]'
+  id: totrans-170
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE31]'
 - en: This is also known as **Semantic Import Versioning**
+  id: totrans-171
   prefs: []
   type: TYPE_NORMAL
+  zh: 这也被称为**语义导入版本控制**。
 - en: Also note that
+  id: totrans-172
   prefs: []
   type: TYPE_NORMAL
+  zh: 还要注意
 - en: For the first version it is ok to not specify the version in the go.mod file.
+  id: totrans-173
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于第一个版本，不在go.mod文件中指定版本是可以的。
 - en: Also be careful when importing different major version of the same library.
     Look out for the new functionality that might be available with new versions.
+  id: totrans-174
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 导入相同库的不同主要版本时要小心。注意可能与新版本一起提供的新功能。
 - en: Also for the same reason when you update a specific module using
+  id: totrans-175
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样出于同样的原因，当你使用更新特定模块时。
 - en: '[PRE32]'
+  id: totrans-176
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE32]'
 - en: then it will only upgrade to the latest minor version or patch version whichever
     applicable. For example let’s say the current version used by an application is
+  id: totrans-177
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后它只会升级到最新的小版本或补丁版本（如果适用）。例如，假设应用程序使用的当前版本是
 - en: '[PRE33]'
+  id: totrans-178
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE33]'
 - en: Also let’s say we have below versions available
+  id: totrans-179
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样，假设我们有以下可用版本。
 - en: '[PRE34]'
+  id: totrans-180
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE34]'
 - en: Then when we run
+  id: totrans-181
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后当我们运行时
 - en: '[PRE35]'
+  id: totrans-182
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE35]'
 - en: then it will update to
+  id: totrans-183
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后它将更新为
 - en: '[PRE36]'
+  id: totrans-184
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE36]'
 - en: The reason is because go get will only update the minor or patch version but
     never the major version as go treats major version of a module as a different
     module entirely.
+  id: totrans-185
   prefs: []
   type: TYPE_NORMAL
+  zh: 原因是因为 go get 只会更新小版本或补丁版本，但从不更新主要版本，因为 go 将模块的主要版本视为完全不同的模块。
 - en: To upgrade the major version, specify that  upgraded dependency explicitly 
     in the **go.mod** file or do a go get of that version.
+  id: totrans-186
   prefs: []
   type: TYPE_NORMAL
+  zh: 要升级主要版本，请在 **go.mod** 文件中显式指定升级的依赖项或执行该版本的 go get。
 - en: Also couple of points to note about upgrading module
+  id: totrans-187
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有几点关于升级模块的注意事项。
 - en: To upgrade a dependency to its latest patch version only, use below command
+  id: totrans-188
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 要仅将依赖项升级到其最新补丁版本，请使用以下命令。
 - en: '[PRE37]'
+  id: totrans-189
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE37]'
 - en: To upgrade a dependency to a specific version, use below command
+  id: totrans-190
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 要将依赖项升级到特定版本，请使用以下命令。
 - en: '[PRE38]'
+  id: totrans-191
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE38]'
 - en: To upgrade a dependency to a specific commit, use below command
+  id: totrans-192
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 要将依赖项升级到特定提交，请使用以下命令。
 - en: '[PRE39]'
+  id: totrans-193
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE39]'
 - en: To upgrade all dependency to their latest minor and patch version, use below
     command
+  id: totrans-194
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 要将所有依赖项升级到它们最新的小版本和补丁版本，请使用以下命令。
 - en: '[PRE40]'
+  id: totrans-195
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE40]'
 - en: '**go mod command**'
+  id: totrans-196
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**go mod 命令**'
 - en: Below are some of the options for the go mod command.
+  id: totrans-197
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是 go mod 命令的一些选项。
 - en: '**download –** It will download the the required dependencies to the  $GOPATH/pkg/mod/cache
     folder.  Also it will update the **go.sum** file with the checksum and version
     of all direct and indirect dependencies'
+  id: totrans-198
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**下载 –** 它将把所需的依赖项下载到 $GOPATH/pkg/mod/cache 文件夹中。同时，它将用所有直接和间接依赖项的校验和和版本更新
+    **go.sum** 文件。'
 - en: '**edit** – This is for editing the go.mod file. It provides a set of editing
     flags. Run below command to see set of all editing flags available'
+  id: totrans-199
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**编辑** – 这是用于编辑 go.mod 文件。它提供了一组编辑标志。运行以下命令查看所有可用的编辑标志。'
 - en: '[PRE41]'
+  id: totrans-200
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE41]'
 - en: go help mod editFor eg below are some editing flags available
+  id: totrans-201
   prefs: []
   type: TYPE_NORMAL
+  zh: go help mod edit例如，以下是一些可用的编辑标志。
 - en: '**-fmt** flag will format the go.mod file. It will not make any other change'
+  id: totrans-202
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**-fmt** 标志将格式化 go.mod 文件。它不会进行其他更改。'
 - en: '**-module** flag can be used to set the module’s import path'
+  id: totrans-203
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**-module** 标志可用于设置模块的导入路径。'
 - en: '**graph** – This can be used to print the module requirement dependency graph'
+  id: totrans-204
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**图形** – 这可以用来打印模块需求依赖图。'
 - en: '**init** – We already have seen the usage of this command above. It is used
     to init a new module'
+  id: totrans-205
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**初始化** – 我们已经在上面看到这个命令的用法。它用于初始化一个新模块。'
 - en: '**tidy** – This command will download all the dependencies that are required
     in your source files'
+  id: totrans-206
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**整理** – 此命令将下载源文件中所需的所有依赖项。'
 - en: '**vendor** – If you want to vendor your dependencies,  then below command can
     be used to achieve the same. It will create a vendor directory inside your project
     directory. You can also check in the vendor directory to your VCS (Version Control
     System)'
+  id: totrans-207
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**供应商** – 如果你想为你的依赖项创建供应商，则可以使用以下命令实现相同的功能。它将在你的项目目录中创建一个 vendor 目录。你也可以将 vendor
+    目录检查到你的版本控制系统（VCS）中。'
 - en: '**verify –** This command checks for the modification of current downloaded
     dependencies. If any of the downloaded dependency has been verified that it will
     exit with a non-zero code'
+  id: totrans-208
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**验证 –** 此命令检查当前下载的依赖项是否已被修改。如果任何下载的依赖项经过验证，它将以非零代码退出。'
 - en: '**why –** this command analyzes the graph of packages from the main module.
     It prints the shortest path from the main module to the given package. For instance
     the school module which we created in section “Importing package from different
     module locally” if we print why command as below'
+  id: totrans-209
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**为什么 –** 此命令分析来自主模块的包图。它打印从主模块到给定包的最短路径。例如，在“从不同模块本地导入包”部分中创建的 school 模块，如果我们打印为什么命令如下。'
 - en: '[PRE42]'
+  id: totrans-210
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE42]'
 - en: then below will be the output
+  id: totrans-211
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后以下将是输出。
 - en: '[PRE43]'
+  id: totrans-212
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE43]'
 - en: The output illustrates that the [sample.com](http://sample.com)/math package
     is at one distance in the graph from main module which is school here.
+  id: totrans-213
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出说明 [sample.com](http://sample.com)/math 包在图中距离主模块（在这里是 school）有一段距离。
 - en: '**Direct vs Indirect Dependencies in go.mod file**'
+  id: totrans-214
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**go.mod 文件中的直接与间接依赖**'
 - en: A direct dependency is the dependency which the module directly imports . An
     indirect dependency is the dependency which are imported by module’s direct dependencies.
     Also, any dependency that is mentioned in the **go.mod** file but not imported
     in any of the source files of the module is also treated as an indirect dependency.
+  id: totrans-215
   prefs: []
   type: TYPE_NORMAL
+  zh: 直接依赖是模块直接导入的依赖。间接依赖是由模块的直接依赖导入的依赖。此外，任何在 **go.mod** 文件中提到但未在模块的任何源文件中导入的依赖也被视为间接依赖。
 - en: '**go.mod** file only records the direct dependency.However it may record an
     indirect dependency in below cases'
+  id: totrans-216
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod** 文件仅记录直接依赖。然而，在以下情况下，它可能会记录间接依赖。'
 - en: Any indirect dependency which is not listed in the go.mod file of your direct
     dependency or if direct dependency doesn’t have a go.mod file , then that direct
     dependency will be added to the go.mod file with //direct as the suffix
+  id: totrans-217
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 任何在你直接依赖的 go.mod 文件中未列出的间接依赖，或者如果直接依赖没有 go.mod 文件，则该直接依赖将以 //direct 作为后缀添加到
+    go.mod 文件中。
 - en: Any dependency which is not imported in any of the source file of the module
     (Example of this we have already seen earlier in the tutorial)
+  id: totrans-218
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 任何未在模块的任何源文件中导入的依赖（我们之前在教程中已经看到过这个示例）。
 - en: '**go.sum** will record the checksum of direct and indirect dependencies.'
+  id: totrans-219
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.sum** 将记录直接和间接依赖的校验和。'
 - en: '**Example of Indirect Dependencies in go.mod file**'
+  id: totrans-220
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod 文件中的间接依赖示例**'
 - en: Let’s understand it with an example. For that let’s first create a module
+  id: totrans-221
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们通过一个示例来理解它。为此，让我们先创建一个模块。
 - en: '[PRE44]'
+  id: totrans-222
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE44]'
 - en: Let’s add colly lib version v1.2.0 as a dependency in the go.mod file. colly
     version v1.2.0 doesn’t have a go.mod file.
+  id: totrans-223
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们在 go.mod 文件中添加 colly 库版本 v1.2.0 作为依赖。colly 版本 v1.2.0 没有 go.mod 文件。
 - en: '[PRE45]'
+  id: totrans-224
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE45]'
 - en: Now create a file learn.go
+  id: totrans-225
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在创建一个文件 learn.go。
 - en: '[PRE46]'
+  id: totrans-226
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE46]'
 - en: Now do a go build. Since colly version v1.2.0 doesn’t have a go.mod file , all
     dependencies required by colly will be added to the go.mod file with //indirect
     as suffix. Do a go build. Now check the go.mod file. You will see below contents
     of the file
+  id: totrans-227
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在执行 go build。由于 colly 版本 v1.2.0 没有 go.mod 文件，colly 所需的所有依赖将以 //indirect 作为后缀添加到
+    go.mod 文件中。执行 go build。现在检查 go.mod 文件。你会看到以下文件内容。
 - en: '[PRE47]'
+  id: totrans-228
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE47]'
 - en: All other dependencies are suffixed by **//indirect**. Also check that all direct
     and indirect dependencies will be recorded in the go.sum file.
+  id: totrans-229
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有其他依赖都以 **//indirect** 作为后缀。还要检查所有直接和间接依赖将在 go.sum 文件中记录。
 - en: '**Conclusion**'
+  id: totrans-230
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about packages and modules in golang. Hope you have liked this article.
     Please share feedback/mistakes/improvements in comments
+  id: totrans-231
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是 golang 中的包和模块。希望你喜欢这篇文章。请在评论中分享反馈/错误/改进建议。
 - en: '****Next Tutorial** – **[Variables](https://golangbyexample.com/variables-in-golang-complete-guide/)
     ****Previous Tutorial** –** [Packages and Modules – Part 1](https://golangbyexample.com/packages-modules-go-first)'
+  id: totrans-232
   prefs: []
   type: TYPE_NORMAL
+  zh: '****下一个教程** – **[变量](https://golangbyexample.com/variables-in-golang-complete-guide/)****上一个教程** – **[包和模块
+    – 第1部分](https://golangbyexample.com/packages-modules-go-first)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-233
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

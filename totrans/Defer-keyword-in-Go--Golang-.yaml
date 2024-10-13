@@ -1,112 +1,170 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:25:41'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:25:41
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Defer keyword in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的**defer**关键字
 - en: 来源：[https://golangbyexample.com/defer-golang/](https://golangbyexample.com/defer-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/defer-golang/](https://golangbyexample.com/defer-golang/)
 - en: This is the  chapter 14 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是Golang综合教程系列的第14章。请参考此链接获取系列的其他章节 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Pointer](https://golangbyexample.com/pointer-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [Pointer](https://golangbyexample.com/pointer-golang/)'
 - en: '**Previous Tutorial** – [Switch](https://golangbyexample.com/switch-statement-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [Switch](https://golangbyexample.com/switch-statement-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们来看一下当前的教程。下面是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Custom Function in defer](#Custom_Function_in_defer "Custom Function in defer")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[defer中的自定义函数](#Custom_Function_in_defer "Custom Function in defer")'
 - en: '[Inline Function in Defer](#Inline_Function_in_Defer "Inline Function in Defer")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[defer中的内联函数](#Inline_Function_in_Defer "Inline Function in Defer")'
 - en: '[How does defer works](#How_does_defer_works "How does defer works")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[defer是如何工作的](#How_does_defer_works "How does defer works")'
 - en: '[Evaluation of defer arguments](#Evaluation_of_defer_arguments "Evaluation
     of defer arguments")'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[延迟参数评估](#Evaluation_of_defer_arguments "Evaluation of defer arguments")'
 - en: '[Multiple defer functions in the same function](#Multiple_defer_functions_in_the_same_function
     "Multiple defer functions in the same function")'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[同一函数中的多个defer函数](#Multiple_defer_functions_in_the_same_function "Multiple
+    defer functions in the same function")'
 - en: '[Defer function and Named Return Values](#Defer_function_and_Named_Return_Values
     "Defer function and Named Return Values")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[defer函数和命名返回值](#Defer_function_and_Named_Return_Values "Defer function and
+    Named Return Values")'
 - en: '[Defer and Methods](#Defer_and_Methods "Defer and Methods")'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[defer和方法](#Defer_and_Methods "Defer and Methods")'
 - en: '[Defer and Panic](#Defer_and_Panic "Defer and Panic")'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[defer和panic](#Defer_and_Panic "Defer and Panic")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "Conclusion")*  *# **概述**'
 - en: Defer as the name suggests is used to defer the cleanup activities in a function.
     These cleanup activities will be performed at the end of the function. This cleanup
     activities will be done in a different function called by defer.  This different
     function is called at the end of the surrounding function before it returns. Below
     is the syntax of defer function
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**defer**（延迟）顾名思义用于延迟函数中的清理操作。这些清理操作将在函数结束时执行。这些清理操作将在一个由**defer**调用的不同函数中完成。这个不同的函数会在周围函数返回之前被调用。下面是**defer**函数的语法。'
 - en: '[PRE0]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Things to note about defer function
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于defer函数需要注意的事项
 - en: Execution of a deferred function is delayed to the moment the surrounding function
     returns
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 延迟函数的执行会被推迟到周围函数返回的时刻。
 - en: deferred function will also be executed if the enclosing function terminates
     abruptly. For example in case of a panic
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果封闭函数异常终止，延迟函数也会被执行。例如在发生panic的情况下。
 - en: One good example of understanding the **defer** function is to look at the use
     case of writing to a file. A file that is opened for writing also must be closed.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 理解**defer**函数的一个好例子是查看写入文件的使用案例。一个为写入而打开的文件也必须关闭。
 - en: '[PRE1]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, in the **writeToTempFile** function, we are opening a
     file and then trying to write some content to the file. After we have written
     the contents of the file we close the file. It is possible that during the write
@@ -114,190 +172,292 @@
     the file. **Defer** function helps to avoid these kinds of problems. **Defer** function
     is always executed before the surrounding function returns. Let’s rewrite the
     above program with a **defer** function here.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，在**writeToTempFile**函数中，我们打开一个文件，然后尝试向文件写入一些内容。在我们写入文件内容后关闭文件。在写入操作期间，可能会导致错误，函数会在不关闭文件的情况下返回。**Defer**函数帮助避免这些问题。**Defer**函数总是在周围函数返回之前执行。让我们在这里重写上述程序，使用**defer**函数。
 - en: '[PRE2]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program, we do **defer file.Close()** after opening the file. This
     will make sure that closing of the file is executed even if the write to the file
     results into an error. Defer function makes sure that the file will be closed
     regardless of number of return statements in the function
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们在打开文件后执行**defer file.Close()**。这将确保即使写入文件时发生错误，文件也会被关闭。`defer`函数确保文件会被关闭，无论函数中有多少个返回语句。
 - en: '**Custom Function in defer**'
+  id: totrans-31
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**自定义函数在defer中**'
 - en: We can also call a custom function in **defer**. Let’s see an example for that
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们也可以在**defer**中调用自定义函数。让我们看看一个例子。
 - en: '[PRE3]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the above program there is a **defer** statement calling the custom function
     named **test**. As seen from the output, the **test** function is called after
     everything in the main is executed and before main returns. That is why
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，有一个**defer**语句调用名为**test**的自定义函数。从输出中可以看到，**test**函数在主函数中的所有内容执行完毕后、主函数返回之前被调用。这就是原因。
 - en: '[PRE5]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: is printed before
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 被打印在前。
 - en: '[PRE6]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: The above function also shows that it is perfectly ok to use defer in the main
     function as well.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述函数还显示在主函数中使用`defer`是完全可以的。
 - en: '**Inline Function in Defer**'
+  id: totrans-41
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**defer中的内联函数**'
 - en: It is also possible to have an inline function with defer. Let’s see an example
     of that.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 也可以在`defer`中使用内联函数。让我们看看一个例子。
 - en: '[PRE7]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In the above code we have **defer** with a inline function
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述代码中，我们有一个带内联函数的**defer**。
 - en: '[PRE9]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: This is allowed in go. Also note that it is mandatory to add **“()”** after
     the function otherwise compiler will raise error
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go中这是允许的。此外，请注意在函数后添加**“()”**是强制性的，否则编译器会抛出错误。
 - en: '[PRE10]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: As seen from the output, that the inline function is called after everything
     in the main is executed and before main returns. That is why
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中可以看到，内联函数在主函数中的所有内容执行完毕后、主函数返回之前被调用。这就是原因。
 - en: '[PRE11]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: is printed before
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 被打印在前。
 - en: '[PRE12]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**How does defer works**'
+  id: totrans-54
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**defer是如何工作的**'
 - en: When the the compiler encounter a defer statement in a function it pushes it
     onto a list. This list internally implements a stack data structure.  All the
     encountered defer statement in the same function are pushed onto this list. When
     the surrounding function returns then all the functions in the stack starting
     from top to bottom are executed before execution can begin in the calling function.
     Now same thing will happen in the calling function as well.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 当编译器在函数中遇到`defer`语句时，它将其推送到一个列表中。该列表在内部实现了一个堆栈数据结构。所有在同一函数中遇到的`defer`语句都被推送到这个列表中。当外层函数返回时，堆栈中的所有函数从上到下执行，然后才能开始调用函数的执行。调用函数中也会发生同样的事情。
 - en: Let’s understand what happens when we have multiple defer functions in different
     functions. Imagine a function call from **main** function to **f1** function to
     **f2** function
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们了解当多个`defer`函数在不同函数中时会发生什么。想象一下从**main**函数调用到**f1**函数，再到**f2**函数。
 - en: '**main**->**f1**->**f2**'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main**->**f1**->**f2**'
 - en: Below is the sequence that will be happening after f2 returns
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是`f2`返回后将发生的顺序。
 - en: Defer functions in **f2** will be executed if present. Control will return to
     the caller which is a function **f1**.
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果存在，**f2**中的`defer`函数将被执行。控制将返回到调用者，即**f1**函数。
 - en: Defer functions in **f1** will be executed if present. Control will return to
     the caller which is a function **main**. Note that if there are more functions
     in between then the process will continue up the stack in a similar way
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果存在，**f1**中的`defer`函数将被执行。控制将返回到调用者，即**main**函数。注意，如果中间还有更多函数，处理过程将以类似方式继续向上堆栈。
 - en: After main returns the defer  function if present in main will be executed
+  id: totrans-61
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在主函数返回后，如果在主函数中存在`defer`函数，将被执行。
 - en: Let’s see a program for that
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序。
 - en: '[PRE13]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output**'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE14]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Evaluation of defer arguments**'
+  id: totrans-66
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**defer参数的评估**'
 - en: defer arguments are evaluated at the time defer statement is evaluated
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '`defer`参数在`defer`语句被求值时被评估。'
 - en: Let’s see a program for that
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序。
 - en: '[PRE15]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Output**'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE16]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: In the above program when the defer statement was evaluated the value of the **sample**
     variable was **“abc”**. In the defer function, we print the  sample variable.
     After the defer statement we change the value of the **sample** variable to **“xyz”**. 
     But the program outputs **“abc”** instead of **“xyz”** because when the defer
     arguments were evaluated the value of the  sample variable was **“abc”**.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，当`defer`语句被评估时，**sample**变量的值为**“abc”**。在`defer`函数中，我们打印`sample`变量。在`defer`语句之后，我们将**sample**变量的值更改为**“xyz”**。但程序输出的是**“abc”**而不是**“xyz”**，因为当`defer`参数被评估时，**sample**变量的值是**“abc”**。
 - en: '**Multiple defer functions in the same function**'
+  id: totrans-73
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**同一函数中的多个 defer 函数**'
 - en: In case we have multiple defer functions within a particular function, then
     all the  defer functions will be executed in last in first out order
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果在特定函数中有多个 defer 函数，那么所有的 defer 函数将按照后进先出顺序执行。
 - en: Let’s see a program for that
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个程序。
 - en: '[PRE17]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Output**'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE18]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: In the above program we have three **defer** function each printing the value
     of **i**. The variable **i** is incremented before each defer. The code outputs
     3 first meaning that third defer function is executed first.  Then it outputs
@@ -305,100 +465,156 @@
     that first defer is executed last. This shows that when there are multiple defer
     functions within a particular function then the follow the “Last in first out”
     rule. And that is why program outputs
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有三个 **defer** 函数，每个函数打印变量 **i** 的值。变量 **i** 在每个 defer 之前递增。代码首先输出
+    3，这意味着第三个 defer 函数首先执行。然后输出 2，表示第二个 defer 之后执行，最后输出 1，意味着第一个 defer 最后执行。这表明在特定函数中存在多个
+    defer 函数时，它们遵循“后进先出”规则。因此程序输出。
 - en: '[PRE19]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**Defer function and Named Return Values**'
+  id: totrans-81
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**延迟函数和命名返回值**'
 - en: In case of named return value in the function, the defer function can read as
     well as modified those named return values. If the defer function modifies the
     name return value then that modified value will  be returned
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 在函数中，如果有命名返回值，defer 函数可以读取并修改这些命名返回值。如果 defer 函数修改了命名返回值，则将返回该修改后的值。
 - en: Let’s see a program for that
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个程序。
 - en: '[PRE20]'
+  id: totrans-84
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Output**'
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE21]'
+  id: totrans-86
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: In the above program we have named return value **“size”**  in the the test
     function. In the defer function we modify the name return value and we change
     the value to 20.  We then set size to 30. In the main function we print the return
     value of test function  and it outputs 20 instead of 30 because defer function
     has modified the value of size variable in the test function
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们在测试函数中有命名返回值 **“size”**。在 defer 函数中，我们修改了命名返回值，并将值改为 20。然后我们将 size
+    设置为 30。在主函数中，我们打印测试函数的返回值，结果输出 20 而不是 30，因为 defer 函数在测试函数中修改了 size 变量的值。
 - en: '**Defer and Methods**'
+  id: totrans-88
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**延迟和方法**'
 - en: '**defer** statement is also applicable  for methods in a similar way it is
     applicable to functions. In the first example we had already seen the **Close**
     method which was called on the file instance. That shows that the  **defer** statement
     is also applicable for methods as well'
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: '**defer** 语句同样适用于方法，类似于它对函数的适用。在第一个示例中，我们已经看到在文件实例上调用的 **Close** 方法。这表明 **defer**
+    语句同样适用于方法。'
 - en: '**Defer and Panic**'
+  id: totrans-90
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**延迟和恐慌**'
 - en: defer function will also be executed even if panic happens in a program.  When
     the panic is raised in a function then the execution of that function is stopped
     and any deferred function will be executed. In fact deferred function of all the
     function calls in the stack will also be executed until all the functions have returned
     .At that time the program will exit and it will print the panic message
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: 即使在程序中发生了恐慌，defer 函数也会被执行。当在某个函数中触发 panic 时，该函数的执行将被停止，任何被延迟的函数将被执行。实际上，栈中所有函数调用的延迟函数也会被执行，直到所有函数都返回。此时程序将退出，并打印
+    panic 消息。
 - en: So if a  defer function is present it then it will be executed and the control
     will be  returned back to the caller function which will again execute its defer
     function if present and the chain goes on until the program exists.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以如果存在一个 defer 函数，它将被执行，控制将返回给调用函数，调用函数如果存在 defer 函数，则会再次执行，链条将继续，直到程序退出。
 - en: Let’s see an example
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个示例。
 - en: '[PRE22]'
+  id: totrans-94
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: '**Output**'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE23]'
+  id: totrans-96
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: In the above program we have a defer function first and then we manually create
     the panic. As you can see from the output that defer function got executed as
     below line is printed in the output
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们首先有一个 defer 函数，然后手动触发 panic。正如你从输出中看到的，defer 函数得到了执行，输出中打印了以下行。
 - en: '[PRE24]'
+  id: totrans-98
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Conclusion**'
+  id: totrans-99
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: That is all about defer in golang. Hope you have liked the article. please share
     feedback/improvements/mistakes in comments
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是 Golang 中的 defer。希望你喜欢这篇文章，请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Pointer](https://golangbyexample.com/pointer-golang/)'
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [指针](https://golangbyexample.com/pointer-golang/)'
 - en: '**Previous Tutorial** – [Switch](https://golangbyexample.com/switch-statement-golang/)'
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [切换](https://golangbyexample.com/switch-statement-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-103
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

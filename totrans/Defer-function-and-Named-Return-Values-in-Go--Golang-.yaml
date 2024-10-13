@@ -1,62 +1,96 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:27:19'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:27:19
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Defer function and Named Return Values in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的Defer函数和命名返回值
 - en: 来源：[https://golangbyexample.com/defer-named-return-values-golang/](https://golangbyexample.com/defer-named-return-values-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/defer-named-return-values-golang/](https://golangbyexample.com/defer-named-return-values-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: In case of named return value in the function, the defer function can read as
     well as modified those named return values. If the defer function modifies the
     name return value then that modified value will  be returned
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在函数中如果有命名返回值，defer函数可以读取和修改这些命名返回值。如果defer函数修改了命名返回值，则该修改后的值将被返回。
 - en: Let’s see a program for that
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序
 - en: '**Example**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program we have named return value **“size”**  in the the test
     function. In the defer function we modify the name return value and we change
     the value to 20.  We then set size to 30. In the main function we print the return
     value of test function  and it outputs 20 instead of 30 because defer function
     has modified the value of size variable in the test function
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们在测试函数中命名返回值为**“size”**。在defer函数中，我们修改了命名返回值，并将值更改为20。然后我们将size设置为30。在主函数中，我们打印测试函数的返回值，输出为20而不是30，因为defer函数已修改测试函数中size变量的值。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,45 +1,69 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:13:55'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:13:55
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Delete in a string by index in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中按索引删除字符串
 - en: 来源：[https://golangbyexample.com/golang-delete-index-string/](https://golangbyexample.com/golang-delete-index-string/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-delete-index-string/](https://golangbyexample.com/golang-delete-index-string/)
 - en: In Golang string is a sequence of bytes. A string literal actually represents
     a UTF-8 sequence of bytes. In UTF-8, ASCII characters are single-byte corresponding
     to the first 128 Unicode characters. All other characters are between 1 -4 bytes.
     Due to this, it is not possible to index a character in a string.  In GO, rune
     data type represents a Unicode point.  Once a string is converted to an array
     of rune then it is possible to index a character in that array of rune.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中，字符串是字节的序列。字符串字面量实际上表示的是UTF-8字节序列。在UTF-8中，ASCII字符是对应前128个Unicode字符的单字节。所有其他字符的字节数在1到4之间。因此，无法对字符串中的字符进行索引。在GO中，rune数据类型表示一个Unicode点。一旦字符串被转换为rune数组，就可以对该rune数组中的字符进行索引。
 - en: You can learn more about rune here – [https://golangbyexample.com/understanding-rune-in-golang](https://golangbyexample.com/understanding-rune-in-golang)
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在这里了解更多关于rune的信息 – [https://golangbyexample.com/understanding-rune-in-golang](https://golangbyexample.com/understanding-rune-in-golang)
 - en: For this reason in below program for deleting a character of a given string
     by index, we  are first converting a string into a rune array so that we can index
     the rune array and then delete the character by index
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，在下面的程序中，我们通过索引删除给定字符串中的字符，首先将字符串转换为rune数组，以便可以对rune数组进行索引，然后通过索引删除字符。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'

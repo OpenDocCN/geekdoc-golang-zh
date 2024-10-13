@@ -1,298 +1,479 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:06:41'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:41
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Default Zero Value of all Types in Go (Golang) With Examples
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中所有类型的默认零值及示例
 - en: 来源：[https://golangbyexample.com/go-default-zero-value-all-types/](https://golangbyexample.com/go-default-zero-value-all-types/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-default-zero-value-all-types/](https://golangbyexample.com/go-default-zero-value-all-types/)
 - en: '**Default Value Table**'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**默认值表**'
 - en: '| **Type** | **Default Value** |'
+  id: totrans-7
   prefs: []
   type: TYPE_TB
+  zh: '| **类型** | **默认值** |'
 - en: '| Integer | 0 |'
+  id: totrans-8
   prefs: []
   type: TYPE_TB
+  zh: '| 整数 | 0 |'
 - en: '| Float | 0 |'
+  id: totrans-9
   prefs: []
   type: TYPE_TB
+  zh: '| 浮点数 | 0 |'
 - en: '| Complex Number | 0 Real and 0 Imaginary Part |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '| 复数 | 0 实部和 0 虚部 |'
 - en: '| Byte | 0 |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '| 字节 | 0 |'
 - en: '| Rune | 0 |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '| 字符 | 0 |'
 - en: '| String | “” |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '| 字符串 | “” |'
 - en: '| Bool | false |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '| 布尔值 | false |'
 - en: '| Array | Every array value to its default |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '| 数组 | 每个数组值都为其默认值 |'
 - en: '| Struct | Every field to its default |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '| 结构体 | 每个字段都为其默认值 |'
 - en: '| Map | nil |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| 映射 | nil |'
 - en: '| Channel | nil |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| 通道 | nil |'
 - en: '| Interface | nil |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| 接口 | nil |'
 - en: '| Slices | nil |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '| 切片 | nil |'
 - en: '| Pointer | nil |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '| 指针 | nil |'
 - en: '| Function | nil |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '| 函数 | nil |'
 - en: '**Examples:**'
+  id: totrans-23
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例：**'
 - en: Let’s see an example of each. Use the menu on the side to navigate.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看每个的示例。使用侧边菜单进行导航。
 - en: '**Integer**'
+  id: totrans-25
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**整数**'
 - en: '[PRE0]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Float**'
+  id: totrans-29
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**浮点数**'
 - en: '[PRE2]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Complex Number**'
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**复数**'
 - en: '[PRE4]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Byte**'
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**字节**'
 - en: '[PRE6]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Rune**'
+  id: totrans-41
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**字符**'
 - en: '[PRE8]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**String**'
+  id: totrans-45
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**字符串**'
 - en: '[PRE10]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output:**'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE11]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Bool**'
+  id: totrans-49
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**布尔值**'
 - en: '[PRE12]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output:**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE13]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Array**'
+  id: totrans-53
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**数组**'
 - en: Default value of an array is the default value of its values. For eg in the
     below code, there is an array of two lengths of type bool. When we print the output
     is **[false false]**
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组的默认值是其值的默认值。例如，在下面的代码中，有一个长度为2的bool类型数组。当我们打印时，输出是**[false false]**。
 - en: '[PRE14]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output:**'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE15]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Struct**'
+  id: totrans-58
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**结构体**'
 - en: Default value of a **struct** is the default value of its field. For eg in the
     below code, there is a struct sample with two field. One is of int type and the
     other is of the bool type. We create an instance of this struct and when we print
     it, the output is **{0 false}**
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: '**结构体**的默认值是其字段的默认值。例如，在下面的代码中，有一个包含两个字段的结构体样本。其中一个是int类型，另一个是bool类型。我们创建这个结构体的一个实例，当我们打印它时，输出是**{0
+    false}**。'
 - en: '[PRE16]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Output:**'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE17]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Map**'
+  id: totrans-63
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**映射**'
 - en: Default value of a **map** is **nil.** That is why the output of **fmt.Println(a==nil)**
     is true. When a map is passed to **fmt.Println** , it tries to print values in
     the map. That is why the output is map[]
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**映射**的默认值是**nil**。这就是为什么**fmt.Println(a==nil)**的输出为true。当映射传递给**fmt.Println**时，它尝试打印映射中的值。这就是输出为map[]的原因。'
 - en: '[PRE18]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**Output:**'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE19]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**Channel**'
+  id: totrans-68
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**通道**'
 - en: '[PRE20]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Output:**'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: 'Default zero value of channel: <nil>'
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 通道的默认零值：<nil>
 - en: '**Interface**'
+  id: totrans-72
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**接口**'
 - en: '[PRE21]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Output:**'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: 'Default zero value of interface: < nil>'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 接口的默认零值：<nil>
 - en: '**Slice**'
+  id: totrans-76
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**切片**'
 - en: Default value of a slice is **nil.** That is why the output of **fmt.Println(a==nil)**
     is true. When a slice is passed to **fmt.Println** , it tries to print values
     in the slice. That is why the output is []
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 切片的默认值是**nil**。这就是为什么**fmt.Println(a==nil)**的输出为true。当切片传递给**fmt.Println**时，它尝试打印切片中的值。这就是输出为[]的原因。
 - en: '[PRE22]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: '**Output:**'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE23]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Function**'
+  id: totrans-81
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**函数**'
 - en: '[PRE24]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Output:**'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: 'Default Zero Value of a func: <nil>'
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数的默认零值：<nil>
 - en: '**Pointer**'
+  id: totrans-85
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**指针**'
 - en: '[PRE25]'
+  id: totrans-86
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: '**Output:**'
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: 'Default Zero Value of a pointer: <nil>'
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 指针的默认零值：<nil>
 - en: '[datatype](https://golangbyexample.com/tag/datatype/)*   [default](https://golangbyexample.com/tag/default/)*   [examples](https://golangbyexample.com/tag/examples/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [sidetoc](https://golangbyexample.com/tag/sidetoc/)*   [type](https://golangbyexample.com/tag/type/)*   [zero](https://golangbyexample.com/tag/zero/)'
+  id: totrans-89
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数据类型](https://golangbyexample.com/tag/datatype/)   [默认值](https://golangbyexample.com/tag/default/)   [示例](https://golangbyexample.com/tag/examples/)   [go](https://golangbyexample.com/tag/go/)   [golang](https://golangbyexample.com/tag/golang/)   [侧边目录](https://golangbyexample.com/tag/sidetoc/)   [类型](https://golangbyexample.com/tag/type/)   [零值](https://golangbyexample.com/tag/zero/)'

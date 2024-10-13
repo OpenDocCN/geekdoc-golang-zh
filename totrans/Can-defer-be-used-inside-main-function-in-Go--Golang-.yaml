@@ -1,73 +1,116 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:27:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:27:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Can defer be used inside main function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中，`main` 函数内部可以使用 **defer** 吗？
 - en: 来源：[https://golangbyexample.com/defer-inside-main-golang/](https://golangbyexample.com/defer-inside-main-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/defer-inside-main-golang/](https://golangbyexample.com/defer-inside-main-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: Defer as the name suggests is used to defer the cleanup activities in a function.
     These cleanup activities will be performed at the end of the function.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如名称所示，defer 用于延迟函数中的清理活动。这些清理活动将在函数结束时执行。
 - en: defer can be used inside the main function as well. Let’s see an example for
     that
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '`defer` 也可以在 `main` 函数内部使用的原因。让我们看一个例子。'
 - en: '**Example**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program there is a **defer** statement calling the custom function
     named **test**. As seen from the output, the **test** function is called after
     everything in the main is executed and before main returns. That is why
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，有一个 **defer** 语句调用名为 **test** 的自定义函数。从输出可以看出，**test** 函数在 `main` 中的所有内容执行完毕后被调用，并在
+    `main` 返回之前调用。这就是
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: is printed before
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 在输出之前打印。
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The above function also that it is perfectly ok to use defer in the main function
     as well.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述函数同样表明在 `main` 函数中使用 defer 是完全可以的。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

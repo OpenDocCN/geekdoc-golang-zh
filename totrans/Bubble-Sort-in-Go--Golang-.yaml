@@ -1,86 +1,132 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:06:23'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:23
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Bubble Sort in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 语言中的冒泡排序
 - en: 来源：[https://golangbyexample.com/go-bubble-sort/](https://golangbyexample.com/go-bubble-sort/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-bubble-sort/](https://golangbyexample.com/go-bubble-sort/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction](#Introduction "Introduction")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[介绍](#Introduction "Introduction")**'
 - en: '[Time Complexity](#Time_Complexity "Time Complexity")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[时间复杂度](#Time_Complexity "Time Complexity")**'
 - en: '[Space Complexity](#Space_Complexity "Space Complexity")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[空间复杂度](#Space_Complexity "Space Complexity")**'
 - en: '[Implementation:](#Implementation "Implementation:")*  *# **Introduction**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实现：](#Implementation "Implementation:")*  *# **介绍**'
 - en: 'In bubble sort:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在冒泡排序中：
 - en: In each iteration i (starting with 0) , we start from first element and repeatedly
     swap adjacent elements if in wrong order up till length (**len-i**) where **len**
     is the length of the array.
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在每次迭代 i（从 0 开始）中，我们从第一个元素开始，如果相邻元素顺序错误，就不断交换，直到长度为 **(len-i)**，其中 **len** 是数组的长度。
 - en: At the end of the iteration, either the largest or smallest element (depending
     upon order is ascending or descending) is at position **(len-i)**
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在迭代结束时，最大的或最小的元素（取决于顺序是升序还是降序）位于位置 **(len-i)**
 - en: '**Time Complexity**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**时间复杂度**'
 - en: O(n*n)
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: O(n*n)
 - en: '**Space Complexity**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**空间复杂度**'
 - en: Space Complexity of bubble sort is O(1)
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 冒泡排序的空间复杂度为 O(1)
 - en: '**Implementation:**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**实现：**'
 - en: '[PRE0]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[algorithms](https://golangbyexample.com/tag/algorithms/)*   [bubble sort in
     golang](https://golangbyexample.com/tag/bubble-sort-in-golang/)*   [golang](https://golangbyexample.com/tag/golang/)*   [sort](https://golangbyexample.com/tag/sort/)*'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[算法](https://golangbyexample.com/tag/algorithms/)*   [Golang 中的冒泡排序](https://golangbyexample.com/tag/bubble-sort-in-golang/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [排序](https://golangbyexample.com/tag/sort/)*'

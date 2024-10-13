@@ -1,111 +1,168 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:30:44'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:30:44。
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Blank Identifier in import in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的空标识符导入。
 - en: 来源：[https://golangbyexample.com/blank-identifier-import-golang/](https://golangbyexample.com/blank-identifier-import-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/blank-identifier-import-golang/](https://golangbyexample.com/blank-identifier-import-golang/)
 - en: Blank identifier in importing packages means specifying a blank import for the
     imported package. The syntax for it is
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 导入包中的空标识符意味着为导入的包指定空导入。其语法为：
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: What is this blank import and why it is used. For this you have to understand
     two things
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 什么是这个空导入，为什么要使用它。为此你需要理解两件事：
 - en: About **init** function
+  id: totrans-9
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 关于 **init** 函数。
 - en: About blank identifier represented by an underscore (‘**_**‘)
+  id: totrans-10
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 关于由下划线（‘**_**‘）表示的空标识符。
 - en: '**init() function**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**init() 函数**。'
 - en: init() function is a special function that is used to initialize the global
     variables of a package. These functions are executed when the package is initialized.
     Each of the GO source files in a package can have its own init() function. Whenever
     you import any package in the program, then on the execution of that program,
     init functions(if present)  in the GO source files belonging to that imported
     package are called first. Some points to note about init function
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: init() 函数是一个特殊的函数，用于初始化包的全局变量。这些函数在包初始化时执行。包中的每个 GO 源文件可以有自己的 init() 函数。每当你在程序中导入任何包时，程序执行时，将首先调用属于该导入包的
+    GO 源文件中的 init 函数（如果存在）。关于 init 函数需要注意的一些要点：
 - en: Init function is optional
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init 函数是可选的。
 - en: Init function does not take any argument
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init 函数不接受任何参数。
 - en: Init function does not have any return value.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init 函数没有任何返回值。
 - en: Init function is called implicitly. Since it is called implicitly, init function
     cannot reference it from anywhere.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init 函数是隐式调用的。由于它是隐式调用的，init 函数无法从任何地方引用。
 - en: There can be multiple init() functions within the same source file.
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在同一个源文件中可以有多个 init() 函数。
 - en: '**About blank identifier**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**关于空标识符**。'
 - en: go doesn’t allow any unused variable. Any unused variable can be replaced by
     a blank identifier (‘_’) .
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 不允许任何未使用的变量。任何未使用的变量可以被空标识符（‘_’）替代。
 - en: So now a blank import of a package is used when
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以现在，当使用一个包的空导入时，
 - en: Imported package is not being used in the current program
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当前程序中未使用导入的包。
 - en: But we intend to import that package so that init function in the GO source
     files belonging to that package can be called and initiazation of variables in
     that package can be done properly
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 但我们打算导入该包，以便可以正确调用属于该包的 GO 源文件中的 init 函数，并进行变量的初始化。
 - en: So basically a blank import is used when a package is solely imported for its
     side effects.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以基本上，当一个包仅仅为了其副作用被导入时，就使用空导入。
 - en: 'As an example mysql package is used as blank import for its side-effect of
     registering the mysql driver as a database driver in the init()  function of mysql
     package, without importing any other functions:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，mysql 包作为空导入，用于其副作用，即在 mysql 包的 init() 函数中注册 mysql 驱动程序作为数据库驱动程序，而不导入任何其他函数：
 - en: '[PRE1]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: For using any of the mysql library such as gorm or xorm above blank import is
     necessary
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 要使用任何 mysql 库，例如 gorm 或 xorm，上述空导入是必要的。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)。'

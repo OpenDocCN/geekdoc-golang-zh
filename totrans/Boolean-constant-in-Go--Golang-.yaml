@@ -1,179 +1,277 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:28:24'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:28:24
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Boolean constant in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的布尔常量
 - en: 来源：[https://golangbyexample.com/boolean-constant-go/](https://golangbyexample.com/boolean-constant-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/boolean-constant-go/](https://golangbyexample.com/boolean-constant-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Example](#Example "Example")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")'
 - en: '[Typed boolean constant](#Typed_boolean_constant "Typed boolean constant")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[类型布尔常量](#Typed_boolean_constant "Typed boolean constant")'
 - en: '[Untyped named boolean constant](#Untyped_named_boolean_constant "Untyped named
     boolean constant")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[未类型命名布尔常量](#Untyped_named_boolean_constant "Untyped named boolean constant")'
 - en: '[Untyped unnamed boolean constant](#Untyped_unnamed_boolean_constant "Untyped
     unnamed boolean constant")*  *# **Overview**'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[未类型未命名布尔常量](#Untyped_unnamed_boolean_constant "Untyped unnamed boolean constant")
+    *  *# **概述**'
 - en: There are two untyped boolean constant **true** and **false**.  Below is the
     program illustrating a boolean constant.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 有两个未类型的布尔常量**true**和**false**。下面是一个说明布尔常量的程序。
 - en: To better understand boolean constant in golang it is important to understand
     typed and untyped constant in go. Please refer to this article for that – [https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)/
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了更好地理解Golang中的布尔常量，了解Go中的类型和未类型常量是很重要的。请参考这篇文章 – [https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)/
 - en: Once you have gone through the article you would have understood that constant
     can be declared in three ways
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦你读完这篇文章，你就会明白常量可以以三种方式声明。
 - en: Typed  constant
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类型常量
 - en: Untyped unnamed  constant
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型未命名常量
 - en: Untyped named constant
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型命名常量
 - en: It is the same case with boolean as well. Let’s see a program to understand
     it
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 布尔常量的情况也是如此。让我们看看一个程序来理解它。
 - en: '**Example**'
+  id: totrans-19
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, we created a new type **myBool**
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了一个新类型**myBool**。
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Also above program shows the example of
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 以上程序还展示了
 - en: Typed boolean constant
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类型布尔常量
 - en: Untyped unnamed boolean constant
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型未命名布尔常量
 - en: Untyped named boolean constant
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型命名布尔常量
 - en: Let’s understand each of them and their behaviour
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们理解它们及其行为
 - en: '**Typed boolean constant**'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**类型布尔常量**'
 - en: It is defined as below
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 它的定义如下
 - en: '[PRE3]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Notice in above that below line will cause a compilation error. This is because
     variable **aa** is of typed **boolean** constant . So below line will cause compilation
     error as it cannot be assigned to variable of type **myBool**
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述注意到，以下代码行将导致编译错误。这是因为变量**aa**是类型为**boolean**的常量。因此，以下代码行会导致编译错误，因为它无法被赋值给类型为**myBool**的变量。
 - en: '[PRE4]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: But typed string constant can be assigned to a variable created with **var**
     keyword like below
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 但类型字符串常量可以像下面那样赋值给用**var**关键字创建的变量。
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Untyped named boolean constant**'
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**未类型命名布尔常量**'
 - en: It is defined as below
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 它的定义如下
 - en: '[PRE6]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Untyped named string constant can be assigned to variable of type **myBool**
     as well variable created with **var** keyword because it is untyped so type of
     the constant will be decided depending upon the type of variable they are being
     assigned to.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 未类型命名字符串常量可以赋值给类型为**myBool**的变量以及用**var**关键字创建的变量，因为它是未类型的，因此常量的类型将根据赋值给的变量类型决定。
 - en: '[PRE7]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Untyped unnamed boolean constant**'
+  id: totrans-42
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**未类型未命名布尔常量**'
 - en: It is like below
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 它类似于下面的情况。
 - en: '[PRE8]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Untyped unnamed string constant can be assigned to variable of type **myBool**
     as well variable created with **var** keyword because it is untyped so type of
     the constant will be decided depending upon the type of variable they are being
     assigned to.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 未类型未命名字符串常量可以赋值给类型为**myBool**的变量以及用**var**关键字创建的变量，因为它是未类型的，因此常量的类型将根据赋值给的变量类型决定。
 - en: '[PRE9]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) * [golang](https://golangbyexample.com/tag/golang/)
+    *'

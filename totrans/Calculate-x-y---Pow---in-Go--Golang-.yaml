@@ -1,62 +1,99 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:15:32'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:15:32
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Calculate x^y – Pow() in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 计算x^y – Go中的Pow()
 - en: 来源：[https://golangbyexample.com/power-golang/](https://golangbyexample.com/power-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/power-golang/](https://golangbyexample.com/power-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code") *  *# **概述**'
 - en: '**math** package of GO provides a **Pow** method that can be used to calculate
     x to the power y.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: GO的**math**包提供了一个**Pow**方法，可以用来计算x的y次幂。
 - en: Below is the signature of the function. It takes input as two float arguments
     and returns a float
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名。它接受两个浮点参数作为输入，并返回一个浮点数。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The same function can also be used to calculate the square or cube of a number.
     Just pass the second argument y as 2 in case of **square** and 3 in case of **cube**
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样的函数也可以用来计算一个数字的平方或立方。只需在**平方**情况下将第二个参数y传入2，在**立方**情况下传入3即可。
 - en: '**Code**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [power](https://golangbyexample.com/tag/power/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *   [power](https://golangbyexample.com/tag/power/) *'

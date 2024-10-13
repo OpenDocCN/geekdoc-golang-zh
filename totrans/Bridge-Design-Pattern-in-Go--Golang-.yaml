@@ -1,83 +1,123 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:03:16'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:03:16
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Bridge Design Pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的桥接设计模式
 - en: 来源：[https://golangbyexample.com/bridge-design-pattern-in-go/](https://golangbyexample.com/bridge-design-pattern-in-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/bridge-design-pattern-in-go/](https://golangbyexample.com/bridge-design-pattern-in-go/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：有兴趣了解其他设计模式如何在GO中实现吗？请查看这个完整参考 – **[Go中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)**
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction:](#Introduction "Introduction:")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[介绍：](#Introduction "Introduction:")**'
 - en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[UML图：](#UML_Diagram "UML Diagram:")**'
 - en: '[Mapping ](#Mapping "Mapping ")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[映射](#Mapping "Mapping")**'
 - en: '[Practical Example](#Practical_Example "Practical Example")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[实际例子](#Practical_Example "Practical Example")**'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Introduction:**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[完整工作代码：](#Full_Working_Code "Full Working Code:")**## **介绍：**'
 - en: Bridge design pattern is a structural design pattern that allows the separation
     of abstraction from its implementation. Sounds confusing? Don’t worry, it will
     be more clear as we go along.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 桥接设计模式是一种结构性设计模式，允许将抽象与其实现分离。听起来很困惑？别担心，随着我们深入，它会更清晰。
 - en: This pattern suggests dividing a large class into two separate hierarchy
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个模式建议将一个大类分成两个独立的层次结构。
 - en: Abstraction – It is an interface and children of the **Abstraction** are referred
     to as **Refined Abstraction.** The abstraction contains a reference to the implementation.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 抽象 – 它是一个接口，**抽象**的子类被称为**精炼抽象**。抽象包含对实现的引用。
 - en: Implementation – It is also an interface and children’s of the **Implementation**
     are referred to as **Concrete Implementation**
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 实现 – 它也是一个接口，**实现**的子类被称为**具体实现**。
 - en: Abstraction hierarchy is being referred to by clients without worrying about
     the implementation. Let’s take an example. Assume you have two types of computer
     **mac** and **windows.** Also, let’s say two types of printer **epson** and **hp**
     . Both computers and printers needs to work with each other in any combination. 
     The client will only access the computer without worrying about how print is happening.
     Instead of creating four structs for the 2*2 combination, we create two hierarchies
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 抽象层次结构被客户端引用，而不必担心实现。我们来举个例子。假设你有两种类型的计算机**mac**和**windows**。再假设有两种类型的打印机**epson**和**hp**。计算机和打印机需要以任意组合相互配合。客户端只会访问计算机，而不必担心打印是如何发生的。与其为2*2组合创建四个结构，不如创建两个层次结构。
 - en: Abstraction Hierarchy
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 抽象层次结构
 - en: Implementation Hierarchy
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 实现层次结构
 - en: See the below figure. These two hierarchies communicate with each other via
     a bridge where **Abstraction** (computer here) contains a reference to the **Implementation**(printer
     here). Both the abstraction and implementation can continue to develop independently
@@ -86,116 +126,188 @@
     printer) at run time as abstraction refers to implementation via the interface.
     On calling **mac.print() or windows.print()** it dispatches the request to **printer.printFile()**.
     This acts as a bridge and provides a loose coupling between the two.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 请查看下面的图。这两个层次通过一个桥接进行通信，其中**抽象**（这里是计算机）包含对**实现**（这里是打印机）的引用。抽象和实现可以独立发展，而不相互影响。注意**win**和**mac**如何嵌入对**printer**的引用。我们可以在运行时更改**抽象的实现**（即计算机的打印机），因为抽象通过接口引用实现。在调用**mac.print()或windows.print()**时，它会将请求分派给**printer.printFile()**。这充当一个桥梁，并为两者提供了松耦合。
 - en: '![](img/e1ef67b3d09bdb372d54f7c333450e2d.png)'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_IMG
+  zh: '![](img/e1ef67b3d09bdb372d54f7c333450e2d.png)'
 - en: '**UML Diagram:**'
+  id: totrans-22
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**UML图：**'
 - en: '![](img/48c2e70e2b624d3502b34735bce83f06.png)'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_IMG
+  zh: '![](img/48c2e70e2b624d3502b34735bce83f06.png)'
 - en: '**Mapping **'
+  id: totrans-24
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**映射**'
 - en: The below table represents the mapping from the UML diagram actors to actual
     implementation actors in **“Practical Example”** below
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 下表表示从UML图中的参与者到下面**“实际例子”**中实际实现参与者的映射。
 - en: '| Abstraction | computer.go |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| 抽象 | computer.go |'
 - en: '| Refined Abstraction 1 | win.go |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| 精炼抽象1 | win.go |'
 - en: '| Refined Abstraction 2 | mac.go |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| 精炼抽象2 | mac.go |'
 - en: '| Implementation | printer.go |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| 实现 | printer.go |'
 - en: '| Concrete Implementation 1 | epson.go |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| 具体实现1 | epson.go |'
 - en: '| Concrete Implementation 2 | hp.go |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| 具体实现2 | hp.go |'
 - en: '| Client | main.go |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| 客户端 | main.go |'
 - en: '**Practical Example**'
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**实际示例**'
 - en: '**computer.go**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**computer.go**'
 - en: '[PRE0]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**mac.go**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**mac.go**'
 - en: '[PRE1]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**windows.go**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**windows.go**'
 - en: '[PRE2]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**printer.go**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**printer.go**'
 - en: '[PRE3]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**epson.go**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**epson.go**'
 - en: '[PRE4]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**hp.go**'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**hp.go**'
 - en: '[PRE5]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**main.go**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE6]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Full Working Code:**'
+  id: totrans-50
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE8]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '[bridge design pattern](https://golangbyexample.com/tag/bridge-design-pattern/)*   [design
     pattern](https://golangbyexample.com/tag/design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[桥接设计模式](https://golangbyexample.com/tag/bridge-design-pattern/) *   [设计模式](https://golangbyexample.com/tag/design-pattern/)
+    *   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

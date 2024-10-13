@@ -1,151 +1,236 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:01:10'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:01:10
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Builder Pattern in GoLang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: GoLang中的建造者模式
 - en: 来源：[https://golangbyexample.com/builder-pattern-golang/](https://golangbyexample.com/builder-pattern-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/builder-pattern-golang/](https://golangbyexample.com/builder-pattern-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Definition:](#Definition "Definition:")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [定义：](#Definition "定义：")'
 - en: '[UML Diagram](#UML_Diagram "UML Diagram")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML图](#UML_Diagram "UML图")'
 - en: '[Mapping (Also Refer 5th point – Example)](#Mapping_Also_Refer_5th_point_-_Example
     "Mapping (Also Refer 5th point – Example)")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射（另请参见第5点 - 示例）](#Mapping_Also_Refer_5th_point_-_Example "映射（另请参见第5点 - 示例）")'
 - en: '[When To Use](#When_To_Use "When To Use")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[何时使用](#When_To_Use "何时使用")'
 - en: '[Example:](#Example "Example:")*  *# **Definition:**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例：](#Example "示例：")*  *# **定义：**'
 - en: Builder Pattern is a creational design pattern used for constructing complex
     objects. Below is the UML diagram.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 建造者模式是一种用于构建复杂对象的创建型设计模式。下面是UML图。
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：想了解其他所有设计模式如何在GO中实现。请参见此完整参考 - [Go中的所有设计模式（Golang）](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '**UML Diagram**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**UML图**'
 - en: '![](img/636a38ada58dfd0df19e87ad386b9afd.png)'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_IMG
+  zh: '![](img/636a38ada58dfd0df19e87ad386b9afd.png)'
 - en: '**Mapping (Also Refer 5th point – Example)**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**映射（另请参见第5点 - 示例）**'
 - en: '| Director | director.go |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| 主管 | director.go |'
 - en: '| Builder Interface | iBuilder.go |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| 建造者接口 | iBuilder.go |'
 - en: '| Concrete Builder 1 | normalBuilder.go |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| 具体建造者1 | normalBuilder.go |'
 - en: '| Concrete Builder 2 | iglooBuilder.go |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '| 具体建造者2 | iglooBuilder.go |'
 - en: '| Product | house.go |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '| 产品 | house.go |'
 - en: '**When To Use**'
+  id: totrans-22
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**何时使用**'
 - en: Use Builder pattern when the object constructed is big and requires multiple
     steps. It helps in less size of the constructor.  The construction of the house
     becomes simple and it does not require a large constructor
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当构造的对象较大且需要多个步骤时，使用建造者模式。这有助于减少构造函数的大小。房屋的构建变得简单，并且不需要大型构造函数。
 - en: When a different version of the same product needs to be created. For example,
     in the below code we see a different version of house ie. igloo and the normal
     house being constructed by **iglooBuilder** and **normalBuilder**
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当需要创建同一产品的不同版本时。例如，在下面的代码中，我们看到由**iglooBuilder**和**normalBuilder**构建的不同版本的房屋，即冰屋和普通房屋。
 - en: When half constructed final object should not exist. Again referring to below
     code the house created will either be created fully or not created at all. The
     Concrete Builder struct holds the temporary state of house object being created
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当半成品的最终对象不应存在时。再次引用下面的代码，创建的房屋要么完全创建，要么根本不创建。具体建造者结构体保持正在创建的房屋对象的临时状态。
 - en: '**Example:**'
+  id: totrans-26
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例：**'
 - en: '**iBuilder.go**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**iBuilder.go**'
 - en: '[PRE0]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**normalBuilder.go**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**normalBuilder.go**'
 - en: '[PRE1]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**iglooBuilder.go**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**iglooBuilder.go**'
 - en: '[PRE2]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**house.go**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**house.go**'
 - en: '[PRE3]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**director.go**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**director.go**'
 - en: '[PRE4]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**main.go**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE5]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[builder](https://golangbyexample.com/tag/builder/)*   [creational](https://golangbyexample.com/tag/creational/)*   [design](https://golangbyexample.com/tag/design/)*   [design
     pattern](https://golangbyexample.com/tag/design-pattern/)*   [designpatter](https://golangbyexample.com/tag/designpatter/)*   [golang](https://golangbyexample.com/tag/golang/)*   [pattern](https://golangbyexample.com/tag/pattern/)*'
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[builder](https://golangbyexample.com/tag/builder/)*   [creational](https://golangbyexample.com/tag/creational/)*   [design](https://golangbyexample.com/tag/design/)*   [design
+    pattern](https://golangbyexample.com/tag/design-pattern/)*   [designpatter](https://golangbyexample.com/tag/designpatter/)*   [golang](https://golangbyexample.com/tag/golang/)*   [pattern](https://golangbyexample.com/tag/pattern/)*'

@@ -1,71 +1,109 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:11:42'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:42
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Installing GO (aka Golang) on Windows
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Windows上安装GO（又名Golang）
 - en: 来源：[https://golangbyexample.com/golang-windows-installation/](https://golangbyexample.com/golang-windows-installation/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-windows-installation/](https://golangbyexample.com/golang-windows-installation/)
 - en: GO is available to be installed on Win, Mac, and Linux platforms. Let’s see
     the installation set up for Windows
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: GO可以在Win、Mac和Linux平台上安装。让我们来看一下Windows的安装设置。
 - en: '**Install**'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**安装**'
 - en: Download the .msi  installer from here – [https://golang.org/dl/](https://golang.org/dl/).
     Double click the .msi file and follow the onscreen instructions. Once finished
     GO will be installed in the below directory.
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从这里下载.msi安装程序 – [https://golang.org/dl/](https://golang.org/dl/)。双击.msi文件并按照屏幕上的指示进行操作。一旦完成，GO将安装在以下目录中。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The installer will also add **‘c:\Go\bin’** directory in your PATH environment
     variable. This is the directory where the GO binary resides. You have to restart
     command prompt for changes to take effect
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 安装程序还会将**‘c:\Go\bin’**目录添加到你的PATH环境变量中。这是GO二进制文件所在的目录。你需要重新启动命令提示符以使更改生效。
 - en: '**Test Installation**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**测试安装**'
 - en: Try running the **‘go version’** command. It will output the current GO Version
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试运行**‘go version’**命令。它会输出当前的GO版本。
 - en: Try running **‘go’** command as well. It will output
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 也尝试运行**‘go’**命令。它将输出
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Uninstall**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**卸载**'
 - en: To uninstall do below two steps
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 要卸载，请执行以下两个步骤。
 - en: Delete the directory **– c:\Go**
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 删除目录**– c:\Go**。
 - en: Remove the entry **‘c:\Go\bin’** from the PATH env variable. See this link –
     [http://johnatten.com/2014/12/07/adding-and-editing-path-environment-variables-in-windows/](http://johnatten.com/2014/12/07/adding-and-editing-path-environment-variables-in-windows/)
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从PATH环境变量中删除条目**‘c:\Go\bin’**。请参见此链接 – [http://johnatten.com/2014/12/07/adding-and-editing-path-environment-variables-in-windows/](http://johnatten.com/2014/12/07/adding-and-editing-path-environment-variables-in-windows/)

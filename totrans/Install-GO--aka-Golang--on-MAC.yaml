@@ -1,256 +1,387 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:11:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Install GO (aka Golang) on MAC
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 MAC 上安装 GO（也称为 Golang）
 - en: 来源：[https://golangbyexample.com/golang-mac-installation/](https://golangbyexample.com/golang-mac-installation/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-mac-installation/](https://golangbyexample.com/golang-mac-installation/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Using .pkg installer](#Using_pkg_installer "Using .pkg installer")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 .pkg 安装程序](#Using_pkg_installer "Using .pkg installer")'
 - en: '[Install](#Install "Install")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[安装](#Install "Install")'
 - en: '[Test Installation:](#Test_Installation "Test Installation:")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[测试安装：](#Test_Installation "Test Installation:")'
 - en: '[Uninstall](#Uninstall "Uninstall")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[卸载](#Uninstall "Uninstall")'
 - en: '[Using archive](#Using_archive "Using archive")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用压缩包](#Using_archive "Using archive")'
 - en: '[Install](#Install-2 "Install")'
+  id: totrans-13
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[安装](#Install-2 "Install")'
 - en: '[Test Installation](#Test_Installation-2 "Test Installation")'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[测试安装](#Test_Installation-2 "Test Installation")'
 - en: '[Uninstall](#Uninstall-2 "Uninstall")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[卸载](#Uninstall-2 "Uninstall")'
 - en: '[Using brew](#Using_brew "Using brew")'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 brew](#Using_brew "Using brew")'
 - en: '[Install](#Install-3 "Install")'
+  id: totrans-17
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[安装](#Install-3 "Install")'
 - en: '[Test Installation](#Test_Installation-3 "Test Installation")'
+  id: totrans-18
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[测试安装](#Test_Installation-3 "Test Installation")'
 - en: '[Uninstall](#Uninstall-3 "Uninstall")*  *# **Overview**'
+  id: totrans-19
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[卸载](#Uninstall-3 "Uninstall")*  *# **概述**'
 - en: GO is available to be installed on Win, Mac, and Linux platforms. GO can be
     installed on MAC in three ways
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: GO 可以在 Win、Mac 和 Linux 平台上安装。可以通过三种方式在 MAC 上安装 GO。
 - en: Using archive
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用压缩包
 - en: Using brew
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 brew
 - en: Using .pkg installer
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 .pkg 安装程序
 - en: Let’s look at all the three ways
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看这三种方式。
 - en: '**Using .pkg installer**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 .pkg 安装程序**'
 - en: '**Install**'
+  id: totrans-26
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**安装**'
 - en: Download the MAC pkg installer from here – [https://golang.org/dl/](https://golang.org/dl/).
     Double click the .pkg file and follow the onscreen instructions. Once finished
     GO will be installed in the below directory.
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从这里下载 MAC pkg 安装程序 – [https://golang.org/dl/](https://golang.org/dl/)。双击 .pkg
+    文件并按照屏幕上的说明进行操作。完成后，GO 将安装在以下目录中。
 - en: '[PRE0]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The installer will also add ‘**/usr/local/go/bin’**  to your env PATH variable.
     This is the directory where the GO binary resides. Relaunch terminal for changes
     to take effect
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 安装程序还会将 ‘**/usr/local/go/bin’** 添加到你的环境 PATH 变量中。这是 GO 二进制文件所在的目录。重新启动终端以使更改生效。
 - en: '**Test Installation:**'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**测试安装：**'
 - en: Relaunch the terminal and type the command **‘which go’** in the terminal.It
     will output **/usr/local/go/bin/go.** This is location of go binary.
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重新启动终端并在终端中输入命令 **‘which go’**。它将输出 **/usr/local/go/bin/go.** 这是 GO 二进制文件的位置。
 - en: Try running the **‘go version’** command. It will output the current GO Version
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试运行 **‘go version’** 命令。它将输出当前的 GO 版本。
 - en: '**Uninstall**'
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**卸载**'
 - en: 'To uninstall do below two steps:'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 要卸载，请执行以下两个步骤：
 - en: '[PRE1]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Using archive**'
+  id: totrans-36
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用压缩包**'
 - en: '**Install**'
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**安装**'
 - en: Download the archive of latest version of GO from here  – [https://golang.org/dl/](https://golang.org/dl/).
     After downloading untar it at the location **/usr/local.** You can run the below
     command to untar
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从这里下载最新版本的 GO 压缩包 – [https://golang.org/dl/](https://golang.org/dl/)。下载后在 **/usr/local**
+    位置解压。你可以运行以下命令进行解压。
 - en: '[PRE2]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: After the untar, the below path will contain the go binary **‘/usr/local/go/bin’**.
     You have to add this location to your **.bashrc**. Open your **.bashrc** make
     the below entry
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 解压后，以下路径将包含 GO 二进制文件 **‘/usr/local/go/bin’**。你必须将此位置添加到你的 **.bashrc**。打开你的 **.bashrc**
+    并进行以下条目
 - en: '[PRE3]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Test Installation**'
+  id: totrans-42
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**测试安装**'
 - en: Relaunch the terminal and type command **‘which go’** in the terminal. It will
     output **/usr/local/go/bin/go.** This is the location of GO binary.
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重新启动终端并在终端中输入命令 **‘which go’**。它将输出 **/usr/local/go/bin/go.** 这是 GO 二进制文件的位置。
 - en: Try running the **‘go version’** command. It will output the current GO Version
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试运行 **‘go version’** 命令。它将输出当前的 GO 版本。
 - en: Try running **‘go’** command as well. It will output
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试运行 **‘go’** 命令。它将输出。
 - en: '[PRE4]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Uninstall**'
+  id: totrans-47
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**卸载**'
 - en: To uninstall do below two steps
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 要卸载，请执行以下两个步骤。
 - en: Run below command to remove the files. It will require sudo permission
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 运行以下命令以删除文件。这将需要 sudo 权限。
 - en: '[PRE5]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Remove the below entry from the **.bashrc** file
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从 **.bashrc** 文件中删除以下条目。
 - en: '[PRE6]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Using brew**'
+  id: totrans-53
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 brew**'
 - en: '**Install**'
+  id: totrans-54
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**安装**'
 - en: Simplest way to install GO on MAC is using the brew.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 MAC 上安装 GO 的最简单方法是使用 brew。
 - en: '[PRE7]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Test Installation**'
+  id: totrans-57
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**测试安装**'
 - en: Relaunch the terminal and type command **‘which go’** in the terminal.It will
     output **/usr/local/go/bin/go.** This is the location of GO binary.
+  id: totrans-58
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重新启动终端并在终端中输入命令 **‘which go’**。它将输出 **/usr/local/go/bin/go.** 这是 GO 二进制文件的位置。
 - en: Try running the **‘go version’** command. It will output the current GO Version
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试运行 **‘go version’** 命令。它将输出当前的 GO 版本。
 - en: '**Uninstall**'
+  id: totrans-60
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**卸载**'
 - en: To uninstall simple run command
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 要卸载，只需运行命令。
 - en: '[PRE8]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

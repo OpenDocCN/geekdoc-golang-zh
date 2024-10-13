@@ -1,88 +1,136 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:11:37'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:37
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Install GO (aka Golang) on Linux
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Linux上安装GO（也称为Golang）
 - en: 来源：[https://golangbyexample.com/golang-linux-installation/](https://golangbyexample.com/golang-linux-installation/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-linux-installation/](https://golangbyexample.com/golang-linux-installation/)
 - en: GO is available to be installed on Win, Mac, and Linux platforms. Let’s see
     the installation set up for Linux
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: GO可在Windows、Mac和Linux平台上安装。让我们看看Linux的安装设置。
 - en: '**Install**'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**安装**'
 - en: Download the archive of latest version of GO from here  – [https://golang.org/dl/](https://golang.org/dl/).
     After downloading untar it at the location **/usr/local.** You can also run the
     below command to untar
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从这里下载最新版本的GO的压缩包 – [https://golang.org/dl/](https://golang.org/dl/)。下载后在**/usr/local.**位置解压。你也可以运行以下命令来解压。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: After the untar then the below path contains the go binary **‘/usr/local/go/bin’**
     . You have to add this location to your .bashrc. Open your .bashrc make the below
     entry. If the file doesn’t already exist then create it.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 解压后，下面的路径包含GO二进制文件**‘/usr/local/go/bin’**。你必须将此位置添加到你的.bashrc中。打开你的.bashrc并进行以下条目。如果文件尚不存在，请创建它。
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Test Installation:**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**测试安装：**'
 - en: Relaunch the terminal and type the  command ‘which go’ in the terminal.It will
     output **/usr/local/go/bin/go.** This is the location of GO binary.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重新启动终端，并在终端中输入命令`which go`。它将输出**/usr/local/go/bin/go.** 这是GO二进制文件的位置。
 - en: Try running the **‘go version’** command. It will output the current GO Version
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试运行**‘go version’**命令。它将输出当前的GO版本。
 - en: Try running **‘go’** command as well. It will output
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 尝试运行**‘go’**命令。它将输出。
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Uninstall**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**卸载**'
 - en: To uninstall do below two steps
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 要卸载，请执行以下两个步骤。
 - en: Run below command to remove the files. It will require sudo permission.
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 运行以下命令以删除文件。这需要sudo权限。
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Remove the below entry from the .bashrc file
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从.bashrc文件中删除以下条目。
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [install](https://golangbyexample.com/tag/install/)'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [install](https://golangbyexample.com/tag/install/)'

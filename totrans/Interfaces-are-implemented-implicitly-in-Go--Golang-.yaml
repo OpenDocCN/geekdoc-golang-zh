@@ -1,67 +1,104 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:22:31'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:22:31
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Interfaces are implemented implicitly in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中，接口是隐式实现的。
 - en: 来源：[https://golangbyexample.com/interface-implit-implementation-golanng/](https://golangbyexample.com/interface-implit-implementation-golanng/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/interface-implit-implementation-golanng/](https://golangbyexample.com/interface-implit-implementation-golanng/)
 - en: There is no explicit declaration that a type implements an interface. Infact,
     in Go there doesn’t exist any **“implements”** keyword similar to Java.  A type
     implements an interface if it implements all the methods of the interface.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 并没有明确声明一个类型实现了一个接口。实际上，在 Go 中并不存在类似 Java 的 **“implements”** 关键字。如果一个类型实现了接口的所有方法，那么它就实现了这个接口。
 - en: Let’s see an example
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个示例。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: There is no explicit declaration which says that **lion** struct implements
     the **animal** interface. During compilation, go notices that **lion** struct
     implements all methods of **animal** interface hence it is allowed.Any other type
     which implements all methods of the **animal** interface becomes of that interface
     type.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 没有明确声明 **狮子** 结构体实现了 **动物** 接口。在编译时，Go 会注意到 **狮子** 结构体实现了 **动物** 接口的所有方法，因此是被允许的。任何其他实现了
+    **动物** 接口所有方法的类型都成为该接口类型。
 - en: This holds true even when the interface and the type which defines all methods
     of an interface are in different packages
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这在接口和定义接口所有方法的类型位于不同包时也同样成立。
 - en: Let’s see a more complex example of another type implementing the animal interfaceIf
     we define a **dog** struct and it implements the **breathe** and **walk** method
     then it will also be an animal. Let’s see an example
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看另一个类型实现动物接口的更复杂示例。如果我们定义一个 **狗** 结构体，并且它实现了 **呼吸** 和 **行走** 方法，那么它也将成为一种动物。让我们来看一个示例。
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Both **lion** and **dog** implement the **breathe** and **walk** method hence
     they are of **animal** type and can correctly be assigned to a variable of interface
     type.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**狮子** 和 **狗** 都实现了 **呼吸** 和 **行走** 方法，因此它们属于 **动物** 类型，可以正确地赋值给接口类型的变量。'

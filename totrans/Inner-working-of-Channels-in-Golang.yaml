@@ -2,99 +2,119 @@
   id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
   id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:05:13'
   id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:13
 - en: -->
   id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Inner working of Channels in Golang
   id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中通道的内部工作原理
 - en: 来源：[https://golangbyexample.com/inner-working-of-channels-in-golang/](https://golangbyexample.com/inner-working-of-channels-in-golang/)
   id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/inner-working-of-channels-in-golang/](https://golangbyexample.com/inner-working-of-channels-in-golang/)
 - en: '**Introduction**'
   id: totrans-6
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**介绍**'
 - en: 'The purpose of this article is to give an idea of the inner working of channels.
     Golang has two  concurrency primitives:'
   id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 本文的目的是让人们了解通道的内部工作原理。Golang有两种并发原语：
 - en: '**Goroutine** – lightweight independent execution to achieve concurrency/parallelism.'
   id: totrans-8
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**协程** – 轻量级独立执行以实现并发/并行。'
 - en: '**Channels** – provides synchronization and communication between goroutines.'
   id: totrans-9
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**通道** – 提供协程之间的同步和通信。'
 - en: Channels are goroutine safe and manage communication between goroutine in a
     FIFO way. A goroutine can block on a channel while doing send or receive of some
     data and it is the responsibility of the channel to wake up blocked goroutine
   id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 通道是协程安全的，并以FIFO方式管理协程之间的通信。协程可以在通道上阻塞，进行数据的发送或接收，唤醒被阻塞的协程是通道的责任。
 - en: '**Types of Channels**'
   id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**通道类型**'
 - en: '**Buffered Channel**'
   id: totrans-12
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**缓冲通道**'
 - en: Send on a buffer channel only blocks if the buffer is full.
   id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅在缓冲区已满时，发送到缓冲通道才会阻塞。
 - en: Receive is blocked if the channel is empty.
   id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果通道为空，接收将被阻塞。
 - en: '**Unbuffered Channel**'
   id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**未缓冲通道**'
 - en: Send on a channel is block unless there is another goroutine to receive.
   id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在通道上发送将被阻塞，除非有另一个协程来接收。
 - en: Receive is block until there is another goroutine on the other side to send.
   id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接收将被阻塞，直到另一协程在另一侧发送数据。
 - en: '**HCHAN struct**'
   id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**HCHAN结构**'
 - en: 'Let’s understand what happens internally when you make channels. A channel
     is internally represented by a **hchan** struct whose main elements are:'
   id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们了解创建通道时内部发生的事情。通道在内部由**hchan**结构表示，其主要元素为：
 - en: '[PRE0]'
   id: totrans-20
   prefs: []
@@ -104,6 +124,7 @@
   id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体**sudog**的主要元素如下所示：
 - en: '[PRE1]'
   id: totrans-22
   prefs: []
@@ -113,145 +134,173 @@
   id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们深入了解通道发送和接收时发生的事情
 - en: '**Send on a channel**'
   id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**在通道上发送**'
 - en: '**No receiver/receivers waitin**g: Unbuffered Channel or the Buffer is Full
     in case of Buffered Channel.'
   id: totrans-25
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**没有接收者/接收者等待**：未缓冲通道或在缓冲通道的情况下缓冲区已满。'
 - en: '**Receiver/receivers waiting**: Unbuffered Channel or the Buffer is empty in
     case of Buffered Channel'
   id: totrans-26
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**接收器/接收者等待**：未缓冲通道或在缓冲通道的情况下缓冲区为空'
 - en: '**Buffer empty**: In case of buffered channel'
   id: totrans-27
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**缓冲区为空**：在缓冲通道的情况下'
 - en: '**Channel closed**'
   id: totrans-28
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**通道已关闭**'
 - en: '**1\. No Receiver/Receivers Waiting:**'
   id: totrans-29
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**1. 没有接收者/接收者等待：**'
 - en: For below two scenarios the behavior will be the same when there are no receivers
     waiting.
   id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 在以下两种情况下，当没有接收者等待时，行为将是相同的。
 - en: 'Buffered Channel: Buffer is Full'
   id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 缓冲通道：缓冲区已满
 - en: Unbuffered Channel
   id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未缓冲通道
 - en: The goroutine **G1** which is trying to send to the channel, its execution is
     paused and is resumed only after a receive. Let’s see how that happens.
   id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试向通道发送的协程**G1**，其执行被暂停，仅在接收后恢复。让我们看看这如何发生。
 - en: It creates a **sudog** object with **g** i.e, goroutine as itself and **elem**
     pointing to the data it wants to put into the buffer
   id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它创建一个**sudog**对象，**g**即协程本身，**elem**指向它想放入缓冲区的数据。
 - en: It then adds that sudog struct to the sending queue sendq .
   id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后将该sudog结构添加到发送队列sendq中。
 - en: The goroutine calls “GOPARK” to the Go RunTime. In response, the Go RunTime
     changes the status of that G1 to WAITING.
   id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 协程调用“GOPARK”到Go运行时。作为响应，Go运行时将该G1的状态更改为等待。
 - en: '**2\. Receivers waiting**'
   id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**2. 接收者等待**'
 - en: For below two scenarios the behavior will be the same when there are receivers
     waiting
   id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 在以下两种情况下，当有接收者等待时，行为将是相同的
 - en: 'Buffered Channel: Buffer is Empty'
   id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 缓冲通道：缓冲区为空
 - en: Unbuffered Channel
   id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未缓冲通道
 - en: Let’s see how that happens.
   id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看这如何发生。
 - en: The goroutine G1 dequeues from the **receq** and then pass the data directly
     to the receiver goroutine.
   id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 协程G1从**receq**中出队，然后将数据直接传递给接收协程。
 - en: Set the status of the receiver goroutine to **RUNNABLE**
   id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将接收协程的状态设置为**可运行**
 - en: '**3\. Buffer not full:**'
   id: totrans-44
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**3. 缓冲区未满：**'
 - en: 'Only applicable for buffered channels: Buffer has at least one empty space'
   id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 仅适用于缓冲通道：缓冲区至少有一个空位
 - en: Writes the data to the buffer
   id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将数据写入缓冲区
 - en: '**4\. Channel closed:**'
   id: totrans-47
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**4. 通道已关闭：**'
 - en: Panics
   id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 恐慌
 - en: '**Receive From a channel**'
   id: totrans-49
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**从通道接收**'
 - en: '**No sender/senders waiting:** Unbuffered Channel or buffer is empty in case
     of Buffered Channel'
   id: totrans-50
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**没有发送者/发送者等待**：未缓冲通道或在缓冲通道的情况下缓冲区为空'
 - en: '**Sender/senders waiting:** Unbuffered Channel or the Buffer is empty in case
     of Buffered Channel.'
   id: totrans-51

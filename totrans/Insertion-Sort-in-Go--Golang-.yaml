@@ -1,95 +1,147 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:06:14'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:14
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Insertion Sort in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 语言中的插入排序
 - en: 来源：[https://golangbyexample.com/insertion-sort-in-go/](https://golangbyexample.com/insertion-sort-in-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/insertion-sort-in-go/](https://golangbyexample.com/insertion-sort-in-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction](#Introduction "Introduction")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍](#Introduction "Introduction")'
 - en: '[Time Complexity](#Time_Complexity "Time Complexity")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[时间复杂度](#Time_Complexity "Time Complexity")'
 - en: '[Space Complexity](#Space_Complexity "Space Complexity")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[空间复杂度](#Space_Complexity "Space Complexity")'
 - en: '[Implementation:](#Implementation "Implementation:")*  *# **Introduction**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实现：](#Implementation "Implementation:")*  *# **介绍**'
 - en: Insertion Sort is one of the simplest sorting algorithms. In insertion sort,
     the input array is broken down into two parts
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 插入排序是最简单的排序算法之一。在插入排序中，输入数组被分为两部分。
 - en: Sorted
+  id: totrans-12
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 已排序
 - en: Unsorted
+  id: totrans-13
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 未排序
 - en: Initially sorted part only contains the first element of the array.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 最初的已排序部分仅包含数组的第一个元素。
 - en: At each step, we pick the next element from the Unsorted part and insert it
     into the right position in the sorted part.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在每一步中，我们从未排序部分选择下一个元素，并将其插入到已排序部分的正确位置。
 - en: '**Time Complexity**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**时间复杂度**'
 - en: Worst Case- **O(n*n)**
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 最坏情况 - **O(n*n)**
 - en: Best Case- **O(n)** – When the array is already sorted
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 最好情况 - **O(n)** – 当数组已经排序时
 - en: '**Space Complexity**'
+  id: totrans-19
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**空间复杂度**'
 - en: Space Complexity of insertion sort is **O(1)**
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 插入排序的空间复杂度是 **O(1)**
 - en: '**Implementation:**'
+  id: totrans-21
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**实现：**'
 - en: '[PRE0]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [insertion](https://golangbyexample.com/tag/insertion/)*   [sorting](https://golangbyexample.com/tag/sorting/)*'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [insertion](https://golangbyexample.com/tag/insertion/)*   [sorting](https://golangbyexample.com/tag/sorting/)*'

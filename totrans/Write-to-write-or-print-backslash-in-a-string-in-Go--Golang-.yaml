@@ -1,80 +1,124 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:35:09'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:35:09
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Write to write or print backslash in a string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go语言中写入或打印字符串中的反斜杠
 - en: 来源：[https://golangbyexample.com/backslash-print-golang/](https://golangbyexample.com/backslash-print-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/backslash-print-golang/](https://golangbyexample.com/backslash-print-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program for double quotes](#Program_for_double_quotes "Program for double
     quotes")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[双引号的程序](#Program_for_double_quotes "Program for double quotes")'
 - en: '[Program for back quotes](#Program_for_back_quotes "Program for back quotes")*  *##
     **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[反引号的程序](#Program_for_back_quotes "Program for back quotes")*  *## **概述**'
 - en: Backlash is an escaping character. To print a backslash we need to first escape
     is with another backslash character when using double-quotes. However, a backslash
     can also be printed using backquotes. It is also used to define a string. A string
     encoded in backquotes is a raw literal string and doesn’t honor any kind of escaping.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 反斜杠是一个转义字符。要打印反斜杠，我们需要先用另一个反斜杠字符进行转义，尤其是在使用双引号时。然而，反斜杠也可以使用反引号打印。它也用于定义字符串。用反引号编码的字符串是原始字面量字符串，不会遵循任何类型的转义。
 - en: '**Program for double quotes**'
+  id: totrans-11
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**双引号的程序**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: \test
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: \test
 - en: A string defined within double quotes will honour escaping characters. That
     is why we need to escape backlash. Let’s see a program for back quotes
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 用双引号定义的字符串会遵循转义字符。这就是我们需要转义反斜杠的原因。让我们看看反引号的程序
 - en: '**Program for back quotes**'
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**反引号的程序**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: \test
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: \test
 - en: In this case, we don’t need any escaping as with back quotes a string is a raw
     literal string
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，我们不需要像反引号那样进行任何转义，因为字符串是原始字面量字符串
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

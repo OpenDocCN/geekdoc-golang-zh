@@ -1,217 +1,340 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:25:07'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:25:07
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Wrapping and Un-wrapping of error in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中错误的包装和解包
 - en: 来源：[https://golangbyexample.com/wrapping-and-unwrapping-error-golang/](https://golangbyexample.com/wrapping-and-unwrapping-error-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/wrapping-and-unwrapping-error-golang/](https://golangbyexample.com/wrapping-and-unwrapping-error-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Wrapping of error](#Wrapping_of_error "Wrapping of error")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [错误的包装](#Wrapping_of_error "错误的包装")'
 - en: '[Unwrap an error](#Unwrap_an_error "Unwrap an error")*  *# **Wrapping of error**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[解包错误](#Unwrap_an_error "解包错误")*  *# **错误的包装**'
 - en: In go, error can wrap another error as well.  What does the wrapping of error
     mean? It means to create a hierarchy of errors in which a  particular instance
     of error wraps another error and that particular instance itself can be wrapped
     inside another error.  Below is the syntax for wrapping an error
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go中，错误可以包装另一个错误。错误的包装意味着什么？它意味着创建一个错误层次结构，其中特定实例的错误包装另一个错误，而该特定实例本身也可以被包装在另一个错误中。下面是包装错误的语法。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**%w** directive Is used for wrapping the error.  The **fmt.Errorf **should
     be called with only one %w directive. Let’s see an example.'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**%w**指令用于包装错误。**fmt.Errorf**应仅调用一个%w指令。让我们看一个例子。'
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program, we created a struct **errorOne** that has an **Error**
     method hence it implements the **error** interface. Then we created an instance
     of the **errorOne** struct named **e1**. Then we wrapped that instance **e1**
     into another error **e2** like this
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个结构体**errorOne**，它有一个**Error**方法，因此实现了**error**接口。然后我们创建了一个名为**e1**的**errorOne**结构实例。接着我们将该实例**e1**包装成另一个错误**e2**，如下所示。
 - en: '[PRE3]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Then we wrapped **e2** into **e3** like below.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们将**e2**包装到**e3**中，如下所示。
 - en: '[PRE4]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: So so we created a hierarchy of errors in which **e3** wraps **e2** and **e2**
     wraps **e1**.  Thus **e3** also wraps **e1** transitively. When we print **e2 **
     it also prints the error from **e1** and gives the output.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，我们创建了一个错误层次结构，其中**e3**包装**e2**，**e2**又包装**e1**。因此，**e3**也间接地包装了**e1**。当我们打印**e2**时，它也会打印**e1**的错误并给出输出。
 - en: '[PRE5]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: When we print **e3** it prints the error from **e2** as well as **e1** and gives
     the output.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们打印**e3**时，它会打印**e2**和**e1**的错误并给出输出。
 - en: '[PRE6]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Now the question which comes to the mind that whats the use case of wrapping
     the errors. To understand it let’s see an example
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在脑海中出现的问题是，包装错误的用例是什么。为了理解这一点，让我们看一个例子。
 - en: '[PRE7]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In the above program, we have a function **checkPostiveAndEven** that checks
     whether a number is even and positive. In turn, it calls the **checkEven** function
     to check if the number is even. And then it calls **checkPositive** function to
     check if the number is positive. If a number is not even and positive it an error
     is raised.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有一个**checkPostiveAndEven**函数，用于检查一个数字是否为偶数和正数。它依次调用**checkEven**函数来检查该数字是否为偶数。然后它调用**checkPositive**函数来检查该数字是否为正数。如果一个数字既不是偶数也不是正数，就会引发错误。
 - en: In the above program, it is impossible to tell stack trace of the error. We
     know that this error came from **checkEven** function for the above output. But
     which function called the **checkEven** function is not clear from the error.
     This is where wrapping the error comes in the picture.  This becomes more useful
     when the project is big and there are a lot of functions calling each other. 
     Let’s rewrite the program by wrapping the error.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，不可能知道错误的堆栈跟踪。我们知道这个错误来自**checkEven**函数的输出。但是调用**checkEven**函数的具体函数从错误中并不清楚。这就是包装错误的意义所在。当项目变大并且有很多函数相互调用时，这就变得更加有用。让我们通过包装错误来重写程序。
 - en: '[PRE9]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: The above program is same as the previous program just that in the **checkPostiveAndEven**
     function , we wrap the errors like below.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 上面的程序与之前的程序相同，只是在**checkPostiveAndEven**函数中，我们像下面这样包装错误。
 - en: '[PRE11]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: So the output is more clear and the error is more informative. The output clearly
     mentions the sequence of calling as well
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，输出更加清晰，错误信息也更加丰富。输出清楚地提到调用的顺序。
 - en: '[PRE12]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Unwrap an error**'
+  id: totrans-36
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**解包错误**'
 - en: In the above section, we studied about wrapping the error. It is also possible
     to unwrap the error. **Unwrap** function of **errors** package can be used to
     unwrap an error. Below is the syntax of the function.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的部分，我们研究了如何包装错误。也可以解包错误。**解包**函数来自**errors**包，可以用来解包错误。下面是该函数的语法。
 - en: '[PRE13]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: If the **err** wraps another error, then the wrapped error will be returned
     otherwise **Unwrap** function will return nil.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果**err**封装了另一个错误，则将返回封装的错误，否则**Unwrap**函数将返回nil。
 - en: Let’s see a program to illustrate the same
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序来说明这一点
 - en: '[PRE14]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE15]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: In the above program, we created a struct **errorOne** that has an **Error**
     method hence it implements the **error** interface. Then we created an instance
     of the **errorOne** struct named **e1**. Then we wrapped that instance **e1**
     into another error **e2** like this
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个结构体**errorOne**，它有一个**Error**方法，因此它实现了**error**接口。然后我们创建了一个名为**e1**的**errorOne**结构体实例。接着我们将该实例**e1**封装成另一个错误**e2**，如下所示。
 - en: '[PRE16]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: Then we wrapped **e2** into **e3** like below.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们将**e2**封装成**e3**，如下所示。
 - en: '[PRE17]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Hence
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此
 - en: '[PRE18]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: will return wrapped error **e2,** as **e3** wraps **e2** and output will be
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 将返回封装的错误**e2**，因为**e3**封装了**e2**，输出将是
 - en: '[PRE19]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Also,
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，
 - en: '[PRE20]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: will return wrapped error **e1** as **e2** further wraps **e1** and output will
     be
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 将返回封装的错误**e1**，因为**e2**进一步封装了**e1**，输出将是
 - en: '[PRE21]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: While
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 当
 - en: '[PRE22]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: will output nil as **e1** does not wraps any error
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输出nil，因为**e1**并不封装任何错误
 - en: '[PRE23]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

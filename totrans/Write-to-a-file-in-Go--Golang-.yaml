@@ -1,156 +1,242 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:06:54'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:54
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Write to a file in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中写入文件
 - en: 来源：[https://golangbyexample.com/write-to-a-file-go/](https://golangbyexample.com/write-to-a-file-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/write-to-a-file-go/](https://golangbyexample.com/write-to-a-file-go/)
 - en: There are different ways of writing a file in GO. Let’s examine this in detail
     through different examples which illustrates how to write line by line to a file.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 GO 中写文件有不同的方法。让我们通过不同的示例深入探讨如何逐行写入文件。
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Buffered write using bufio package](#Buffered_write_using_bufio_package
     "Buffered write using bufio package")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[使用 bufio 包的缓冲写入](#Buffered_write_using_bufio_package "使用 bufio 包的缓冲写入")**'
 - en: '[Example: With Default Buffer Size of 4096 bytes](#Example_With_Default_Buffer_Size_of_4096_bytes
     "Example: With Default Buffer Size of 4096 bytes")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例：默认缓冲区大小为 4096 字节](#Example_With_Default_Buffer_Size_of_4096_bytes "示例：默认缓冲区大小为
+    4096 字节")'
 - en: '[Example: With Custom Buffer Size of 10 bytes](#Example_With_Custom_Buffer_Size_of_10_bytes
     "Example: With Custom Buffer Size of 10 bytes")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例：自定义缓冲区大小为 10 字节](#Example_With_Custom_Buffer_Size_of_10_bytes "示例：自定义缓冲区大小为
+    10 字节")'
 - en: '[Using file.Write()](#Using_fileWrite "Using file.Write()")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 file.Write()](#Using_fileWrite "使用 file.Write()")'
 - en: '[Using ioutil.WriteFile()](#Using_ioutilWriteFile "Using ioutil.WriteFile()")*  *#
     **Buffered write using bufio package**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 ioutil.WriteFile()](#Using_ioutilWriteFile "使用 ioutil.WriteFile()")*  *#
+    **使用 bufio 包的缓冲写入**'
 - en: '**bufio** package can be used to do a buffered write in Go. It has a default
     buffer size of 4096 bytes however a custom buffer size can also be specified.
     The main advantage of buffered write is that it keeps the data to be written in
     the buffer and thus minimizes the number of times we have to do the IO operation.
     It does a write when'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**bufio** 包可以用于在 Go 中进行缓冲写入。它的默认缓冲区大小为 4096 字节，但也可以指定自定义缓冲区大小。缓冲写入的主要优点是将要写入的数据保存在缓冲区中，从而最小化我们执行
+    IO 操作的次数。它在'
 - en: '**writer.flush()** is called'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**writer.flush()** 被调用'
 - en: Buffer is full on next write. For example, let’s say it has 3500 bytes in full
     in buffer and buffer has a size of 4096\. The next line to be written is of 1000
     bytes. Since it 3500 + 1000 > 4096, it will write some of the bytes to file so
     that some buffer is available for next write.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 缓冲区在下次写入时已满。例如，假设缓冲区中有 3500 字节，缓冲区大小为 4096。当要写入的下一行是 1000 字节时，由于 3500 + 1000
+    > 4096，将会将部分字节写入文件，以便为下一次写入腾出缓冲区。
 - en: If there is no buffer then there will be IO write on every line. Let’s see an
     example of a write to a file. We are using **writer.Available()** and **writer.Buffered()**
     to print the **available** and **used** buffer size respectively.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果没有缓冲区，则每一行都会进行 IO 写入。让我们看一个写入文件的示例。我们使用 **writer.Available()** 和 **writer.Buffered()**
+    分别打印 **可用** 和 **已使用** 的缓冲区大小。
 - en: '**Example: With Default Buffer Size of 4096 bytes**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例：默认缓冲区大小为 4096 字节**'
 - en: It will write to **temp.txt** in the current directory. Write happens at the
     end when **writer.Flush()** is called as buffer never really gets full in between.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将在当前目录中写入 **temp.txt**。写入发生在调用 **writer.Flush()** 时，因为缓冲区在中间并未真正填满。
 - en: '[PRE0]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Example: With Custom Buffer Size of 10 bytes**'
+  id: totrans-22
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例：自定义缓冲区大小为 10 字节**'
 - en: We can also create a custom buffer size for our writer using bufio.NewWriterSize().
     In the below example, we create a write with a custom buffer size of 10 bytes.
     If you carefully notice the bytes **“Available”** and **“Buffered”** in output,
     you will find that writes to file keep happening in between when the buffer is
     full and at the end when **writer.Flush()** is called.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还可以使用 bufio.NewWriterSize() 为我们的写入器创建自定义缓冲区大小。在下面的示例中，我们创建了一个自定义缓冲区大小为 10
+    字节的写入器。如果你仔细注意输出中的字节 **“可用”** 和 **“缓冲”**，你会发现当缓冲区满时，文件写入仍在进行，并在调用 **writer.Flush()**
+    时结束。
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Using file.Write()**'
+  id: totrans-27
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 file.Write()**'
 - en: It does not maintain any buffer and writes to the file immediately as soon as
     the write is called. See the example below
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 它不维护任何缓冲区，并在调用写入时立即写入文件。请参见下面的示例。
 - en: '[PRE4]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Using ioutil.WriteFile()**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 ioutil.WriteFile()**'
 - en: '**ioutil.WriteFile()** is kind of a shortcut to writing to a file. It takes
     in three-parameter – (1) file (2) The string to be written (3) Permission mode
     of the file. The third parameter is used to create a file with that permission
     if the file doesn’t already exist. One calling **ioutil.WriteFile()**, it will'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**ioutil.WriteFile()** 是写入文件的一种快捷方式。它接受三个参数 – (1) 文件 (2) 要写入的字符串 (3) 文件的权限模式。如果文件不存在，第三个参数用于以该权限创建文件。调用
+    **ioutil.WriteFile()** 后，它将'
 - en: Create the file if not present with the specified permission
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果文件不存在，则以指定权限创建该文件
 - en: Write to the file
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 向文件写入内容
 - en: Close the file
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 关闭文件
 - en: 'See below example: If temp.txt doesn’t exist then it will create a new temp.txt
     file with permission 0777'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 参见下面的示例：如果temp.txt不存在，则将创建一个权限为0777的新temp.txt文件
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '[buffered write](https://golangbyexample.com/tag/buffered-write/)*   [bufio](https://golangbyexample.com/tag/bufio/)*'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[缓冲写入](https://golangbyexample.com/tag/buffered-write/) *   [bufio](https://golangbyexample.com/tag/bufio/)
+    *'

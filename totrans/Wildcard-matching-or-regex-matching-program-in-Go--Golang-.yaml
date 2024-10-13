@@ -1,142 +1,221 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:44:04'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:44:04
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Wildcard matching or regex matching program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的通配符匹配或正则表达式匹配程序。
 - en: 来源：[https://golangbyexample.com/wildcard-matching-golang/](https://golangbyexample.com/wildcard-matching-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/wildcard-matching-golang/](https://golangbyexample.com/wildcard-matching-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Recursive Solution](#Recursive_Solution "Recursive Solution")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[递归解决方案](#Recursive_Solution "Recursive Solution")'
 - en: '[Dynamic Program Solution](#Dynamic_Program_Solution "Dynamic Program Solution")*  *##
     **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[动态规划解决方案](#Dynamic_Program_Solution "Dynamic Program Solution") *  *## **概述**'
 - en: We are given an input regex and an input string. Regex can have two special
     characters
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们给定一个输入正则表达式和一个输入字符串。正则表达式可以包含两个特殊字符。
 - en: '**Star Sign ‘*’ –** the star matches zero or more characters.'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**星号 ‘*’ –** 星号匹配零个或多个字符。'
 - en: '**Question Mark ‘?’ –** It matches any character.'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**问号 ‘?’ –** 它匹配任何字符。'
 - en: The objective is to find whether the given input string matches the regex or
     not.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是找出给定的输入字符串是否与正则表达式匹配。
 - en: Eg
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Below is the recursive solution for the same
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的递归解决方案
 - en: '**Recursive Solution**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**递归解决方案**'
 - en: In the recursive solution
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 在递归解决方案中
 - en: If we encounter a star * then we have two cases. We ignore the * character in
     the pattern and move on to the next character in the pattern. The other case is
     that we move one character in the input string assuming * matches at least one
     character. Basically check for a match with **(inputIndex, patternIndex+1)** and
     **(inputIndex+1, patternIndex)**. If either of them returns true then the input
     string matches the regex.
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果我们遇到星号 *，那么我们有两种情况。我们忽略模式中的 * 字符，继续处理模式中的下一个字符。另一种情况是我们在输入字符串中移动一个字符，假设 *
+    至少匹配一个字符。基本上检查 **(inputIndex, patternIndex+1)** 和 **(inputIndex+1, patternIndex)**
+    的匹配。如果它们中的任何一个返回真，则输入字符串与正则表达式匹配。
 - en: If we encounter a question mark ? then we simple proceed with **(inputIndex+1,
     patternIndex+1)**
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果我们遇到问号 ?，那么我们简单地继续进行 **(inputIndex+1, patternIndex+1)**。
 - en: If we encounter a simple character then we simply proceed in the input string
     as well as the patter  ie. we do proceed with **(inputIndex+1, patternIndex+1)**
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果我们遇到一个简单字符，则我们在输入字符串和模式中都简单地继续，即我们继续进行 **(inputIndex+1, patternIndex+1)**。
 - en: Here is the program
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是程序
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Dynamic Program Solution**'
+  id: totrans-26
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**动态规划解决方案**'
 - en: The above program is not an optimized solution as the subproblems are solved
     again and again. This problem can also be solved with DP.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序不是优化解决方案，因为子问题被重复求解。这个问题也可以用动态规划解决。
 - en: Create a two-dimensional matrix named **isMatchingMatrix** where
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建一个名为 **isMatchingMatrix** 的二维矩阵，其中
 - en: '**isMatchingMatrix[i][j]** will be true if the first **i** character in the
     input string matches the first **j** character in the pattern'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**isMatchingMatrix[i][j]** 将为真，如果输入字符串的前 **i** 个字符与模式的前 **j** 个字符匹配。'
 - en: '[PRE3]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Below is the program for the same.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序。
 - en: '[PRE4]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，旨在涵盖所有概念和示例。此教程适合希望获得专业知识和深入理解 Golang
+    的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

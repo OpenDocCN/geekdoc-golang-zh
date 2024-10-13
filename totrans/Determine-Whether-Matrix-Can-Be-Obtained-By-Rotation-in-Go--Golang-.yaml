@@ -1,88 +1,139 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:50:47'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:50:47
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Determine Whether Matrix Can Be Obtained By Rotation in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 确定矩阵是否可以通过旋转在Go (Golang)中获得
 - en: 来源：[https://golangbyexample.com/matrix-rotation-target-golang/](https://golangbyexample.com/matrix-rotation-target-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/matrix-rotation-target-golang/](https://golangbyexample.com/matrix-rotation-target-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "程序")*  *# **概述**'
 - en: Two n*n matrices are given **source** and **target.** We have to determine whether
     the **source** matrix can be converted to the **target** matrix by doing 90-degree
     rotations any number of times
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定两个n*n矩阵，**源**和**目标**。我们需要确定**源**矩阵是否可以通过任意次数的90度旋转转换为**目标**矩阵
 - en: '**Example 1**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 1**'
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The source matrix can be rotated 90 degrees once to obtain the target matrix
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 源矩阵可以旋转90度一次以获得目标矩阵
 - en: '**Example 2**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 2**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Even if we rotate the source matrix 3 times by 90, obtaining the target matrix
     is impossible.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 即使我们将源矩阵旋转3次90度，也无法获得目标矩阵。
 - en: '**Program**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相同的程序
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尽力覆盖所有概念并提供示例。本教程适合那些希望获得Golang专业知识和扎实理解的人
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you - [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Also, check out our system design tutorial series here - [System Design Tutorial
     Series](https://techbyexample.com/system-design-questions/)
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，请查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

@@ -1,315 +1,455 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:34:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:34:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Difference between GRPC and Rest
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: GRPC与REST的区别
 - en: 来源：[https://golangbyexample.com/grpc-vs-rest/](https://golangbyexample.com/grpc-vs-rest/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/grpc-vs-rest/](https://golangbyexample.com/grpc-vs-rest/)
 - en: '![grpc vs rest](img/c28f96def0a2c19e95044c79b4fafe24.png)'
+  id: totrans-6
   prefs: []
   type: TYPE_IMG
+  zh: '![grpc vs rest](img/c28f96def0a2c19e95044c79b4fafe24.png)'
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Links](#Links "Links")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[链接](#Links "Links")'
 - en: '[GRPC](#GRPC "GRPC")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[GRPC](#GRPC "GRPC")'
 - en: '[REST](#REST "REST")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[REST](#REST "REST")'
 - en: '[Protocol](#Protocol "Protocol")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[协议](#Protocol "Protocol")'
 - en: '[Nature](#Nature "Nature")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[性质](#Nature "Nature")'
 - en: '[Mode of Data Transfer](#Mode_of_Data_Transfer "Mode of Data Transfer")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数据传输模式](#Mode_of_Data_Transfer "Mode of Data Transfer")'
 - en: '[Model](#Model "Model")'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[模型](#Model "Model")'
 - en: '[Performance](#Performance "Performance")'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[性能](#Performance "Performance")'
 - en: '[Code Generation](#Code_Generation "Code Generation")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码生成](#Code_Generation "Code Generation")'
 - en: '[Type Safety](#Type_Safety "Type Safety")'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[类型安全](#Type_Safety "Type Safety")'
 - en: '[SetUP](#SetUP "SetUP")'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[设置](#SetUP "SetUP")'
 - en: '[When To Use](#When_To_Use "When To Use")'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[何时使用](#When_To_Use "When To Use")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *## **Overview**'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "Conclusion")*  *## **概述**'
 - en: REST is an architectural style built on top of HTTP/1\. GRPC is not a style
     instead it is an RPC framework built on top of HTTP/2 and it uses protocol buffers
     behind the scenes. So basically GRPC is an actual implementation or you can say
     it is a library whereas REST is just a set of rules and principles.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: REST是一种建立在HTTP/1上的架构风格。GRPC不是一种风格，而是一个建立在HTTP/2之上的RPC框架，并在后台使用协议缓冲区。因此，GRPC实际上是一个实现，或者可以说是一个库，而REST只是一组规则和原则。
 - en: Although we are comparing a GRPC (implemented framework) with REST -( architectural
     styles and principles), which might sound weird. Still, it is important to understand
     the difference in terms of high-level architecture which you will get if you follow
     one approach over the other
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然我们在比较一个实现的GRPC框架与REST（架构风格和原则），这听起来可能有些奇怪，但理解高层架构的区别仍然很重要，这一点如果你遵循某种方法而非另一种方法会更加明显。
 - en: Here are the major differences between the two. Also to mention that this article
     assumes that you already have some knowledge of GRPC, HTTP2, REST
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是两者之间的主要区别。此外，值得一提的是，本文假设你已经对GRPC、HTTP2和REST有一定了解。
 - en: Links
+  id: totrans-25
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 链接
 - en: '**GRPC**'
+  id: totrans-26
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**GRPC**'
 - en: Here is the link to GRPC for further reading [https://grpc.io/](https://grpc.io/)
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是关于GRPC的进一步阅读链接 [https://grpc.io/](https://grpc.io/)
 - en: '**REST**'
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**REST**'
 - en: Here is the link to REST for further reading – [https://en.wikipedia.org/wiki/Representational_state_transfer](https://en.wikipedia.org/wiki/Representational_state_transfer)
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是关于REST的进一步阅读链接 – [https://en.wikipedia.org/wiki/Representational_state_transfer](https://en.wikipedia.org/wiki/Representational_state_transfer)
 - en: '**Protocol**'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**协议**'
 - en: GRPC is an RPC framework and is built on top of HTTP/2
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: GRPC是一个RPC框架，构建在HTTP/2之上。
 - en: REST architectural style is specified on top of HTTP/1\. All the semantics of
     HTTP/1.1 has been retained in HTTP/2\. So REST APIs should continue to work even
     one using HTTP/2
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: REST架构风格是在HTTP/1之上指定的。HTTP/2保留了HTTP/1.1的所有语义。因此，即使使用HTTP/2，REST API仍应继续正常工作。
 - en: '**Nature**'
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**性质**'
 - en: The way of thinking in GRPC is API-oriented or action-oriented.
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: GRPC的思维方式是面向API或面向动作的。
 - en: REST is resource-oriented.
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: REST是面向资源的。
 - en: '**Mode of Data Transfer**'
+  id: totrans-36
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**数据传输模式**'
 - en: GRPC supports only Protocol Buffers to transfer data between server and client.
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: GRPC仅支持使用协议缓冲区在服务器和客户端之间传输数据。
 - en: REST supports JSON,  XML, and other data formats.  REST can also be made to
     work with Protocol Buffers trivially.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: REST支持JSON、XML和其他数据格式。REST也可以很容易地与协议缓冲区一起使用。
 - en: '**Model**'
+  id: totrans-39
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**模型**'
 - en: GRPC provides four different ways of communication between client and server.
     The four different ways are unary, server streaming, client streaming, and bi-directional
     streaming. So effectively in GRPC both client and server can talk to each other.
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: GRPC提供四种不同的客户端和服务器之间的通信方式。这四种方式是单一请求、服务器流、客户端流和双向流。因此，在GRPC中，客户端和服务器可以相互交谈。
 - en: Unary – This is the simplest one. The clients send a request and the server
     sends the response
+  id: totrans-41
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 单一请求 – 这是最简单的一种。客户端发送请求，服务器发送响应。
 - en: Client streaming – The client can send a stream of multiple messages while the
     server is expected to return only a single response to all client requests.
+  id: totrans-42
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 客户端流 – 客户端可以发送多个消息的流，而服务器只需对所有客户端请求返回单个响应。
 - en: Server Streaming- The client will send only one message while the server can
     send a stream of messages back to it.
+  id: totrans-43
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 服务器流 – 客户端将只发送一条消息，而服务器可以向其发送消息流。
 - en: Bi-directional streaming – Both client and server can stream multiple messages.
     The streaming will be in parallel and with no order. Also, it will be nonblocking.
     Neither client nor server needs to wait for a response before sending the next
     message.
+  id: totrans-44
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 双向流——客户端和服务器都可以流式传输多个消息。流式传输将并行进行且无顺序。此外，它是非阻塞的。客户端和服务器在发送下一个消息之前无需等待响应。
 - en: REST works on the Request-Response model. Basically, you send the request and
     then you get the response. So REST only provides a unary way of communication.
     In REST only the client talks to the server.
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: REST工作基于请求-响应模型。基本上，你发送请求，然后收到响应。因此，REST仅提供单向通信。在REST中，只有客户端与服务器进行交谈。
 - en: '**Performance**'
+  id: totrans-46
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**性能**'
 - en: Since GRPC inherently uses HTTP/2 so all the performance optimizations applied
     to HTTP/2 automatically are available in GRPC. HTTP/2 has introduced several performance
     optimizations over HTTP/1 such as
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 由于GRPC固有地使用HTTP/2，因此所有应用于HTTP/2的性能优化自动适用于GRPC。HTTP/2引入了多项相较于HTTP/1的性能优化，例如
 - en: Duplex Streaming
+  id: totrans-48
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 双向流
 - en: Multiplexing
+  id: totrans-49
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 多路复用
 - en: Headers Compression
+  id: totrans-50
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 头部压缩
 - en: etc
+  id: totrans-51
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 等等
 - en: Plus GRPC uses protocol buffers internally and since protocol buffers are binary
     data and have less size, they are transferred over a network fast. GRPC can utilize
     each TCP connection very effectively.Due to these two reasons, GRPC is very fast.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，GRPC在内部使用协议缓冲区，由于协议缓冲区是二进制数据且体积较小，它们在网络上快速传输。GRPC可以有效利用每个TCP连接。基于这两个原因，GRPC非常快。
 - en: REST over HTTP/1 will be slower than GRPC. It uses JSON, XML which for representing
     the same data take more size than protocol buffers.
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: REST在HTTP/1上的速度会比GRPC慢。它使用JSON、XML来表示相同的数据，所需大小超过协议缓冲区。
 - en: '**Code Generation**'
+  id: totrans-54
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**代码生成**'
 - en: Since GRPC is built on top of protocol buffers it provides automatic code generation.
     In fact with protocol buffers code generation is a must thing to use GRPC.
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 由于GRPC建立在协议缓冲区之上，因此提供了自动代码生成。事实上，使用协议缓冲区时，代码生成是使用GRPC的必备条件。
 - en: REST also provides code generation through Swagger, OPEN API but that is just
     an extra thing provided and it is not as effective as code generation by protocol
     buffers
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: REST也通过Swagger、OPEN API提供代码生成，但这只是提供的额外功能，并不如协议缓冲区的代码生成有效。
 - en: '**Type Safety**'
+  id: totrans-57
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**类型安全**'
 - en: Since protocol buffers are used for code generation in the case of GRPC.  So
     that in a way provides type safety to GRPC. GRPC will not allow you to send int
     for a field where a string is expected. The API contract is defined by the proto
     file and is strict.
+  id: totrans-58
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 由于在GRPC的情况下使用协议缓冲区进行代码生成，因此在某种程度上为GRPC提供了类型安全。GRPC不允许你为期望字符串的字段发送int。API契约由proto文件定义，并且是严格的。
 - en: REST doesn’t have any such restriction. The API contract is mostly just a document
     using OPEN API or swagger and hence it is loose.
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: REST没有任何此类限制。API契约大多数情况下只是使用OPEN API或Swagger的文档，因此比较松散。
 - en: '**SetUP**'
+  id: totrans-60
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**设置**'
 - en: GRPC would require you to set up a client locally to be able to make a GRPC
     call.
+  id: totrans-61
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: GRPC需要你在本地设置一个客户端，以能够进行GRPC调用。
 - en: REST call doesn’t need a client set up. You can make a call using a browser,
     postman, curl, etc
+  id: totrans-62
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: REST调用不需要客户端设置。你可以通过浏览器、Postman、curl等进行调用。
 - en: '**When To Use**'
+  id: totrans-63
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**何时使用**'
 - en: GRPC is mostly suitable for internal microservices where low latency and high
     throughput might be needed. It will not be suitable to currently expose your service
     as a GRPC as there are no APIs available for external services to integrate. It
     could be possible in the near future when GRPC is fully evolved.
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: GRPC主要适用于需要低延迟和高吞吐量的内部微服务。目前不适合将你的服务暴露为GRPC，因为没有可供外部服务集成的API。未来当GRPC完全发展时，这可能会变得可行。
 - en: REST is more suitable to expose your APIs to external services.
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: REST更适合将你的API暴露给外部服务。
 - en: '**Conclusion**'
+  id: totrans-66
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: These are some of the major differences between GRPC and REST. Hope you have
     liked this article. Please share feedback in the comments.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些是GRPC和REST之间的一些主要区别。希望你喜欢这篇文章。请在评论中分享反馈。
 - en: 'Note: If you are interested in learning Golang, then for that we have a golang
     comprehensive tutorial series. Do check it out – [Golang Comprehensive Tutorial
     Series](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：如果你有兴趣学习Golang，我们有一个全面的Golang教程系列。请查看——[Golang全面教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [grpc](https://golangbyexample.com/tag/grpc/)*   [rest](https://golangbyexample.com/tag/rest/)*'
+  id: totrans-69
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[去](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [grpc](https://golangbyexample.com/tag/grpc/)*   [rest](https://golangbyexample.com/tag/rest/)*'

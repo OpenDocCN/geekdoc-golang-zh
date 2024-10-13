@@ -1,65 +1,99 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:04:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:04:52
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Difference between method and function in GO
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: GO 中方法和函数的区别
 - en: 来源：[https://golangbyexample.com/difference-between-method-function-go/](https://golangbyexample.com/difference-between-method-function-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/difference-between-method-function-go/](https://golangbyexample.com/difference-between-method-function-go/)
 - en: There are some important differences between method and function. Let’s see
     the signature of both
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 方法和函数之间有一些重要的区别。让我们来看一下两者的签名。
 - en: '**Function:**'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**功能：**'
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Method:**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**方法：**'
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: From the above signature, it is clear that method has a receiver argument. A
     receiver can be a struct or any other type. The method will have access to the
     properties of the receiver and can call the receiver’s other methods.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 从上面的签名来看，方法有一个接收者参数。接收者可以是一个结构体或任何其他类型。该方法将可以访问接收者的属性，并可以调用接收者的其他方法。
 - en: This is the only difference between function and method, but due to it they
     differ in terms of functionality they offer
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是函数和方法之间唯一的区别，但正因如此，它们在功能上有所不同。
 - en: A function can be used as first-order objects and can be passed around while
     methods cannot.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数可以作为一阶对象使用并可以传递，而方法则不能。
 - en: Methods can be used for chaining on the receiver while function cannot be used
     for the same.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 方法可以在接收者上进行链式调用，而函数则不能用于相同的目的。
 - en: There can exist different methods with the same name with a different receiver,
     but there cannot exist two different functions with the same name in the same
     package.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可以存在具有相同名称但接收者不同的方法，但在同一包中不能存在两个具有相同名称的不同函数。
 - en: '[function](https://golangbyexample.com/tag/function/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [method](https://golangbyexample.com/tag/method/)'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[函数](https://golangbyexample.com/tag/function/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [方法](https://golangbyexample.com/tag/method/)'

@@ -1,46 +1,74 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:10:27'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:10:27
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Detect OS in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中检测操作系统
 - en: 来源：[https://golangbyexample.com/detect-os-golang/](https://golangbyexample.com/detect-os-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/detect-os-golang/](https://golangbyexample.com/detect-os-golang/)
 - en: '**runtime.GOOS** constant can be used to detect the OS at runtime since this
     constant gets set only at runtime.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**runtime.GOOS** 常量可以用于在运行时检测操作系统，因为这个常量仅在运行时设置。'
 - en: '**runtime.GOARCH** can be used to know the architecture target of the running
     program.'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**runtime.GOARCH** 可以用来知道正在运行的程序的架构目标。'
 - en: To see all possible combinations of GOOS and GOARCH, run the command
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 要查看所有可能的 GOOS 和 GOARCH 的组合，请运行以下命令
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'Below is the code to know the currently running OS:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是获取当前运行操作系统的代码：
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'

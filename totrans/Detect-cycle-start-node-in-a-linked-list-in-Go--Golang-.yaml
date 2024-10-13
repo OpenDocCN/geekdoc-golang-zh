@@ -1,110 +1,168 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:46:48'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:46:48
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Detect cycle start node in a linked list in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Golang中检测链表的循环起始节点。
 - en: 来源：[https://golangbyexample.com/cycle-start-node-linked-list-go/](https://golangbyexample.com/cycle-start-node-linked-list-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/cycle-start-node-linked-list-go/](https://golangbyexample.com/cycle-start-node-linked-list-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program") *  *## **概述**'
 - en: The objective is to find out the cycle start node in a given linked list. A
     cycle exists in a linked list if  the last node in the linked list points to another
     node in the front
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是找出给定链表中的循环起始节点。如果链表中的最后一个节点指向前面的某个节点，则链表中存在循环。
 - en: Example
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例
 - en: '![](img/37e30f9ef9a9259067409d35628db09d.png)'
+  id: totrans-11
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/37e30f9ef9a9259067409d35628db09d.png)'
 - en: The linked list above has a cycle. The cycle start node is node 2\. Below is
     the approach we can follow
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述链表存在循环。循环起始节点是节点2。下面是我们可以遵循的方法。
 - en: First, detect whether the given linked list has a cycle or not. Have two pointers.
     One is the slow pointer and the other is a fast pointer. Both point to the head
     node initially
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 首先，检测给定的链表是否有循环。设置两个指针，一个是慢指针，另一个是快指针。两者最初都指向头节点。
 - en: Now move the slow pointer by 1 node and move the fast pointer by 2 nodes.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在将慢指针移动1个节点，快指针移动2个节点。
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: If slow and fast pointers are the same at any point in time then the linked
     list has cyle.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果在任何时刻慢指针和快指针相同，则链表存在循环。
 - en: The fast pointer and a slow pointer can only meet at a node that is in the cycle.
     Let’s assume they meet at node 3\. Now get the length of the cycle. The length
     is 3
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 快指针和慢指针只能在循环内的节点相遇。假设它们在节点3相遇。现在计算循环的长度。长度为3。
 - en: Then keep one pointer at the head of the node and the other pointer at a distance
     of cycle length from it. So one pointer will be added at node 1 and another pointer
     will be at node 4.
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在在节点头部保持一个指针，另一个指针与它保持一个循环长度的距离。因此，一个指针将指向节点1，另一个指针将指向节点4。
 - en: Move both the pointers until they are the same. They will meet at the cycle
     start node which is Node 2
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 移动两个指针，直到它们相同。它们将在循环起始节点相遇，即节点2。
 - en: '**Program**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相应的程序。
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的Golang高级教程。本系列教程内容详尽，我们尝试涵盖所有概念及示例。本教程适合希望获得专业知识和深入理解Golang的读者
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，那么这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[去](https://golangbyexample.com/tag/go/) * [Golang](https://golangbyexample.com/tag/golang/)
+    *'

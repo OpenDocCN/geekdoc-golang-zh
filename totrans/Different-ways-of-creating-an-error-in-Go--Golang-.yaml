@@ -1,95 +1,150 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:02:42'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:02:42
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Different ways of creating an error in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中创建错误的不同方式
 - en: 来源：[https://golangbyexample.com/different-ways-of-creating-an-error-in-go-golang/](https://golangbyexample.com/different-ways-of-creating-an-error-in-go-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/different-ways-of-creating-an-error-in-go-golang/](https://golangbyexample.com/different-ways-of-creating-an-error-in-go-golang/)
 - en: Before learning about different ways of creating am an error in Golang lets
     first understand about the error. Error is an interface type with below signature
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在学习 Go 中创建错误的不同方式之前，首先了解错误。错误是一个具有以下签名的接口类型。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Any by definition of **interface** any type which implements the **Error()**
     method becomes of type **error**.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据 **interface** 的定义，任何实现 **Error()** 方法的类型都成为 **error** 类型。
 - en: Let’s see now different methods of creating an **error**
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看创建 **error** 的不同方法
 - en: 1\. **Using errors.New(“some_error_message”)**
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 1\. **使用 errors.New(“some_error_message”)**
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 2\. **Using fmt.Errorf(“error is %s”, “some_error_message”). This way creates
     error with formatting of error messages**
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 2\. **使用 fmt.Errorf(“error is %s”, “some_error_message”)。这种方式可以创建带格式的错误信息**
 - en: '[PRE3]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 3\. **Creating Custom error**
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 3\. **创建自定义错误**
 - en: The below example illustrates the use of custom error. In below example
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的示例说明了自定义错误的使用。在下面的示例中
 - en: '**inputError** is a struct that has the **Error()** method hence it is of type
     **error**'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**inputError** 是一个结构体，具有 **Error()** 方法，因此它属于 **error** 类型。'
 - en: You can also add additional information to the custom error by extending its
     fields or by adding new methods. **inputError** has an additional field named
     **missingFields** and a function **getMissingFields** function.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 你还可以通过扩展其字段或添加新方法来向自定义错误添加额外信息。**inputError** 有一个名为 **missingFields** 的附加字段和一个
+    **getMissingFields** 函数。
 - en: We can use type assertion to convert from **error** to **inputError**
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们可以使用类型断言将 **error** 转换为 **inputError**
 - en: '**Example:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例：**'
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'

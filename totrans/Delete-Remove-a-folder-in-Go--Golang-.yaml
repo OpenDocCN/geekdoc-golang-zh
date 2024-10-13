@@ -1,43 +1,69 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:10:18'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:10:18
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Delete/Remove a folder in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中删除/移除一个文件夹
 - en: 来源：[https://golangbyexample.com/delete-folder-go/](https://golangbyexample.com/delete-folder-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/delete-folder-go/](https://golangbyexample.com/delete-folder-go/)
 - en: '**os.Remove()** function can be used to delete a folder in Golang. Below is
     the signature of this function'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os.Remove()**函数可以用于删除Golang中的文件夹。以下是该函数的签名。'
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Code:**'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[remove](https://golangbyexample.com/tag/remove/)'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[删除](https://golangbyexample.com/tag/remove/)'

@@ -1,94 +1,147 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:28:55'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:28:55
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: '* or dereferencing pointer in Go (Golang)'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '* 或在 Go (Golang) 中解引用指针'
 - en: 来源：[https://golangbyexample.com/dereferencing-pointer-golang/](https://golangbyexample.com/dereferencing-pointer-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/dereferencing-pointer-golang/](https://golangbyexample.com/dereferencing-pointer-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program") *  *# **概述**'
 - en: '***** operator can be used to:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '***** 运算符可以用来：'
 - en: Dereference a pointer which means getting the value at the address stored in
     the pointer.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 解引用指针意味着获取存储在指针地址中的值。
 - en: Change the value at that pointer location as well
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 还可以改变该指针位置的值
 - en: '**Program**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Both **a** and ***b** refer to the same variable internally.  Hence the changing
     the value of one reflects in another. Also, ***** and **&** can be used together
     as well. But they will cancel out each other.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**a** 和 ***b** 在内部引用同一个变量。因此，改变一个的值会反映在另一个上。并且，***** 和 **&** 也可以一起使用，但它们会相互抵消。'
 - en: Hence below two are equivalent and will print 2
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，下面的两个是等价的，并将打印 2
 - en: a
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: a
 - en: '*&a'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*&a'
 - en: Also below three are equivalent and will print the address of variable a which
     is stored in b variable
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的三个是等价的，并将打印存储在 b 变量中的变量 a 的地址
 - en: b
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: b
 - en: '*&b'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*&b'
 - en: '&*b'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '&*b'
 - en: Note:  *a is not a valid operation as a is not a pointer
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意： *a 不是有效的操作，因为 a 不是指针
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[去](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

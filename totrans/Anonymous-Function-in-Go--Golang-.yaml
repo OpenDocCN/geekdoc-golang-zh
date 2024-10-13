@@ -1,95 +1,147 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:11:11'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:11:11'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Anonymous Function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的匿名函数
 - en: 来源：[https://golangbyexample.com/go-anonymous-function/](https://golangbyexample.com/go-anonymous-function/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-anonymous-function/](https://golangbyexample.com/go-anonymous-function/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: As the name suggests anonymous functions are function which does not have any
     name.  In Golang function are first-class variables meaning that
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如名称所示，匿名函数是没有名称的函数。在Golang中，函数是第一类变量，这意味着
 - en: They can be assigned to a variable
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它们可以被赋值给一个变量
 - en: Passed around as function argument
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 作为函数参数传递
 - en: Returned from a function
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从函数返回
 - en: A function in Go is a first-class variable so it can be used as a value as well.
     When using a function as a value, it is not named and can be assigned to a variable.
     Such a function is called anonymous functions because the function is not named.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go中，函数是第一类变量，因此它也可以作为值使用。当将函数作为值使用时，它没有名称，可以赋值给变量。这种函数被称为匿名函数，因为函数没有名称。
 - en: They are generally created for short term use or for limited functionality.
     See the below example.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 它们通常是为了短期使用或有限功能而创建的。请看下面的例子。
 - en: In this example, a function is assigned to the variable **max**. The function
     assigned to **max** does not have any name. The only way to call this function
     is using the **max** variable and that is what we are doing in this program as
     well.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，**max**变量被赋值为一个函数。赋值给**max**的函数没有任何名称。调用这个函数的唯一方式是使用**max**变量，这也是我们在这个程序中所做的。
 - en: Also notice that we can pass arguments to the anonymous function as well as
     return values from them.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 还要注意，我们可以向匿名函数传递参数，并从中返回值。
 - en: '**Code**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'The anonymous function can also be executed as IIF or Immediately Invoked Function.
     In such a case, you don’t need to assign it to any variable. See below example:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 匿名函数也可以被执行为IIF或立即调用函数。在这种情况下，你不需要将它赋值给任何变量。请看下面的例子：
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*'

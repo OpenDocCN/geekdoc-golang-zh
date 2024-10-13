@@ -1,69 +1,111 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:41:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:41:52
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Add two numbers represented by linked list in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 用 Go（Golang）实现两个由链表表示的数字相加
 - en: 来源：[https://golangbyexample.com/add-numbers-linked-list-golang/](https://golangbyexample.com/add-numbers-linked-list-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/add-numbers-linked-list-golang/](https://golangbyexample.com/add-numbers-linked-list-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")*  *## **Overview**'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")*  *## **概述**'
 - en: Assume that both the linked list is already reversed. Meaning that let’s say
     the numbers are
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设链表已经被反转。也就是说，假设这两个数字是
 - en: '478'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '478'
 - en: '339'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '339'
 - en: The output should be **817**
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出应该是 **817**
 - en: Assume both numbers are represented as a linked list in a reverse manner
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设这两个数字以反向方式表示为链表
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: And expected output linked list is also reversed
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 期望的输出链表也是反向的
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Here is the program for the same
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相应的程序
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

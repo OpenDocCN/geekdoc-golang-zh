@@ -1,93 +1,148 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类: 未分类'
 - en: 'date: 2024-10-13 06:20:05'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:20:05'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Accessing and Setting Struct Fields in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中访问和设置结构体字段
 - en: 来源：[https://golangbyexample.com/accessing-setting-struct-fields-golang/](https://golangbyexample.com/accessing-setting-struct-fields-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/accessing-setting-struct-fields-golang/](https://golangbyexample.com/accessing-setting-struct-fields-golang/)
 - en: '**Overview**'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**概述**'
 - en: GO struct is named collection of data fields which can be of different types.
     Struct acts as a container that has different heterogeneous data types which together
     represents an entity. For example, different attributes are used to represent
     an employee in an organization. Employee can have
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 结构体是命名的数据字段集合，可以包含不同类型的数据。结构体作为一个容器，具有不同的异构数据类型，共同表示一个实体。例如，不同的属性用于表示一个组织中的员工。员工可以有
 - en: Name of string type
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 字符串类型的姓名
 - en: Age of int type
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 整型的年龄
 - en: DOB of time.Time type
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: time.Time 类型的出生日期
 - en: Salary of int type
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 整型的工资
 - en: .. and so on. A struct can be used to represent an employee
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: .. 以及其他。结构体可以用来表示一个员工
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Table of Contents
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Accessing and Setting Struct Fields](#Accessing_and_Setting_Struct_Fields
     "Accessing and Setting Struct Fields")*  *# **Accessing and Setting Struct Fields**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [访问和设置结构体字段](#Accessing_and_Setting_Struct_Fields "Accessing and Setting
+    Struct Fields")*  *# **访问和设置结构体字段**'
 - en: A struct variable can be created as below
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体变量可以如下创建
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Once the struct variable is created, structs fields can be accessed using the
     dot operator. Below is the format for getting the value
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦创建了结构体变量，可以使用点运算符访问结构体字段。以下是获取值的格式
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Similarly a value can be assigned to a struct field too.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样也可以给结构体字段赋值。
 - en: '[PRE3]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Let’s see an example
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

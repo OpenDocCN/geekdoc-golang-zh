@@ -1,107 +1,161 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:33:36'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:33:36
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: All about Base64 encoding/decoding – Complete Guide
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 关于 Base64 编码/解码的所有内容 – 完整指南
 - en: 来源：[https://golangbyexample.com/base64-complete-guide/](https://golangbyexample.com/base64-complete-guide/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/base64-complete-guide/](https://golangbyexample.com/base64-complete-guide/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Why Base64 encoding is needed](#Why_Base64_encoding_is_needed "Why Base64
     encoding is needed")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[为什么需要 Base64 编码](#Why_Base64_encoding_is_needed "Why Base64 encoding is needed")'
 - en: '[How Base64 encoding/decoding works](#How_Base64_encodingdecoding_works "How
     Base64 encoding/decoding works")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Base64 编码/解码如何工作](#How_Base64_encodingdecoding_works "How Base64 encoding/decoding
+    works")'
 - en: '[Base64 Decoding](#Base64_Decoding "Base64 Decoding")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Base64 解码](#Base64_Decoding "Base64 Decoding")'
 - en: '[Is Padding Necessary](#Is_Padding_Necessary "Is Padding Necessary")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[填充是否必要](#Is_Padding_Necessary "Is Padding Necessary")'
 - en: '[Size](#Size "Size")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[大小](#Size "Size")'
 - en: '[Base64 Alternatives](#Base64_Alternatives "Base64 Alternatives")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Base64 替代方案](#Base64_Alternatives "Base64 Alternatives")'
 - en: '[Base64 Other Implementations](#Base64_Other_Implementations "Base64 Other
     Implementations")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Base64 其他实现](#Base64_Other_Implementations "Base64 Other Implementations")'
 - en: '[Base64 Applications](#Base64_Applications "Base64 Applications")'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Base64 应用](#Base64_Applications "Base64 Applications")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "Conclusion")*  *# **概述**'
 - en: Base64 is also known as Base64 Content-Transfer-Encoding. Base64 is the encoding
     of binary data into ASCII text. But it uses only 64 characters and plus one padding
     character which are present in the most character set. So it is a way of representing
     binary data using only printable characters.  These printable characters are
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: Base64 也被称为 Base64 内容传输编码。Base64 是将二进制数据编码为 ASCII 文本。但它只使用 64 个字符和一个填充字符，这些字符在大多数字符集中都存在。因此，它是一种仅使用可打印字符表示二进制数据的方法。这些可打印字符为
 - en: Lowercase Alphabets **a-z**
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 小写字母 **a-z**
 - en: UpperCase Alphabets **A-Z**
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 大写字母 **A-Z**
 - en: Numbers **0-9**
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 数字 **0-9**
 - en: Characters **+** an **/**
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 字符 **+** 和 **/**
 - en: '**=** is used as a padding character'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**=** 被用作填充字符'
 - en: Base64 encoding is used for transferring data over a medium that doesn’t handle
     binary data correctly. So Base64 encoding of data is done to make sure that the
     data remains intact without any modification through this media. A base 64 encoding
     will look like as below
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: Base64 编码用于在不正确处理二进制数据的介质上传输数据。因此，对数据进行 Base64 编码是为了确保数据在通过该媒体时保持完整而不被修改。Base64
+    编码的样子如下。
 - en: '[PRE0]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Why Base64 encoding is needed**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**为什么需要 Base64 编码**'
 - en: Let’s talk about history to know why base64 was needed.  Initially, when the
     mailing system was started it was only text which was transferred through email.
     Later on, the email also started supporting attachments which including video
@@ -113,25 +167,36 @@
     differently. The problem with binary data is that some characters in the binary
     data might have special meaning in some media. In other words, these media are
     not 8 bit clean and are only meant to handle textual data.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们谈谈历史，以了解为什么需要 base64。最初，当邮件系统启动时，仅传输文本。后来，电子邮件也开始支持附件，包括视频和音频。视频和音频是二进制数据，当通过互联网传输二进制数据时，有很大可能性会损坏。问题是为什么。一些媒体（如电子邮件）仅支持文本数据。它们仅用于流式文本，因此这些协议可能将二进制数据解释为控制字符，或者二进制数据中的某些特殊字符可能会被不同地解释。二进制数据的问题在于，二进制数据中的某些字符在某些媒体中可能具有特殊含义。换句话说，这些媒体不是
+    8 位干净，仅用于处理文本数据。
 - en: So base64 was meant for media that does not support binary data and which work
     with only textual characters. As it is guaranteed that data won’t be corrupted.
     It is mostly needed for legacy systems that work with only ASCII data.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，base64 是为不支持二进制数据的媒体设计的，仅处理文本字符。保证数据不会损坏。它主要用于仅支持 ASCII 数据的遗留系统。
 - en: But why 64 characters and not more. These 64 characters are present in most
     character sets so you can be reasonably confident that your data will the other
     end without any corruption.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 但为什么是 64 个字符而不是更多。这 64 个字符在大多数字符集中都有，因此可以合理地相信数据在另一端不会损坏。
 - en: Note that it is encoding and not encryption. What’s the difference between encoding
     and encryption?
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，这是一种编码，而不是加密。编码和加密之间有什么区别？
 - en: '**Encoding**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**编码**'
 - en: Encoding means transforming data into another format so that it can be properly
     consumed by a system that only understands the converted format. Encoding is just
     an algorithm that is publicly available. There is no secret key involved and is
@@ -139,466 +204,733 @@
     data. Now the question is why it is needed. Some of the transfer media only understand
     textual data or a certain number of characters. Your binary data cannot be transferred
     through such a medium as there are chances of data being getting corrupted.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 编码意味着将数据转换为另一种格式，以便可以被只理解转换格式的系统正确使用。编码只是一种公开可用的算法。没有涉及秘密密钥，并且是可逆的。因此，任何知道算法的人都可以简单地逆转并获取原始数据。现在问题是，为什么需要它。一些传输媒介只理解文本数据或一定数量的字符。您的二进制数据无法通过这样的媒介传输，因为存在数据损坏的可能性。
 - en: Encoding doesn’t provide any kind of security, instead, it is only meant for
     compatibility across different media which understand different format
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 编码并不提供任何安全性，而只是为了在理解不同格式的不同媒体之间的兼容性。
 - en: '**Encryption**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**加密**'
 - en: Encryption is meant for confidentiality. It is always protected by a key and
     it meant to be decrypted by anyone who knows the key. So in the case of encryption,
     the data can only be reversed by someone who possesses the key.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 加密是为了保密。它始终由一个密钥保护，旨在由知道密钥的任何人进行解密。因此，在加密的情况下，数据只能由拥有密钥的人逆转。
 - en: For eg sending a password over the network. In this case, we encrypt the password
     so that any unintended person cannot read it. Example HTTPS
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，在网络上发送密码。在这种情况下，我们对密码进行加密，以便任何无意中的人无法读取它。例如HTTPS。
 - en: So essentially encoding is meant for compatibility and not for encryption.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，编码本质上是为了兼容性，而不是为了加密。
 - en: '**How Base64 encoding/decoding works**'
+  id: totrans-37
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**Base64编码/解码的工作原理**'
 - en: Base64 encoding is described in [https://tools.ietf.org/html/rfc4648](https://tools.ietf.org/html/rfc4648)
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: Base64编码在[https://tools.ietf.org/html/rfc4648](https://tools.ietf.org/html/rfc4648)中有描述。
 - en: Base64 encoding will translate every 3 bytes of data into 4 encoded characters.
     It will start scanning from left to right, and then it will select the first 3
     bytes of data representing 3 characters. These 3 bytes will be 24 bits. Now it
     will divide these 24 bits into four parts of 6 bits each. Then each 6-bit group
     will be indexed in the below table to get the mapped character.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: Base64编码将把每3个字节的数据转换为4个编码字符。它将从左到右开始扫描，然后选择前3个字节的数据，表示3个字符。这3个字节将是24位。现在，它将把这24位分成四个部分，每部分6位。然后每个6位组将在下面的表中进行索引，以获取映射字符。
 - en: '[PRE1]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s understand it with an example. Let’s say we have the below string
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们用一个例子来理解。假设我们有以下字符串
 - en: '[PRE2]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: The bits representation of the above string will be
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述字符串的位表示为
 - en: '[PRE3]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: These total 24 bits will be grouped into 4 groups of 6 bits each
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 这24位将被分组为4组，每组6位。
 - en: '[PRE4]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The numeric representation of the above bits is
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述位的数值表示为
 - en: '[PRE5]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Use the above numbers to index into the base64 table. Below will the mapping
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用上述数字在Base64表中进行索引。下面是映射。
 - en: '| 24 | Y |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '| 24 | Y |'
 - en: '| 22 | W |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '| 22 | W |'
 - en: '| 9 | J |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '| 9 | J |'
 - en: '| 0 | A |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '| 0 | A |'
 - en: So the base64 encoded string will be
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，Base64编码的字符串将是
 - en: '[PRE6]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: What if the input string is not in multiples of 3? In this case padding character
     **=** will come in the picture
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果输入字符串不是3的倍数会怎样？在这种情况下，填充字符**=**将出现。
 - en: Let’s say the input string has 4 characters
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设输入字符串有4个字符。
 - en: '[PRE7]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: The bits representation of the above string will be
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述字符串的位表示为
 - en: '[PRE8]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: The first three bytes will be group together. The last bytes will be padded
     with 4 extra zero to make the overall bits divisible by 6.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 前三个字节将被组合在一起。最后的字节将用4个额外的零进行填充，以使整体位数可被6整除。
 - en: '[PRE9]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Use the above numbers to index into the above table. Below will the mapping
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用上述数字在上表中进行索引。下面是映射。
 - en: '| 24 | Y |'
+  id: totrans-64
   prefs: []
   type: TYPE_TB
+  zh: '| 24 | Y |'
 - en: '| 22 | W |'
+  id: totrans-65
   prefs: []
   type: TYPE_TB
+  zh: '| 22 | W |'
 - en: '| 9 | J |'
+  id: totrans-66
   prefs: []
   type: TYPE_TB
+  zh: '| 9 | J |'
 - en: '| 0 | A |'
+  id: totrans-67
   prefs: []
   type: TYPE_TB
+  zh: '| 0 | A |'
 - en: '| 24 | Y |'
+  id: totrans-68
   prefs: []
   type: TYPE_TB
+  zh: '| 24 | Y |'
 - en: '| 48 | w |'
+  id: totrans-69
   prefs: []
   type: TYPE_TB
+  zh: '| 48 | w |'
 - en: This will become
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将变为
 - en: '[PRE10]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Each two extra zero is represented by = character. And since we added 4 extra
     zero, Hence two = at the end.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 每两个额外的零由=字符表示。由于我们添加了4个额外的零，因此在末尾有两个=。
 - en: Now let’s see another example in which the input string has 5 characters
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看另一个例子，其中输入字符串有5个字符。
 - en: '[PRE11]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: The bits representation of the above string will be
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述字符串的位表示为
 - en: '[PRE12]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: The first three bytes will be group together. The last two bytes will be grouped
     together and padded with 2 extra zero to make the overall bits divisible by 6.
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 前三个字节将组合在一起。最后两个字节将组合在一起，并用2个额外的零填充，以使总体位数能被6整除。
 - en: '[PRE13]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Use the above numbers to index into the above table. Below will the mapping
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用上述数字在上表中索引。以下是映射。
 - en: '| 24 | Y |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '| 24 | Y |'
 - en: '| 22 | W |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '| 22 | W |'
 - en: '| 9 | J |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '| 9 | J |'
 - en: '| 0 | A |'
+  id: totrans-83
   prefs: []
   type: TYPE_TB
+  zh: '| 0 | A |'
 - en: '| 24 | Y |'
+  id: totrans-84
   prefs: []
   type: TYPE_TB
+  zh: '| 24 | Y |'
 - en: '| 54 | 2 |'
+  id: totrans-85
   prefs: []
   type: TYPE_TB
+  zh: '| 54 | 2 |'
 - en: '| 16 | Q |'
+  id: totrans-86
   prefs: []
   type: TYPE_TB
+  zh: '| 16 | Q |'
 - en: This will become
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将变成
 - en: '[PRE14]'
+  id: totrans-88
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Each two extra zero is represented by = character. And since we added 2 extra
     zero, Hence one single = at the end. Also, note that each of the base encoded
     string length with padding is multiple of four
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: 每两个额外的零由=字符表示。由于我们添加了2个额外的零，因此末尾有一个单独的=。另外，请注意，每个带填充的Base64编码字符串的长度都是4的倍数。
 - en: '| **Actual String** | **Base64** **Encoded** **String** | **Length** |'
+  id: totrans-90
   prefs: []
   type: TYPE_TB
+  zh: '| **实际字符串** | **Base64** **编码** **字符串** | **长度** |'
 - en: '| ab@ | YWJA | 4 |'
+  id: totrans-91
   prefs: []
   type: TYPE_TB
+  zh: '| ab@ | YWJA | 4 |'
 - en: '| ab@c | YWJAYw== | 8 |'
+  id: totrans-92
   prefs: []
   type: TYPE_TB
+  zh: '| ab@c | YWJAYw== | 8 |'
 - en: '| ab@cd | YWJAY2Q= | 8 |'
+  id: totrans-93
   prefs: []
   type: TYPE_TB
+  zh: '| ab@cd | YWJAY2Q= | 8 |'
 - en: For encoding, we have only three cases that we had discussed above
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于编码，我们只有上述讨论过的三种情况。
 - en: The number of bits in the input string is divisible by 6\. No padding is added.
     Eg ab@
+  id: totrans-95
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 输入字符串的位数能被6整除。不添加填充。例如 ab@
 - en: The number of bits in the input string is not divisible by 6 and the remainder
     is 4\. A double == padding will be added.Eg ab@c
+  id: totrans-96
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 输入字符串的位数不能被6整除，余数为4\. 将添加双==填充。例如 ab@c
 - en: The number of bits is not divisible 6 by and the remainder is 2\. A single =
     padding will be added.  Eg ab@cd
+  id: totrans-97
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 位数不能被6整除，余数为2\. 将添加一个单个的=填充。例如 ab@cd
 - en: Now the question which comes to mind is whether padding necessary. The answer
     is that it depends. We will discuss it after we have seen how decoding works.
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在脑海中浮现的问题是，填充是否必要。答案是这要看情况。在我们看到解码如何工作后将进行讨论。
 - en: '**Base64 Decoding**'
+  id: totrans-99
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**Base64解码**'
 - en: Let’s now decode the base64 encoded string into the original string. Decoding
     is the opposite of encoding. Let’s take the example
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们将Base64编码的字符串解码为原始字符串。解码是编码的反向操作。让我们以这个例子为例。
 - en: '[PRE15]'
+  id: totrans-101
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: Group into multiple of 4 characters each.
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 按每4个字符分组。
 - en: '[PRE16]'
+  id: totrans-103
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: and
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: 和
 - en: '[PRE17]'
+  id: totrans-105
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Now remove the trailing = characters from each of the groups. For the remaining
     string convert it into their corresponding bit representation from the above table.
+  id: totrans-106
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在从每个组中去掉尾随的=字符。对于剩下的字符串，将其转换为上表中的对应位表示。
 - en: '[PRE18]'
+  id: totrans-107
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: and
+  id: totrans-108
   prefs: []
   type: TYPE_NORMAL
+  zh: 和
 - en: '[PRE19]'
+  id: totrans-109
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Now do grouping into a group of 8 bits. Leave the trailing zeros. This is to
     account for trailing = added. The trailing zero will be either 00 or 0000
+  id: totrans-110
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在按8位分组。保留尾随的零。这是为了考虑添加的尾随=。尾随的零可以是00或0000。
 - en: '[PRE20]'
+  id: totrans-111
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: and
+  id: totrans-112
   prefs: []
   type: TYPE_NORMAL
+  zh: 和
 - en: '[PRE21]'
+  id: totrans-113
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: Now for each of the byte above, assign the character as per the ASCII table
+  id: totrans-114
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在对于上面的每个字节，根据ASCII表分配字符。
 - en: '[PRE22]'
+  id: totrans-115
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: and
+  id: totrans-116
   prefs: []
   type: TYPE_NORMAL
+  zh: 和
 - en: '[PRE23]'
+  id: totrans-117
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: Hence the final string will be
+  id: totrans-118
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此最终字符串将是
 - en: '[PRE24]'
+  id: totrans-119
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: Why did we group the Base64 encoded string into groups of 4 for decoding? The
     reason is because of padding and it will get clear in the next section
+  id: totrans-120
   prefs: []
   type: TYPE_NORMAL
+  zh: 为什么我们在解码时将Base64编码的字符串分成4个字符一组？原因在于填充，这将在下一节中明确。
 - en: '**Is Padding Necessary**'
+  id: totrans-121
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**是否需要填充**'
 - en: You might be wondering now whether the padding of = is necessary for base64
     encoding or not, since we simply discarded the padding while decoding. The answer
     is that it depends
+  id: totrans-122
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可能在想，Base64编码的填充=是否必要，因为我们在解码时简单地丢弃了填充。答案是这要看情况。
 - en: Padding is not necessary when you are sending a single string.
+  id: totrans-123
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你发送单个字符串时，填充不是必需的。
 - en: Padding is important when you are concatenating base64 encodings of multiple
     strings. If unpadded strings are concatenated then it will be impossible to get
     the original string as information about the bytes added will be lost. As an illustration,
     consider below
+  id: totrans-124
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你连接多个字符串的Base64编码时，填充是重要的。如果未填充的字符串被连接，则将无法得到原始字符串，因为关于添加的字节的信息将丢失。作为说明，请考虑下面的内容。
 - en: '| **Actual String** | **Base64 Encoded with Padding** | **Base64 Encoded without
     Padding** |'
+  id: totrans-125
   prefs: []
   type: TYPE_TB
+  zh: '| **实际字符串** | **带填充的Base64编码** | **不带填充的Base64编码** |'
 - en: '| a | YQ== | YQ |'
+  id: totrans-126
   prefs: []
   type: TYPE_TB
+  zh: '| a | YQ== | YQ |'
 - en: '| bc | YmM= | YmM |'
+  id: totrans-127
   prefs: []
   type: TYPE_TB
+  zh: '| bc | YmM= | YmM |'
 - en: '| def | ZGVm | ZGVm |'
+  id: totrans-128
   prefs: []
   type: TYPE_TB
+  zh: '| def | ZGVm | ZGVm |'
 - en: Now let’s consider both cases.
+  id: totrans-129
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们来考虑两种情况。
 - en: '**When the concatenation is sent without padding**'
+  id: totrans-130
   prefs: []
   type: TYPE_NORMAL
+  zh: '**当连接的字符串未填充时**'
 - en: In this case, the concatenated Base64 string will be
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，连接的Base64字符串将是
 - en: '[PRE25]'
+  id: totrans-132
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: Try decoding it and you will get the final string as below which is incorrect
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试解码，你会得到下面的最终字符串，但这是不正确的。
 - en: '[PRE26]'
+  id: totrans-134
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: '**When the concatenation is sent with padding**'
+  id: totrans-135
   prefs: []
   type: TYPE_NORMAL
+  zh: '**当连接的字符串带填充时**'
 - en: In this case, the concatenated Base64 string will be
+  id: totrans-136
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，连接的Base64字符串将是
 - en: '[PRE27]'
+  id: totrans-137
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: Try decoding it in groups of 4 characters and you will get the final string
     as below which is correct
+  id: totrans-138
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试按 4 个字符分组解码，你将得到最终的字符串如下，这是正确的。
 - en: '[PRE28]'
+  id: totrans-139
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: Now again the question that comes to mind is why do you need to concatenate
     multiple base64 encoded strings. The answer is that it is always good in cases
     where there is streaming data and you want to send the base64 encoded data as
     it comes. For example, buffering of video.
+  id: totrans-140
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在再次出现的问题是，为什么需要连接多个 Base64 编码的字符串。答案是，在有流数据的情况下，想要在数据到达时发送 Base64 编码的数据总是好的。例如，视频缓冲。
 - en: So that is why padding is encouraged though not absolutely not necessary in
     all cases.
+  id: totrans-141
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以，尽管在所有情况下并不是绝对必要，填充还是被鼓励。
 - en: '**Size**'
+  id: totrans-142
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**大小**'
 - en: Since essentially Base64 encodes 3 bytes to 4 ASCII characters in case of padding.
     Each of the four ASCII characters will send as 1 byte each over the network. Hence
     the resultant size will always be 33.33% more than the original. So if the original
     size of the string  is n bytes then size, after base64 encode, will be
+  id: totrans-143
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本上，Base64 在填充的情况下将 3 字节编码为 4 个 ASCII 字符。每个四个 ASCII 字符在网络上发送时将各占 1 字节。因此，结果大小总是比原始大小多
+    33.33%。所以如果字符串的原始大小为 n 字节，则 Base64 编码后的大小为：
 - en: '[PRE29]'
+  id: totrans-144
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: '**Base64 Alternatives**'
+  id: totrans-145
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**Base64 替代方案**'
 - en: There are many other options available for encoding as well, but some of them
     are significantly harder while others take too much space. For example, there
     is Base 80 which takes less space but is significantly harder as anything to the
     power two are natural bases for binary. Also there is hexadecimal encoding. It
     is simple but takes more space.
+  id: totrans-146
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有许多其他编码选项，但其中一些显著更难，而其他一些则占用太多空间。例如，Base 80 占用较少空间，但由于二进制的平方是自然基数，编码相对复杂。另外还有十六进制编码。它简单，但占用更多空间。
 - en: Hexadecimal – It has a character set of 16
+  id: totrans-147
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 十六进制 – 其字符集为 16。
 - en: Base36 – Case insensitive encoding
+  id: totrans-148
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Base36 – 不区分大小写的编码
 - en: Base80
+  id: totrans-149
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Base80
 - en: Base58
+  id: totrans-150
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Base58
 - en: …
+  id: totrans-151
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: …
 - en: There are other alternatives as well.
+  id: totrans-152
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有其他替代方案。
 - en: '**Base64 Other Implementations**'
+  id: totrans-153
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**Base64 其他实现**'
 - en: Two other base64 implementations exist
+  id: totrans-154
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有两个其他的 Base64 实现。
 - en: Base64 for URL. In this, the **‘+’** and **‘\’** sign is replaced with **‘+’**
     and **‘-‘**. This is because **‘+’** and **‘\’**  are further encoded into hexadecimal
     sequences due to URL encoding thereby further increasing the length of the URL.
     For eg **‘+’** will be converted to ‘%2B’ and **‘\’** will be encoded to ‘%2F’
     in the URL encoding.
+  id: totrans-155
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: URL 中的 Base64。在此，**‘+’** 和 **‘\’** 符号分别被替换为 **‘+’** 和 **‘-‘**。这是因为 **‘+’** 和
+    **‘\’** 在 URL 编码中进一步被编码为十六进制序列，从而增加了 URL 的长度。例如，**‘+’** 会被转换为 ‘%2B’，**‘\’** 会在
+    URL 编码中被编码为 ‘%2F’。
 - en: Base64 for filenames. In this ‘\’ is replaced with **‘-‘**. This is because
     the **‘\’** is used in file paths in both Unix and Windows.
+  id: totrans-156
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件名中的 Base64。在此 **‘\’** 被替换为 **‘-‘**。这是因为 **‘\’** 在 Unix 和 Windows 的文件路径中被使用。
 - en: '**Base64 Applications**'
+  id: totrans-157
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**Base64 应用程序**'
 - en: Binary data transfer in emails for eg sending video and audio as email attachments
+  id: totrans-158
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 电子邮件中的二进制数据传输，例如发送视频和音频作为电子邮件附件。
 - en: Basic Auth is sent as Base64 encoded in the HTTP protocol
+  id: totrans-159
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 基本认证以 Base64 编码形式发送在 HTTP 协议中。
 - en: There are other Base64 applications as well
+  id: totrans-160
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有其他 Base64 应用程序。
 - en: '**Conclusion**'
+  id: totrans-161
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about Base64 encoding. Hope you have liked this article. Please
     share feedback in the comments*
+  id: totrans-162
   prefs: []
   type: TYPE_NORMAL
+  zh: 这都是关于 Base64 编码的内容。希望你喜欢这篇文章。请在评论中分享反馈*

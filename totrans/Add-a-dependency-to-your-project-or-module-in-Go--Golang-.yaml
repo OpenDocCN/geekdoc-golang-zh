@@ -1,250 +1,385 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:29:41'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:29:41
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Add a dependency to your project or module in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中向项目或模块添加依赖。
 - en: 来源：[https://golangbyexample.com/add-dependency-module-golang/](https://golangbyexample.com/add-dependency-module-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/add-dependency-module-golang/](https://golangbyexample.com/add-dependency-module-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录。
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Directly adding it to the go.mod file](#Directly_adding_it_to_the_gomod_file
     "Directly adding it to the go.mod file")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[直接添加到 go.mod 文件](#Directly_adding_it_to_the_gomod_file "直接添加到 go.mod 文件")'
 - en: '[Do a go get](#Do_a_go_get "Do a go get")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[执行 go get](#Do_a_go_get "执行 go get")'
 - en: '[Add the dependency to your source code and do a go mod tidy](#Add_the_dependency_to_your_source_code_and_do_a_go_mod_tidy
     "Add the dependency to your source code and do a go mod tidy")*  *# **Overview**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[将依赖添加到源代码并执行 go mod tidy](#Add_the_dependency_to_your_source_code_and_do_a_go_mod_tidy
+    "将依赖添加到源代码并执行 go mod tidy")*  *# **概述**'
 - en: Module is go support for dependency management. A module by definition is a
     collection of related packages with **go.mod** at its root.  The **go.mod** file
     defines the
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 模块是 Go 支持的依赖管理。模块的定义是一个相关包的集合，根目录下有 **go.mod** 文件。**go.mod** 文件定义了
 - en: Module import path
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块导入路径。
 - en: Dependency requirements of the module for a successful build. It defines both
     module’s dependencies requirement and also locks them to their correct version.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块的依赖要求以成功构建。它定义了模块的依赖需求并将其锁定到正确的版本。
 - en: A dependency of a module can be of two kinds
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 模块的依赖可以分为两种。
 - en: Direct -A direct dependency is a dependency which the module directly imports.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 直接依赖（Direct -A direct dependency）是模块直接导入的依赖。
 - en: Indirect – It is the dependency that is imported by the module’s direct dependencies.
     Also, any dependency that is mentioned in the **go.mod** file but not imported
     in any of the source files of the module is also treated as an indirect dependency.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 间接依赖（Indirect）是由模块的直接依赖导入的依赖。此外，**go.mod** 文件中提到但在模块的任何源文件中未导入的依赖也视为间接依赖。
 - en: Let’s explore some ways of adding dependency to your project
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们探索几种将依赖项添加到项目的方法。
 - en: Directly adding it to the **go.mod** file
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 直接添加到 **go.mod** 文件
 - en: Do a **go get**
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 执行 **go get**
 - en: Add the dependency to your source code and do a **go mod tidy**
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将依赖添加到源代码并执行 **go mod tidy**
 - en: Before looking at each of the ways, again let’s create a module first
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在查看每种方式之前，我们先创建一个模块。
 - en: '[PRE0]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This command will create a **go.mod** file in the same directory.  Since it
     is an empty module it doesn’t have any direct dependency specified yet. Now let’s
     explore different ways of adding a dependency
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 此命令将在同一目录下创建 **go.mod** 文件。由于这是一个空模块，因此尚未指定任何直接依赖。现在让我们探索不同的添加依赖方式。
 - en: '**Directly adding it to the go.mod file**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**直接添加到 go.mod 文件**'
 - en: We can  add direct dependency to the go.mod file too. Let’s do that. Add below
     dependency to the **go.mod** file
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们也可以直接将依赖添加到 go.mod 文件中。让我们来做这个。在 **go.mod** 文件中添加以下依赖。
 - en: '[PRE1]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: With this dependency **go.mod** file will look like below
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 有了这个依赖项，**go.mod** 文件看起来如下。
 - en: '[PRE2]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Now we need to download the newly added dependency as well. Fo that we can use
     the below command
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们需要下载新添加的依赖项。我们可以使用以下命令。
 - en: '[PRE3]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This command will download the **github.com/pborman/uuid** module as well all
     its dependencies. Also it will update the **go.sum** file with the checksum and
     version of all direct and indirect dependencies. go build as well as go install
     also will download the dependencies and also build the binary. go run will also
     download and and run the binary as well. go mod download command is used when
     you want to pre download the dependencies without build or running it.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 此命令将下载 **github.com/pborman/uuid** 模块及其所有依赖。此外，它还会更新 **go.sum** 文件，包含所有直接和间接依赖的校验和和版本。go
+    build 和 go install 也会下载依赖并构建二进制文件。go run 也会下载并运行二进制文件。go mod download 命令用于在不构建或运行的情况下预下载依赖。
 - en: '**Do a go get**'
+  id: totrans-32
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**执行 go get**'
 - en: Simply doing a go get will also the add the dependency in the go.mod file. Remove
     the uuid dependency we added above from go.mod file and clean up go.sum file.
     Now run below command
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 只需执行 go get 也会将依赖添加到 go.mod 文件中。将我们之前添加的 uuid 依赖从 go.mod 文件中删除，并清理 go.sum 文件。现在运行以下命令。
 - en: '[PRE4]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Now check the contents of go.mod file. Do a **cat go.mod**
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在检查 go.mod 文件的内容。执行 **cat go.mod**
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: The dependency will be marked as **//indirect** as it is not being used in any
     of the source files. Once you do a go build after using this in the source files,
     the **//indirec**t will be removed automatically by go. Also it will update the
     **go.sum** file with the checksum and version of all direct and indirect dependencies.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 该依赖项将被标记为**//indirect**，因为它没有在任何源文件中使用。使用这个依赖项后，如果你执行`go build`，**//indirect**将会被Go自动移除。同时，它会更新**go.sum**文件，包含所有直接和间接依赖项的校验和与版本。
 - en: '**Add the dependency to your source code and do a go mod tidy**'
+  id: totrans-38
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**将依赖项添加到你的源代码中并执行`go mod tidy`**。'
 - en: This method we already saw in the above example.  Basically, go mod tidy command
     makes sure that your go.mod files reflect the dependencies that you have actually
     used in your project. When we run go mod tidy command then it will do two things
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在上面的例子中已经看到过这个方法。基本上，`go mod tidy`命令确保你的go.mod文件反映出你在项目中实际使用的依赖项。当我们运行`go
+    mod tidy`命令时，它会做两件事情。
 - en: Add any dependency which is imported in the source files
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 添加任何在源文件中导入的依赖项。
 - en: Remove any dependency which is mentioned in the **go.mod** file but not imported
     in any of the source files.
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 移除任何在**go.mod**文件中提到但没有在任何源文件中导入的依赖项。
 - en: Let’s see an example. Remove the dependency we added earlier in the go.mod file.
     Your go.mod file should like below
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。移除我们之前在go.mod文件中添加的依赖项。你的go.mod文件应该如下所示。
 - en: '[PRE6]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Also let’s create a file named **uuid.go** in the same directory with below
     contents
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，让我们在同一目录下创建一个名为**uuid.go**的文件，内容如下。
 - en: '**uuid.go**'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**uuid.go**'
 - en: '[PRE7]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Notice that we have imported the dependency in the uuid.go as well
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，我们在uuid.go中也导入了该依赖项。
 - en: '[PRE8]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Let’s run the below command
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行下面的命令。
 - en: '[PRE9]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: This command will download all the dependencies that are required in your source
     files and update **go.mod** file with that dependency. After running this command
     let’s now let’s again examine the contents of **go.mod** file
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 该命令将下载在你的源文件中所需的所有依赖项，并用该依赖项更新**go.mod**文件。运行此命令后，让我们再次检查**go.mod**文件的内容。
 - en: Do a cat **go.mod**
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 执行`cat go.mod`。
 - en: '[PRE10]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: It lists direct dependency which was specified in the uuid file along with exact
     version of the dependency as well. Now let’s check the **go.sum** file as well.
     Do a cat **go.sum**
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 它列出了在uuid文件中指定的直接依赖项，以及该依赖项的确切版本。现在让我们检查一下**go.sum**文件。执行`cat go.sum`。
 - en: '[PRE11]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Now let’s see one more example where **go mod tidy** will remove the dependency
     from **go.mod** file if it is not required in the source files. To illustrate
     this let’s remove the **uuid.go** file that we created above. Now run the command
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看一个例子，如果依赖项在源文件中不需要，**go mod tidy**将从**go.mod**文件中移除该依赖项。为了说明这一点，让我们移除之前创建的**uuid.go**文件。现在运行该命令。
 - en: '[PRE12]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: It will give below output
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将输出如下。
 - en: '[PRE13]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Now examine the contents of **go.mod** file.  It will be as below
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在检查一下**go.mod**文件的内容。它将如下所示。
 - en: '[PRE14]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: The
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 该
 - en: '[PRE15]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: line will be removed as it is not required in any of the source files. Also
     all entries of **[github.com](http://github.com)/pborman/uuid** and its depedencies
     will be removed from the **go.sum** file as well.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 行将被移除，因为在任何源文件中都不需要它。此外，所有**[github.com](http://github.com)/pborman/uuid**及其依赖项的条目也将从**go.sum**文件中删除。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

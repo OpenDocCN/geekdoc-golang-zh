@@ -1,184 +1,287 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:02:10'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:02:10
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Adapter Design Pattern in Go (GoLang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (GoLang) 中的适配器设计模式
 - en: 来源：[https://golangbyexample.com/adapter-design-pattern-go/](https://golangbyexample.com/adapter-design-pattern-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/adapter-design-pattern-go/](https://golangbyexample.com/adapter-design-pattern-go/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：有兴趣了解所有其他设计模式如何在 GO 中实现。请参见此完整参考 – [Go 中的所有设计模式 (Golang)](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction:](#Introduction "Introduction: ")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍：](#Introduction "Introduction: ")'
 - en: '[When to Use](#When_to_Use "When to Use")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[何时使用](#When_to_Use "When to Use")'
 - en: '[UML Diagram](#UML_Diagram "UML Diagram")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML 图](#UML_Diagram "UML Diagram")'
 - en: '[Mapping ](#Mapping "Mapping ")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射](#Mapping "Mapping ")'
 - en: '[Example:](#Example "Example:")*  *# **Introduction:**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例：](#Example "Example:")*  *# **介绍：**'
 - en: This design pattern is a Structural Design Pattern. The patter is best understood
     with an example. Let’s say you have two laptops
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 此设计模式是一种结构设计模式。该模式通过示例最佳理解。假设你有两台笔记本电脑
 - en: MacBook Pro
+  id: totrans-14
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: MacBook Pro
 - en: Windows Laptop
+  id: totrans-15
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: Windows 笔记本电脑
 - en: MacBook Pro has a USB port that is **square** in shape and Windows have a USB
     port that is **circular** in shape. You as a client have a USB cable that is square
     in shape so it can only be inserted in the mac laptop. So you see the problem
     here
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: MacBook Pro 的 USB 端口是**方形**的，而 Windows 的 USB 端口是**圆形**的。作为客户端，你有一根方形的 USB 电缆，所以只能插入
+    Mac 笔记本电脑。因此，你看到了这里的问题。
 - en: '**Problem:**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**问题：**'
 - en: We have a class (Client) that is expecting some features of an object (square
     USB port here), but we have another object called adaptee (Windows Laptop here)
     which offers the same functionality but through a different interface( circular
     port)
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们有一个类（客户端）期望对象的某些特性（此处为方形 USB 端口），但我们还有另一个称为适配者的对象（此处为 Windows 笔记本电脑），它通过不同的接口（圆形端口）提供相同的功能。
 - en: This is where Adapter Pattern comes into the picture. We create a class known
     as Adapter that will
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是适配器模式派上用场的地方。我们创建一个称为适配器的类，它将
 - en: Adhere to the same interface which client expects ( Square USB port here)
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 遵循客户端期望的相同接口（此处为方形 USB 端口）
 - en: Translate the request from the client to the adaptee in the form that adaptee
     expects. Basically, in our example act as an adapter that accepts USB in square
     port and then inserts into circular port in windows laptop.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将客户端的请求转换为适配者所期望的形式。基本上，在我们的示例中，充当一个接受方形 USB 端口并将其插入 Windows 笔记本电脑的圆形端口的适配器。
 - en: '**When to Use**'
+  id: totrans-22
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**何时使用**'
 - en: Use this design pattern when the objects implement a different interface as
     required by the client.
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当对象实现与客户端要求不同的接口时，请使用此设计模式。
 - en: '**UML Diagram**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**UML 图**'
 - en: '![](img/6632e3859f160ee0d25f02db10d4c996.png)'
+  id: totrans-25
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/6632e3859f160ee0d25f02db10d4c996.png)'
 - en: Below is the corresponding mapping UML diagram with the example given above
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是与上述示例对应的映射 UML 图
 - en: '![](img/d950f0f1c8f9c52eefd01e3dcb144658.png)'
+  id: totrans-27
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/d950f0f1c8f9c52eefd01e3dcb144658.png)'
 - en: '**Mapping **'
+  id: totrans-28
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**映射**'
 - en: The below table represents the mapping from the UML diagram actors to actual
     implementation actors in code.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的表格表示 UML 图中的参与者与代码中实际实现的参与者之间的映射。
 - en: '| Target | computer.go |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| 目标 | computer.go |'
 - en: '| Concrete Prototype 1 | mac.go |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| 具体原型 1 | mac.go |'
 - en: '| Concrete Prototype 2 (Adapter) | windowsAdapter.go |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| 具体原型 2 (适配器) | windowsAdapter.go |'
 - en: '| adaptee | windows.go |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| 适配者 | windows.go |'
 - en: '| client | client.go |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| 客户端 | client.go |'
 - en: '**Example**:'
+  id: totrans-35
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**：'
 - en: '**computer.go**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**computer.go**'
 - en: '[PRE0]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**mac.go**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**mac.go**'
 - en: '[PRE1]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**windowsAdapter.go**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**windowsAdapter.go**'
 - en: '[PRE2]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**windows.go**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**windows.go**'
 - en: '[PRE3]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**client.go**'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**client.go**'
 - en: '[PRE4]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**main.go**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE5]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[adapter](https://golangbyexample.com/tag/adapter/)*   [adapter design pattern](https://golangbyexample.com/tag/adapter-design-pattern/)*   [design](https://golangbyexample.com/tag/design/)*   [design
     pattern](https://golangbyexample.com/tag/design-pattern/)*'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[适配器](https://golangbyexample.com/tag/adapter/)*   [适配器设计模式](https://golangbyexample.com/tag/adapter-design-pattern/)*   [设计](https://golangbyexample.com/tag/design/)*   [设计模式](https://golangbyexample.com/tag/design-pattern/)*'

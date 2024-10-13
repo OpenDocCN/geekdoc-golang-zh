@@ -1,108 +1,162 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:00:55'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:00:55
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Abstract Class in GO: Complete Guide'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: GO中的抽象类：完整指南
 - en: 来源：[https://golangbyexample.com/go-abstract-class/](https://golangbyexample.com/go-abstract-class/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-abstract-class/](https://golangbyexample.com/go-abstract-class/)
 - en: 'Go Interface doesn’t have fields and also it doesn’t allow the definition of
     methods inside it. Any type needs to implements all methods of interface to become
     of that interface type. There are use cases where it is useful to have a default
     implementation of a method and also default fields in GO. Before understanding
     how to do it lets first understand the requirements of an abstract class:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: Go接口没有字段，也不允许在其中定义方法。任何类型都需要实现接口的所有方法才能成为该接口类型。有些用例中，提供方法的默认实现和默认字段在GO中是有用的。在理解如何实现之前，首先让我们了解抽象类的要求：
 - en: Abstract class should have default fields
+  id: totrans-7
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 抽象类应该有默认字段
 - en: Abstract class should have the default method
+  id: totrans-8
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 抽象类应该有默认方法
 - en: It should not be possible to create a direct instance of the abstract class
+  id: totrans-9
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 不应该能够直接创建抽象类的实例。
 - en: 'We will use a combination of a **interface (abstract interface)** and **struct
     (abstract concrete type).** Together they can provide the functionalities of an
     abstract class. See the below program:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将使用**接口（抽象接口）**和**结构（抽象具体类型）**的组合。它们可以提供抽象类的功能。请参见下面的程序：
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'Output:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出：
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'In above program:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中：
 - en: We created an abstract interface **iAlpha**, an abstract concrete struct **alpha,**
     and an implementor struct **beta**
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们创建了一个抽象接口**iAlpha**、一个抽象具体结构**alpha**和一个实现者结构**beta**。
 - en: '**alpha** struct is embedded in **beta** struct'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**alpha**结构嵌入在**beta**结构中。'
 - en: The beta struct is able to access default field **“name”**
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: beta结构能够访问默认字段**“name”**
 - en: The beta struct is able to access the default method **“common”**
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: beta结构能够访问默认方法**“common”**
 - en: It is not able to create a direct instance of **iAlpha ** as **alpha** struct
     only implement only one of the method of **iAlpha.**
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 无法创建**iAlpha**的直接实例，因为**alpha**结构仅实现了**iAlpha**的一个方法。
 - en: So it fulfills all three requirements but there is also one limitation of the
     above method. It is not possible to call the “**work**” method from **“common”**
     method of alpha. Basically there is no way to call an undefined method of the
     abstract interface from default methods of an abstract concrete type. There is
     one way to fix it, though. See below program
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此它满足所有三个要求，但上述方法也有一个限制。无法从alpha的**“common”**方法调用**“work”**方法。基本上，无法从抽象具体类型的默认方法调用抽象接口的未定义方法。不过，有一种方法可以解决这个问题。请参见下面的程序。
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'Output:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出：
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 'In the above program:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中：
 - en: We created a new field **“work”** of type func in alpha
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们在alpha中创建了一个类型为func的新字段**“work”**
 - en: We assigned alpha’s **“work”** method to beta **“work”** method
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将alpha的**“work”**方法赋值给beta的**“work”**方法
 - en: The only problem with the above program is that it is possible to create a direct
     instantiation of **alpha** struct and by providing the definition of **work**
     method, an instance of type **iAlpha** is created. This violates point 3 of the
@@ -110,32 +164,48 @@
     to create a type of **iAlpha.** Let’s try to fix this problem. The below program
     additionally also solves the problem where it was not possible to call the undefined
     methods from default methods.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序唯一的问题是可以直接实例化**alpha**结构，并通过提供**work**方法的定义，创建类型为**iAlpha**的实例。这违反了上述抽象类要求的第3点，因为在未创建我们自己的新类型的情况下，我们能够创建**iAlpha**的类型。让我们尝试解决这个问题。下面的程序还解决了无法从默认方法调用未定义方法的问题。
 - en: '[PRE4]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 'Output:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出：
 - en: '[PRE5]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'In the above program:'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中：
 - en: All the default methods will accept the first argument of interface type **iAlpha.**
     All the undefined methods of **alpha** struct will be called using this argument
     from default methods.
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 所有默认方法将接受接口类型**iAlpha**的第一个参数。所有**alpha**结构的未定义方法将通过从默认方法传入的这个参数进行调用。
 - en: '**Conclusion:** We can see in the above program that we are able to fulfill
     all three requirements of an abstract class. This is one of the ways to simulate
     abstract class in GO.'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**结论：** 我们可以在上述程序中看到，能够满足抽象类的所有三个要求。这是模拟GO中抽象类的一种方法。'
 - en: '[abstract](https://golangbyexample.com/tag/abstract/)*   [abstract class](https://golangbyexample.com/tag/abstract-class/)*   [class](https://golangbyexample.com/tag/class/)*   [complete](https://golangbyexample.com/tag/complete/)*   [go](https://golangbyexample.com/tag/go/)*   [guide](https://golangbyexample.com/tag/guide/)*   [oop](https://golangbyexample.com/tag/oop/)'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[抽象](https://golangbyexample.com/tag/abstract/)*   [抽象类](https://golangbyexample.com/tag/abstract-class/)*   [类](https://golangbyexample.com/tag/class/)*   [完整](https://golangbyexample.com/tag/complete/)*   [Go](https://golangbyexample.com/tag/go/)*   [指南](https://golangbyexample.com/tag/guide/)*   [面向对象编程](https://golangbyexample.com/tag/oop/)'

@@ -1,119 +1,191 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:36:41'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:36:41
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Alternation (OR) of regexes in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的正则表达式的交替（OR）
 - en: 来源：[https://golangbyexample.com/alternation-regex-golang/](https://golangbyexample.com/alternation-regex-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/alternation-regex-golang/](https://golangbyexample.com/alternation-regex-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: It is similar to OR operation. Join two regexes by using the | operator. If
     there are two regexes **r1** and **r2**, then alternation is represented as below
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 它类似于OR操作。通过使用|运算符连接两个正则表达式。如果有两个正则表达式**r1**和**r2**，则交替表示如下
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It will either match **r1** or **r2** with preference given to **rq**. Basically,
     if string **s** matches regex **r1** and string **t** matches regex **r2**, then
     **r1|r2** will match **s** or **t**.  What does it mean when we say that preference
     will be given to **r1**. It means that if in the given sample string it will try
     to match **r1** first and if **r1** is not found, it will try to match **r2**.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将匹配**r1**或**r2**，优先考虑**r1**。基本上，如果字符串**s**匹配正则表达式**r1**，字符串**t**匹配正则表达式**r2**，那么**r1|r2**将匹配**s**或**t**。当我们说将优先考虑**r1**时，这意味着如果在给定的样本字符串中，首先会尝试匹配**r1**，如果找不到**r1**，则会尝试匹配**r2**。
 - en: '**Program**'
+  id: totrans-12
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: It matches
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 它匹配
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: It also matches.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 它也匹配。
 - en: '[PRE4]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: This is because it matches the prefix **“abc”** and gives a true match.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是因为它匹配前缀**“abc”**并给出了真实匹配。
 - en: Also, it does not match
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，它不匹配
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Alternation can also be between more than 2 regexes. Below is an example for
     the same
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 交替也可以在超过两个正则表达式之间进行。下面是一个示例
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: It matches
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 它匹配
 - en: '[PRE8]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: It also matches
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 它也匹配
 - en: '[PRE9]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: This is because it matches the prefix **“abc”** and gives a true match.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是因为它匹配前缀**“abc”**并给出了真实匹配。
 - en: Also, it does not match
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，它不匹配
 - en: '[PRE10]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请查看我们的Golang高级教程系列——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

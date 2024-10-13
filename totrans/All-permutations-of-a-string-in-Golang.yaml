@@ -1,45 +1,69 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:13:19'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:13:19
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: All permutations of a string in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中字符串的所有排列
 - en: 来源：[https://golangbyexample.com/all-permutations-string-golang/](https://golangbyexample.com/all-permutations-string-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/all-permutations-string-golang/](https://golangbyexample.com/all-permutations-string-golang/)
 - en: In Golang string is a sequence of bytes. A string literal actually represents
     a UTF-8 sequence of bytes. In UTF-8, ASCII characters are single-byte corresponding
     to the first 128 Unicode characters. All other characters are between 1 -4 bytes.
     Due to this, it is not possible to index a character in a string.  In GO, rune
     data type represents a Unicode point.  Once a string is converted to an array
     of rune then it is possible to index a character in that array of **rune**.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中，字符串是一系列字节。字符串字面量实际上表示的是UTF-8字节序列。在UTF-8中，ASCII字符是单字节，对应前128个Unicode字符。所有其他字符的字节数在1到4之间。因此，不可能在字符串中对字符进行索引。在GO中，rune数据类型表示一个Unicode点。一旦字符串被转换为rune数组，就可以对该数组中的字符进行索引。
 - en: You can learn more about rune here – [https://golangbyexample.com/understanding-rune-in-golang](https://golangbyexample.com/understanding-rune-in-golang)
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在这里了解更多关于符文的信息 – [https://golangbyexample.com/understanding-rune-in-golang](https://golangbyexample.com/understanding-rune-in-golang)
 - en: For this reason in below program for generating permutations we are first converting
     a string into a rune array so that we can index the rune array to get the individual
     characters.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 出于这个原因，在下面的程序中生成排列时，我们首先将字符串转换为rune数组，以便能够对rune数组进行索引，从而获取单个字符。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'

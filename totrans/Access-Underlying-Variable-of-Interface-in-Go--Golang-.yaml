@@ -1,181 +1,283 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:23:01'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:23:01
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Access Underlying Variable of Interface in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go语言（Golang）中访问接口的基础变量
 - en: 来源：[https://golangbyexample.com/access-underlying-type-interface-golang/](https://golangbyexample.com/access-underlying-type-interface-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/access-underlying-type-interface-golang/](https://golangbyexample.com/access-underlying-type-interface-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Type Assertion](#Type_Assertion "Type Assertion")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[类型断言](#Type_Assertion "Type Assertion")'
 - en: '[Type Switch](#Type_Switch "Type Switch")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[类型切换](#Type_Switch "Type Switch")*  *# **概述**'
 - en: Like any other variable, an interface variable is represented by a type and
     value. Interface value, in turn under the hood, consists of two tuple
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 像其他任何变量一样，接口变量由类型和值表示。接口值在底层由两个元组组成。
 - en: Underlying Type
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 基础类型
 - en: Underlying Value
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 基础值
 - en: See below diagram which illustrates what we mentioned above
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 请查看下面的图示，说明我们上面提到的内容。
 - en: '![](img/e09464771d53171817cfeecf9da6a93e.png)'
+  id: totrans-14
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/e09464771d53171817cfeecf9da6a93e.png)'
 - en: The underlying variable of an interface can be accessed in two ways
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 接口的基础变量可以通过两种方式访问。
 - en: Type Assertion
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类型断言
 - en: Type Switch
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类型切换
 - en: '**Type Assertion**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**类型断言**'
 - en: Type assertion provides a way to access the underlying variable inside the interface
     value of the interface by asserting the correct type of underlying value. Below
     is the syntax for that where i is an interface.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 类型断言提供了一种通过断言正确的基础值类型来访问接口值内部的基础变量的方法。下面是该语法，其中i是一个接口。
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The above statement is asserting that the type of underlying value in the interface
     is of type {type}. If this is true then the underlying value is assigned to **val.**
     If not then the above statement panics.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述语句正在断言接口中的基础值的类型为{type}。如果这是真的，那么基础值将被赋值给**val.**如果不是，则上述语句会导致恐慌。
 - en: Assume we have an interface **animal** as below
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有如下的接口**动物**：
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: We also have a **lion** struct implementing this **animal** interface
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还有一个实现了**动物**接口的**狮子**结构体。
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Code**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE3]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: This is how we assert the variable **a** of type **animal** to have underlying
     type as **lion**.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是我们如何将类型为**动物**的变量**a**断言为具有基础类型**狮子**。
 - en: '[PRE5]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Below line will create a panic as underlying type is **lion** and not **dog**.
     Uncomment the line to check it out
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的行将导致恐慌，因为基础类型是**狮子**而不是**狗**。取消注释该行以查看。
 - en: '[PRE6]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Type assertion provides another way to get the underlying value and which also
     prevents a panic. The syntax for that is
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 类型断言提供了另一种获取基础值的方法，也能防止恐慌。其语法为：
 - en: '[PRE7]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: In this case type assertion returns two values, first value is same as discussed
     above , the other value is a boolean indicating weather the type assertion was
     correct or not. This value is
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，类型断言返回两个值，第一个值与上面讨论的相同，另一个值是布尔值，表示类型断言是否正确。这个值是
 - en: true if the type assertion is correct meaning the type asserted is same as underlying
     type
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果类型断言正确，则为真，这意味着断言的类型与基础类型相同。
 - en: false if the type assertion fails.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果类型断言失败则为假。
 - en: So the second is a good way of doing type assertion since it prevents a panic.
     Let’s see an example
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以第二种方法是进行类型断言的好方法，因为它可以防止恐慌。让我们来看一个例子。
 - en: '[PRE8]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Let’s move on to type switch now.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们现在继续讨论类型切换。
 - en: '**Type Switch**'
+  id: totrans-44
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**类型切换**'
 - en: Type switch enables us to do above type assertion in series. See below code
     example for the same
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 类型切换使我们能够逐个进行上述类型断言。请查看下面的代码示例。
 - en: '[PRE10]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output:**'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE11]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: In the code above, using the type switch we determine the type of value contained
     in  interface variable **a** is **lion** or **dog** or some other type. It is
     also ok to add more different types in case statement
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的代码中，通过使用类型切换，我们确定接口变量**a**中包含的值的类型是**狮子**或**狗**或其他某种类型。如果需要，可以在案例语句中添加更多不同的类型。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

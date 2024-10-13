@@ -1,164 +1,246 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:40:47'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:40:47
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: All Data Structures in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的所有数据结构
 - en: 来源：[https://golangbyexample.com/all-data-structures-golang/](https://golangbyexample.com/all-data-structures-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/all-data-structures-golang/](https://golangbyexample.com/all-data-structures-golang/)
 - en: '**Data Structures in Golang**'
+  id: totrans-6
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**Go语言中的数据结构**'
 - en: '[Queue](https://golangbyexample.com/queue-in-golang/)'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[队列](https://golangbyexample.com/queue-in-golang/)'
 - en: '[Stack](https://golangbyexample.com/stack-in-golang/)'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[栈](https://golangbyexample.com/stack-in-golang/)'
 - en: '[Set](https://golangbyexample.com/set-implementation-in-golang/)'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[集合](https://golangbyexample.com/set-implementation-in-golang/)'
 - en: '[Linked List](https://golangbyexample.com/singly-linked-list-in-golang/)'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[链表](https://golangbyexample.com/singly-linked-list-in-golang/)'
 - en: '[Doubly Linked List](https://golangbyexample.com/doubly-linked-list-golang/)'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[双向链表](https://golangbyexample.com/doubly-linked-list-golang/)'
 - en: Binary Search Tree
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 二叉搜索树
 - en: '[Recursive](https://golangbyexample.com/binary-search-tree-in-go)'
+  id: totrans-13
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[递归](https://golangbyexample.com/binary-search-tree-in-go)'
 - en: '[Iterative](https://golangbyexample.com/iterative-binary-search-tree-go/)'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[迭代法](https://golangbyexample.com/iterative-binary-search-tree-go/)'
 - en: Heap
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 堆
 - en: '[Minheap](https://golangbyexample.com/minheap-in-golang/)'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[最小堆](https://golangbyexample.com/minheap-in-golang/)'
 - en: '[Maxheap](https://golangbyexample.com/maxheap-in-golang/)'
+  id: totrans-17
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[最大堆](https://golangbyexample.com/maxheap-in-golang/)'
 - en: '[Trie](https://golangbyexample.com/trie-implementation-in-go/)'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[字典树](https://golangbyexample.com/trie-implementation-in-go/)'
 - en: '**Sorting Algorithms**'
+  id: totrans-19
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**排序算法**'
 - en: '[Heap Sort](https://golangbyexample.com/heapsort-in-golang)'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[堆排序](https://golangbyexample.com/heapsort-in-golang)'
 - en: '[Insertion Sort](https://golangbyexample.com/insertion-sort-in-go/)'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[插入排序](https://golangbyexample.com/insertion-sort-in-go/)'
 - en: '[Selection Sort](https://golangbyexample.com/go-selection-sort/)'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[选择排序](https://golangbyexample.com/go-selection-sort/)'
 - en: '[Bubble Sort](https://golangbyexample.com/go-bubble-sort/)'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[冒泡排序](https://golangbyexample.com/go-bubble-sort/)'
 - en: Integers
+  id: totrans-24
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 整数
 - en: '[Reverse a number or an integer in Go (Golang)](https://golangbyexample.com/reverse-number-golang/)'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在Go语言中反转一个数字或整数](https://golangbyexample.com/reverse-number-golang/)'
 - en: String
+  id: totrans-26
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 字符串
 - en: '[Longest substring without repeating characters program in Golang](https://golangbyexample.com/longest-substring-without-repeating-characters-golang/)'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在Go语言中找出最长不重复字符的子串程序](https://golangbyexample.com/longest-substring-without-repeating-characters-golang/)'
 - en: '[Longest Palindromic Substring within a string in Go (Golang)](https://golangbyexample.com/longest-palindromic-substring-go/)'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在Go语言中找出字符串内最长回文子串](https://golangbyexample.com/longest-palindromic-substring-go/)'
 - en: Array
+  id: totrans-29
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 数组
 - en: '[Find two numbers in an array that adds up to a target number in Go (Golang)](https://golangbyexample.com/target-sum-golang/)'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在数组中找到两个加起来等于目标数字的数（Go语言）](https://golangbyexample.com/target-sum-golang/)'
 - en: '[Medium of two sorted arrays in Go (Golang)](https://golangbyexample.com/medium-two-sorted-arrays-golang/)'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在Go语言中找出两个已排序数组的中位数](https://golangbyexample.com/medium-two-sorted-arrays-golang/)'
 - en: Linked List
+  id: totrans-32
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 链表
 - en: '[Convert singly linked list into an array using Golang](https://golangbyexample.com/linked-list-array-go/)'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用Go语言将单链表转换为数组](https://golangbyexample.com/linked-list-array-go/)'
 - en: '[Convert singly linked list into a circular linked list using Golang](https://golangbyexample.com/single-linked-list-circular-golang/)'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用Go语言将单链表转换为循环链表](https://golangbyexample.com/single-linked-list-circular-golang/)'
 - en: '[Check if a linked list is circular in Golang](https://golangbyexample.com/linked-list-is-circular-go/)'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[检查链表是否是循环链表（Go语言）](https://golangbyexample.com/linked-list-is-circular-go/)'
 - en: '[Delete a kth node from the front in a Singly Linked List in Golang](https://golangbyexample.com/kth-node-front-linked-list-golang/)'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在单链表中删除前面第k个节点（Go语言）](https://golangbyexample.com/kth-node-front-linked-list-golang/)'
 - en: '[Delete a kth node from back in a Singly Linked List in Go (Golang)](https://golangbyexample.com/delete-kth-node-back-linked-list-golang/)'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在单链表中删除倒数第k个节点（Go语言）](https://golangbyexample.com/delete-kth-node-back-linked-list-golang/)'
 - en: '[Reverse Doubly Linked List in Go](https://golangbyexample.com/reverse-doubly-linked-list-golang/)'
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在Go语言中反转双向链表](https://golangbyexample.com/reverse-doubly-linked-list-golang/)'
 - en: '[Add two numbers represented by linked list in Golang](https://golangbyexample.com/add-numbers-linked-list-golang/)'
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在Go语言中加两个由链表表示的数字](https://golangbyexample.com/add-numbers-linked-list-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)'

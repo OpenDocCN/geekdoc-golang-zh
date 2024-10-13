@@ -1,144 +1,228 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:01:47'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:01:47
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Abstract Factory Design Pattern in Go
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的抽象工厂设计模式
 - en: 来源：[https://golangbyexample.com/abstract-factory-design-pattern-go/](https://golangbyexample.com/abstract-factory-design-pattern-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/abstract-factory-design-pattern-go/](https://golangbyexample.com/abstract-factory-design-pattern-go/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：如果你对如何在GO中实现所有其他设计模式感兴趣，请查看这个完整参考 – [Go中的所有设计模式 (Golang)](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Definition:](#Definition "Definition:")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [定义：](#Definition "Definition:")'
 - en: '[Code:](#Code "Code:")*  *## **Definition:**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")*  *## **定义：**'
 - en: Abstract Factory Design Pattern is a creational design pattern that lets you
     create a family of related objects. It is an abstraction over the factory pattern.
     It is best explained with an example. Let’s say we have two factories
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 抽象工厂设计模式是一种创建型设计模式，它允许你创建一组相关的对象。它是工厂模式的抽象化。最好用一个例子来解释。假设我们有两个工厂
 - en: '**nike**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**nike**'
 - en: '**adidas**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**adidas**'
 - en: Imagine you need to buy a sports kit which has a **shoe** and **short**. Preferably
     most of the time you would want to buy a full sports kit of a similar factory
     i.e either **nike** or **adidas.** This is where the abstract factory comes into
     the picture as concrete products that you want is **shoe** and a **short** and
     these products will be created by the abstract factory of **nike** and **adidas.**
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 想象一下，你需要购买一个包含**鞋**和**短裤**的运动装备。通常情况下，你会想要购买一个同一工厂的完整运动装备，即**nike**或**adidas**。这就是抽象工厂发挥作用的地方，因为你想要的具体产品是**鞋**和**短裤**，这些产品将由**nike**和**adidas**的抽象工厂创建。
 - en: Both these two factories – **nike** and **adidas** implement **iSportsFactory**
     interface.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 这两个工厂——**nike**和**adidas**实现了**iSportsFactory**接口。
 - en: We have two product interfaces.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们有两个产品接口。
 - en: '**iShoe** – this interface is implemented by **nikeShoe** and **adidasShoe**
     concrete product.'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**iShoe** – 该接口由**nikeShoe**和**adidasShoe**具体产品实现。'
 - en: '**iShort** – this interface is implemented by **nikeShort** and **adidasShort**
     concrete product.'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**iShort** – 该接口由**nikeShort**和**adidasShort**具体产品实现。'
 - en: Now let’s look at code
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看代码
 - en: '**Code:**'
+  id: totrans-19
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '**iSportsFactory.go**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**iSportsFactory.go**'
 - en: '[PRE0]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**adidas.go**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**adidas.go**'
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**nike.go**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**nike.go**'
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**iShoe.go**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**iShoe.go**'
 - en: '[PRE3]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**adidasShoe.go**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**adidasShoe.go**'
 - en: '[PRE4]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**nikeShoe.go**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**nikeShoe.go**'
 - en: '[PRE5]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**iShort.go**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**iShort.go**'
 - en: '[PRE6]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**adidasShort.go**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**adidasShort.go**'
 - en: '[PRE7]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**nikeShort.go**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**nikeShort.go**'
 - en: '[PRE8]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**main.go**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE9]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output:**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE10]*'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE10]*'

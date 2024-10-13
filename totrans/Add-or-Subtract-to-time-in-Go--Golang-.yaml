@@ -1,92 +1,145 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:08:26'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:08:26
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Add or Subtract to time in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中加或减时间
 - en: 来源：[https://golangbyexample.com/add-or-subtract-to-time-go/](https://golangbyexample.com/add-or-subtract-to-time-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/add-or-subtract-to-time-go/](https://golangbyexample.com/add-or-subtract-to-time-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概览](#Overview "Overview")'
 - en: '[Add to time](#Add_to_time "Add to time ")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Add to time](#Add_to_time "Add to time ")'
 - en: '[Subtract to time](#Subtract_to_time "Subtract to time")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Subtract to time](#Subtract_to_time "Subtract to time")*  *# **概览**'
 - en: '**time** package in golang defines two ways of adding or subtracting to a time.'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: golang 中的 **time** 包定义了两种添加或减去时间的方法。
 - en: '**Add** function – It is used to **add/subtract** a **duration** to **time**
     t. Since **duration** can be represented in hours, minutes, seconds, milliseconds,
     microseconds and nanoseconds, therefore **Add** function can be used to add/subtract
     hours, minutes, seconds, milliseconds, microseconds and nanoseconds from a time.
     Its signature is'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Add** 函数 – 用于 **添加/减去** 一个 **持续时间** 到 **时间** t。由于 **持续时间** 可以用小时、分钟、秒、毫秒、微秒和纳秒表示，因此
+    **Add** 函数可以用于从时间中添加/减去这些单位。它的签名是'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**AddDate** function – It is used to add/subtract years, months and days to
     time t. Its signature is'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**AddDate** 函数 – 用于给时间 t 添加/减去年份、月份和天数。它的签名是'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'Note: Positive values are used to add to time and negative values are used
     to subtract. Let’s see a working example of Add and Subtract to time.'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：正值用于加时间，负值用于减时间。让我们看一个关于加减时间的工作示例。
 - en: '**Add to time**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**加时间**'
 - en: Below code can be used to add to time
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下代码可以用于加时间
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Subtract to time**'
+  id: totrans-21
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**减去时间**'
 - en: Below code can be used to subtract to time
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下代码可以用于减去时间
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]*'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE5]*'

@@ -1,209 +1,272 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
 - en: 'date: 2024-10-13 06:25:25'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
 - en: Error in Go (Golang)- Advanced
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: 来源：[https://golangbyexample.com/error-in-golang-advanced/](https://golangbyexample.com/error-in-golang-advanced/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
 - en: This is the  chapter 27 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
 - en: '**Next Tutorial** – [Panic and Recover](https://golangbyexample.com/panic-and-recover-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
 - en: '**Previous Tutorial** – [Error – Part 1](https://golangbyexample.com/error-in-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
 - en: '[Wrapping of error](#Wrapping_of_error "Wrapping of error")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Unwrap an error](#Unwrap_an_error "Unwrap an error")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Check if two error are equal](#Check_if_two_error_are_equal "Check if two
     error are equal")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Using the equality operator (==)](#Using_the_equality_operator "Using the
     equality operator (==)")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Using the Is function of errors package](#Using_the_Is_function_of_errors_package
     "Using the Is function of errors package")'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Get the underlying error from an error represented by the error interface](#Get_the_underlying_error_from_an_error_represented_by_the_error_interface
     "Get the underlying error from an error represented by the error interface")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Using the .({type}) assert](#Using_the_type_assert "Using the .({type}) assert")'
+  id: totrans-18
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Using the As function of errors package](#Using_the_As_function_of_errors_package
     "Using the As function of errors package")'
+  id: totrans-19
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: In the article we will be covering the advanced topics related to error in go.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
 - en: Wrapping and un-wrapping errors
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Error comparison
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Extract underlying type from error
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**As** and **Is** function of errors package'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Please refer to link below first which starts with basics of **error** in go.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
 - en: '[https://golangbyexample.com/error-in-golang/](https://golangbyexample.com/error-in-golang/)'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
 - en: 'That article will cover basic things about error such as:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
 - en: Overview of error
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Error interface
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Different ways of creating an error.
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Ignoring errors
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**Wrapping of error**'
+  id: totrans-33
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: In go, error can wrap another error as well.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
 - en: What does wrapping of error mean? It means to create a hierarchy of errors in
     which a  particular instance of error wraps another error and that particular
     instance itself can be wrapped inside another error.  Below is the syntax for
     wrapping an error
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE0]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**%w** directive Is used for wrapping the error.  The **fmt.Errorf **should
     be called with only one %w directive. Let’s see an example.'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE1]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE2]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program, we created a struct **errorOne** that has an **Error**
     method hence it implements the **error** interface. Then we created an instance
     of the **errorOne** struct named **e1**. Then we wrapped that instance **e1**
     into another error **e2** like this
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE3]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Then we wrapped **e2** into **e3** like below.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE4]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: So so we created a hierarchy of errors in which **e3** wraps **e2** and **e2**
     wraps **e1**.  Thus **e3** also wraps **e1** transitively. When we print **e2 **
     it also prints the error from **e1** and gives the output.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE5]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: When we print **e3** it prints the error from **e2** as well as **e1** and gives
     the output.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE6]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Now the question which comes to the mind that whats the use case of wrapping
     the errors. To understand it let’s see an example
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE7]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE8]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In the above program, we have a function **checkPostiveAndEven** that checks
     whether a number is even and positive. In turns, it calls the **checkEven** function
     to check if the number is even. And then it calls **checkPositive** function to
     check if the number is positive. If a number is not even and positive it an error
     is raised.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
 - en: In the above program it is impossible to tell stack trace of the error. We know
@@ -212,127 +275,176 @@
     where wrapping the error comes in the picture.  This becomes more useful when
     the project is big and there are a lot of functions calling each other.  Let’s
     rewrite the program by wrapping the error.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE9]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE10]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: The above program is same as the previous program just that in the **checkPostiveAndEven**
     function , we wrap the errors like below.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE11]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: So the output is more clear and the error is more informative. The output clearly
     mentions the sequence of calling as well
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE12]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Unwrap an error**'
+  id: totrans-62
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: In the above section, we studied about wrapping the error. It is also possible
     to unwrap the error. Unwrap function of errors package can be used to unwrap an
     error. Below is the syntax of the function.
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE13]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: If the **err** wraps another error, then the wrapped error will be returned
     otherwise **Unwrap** function will return nil.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
 - en: Let’s see a program to illustrate the same
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE14]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output**'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE15]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: In the above program, we created a struct **errorOne** that has an **Error**
     method hence it implements the **error** interface. Then we created an instance
     of the **errorOne** struct named **e1**. Then we wrapped that instance **e1**
     into another error **e2** like this
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE16]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: Then we wrapped **e2** into **e3** like below.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE17]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Hence
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE18]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: will return wrapped error **e2** as **e3** wraps **e2** and output will be
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE19]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: While
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE20]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: will output nil as **e1** does not wraps any error
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE21]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Check if two error are equal**'
+  id: totrans-82
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: First of all, what is meant by equality of the error?  As you already know that
     error is represented by the error interface in go. In go, two interfaces are equal
     if
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
 - en: Both refer to the same underlying type
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: The underlying value is equal (or both nil)
+  id: totrans-85
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: So above two points apply for comparing the error as well. There are two ways
     of checking if given errors are equal
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
 - en: Using the equality operator (==)
+  id: totrans-87
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
 - en: '**==** operator ca be used to compare two error in golang'
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
 - en: Using the **Is** function of errors package
+  id: totrans-89
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
@@ -341,56 +453,76 @@
     by unwrapping the first error sequentially and matches it with target error at
     each step of unwrap. We will see an example later on to fully understand why it
     is preferable. Below is the syntax of Is function.'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE22]'
+  id: totrans-91
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: Let’s see an example
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE23]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Output**'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE24]'
+  id: totrans-95
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: In the above program, we created **errorOne** struct which defines the **Error**
     method hence implement the **error** interface.  We created **err1**  variable
     which is an instance of **errorOne** struct. We also created a **do()** function
     which raises an error of type **errorOne** and that is captured in **err2** variable
     in the main function
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
 - en: Then we are comparing two errors using
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
 - en: Using the equality operator
+  id: totrans-98
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE25]'
+  id: totrans-99
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: Using the **Is** function of errors package
+  id: totrans-100
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE26]'
+  id: totrans-101
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: Both the method correctly output that the error is equal as both **err1** and
     **err2**
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
 - en: Refer to same underlying type which is **errorOne**
+  id: totrans-103
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Have the same underlying value
+  id: totrans-104
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
@@ -398,69 +530,95 @@
     operator because it checks for equality by unwrapping the first error sequentially
     and matches it with the target error at each step of unwrap. Let’s see an example
     of that
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE27]'
+  id: totrans-106
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: '**Output**'
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE28]'
+  id: totrans-108
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: The above program is almost same as the previous program just the difference
     being that in the **do()** function we are wrapping the error as well
+  id: totrans-109
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE29]'
+  id: totrans-110
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: The equality operator outputs
+  id: totrans-111
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE30]'
+  id: totrans-112
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: While **Is** function outputs
+  id: totrans-113
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE31]'
+  id: totrans-114
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE31]'
 - en: This is because the **err2** returned wraps an instance of  **errorOne** which
     is not catched by the equality operator but is catched by **Is** function
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
 - en: '**Get the underlying error from an error represented by the error interfac**e'
+  id: totrans-116
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: There are two ways of getting the underlying type
+  id: totrans-117
   prefs: []
   type: TYPE_NORMAL
 - en: Using the .({type}) assert
+  id: totrans-118
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
 - en: If the assert succeeds then it will return the corresponding error otherwise
     it will panic. Below is the syntax
+  id: totrans-119
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE32]'
+  id: totrans-120
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE32]'
 - en: Better to use **ok** variable to prevent panic in case assertion fails.  Below
     is the syntax for that. The **ok** variable will be set to true if  error underlying
     type is correct
+  id: totrans-121
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE33]'
+  id: totrans-122
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE33]'
 - en: '**Using the As function of errors package**'
+  id: totrans-123
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
@@ -468,106 +626,158 @@
     function is preferable to using the .({type}) assert because it checks for match
     by unwrapping the first error sequentially and matches it with target error at
     each step of unwrap. Below is the syntax of Is function'
+  id: totrans-124
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE34]'
+  id: totrans-125
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE34]'
 - en: '**As** function will find the first error in the first argument which can match
     the target. Once a match is found it will set target to that error value.'
+  id: totrans-126
   prefs: []
   type: TYPE_NORMAL
 - en: Let’s see an example
+  id: totrans-127
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE35]'
+  id: totrans-128
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE35]'
 - en: '**Output:**'
+  id: totrans-129
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE36]'
+  id: totrans-130
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE36]'
 - en: In the above program, we have a function openFile in which we are trying to
     open a non-existing type hence it will raise an error. Then we are asserting 
     the error in two ways
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
 - en: Using . assert operator. The **ok** variable will be set to true if  error underlying
     type is ***os.PathError** otherwise it will be set to false
+  id: totrans-132
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[PRE37]'
+  id: totrans-133
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE37]'
 - en: Using the **As** function of errors package
+  id: totrans-134
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用errors包的**As**函数
 - en: '[PRE38]'
+  id: totrans-135
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE38]'
 - en: Both the method correctly assert that the error is of type ***os.PathError**
     as error returned by the **openFile** function is of type ***os.PathError**
+  id: totrans-136
   prefs: []
   type: TYPE_NORMAL
+  zh: 两种方法都正确地断言错误为类型***os.PathError**，因为**openFile**函数返回的错误是类型***os.PathError**。
 - en: We mentioned above that using **As** function is preferable to using the .({type})
     assert because it checks for a match by unwrapping the first error sequentially
     and matches it with the target error at each step of unwrap. Let’s see an example
     to understand that
+  id: totrans-137
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们上面提到，使用**As**函数比使用.({type})断言更可取，因为它通过顺序解包第一个错误并在每一步解包时与目标错误进行匹配。让我们看一个例子来理解这一点。
 - en: '[PRE39]'
+  id: totrans-138
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE39]'
 - en: '**Output:**'
+  id: totrans-139
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE40]'
+  id: totrans-140
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE40]'
 - en: The above program is almost same as the previous program just the difference
     being that in the **openFile** function we are wrapping the error as well
+  id: totrans-141
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序与之前的程序几乎相同，唯一的区别在于在**openFile**函数中我们也对错误进行了包装。
 - en: '[PRE41]'
+  id: totrans-142
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE41]'
 - en: The . assert outputs
+  id: totrans-143
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该断言输出
 - en: '[PRE42]'
+  id: totrans-144
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE42]'
 - en: While As function outputs
+  id: totrans-145
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当**As**函数输出时
 - en: '[PRE43]'
+  id: totrans-146
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE43]'
 - en: This is because the error returned by the **openFile** function wraps ***os.Patherror**
     error which is not catched by the dot(‘.’) assert but is catched by **As** function
+  id: totrans-147
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是因为**openFile**函数返回的错误包装了***os.PathError**错误，该错误未被点（‘.’）断言捕获，但被**As**函数捕获。
 - en: '**Conclusion**'
+  id: totrans-148
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about advanced topic in error in golang. Hope you have liked this
     article. Please share feedback/improvements/mistakes in comments.
+  id: totrans-149
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于Golang中错误的高级主题。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Panic and Recover](https://golangbyexample.com/panic-and-recover-golang/)'
+  id: totrans-150
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一教程** – [恐慌与恢复](https://golangbyexample.com/panic-and-recover-golang/)'
 - en: '**Previous Tutorial** – [Error – Part 1](https://golangbyexample.com/error-in-golang/)'
+  id: totrans-151
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [错误 – 第 1 部分](https://golangbyexample.com/error-in-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-152
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

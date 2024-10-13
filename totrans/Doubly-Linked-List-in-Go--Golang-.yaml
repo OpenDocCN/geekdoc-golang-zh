@@ -1,82 +1,128 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:37:56'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:37:56
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Doubly Linked List in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的双向链表
 - en: 来源：[https://golangbyexample.com/doubly-linked-list-golang/](https://golangbyexample.com/doubly-linked-list-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/doubly-linked-list-golang/](https://golangbyexample.com/doubly-linked-list-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: A Doubly Linked List contains three fields in its node.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个双向链表的节点包含三个字段。
 - en: Data field
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 数据字段
 - en: One Next pointer points to the next node in the list
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个下一个指针指向列表中的下一个节点。
 - en: One Previous pointer which points to the previous node in the list
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个前一个指针指向列表中的上一个节点。
 - en: Here **“Data”** and **“Next”** fields are the same as in the case of a singly
     linked list. **“Previous”** pointer field is new which makes a linked list a doubly
     linked list.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里**“数据”**和**“下一个”**字段与单向链表相同。**“前一个”**指针字段是新的，这使得链表成为双向链表。
 - en: Refer to this article to learn about single linked list
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 参考这篇文章了解单向链表。
 - en: '[https://golangbyexample.com/singly-linked-list-in-golang/](https://golangbyexample.com/singly-linked-list-in-golang/)'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golangbyexample.com/singly-linked-list-in-golang/](https://golangbyexample.com/singly-linked-list-in-golang/)'
 - en: Below is an example of a doubly linked list. Prev pointer of head (start) node
     points to Null. Similarly, the **Next** pointer of the last node points to Null.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是一个双向链表的示例。头节点的前指针指向空。类似地，最后一个节点的**下一个**指针指向空。
 - en: '![double linked list](img/e89fb825a0cb856cfc39da333a6770e2.png)'
+  id: totrans-17
   prefs: []
   type: TYPE_IMG
+  zh: '![双向链表](img/e89fb825a0cb856cfc39da333a6770e2.png)'
 - en: '**Program**'
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: To implement a doubly linked list in Go language, create a node struct with
     **data**, **prev** pointer, and **next** pointer, methods to add nodes in the
     doubly linked list (from the front end from the back end both), and methods to
     traverse forward and reverse.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 语言中实现双向链表，创建一个包含**数据**、**前**指针和**下一个**指针的节点结构，添加节点的方法（从前端和后端），以及向前和向后遍历的方法。
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]*'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE1]*'

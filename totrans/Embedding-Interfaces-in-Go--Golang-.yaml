@@ -1,188 +1,290 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类。
 - en: 'date: 2024-10-13 06:22:06'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:22:06
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Embedding Interfaces in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中嵌入接口。
 - en: 来源：[https://golangbyexample.com/embedding-interfaces-go/](https://golangbyexample.com/embedding-interfaces-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/embedding-interfaces-go/](https://golangbyexample.com/embedding-interfaces-go/)
 - en: An interface can be embedded in another interface as well as it can be embedded
     in a struct. Let’s look at each one by one
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 接口可以嵌入另一个接口，也可以嵌入到结构中。让我们逐一查看。
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Embedding interface in another interface](#Embedding_interface_in_another_interface
     "Embedding interface in another interface")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[在另一个接口中嵌入接口](#Embedding_interface_in_another_interface "在另一个接口中嵌入接口")**'
 - en: '[Embedding interface in a struct](#Embedding_interface_in_a_struct "Embedding
     interface in a struct")*  *# **Embedding interface in another interfa**ce'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[在结构中嵌入接口](#Embedding_interface_in_a_struct "在结构中嵌入接口")** * # **在另一个接口中嵌入接口**'
 - en: An interface can embed any number of interfaces in it as well as it can be embedded
     in any interface. All the methods of the embedded interface become part of the
     embedding interface. It is a way of creating a new interface by merging some small
     interfaces. Let’s understand it with an example
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 接口可以嵌入任意数量的接口，也可以嵌入到任意接口中。嵌入接口的所有方法成为嵌入接口的一部分。这是一种通过合并一些小接口来创建新接口的方法。让我们通过一个例子来理解。
 - en: Assume we have an interface **animal** as below
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有一个接口**动物**如下。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s say there is another interface named **human** which embeds the **animal**
     interface
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设有另一个接口名为**人类**，它嵌入了**动物**接口。
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: So if any type needs to implement the **human** interface, then it has to define
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以，如果任何类型需要实现**人类**接口，那么它必须定义。
 - en: '**breathe()** and **walk()** method of animal interfaces animal is  embedded
     in human'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**breathe()**和**walk()**方法的动物接口被嵌入在人类中。'
 - en: '**speak()** method of human interface'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**speak()**方法的人类接口。'
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: As another example, the ReaderWriter interface of the **io** package of golang
     ([https://golang.org/pkg/io/#ReadWriter](https://golang.org/pkg/io/#ReadWriter))
     embeds two other interfaces
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 作为另一个例子，Golang的**io**包的ReaderWriter接口（[https://golang.org/pkg/io/#ReadWriter](https://golang.org/pkg/io/#ReadWriter)）嵌入了另外两个接口。
 - en: The reader interface  – [https://golang.org/pkg/io/#Reader](https://golang.org/pkg/io/#Reader)
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 读取器接口 – [https://golang.org/pkg/io/#Reader](https://golang.org/pkg/io/#Reader)
 - en: The writer interface   – [https://golang.org/pkg/io/#Writer](https://golang.org/pkg/io/#Writer)
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 写入器接口 – [https://golang.org/pkg/io/#Writer](https://golang.org/pkg/io/#Writer)
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Embedding interface in a struct**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**在结构中嵌入接口**'
 - en: An interface can be embedded in a struct as well.  All the methods of the embedded
     interface can be called via that struct. How these methods will be called will
     depend upon whether the embedded interface is a named field or an unnamed/anonymous
     field.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 接口也可以嵌入到结构中。嵌入接口的所有方法都可以通过该结构调用。如何调用这些方法将取决于嵌入接口是命名字段还是未命名/匿名字段。
 - en: If the embedded interface is a named field, then interface methods have to be
     called via the named interface name
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果嵌入的接口是命名字段，则必须通过命名接口名称调用接口方法。
 - en: If the embedded interface is unnamed/anonymous field then interface methods
     can be referred directly or via the interface name
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果嵌入的接口是未命名/匿名字段，则可以直接引用接口方法或通过接口名称引用。
 - en: Let’s see a program illustrating above points
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个程序来说明上述要点。
 - en: '[PRE5]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: We declared two struct **pet1** and **pet2**.  **pet1** struct has named **animal**
     interface in it
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们声明了两个结构**pet1**和**pet2**。**pet1**结构中有命名的**动物**接口。
 - en: '[PRE7]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**pet2** has unnamed/anonymous **animal** interface embedded'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**pet2**嵌入了未命名/匿名的**动物**接口。'
 - en: '[PRE8]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: For an instance of **pet1** struct we call the **breathe()** and **walk()**
     method like this
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于**pet1**结构的一个实例，我们可以这样调用**breathe()**和**walk()**方法。
 - en: '[PRE9]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Directly calling these methods with raise compilation error
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 直接调用这些方法会导致编译错误。
 - en: '[PRE10]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '[PRE11]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: For an instance of **pet2** struct we can call the **breathe()** and **walk()**
     method like directly
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于**pet2**结构的一个实例，我们可以直接调用**breathe()**和**walk()**方法。
 - en: '[PRE12]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: We can directly access the methods of embedded interface if the embedded interface
     is anonymous or unnamed.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果嵌入接口是匿名或未命名的，我们可以直接访问嵌入接口的方法。
 - en: Below is also valid and another way fo called methods of unnamed/anonymous embedded
     interface
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面也是有效的另一种调用未命名/匿名嵌入接口的方法。
 - en: '[PRE13]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Also note that while creating the instance of either the **pet1** or **pet2**
     struct, the embedded interface i.e **animal** is initialised with a type implementing 
     it i.e **dog** .
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在创建**pet1**或**pet2**结构的实例时，嵌入的接口即**animal**是用实现该接口的类型初始化的，即**dog**。
 - en: '[PRE14]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: If we don’t initialise the embedded interface **animal**, then it will be intialised
     with the zero value of the interface which is nil. Calling **breathe()** and **walk()**
     method  on such an instance of pet1 or pet2 struct will create a panic.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们不初始化嵌入的接口**animal**，那么它将被初始化为接口的零值，即nil。在这样的pet1或pet2结构实例上调用**breathe()**和**walk()**方法将导致恐慌。
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

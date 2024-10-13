@@ -1,95 +1,153 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:52:25'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:52:25
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Enum in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中的枚举
 - en: 来源：[https://golangbyexample.com/enum-in-golang/](https://golangbyexample.com/enum-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/enum-in-golang/](https://golangbyexample.com/enum-in-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Example](#Example "Example")*  *# Overview'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "示例")*  *# 概述'
 - en: '**IOTA** provides an automated way to create an enum in Golang. Let’s see an
     example.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**IOTA** 提供了一种自动创建Golang中枚举的方式。让我们来看一个例子。'
 - en: Example
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In above program we created a new type
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了一个新类型。
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Then we declared some const of  type **Size**. The first constant **small**
     is set to iota so it will be set to zero
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们声明了一些类型为**Size**的常量。第一个常量**small**被设置为iota，因此它将被设置为零。
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: That’s why
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是原因。
 - en: '[PRE4]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Without IOTA we had to explicitly set the values of each of the enum value
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 没有IOTA，我们必须显式设置每个枚举值的值。
 - en: '[PRE5]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: We can also define a method **toString** on Size type to print the exact value
     of enum . See below program
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还可以在Size类型上定义一个**toString**方法，以打印枚举的确切值。请参见下面的程序。
 - en: '[PRE7]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: We have defined a **toString** method for the **Size** type. It can be used
     to the print the string value of the constant of Size type.*
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们为**Size**类型定义了一个**toString**方法。它可以用来打印Size类型常量的字符串值。*

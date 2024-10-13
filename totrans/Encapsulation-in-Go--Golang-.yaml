@@ -1,183 +1,275 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:03:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:03:22
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Encapsulation in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的封装
 - en: 来源：[https://golangbyexample.com/encapsulation-in-go/](https://golangbyexample.com/encapsulation-in-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/encapsulation-in-go/](https://golangbyexample.com/encapsulation-in-go/)
 - en: Golang provides encapsulation at the package level. Go doesn’t have any public, 
     private or protected keyword. The only mechanism to control the visibility is
     using the capitalized and non-capitalized formats
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang 在包级别提供封装。Go 没有公共、私有或受保护的关键字。控制可见性的唯一机制是使用大写和小写格式
 - en: '**Capitalized Identifiers** are exported. The capital letter indicates that
     this is an exported identifier.'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**大写标识符** 是导出的。大写字母表示这是一个导出标识符。'
 - en: '**Non-capitalized identifiers** are not exported. The lowercase indicates that
     the identifier is not exported and will only be accessed from within the same
     package.'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**小写标识符** 是非导出的。小写字母表示该标识符是非导出的，只能在同一包内访问。'
 - en: There are five kinds of identifier which can be exported or non-exported
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 有五种标识符可以是导出或非导出的
 - en: Structure
+  id: totrans-10
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 结构
 - en: Structure’s Method
+  id: totrans-11
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 结构的方法
 - en: Structure’s Field
+  id: totrans-12
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 结构体字段
 - en: Function
+  id: totrans-13
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 函数
 - en: Variable
+  id: totrans-14
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 变量
 - en: Let’s see an example that shows exporting and non-exporting of all the above
     identifiers. See **data.go** below. The package is **model**
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子，展示上述所有标识符的导出和非导出。见下方的 **data.go**。包是 **model**
 - en: Structure
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构
 - en: Struct **Person** is exported
+  id: totrans-17
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体 **Person** 是导出的
 - en: Struct **company** is non-exported
+  id: totrans-18
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体 **company** 是非导出的
 - en: Structure’s Method
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构的方法
 - en: '**Person** Struct’s Method **GetAge()** is exported'
+  id: totrans-20
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体的方法 **GetAge()** 是导出的'
 - en: '**Person** Struct’s Method **getName()** is not exported'
+  id: totrans-21
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体的方法 **getName()** 是非导出的'
 - en: Structure’s Field
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体字段
 - en: '**Person** struct field **Name** is exported'
+  id: totrans-23
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体字段 **Name** 是导出的'
 - en: '**Person** struct field **age** is not exported'
+  id: totrans-24
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体字段 **age** 是非导出的'
 - en: Function
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数
 - en: Function **GetPerson()** is exported
+  id: totrans-26
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数 **GetPerson()** 是导出的
 - en: Function **getCompanyName()** is not exported
+  id: totrans-27
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数 **getCompanyName()** 是非导出的
 - en: Variables
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量
 - en: Variable **CompanyName** is exported
+  id: totrans-29
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量 **CompanyName** 是导出的
 - en: Variable **companyLocation** is not exported
+  id: totrans-30
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量 **companyLocation** 是非导出的
 - en: '**data.go**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**data.go**'
 - en: '[PRE0]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s write a file **test.go** in **model** package. See below.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在 **model** 包中写一个文件 **test.go**。见下文。
 - en: '**test.go**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**test.go**'
 - en: '[PRE1]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: On running this file, it is able to access all exported and unexported fields
     in **data.go** as both lies in the same package model. There is no compilation
     error and it gives below output
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行这个文件时，它能够访问 **data.go** 中的所有导出和非导出字段，因为两者都位于同一个模型包中。没有编译错误，输出如下
 - en: '**Output:**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Let’s move the above file **test.go** to a different package named **view.**
     Now notice the output on running ‘go build’. It gives compilation errors. All
     the compilation error are due to not able to refer to unexported fields
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将上面的文件 **test.go** 移动到一个名为 **view** 的不同包中。现在注意运行‘go build’时的输出。它会产生编译错误。所有的编译错误都是因为无法引用非导出字段
 - en: '**test.go**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**test.go**'
 - en: '[PRE3]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[encapsulation](https://golangbyexample.com/tag/encapsulation/)*   [encapsulation
     in golang](https://golangbyexample.com/tag/encapsulation-in-golang/)*   [object
     oriented go](https://golangbyexample.com/tag/object-oriented-go/)*   [oop](https://golangbyexample.com/tag/oop/)*   [oop
     in go](https://golangbyexample.com/tag/oop-in-go/)'
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[封装](https://golangbyexample.com/tag/encapsulation/) *   [golang中的封装](https://golangbyexample.com/tag/encapsulation-in-golang/)
+    *   [面向对象的Go](https://golangbyexample.com/tag/object-oriented-go/) *   [面向对象编程](https://golangbyexample.com/tag/oop/)
+    *   [Go中的面向对象编程](https://golangbyexample.com/tag/oop-in-go/)'

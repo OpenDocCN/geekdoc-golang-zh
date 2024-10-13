@@ -1,67 +1,102 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:05:23'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:23
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Empty struct in GO
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: GO 中的空结构体
 - en: 来源：[https://golangbyexample.com/empty-struct-in-go/](https://golangbyexample.com/empty-struct-in-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/empty-struct-in-go/](https://golangbyexample.com/empty-struct-in-go/)
 - en: Empty struct **struct{}** in GO doesn’t occupy any memory. It is of zero byte.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: GO 中的空结构体 **struct{}** 不占用任何内存。它的大小为零字节。
 - en: Below are some of the uses of empty struct
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是空结构体的一些用途
 - en: Useful for creating implementations that require no data.
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于创建不需要数据的实现非常有用。
 - en: Eg. One example is in while implementing Null Object Design Pattern in Go. The
     Null object doesn’t have any data. See an example of Null Object Design Pattern
     in GO – [https://golangbyexample.com/null-object-design-pattern-golang/](https://golangbyexample.com/null-object-design-pattern-golang/)
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，在实现 GO 中的空对象设计模式时，空对象没有任何数据。查看 GO 中空对象设计模式的示例 – [https://golangbyexample.com/null-object-design-pattern-golang/](https://golangbyexample.com/null-object-design-pattern-golang/)
 - en: Empty struct also a very good use case in a channel when you only want to use
     a channel for notification and not for actually passing in any data.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 空结构体在通道中也是一个非常好的用例，当你只想用通道进行通知而不实际传递任何数据时。
 - en: 'Eg: In context package of GO we have **cancelCtx** which is represented as
     below. See done channel is using an empty struct as it is only used for notifying
     cancellation and has no data value.'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如：在 GO 的 context 包中，我们有 **cancelCtx**，如下所示。可以看到，done 通道使用了空结构体，因为它仅用于通知取消，并没有数据值。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Implementation of Set data structure. A set is a data structure that holds elements
     without any particular order. An element only appears once in a set. We use map[keyType]struct{}
     for set. struct{} is only just to let us know if an element exists in the set
     or not.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 集合数据结构的实现。集合是一种不按特定顺序保存元素的数据结构。元素在集合中只出现一次。我们使用 `map[keyType]struct{}` 来表示集合。`struct{}`
+    仅仅用于让我们知道某个元素是否存在于集合中。
 - en: See this link for set implementation in golang – [https://golangbyexample.com/set-implementation-in-golang/](https://golangbyexample.com/set-implementation-in-golang/)
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 查看此链接了解 Go 中的集合实现 – [https://golangbyexample.com/set-implementation-in-golang/](https://golangbyexample.com/set-implementation-in-golang/)
 - en: Perfect replacement for a channel of Boolean. A boolean does occupy some space
     as struct does not, hence more efficient to use a channel of struct{}. See below
     example
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 是布尔通道的完美替代。布尔值占用一定空间，而结构体不占用，因此使用 `struct{}` 的通道更有效。请看下面的示例。
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'

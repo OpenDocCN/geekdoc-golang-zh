@@ -1,135 +1,213 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:06:50'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:50
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Double, Single and Back quotes in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的双引号、单引号和反引号
 - en: 来源：[https://golangbyexample.com/double-single-back-quotes-go/](https://golangbyexample.com/double-single-back-quotes-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/double-single-back-quotes-go/](https://golangbyexample.com/double-single-back-quotes-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Double quotes](#Double_quotes "Double quotes")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [双引号](#Double_quotes "Double quotes")'
 - en: '[Back Quotes](#Back_Quotes "Back Quotes")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[反引号](#Back_Quotes "Back Quotes")'
 - en: '[Single quotes](#Single_quotes "Single quotes")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[单引号](#Single_quotes "Single quotes")'
 - en: '[Example:](#Example "Example:")*  *# **Double quotes**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例：](#Example "Example:")*  *# **双引号**'
 - en: It is used to define a string. A string defined within double quotes will honor
     escaping characters. For, eg for when printing a string having \n there will be
     a new line printed. Similarly, \t will have tab printed.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 用于定义字符串。用双引号定义的字符串会遵循转义字符。例如，当打印一个包含\n的字符串时，会打印出换行。同样，\t会打印制表符。
 - en: '**Back Quotes**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**反引号**'
 - en: It is also used to define a string. A string encoded in back quotes is a raw
     literal string and doesn’t honor any kind of escaping.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 也用于定义字符串。用反引号编码的字符串是原始字面字符串，不会遵循任何转义。
 - en: '**Single quotes**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**单引号**'
 - en: To declare either a **byte** or a **rune** we use single quotes. While declaring
     **byte** we have to specify the type. If we don’t specify the type, then the default
     type is meant as a **rune.** A single quote will allow only one character. On
     declaring a byte or rune with two characters within a single quote, the compiler
     will raise an error as below
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 要声明**字节**或**rune**，我们使用单引号。在声明**字节**时，我们必须指定类型。如果不指定类型，则默认为**rune**。单引号只允许一个字符。在单引号中声明一个包含两个字符的字节或rune时，编译器会产生如下错误。
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s see an example of all things discussed above.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一下上述讨论的所有内容的示例。
 - en: Notice in below output that string enclosed in back quotes doesn’t honor \n
     or \t
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 请注意下面的输出，反引号包围的字符串不遵循\n或\t
 - en: Uncomment the below line to see the compiler error we discussed above.
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 取消注释下面的行以查看我们上面讨论的编译器错误。
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Example:**'
+  id: totrans-21
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例：**'
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: 'Priting String in Double Quotes:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印双引号中的字符串：
 - en: 'x is: tit'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: x 是：tit
 - en: for tat
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: for tat
 - en: 'Priting String in Back Quotes:'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印反引号中的字符串：
 - en: 'y is: tit\nfor\ttat'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: y 是：tit\nfor\ttat
 - en: 'Priting Byte:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印字节：
 - en: 'Size: 1'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 大小：1
 - en: 'Type: uint8'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 类型：uint8
 - en: 'Character: a'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 字符：a
 - en: 'Priting Rune:'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印rune：
 - en: 'Size: 4'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 大小：4
 - en: 'Type: int32'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 类型：int32
 - en: 'Unicode CodePoint: U+00A3'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: Unicode 代码点：U+00A3
 - en: 'Character: £'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 字符：£
 - en: '`*   [golang](https://golangbyexample.com/tag/golang/)*   [quotes](https://golangbyexample.com/tag/quotes/)*   [single](https://golangbyexample.com/tag/single/)`*'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '`*   [golang](https://golangbyexample.com/tag/golang/)*   [引号](https://golangbyexample.com/tag/quotes/)*   [单引号](https://golangbyexample.com/tag/single/)`*'

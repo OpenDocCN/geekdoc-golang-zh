@@ -1,183 +1,285 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:44:43'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:44:43
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Edit Distance between two strings in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go语言中计算两个字符串之间的编辑距离（Golang）。
 - en: 来源：[https://golangbyexample.com/edit-distance-two-strings-golang/](https://golangbyexample.com/edit-distance-two-strings-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/edit-distance-two-strings-golang/](https://golangbyexample.com/edit-distance-two-strings-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")**'
 - en: '[Recursive Solution](#Recursive_Solution "Recursive Solution")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[递归解决方案](#Recursive_Solution "递归解决方案")'
 - en: '[Dynamic Programming Solution](#Dynamic_Programming_Solution "Dynamic Programming
     Solution")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[动态规划解决方案](#Dynamic_Programming_Solution "动态规划解决方案")*  *## **概述**'
 - en: Given two strings find the minimum number of operations to convert one string
     into another. A string can be converted into another string by performing below
     three operations
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定两个字符串，找出将一个字符串转换为另一个字符串所需的最小操作次数。可以通过执行以下三种操作将一个字符串转换为另一个字符串：
 - en: Insert
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 插入
 - en: Remove
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 移除
 - en: Replace
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 替换
 - en: All the operations are of equal cost.  Let’s see some examples
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有操作的成本相等。让我们来看一些示例。
 - en: '**Example 1:**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 1：**'
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: We can insert a **‘d’** in the first string
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以在第一个字符串中插入**‘d’**。
 - en: '**Example 2:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 2：**'
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: We can remove the **‘c’** from the first string
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以从第一个字符串中移除**‘c’**。
 - en: '**Example 3:**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 3：**'
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: We can replace the **‘c’** with **‘d’** in the first string
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以在第一个字符串中将**‘c’**替换为**‘d’**。
 - en: '**Example 4:**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 4：**'
 - en: '[PRE3]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: We can remove **‘e’** from the first string
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们可以从第一个字符串中移除**‘e’**。
 - en: We can replace **‘c’** with **‘d’** in the first string
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们可以在第一个字符串中将**‘c’**替换为**‘d’**。
 - en: Some base cases. Assume the first string is of length **m** and the second string
     is of length **n**
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些基本情况。假设第一个字符串的长度为**m**，第二个字符串的长度为**n**。
 - en: If both the first and second string is of zero length then the output is 0
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果第一个字符串和第二个字符串的长度均为零，则输出为0。
 - en: If only the first string is empty then the output is the length of the second
     string
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果只有第一个字符串为空，则输出为第二个字符串的长度。
 - en: If only the second string is empty then the output is the length of the first
     string
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果只有第二个字符串为空，则输出为第一个字符串的长度。
 - en: Otherwise
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 否则
 - en: If the last characters of the first and second string match then the output
     is the min edit operations with the first string of length **m-1** and the second
     string of length **n-1**. It means recurse for (m-1, n-1)If the last characters
     do not match then we can either do an insert, remove or replace option in the
     first string.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果第一个字符串和第二个字符串的最后一个字符匹配，则输出的是对第一个字符串长度为**m-1**和第二个字符串长度为**n-1**的最小编辑操作。这意味着递归计算（m-1,
+    n-1）。如果最后一个字符不匹配，则我们可以在第一个字符串中进行插入、删除或替换操作。
 - en: Replace – recurse for (m-1, n-1)
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 替换 – 递归计算（m-1, n-1）
 - en: Remove – recurse for (m,-1 n)
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 移除 – 递归计算（m,-1 n）
 - en: Insert – recurse for (m, n-1)
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 插入 – 递归计算（m, n-1）
 - en: '**Recursive Solution**'
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**递归解决方案**'
 - en: Below is the recursive solution for the same problem
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相同问题的递归解决方案。
 - en: '[PRE4]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: If you will notice the above program many subproblems are computed again and
     again hence the complexity of the above solution is exponential. Hence we can
     also use Dynamic Programming here to reduce the overall time complexity.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你注意到上面的程序，许多子问题被反复计算，因此上述解决方案的复杂度是指数级的。因此，我们也可以在这里使用动态规划来降低整体时间复杂度。
 - en: Here is the program for the same
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相同的程序。
 - en: '**Dynamic Programming Solution**'
+  id: totrans-44
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**动态规划解决方案**'
 - en: '[PRE6]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Go语言高级教程。本系列的教程内容详尽，我们试图通过示例覆盖所有概念。本教程适合那些希望获得专业知识和对Go语言有深入理解的人
+    - [Go语言高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)*
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)*

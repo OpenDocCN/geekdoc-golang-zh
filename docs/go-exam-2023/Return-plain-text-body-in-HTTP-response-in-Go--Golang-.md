@@ -12,9 +12,11 @@
 
 目录
 
-**   概述
++   概述
 
-+   示例*  *## **概述**
++   示例
+
+## **概述**
 
 **Write**方法的 ResponseWriter 接口在**net/http**包中可用于在 HTTP 响应中设置**text/plain**体。
 

@@ -22,7 +22,9 @@ letters := []string{"a", "b", "c", "d", "e"}
 
 **   使用 range 操作符
 
-+   仅使用 For 操作符*  *## **使用 range 操作符**
++   仅使用 For 操作符
+
+## **使用 range 操作符**
 
 +   带索引和值
 

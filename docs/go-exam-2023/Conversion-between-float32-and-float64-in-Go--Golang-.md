@@ -12,11 +12,13 @@ category: 未分类
 
 目录
 
-**   概述
++   概述
 
 +   float32 转 float64
 
-+   float64 转 float32*  *## **概述**
++   float64 转 float32
+
+## **概述**
 
 Golang 需要显式转换才能在两种类型之间转换。float32 和 float64 数据类型之间的转换需要显式类型转换。下面是语法。
 

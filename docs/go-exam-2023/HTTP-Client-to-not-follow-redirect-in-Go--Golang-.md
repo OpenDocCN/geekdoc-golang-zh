@@ -12,11 +12,13 @@
 
 目录
 
-**   概述
++   概述
 
 +   CheckDirect 是 nil
 
-+   CheckDirect 是非 nil*  *# **概述**
++   CheckDirect 是非 nil
+
+# **概述**
 
 **http.Client** 结构用于在 golang 中发起 HTTP 请求。
 

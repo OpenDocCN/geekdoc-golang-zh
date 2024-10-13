@@ -12,7 +12,7 @@ date: 2024-10-13 06:21:07
 
 目录
 
-**   概述
++   概述
 
 +   声明一个 Map
 
@@ -20,7 +20,9 @@ date: 2024-10-13 06:21:07
 
     +   [使用 map[<key_type>]<value_type>格式](#Using_the_map_format "Using the map[<key_type>]<value_type>格式")
 
-    +   使用 Make*  *# **概述**
+    +   使用 Make
+
+# **概述**
 
 map 是 Golang 内置的数据类型，类似于哈希表，它将键映射到值。
 

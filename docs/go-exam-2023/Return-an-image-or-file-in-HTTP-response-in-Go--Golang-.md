@@ -14,7 +14,9 @@
 
 **概述**
 
-+   示例*  *## **概述**
++   示例
+
+## **概述**
 
 **ResponseWriter** 接口的 **Write** 方法可以用于在 HTTP 响应体中发送 **image** 或 **file**。当我们将文件或图像作为 HTTP 响应的一部分发送时，Content-Type 响应头为
 

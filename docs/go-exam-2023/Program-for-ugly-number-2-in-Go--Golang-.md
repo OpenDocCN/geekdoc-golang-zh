@@ -12,9 +12,11 @@
 
 目录
 
-**   概述
++   概述
 
-+   程序*  *# **概述**
++   程序
+
+# **概述**
 
 丑陋数字是其质因数限于 2、3 和 5 的数字。我们已经见过一个程序，它给定一个数字 n，返回 true 如果它是丑陋数字，否则返回 false。下面是那个程序的链接 [`golangbyexample.com/ugly-number-golang/`](https://golangbyexample.com/ugly-number-golang/)
 

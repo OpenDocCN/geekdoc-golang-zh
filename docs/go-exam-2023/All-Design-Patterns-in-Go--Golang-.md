@@ -20,7 +20,9 @@
 
 +   行为设计模式 
 
-+   结构设计模式 *  *# **创建型设计模式**
++   结构设计模式 
+
+# **创建型设计模式**
 
 | [抽象工厂](https://golangbyexample.com/abstract-factory-design-pattern-go/) |
 | --- |

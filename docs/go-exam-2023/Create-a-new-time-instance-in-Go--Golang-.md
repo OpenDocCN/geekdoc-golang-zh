@@ -18,7 +18,9 @@
 
 +   使用 time.Date()")
 
-+   使用 time.Parse()")*  *# **使用 time.Now()**
++   使用 time.Parse()")
+
+# **使用 time.Now()**
 
 **time.Now()** 函数可用于获取当前本地时间戳。该函数的签名是
 

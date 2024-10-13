@@ -16,7 +16,9 @@
 
     +   MatchCompile 函数
 
-    +   匹配方法*  *## **概述**
+    +   匹配方法
+
+## **概述**
 
 在我们的示例中，我们将使用 Golang 中的 **regexp** 包，它提供了正则表达式搜索功能 [`golang.org/pkg/regexp/`](https://golang.org/pkg/regexp/)
 

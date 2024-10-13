@@ -12,11 +12,13 @@
 
 目录
 
-**   概述
++   概述
 
 +   第一个库 (go-playground/validator)")
 
-+   第二个库 (asaskevich/govalidator)")*  *# **概述**
++   第二个库 (asaskevich/govalidator)")
+
+# **概述**
 
 在本教程中，我们将探讨两个可以用于验证 Golang 中结构体字段的库。这两个库是
 

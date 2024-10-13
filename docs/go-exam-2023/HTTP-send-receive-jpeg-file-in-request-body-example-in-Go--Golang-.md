@@ -16,7 +16,9 @@
 
 +   HTTP 服务器
 
-+   HTTP 客户端*  *# **概览**
++   HTTP 客户端
+
+# **概览**
 
 **multipart/form-data** 内容类型可用于在 HTTP POST 调用中发送 jpeg 文件。表单数据将包含
 

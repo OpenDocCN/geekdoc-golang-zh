@@ -18,7 +18,9 @@ date: 2024-10-13 06:06:01
 
 +   完整工作代码
 
-+   时间复杂度*  *# **介绍**
++   时间复杂度
+
+# **介绍**
 
 堆排序是一种基于比较的排序算法，它使用堆数据结构。有关堆的更多信息，请参考此链接 – [`golangbyexample.com/heap-in-golang/`](https://golangbyexample.com/heap-in-golang/)
 

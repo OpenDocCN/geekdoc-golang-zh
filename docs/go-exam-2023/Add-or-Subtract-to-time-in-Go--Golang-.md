@@ -16,7 +16,9 @@
 
 +   Add to time
 
-+   Subtract to time*  *# **概览**
++   Subtract to time
+
+# **概览**
 
 golang 中的 **time** 包定义了两种添加或减去时间的方法。
 

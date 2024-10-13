@@ -14,9 +14,11 @@
 
 目录
 
-**   概述
++   概述
 
-+   代码*  *# **概述**
++   代码
+
+# **概述**
 
 [ANSI 转义码](http://en.wikipedia.org/wiki/ANSI_escape_code)可以用来在控制台中输出彩色文本。请注意
 

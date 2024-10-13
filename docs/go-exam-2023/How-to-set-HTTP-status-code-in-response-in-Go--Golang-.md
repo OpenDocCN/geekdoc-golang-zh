@@ -12,9 +12,11 @@
 
 目录
 
-**   概述
++   概述
 
-+   示例*  *## **概述**
++   示例
+
+## **概述**
 
 **WriteHeader**方法在**net/http**包中的 ResponseWriter 接口可以用于从 Golang 服务器返回状态码。
 

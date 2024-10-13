@@ -20,7 +20,9 @@
 
 +   原始标准编码
 
-+   原始 URL 编码*  *# **概述**
++   原始 URL 编码
+
+# **概述**
 
 Golang 提供了一个 **encoding/base64** 包，可用于将字符串编码为 base64 并将 base64 编码的字符串解码回原始字符串。[`golang.org/pkg/encoding/base64/`](https://golang.org/pkg/encoding/base64/)
 

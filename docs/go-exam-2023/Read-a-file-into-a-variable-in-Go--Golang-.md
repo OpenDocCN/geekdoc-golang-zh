@@ -12,13 +12,15 @@
 
 目录
 
-**   概述
++   概述
 
 +   使用 ioutil 包提供的 ReadFile 函数
 
 +   使用 os.Open 和 bytes.Buffer
 
-+   使用 os.Open 和 strings.Builder*  *## **概述**
++   使用 os.Open 和 strings.Builder
+
+## **概述**
 
 有多种方法可以在 golang 中将文件读入变量。以下是一些方法
 

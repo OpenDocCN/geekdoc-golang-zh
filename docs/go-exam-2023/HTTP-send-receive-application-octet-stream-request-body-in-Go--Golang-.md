@@ -12,11 +12,13 @@
 
 目录
 
-**   概述
++   概述
 
 +   HTTP 客户端示例
 
-+   HTTP 服务器示例*  *# **概述**
++   HTTP 服务器示例
+
+# **概述**
 
 **application/octet-stream**内容类型用于在 HTTP 请求主体中传输二进制数据。因此，**application/octet-stream**用于通过 HTTP 请求发送文件。让我们看一个 golang 中 HTTP 客户端和服务器的示例，用于发送和接收**application/octet-stream**数据。
 

@@ -1,61 +1,93 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:08:18'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:08:18
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Convert time between different timezones in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go语言中转换不同时区的时间。
 - en: 来源：[https://golangbyexample.com/convert-time-timezones-go/](https://golangbyexample.com/convert-time-timezones-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/convert-time-timezones-go/](https://golangbyexample.com/convert-time-timezones-go/)
 - en: Every **time.Time** object has an associated **location** value. When you change
     the location of any **time.Time** object to any other location, then that instant
     of time is not changed. Only the **location** value associated with that time
     changes. The **location** associated with the time.Time object only has a presentation
     or display logic.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个**time.Time**对象都有一个关联的**location**值。当你将任何**time.Time**对象的位置更改为其他位置时，该时间瞬间并不会改变。只有与该时间关联的**location**值会发生变化。与time.Time对象关联的**location**仅具有表示或显示逻辑。
 - en: The **In** function can be used to change the **location** associated with a
     particular **time.Time** object. Whenever the **In** function is called on any
     **time.Time** object (say t) then,
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**In**函数可用于更改与特定**time.Time**对象关联的**location**。每当在任何**time.Time**对象（例如t）上调用**In**函数时，'
 - en: A copy of **t** is created representing the same time instant.
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建了一个表示相同时间瞬间的**t**副本。
 - en: '**t’s** location is set to the location passed to In function for display purposes'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**t**的位置设置为传递给**In**函数的显示位置。'
 - en: '**t** is returned back'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**t**被返回。'
 - en: Let’s see the below-working code which can be used to change the location value
     associated with a particular time.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看下面的代码，它可以用来更改与特定时间相关的地点值。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[time package](https://golangbyexample.com/tag/time-package/)*   [time.Time](https://golangbyexample.com/tag/time-time/)'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[time包](https://golangbyexample.com/tag/time-package/) * [time.Time](https://golangbyexample.com/tag/time-time/)'

@@ -1,100 +1,157 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:18:40'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:18:40
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Copy function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 中的复制函数（Golang）
 - en: 来源：[https://golangbyexample.com/copy-function-in-golang/](https://golangbyexample.com/copy-function-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/copy-function-in-golang/](https://golangbyexample.com/copy-function-in-golang/)
 - en: go **builtin** package provides **copy** function that can be used to copy a
     slice. Below is the signature of this function. It takes in two slices **dst**
     and **src**, and copies data from **src** to **dst**. It returns the number of
     elements copied.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 的 **builtin** 包提供了 **copy** 函数，可以用于复制切片。以下是此函数的签名。它接收两个切片 **dst** 和 **src**，并将数据从
+    **src** 复制到 **dst**。它返回复制的元素数量。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'As the signature suggests the copy function can be used to copy slice of different
     types from src to dst. There are two cases to be considered while using the copy
     function:'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据签名，复制函数可以用于从 src 复制不同类型的切片到 dst。在使用复制函数时，有两种情况需要考虑：
 - en: If the length of **src** is greater than the length of **dst**, then the number
     of elements copied is the length of **dst**
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 **src** 的长度大于 **dst** 的长度，则复制的元素数量为 **dst** 的长度。
 - en: If the length of **dst** is greater than length of **src,** then number of elements
     copied is length of **src**
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 **dst** 的长度大于 **src** 的长度，则复制的元素数量为 **src** 的长度。
 - en: Basically the number of elements copied is minimum of length of **(src, dst). **
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本上，复制的元素数量为 **(src, dst)** 长度的最小值。
 - en: Also to note that once the copy is done then any change in **dst** will not
     reflect in **src** and vice versa unless both **src** and **dst** refer to the
     same slice.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 还要注意，一旦复制完成，**dst** 中的任何更改将不会反映在 **src** 中，反之亦然，除非 **src** 和 **dst** 引用同一个切片。
 - en: Simple copy example for an integer type illustrating above points
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个简单的整数类型复制示例，说明上述要点。
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**copy function for string**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**字符串的复制函数**'
 - en: A string in go is nothing but a sequence of bytes. Hence it is legal to copy
     a string to a slice of bytes.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，字符串只是一系列字节。因此，将字符串复制到字节切片是合法的。
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: While using a copy function the source and destination can overlap too. So it
     is possible to copy from a slice to itself as well. In below example we copy the
     last 2 elements of the slice to the starting two elements in same order
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在使用复制函数时，源和目标也可以重叠。因此，可以从一个切片复制到自身。以下示例中，我们将切片的最后两个元素复制到同一顺序的前两个元素中。
 - en: '[PRE5]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Conclusion**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about copy function in go. Hope you have liked this article.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是 Go 中的复制函数。希望你喜欢这篇文章。

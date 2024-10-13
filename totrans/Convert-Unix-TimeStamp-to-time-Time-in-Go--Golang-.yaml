@@ -1,47 +1,74 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:08:31'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:08:31
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Convert Unix TimeStamp to time.Time in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 将 Unix 时间戳转换为 Go (Golang) 中的 time.Time
 - en: 来源：[https://golangbyexample.com/parse-unix-timestamp-time-go/](https://golangbyexample.com/parse-unix-timestamp-time-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/parse-unix-timestamp-time-go/](https://golangbyexample.com/parse-unix-timestamp-time-go/)
 - en: Time can be represented in GO in both **time.Time** and **Unix Timestamp** format.
     The Unix Timestamp also known as Epoch Time is the number of seconds elapsed since
     00:00:00 UTC on 1 January 1970\. This time is also known as the Unix epoch. Below
     code shows the conversion of
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 时间可以在 GO 中以 **time.Time** 和 **Unix 时间戳** 格式表示。Unix 时间戳，也称为纪元时间，是自1970年1月1日 00:00:00
+    UTC以来经过的秒数。此时间也称为 Unix 纪元。下面的代码显示了转换过程。
 - en: time.Time to Unix Timestamp
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: time.Time 转 Unix 时间戳
 - en: Unix Timestamp to time.Time
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Unix 时间戳转 time.Time
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[time.Time](https://golangbyexample.com/tag/time-time/)*   [unix](https://golangbyexample.com/tag/unix/)'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[time.Time](https://golangbyexample.com/tag/time-time/) * [unix](https://golangbyexample.com/tag/unix/)'

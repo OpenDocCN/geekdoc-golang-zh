@@ -1,57 +1,92 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:12:21'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:12:21
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Convert string to lowercase in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中将字符串转换为小写
 - en: 来源：[https://golangbyexample.com/string-lowercase-golang/](https://golangbyexample.com/string-lowercase-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/string-lowercase-golang/](https://golangbyexample.com/string-lowercase-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "代码：")*  *# **概述**'
 - en: In GO string are UTF-8 encoded. **strings** package of GO provides a **ToLower**
     method that can be used to convert all Unicode letters to their lower case. This
     method will return the copy of the string as in GO string are immutable.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 GO 中，字符串是 UTF-8 编码的。GO 的 **strings** 包提供了一个 **ToLower** 方法，可以将所有 Unicode 字母转换为小写。该方法会返回字符串的副本，因为
+    GO 字符串是不可变的。
 - en: Below is the signature of the function
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s look at the working code
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们来看看实际的代码
 - en: '**Code:**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]*'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE2]*'

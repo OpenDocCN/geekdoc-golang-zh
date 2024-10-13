@@ -1,126 +1,192 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:18:50'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:18:50
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Copy an array or slice in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go语言中复制数组或切片
 - en: 来源：[https://golangbyexample.com/copy-an-array-or-slice-golang/](https://golangbyexample.com/copy-an-array-or-slice-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/copy-an-array-or-slice-golang/](https://golangbyexample.com/copy-an-array-or-slice-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Copy an array](#Copy_an_array "Copy an array")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[复制一个数组](#Copy_an_array "复制一个数组")'
 - en: '[Copy a slice](#Copy_a_slice "Copy a slice")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[复制一个切片](#Copy_a_slice "复制一个切片")*  *# **概述**'
 - en: Array are value types in go while slice is a reference type. Hence there is
     a difference in the way how an array or slice can be copied to another array or
     slice respectively.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go语言中，数组是值类型，而切片是引用类型。因此，数组或切片如何复制到另一个数组或切片的方式是不同的。
 - en: '**Copy an array**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**复制一个数组**'
 - en: As mentioned above, an array is value types in go. So an array variable name
     is not a pointer to the first element, in fact, it denotes the entire array. A
     copy of the array will be automatically created when
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 如上所述，数组在Go语言中是值类型。因此，数组变量名不是指向第一个元素的指针，而是表示整个数组。当
 - en: An array variable is assigned to another array variable.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个数组变量被赋值给另一个数组变量。
 - en: An array variable is passed as an argument to a function.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个数组变量作为参数传递给一个函数。
 - en: Let’s see above point with an example
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们用一个例子来说明上述要点
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In above example,
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述例子中，
 - en: we assigned the **sample1** to **sample2** and we then changed 0th index at
     **sample2** to have a different value.  After that when we print **sample1**,
     we see that it hasn’t changed. This is because when we assign **sample1** to **sample2**,
     a copy is created and changing **sample2** doesn’t have any effect on **sample1**
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将**sample1**赋值给**sample2**，然后在**sample2**的0索引处改变为不同的值。之后，当我们打印**sample1**时，发现它没有改变。这是因为当我们将**sample1**赋值给**sample2**时，会创建一个副本，改变**sample2**不会影响**sample1**。
 - en: We passed **sample1** to the test function and then again changed its value
     in the test function at 0th index.  After that when we print **sample1**, we see
     that it hasn’t changed. The reason is the same, when **sample1** is passed as
     an argument to test function a copy of **sample1** is created.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将**sample1**传递给测试函数，然后在测试函数的0索引处再次改变其值。之后，当我们打印**sample1**时，发现它没有改变。原因相同，当**sample1**作为参数传递给测试函数时，会创建**sample1**的一个副本。
 - en: '**Copy a slice**'
+  id: totrans-22
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**复制一个切片**'
 - en: go **builtin** package provides a **copy** function that can be used to copy
     a slice. Below is the signature of this function. It returns the number of elements
     copied.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: Go的**builtin**包提供了一个**copy**函数，可以用来复制切片。下面是这个函数的签名。它返回复制的元素数量。
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'There are two cases to be considered while using the copy function:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 在使用copy函数时，有两种情况需要考虑：
 - en: If the length of **src** is greater than length of **dst,** then number of elements
     copied is length of **dst**
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果**src**的长度大于**dst**的长度，则复制的元素数量为**dst**的长度
 - en: If the length of **dst** is greater than length of **src,** then number of elements
     copied is length of **src**
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果**dst**的长度大于**src**的长度，则复制的元素数量为**src**的长度
 - en: Basically the number of elements copied is minimum of length of **(src, dst). **
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本上，复制的元素数量是**(src, dst)**长度的最小值。
 - en: Also to note that once the copy is done then any change in **dst** will not
     reflect in **src** and vice versa
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 还要注意，一旦复制完成，**dst**中的任何更改将不会反映在**src**中，反之亦然。
 - en: '[PRE3]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]*'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE4]*'

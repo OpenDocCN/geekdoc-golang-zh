@@ -1,79 +1,127 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:26:47'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:26:47
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Inline Function in Defer in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的defer中的内联函数
 - en: 来源：[https://golangbyexample.com/inline-function-defer-go/](https://golangbyexample.com/inline-function-defer-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/inline-function-defer-go/](https://golangbyexample.com/inline-function-defer-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: It is also possible to have an inline function with defer.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 也可以有一个带有defer的内联函数。
 - en: '**Example**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see an example of that.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个示例。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above code we have defer with a inline function
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的代码中，我们使用了一个内联函数的defer。
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: This is allowed in go. Also note that it is mandatory to add **“()”** after
     the function otherwise compiler will raise error
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 这在Go中是允许的。还要注意，函数后面必须添加**“()”**，否则编译器会报错。
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: As seen from the output, that the inline function is called after everything
     in the main is executed and before main returns. That is why
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中可以看到，内联函数在主函数的所有内容执行完毕后被调用，并在主函数返回之前调用。这就是原因。
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: is printed before
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在主函数执行之前打印了。
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,113 +1,173 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:29:27'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:29:27
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Importing package from different module locally in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中从不同模块本地导入包
 - en: 来源：[https://golangbyexample.com/import-local-module-golang/](https://golangbyexample.com/import-local-module-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/import-local-module-golang/](https://golangbyexample.com/import-local-module-golang/)
 - en: There are cases when we want to import a module which is present locally. Let’s
     understand how we can import such module. But first, we have to create a module
     that can be used by others and then import it into the other module. For that
     let’s create two modules
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 有些情况下，我们希望导入一个本地存在的模块。让我们理解如何导入这样的模块。但首先，我们必须创建一个可以被他人使用的模块，然后将其导入到其他模块中。为此，让我们创建两个模块
 - en: '**sample.com/math** module'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**sample.com/math**模块'
 - en: '**school** module'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**school**模块'
 - en: '**school** module will be calling code of the **sample.com/math** module'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**school**模块将调用**sample.com/math**模块的代码'
 - en: Let’s first create the **sample.com/math** module which will be used by **school**
     module
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先创建**sample.com/math**模块，该模块将被**school**模块使用
 - en: Make a **math** directory
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个**math**目录
 - en: Create a module with an import path as **sample.com/math**
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个导入路径为**sample.com/math**的模块
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Create a file **math.go** with the below contents  in the **math** directory
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在**math**目录中创建一个名为**math.go**的文件，内容如下
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Nowlet’s create the school module
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们创建school模块
 - en: Create a **school** directory in the same path as the **math** directory side
     by side
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在与**math**目录并排的同一路径下创建一个**school**目录
 - en: Create a module name **school**
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个模块名为**school**
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Now let’s modify the **go.mod** file to import the math module in the school
     module. To import a local module that is not pushed to VCS, we are going to use
     the replace directory. The replace directory will replace the module path with
     the path you specify.
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在让我们修改**go.mod**文件以在school模块中导入math模块。要导入一个未推送到版本控制系统的本地模块，我们将使用替换目录。替换目录将用你指定的路径替换模块路径。
 - en: '[PRE3]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Create file **school.go** which is going to use the **Add** function in **[sample.com](http://sample.com)/math**
     module
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建文件**school.go**，该文件将使用**[sample.com](http://sample.com)/math**模块中的**Add**函数
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Now do a go run
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在执行 go run
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It is able to call the Add function of the **[sample.com](http://sample.com)/math**
     module and correctly gives the output as 6.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 它能够调用**[sample.com](http://sample.com)/math**模块的Add函数，并正确输出为6。
 - en: Also, it will update the **go.mod** with version information of the **[sample.com](http://sample.com)/math**
     module
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，它还将更新**go.mod**，并包含**[sample.com](http://sample.com)/math**模块的版本信息
 - en: '[PRE6]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)'

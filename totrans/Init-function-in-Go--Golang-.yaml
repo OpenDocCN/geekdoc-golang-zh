@@ -1,315 +1,493 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:30:17'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:30:17
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Init function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 中的 Init 函数 (Golang)
 - en: 来源：[https://golangbyexample.com/init-function-golang/](https://golangbyexample.com/init-function-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/init-function-golang/](https://golangbyexample.com/init-function-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Init function in the main package](#Init_function_in_the_main_package "Init
     function in the main package")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[主包中的 Init 函数](#Init_function_in_the_main_package "Init function in the main
+    package")'
 - en: '[Multiple init() function in different source file of same package](#Multiple_init_function_in_different_source_file_of_same_package
     "Multiple init() function in different source file of same package")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[同一包中不同源文件的多个 init() 函数](#Multiple_init_function_in_different_source_file_of_same_package
+    "Multiple init() function in different source file of same package")'
 - en: '[Multiple init() function in same source file](#Multiple_init_function_in_same_source_file
     "Multiple init() function in same source file")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[同一源文件中的多个 init() 函数](#Multiple_init_function_in_same_source_file "Multiple
+    init() function in same source file")'
 - en: '[Order of execution of program](#Order_of_execution_of_program "Order of execution
     of program")*  *# **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序执行顺序](#Order_of_execution_of_program "Order of execution of program")*  *#
+    **概述**'
 - en: init() function is a special function that is used to initialize global variables
     of a package. These functions are executed when the package is initialized. Each
     of the GO source files in a package can have its own init() function. Whenever
     you import any package in the program, then on the execution of that program,
     init functions(if present)  in the GO source files belonging to that imported
     package are called first. Some points to note about init function
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: init() 函数是一个特殊函数，用于初始化包的全局变量。这些函数在包初始化时执行。一个包中的每个 GO 源文件都可以有自己的 init() 函数。每当您在程序中导入任何包时，程序执行时，属于该导入包的
+    GO 源文件中的 init 函数（如果存在）会首先被调用。关于 init 函数的一些要点：
 - en: Init function is optional
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init 函数是可选的。
 - en: Init function does not take any argument
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init 函数不接受任何参数
 - en: Init function does not have any return value.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init 函数没有返回值。
 - en: Init function is called implicitly. Since it is called implicitly, init function
     cannot reference it from anywhere.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init 函数是隐式调用的。由于是隐式调用，init 函数无法从任何地方引用它。
 - en: There can be multiple init() functions within the same source file.
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 同一源文件中可以有多个 init() 函数。
 - en: init function is majorly used for the initialization of global variables that
     cannot be initialized using an initialization expression. For example, it requires
     a network call to intialize any DB client. Another example could be fetching secret
     keys on startup. Init function is also used for running anything that only needs
     to be executed once. Let’s see a simple use case of using an init function.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: init 函数主要用于初始化无法使用初始化表达式初始化的全局变量。例如，它需要网络调用来初始化任何数据库客户端。另一个例子可能是在启动时获取密钥。init
+    函数也用于运行只需要执行一次的任何内容。让我们看一个使用 init 函数的简单用例。
 - en: Assume you are using redis cache in your application. You want redis client
     to created during the application first launch. A good place to initialize a redis
     client is in init() function. Let’s see an example.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设您在应用程序中使用 redis 缓存。您希望在应用程序首次启动时创建 redis 客户端。初始化 redis 客户端的一个好地方是在 init()
+    函数中。让我们看一个例子。
 - en: Create a module named redisexample and put below files in that module.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建一个名为 redisexample 的模块，并将以下文件放入该模块中。
 - en: '**go.mod**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE0]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**redis/redis.go**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**redis/redis.go**'
 - en: '[PRE1]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**main.go**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE2]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In the above example, we have an init function in the **redis.go** file. In
     the init function we initialize the redis global client which is in turn used
     in the **main** function in main.go.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们在 **redis.go** 文件中有一个 init 函数。在 init 函数中，我们初始化了 redis 全局客户端，该客户端在 main.go
+    的 **main** 函数中使用。
 - en: '**Init function in the main package**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**主包中的 Init 函数**'
 - en: '**main** package can also contain the init function. The init function will
     be triggered before the **main** function'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main** 包也可以包含 init 函数。init 函数将在 **main** 函数之前触发。'
 - en: '[PRE4]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program, we have an init function and the main function. In the
     init function, we initialize the global variable “sample”. Notice the order of
     execution i.e init function is executed first and then the main function is executed.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们有一个 init 函数和一个 main 函数。在 init 函数中，我们初始化了全局变量“sample”。注意执行顺序，即 init
+    函数首先执行，然后执行 main 函数。
 - en: '**Multiple init() function in different source file of same package**'
+  id: totrans-36
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**同一包中不同源文件的多个 init() 函数**'
 - en: '**init()** function is called in all the source files belonging to a package
     if present. Let’s see an example for it.'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**init()**函数在属于某个包的所有源文件中被调用（如果存在）。让我们看一个例子。'
 - en: '**learn/math/add.go**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/add.go**'
 - en: '[PRE6]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**learn/math/subtract.go**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/subtract.go**'
 - en: '[PRE7]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**learn/main.go**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE8]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Multiple init() function in same source file**'
+  id: totrans-46
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**同一源文件中的多个init()函数**'
 - en: There can be multiple init function within same source file.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 同一源文件中可以有多个init函数。
 - en: '[PRE10]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: In above program we have an init function and a main function. In init function
     we initialize the global variable “sample”. Notice the order of execution i.e
     init function is executed first and then the main function is executed.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们有一个init函数和一个main函数。在init函数中，我们初始化全局变量“sample”。注意执行顺序，即init函数先执行，然后main函数执行。
 - en: '**Order of execution of program**'
+  id: totrans-52
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序的执行顺序**'
 - en: Now as we have seen above examples, let’s see the order of execution of a go
     program.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在如上所述，让我们看看go程序的执行顺序。
 - en: The program starts with the main package.
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 程序从主包开始。
 - en: All imported packages in the source files of the main package are initialized.
     The same thing happens recursively for further imported packages.
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主包源文件中导入的所有包都会被初始化。进一步导入的包同样会递归地执行。
 - en: Then global variables declaration in these packages is initialized. The initialization
     dependency kicks in for initialization of these variables. [https://golang.org/ref/spec#Order_of_evaluation](https://golang.org/ref/spec#Order_of_evaluation)
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后这些包中的全局变量声明被初始化。初始化依赖关系会影响这些变量的初始化。[https://golang.org/ref/spec#Order_of_evaluation](https://golang.org/ref/spec#Order_of_evaluation)
 - en: After this, init() function is run in these packages
+  id: totrans-57
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 之后，这些包中的init()函数会被运行。
 - en: Global variables in the main package are initialized
+  id: totrans-58
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主包中的全局变量被初始化。
 - en: init function in the main package is run if present
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果存在，主包中的init函数将被运行。
 - en: main function in main package is run.
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主包中的main函数被运行。
 - en: Note here that package initialization is only done once even if it is imported
     several times.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，包初始化只会执行一次，即使被多次导入。
 - en: For example if main package imports package **a** and in turn package **a**
     imports package **b**, then below will be the order
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果主包导入包**a**，而包**a**又导入包**b**，则执行顺序如下：
 - en: Global variables in package **b** will be initialized. init function in source
     files of package b will be run
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包**b**中的全局变量将被初始化。包b的源文件中的init函数将被运行。
 - en: Global variables in the package **a** will be initialized. init function in
     source files of package **b** will be run
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包**a**中的全局变量将被初始化。包**b**的源文件中的init函数将被运行。
 - en: Global variables in **main** package will be intialized. init function in source
     files of **main** package will be run
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**main**包中的全局变量将被初始化。主包源文件中的init函数将被运行。'
 - en: '**main** function will start executing.'
+  id: totrans-66
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**main**函数将开始执行。'
 - en: Let’s see a program for the same.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个相同的程序。
 - en: '**go.mod**'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE12]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**sample/b/b1.go**'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample/b/b1.go**'
 - en: '[PRE13]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**sample/b/b2.go**'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample/b/b2.go**'
 - en: '[PRE14]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**sample/a/a1.go**'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample/a/a1.go**'
 - en: '[PRE15]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**sample/a/a2.go**'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample/a/a2.go**'
 - en: '[PRE16]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**sample/main.go**'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample/main.go**'
 - en: '[PRE17]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Output**'
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE18]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: Notice in above example that init function in source files of package **b**
     are run first. Then init function in source files of package **a** is run and
     then init function in source file of main package is run. After that main function
     is run
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在上述示例中，包**b**的源文件中的init函数先运行。然后包**a**的源文件中的init函数运行，最后是主包中的init函数。之后运行main函数。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-83
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

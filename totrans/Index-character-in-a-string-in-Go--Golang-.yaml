@@ -1,97 +1,152 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:13:15'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:13:15
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Index character in a string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中索引字符串中的字符。
 - en: 来源：[https://golangbyexample.com/go-index-character-string/](https://golangbyexample.com/go-index-character-string/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-index-character-string/](https://golangbyexample.com/go-index-character-string/)
 - en: In Golang string is a sequence of bytes. A string literal actually represents
     a UTF-8 sequence of bytes. In UTF-8, ASCII characters are single-byte corresponding
     to the first 128 Unicode characters. All other characters are between 1 -4 bytes.
     Due to this, it is not possible to index a character in a string.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中，字符串是字节的序列。字符串字面量实际上表示UTF-8字节序列。在UTF-8中，ASCII字符是单字节，对应于前128个Unicode字符。所有其他字符占用1到4个字节。因此，无法在字符串中索引字符。
 - en: For example, see below the program and its output.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，请看下面的程序及其输出。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: As you might have noticed, it prints different characters than expected and
     length is also 5 instead of 4\. Why is that? To answer please remember we said
     that a string is essentially a slice of bytes. Let's print that slice of bytes
     using
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如你可能注意到的，它打印了与预期不同的字符，长度也是5而不是4。为什么会这样？要回答这个问题，请记住我们说过字符串本质上是字节的切片。让我们使用以下方式打印该字节切片。
 - en: '[PRE2]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: The output will be
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出将是
 - en: '[PRE3]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This is the mapping of each of character to its byte sequence. As you can notice
     **a**, **b**, **c** take each 1 byte but **£** takes two bytes. That is why the
     length of the string is 5 and not 4
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是每个字符到其字节序列的映射。如你所见，**a**、**b**、**c**各占1个字节，但**£**占用两个字节。这就是为什么字符串的长度是5而不是4。
 - en: '| a | 97 |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '| a | 97 |'
 - en: '| b | 98 |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| b | 98 |'
 - en: '| £ | 194, 163 |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| £ | 194, 163 |'
 - en: '| c | 99 |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| c | 99 |'
 - en: Then how we can index into a string. This is where **rune** data type comes
     into picture In GO, **rune** data type represents a Unicode point. You can learn
     more about rune here - [https://golangbyexample.com/understanding-rune-in-golang](https://golangbyexample.com/understanding-rune-in-golang)
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么我们如何在字符串中进行索引呢？这就是**rune**数据类型的作用。在Go中，**rune**数据类型表示一个Unicode点。你可以在这里了解更多关于rune的知识
+    - [https://golangbyexample.com/understanding-rune-in-golang](https://golangbyexample.com/understanding-rune-in-golang)
 - en: Once a string is converted to an array of **rune** then it is possible to index
     a character in that array of rune. See below code
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦字符串被转换为**rune**数组，就可以在该数组中索引字符。请看下面的代码。
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Also to mention you can use range operator to iterate over all Unicode characters
     in the string, but to index character in a string, you can convert it to an array
     of **rune**.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 还需提到的是，你可以使用范围操作符迭代字符串中的所有Unicode字符，但要在字符串中索引字符，可以将其转换为**rune**数组。
 - en: '[golang](https://golangbyexample.com/tag/golang/)*   [index](https://golangbyexample.com/tag/index/)'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*   [index](https://golangbyexample.com/tag/index/)'

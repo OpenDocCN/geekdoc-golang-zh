@@ -1,287 +1,382 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
 - en: 'date: 2024-10-13 06:05:13'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
 - en: Inner working of Channels in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: 来源：[https://golangbyexample.com/inner-working-of-channels-in-golang/](https://golangbyexample.com/inner-working-of-channels-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
 - en: '**Introduction**'
+  id: totrans-6
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: 'The purpose of this article is to give an idea of the inner working of channels.
     Golang has two  concurrency primitives:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
 - en: '**Goroutine** – lightweight independent execution to achieve concurrency/parallelism.'
+  id: totrans-8
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '**Channels** – provides synchronization and communication between goroutines.'
+  id: totrans-9
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: Channels are goroutine safe and manage communication between goroutine in a
     FIFO way. A goroutine can block on a channel while doing send or receive of some
     data and it is the responsibility of the channel to wake up blocked goroutine
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
 - en: '**Types of Channels**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: '**Buffered Channel**'
+  id: totrans-12
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
 - en: Send on a buffer channel only blocks if the buffer is full.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Receive is blocked if the channel is empty.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**Unbuffered Channel**'
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
 - en: Send on a channel is block unless there is another goroutine to receive.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Receive is block until there is another goroutine on the other side to send.
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**HCHAN struct**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: 'Let’s understand what happens internally when you make channels. A channel
     is internally represented by a **hchan** struct whose main elements are:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'The struct **sudog** main elements are represented as below:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s understand what happens during send and receive of a channel
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
 - en: '**Send on a channel**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: '**No receiver/receivers waitin**g: Unbuffered Channel or the Buffer is Full
     in case of Buffered Channel.'
+  id: totrans-25
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '**Receiver/receivers waiting**: Unbuffered Channel or the Buffer is empty in
     case of Buffered Channel'
+  id: totrans-26
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '**Buffer empty**: In case of buffered channel'
+  id: totrans-27
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '**Channel closed**'
+  id: totrans-28
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '**1\. No Receiver/Receivers Waiting:**'
+  id: totrans-29
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
 - en: For below two scenarios the behavior will be the same when there are no receivers
     waiting.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
 - en: 'Buffered Channel: Buffer is Full'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Unbuffered Channel
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: The goroutine **G1** which is trying to send to the channel, its execution is
     paused and is resumed only after a receive. Let’s see how that happens.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
 - en: It creates a **sudog** object with **g** i.e, goroutine as itself and **elem**
     pointing to the data it wants to put into the buffer
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: It then adds that sudog struct to the sending queue sendq .
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: The goroutine calls “GOPARK” to the Go RunTime. In response, the Go RunTime
     changes the status of that G1 to WAITING.
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**2\. Receivers waiting**'
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
 - en: For below two scenarios the behavior will be the same when there are receivers
     waiting
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
 - en: 'Buffered Channel: Buffer is Empty'
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Unbuffered Channel
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Let’s see how that happens.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
 - en: The goroutine G1 dequeues from the **receq** and then pass the data directly
     to the receiver goroutine.
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Set the status of the receiver goroutine to **RUNNABLE**
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**3\. Buffer not full:**'
+  id: totrans-44
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
 - en: 'Only applicable for buffered channels: Buffer has at least one empty space'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
 - en: Writes the data to the buffer
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**4\. Channel closed:**'
+  id: totrans-47
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
 - en: Panics
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '**Receive From a channel**'
+  id: totrans-49
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: '**No sender/senders waiting:** Unbuffered Channel or buffer is empty in case
     of Buffered Channel'
+  id: totrans-50
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
 - en: '**Sender/senders waiting:** Unbuffered Channel or the Buffer is empty in case
     of Buffered Channel.'
+  id: totrans-51
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**发送者等待：** 未缓冲通道或缓冲通道的缓冲区为空。'
 - en: '**Non-empty Buffer:** In case of buffered channel. Channel has at least 1 item.'
+  id: totrans-52
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**非空缓冲区：** 在缓冲通道的情况下，通道至少有1个项目。'
 - en: '**Channel closed**'
+  id: totrans-53
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**通道关闭**'
 - en: '**1\. No sender/senders waiting:**'
+  id: totrans-54
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**1\. 没有发送者等待：**'
 - en: For below two scenarios, the behavior will be the same when there are no receivers
     waiting.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于下面两种情况，当没有接收者等待时，行为将是相同的。
 - en: 'Buffered Channel: Buffer is Empty'
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 缓冲通道：缓冲区为空
 - en: Unbuffered Channel
+  id: totrans-57
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 无缓冲通道
 - en: The goroutine G1 which is trying to receive, its execution is paused and is
     resumed only after a send. Let’s see how that happens.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试接收的goroutine G1，其执行被暂停，仅在发送后恢复。让我们看看这是如何发生的。
 - en: The goroutine creates a **sudog** object with goroutine as itself and element
     being empty
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该goroutine创建一个**sudog**对象，自己作为goroutine，元素为空
 - en: It then adds that **sudog** struct to the waiting sending queue recvq **.**
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后将该**sudog**结构添加到等待发送队列recvq中**。**
 - en: The gorutine calls “GOPARK” to the Go RunTime. In response, the Go RunTime changes
     the status of that Goroutine to **WAITING**.
+  id: totrans-61
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该goroutine调用“GOPARK”到Go运行时。作为回应，Go运行时将该goroutine的状态更改为**等待**。
 - en: '**2\. Sender/Senders waiting:**'
+  id: totrans-62
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**2\. 发送者/发送者等待：**'
 - en: It dequeues the element from the buffer and copies to it to itself
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从缓冲区出队列元素并复制到自身
 - en: Dequeues from the **sendq** and then copy the data directly to the buffer.
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从**sendq**出队列，然后将数据直接复制到缓冲区。
 - en: Set the status of the sender goroutine to **RUNNABLE**
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将发送goroutine的状态设置为**可运行**
 - en: '**3\. Non-Empty Buffer:**'
+  id: totrans-66
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**3\. 非空缓冲区：**'
 - en: 'Only applicable for buffered channels:'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 仅适用于缓冲通道：
 - en: The goroutine reads the data from the buffer
+  id: totrans-68
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该goroutine从缓冲区读取数据
 - en: '**4\. Channel closed:**'
+  id: totrans-69
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**4\. 通道关闭：**'
 - en: Receives the default value of data type from the channel
+  id: totrans-70
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从通道接收数据类型的默认值
 - en: '[sidetoc](https://golangbyexample.com/tag/sidetoc/)'
+  id: totrans-71
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[sidetoc](https://golangbyexample.com/tag/sidetoc/)'

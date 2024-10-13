@@ -1,88 +1,133 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:00:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:00:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Inheritance in GO using struct (Embedding)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 使用结构体（嵌入）的GO中的继承
 - en: 来源：[https://golangbyexample.com/inheritance-go-struct/](https://golangbyexample.com/inheritance-go-struct/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/inheritance-go-struct/](https://golangbyexample.com/inheritance-go-struct/)
 - en: This post desicribes inheritance using struct only. Do visit our Inheritance
     in Go Complete Guide post for full reference
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 本文仅描述使用结构体的继承。请查看我们的《Go语言中的继承完整指南》以获取完整参考。
 - en: '[OOP: Inheritance in GOLANG complete guide](https://golangbyexample.com/oop-inheritance-golang-complete/)'
+  id: totrans-7
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: '[面向对象：GOLANG中的继承完整指南](https://golangbyexample.com/oop-inheritance-golang-complete/)'
 - en: '[https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=z8WWaJ1OiI#?secret=zH9oZkEbS3](https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=z8WWaJ1OiI#?secret=zH9oZkEbS3)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=z8WWaJ1OiI#?secret=zH9oZkEbS3](https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=z8WWaJ1OiI#?secret=zH9oZkEbS3)'
 - en: 'Go supports inheritance by embedding struct or using interface. There are different
     ways of doing it and each having some limitations. The different ways are:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: Go支持通过嵌入结构体或使用接口进行继承。实现方式不同，每种方式都有一些限制。不同的方式有：
 - en: '**By using embedded struct** – The parent struct is embedded in child struct.
     The limitation is that subtyping is not possible with this approach. You cannot
     pass the child struct to a function that expects base. The current post describes
     this approach.'
+  id: totrans-10
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**通过使用嵌入结构体** – 父结构体嵌入到子结构体中。这个方法的限制是子类型不可能。你不能将子结构体传递给期望基结构体的函数。当前帖子描述了这种方法。'
 - en: By using interfaces – Subtyping is possible but the limitation is that one has
     no way to refer to common properties. Refer this link for more details – [**Inheritance
     using Interface**](https://golangbyexample.com/inheritance-go-interface/)
+  id: totrans-11
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 通过使用接口 – 子类型是可能的，但限制是无法引用公共属性。有关更多详情，请参考此链接 – [**使用接口的继承**](https://golangbyexample.com/inheritance-go-interface/)
 - en: By using interface + struct – This fixes the limitations of above two approach
     but one limitation is that overriding methods is not possible. But there is a
     workaround. Refer to this link for more details – [**Inheritance using interface
     + struct**](https://golangbyexample.com/inheritance-go-interface-struct/)
+  id: totrans-12
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 通过使用接口 + 结构体 – 这解决了上述两种方法的限制，但一个限制是无法重写方法。不过有一个解决方法。有关更多详情，请参考此链接 – [**使用接口
+    + 结构体的继承**](https://golangbyexample.com/inheritance-go-interface-struct/)
 - en: '**Details:**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**详情：**'
 - en: 'In inheritance using a struct, a base struct is embedded in child struct and
     base properties and methods can directly be called on child struct. See below
     code:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在使用结构体的继承中，基结构体被嵌入到子结构体中，基属性和方法可以直接在子结构体上调用。请参见下面的代码：
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Limitation:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**限制：**'
 - en: Subtyping is not supported. You cannot pass the child struct to a function that
     expects base.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 不支持子类型。你不能将子结构体传递给期望基结构体的函数。
 - en: 'For example in the above code if you uncomment **//check(child)** it will give
     compilation error: “cannot use child (type *child) as type base in argument to
     check”. To fix this we can do inheritance using Interface'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，在上述代码中，如果你取消注释**//check(child)**，将会出现编译错误：“无法将child（类型*child）作为参数传递给check，期望类型为base”。要解决此问题，我们可以通过接口进行继承。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [inheritance](https://golangbyexample.com/tag/inheritance/)*   [interface](https://golangbyexample.com/tag/interface/)*   [struct](https://golangbyexample.com/tag/struct/)'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [inheritance](https://golangbyexample.com/tag/inheritance/)*   [interface](https://golangbyexample.com/tag/interface/)*   [struct](https://golangbyexample.com/tag/struct/)'

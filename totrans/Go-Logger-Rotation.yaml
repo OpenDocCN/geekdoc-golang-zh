@@ -1,90 +1,140 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:04:47'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:04:47
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Go Logger Rotation
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go日志轮换
 - en: 来源：[https://golangbyexample.com/go-logger-rotation/](https://golangbyexample.com/go-logger-rotation/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-logger-rotation/](https://golangbyexample.com/go-logger-rotation/)
 - en: This article is about how we rotate log files from within the go app without
     having to worry about the disk full alerts.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 本文讨论的是如何在go应用程序中轮换日志文件，而无需担心磁盘空间不足的警报。
 - en: We are going to use [https://github.com/lestrrat/go-file-rotatelogs](https://github.com/lestrrat/go-file-rotatelogs)
     for log rotation.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将使用[https://github.com/lestrrat/go-file-rotatelogs](https://github.com/lestrrat/go-file-rotatelogs)进行日志轮换。
 - en: '**Example:** In the example below we are setting'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例：**在下面的示例中，我们正在设置'
 - en: '**MaxAge** to 10 seconds. It sets the max-age of a log file before it is purged
     from the file system. Meaning the file will be deleted after 10 seconds. See'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**MaxAge**设置为10秒。这表示在日志文件被从文件系统中清除之前的最大年龄。也就是说，文件将在10秒后被删除。见'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**RotationTime** is 1 second**.** It sets the time when the file will be rotated.
     So the file will be rotated every second. See'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**RotationTime**是1秒**。**它设置了文件轮换的时间。所以文件将每秒轮换一次。见'
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Location** is /var/log/service/ . See'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Location**是/var/log/service/。见'
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Pattern** of the file is “old.UTC..2019-11-30.22:40:10” . See'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件的**Pattern**是“old.UTC..2019-11-30.22:40:10”。见
 - en: '[PRE3]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Link Path** is/var/log/service/current. This file would be a symlink for
     the actual file. See'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Link Path**是/var/log/service/current。这个文件将是实际文件的符号链接。见'
 - en: '[PRE4]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Code:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE5]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Go to the location /var/log/service/. You will notice
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 前往位置/var/log/service/。你会注意到
 - en: Files are rotated every second.
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件每秒轮换一次。
 - en: Max age of the file is 10 seconds. So every file will be deleted after 10 seconds.
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件的最大年龄是10秒。因此，每个文件将在10秒后被删除。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [logger](https://golangbyexample.com/tag/logger/)*   [rotate](https://golangbyexample.com/tag/rotate/)'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [logger](https://golangbyexample.com/tag/logger/)*   [rotate](https://golangbyexample.com/tag/rotate/)'

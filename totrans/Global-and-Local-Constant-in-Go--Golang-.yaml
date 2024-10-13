@@ -1,33 +1,51 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml。
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类。
 - en: 'date: 2024-10-13 06:27:53'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:27:53。
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->。
 - en: Global and Local Constant in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的全局和局部常量。
 - en: 来源：[https://golangbyexample.com/global-local-constant-golang/](https://golangbyexample.com/global-local-constant-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/global-local-constant-golang/](https://golangbyexample.com/global-local-constant-golang/)。
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录。
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")**。'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**。'
 - en: Like any other variable, a constant will be global within a package if it is
     declared at the top of a file outside the scope of any function. For example,
     in the below program **name** will be a global constant available throughout the
@@ -35,98 +53,157 @@
     outside the main package. For it to be available outside the main package it has
     to start with a capital letter. See the below code. It also shows the example
     of a local constant within a package.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 与其他变量一样，如果常量在文件顶部的任何函数范围外声明，则它在包内是全局的。例如，在下面的程序中，**name** 将是一个全局常量，可以在主包的任何函数中使用。请注意，const
+    **name** 在主包外不可用。要使其在主包外可用，必须以大写字母开头。请查看下面的代码。它还显示了包内局部常量的示例。
 - en: '**Example**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**。'
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**。'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s see an example where we try to access the global constant from a different
     package. Let’s say that
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个示例，尝试从不同的包访问全局常量。假设。
 - en: '**main.go** is present at location **$GOPATH/src/github.com/learn**'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**main.go** 位于 **$GOPATH/src/github.com/learn**。'
 - en: '**data.go** is present at location **$GOPATH/src/github.com/learn/data**'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**data.go** 位于 **$GOPATH/src/github.com/learn/data**。'
 - en: '**main.go**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**。'
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**data.go**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**data.go**。'
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Go to the **learn** directory and run command
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 前往 **learn** 目录并运行命令。
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**。'
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program we are trying to access the constant PI which is defined
     in data.go from the main package. The program works and successfully prints the
     value as the const PI starts with a capital letter and hence it is visible outside
     its package.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们尝试从主包访问在 data.go 中定义的常量 PI。该程序正常工作，并成功打印出值，因为 const PI 以大写字母开头，因此它在其包外可见。
 - en: If you change the constant name from **PI** to **pi** then above program will
     raise compilation error
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果将常量名称从 **PI** 更改为 **pi**，则上述程序将引发编译错误。
 - en: '[PRE6]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Let’s see a program for that
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个程序来说明这一点。
 - en: '**main.go**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**。'
 - en: '[PRE7]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**data.go**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**data.go**。'
 - en: '[PRE8]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Go to the **learn** directory and run command
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 前往 **learn** 目录并运行命令。
 - en: '[PRE9]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**。'
 - en: '[PRE10]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)。'

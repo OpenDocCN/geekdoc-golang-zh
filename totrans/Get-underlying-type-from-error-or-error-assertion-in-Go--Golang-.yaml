@@ -1,149 +1,231 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类。
 - en: 'date: 2024-10-13 06:25:00'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:25:00。
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get underlying type from error or error assertion in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 从错误或Go（Golang）中的错误断言获取底层类型。
 - en: 来源：[https://golangbyexample.com/error-assertion-golang/](https://golangbyexample.com/error-assertion-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/error-assertion-golang/](https://golangbyexample.com/error-assertion-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录。
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")。'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: There are two ways of getting the underlying type
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 获取底层类型有两种方式。
 - en: Using the .({type}) assert
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用.({type})断言。
 - en: If the assert succeeds then it will return the corresponding error otherwise
     it will panic. Below is the syntax
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果断言成功，它将返回相应的错误，否则将引发panic。以下是语法。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Better to use **ok** variable to prevent panic in case assertion fails.  Below
     is the syntax for that. The **ok** variable will be set to true if  error underlying
     type is correct
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 最好使用**ok**变量以防断言失败而导致panic。以下是语法：如果错误的底层类型正确，**ok**变量将被设置为true。
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Using the **As** function of **errors** package-  [https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)
     .Using **As** function is preferable to using the .({type}) assert because it
     checks for match by unwrapping the first error sequentially and matches it with
     target error at each step of unwrap. Below is the syntax of Is function
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**errors**包的**As**函数 - [https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)。使用**As**函数比使用.({type})断言更可取，因为它通过顺序解包第一个错误并在每一步解包时与目标错误进行匹配。以下是Is函数的语法。
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**As** function will find the first error in the first argument which can match
     the target. Once a match is found it will set target to that error value.'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**As**函数将在第一个参数中找到第一个可以匹配目标的错误。一旦找到匹配项，它将把目标设置为该错误值。'
 - en: '**Code**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**。'
 - en: Let’s see an example
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个例子。
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the above program, we have a function openFile in which we are trying to
     open a non-existing type hence it will raise an error. Then we are asserting 
     the error in two ways
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有一个openFile函数，其中我们尝试打开一个不存在的类型，因此会引发错误。然后我们以两种方式对错误进行断言。
 - en: Using .assert operator. The ok variable will be set to true if the error underlying
     type is ***os.PathError** otherwise it will be set to false
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用.assert运算符。如果底层错误类型是***os.PathError**，则ok变量将被设置为true，否则将被设置为false。
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Using the **As** function of errors package
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用errors包的**As**函数。
 - en: '[PRE6]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Both the method correctly assert that the error is of type ***os.PathError**
     as error returned by the **openFile** function is of type ***os.PathError**
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 两种方法都正确地断言错误是类型为***os.PathError**，因为**openFile**函数返回的错误是类型为***os.PathError**。
 - en: We mentioned above that using **As** the function is preferable to using the
     .({type}) assert because it checks for a match by unwrapping the first error sequentially
     and matches it with the target error at each step of unwrap. Let’s see an example
     to understand that
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们上面提到，使用**As**函数比使用.({type})断言更可取，因为它通过顺序解包第一个错误并在每一步解包时与目标错误进行匹配。让我们看看一个例子来理解这一点。
 - en: '[PRE7]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output:**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE8]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: The above program is almost same as the previous program just the difference
     being that in the openFile function we are wrapping the error as well
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 上面的程序几乎与之前的程序相同，唯一的区别是我们在openFile函数中也包装了错误。
 - en: '[PRE9]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: The . assert outputs
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: .assert的输出。
 - en: '[PRE10]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: While As function outputs
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当As函数输出时。
 - en: '[PRE11]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: This is because the error returned by the **openFile** function wraps ***os.Patherror**
     error which is not catched by the dot(‘.’) assert but is catched by **As** function
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是因为**openFile**函数返回的错误包装了***os.Patherror**错误，而点（‘.’）断言没有捕获到该错误，但**As**函数捕获到了。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

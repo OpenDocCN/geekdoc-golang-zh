@@ -1,92 +1,144 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类: 未分类'
 - en: 'date: 2024-10-13 06:01:59'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:01:59'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Go: Different ways of iterating over an Array and Slice'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 'Go: 遍历数组和切片的不同方式'
 - en: 来源：[https://golangbyexample.com/go-different-ways-iterating-array-slice/](https://golangbyexample.com/go-different-ways-iterating-array-slice/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-different-ways-iterating-array-slice/](https://golangbyexample.com/go-different-ways-iterating-array-slice/)
 - en: Go provides many different ways of iterating over an array. All examples below
     are also applicable to slice.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 提供了许多遍历数组的不同方式。以下所有示例也适用于切片。
 - en: Let’s define an array of **letters** first
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们先定义一个**字母**的数组
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Table of Contents
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Using the range operator](#Using_the_range_operator "Using the range
     operator")'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [使用 range 操作符](#Using_the_range_operator "使用 range 操作符")'
 - en: '[Using Only For operator](#Using_Only_For_operator "Using Only For operator")*  *##
     **Using the range operator**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[仅使用 For 操作符](#Using_Only_For_operator "仅使用 For 操作符")*  *## **使用 range 操作符**'
 - en: With index and value
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 带索引和值
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Only Value
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅值
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Only index
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅索引
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Without value and index. Just print array values
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 无值和索引。仅打印数组值
 - en: '[PRE4]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Using Only For operator**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**仅使用 For 操作符**'
 - en: Single initialization and post
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 单一初始化和后置
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Multiple initialization and post statement
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 多重初始化和后置语句
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[array](https://golangbyexample.com/tag/array/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [iterating](https://golangbyexample.com/tag/iterating/)*   [iteration](https://golangbyexample.com/tag/iteration/)*   [slice](https://golangbyexample.com/tag/slice/)*'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数组](https://golangbyexample.com/tag/array/)*   [Go](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [遍历](https://golangbyexample.com/tag/iterating/)*   [迭代](https://golangbyexample.com/tag/iteration/)*   [切片](https://golangbyexample.com/tag/slice/)*'

@@ -1,60 +1,90 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:10:40'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:10:40
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get the IP address from an incoming HTTP request
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 从传入的HTTP请求中获取IP地址。
 - en: 来源：[https://golangbyexample.com/golang-ip-address-http-request/](https://golangbyexample.com/golang-ip-address-http-request/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/golang-ip-address-http-request/](https://golangbyexample.com/golang-ip-address-http-request/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: In this article, we will get the IP address of the client for an incoming HTTP
     request using
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这篇文章中，我们将使用传入的HTTP请求获取客户端的IP地址。
 - en: '**X-REAL-IP** header'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**X-REAL-IP** 头部。'
 - en: If **X-REAL-IP** is empty then we will fall back to **X-FORWARDED-FOR** header.
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 **X-REAL-IP** 为空，我们将退回到 **X-FORWARDED-FOR** 头部。
 - en: If **X-FORWARDED-FOR** is empty then we will fall back to **RemoteAddr** of
     http.Request struct
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 **X-FORWARDED-FOR** 为空，我们将退回到 http.Request 结构的 **RemoteAddr**。
 - en: Please do note that
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，
 - en: '**X-REAL-IP** header contains only one IP address of the client machine. Some
     of the proxy servers such as Nginx populate this header if empty based upon the
     trust proxies that the request encountered before. Also please note that this
     header can easily be spoofed by the client.'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**X-REAL-IP** 头部仅包含客户端机器的一个IP地址。一些代理服务器，如Nginx，如果该头部为空，会根据请求之前遇到的可信代理填充此头部。同时请注意，客户端也可以轻易伪造该头部。'
 - en: '**X-FORWARDED-FOR**  is a list of IP addresses – proxy chaining. Consider it
     as a request hop log. So if the request originates from the client having IP as
     **ip1**, and then hops through a proxy server with **ip2** and then goes through
@@ -62,62 +92,97 @@
     be **“ip1,ip2,ip3”** Therefore it is a good idea to split by **“,”**.  Also, note
     that it can also be easily spoofed by the client. You should only use this header
     if you control the proxy which is setting the header'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**X-FORWARDED-FOR** 是一个IP地址列表——代理链。将其视为请求跳跃日志。因此，如果请求源自IP为 **ip1** 的客户端，然后经过IP为
+    **ip2** 的代理服务器，再经过IP为 **ip3** 的负载均衡器，那么 **X-FORWARDED-FOR** 的值将是 **“ip1,ip2,ip3”**。因此，按
+    **“,”** 分割是个好主意。此外，请注意，客户端也可以轻易伪造它。只有在你控制设置该头部的代理时，才应该使用该头部。'
 - en: '**RemoteAddr** contains the real IP address of the client. It is the actual
     physical IP address that the web server received the connection from and that
     the response will be sent to. But in case the client is connected through a proxy
     it will give the IP address of the proxy. Also in case, you are using a load balancer
     or a reverse proxy server then it will give the address of them. **RemoteAddr**
     represents the IP port combination.'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**RemoteAddr** 包含客户端的真实IP地址。它是网络服务器接收连接的实际物理IP地址，响应将发送到该地址。但如果客户端通过代理连接，它将给出代理的IP地址。如果使用负载均衡器或反向代理服务器，则将提供它们的地址。**RemoteAddr**
+    代表 IP 端口组合。'
 - en: Please refer to this article for more information on X-REAL-IP and X-FORWARDED-FOR
     header
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 有关 **X-REAL-IP** 和 **X-FORWARDED-FOR** 头部的更多信息，请参考这篇文章。
 - en: '[https://distinctplace.com/2014/04/23/story-behind-x-forwarded-for-and-x-real-ip-headers/](https://distinctplace.com/2014/04/23/story-behind-x-forwarded-for-and-x-real-ip-headers/)'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://distinctplace.com/2014/04/23/story-behind-x-forwarded-for-and-x-real-ip-headers/](https://distinctplace.com/2014/04/23/story-behind-x-forwarded-for-and-x-real-ip-headers/)'
 - en: Out of the above 3 values, **RemoteAddr** is the most reliable but it will never
     give correct IP address if the client is behind the proxy or when using a load
     balancer or a reverse proxy server, therefore the order is first  **X-REAL-IP**
     then **X-FORWARDED-FOR**  and then **RemoteAddr.** Although please note that a
     malicious user can still create the fake **X-REAL-IP** and **X-FORWARDED-FOR**
     header
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述三个值中，**RemoteAddr** 是最可靠的，但如果客户端位于代理后面，或使用负载均衡器或反向代理服务器，它将永远无法提供正确的IP地址，因此顺序为
+    **X-REAL-IP**，然后是 **X-FORWARDED-FOR**，最后是 **RemoteAddr**。请注意，恶意用户仍然可以伪造 **X-REAL-IP**
+    和 **X-FORWARDED-FOR** 头部。
 - en: '**Code**'
+  id: totrans-20
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: Let’s see a working code in GOLANG
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看在 GOLANG 中的工作代码。
 - en: '[PRE0]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Make a curl call
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 发起一个 curl 调用。
 - en: '[PRE1]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: On your machine, it will either output 127.0.0.1 for IPV4 or ::1 for IPV6
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 在你的机器上，它将输出 IPV4 的 127.0.0.1 或 IPV6 的 ::1。
 - en: '[https://en.wikipedia.org/wiki/Localhost](https://en.wikipedia.org/wiki/Localhost)'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://en.wikipedia.org/wiki/Localhost](https://en.wikipedia.org/wiki/Localhost)'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*'

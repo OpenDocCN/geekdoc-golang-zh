@@ -1,63 +1,101 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:05:08'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:08
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Go : Check if type implements an interface'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 'Go : 检查类型是否实现接口'
 - en: 来源：[https://golangbyexample.com/go-check-if-type-implements-interface/](https://golangbyexample.com/go-check-if-type-implements-interface/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-check-if-type-implements-interface/](https://golangbyexample.com/go-check-if-type-implements-interface/)
 - en: Sometimes there can be scenarios where it is needed to know if your type satisfies
     an interface or not. This can be easily achieved using a blank identifier.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 有时可能会出现需要知道你的类型是否满足某个接口的场景。这可以通过使用空标识符轻松实现。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In the above program, we have commented out the square’s **getArea()** function.
     On “go build” above program gives the error
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们注释掉了正方形的**getArea()**函数。在“go build”中，上述程序会给出错误
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: On uncommenting the **getArea()** method the error goes away. To check if a
     pointer of the type implements the interface then it can be done as below
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 取消注释**getArea()**方法后，错误消失了。要检查该类型的指针是否实现接口，可以如下进行
 - en: '[PRE2]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**OR**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**或者**'
 - en: '[PRE3]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: First one will give the error
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个会导致错误
 - en: '[PRE4]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: while the latter one will give error
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 而后者会导致错误
 - en: '[PRE5]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [interface](https://golangbyexample.com/tag/interface/)*   [type](https://golangbyexample.com/tag/type/)'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [interface](https://golangbyexample.com/tag/interface/)*   [type](https://golangbyexample.com/tag/type/)'

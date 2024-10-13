@@ -1,233 +1,361 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:32:08'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:32:08
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get response headers for an outgoing HTTP request in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 获取Go（Golang）中发出的HTTP请求的响应头。
 - en: 来源：[https://golangbyexample.com/get-response-headers-making-go/](https://golangbyexample.com/get-response-headers-making-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/get-response-headers-making-go/](https://golangbyexample.com/get-response-headers-making-go/)
 - en: 'Note: Related Post'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：相关帖子
 - en: Get request headers from an incoming HTTP request in Golang – [https://golangbyexample.com/headers-http-request-golang/](https://golangbyexample.com/headers-http-request-golang/)
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从传入的HTTP请求中获取请求头，在Golang中 – [https://golangbyexample.com/headers-http-request-golang/](https://golangbyexample.com/headers-http-request-golang/)
 - en: Set response headers for an incoming HTTP request in Golang – [https://golangbyexample.com/set-resposne-headers-http-go/](https://golangbyexample.com/set-resposne-headers-http-go/)
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 为传入的HTTP请求设置响应头，在Golang中 – [https://golangbyexample.com/set-resposne-headers-http-go/](https://golangbyexample.com/set-resposne-headers-http-go/)
 - en: Set request headers for an outgoing HTTP request in Golang- [https://golangbyexample.com/set-headers-http-request/](https://golangbyexample.com/set-headers-http-request/)
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 为发出的HTTP请求设置请求头 – [https://golangbyexample.com/set-headers-http-request/](https://golangbyexample.com/set-headers-http-request/)
 - en: Now let’s look at how we can get headers while making an HTTP request
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看在进行HTTP请求时如何获取头部信息。
 - en: Table of Contents
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Using Header.Values method](#Using_HeaderValues_method "Using Header.Values
     method")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 Header.Values 方法](#Using_HeaderValues_method "Using Header.Values method")'
 - en: '[Using Header.Get method](#Using_HeaderGet_method "Using Header.Get method")'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 Header.Get 方法](#Using_HeaderGet_method "Using Header.Get method")'
 - en: '[Directly Accessing the Header Struct](#Directly_Accessing_the_Header_Struct
     "Directly Accessing the Header Struct")'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[直接访问 Header 结构](#Directly_Accessing_the_Header_Struct "直接访问 Header 结构")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: Below is the format in which a Header is represented in go.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是Go中表示头部的格式。
 - en: '[PRE0]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: So the header is a key value pair with
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以头部是一个键值对，
 - en: key being represented in canonical form. Canonical form means that the first
     character and any character following a hyphen is in uppercase. All other characters
     are in lowercase. Example of canonical forms are
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 键以规范形式表示。规范形式意味着第一个字符和任何在连字符后面的字符都是大写。其他所有字符都是小写。规范形式的示例包括
 - en: '[PRE1]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Value is represented as a slice of string. Why an array of strings? Because
     it is perfectly okay to two headers with the same key and different values in
     a request. Both the values will be collected in the slice.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 值表示为字符串切片。为什么是字符串数组？因为在请求中允许有两个相同键但不同值的头部。这两个值会被收集到切片中。
 - en: Response in http request is represented by **http.Response** struct.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: HTTP请求中的响应由**http.Response**结构表示。
 - en: '[https://golang.org/src/net/http/response.go](https://golang.org/src/net/http/response.go)'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/src/net/http/response.go](https://golang.org/src/net/http/response.go)'
 - en: There is a **Header** field defined in the **http.Response** struct as below.
     It contains the response headers associated with the response
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 在**http.Response**结构中定义了一个**Header**字段，如下所示。它包含与响应相关的响应头。
 - en: '[PRE2]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the below example let’s assume that variable **w** is of type **http.Response**.
     Now let’s see different ways of getting a response header. Also, assume that we
     have below response headers for now in an outgoing request
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的示例中，假设变量**w**的类型是**http.Response**。现在让我们看看获取响应头的不同方法。此外，假设我们在发出的请求中目前有以下响应头。
 - en: '[PRE3]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Using Header.Values method**'
+  id: totrans-29
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 Header.Values 方法**'
 - en: Used for accessing all values of a header given a key using the Values method.
     Below is the format of the method
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 用于访问给定键的头部的所有值，使用Values方法。下面是该方法的格式。
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Notice that return type is a slice of string. It will return all the values
     associated with a given header key. Also the given key is converted to the canonical
     form first before fetching the values. It can be called as below
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，返回类型是字符串切片。它将返回与给定头部键相关的所有值。此外，在获取值之前，给定键会先转换为规范形式。可以如下调用
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: For eg  for
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '**w.Header.Values(“content-type”)** will output **[“application/json” ]**'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**w.Header.Values(“content-type”)** 将输出 **[“application/json” ]**'
 - en: '**w.Header.Values(“foo”)** will output **[“bar1”, “bar2”]**'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**w.Header.Values(“foo”)** 将输出 **[“bar1”, “bar2”]**'
 - en: '**Using Header.Get method**'
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用 Header.Get 方法**'
 - en: Used for accessing the first value of a header given a key. It is most common
     method used because generally only single value is associated with a header. Below
     is the format of the method.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 用于根据给定键访问头部的第一个值。这是最常用的方法，因为通常与头部关联的值只有一个。以下是该方法的格式。
 - en: '[PRE6]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Notice that the return type is just a string. It will return the first value
     associated with the given key. Also, the given key is converted to the canonical
     form first before fetching the values. It can be called as below
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意返回类型只是一个字符串。它将返回与给定键关联的第一个值。此外，在获取值之前，给定的键首先会转换为规范形式。可以如下调用：
 - en: '[PRE7]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: For eg  for
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如对于
 - en: '**w.Header.Get(“content-type”)** it will output **“application/json”**'
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**w.Header.Get(“content-type”)** 将输出 **“application/json”**'
 - en: '**w.Header.Get(“foo”)** will output **“bar1”**. Only the first value will be
     returned.'
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**w.Header.Get(“foo”)** 将输出 **“bar1”**。只会返回第一个值。'
 - en: '**Directly Accessing the Header Struct**'
+  id: totrans-45
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**直接访问 Header 结构**'
 - en: Header map can also be directly accessed which is present within *http.Response
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: Header 映射也可以直接访问，它存在于 *http.Response* 中。
 - en: For eg
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '**w.Header** will output a map'
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**w.Header** 将输出一个映射'
 - en: '[PRE8]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**w.Header[“Content-Type”]** will output'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**w.Header[“Content-Type”]** 将输出'
 - en: '[PRE9]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**w.Header[“Foo”]** will output'
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**w.Header[“Foo”]** 将输出'
 - en: '[PRE10]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Please note that when accessing Header map directly, we need to supply the key
     in canonical form only.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，直接访问 Header 映射时，我们需要仅以规范形式提供键。
 - en: '**Example**'
+  id: totrans-55
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see a program illustrating all the above points
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个展示以上所有要点的程序
 - en: '[PRE11]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: After running the above program,  check the output in the terminal. It is exactly
     as we have discussed. Below will be the output
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上述程序后，检查终端中的输出。结果与我们讨论的完全一致。以下是输出：
 - en: '[PRE12]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Notice that
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意
 - en: '[PRE13]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: outputs an array
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出一个数组
 - en: '[PRE14]*'
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE14]*'

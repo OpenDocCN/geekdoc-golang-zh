@@ -1,101 +1,157 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:11:19'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:19
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: User defined function types in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的用户定义函数类型
 - en: 来源：[https://golangbyexample.com/user-defined-function-type-go/](https://golangbyexample.com/user-defined-function-type-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/user-defined-function-type-go/](https://golangbyexample.com/user-defined-function-type-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")'
 - en: '[Example 1](#Example_1 "Example 1")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例 1](#Example_1 "Example 1")'
 - en: '[Example 2](#Example_2 "Example 2")*  *# **Overview**'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例 2](#Example_2 "Example 2")*  *# **概述**'
 - en: In GO, the function is also a type. Two functions will be of the same type if
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在GO中，函数也是一种类型。如果两个函数是同一类型的话。
 - en: They have the same number of arguments with each argument is of the same type
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它们具有相同数量的参数，每个参数都是相同类型的。
 - en: They have the same number of return values and each return value is of the same
     type
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它们具有相同数量的返回值，并且每个返回值都是相同类型的。
 - en: Function as user-defined type can be declared using the **type** keyword like
     below. **area** is the name of the function of type **func(int, int) int**
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以使用**type**关键字声明用户定义的类型作为函数，如下所示。**area**是类型为**func(int, int) int**的函数名称。
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Code**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '**Example 1**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例 1**'
 - en: In this example, we create a user-defined function type area. Then we create
     a variable of type area in the main function.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，我们创建一个用户定义的函数类型**area**。然后在主函数中创建一个类型为**area**的变量。
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Example 2**'
+  id: totrans-22
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例 2**'
 - en: In this example also we create a user-defined function type **area.** Then we
     create a function **getAreaFunc()** which returns the function of type **area**
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，我们也创建一个用户定义的函数类型**area**。然后我们创建一个函数**getAreaFunc()**，它返回类型为**area**的函数。
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*'

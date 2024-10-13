@@ -1,157 +1,234 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:07:38'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:07:38
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding uintptr in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解Golang中的uintptr
 - en: 来源：[https://golangbyexample.com/understanding-uintptr-golang/](https://golangbyexample.com/understanding-uintptr-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/understanding-uintptr-golang/](https://golangbyexample.com/understanding-uintptr-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Properties](#Properties "Properties")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[属性](#Properties "属性")'
 - en: '[Purpose](#Purpose "Purpose")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[目的](#Purpose "目的")*  *# **概述**'
 - en: This is an unsigned integer type which is large enough to hold any pointer address.
     Therefore its size is platform dependent. It is just an integer representation
     of an address.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一种无符号整数类型，足够大以保存任何指针地址。因此它的大小是平台相关的。它只是一个地址的整数表示。
 - en: '**Properties**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**属性**'
 - en: A **uintptr** can be converted to **unsafe.Pointer** and viceversa. Later we
     will talk about where conversion of **uintptr** to **unsafe.Pointer** is useful.
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**uintptr**可以转换为**unsafe.Pointer**，反之亦然。稍后我们将讨论**uintptr**转换为**unsafe.Pointer**的用途。'
 - en: Arithmetic can be performed on the **uintptr**. Do note here arithmetic cannot
     be performed in a **pointer** in Go or **unsafe.Pointer** in Go.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可以对**uintptr**进行算术运算。请注意，Go中的**指针**或**unsafe.Pointer**不能进行算术运算。
 - en: '**uintptr** even though it holds a pointer address, is just a value and does
     not reference any object. Therefore'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**uintptr**虽然保存了一个指针地址，但只是一个值，并不引用任何对象。因此'
 - en: Its value will not be updated if the corresponding object moves. Eg When goroutine
     stack changes
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果对应的对象移动，其值将不会更新。例如，当goroutine栈变化时。
 - en: The corresponding object can be garbage collected. The GC does not consider
     **uintptr** as live references and hence they can be garbage collected.
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 相应的对象可以被垃圾回收。GC不会将**uintptr**视为活引用，因此它们可以被垃圾回收。
 - en: '**Purpose**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**目的**'
 - en: '**uintptr** can be used for below purposes:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**uintptr**可以用于以下目的：'
 - en: One purpose of uintptr is to be used along with unsafe.Pointer for unsafe memory
     access. Arithmetic operations cannot be performed on unsafe.Pointer. To perform
     such arithmetic
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: uintptr的一个目的是与unsafe.Pointer一起用于不安全的内存访问。
 - en: unsafe. Pointer is converted to uintptr
+  id: totrans-20
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: unsafe.Pointer被转换为uintptr。
 - en: arithmetic is then performed on uintptr
+  id: totrans-21
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后在uintptr上进行算术运算。
 - en: uintptr is converted back to unsafe.Pointer  to access the object now pointed
     by the address
+  id: totrans-22
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: uintptr被转换回unsafe.Pointer以访问现在由地址指向的对象。
 - en: Be careful that the above steps should be atomic with respect to Garbage Collector,
     otherwise it could lead to issues. For eg after the first step 1, the referenced
     object is liable to be collection. If that happens then after step 3, the pointer
     will be an invalid Go pointer and can crash the program. Look at the unsafe package
     documentation.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，上述步骤应与垃圾回收器原子性相关，否则可能导致问题。例如，在第一步后，引用的对象可能会被回收。如果发生这种情况，则在第三步之后，指针将成为无效的Go指针，并可能导致程序崩溃。查看unsafe包文档。
 - en: '[https://golang.org/pkg/unsafe/#Pointer](https://golang.org/pkg/unsafe/#Pointer)'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/unsafe/#Pointer](https://golang.org/pkg/unsafe/#Pointer)'
 - en: It lists down when the above conversion can be safe. See the below code for
     the scenario mentioned above.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 它列出了上述转换何时可以安全。请参见下面提到的场景的代码。
 - en: In the below code we are doing arithmetic like below to get to address of field
     **“b”** in struct sample and then printing the value at that address. This below
     code is atomic with reference to the garbage collector.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的代码中，我们进行如下运算，以获取结构体sample中字段**“b”**的地址，然后打印该地址处的值。下面的代码与垃圾回收器是原子的。
 - en: '[PRE0]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '[PRE1]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Another purpose of uintptr is when you want to save the pointer address value
     for printing it or storing it. Since the address is just stored and does not reference
     anything, the corresponding object can be garbage collected.
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: uintptr的另一个目的，是当你想保存指针地址值以进行打印或存储时。由于地址仅被存储而不引用任何东西，因此相应的对象可以被垃圾回收。
 - en: See below code where we are converting an unsafe.Pointer to uintptr and printing
     it. Also, note as mentioned before too one the unsafe.Pointer is converted to
     uinptr, the reference is lost and the reference variable can be garbage collected.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 参见下面的代码，我们将unsafe.Pointer转换为uintptr并打印它。同时，注意如前所述，一旦unsafe.Pointer被转换为uintptr，引用就丢失了，引用变量可以被垃圾回收。
 - en: '[PRE3]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: The output will be dependent upon the machine as it is an address.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出将依赖于机器，因为它是一个地址。
 - en: '[PRE4]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[data](https://golangbyexample.com/tag/data/)*   [uintptr](https://golangbyexample.com/tag/uintptr/)*'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数据](https://golangbyexample.com/tag/data/) *   [无符号整数指针](https://golangbyexample.com/tag/uintptr/)
+    *'

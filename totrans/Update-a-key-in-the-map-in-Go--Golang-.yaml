@@ -1,45 +1,71 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:20:51'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:20:51
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Update a key in the map in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 更新 Go (Golang) 中映射中的键
 - en: 来源：[https://golangbyexample.com/update-key-map-golang/](https://golangbyexample.com/update-key-map-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/update-key-map-golang/](https://golangbyexample.com/update-key-map-golang/)
 - en: When trying to add a key to the map which already exists, the new value will
     override the old value. This is analogous to updating a key in the map.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 当尝试向映射中添加一个已经存在的键时，新值会覆盖旧值。这类似于在映射中更新键。
 - en: Let’s see an example
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个例子
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program after writing the same key **“Tom”** with a new value of
     **3000** it overwrites the existing value of **2000\.** When we print the map
     again the value printed is 3000
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，当用新值**“3000”**写入相同的键时，它会覆盖现有值**“2000”**。当我们再次打印映射时，打印的值为3000。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'

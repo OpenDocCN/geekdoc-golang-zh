@@ -1,50 +1,78 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:10:35'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:10:35
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding WaitGroup in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go 中理解 WaitGroup (Golang)
 - en: 来源：[https://golangbyexample.com/understanding-waitgroup-go/](https://golangbyexample.com/understanding-waitgroup-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/understanding-waitgroup-go/](https://golangbyexample.com/understanding-waitgroup-go/)
 - en: '**WaitGroup** is a struct that is part of **sync** package in Go. It is generally
     used to wait for a collection of goroutines to finish execution. The WaitGroup
     has below methods'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**WaitGroup** 是 Go 的 **sync** 包中的一个结构体。它通常用于等待一组 goroutine 完成执行。WaitGroup 具有以下方法：'
 - en: '**Add** method to set the number of goroutines to wait for.'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Add** 方法用于设置要等待的 goroutine 数量。'
 - en: '**Done** method which is called by each of the goroutines when finished.'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Done** 方法由每个 goroutine 在完成时调用。'
 - en: '**Wait** method which is used to block till all goroutines have finished and
     have called the **Done** method'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Wait** 方法用于阻塞，直到所有 goroutine 完成并调用了 **Done** 方法。'
 - en: 'Let’s see a working code:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个工作的代码：
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'

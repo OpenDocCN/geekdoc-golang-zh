@@ -1,55 +1,83 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:26:42'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:26:42
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Use Case of defer function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的defer函数使用案例
 - en: 来源：[https://golangbyexample.com/defer-use-case-go/](https://golangbyexample.com/defer-use-case-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/defer-use-case-go/](https://golangbyexample.com/defer-use-case-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: Defer as the name suggests is used to defer the cleanup activities in a function.
     These cleanup activities will be performed at the end of the function. This cleanup
     activities will be done in a different function called by defer.  This different
     function is called at the end of the surrounding function before it returns. Below
     is the syntax of defer function.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 如名称所示，Defer用于推迟函数中的清理活动。这些清理活动将在函数结束时执行。这些清理活动将在一个由defer调用的不同函数中完成。这个不同的函数在其所在函数返回之前的最后执行。以下是defer函数的语法。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: One good example of understanding the use case defer function is to look at
     the use case of writing to a file. A file that is opened for writing also must
     to be closed.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 理解使用场景defer函数的一个好例子是查看写入文件的使用场景。打开以进行写入的文件也必须关闭。
 - en: '**Example**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, in the **writeToTempFile** function, we are opening a
     file and then trying to write some content to the file. After we have written
     the contents of the file we close the file. It is possible that during the write
@@ -57,18 +85,26 @@
     the file. **Defer** function helps to avoid these kinds of problems. **Defer** function
     is always executed before the surrounding function returns. Let’s rewrite the
     above program with a **defer** function here.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，在**writeToTempFile**函数中，我们打开一个文件，然后尝试向该文件写入一些内容。写入完内容后，我们关闭文件。在写入操作期间可能会出现错误，从而导致函数在未关闭文件的情况下返回。**Defer**函数可以帮助避免这些问题。**Defer**函数总是在其所在函数返回之前执行。让我们在这里重写上述程序并使用**defer**函数。
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program, we do **defer file.Close()** after opening the file. This
     will make sure that closing of the file is executed even if the write to the file
     results into an error. Defer function makes sure that the file will be closed
     regardless of number of return statements in the function
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们在打开文件后使用**defer file.Close()**。这将确保即使写入文件时出现错误，文件也会被关闭。Defer函数确保无论函数中有多少个返回语句，文件都将被关闭。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

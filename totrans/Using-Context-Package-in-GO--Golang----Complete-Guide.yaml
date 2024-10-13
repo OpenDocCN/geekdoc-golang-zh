@@ -1,164 +1,238 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:05:57'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:57
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Using Context Package in GO (Golang) – Complete Guide
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 GO（Golang）中使用上下文包 – 完整指南
 - en: 来源：[https://golangbyexample.com/using-context-in-golang-complete-guide/](https://golangbyexample.com/using-context-in-golang-complete-guide/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/using-context-in-golang-complete-guide/](https://golangbyexample.com/using-context-in-golang-complete-guide/)
 - en: '**Introduction**:'
+  id: totrans-6
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**介绍：**'
 - en: '**Definition:**'
+  id: totrans-7
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**定义：**'
 - en: Context is a package provided by GO. Let’s first understand some problems that
     existed already, and which context package tries to solve.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 上下文是 GO 提供的一个包。让我们首先了解一些已经存在的问题，以及上下文包尝试解决的问题。
 - en: '**Problem Statement:**'
+  id: totrans-9
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**问题陈述：**'
 - en: Let’s say that you started a function and you need to pass some common parameters
     to the downstream functions. You cannot pass these common parameters each as an
     argument to all the downstream functions.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 假设你启动了一个函数，需要将一些公共参数传递给下游函数。你不能将这些公共参数作为每个参数传递给所有下游函数。
 - en: You started a goroutine which in turn start more goroutines and so on. Suppose
     the task that you were doing is no longer needed. Then how to inform all child
     goroutines to gracefully exit so that resources can be freed up
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 你启动了一个 goroutine，进而又启动了更多的 goroutines。假设你正在进行的任务不再需要。那么，如何通知所有子 goroutines 优雅地退出，以便释放资源？
 - en: A task should be finished within a specified timeout of say 2 seconds. If not
     it should gracefully exit or return.
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个任务应在指定的超时时间内完成，例如 2 秒。如果没有，它应优雅地退出或返回。
 - en: A task should be finished within a deadline eg it should end before 5 pm . If
     not finished then it should gracefully exit and return
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个任务应在截止时间内完成，例如它应在下午 5 点之前结束。如果未完成，则应优雅地退出并返回。
 - en: If you notice all the above problems are quite applicable to HTTP requests and
     but none the less these problems are also applicable to many different areas too.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你注意到上述所有问题都适用于 HTTP 请求，但这些问题同样适用于许多不同的领域。
 - en: For a web HTTP request, it needs to be canceled when the client has disconnected,
     or the request has to be finished within a specified timeout and also requests
     scope values such as request_id needs to be available to all downstream functions.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于 web HTTP 请求，当客户端断开连接时，需要取消请求，或者请求必须在指定的超时时间内完成，同时请求范围的值如 request_id 需要对所有下游函数可用。
 - en: '**When to Use (Some Use Cases):**'
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**何时使用（一些用例）：**'
 - en: To pass data to the downstream. Eg.  a HTTP request creates a **request_id,
     request_user** which needs to be passed around to all downstream functions for
     distributed tracing.
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将数据传递给下游。例如，一个 HTTP 请求创建了一个 **request_id，request_user**，需要在所有下游函数中传递以进行分布式跟踪。
 - en: When you want to halt the operation in the midway – A HTTP request should be
     stopped because the client disconnected
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你想在中途停止操作时 – 由于客户端断开连接，HTTP 请求应被停止。
 - en: When you want to halt the operation within a specified time from start i.e with
     timeout – Eg- a HTTP request should be completed in 2 sec or else should be aborted.
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你希望在启动后的一段特定时间内停止操作，即超时 – 例如，HTTP 请求应在 2 秒内完成，否则应被终止。
 - en: When you want to halt an operation before a certain time – Eg. A cron is running
     that needs to be aborted in 5 mins if not completed.
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你想在某个时间之前停止一个操作时 – 例如，如果没有完成，定时任务需要在 5 分钟内终止。
 - en: '**Context Interface**'
+  id: totrans-21
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**上下文接口**'
 - en: The core of the understanding context is knowing the **Context** interface
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 理解上下文的核心是了解 **Context** 接口
 - en: '[PRE0]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Creating New Context**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**创建新上下文**'
 - en: '**context.Background():**'
+  id: totrans-25
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**context.Background():**'
 - en: context package function Background() returns a empty Context which implements
     the **Context** interface
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 上下文包函数 Background() 返回一个空的 Context，它实现了 **Context** 接口。
 - en: It has no values
+  id: totrans-27
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 它没有值
 - en: It is never canceled
+  id: totrans-28
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 它从不被取消
 - en: It has no deadline
+  id: totrans-29
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 它没有截止日期
 - en: Then what is the use context.Background(). context.Background() serves as the
     root of all context which will be derived from it. It will be more clear as we
     go along
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么，context.Background() 的作用是什么？context.Background() 作为所有上下文的根，将从中派生。随着我们深入了解，这将变得更加清晰。
 - en: '**context.ToDo():**'
+  id: totrans-31
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**context.ToDo():**'
 - en: context package ToDo function returns an empty Context. This context is used
     when the surrounding function has not been passed a context and one wants to use
     the context as a placeholder in the current function and plans to add actual context
     in the near future. One use of adding it as a placeholder is that it helps in
     validation in the Static Code Analysis tool.
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: context包中的ToDo函数返回一个空的Context。该上下文用于当周围函数没有传递上下文时，想要在当前函数中使用该上下文作为占位符，并计划在不久的将来添加实际上下文。将其作为占位符的一个用途是它有助于在静态代码分析工具中的验证。
 - en: It is also an empty Context same as context.Background()
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它也是一个与context.Background()相同的空Context。
 - en: The above two methods describe a way of creating new contexts. More context
     can be derived from these contexts. This is where context tree comes into the
     picture
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述两种方法描述了一种创建新上下文的方法。可以从这些上下文中派生更多上下文。这就是上下文树的出现。
 - en: '**Context Tree**'
+  id: totrans-35
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**上下文树**'
 - en: Before understanding Context Tree please make sure that it is implicitly created
     in the background when using **context**. You will find no mention of in go context
     package itself.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在理解上下文树之前，请确保在使用**context**时它在后台隐式创建。你将在Go的上下文包中找不到任何提及。
 - en: Whenever you use context, then the empty Context got from context.Background()
     is the root of all context. context.ToDo() also acts like root context but as
     mentioned above it is more like a context placeholder for future use. This empty
@@ -166,408 +240,622 @@
     new context from this. Basically a new context is created by wrapping an already
     existing immutable context and adding additional information. Let's see some example
     of a context tree which gets created
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 每当使用上下文时，从context.Background()获取的空上下文是所有上下文的根。context.ToDo()也充当根上下文，但如上所述，它更像是未来使用的上下文占位符。这个空上下文没有任何功能，我们可以通过从中派生新上下文来添加功能。基本上，通过包装已存在的不可变上下文并添加附加信息来创建新的上下文。让我们看看创建的上下文树的一些示例。
 - en: '**Two level tree**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**两级树**'
 - en: '[PRE1]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In above
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面
 - en: '**rootCtx** is the empty Context with no functionality'
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**rootCtx**是没有功能的空Context。'
 - en: '**childCtx** is derived from rootCtx and has the functionality of storing request-scoped
     values. In above example it is storing key-value pair of  {"msgId" : "someMsgId"}'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**childCtx**源自rootCtx，并具有存储请求范围值的功能。在上面的示例中，它存储键值对{"msgId" : "someMsgId"}。'
 - en: '**Three level tree**'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**三级树**'
 - en: '[PRE2]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In above
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面
 - en: '**rootCtx** is the empty Context with no functionality'
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**rootCtx**是没有功能的空Context。'
 - en: '**childCtx** is derived from rootCtx and has the functionality of storing request-scoped
     values. In above example it is storing key-value pair of  {"msgId" : "someMsgId"}'
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**childCtx**源自rootCtx，并具有存储请求范围值的功能。在上面的示例中，它存储键值对{"msgId" : "someMsgId"}。'
 - en: '**childOfChildCtx** is derived from childCtx . It has the functionality of
     storing request-scoped values and also it has the functionality of triggering
     cancellation signals. cancelFunc can be used to trigger cancellation signals'
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**childOfChildCtx**源自childCtx。它具有存储请求范围值的功能，并且还具有触发取消信号的功能。cancelFunc可用于触发取消信号。'
 - en: '**Multi-level tree**'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '**多级树**'
 - en: '[PRE3]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 'In above:'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面：
 - en: '**rootCtx** is the empty Context with no functionality'
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**rootCtx**是没有功能的空Context。'
 - en: '**childCtx1** is derived from **rootCtx** and has the functionality of storing
     request-scoped values. In above example it is storing key-value pair of  {"msgId"
     : "someMsgId"}'
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**childCtx1**源自**rootCtx**，并具有存储请求范围值的功能。在上面的示例中，它存储键值对{"msgId" : "someMsgId"}。'
 - en: '**childCtx2** is derived from **childCtx1** . It has the functionality of triggering
     cancellation signals. cancelFunc can be used to trigger cancellation signals'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**childCtx2**源自**childCtx1**。它具有触发取消信号的功能。cancelFunc可用于触发取消信号。'
 - en: '**childCtx3** is derived from **rootCtx** . It has the functionality of storing
     the current user'
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**childCtx3**源自**rootCtx**，具有存储当前用户的功能。'
 - en: Above three-level tree would look like below
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述三级树如下所示。
 - en: '![](img/5f51494c049ab64059c6f087ec5e4799.png)'
+  id: totrans-57
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/5f51494c049ab64059c6f087ec5e4799.png)'
 - en: As since it is a tree, it is also possible to create more childs for a particular
     node. For eg we can derive a new context **childCtx4** from **childCtx1**
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于它是树形结构，因此也可以为特定节点创建更多子节点。例如，我们可以从**childCtx1**派生一个新上下文**childCtx4**。
 - en: '[PRE4]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 'Tree with above node added would like below:'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 添加上述节点后的树如下所示：
 - en: '![](img/3060e2e36d25c6a5579b4c7f756f3667.png)'
+  id: totrans-61
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/3060e2e36d25c6a5579b4c7f756f3667.png)'
 - en: At this very moment, it might not be clear how WithValue() or WithCancel() function
     is used. Right now just understand that whenever using context, a context tree
     is created with root as the **emptyCtx** . These functions will get clear as we
     move on
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 目前，可能不清楚如何使用WithValue()或WithCancel()函数。现在只需理解，在使用上下文时，会创建一个以**emptyCtx**为根的上下文树。这些函数在我们继续时会更清晰
 - en: '**Deriving From Context**'
+  id: totrans-63
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**从上下文派生**'
 - en: A derived context is can be created in 4 ways
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 派生上下文可以通过4种方式创建
 - en: Passing request-scoped values  -  using **WithValue()** function of context
     package
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 传递请求范围的值 - 使用**WithValue()**函数的上下文包
 - en: With cancellation signals - using **WithCancel()** function of context package
+  id: totrans-66
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用取消信号 - 使用**WithCancel()**函数的上下文包
 - en: With deadlines - using **WithDeadine()** function of context package
+  id: totrans-67
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用截止日期 - 使用**WithDeadine()**函数的上下文包
 - en: With timeouts - using **WithTimeout()** function of context package
+  id: totrans-68
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用超时 - 使用**WithTimeout()**函数的上下文包
 - en: Let's understand each of the above in details
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们详细理解上述每一点
 - en: '**context.WithValue()**'
+  id: totrans-70
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**context.WithValue()**'
 - en: Used for passing request-scoped values. The complete signature of the function
     is
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 用于传递请求范围的值。该函数的完整签名为
 - en: '[PRE5]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It takes in a parent context, key, value and returns a derived context  This
     derived context has **key** associated with the **value**. Here the parent context
     can be either context.Background() or any other context. Further, any context
     which is derived from this context will have this value.
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 它接受一个父上下文、键、值并返回一个派生上下文。这个派生上下文与**值**关联的**键**。这里的父上下文可以是context.Background()或其他任何上下文。此外，任何从此上下文派生的上下文将具有此值。
 - en: '[PRE6]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Example:**'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例：**'
 - en: Complete Working example of **withValue().** In the below example, we are injecting
     a msgId for each incoming request. If you notice in below program
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: '**withValue()**的完整工作示例。在下面的示例中，我们为每个传入请求注入一个msgId。如果你注意到下面的程序'
 - en: inejctMsgID is a net HTTP middleware function that populates the **"msgID"**
     field in context
+  id: totrans-77
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: injectMsgID是一个网络HTTP中间件函数，在上下文中填充**"msgID"**字段
 - en: HelloWorld is the handler function for api "localhost:8080/welcome" which gets
     this msgID from context and sends it back as response headers
+  id: totrans-78
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: HelloWorld是API "localhost:8080/welcome"的处理函数，它从上下文中获取msgID并作为响应头发送回去
 - en: '[PRE7]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Simply do a curl call to the above request after running the above program
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 只需在运行上面的程序后对上述请求进行curl调用
 - en: '[PRE8]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Here will be the response. Notice the **MsgId** that gets populated in the response
     headers. The injectMsgId function acts as middleware and injects a unique msgId
     to the request context.
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里将是响应。注意响应头中填充的**MsgId**。injectMsgId函数作为中间件，向请求上下文注入唯一的msgId。
 - en: '[PRE9]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**context.WithCancel()**'
+  id: totrans-84
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**context.WithCancel()**'
 - en: Used for cancellation signals. Below is the signature of **WithCancel()** function
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 用于取消信号。下面是**WithCancel()**函数的签名
 - en: '[PRE10]'
+  id: totrans-86
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**context.WithCancel()** function returns two things'
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: '**context.WithCancel()**函数返回两个东西'
 - en: Copy of the parentContext with the new done channel.
+  id: totrans-88
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 具有新完成通道的父上下文的副本。
 - en: A cancel function which when called closes this done channel
+  id: totrans-89
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个取消函数，当调用时关闭这个完成通道
 - en: Only the creator of this context should call the cancel function. It is highly
     not recommended to pass around the **cancel** function. Lets understand **withCancel**
     with an example.
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 只有上下文的创建者应该调用取消函数。强烈不建议传递**cancel**函数。让我们通过一个示例来理解**withCancel**。
 - en: '**Example:**'
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例：**'
 - en: '[PRE11]'
+  id: totrans-92
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Output:**'
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE12]'
+  id: totrans-94
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: In the above program
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中
 - en: task function will gracefully exit once the **cancelFunc** is called. Once the
     cancelFunc is called, the error string is set to **"context cancelled"** by the
     context package. That is why the output of **ctx.Err()** is **"context cancelled"**
+  id: totrans-96
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一旦调用**cancelFunc**，任务函数将优雅地退出。一旦调用cancelFunc，上下文包将错误字符串设置为**"context cancelled"**。这就是**ctx.Err()**的输出为**"context
+    cancelled"**的原因
 - en: '**context.WithTimeout()**'
+  id: totrans-97
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**context.WithTimeout()**'
 - en: Used for time-based cancellation. The signature of the function is
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: 用于基于时间的取消。该函数的签名为
 - en: '[PRE13]'
+  id: totrans-99
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**context.WithTimeout()** function  will'
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: '**context.WithTimeout()**函数将'
 - en: Will return a copy of the parentContext with the new done channel.
+  id: totrans-101
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将返回具有新完成通道的父上下文的副本。
 - en: Accept a timeout duration after which this done channel will be closed and context
     will be canceled
+  id: totrans-102
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接受一个超时持续时间，在此之后这个完成通道将关闭，上下文将被取消
 - en: A cancel function which can be called in case the context needs to be canceled
     before timeout.
+  id: totrans-103
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个可以在上下文需要在超时之前取消时调用的取消函数。
 - en: Lets see an example
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子
 - en: '**Example:**'
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例：**'
 - en: '[PRE14]'
+  id: totrans-106
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output:**'
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE15]'
+  id: totrans-108
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: In the above program
+  id: totrans-109
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中
 - en: task function will gracefully exit once the timeout of 3 seconds is completed.
     The error string is set to "context deadline exceeded" by the context package.
     That is why the output of ctx.Err() is "context deadline exceeded"
+  id: totrans-110
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一旦超时3秒到期，任务函数将优雅退出。错误字符串由上下文包设置为“上下文截止日期已超过”。这就是ctx.Err()输出为“上下文截止日期已超过”的原因。
 - en: '**context.WithDeadline()**'
+  id: totrans-111
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**context.WithDeadline()**'
 - en: Used for deadline-based cancellation. The signature of the function is
+  id: totrans-112
   prefs: []
   type: TYPE_NORMAL
+  zh: 用于基于截止日期的取消。该函数的签名为
 - en: '[PRE16]'
+  id: totrans-113
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**context.WithDeadline()** function'
+  id: totrans-114
   prefs: []
   type: TYPE_NORMAL
+  zh: '**context.WithDeadline()**函数'
 - en: Will return a copy of the parentContext with the new done channel.
+  id: totrans-115
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将返回一个带有新完成通道的父上下文副本。
 - en: Accept a deadline after which this done channel will be closed and context will
     be canceled
+  id: totrans-116
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接受一个截止日期，截止日期后此完成通道将关闭并取消上下文。
 - en: A cancel function which can be called in case the context needs to be canceled
     before the deadline is reached.
+  id: totrans-117
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个可以在上下文需要在截止日期之前被取消时调用的取消函数。
 - en: Let's see an example
+  id: totrans-118
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个例子。
 - en: '**Example:**'
+  id: totrans-119
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例：**'
 - en: '[PRE17]'
+  id: totrans-120
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Output:**'
+  id: totrans-121
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE18]'
+  id: totrans-122
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: In the above program
+  id: totrans-123
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中
 - en: task function will gracefully exit once the timeout of 5 seconds is completed
     as we gave the deadline of Time.now() + 5 seconds. The error string is set to
     "context deadline exceeded" by the context package. That is why the output of
     ctx.Err() is "context deadline exceeded"
+  id: totrans-124
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一旦超时5秒到期，任务函数将优雅退出，因为我们设定的截止日期为Time.now() + 5秒。错误字符串由上下文包设置为“上下文截止日期已超过”。这就是ctx.Err()输出为“上下文截止日期已超过”的原因。
 - en: '**What We Learned**'
+  id: totrans-125
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**我们学到了什么**'
 - en: '**How to create the context**:'
+  id: totrans-126
   prefs: []
   type: TYPE_NORMAL
+  zh: '**如何创建上下文：**'
 - en: Using context.Backgroun()
+  id: totrans-127
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用context.Background()
 - en: Using context.Todo()
+  id: totrans-128
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用context.Todo()
 - en: '**Context Tree**'
+  id: totrans-129
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上下文树**'
 - en: '**Deriving a new context**'
+  id: totrans-130
   prefs: []
   type: TYPE_NORMAL
+  zh: '**派生新的上下文**'
 - en: context.WithValue()
+  id: totrans-131
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: context.WithValue()
 - en: context.WithCancel()
+  id: totrans-132
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: context.WithCancel()
 - en: context.WithTimeout()
+  id: totrans-133
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: context.WithTimeout()
 - en: contxt.WithDeadline()
+  id: totrans-134
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: context.WithDeadline()
 - en: '**BestPractices and Caveats**'
+  id: totrans-135
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**最佳实践与注意事项**'
 - en: Following is a list of best practices that you can follow while using a context.
+  id: totrans-136
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是你在使用上下文时可以遵循的最佳实践列表。
 - en: Do not store a context within a struct type
+  id: totrans-137
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 不要在结构体类型中存储上下文。
 - en: Context should flow through your program. For example, in case of an HTTP request,
     a new context can be created for each incoming request which can be used to hold
     a request_id or put some common information in the context like currently logged
     in user which might be useful for that particular request.
+  id: totrans-138
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 上下文应该在你的程序中流动。例如，在HTTP请求的情况下，可以为每个传入请求创建一个新的上下文，该上下文可以用于保存request_id或在上下文中放入一些公共信息，如当前登录用户，这在特定请求中可能会很有用。
 - en: Always pass context as the first argument to a function.
+  id: totrans-139
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 始终将上下文作为函数的第一个参数传递。
 - en: Whenever you are not sure whether to use the context or not, it is better to
     use the context.ToDo() as a placeholder.
+  id: totrans-140
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每当你不确定是否使用上下文时，最好使用context.ToDo()作为占位符。
 - en: Only the parent goroutine or function should the cancel context. Therefore do
     not pass the **cancelFunc** to downstream goroutines or functions. Golang will
     allow you to pass the **cancelFunc** around to child goroutines but it is not
     a recommended practice
+  id: totrans-141
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 只有父级goroutine或函数应该取消上下文。因此，不要将**cancelFunc**传递给下游的goroutines或函数。Golang允许你将**cancelFunc**传递给子goroutines，但这不是推荐的做法。
 - en: '[context in golang](https://golangbyexample.com/tag/context-in-golang/)*   [explained](https://golangbyexample.com/tag/explained/)*   [golang
     context explained](https://golangbyexample.com/tag/golang-context-explained/)*   [sidetoc](https://golangbyexample.com/tag/sidetoc/)'
+  id: totrans-142
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Golang中的上下文](https://golangbyexample.com/tag/context-in-golang/) *   [解释](https://golangbyexample.com/tag/explained/)
+    *   [Golang上下文解释](https://golangbyexample.com/tag/golang-context-explained/) *   [sidetoc](https://golangbyexample.com/tag/sidetoc/)'

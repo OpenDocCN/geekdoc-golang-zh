@@ -1,148 +1,227 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:48:09'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:48:09
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Unique Paths Program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中的唯一路径程序
 - en: 来源：[https://golangbyexample.com/unique-paths-program-golang/](https://golangbyexample.com/unique-paths-program-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/unique-paths-program-golang/](https://golangbyexample.com/unique-paths-program-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")**'
 - en: '[First Variation](#First_Variation "First Variation")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[第一种变体](#First_Variation "First Variation")'
 - en: '[Program](#Program "Program")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")'
 - en: '[Program](#Program-2 "Program")*  *## **Overview**'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program-2 "Program")*  *## **概述**'
 - en: There is an m*n grid. There is a robot at the position (0,0). The robot can
     only move in the right direction and down direction. What is the total number
     of ways for a robot to reach the right-down corner i.e (m-1, n-1)
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 有一个m*n的网格。在位置(0,0)有一个机器人。机器人只能向右和向下移动。机器人到达右下角即(m-1, n-1)的总方式数量是多少？
 - en: Example
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: There is another variation of this program where one of the items in the grid
     could contain an obstacle. Let’s look at the first variation and later we will
     look at the second variation
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个程序还有另一种变体，其中网格中的一个项可能包含障碍物。我们先看看第一种变体，稍后再看第二种变体。
 - en: '**First Variation**'
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**第一种变体**'
 - en: We will solve this question through dynamic programming
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将通过动态编程解决这个问题。
 - en: Create a paths matrix of size m*n
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个大小为m*n的路径矩阵。
 - en: '**paths[i][j]** represents the number of ways for robot to reach the (i,j)
     index'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**paths[i][j]**表示机器人到达(i,j)索引的方式数量。'
 - en: '**paths[0][0]** = 0'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**paths[0][0]** = 0。'
 - en: '**paths[i][j]** = **paths[i-1][j]** + **paths[i][j-1]**'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**paths[i][j]** = **paths[i-1][j]** + **paths[i][j-1]**。'
 - en: '**Program**'
+  id: totrans-21
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相同程序的代码。
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Second Variation**We will also solve this question through dynamic programming'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**第二种变体**我们将通过动态编程解决这个问题。'
 - en: Create a paths matrix of size m*n
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个大小为m*n的路径矩阵。
 - en: '**paths[i][j]** represents the number of ways for robot to reach the (i,j)
     index'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**paths[i][j]**表示机器人到达(i,j)索引的方式数量。'
 - en: '**paths[0][0]** = 0'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**paths[0][0]** = 0。'
 - en: If **paths[i][j]** is not an obstacle then **paths[i][j]** = **paths[i-1][j]**
     + **paths[i][j-1]**
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果**paths[i][j]**不是障碍物，则**paths[i][j]** = **paths[i-1][j]** + **paths[i][j-1]**。
 - en: If **paths[i][j]** is an obstacle then **paths[i][j]** = 0
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果**paths[i][j]**是障碍物，则**paths[i][j]** = 0。
 - en: '**Program**'
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE3]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，我们尝试用示例覆盖所有概念。本教程适合那些希望获得专业知识并深入理解Golang的读者
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

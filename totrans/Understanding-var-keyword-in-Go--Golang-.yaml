@@ -1,206 +1,322 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:21:17'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:21:17
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding var keyword in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解Go中的`var`关键字（Golang）
 - en: 来源：[https://golangbyexample.com/understanding-var-keyword-go/](https://golangbyexample.com/understanding-var-keyword-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/understanding-var-keyword-go/](https://golangbyexample.com/understanding-var-keyword-go/)
 - en: '**var** keyword is a reserved keyword in golang which is used to declare variables
     in go .variables are declared using the **var** keyword but there are other ways
     of declaring a variable too such as using **:=** operator'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**var**关键字是Go语言中的保留关键字，用于声明变量。变量使用`var`关键字声明，但还有其他方式可以声明变量，例如使用`:=`运算符。'
 - en: Below are different ways of declaring a variable using the var keyword.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是使用`var`关键字声明变量的不同方式。
 - en: '**Single variable declaration without an initial value**'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**无初始值的单个变量声明**'
 - en: Below is the format of a single variable declaration without the initial value
     being assigned. First is the var keyword, second is the variable name and third
     is the variable type.  Also note when the value is not provided, then the variable
     is initialized with the default value of that type which is also known as zero
     value of that type. In Go default value or zero value of **int** is zero
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是单个变量声明的格式，不包含初始值。首先是`var`关键字，其次是变量名称，最后是变量类型。此外，请注意当未提供值时，变量会被初始化为该类型的默认值，这也被称为该类型的零值。在Go中，**int**的默认值或零值是零。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: See below example, it declares a var named **aaa** of type **int**
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 请看下面的示例，它声明了一个名为**aaa**的类型为**int**的变量。
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:** It will print the default value of int which is zero'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 它将打印**int**的默认值，即零。'
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Single variable declaration with initial value**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**带初始值的单个变量声明**'
 - en: Below is the format of a single variable declaration with initial value being
     assigned. Everything is same as above, only thing additional is that we assign
     value to the variable at the end
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是带有初始值的单个变量声明格式。与上述相同，唯一不同的是我们在最后给变量赋值。
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: See below example, it declares a var named **aaa** of type **int** and gives
     a value **8** to it
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 请看下面的示例，它声明了一个名为**aaa**的类型为**int**的变量，并给它赋值为**8**。
 - en: '[PRE4]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Multiple variable declaration without initial value**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**无初始值的多个变量声明**'
 - en: Below is the format of a multiple variable declaration without initial value
     being assigned. Please note only variables of same type can be declared together.
     The type comes at the end
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是多个变量声明的格式，没有赋初值。请注意，只有相同类型的变量可以一起声明。类型在最后出现。
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: See below example
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 请看下面的示例。
 - en: '[PRE7]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output:** It will print the default or zero value of **int** which is zero
     for both **aaa** and **bbb**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 它将打印**aaa**和**bbb**的默认或零值，均为零。'
 - en: '[PRE8]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Multiple variable declaration with initial value**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**带有初始值的多个变量声明**'
 - en: Below is the format of a multiple variable declaration with initial value being
     assigned. Please note only variables of same type can be declared together. The
     type comes at the end
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是带有初始值的多个变量声明的格式。请注意，只有相同类型的变量可以一起声明。类型在最后出现。
 - en: '[PRE9]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: See below code example. Variable **aaa** and **bbb** are given a value of 8
     and 9 respectively in a single declaration
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 请看下面的代码示例。变量**aaa**和**bbb**在一次声明中分别赋值为8和9。
 - en: '[PRE10]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output:**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE11]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Declare variables of different types**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**声明不同类型的变量**'
 - en: Below is the format for declaring multiple variables with different types. Value
     can or cannot be assigned to the variable at that time. Variables for which value
     is not assigned will get default value of that type. In below example we see three
     declarations.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是声明多个不同类型变量的格式。此时可以或不可以为变量赋值。未赋值的变量将获得该类型的默认值。在下面的示例中，我们看到三个声明。
 - en: '[PRE12]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output:**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE13]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Variable Declaration with no type or Type Inference**'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**无类型或类型推断的变量声明**'
 - en: Variables can also be declared without specifying the type.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 变量也可以在不指定类型的情况下声明。
 - en: The GO compiler based upon the value assigned to it will figure out the type.
     So if the variable has an initial value, then type can be omitted.  This is also
     called **Type Inference**. Below is the format for such declaration
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: Go编译器会根据赋给它的值推断类型。因此，如果变量有初始值，则类型可以省略。这也被称为**类型推断**。以下是这种声明的格式。
 - en: '[PRE14]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Below is the type inference table for basic types **int**, **float**, **complex
     numbers**, **string**, **boolean**, **characters**. It basically means that if
     the value is an integer the type of the variable inferred will be **int**, if
     the value is a float then type of the variable inferred will be **float64** and
     so on based upon below table.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是基本类型的类型推断表：**int**、**float**、**复数**、**字符串**、**布尔值**、**字符**。这基本上意味着如果值是整数，则推断出的变量类型将是**int**；如果值是浮点数，则推断出的变量类型将是**float64**，依此类推，具体如下表。
 - en: '| Integers | int |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '| 整数 | int |'
 - en: '| Floats | float64 |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '| 浮点数 | float64 |'
 - en: '| Complex Numbers | complex128 |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '| 复数 | complex128 |'
 - en: '| Strings | string |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '| 字符串 | string |'
 - en: '| Booleans | bool |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '| 布尔值 | bool |'
 - en: '| Characters | int32 or rune |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '| 字符 | int32 或 rune |'
 - en: For other types such as **Array**, **Pointer**, **Structure,** etc, type Inference
     will happen based on the value. Let’s see a working example of the above point. 
     Notice that type of t is correctly inferred as int as the value assigned to it
     is 123 which is int. Similarly type of u is also correctly inferred as string
     as the value assigned to it is a **string**.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于其他类型，如**数组**、**指针**、**结构体**等，类型推断将基于值进行。让我们看看上述点的一个工作示例。注意`t`的类型被正确推断为int，因为赋给它的值是123，这是int。同样，`u`的类型也被正确推断为string，因为赋给它的值是一个**字符串**。
 - en: Also notice that the type of variable **z** is inferred correctly as a struct
     **a**
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 还要注意，变量**z**的类型被正确推断为结构体**a**。
 - en: '[PRE15]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Output:**'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE16]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-57
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go](https://golangbyexample.com/tag/go/) *   [Golang](https://golangbyexample.com/tag/golang/)'

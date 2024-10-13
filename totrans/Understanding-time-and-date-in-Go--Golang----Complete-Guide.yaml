@@ -1,514 +1,790 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:08:40'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:08:40
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding time and date in Go (Golang) – Complete Guide
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解 Go（Golang）中的时间和日期 – 完整指南
 - en: 来源：[https://golangbyexample.com/all-about-time-and-date-golang/](https://golangbyexample.com/all-about-time-and-date-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/all-about-time-and-date-golang/](https://golangbyexample.com/all-about-time-and-date-golang/)
 - en: '**Note:** If you are interested in learning Golang, then for that we have a
     golang comprehensive tutorial series. Do check it out – [Golang Comprehensive
     Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/).
     Now let’s see the current tutorial. Below is the table of contents.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 如果你有兴趣学习 Golang，那么我们有一个全面的 golang 教程系列，欢迎查看 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。现在让我们看看当前的教程。以下是内容目录。'
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Structure](#Structure "Structure")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结构](#Structure "结构")'
 - en: '[Create a new time](#Create_a_new_time "Create a new time")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[创建一个新的时间](#Create_a_new_time "创建一个新的时间")'
 - en: '[Using time.Now()](#Using_timeNow "Using time.Now()")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 time.Now()](#Using_timeNow "使用 time.Now()")'
 - en: '[Using time.Date()](#Using_timeDate "Using time.Date()")'
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 time.Date()](#Using_timeDate "使用 time.Date()")'
 - en: '[Understanding Duration](#Understanding_Duration "Understanding Duration")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[理解持续时间](#Understanding_Duration "理解持续时间")'
 - en: '[Add or Subtract to a time](#Add_or_Subtract_to_a_time "Add or Subtract to
     a time")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[加或减时间](#Add_or_Subtract_to_a_time "加或减时间")'
 - en: '[Add to time](#Add_to_time "Add to time ")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[加到时间](#Add_to_time "加到时间 ")'
 - en: '[Subtract to time](#Subtract_to_time "Subtract to time ")'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[从时间中减去](#Subtract_to_time "从时间中减去")'
 - en: '[Time Parsing/Formatting](#Time_ParsingFormatting "Time Parsing/Formatting")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[时间解析/格式化](#Time_ParsingFormatting "时间解析/格式化")'
 - en: '[Time Parse Example](#Time_Parse_Example "Time Parse Example")'
+  id: totrans-18
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[时间解析示例](#Time_Parse_Example "时间解析示例")'
 - en: '[Time Formatting Example](#Time_Formatting_Example "Time Formatting Example")'
+  id: totrans-19
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[时间格式化示例](#Time_Formatting_Example "时间格式化示例")'
 - en: '[Time Diff](#Time_Diff "Time Diff")'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[时间差](#Time_Diff "时间差")'
 - en: '[Time Conversion](#Time_Conversion "Time Conversion ")'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[时间转换](#Time_Conversion "时间转换 ")'
 - en: '[Convert time between different timezones](#Convert_time_between_different_timezones
     "Convert time between different timezones")*  *# **Overview**'
+  id: totrans-22
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在不同的时区之间转换时间](#Convert_time_between_different_timezones "在不同的时区之间转换时间")*  *#
+    **概述**'
 - en: '**Time** or **Date** is represented in Go using **time.Time** struct. time
     can be also be represented as a'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**时间** 或 **日期** 在 Go 中使用 **time.Time** 结构表示。时间也可以表示为一个'
 - en: '**Unix Time (Also known as Epoch Time)** – It is the number of seconds elapsed
     since 00:00:00 UTC on 1 January 1970\. This time is also known as the Unix epoch.'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Unix 时间（也称为 Epoch 时间）** – 自 1970 年 1 月 1 日 00:00:00 UTC 起经过的秒数。这段时间也被称为 Unix
+    纪元。'
 - en: '**Structure**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结构**'
 - en: '**time.Time** object is used to represent a specific point in time. The **time.Time**
     struct is as below'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**time.Time** 对象用于表示特定的时间点。 **time.Time** 结构如下'
 - en: '[PRE0]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: As you can notice that every **time.Time** object has an associated **location**
     value which is used to determine the minute, hour, month, day and year corresponding
     to that time.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，每个 **time.Time** 对象都有一个相关的 **location** 值，用于确定对应于该时间的分钟、小时、月份、日期和年份。
 - en: '**Create a new time**'
+  id: totrans-29
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**创建一个新的时间**'
 - en: '**Using time.Now()**'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用 time.Now()**'
 - en: This function can be used to get the current local timestamp. The signature
     of the function is
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 此函数可用于获取当前本地时间戳。函数的签名为
 - en: '[PRE1]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Using time.Date()**'
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用 time.Date()**'
 - en: 'This function returns the time which is **yyyy-mm-dd hh:mm:ss + nsec** nanoseconds
     with the appropriate time zone corresponding to the given location. The signature
     of the function is:'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 此函数返回对应于给定位置的 **yyyy-mm-dd hh:mm:ss + nsec** 纳秒的时间，并具有适当的时区。函数的签名为：
 - en: '[PRE2]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Understanding Duration**'
+  id: totrans-36
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**理解持续时间**'
 - en: '**duration** is the time that has elapsed between two instants of time. It
     is represented as **int64nanosecond** count. So duration is nothing in Go but
     just a number representing time in nanoseconds. So if duration value is  equal
     to **1000000000** then it represents **1 sec** or **1000 milliseconds** or **10000000000
     nanoseconds**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**持续时间** 是两个时间瞬间之间经过的时间。它表示为 **int64 纳秒** 计数。因此在 Go 中，持续时间实际上是一个表示时间的纳秒数。如果持续时间的值等于
+    **1000000000**，则表示 **1 秒** 或 **1000 毫秒** 或 **10000000000 纳秒**。'
 - en: As an example duration between two time values 1 hour apart will be below value
     which is equal number of nanoseconds in 1 hour.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，两次时间值之间相差 1 小时的持续时间将等于下面的值，表示 1 小时中的纳秒数。
 - en: '[PRE3]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: It is represented as below in the **time** package.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 它在 **time** 包中表示如下。
 - en: '[PRE4]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Below are some common duration which are defined in **time** package
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是一些在**time**包中定义的常见持续时间
 - en: '[PRE5]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Some of the function defined on **time.Time** object that returns the **Duration**
     are
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些定义在**time.Time**对象上的函数返回**持续时间**：
 - en: '**func (t Time) Sub(u Time) Duration** – It returns the duration t-u'
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**func (t Time) Sub(u Time) Duration** – 它返回持续时间t-u'
 - en: '**func Since(t Time) Duration –** It returns the duration which has elapsed
     since t'
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**func Since(t Time) Duration –** 它返回自t以来经过的持续时间'
 - en: '**func Until(t Time) Duration** – It returns the duration until t'
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**func Until(t Time) Duration** – 它返回直到t的持续时间'
 - en: '**Add or Subtract to a time**'
+  id: totrans-48
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**加或减时间**'
 - en: Now that you have understood what duration , let’s see how we can add or subtract
     to a time instance
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在你已经理解了持续时间，让我们看看如何对时间实例进行加减。
 - en: '**time** package in golang defines two ways of adding or subtracting to a time.'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: golang中的**time**包定义了两种添加或减去时间的方法。
 - en: '**Add** function – It is used to add/subtract a duration to time t. Since duration
     can be represented in hours, minutes, seconds, milliseconds, microseconds and
     nanoseconds, therefore Add function can be used to add/subtract hours, minutes,
     seconds, milliseconds, microseconds and nanoseconds from a time . Its signature
     is'
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Add**函数 - 用于将持续时间加到时间t。由于持续时间可以表示为小时、分钟、秒、毫秒、微秒和纳秒，因此Add函数可以用于从时间中加/减小时、分钟、秒、毫秒、微秒和纳秒。其签名为'
 - en: '[PRE6]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**AddDate** function – It is used to add/subtract years, months and days to
     time t. Its signature is'
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**AddDate**函数 - 用于给时间t加/减年份、月份和天数。其签名为'
 - en: '[PRE7]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: 'Note: Positive values are used to add to time and negative values are used
     to subtract. Let’s see a working example of Add and Subtract to time.'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：正值用于加时间，负值用于减去。让我们看看加减时间的一个实际例子。
 - en: '**Add to time**'
+  id: totrans-56
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**加到时间**'
 - en: Below code can be used to add to time
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下代码可用于加时间
 - en: '[PRE8]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Subtract to time**'
+  id: totrans-61
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**减去时间**'
 - en: Below code can be used to subtract to time
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下代码可用于减去时间
 - en: '[PRE10]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output:**'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE11]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Time Parsing/Formatting**'
+  id: totrans-66
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**时间解析/格式化**'
 - en: If you have worked with time/date formatting/parsing in other languages you
     might have noticed that the other languages use special placeholders for time/date
     formatting. For eg ruby language uses
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你曾在其他语言中处理过时间/日期格式化/解析，你可能会注意到其他语言使用特殊的占位符进行时间/日期格式化。例如，ruby语言使用
 - en: '%d for day'
+  id: totrans-68
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '%d表示天'
 - en: '%Y for year'
+  id: totrans-69
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '%Y表示年份'
 - en: etc
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 等等
 - en: 'Golang, instead of using codes such as above, uses date and time format placeholders
     that look like date and time only. Go uses standard time, which is:'
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang没有使用上述代码，而是使用看起来像日期和时间的日期和时间格式占位符。Go使用标准时间，即：
 - en: '[PRE12]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: So if you notice go uses
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以如果你注意到，go使用
 - en: 01 for day of the month ,
+  id: totrans-74
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 01表示月份的天数，
 - en: 02 for the month
+  id: totrans-75
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 02表示月份
 - en: 03 for hours ,
+  id: totrans-76
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 03表示小时，
 - en: 04 for minutes
+  id: totrans-77
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 04表示分钟
 - en: 05 for second
+  id: totrans-78
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 05代表秒
 - en: and so on
+  id: totrans-79
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 等等
 - en: Below placeholder table describes the exact mapping. Go takes a more pragmatic
     approach where you don’t need to remember or lookup for the traditional formatting
     codes as in other languages
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下占位符表描述了确切的映射。Go采用了一种更务实的方法，你不需要像其他语言一样记住或查找传统的格式化代码。
 - en: '| **Type** | **Placeholder** |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '| **类型** | **占位符** |'
 - en: '| Day | **2** or **02** or **_2** |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '| 天 | **2** 或 **02** 或 **_2** |'
 - en: '| Day of Week | **Monday** or **Mon** |'
+  id: totrans-83
   prefs: []
   type: TYPE_TB
+  zh: '| 星期几 | **Monday** 或 **Mon** |'
 - en: '| Month | **01** or **1** or **Jan** or **January** |'
+  id: totrans-84
   prefs: []
   type: TYPE_TB
+  zh: '| 月 | **01** 或 **1** 或 **Jan** 或 **January** |'
 - en: '| Year | **2006** or **06** |'
+  id: totrans-85
   prefs: []
   type: TYPE_TB
+  zh: '| 年 | **2006** 或 **06** |'
 - en: '| Hour | **03** or **3** or **15** |'
+  id: totrans-86
   prefs: []
   type: TYPE_TB
+  zh: '| 小时 | **03** 或 **3** 或 **15** |'
 - en: '| Minutes | **04** or **4** |'
+  id: totrans-87
   prefs: []
   type: TYPE_TB
+  zh: '| 分钟 | **04** 或 **4** |'
 - en: '| Seconds | **05** or **5** |'
+  id: totrans-88
   prefs: []
   type: TYPE_TB
+  zh: '| 秒 | **05** 或 **5** |'
 - en: '| Milli Seconds  (ms) | **.000** //Trailing zero will be includedor **.999**
       //Trailing zero will be omitted |'
+  id: totrans-89
   prefs: []
   type: TYPE_TB
+  zh: '| 毫秒 (ms) | **.000** //尾随零将被包括或 **.999** //尾随零将被省略 |'
 - en: '| Micro Seconds (μs) | **.000000** //Trailing zero will be includedor **.999999** 
           //Trailing zero will be omitted |'
+  id: totrans-90
   prefs: []
   type: TYPE_TB
+  zh: '| 微秒 (μs) | **.000000** //尾随零将被包括或 **.999999** //尾随零将被省略 |'
 - en: '| Nano Seconds (ns) | **.000000000** //Trailing zero will be includedor **.999999999**
     //Trailing zero will be omitted |'
+  id: totrans-91
   prefs: []
   type: TYPE_TB
+  zh: '| 纳秒 (ns) | **.000000000** //尾随零将被包括或 **.999999999** //尾随零将被省略 |'
 - en: '| am/pm | **PM** or **pm** |'
+  id: totrans-92
   prefs: []
   type: TYPE_TB
+  zh: '| 上午/下午 | **PM** 或 **pm** |'
 - en: '| Timezone | **MST** |'
+  id: totrans-93
   prefs: []
   type: TYPE_TB
+  zh: '| 时区 | **MST** |'
 - en: '| Timezone offset | **Z0700** or **Z070000** or **Z07** or **Z07:00** or **Z07:00:00** 
     or **-0700** or  **-070000** or **-07** or **-07:00** or **-07:00:00** |'
+  id: totrans-94
   prefs: []
   type: TYPE_TB
+  zh: '| 时区偏移 | **Z0700** 或 **Z070000** 或 **Z07** 或 **Z07:00** 或 **Z07:00:00** 或 **-0700**
+    或 **-070000** 或 **-07** 或 **-07:00** 或 **-07:00:00** |'
 - en: '**Time Parse Example**'
+  id: totrans-95
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**时间解析示例**'
 - en: Now coming back to **time.Parse**. The signature of the function is
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在回到**time.Parse**。该函数的签名为
 - en: '[PRE13]'
+  id: totrans-97
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**time.Parse** function takes in two arguments'
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: '**time.Parse**函数接受两个参数。'
 - en: First argument is the layout consisting of time format placeholder
+  id: totrans-99
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个参数是由时间格式占位符组成的布局。
 - en: Second argument is the actual formatted string representing a time.
+  id: totrans-100
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个参数是表示时间的实际格式化字符串。
 - en: The way you have to go about this is to make sure that the layout string (first
     argument ) matches the string representation (second argument) of the time you
     want to parse into time.Time. For parsing
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: 你需要确保布局字符串（第一个参数）与要解析的时间的字符串表示（第二个参数）相匹配。
 - en: For parsing **2020-01-29**, layout string should be **06-01-02** or **2006-01-02**
     or something which maps correctly based on above placeholder table.
+  id: totrans-102
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于解析**2020-01-29**，布局字符串应为**06-01-02**或**2006-01-02**，或其他基于上述占位符表正确映射的内容。
 - en: Similarly for parsing **“2020-Jan-29 Wednesday 12:19:25”** the layout string
     can be **“2006-Jan-02 Monday 03:04:05”**
+  id: totrans-103
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 同样，对于解析**“2020-Jan-29 星期三 12:19:25”**，布局字符串可以是**“2006-Jan-02 星期一 03:04:05”**。
 - en: Below are the working Code Examples of **time.Parse().**
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是**time.Parse()**的工作代码示例。
 - en: '[PRE14]'
+  id: totrans-105
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output:**'
+  id: totrans-106
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE15]'
+  id: totrans-107
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Time Formatting Example**'
+  id: totrans-108
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**时间格式示例**'
 - en: '**time.Format** function can be used to format time to a string representation.
     The signature of the function is'
+  id: totrans-109
   prefs: []
   type: TYPE_NORMAL
+  zh: '**time.Format**函数可以用来将时间格式化为字符串表示。该函数的签名是。'
 - en: '[PRE16]'
+  id: totrans-110
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: Let’s see some time format code examples
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一些时间格式代码示例。
 - en: '[PRE17]'
+  id: totrans-112
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Output:**'
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE18]'
+  id: totrans-114
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**Time Diff**'
+  id: totrans-115
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**时间差**'
 - en: '**time** package has a method **Sub** which can be used to get the difference
     between two different time values. The signature of the function is'
+  id: totrans-116
   prefs: []
   type: TYPE_NORMAL
+  zh: '**time**包有一个方法**Sub**，可以用来获取两个不同时间值之间的差。该函数的签名是。'
 - en: '[PRE19]'
+  id: totrans-117
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '[PRE20]'
+  id: totrans-118
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Time Conversion**'
+  id: totrans-119
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**时间转换**'
 - en: Below code shows conversion of
+  id: totrans-120
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的代码展示了转换。
 - en: time.Time to Unix Timestamp
+  id: totrans-121
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: time.Time转换为Unix时间戳。
 - en: Unix Timestamp to time.Time
+  id: totrans-122
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Unix时间戳转换为time.Time。
 - en: '[PRE21]'
+  id: totrans-123
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Output:**'
+  id: totrans-124
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE22]'
+  id: totrans-125
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: '**Convert time between different timezones**'
+  id: totrans-126
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**在不同时间区域之间转换时间**'
 - en: The **In** function can be used to change the **location** associated with a
     particular **time.Time** object. Whenever the **In** function is called on any
     **time.Time** object (say t)  then,
+  id: totrans-127
   prefs: []
   type: TYPE_NORMAL
+  zh: '**In**函数可以用来更改与特定**time.Time**对象相关联的**location**。每当在任何**time.Time**对象（例如t）上调用**In**函数时，'
 - en: A copy of **t** is created representing the same time instant.
+  id: totrans-128
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个**t**的副本，表示相同的时间瞬间。
 - en: t’s location is set to the location passed to In function for display purposes
+  id: totrans-129
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: t的位置被设置为传递给In函数的地点，以便于显示。
 - en: '**t** is returned back'
+  id: totrans-130
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**t**被返回。'
 - en: Let’s see the below working code which can be used to change the location value
     associated with a particular time.
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看下面的工作代码，这可以用来更改与特定时间相关联的位置值。
 - en: '[PRE23]'
+  id: totrans-132
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Output:**'
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE24]'
+  id: totrans-134
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '[complete guide](https://golangbyexample.com/tag/complete-guide/)*   [format](https://golangbyexample.com/tag/format/)*   [parse](https://golangbyexample.com/tag/parse/)*   [timezone](https://golangbyexample.com/tag/timezone/)*   [using](https://golangbyexample.com/tag/using/)*'
+  id: totrans-135
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整指南](https://golangbyexample.com/tag/complete-guide/)*   [格式](https://golangbyexample.com/tag/format/)*   [解析](https://golangbyexample.com/tag/parse/)*   [时区](https://golangbyexample.com/tag/timezone/)*   [使用](https://golangbyexample.com/tag/using/)*'

@@ -36,7 +36,7 @@
 
 它将在当前目录中写入 **temp.txt**。写入发生在调用 **writer.Flush()** 时，因为缓冲区在中间并未真正填满。
 
-```
+```go
 package main
 import (
     "bufio"
@@ -67,7 +67,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Bytes Written: 19
 Available: 4077
 Buffered : 19
@@ -86,7 +86,7 @@ Buffered : 64
 
 我们还可以使用 bufio.NewWriterSize() 为我们的写入器创建自定义缓冲区大小。在下面的示例中，我们创建了一个自定义缓冲区大小为 10 字节的写入器。如果你仔细注意输出中的字节 **“可用”** 和 **“缓冲”**，你会发现当缓冲区满时，文件写入仍在进行，并在调用 **writer.Flush()** 时结束。
 
-```
+```go
 package main
 import (
     "bufio"
@@ -118,7 +118,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Bytes Written: 19
 Available: 1
 Buffered : 9
@@ -137,7 +137,7 @@ Buffered : 4
 
 它不维护任何缓冲区，并在调用写入时立即写入文件。请参见下面的示例。
 
-```
+```go
 package main
 
 import (
@@ -170,7 +170,7 @@ func main() {
 
 参见下面的示例：如果temp.txt不存在，则将创建一个权限为0777的新temp.txt文件
 
-```
+```go
 package main
 
 import (

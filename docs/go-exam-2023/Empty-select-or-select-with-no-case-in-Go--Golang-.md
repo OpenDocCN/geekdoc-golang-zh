@@ -22,7 +22,7 @@
 
 # **代码**
 
-```
+```go
 package main
 
 func main() {
@@ -32,13 +32,13 @@ func main() {
 
 **输出**
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
 在上面的程序中，我们有一个空的选择语句，因此它导致了死锁，这就是你看到输出的原因。
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 

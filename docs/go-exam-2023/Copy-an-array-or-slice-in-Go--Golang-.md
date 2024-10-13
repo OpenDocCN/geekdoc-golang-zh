@@ -30,7 +30,7 @@
 
 我们用一个例子来说明上述要点
 
-```
+```go
 package main
 
 import "fmt"
@@ -53,7 +53,7 @@ func test(sample [2]string) {
 
 **输出**
 
-```
+```go
 Sample1 Before: [a b]
 Sample1 After assignment: [a b]
 Sample2: [a c]
@@ -71,7 +71,7 @@ Sample1 After Test Function Call: [a b]
 
 Go的**builtin**包提供了一个**copy**函数，可以用来复制切片。下面是这个函数的签名。它返回复制的元素数量。
 
-```
+```go
 func copy(dst, src []Type) int
 ```
 
@@ -85,7 +85,7 @@ func copy(dst, src []Type) int
 
 还要注意，一旦复制完成，**dst**中的任何更改将不会反映在**src**中，反之亦然。
 
-```
+```go
 package main
 
 import "fmt"
@@ -109,7 +109,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Number Of Elements Copied: 5
 dst: [1 2 3 4 5]
 src: [1 2 3 4 5]

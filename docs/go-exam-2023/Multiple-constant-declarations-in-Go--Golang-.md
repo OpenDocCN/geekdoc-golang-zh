@@ -26,7 +26,7 @@
 
 # **同时声明多个常量，具有不同的值和类型**
 
-```
+```go
 const (
   a = "circle"
   b = 1
@@ -44,7 +44,7 @@ const (
 
 # **同时声明多个常量，具有相同的值和类型**
 
-```
+```go
 const (
   a string = "circle"
   b
@@ -59,7 +59,7 @@ const (
 
 # **组合上述两个**
 
-```
+```go
 const (
   a string "circle"
   b
@@ -75,7 +75,7 @@ const (
 
 # **单行多个声明**
 
-```
+```go
 const a, b = 1, 2
 const c, d int = 3, 4
 ```

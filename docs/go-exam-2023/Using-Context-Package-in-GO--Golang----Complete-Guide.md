@@ -44,7 +44,7 @@
 
 理解上下文的核心是了解 **Context** 接口
 
-```
+```go
 type Context interface {
     //It retures a channel when a context is cancelled, timesout (either when deadline is reached or timeout time has finished)
     Done() <-chan struct{}
@@ -93,7 +93,7 @@ type Context interface {
 
 **两级树**
 
-```
+```go
 rootCtx := context.Background()
 childCtx := context.WithValue(rootCtx, "msgId", "someMsgId")
 ```
@@ -106,7 +106,7 @@ childCtx := context.WithValue(rootCtx, "msgId", "someMsgId")
 
 **三级树**
 
-```
+```go
 rootCtx := context.Background()
 childCtx := context.WithValue(rootCtx, "msgId", "someMsgId")
 childOfChildCtx, cancelFunc := context.WithCancel(childCtx)
@@ -122,7 +122,7 @@ childOfChildCtx, cancelFunc := context.WithCancel(childCtx)
 
 **多级树**
 
-```
+```go
 rootCtx := context.Background()
 childCtx1 := context.WithValue(rootCtx, "msgId", "someMsgId")
 childCtx2, cancelFunc := context.WithCancel(childCtx1)
@@ -145,7 +145,7 @@ childCtx3 := context.WithValue(rootCtx, "user_id", "some_user_id)
 
 由于它是树形结构，因此也可以为特定节点创建更多子节点。例如，我们可以从**childCtx1**派生一个新上下文**childCtx4**。
 
-```
+```go
 childCtx4 := context.WithValue(childCtx1, "current_time", "some_time)
 ```
 
@@ -173,13 +173,13 @@ childCtx4 := context.WithValue(childCtx1, "current_time", "some_time)
 
 用于传递请求范围的值。该函数的完整签名为
 
-```
+```go
 withValue(parent Context, key, val interface{}) (ctx Context)
 ```
 
 它接受一个父上下文、键、值并返回一个派生上下文。这个派生上下文与**值**关联的**键**。这里的父上下文可以是context.Background()或其他任何上下文。此外，任何从此上下文派生的上下文将具有此值。
 
-```
+```go
 #Root Context
 ctxRoot := context.Background() - #Root context 
 
@@ -198,7 +198,7 @@ ctxChildofChild := context.WithValue(ctxChild, "b", "y")
 
 +   HelloWorld是API "localhost:8080/welcome"的处理函数，它从上下文中获取msgID并作为响应头发送回去
 
-```
+```go
 package main
 
 import (
@@ -238,13 +238,13 @@ func inejctMsgID(next http.Handler) http.Handler {
 
 只需在运行上面的程序后对上述请求进行curl调用
 
-```
+```go
 curl -v http://localhost/welcome
 ```
 
 这里将是响应。注意响应头中填充的**MsgId**。injectMsgId函数作为中间件，向请求上下文注入唯一的msgId。
 
-```
+```go
 curl -v http://localhost:8080/welcome
 *   Trying ::1...
 * TCP_NODELAY set
@@ -267,7 +267,7 @@ curl -v http://localhost:8080/welcome
 
 用于取消信号。下面是**WithCancel()**函数的签名
 
-```
+```go
 func WithCancel(parent Context) (ctx Context, cancel CancelFunc)
 ```
 
@@ -281,7 +281,7 @@ func WithCancel(parent Context) (ctx Context, cancel CancelFunc)
 
 **示例：**
 
-```
+```go
 package main
 
 import (
@@ -318,7 +318,7 @@ func task(ctx context.Context) {
 
 **输出：**
 
-```
+```go
 1
 2
 3
@@ -334,7 +334,7 @@ context canceled
 
 用于基于时间的取消。该函数的签名为
 
-```
+```go
 func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc)
 ```
 
@@ -350,7 +350,7 @@ func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc)
 
 **示例：**
 
-```
+```go
 package main
 
 import (
@@ -386,7 +386,7 @@ func task1(ctx context.Context) {
 
 **输出：**
 
-```
+```go
 1
 2
 3
@@ -402,7 +402,7 @@ context deadline exceeded
 
 用于基于截止日期的取消。该函数的签名为
 
-```
+```go
 func WithDeadline(parent Context, d time.Time) (Context, CancelFunc)
 ```
 
@@ -418,7 +418,7 @@ func WithDeadline(parent Context, d time.Time) (Context, CancelFunc)
 
 **示例：**
 
-```
+```go
 package main
 
 import (
@@ -454,7 +454,7 @@ func task(ctx context.Context) {
 
 **输出：**
 
-```
+```go
 1
 2
 3

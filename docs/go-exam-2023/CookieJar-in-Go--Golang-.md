@@ -32,7 +32,7 @@ Golang中的HTTP客户端允许您指定一个**CookieJar**，用于管理在进
 
 以下是net/http **Client**结构的结构。它包含一个名为**Jar**的实例变量，其类型为**CookieJar**接口。
 
-```
+```go
 type Client struct {
     Transport RoundTripper
 
@@ -46,7 +46,7 @@ type Client struct {
 
 以下是**CookieJar**接口。
 
-```
+```go
 type CookieJar interface {
     SetCookies(u *url.URL, cookies []*Cookie)
     Cookies(u *url.URL) []*Cookie
@@ -87,7 +87,7 @@ HTTP客户端以两种方式使用此jar。
 
 **go.mod**
 
-```
+```go
 module sample.com/server
 
 go 1.16
@@ -95,7 +95,7 @@ go 1.16
 
 **server.go**
 
-```
+```go
 package main
 
 import (
@@ -141,14 +141,14 @@ func docGetID(w http.ResponseWriter, r *http.Request) {
 
 **go.mod**
 
-```
+```go
 module sample.com/client
 go 1.16
 ```
 
 **client.go**
 
-```
+```go
 package main
 
 import (
@@ -209,7 +209,7 @@ func main() {
 
 在上述客户端程序中，我们创建了一个带有cookie jar的HTTP客户端。
 
-```
+```go
 jar, err := cookiejar.New(nil)
 if err != nil {
 		log.Fatalf("Got error while creating cookie jar %s", err.Error())
@@ -222,7 +222,7 @@ client = http.Client{
 
 我们正在向Cookie Jar添加一个cookie。
 
-```
+```go
 cookie := &http.Cookie{
 		Name:   "token",
 		Value:  "some_token",
@@ -234,19 +234,19 @@ client.Jar.SetCookies(urlObj, []*http.Cookie{cookie})
 
 现在运行服务器。
 
-```
+```go
 go run server.go
 ```
 
 和客户端。
 
-```
+```go
 go run client.go
 ```
 
 注意服务器端的输出。
 
-```
+```go
 Cookie in First API Call
 token=some_token
 
@@ -270,7 +270,7 @@ token=some_token
 
 **go.mod**
 
-```
+```go
 module sample.com/server
 
 go 1.16
@@ -278,7 +278,7 @@ go 1.16
 
 **server.go**
 
-```
+```go
 package main
 
 import (
@@ -320,7 +320,7 @@ func docGetID(w http.ResponseWriter, r *http.Request) {
 
 我们在响应头的**Set-Cookie**中设置了以下 cookie。
 
-```
+```go
 cookie := &http.Cookie{
 	Name:   "id",
 	Value:  "abcd",
@@ -335,14 +335,14 @@ http.SetCookie(w, cookie)
 
 **go.mod**
 
-```
+```go
 module sample.com/client
 go 1.16
 ```
 
 **client.go**
 
-```
+```go
 package main
 
 import (
@@ -401,19 +401,19 @@ func main() {
 
 现在首先运行服务器。它将在 8080 端口启动一个本地服务器。
 
-```
+```go
 go run server.go
 ```
 
 现在运行客户端
 
-```
+```go
 go run client.go
 ```
 
 注意服务器端第二个 API 的输出。可以看到，它是响应头中**Set-Cookie**返回的相同 cookie。
 
-```
+```go
 Printing the cookies in the Second API
 id=abcd
 ```

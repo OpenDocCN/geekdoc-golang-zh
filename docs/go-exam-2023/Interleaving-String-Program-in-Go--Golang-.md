@@ -26,7 +26,7 @@
 
 示例
 
-```
+```go
 s1: aabcc
 s2: dbbca
 s3: aadbbcbcac
@@ -38,7 +38,7 @@ Output: true
 
 以下是相同的递归解决方案
 
-```
+```go
 package main
 
 import "fmt"
@@ -88,7 +88,7 @@ func isInterleaveUtil(s1, s2, s3 []rune, x, y, z, lenS1, lenS2, lenS3 int) bool 
 
 **输出**
 
-```
+```go
 true
 true
 ```
@@ -99,7 +99,7 @@ true
 
 ## **动态规划解决方案**
 
-```
+```go
 package main
 
 import "fmt"
@@ -178,7 +178,7 @@ func isInterleave(s1 string, s2 string, s3 string) bool {
 
 **输出**
 
-```
+```go
 true
 true
 ```

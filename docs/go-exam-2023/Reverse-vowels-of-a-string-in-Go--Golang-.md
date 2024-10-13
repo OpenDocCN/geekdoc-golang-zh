@@ -20,14 +20,14 @@
 
 **示例 1**
 
-```
+```go
 Input: "simple"
 Output: "sempli"
 ```
 
 **示例 2**
 
-```
+```go
 Input: "complex"
 Output: "cemplox"
 ```
@@ -36,7 +36,7 @@ Output: "cemplox"
 
 以下是相应的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -102,7 +102,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 sempli
 cemplox
 ```

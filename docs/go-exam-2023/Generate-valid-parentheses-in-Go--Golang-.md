@@ -18,7 +18,7 @@
 
 例如
 
-```
+```go
 Input:1
 Output: [()]
 
@@ -37,19 +37,19 @@ Output: [()()() ()(()) (())() (()()) ((()))]
 
 我们仅在
 
-```
+```go
 open < n //where n is the number of pairs of parentheses
 ```
 
 我们仅在
 
-```
+```go
 close < open //Number of right parentheses is less than the number of left parentheses
 ```
 
 以下是相应的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -101,7 +101,7 @@ func generateParenthesisUtil(pos, n, open, close int, input []rune) []string {
 
 **输出**
 
-```
+```go
 [()]
 [()() (())]
 [()()() ()(()) (())() (()()) ((()))]

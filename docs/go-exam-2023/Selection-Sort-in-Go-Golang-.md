@@ -40,7 +40,7 @@
 
 # **实现：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -71,7 +71,7 @@ func selectionSort(arr []int) {
 
 **输出：**
 
-```
+```go
 After SelectionSort
 1
 2

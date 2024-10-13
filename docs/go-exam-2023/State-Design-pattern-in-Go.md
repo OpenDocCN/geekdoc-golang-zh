@@ -94,7 +94,7 @@
 
 **vendingMachine.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -165,7 +165,7 @@ func (v *vendingMachine) incrementItemCount(count int) {
 
 **state.go**
 
-```
+```go
 package main
 
 type state interface {
@@ -178,7 +178,7 @@ type state interface {
 
 **noItemState.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -207,7 +207,7 @@ func (i *noItemState) dispenseItem() error {
 
 **hasItemState.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -242,7 +242,7 @@ func (i *hasItemState) dispenseItem() error {
 
 **itemRequestedState.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -275,7 +275,7 @@ func (i *itemRequestedState) dispenseItem() error {
 
 **hasMoneyState.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -310,7 +310,7 @@ func (i *hasMoneyState) dispenseItem() error {
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -360,7 +360,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Item requestd
 Money entered is ok
 Dispensing Item

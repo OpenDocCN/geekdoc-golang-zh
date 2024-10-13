@@ -18,7 +18,7 @@ date: 2024-10-13 06:17:52
 
 **代码**
 
-```
+```go
 package main
 
 import (
@@ -39,7 +39,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Home Directory: "some_home_directory"
 ```
 

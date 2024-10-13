@@ -30,7 +30,7 @@ category: 未分类
 
 在有限的 for 循环情况下，选择语句的执行次数等于循环中的迭代次数。我们来看一个程序示例
 
-```
+```go
 package main
 
 import "fmt"
@@ -61,7 +61,7 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 From goOne goroutine
 From goTwo goroutine
 ```
@@ -72,7 +72,7 @@ From goTwo goroutine
 
 我们可以在选择语句外有无限的 for 循环。这将导致选择语句执行无限次。因此，在使用外部无限循环的 for 语句时，我们需要有一种方法来跳出 for 循环。将外部无限循环与选择语句结合的一个用例可能是你在等待多个操作在同一通道上接收一段时间。请看下面的例子
 
-```
+```go
 package main
 
 import (
@@ -109,7 +109,7 @@ func newsFeed(ch chan string) {
 
 **输出**
 
-```
+```go
 News: 1
 News: 2
 Timeout: News feed finished

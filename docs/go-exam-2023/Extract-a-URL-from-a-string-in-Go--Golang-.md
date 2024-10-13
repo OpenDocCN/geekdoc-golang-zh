@@ -34,7 +34,7 @@
 
 让我们首先看一个程序
 
-```
+```go
 package main
 
 import (
@@ -59,7 +59,7 @@ func main() {
 
 **输出**
 
-```
+```go
 [https://golangbyexample.com]
 [golangbyexample.com]
 [golangbyexample.com https://golangbyexample.com]
@@ -69,7 +69,7 @@ func main() {
 
 让我们看看另一个提取多个 URL 的程序
 
-```
+```go
 package main
 
 import (
@@ -88,13 +88,13 @@ func main() {
 
 **输出**
 
-```
+```go
 [https://golangbyexample.com:8000/tutorials/intro mailto:contactus@golangbyexample.com]
 ```
 
 如果我们想将输出限制为特定方案，也可以做到。
 
-```
+```go
 package main
 
 import (
@@ -117,7 +117,7 @@ func main() {
 
 **输出**
 
-```
+```go
 [https://golangbyexample.com:8000/tutorials/intro]
 ```
 

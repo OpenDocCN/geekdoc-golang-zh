@@ -16,7 +16,7 @@
 
 让我们看看一个程序。
 
-```
+```go
 package main
 
 import (
@@ -52,7 +52,7 @@ func sumAndMultiply(a, b int, resultChan chan result) {
 
 **输出**
 
-```
+```go
 Sum Value: 5
 Multiply Value: 6
 ```
@@ -65,14 +65,14 @@ Multiply Value: 6
 
 我们创建了一个变量**resultChan**，它是一个长度为1的通道，存储**result**结构体类型的值。我们将这个通道传递给**sumAndMultiply**函数。**sumAndMultiply**函数将结果结构体推送到**resultChan**。
 
-```
+```go
 res := result{sumValue: sumValue, multiplyValue: multiplyValue}
 resultChan <- res
 ```
 
 然后在主函数中，我们正在等待通道以收集结果。
 
-```
+```go
 res := <-resultChan
 ```
 

@@ -18,7 +18,7 @@
 
 Goto语句允许无条件跳转到同一函数中的标记语句。下面是goto语句的格式
 
-```
+```go
 goto label
 ...
 ...
@@ -31,7 +31,7 @@ label: statement
 
 让我们看看一个简单的goto语句示例
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -48,38 +48,38 @@ FINISH:
 
 **输出**
 
-```
+```go
 a
 c
 ```
 
 在上面的示例中，我们有一个**goto**语句，如下所示。
 
-```
+```go
 goto FINISH
 ```
 
 **FINISH**标签如下
 
-```
+```go
 FINISH:
     fmt.Println("c")
 ```
 
 一旦程序遇到**goto**语句，它就会跳转到指定的标签。因此，下面的代码行永远不会被执行，**b**也不会被打印。
 
-```
+```go
 fmt.Println("b")
 ```
 
 标签和goto需要属于同一函数，否则会引发编译错误。这是因为标签的作用域在声明它的函数内部。如上所述，下面的程序会引发编译错误。
 
-```
+```go
 ./main.go:11:7: label FINISH not defined
 ./main.go:17:1: label FINISH defined and not used
 ```
 
-```
+```go
 package main
 
 import "fmt"
@@ -103,7 +103,7 @@ FINISH:
 
 标签也可以在goto语句之前。见下面的示例。该程序可以用于打印10之前的所有奇数。注意标签**START**在这里位于goto之前。
 
-```
+```go
 package main
 import "fmt"
 func main() {

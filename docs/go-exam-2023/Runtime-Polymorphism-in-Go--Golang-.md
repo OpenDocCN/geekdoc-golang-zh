@@ -14,7 +14,7 @@
 
 让我们通过一个例子来理解。不同国家有不同的计算税的方法。这可以通过接口来表示。
 
-```
+```go
 type taxCalculator interface{
     calculateTax()
 }
@@ -26,7 +26,7 @@ type taxCalculator interface{
 
 现在让我们看看如何使用这个**taxCalculator**接口来计算一个人在不同国家的税务，尤其是在一年中的不同时间。请参见下面的完整程序作为参考。
 
-```
+```go
 package main
 import "fmt"
 type taxSystem interface {
@@ -82,13 +82,13 @@ func calculateTotalTax(taxSystems []taxSystem) int {
 
 **输出：**
 
-```
+```go
 Total Tax is 300
 ```
 
 下面是运行时多态发生的地方。
 
-```
+```go
  totalTax += t.calculateTax() //This is where runtime polymorphism happens
 ```
 
@@ -98,7 +98,7 @@ Total Tax is 300
 
 现在让我们扩展上述程序，以包括美国的税制。
 
-```
+```go
 type usaTax struct {
     taxPercentage int
     income        int
@@ -112,7 +112,7 @@ func (i *usaTax) calculateTax() int {
 
 我们只需更改主函数以添加美国税制。
 
-```
+```go
 func main() {
     indianTax := &indianTax{
         taxPercentage: 30,
@@ -142,7 +142,7 @@ func calculateTotalTax(taxSystems []taxSystem) int {
 
 **输出：**
 
-```
+```go
 Total Tax is 700
 ```
 

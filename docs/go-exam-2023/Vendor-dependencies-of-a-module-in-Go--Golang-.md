@@ -18,7 +18,7 @@
 
 如果您想供应您的依赖，可以使用下面的命令来实现。
 
-```
+```go
 go mod vendor
 ```
 
@@ -26,13 +26,13 @@ go mod vendor
 
 让我们看一个示例以更好地理解。首先让我们创建一个模块
 
-```
+```go
 go mod init learn
 ```
 
 该命令将在同一目录中创建一个**go.mod**文件。
 
-```
+```go
 module learn
 
 go 1.14
@@ -40,7 +40,7 @@ go 1.14
 
 由于这是一个空模块，尚未指定任何直接依赖。让我们在**go.mod**文件中指定一个依赖。
 
-```
+```go
 module learn
 
 go 1.14
@@ -52,7 +52,7 @@ require github.com/pborman/uuid v1.2.1
 
 **uuid.go**
 
-```
+```go
 package main
 
 import (
@@ -71,7 +71,7 @@ func main() {
 
 让我们运行下面的命令
 
-```
+```go
 go mod vendor
 ```
 
@@ -79,7 +79,7 @@ go mod vendor
 
 **-v**标志也可以与go mod vendor一起使用。当提供该标志时，命令将打印所有被引入的模块和包。
 
-```
+```go
 go mod vendor -v
 ```
 

@@ -26,7 +26,7 @@ Golang的**net/http**包提供了状态码常量，可用于返回不同的状�
 
 以下是相同的程序
 
-```
+```go
 package main
 
 import (
@@ -49,13 +49,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 运行上述程序。它将在你的本地机器上启动一个8080端口的服务器。现在向服务器发出以下curl调用。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 以下将是输出
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080
@@ -71,7 +71,7 @@ curl -v -X POST http://localhost:8080/example
 
 从输出中可以看到，它将正确返回400状态码。如果我们还想返回JSON错误主体，那么以下是相应的代码。
 
-```
+```go
 package main
 
 import (
@@ -102,19 +102,19 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 上述代码在响应中返回以下JSON请求主体。
 
-```
+```go
 {"message":"Bad Request"}
 ```
 
 运行上述程序。它将在你的本地机器上启动一个8080端口的服务器。现在向服务器发出以下curl调用。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 以下将是输出
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080
@@ -134,7 +134,7 @@ curl -v -X POST http://localhost:8080/example
 
 你也可以直接将400传递给WriteHeader函数以发送400响应。
 
-```
+```go
 w.WriteHeader(400)
 ```
 

@@ -63,7 +63,7 @@
 
 **computer.go**
 
-```
+```go
 package main
 
 type computer interface {
@@ -74,7 +74,7 @@ type computer interface {
 
 **mac.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -95,7 +95,7 @@ func (m *mac) setPrinter(p printer) {
 
 **windows.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -116,7 +116,7 @@ func (w *windows) setPrinter(p printer) {
 
 **printer.go**
 
-```
+```go
 package main
 
 type printer interface {
@@ -126,7 +126,7 @@ type printer interface {
 
 **epson.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -141,7 +141,7 @@ func (p *epson) printFile() {
 
 **hp.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -156,7 +156,7 @@ func (p *hp) printFile() {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -183,7 +183,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Print request for mac
 Printing by a HP Printer
 
@@ -198,7 +198,7 @@ Print request for windows
 
 ## **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -274,7 +274,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Print request for mac
 Printing by a HP Printer
 

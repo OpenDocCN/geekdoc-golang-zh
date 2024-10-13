@@ -24,20 +24,20 @@
 
 假设这两个数字以反向方式表示为链表
 
-```
+```go
 8->7->4
 9->3->3
 ```
 
 期望的输出链表也是反向的
 
-```
+```go
 7->1->8
 ```
 
 这是相应的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -152,7 +152,7 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
 **输出**
 
-```
+```go
 7
 1
 8

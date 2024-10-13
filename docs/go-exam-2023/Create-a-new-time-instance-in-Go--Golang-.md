@@ -22,7 +22,7 @@
 
 **time.Now()** 函数可用于获取当前本地时间戳。该函数的签名是
 
-```
+```go
 func Now() Time
 ```
 
@@ -30,7 +30,7 @@ func Now() Time
 
 time.Date() 函数接受年份、月份、日期、小时、分钟、秒、纳秒和位置，并返回一个时间格式为 **yyyy-mm-dd hh:mm:ss + nsec**，具有与给定位置相对应的适当时区。该函数的签名是
 
-```
+```go
 func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) Time
 ```
 
@@ -38,7 +38,7 @@ func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) T
 
 time.Parse() 可用于将时间的字符串表示转换为 **time.Time** 实例。该函数的签名是
 
-```
+```go
 func Parse(layout, value string) (Time, error)
 ```
 
@@ -50,7 +50,7 @@ func Parse(layout, value string) (Time, error)
 
 下面是一个演示上述三种方法的工作代码示例
 
-```
+```go
 package main
 
 import (
@@ -76,7 +76,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 2020-02-03 11:34:10.85639 +0530 IST m=+0.000297951
 2021-02-21 01:10:30 +0000 UTC
 2020-01-29 00:00:00 +0000 UTC

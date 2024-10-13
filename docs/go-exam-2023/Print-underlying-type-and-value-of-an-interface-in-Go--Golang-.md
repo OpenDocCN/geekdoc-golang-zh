@@ -24,7 +24,7 @@ Golang提供格式标识符来打印接口值所表示的基础类型和基础�
 
 假设我们有一个接口**动物**如下
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -33,7 +33,7 @@ type animal interface {
 
 我们还有一个**狮子**结构体实现了这个**动物**接口。
 
-```
+```go
 type lion struct {
     age int
 }
@@ -41,7 +41,7 @@ type lion struct {
 
 # **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -73,7 +73,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Concrete Type: main.lion
 Concrete Value: {10}
 ```

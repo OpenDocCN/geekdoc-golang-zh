@@ -20,7 +20,7 @@ Go接口没有字段，也不允许在其中定义方法。任何类型都需要
 
 我们将使用**接口（抽象接口）**和**结构（抽象具体类型）**的组合。它们可以提供抽象类的功能。请参见下面的程序：
 
-```
+```go
 package main
 
 import "fmt"
@@ -64,7 +64,7 @@ func main() {
 
 输出：
 
-```
+```go
 work called
 name is test
 common called
@@ -84,7 +84,7 @@ common called
 
 因此它满足所有三个要求，但上述方法也有一个限制。无法从alpha的**“common”**方法调用**“work”**方法。基本上，无法从抽象具体类型的默认方法调用抽象接口的未定义方法。不过，有一种方法可以解决这个问题。请参见下面的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -130,7 +130,7 @@ func main() {
 
 输出：
 
-```
+```go
 common called
 work called
 name is test
@@ -144,7 +144,7 @@ name is test
 
 上述程序唯一的问题是可以直接实例化**alpha**结构，并通过提供**work**方法的定义，创建类型为**iAlpha**的实例。这违反了上述抽象类要求的第3点，因为在未创建我们自己的新类型的情况下，我们能够创建**iAlpha**的类型。让我们尝试解决这个问题。下面的程序还解决了无法从默认方法调用未定义方法的问题。
 
-```
+```go
 package main
 
 import "fmt"
@@ -188,7 +188,7 @@ func main() {
 
 输出：
 
-```
+```go
 common called
 work called
 Name is test

@@ -20,7 +20,7 @@
 
 例如
 
-```
+```go
 Input: 453
 Step 1: 4+5+3 = 12
 Step 2: 1+2 =3
@@ -30,7 +30,7 @@ Output: 3
 
 另一个示例
 
-```
+```go
 Input: 45
 Step 1: 4+5 = 9
 
@@ -41,7 +41,7 @@ Output: 9
 
 这是相同程序的代码
 
-```
+```go
 package main
 
 import "fmt"
@@ -81,7 +81,7 @@ func main() {
 
 **输出**
 
-```
+```go
 3
 9
 ```

@@ -12,13 +12,13 @@
 
 **os.Chtimes()** 函数可以用来更改Golang中一个文件的mtime（修改时间）或atime（访问时间）。下面是该函数的签名。
 
-```
+```go
 func Chtimes(name string, atime time.Time, mtime time.Time)
 ```
 
 **代码:**
 
-```
+```go
 package main
 
 import (
@@ -41,7 +41,7 @@ func main() {
 
 **输出:**
 
-```
+```go
 Changes the atime and mtime of the file.
 ```
 

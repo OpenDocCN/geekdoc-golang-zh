@@ -34,7 +34,7 @@
 
 ## **程序**
 
-```
+```go
 package main
 
 import (
@@ -62,7 +62,7 @@ func test(ch chan bool) {
 
 **输出**
 
-```
+```go
 Send Value: true
 Received Value: true
 ```
@@ -71,13 +71,13 @@ Received Value: true
 
 然后我们在主Goroutine中发送值。一旦发送完成，Goroutine恢复执行。这就是为什么
 
-```
+```go
 Send Value: true
 ```
 
 始终在之前打印
 
-```
+```go
 Send Value: true
 Received Value: true
 ```

@@ -22,7 +22,7 @@
 
 以下是函数的签名。
 
-```
+```go
 func Load(filenames ...string) (err error) 
 ```
 
@@ -32,14 +32,14 @@ func Load(filenames ...string) (err error)
 
 创建一个 **local.env** 文件，并包含以下内容。
 
-```
+```go
 STACK=DEV
 DATABASE=SQL
 ```
 
 这是程序。
 
-```
+```go
 package main
 
 import (
@@ -66,7 +66,7 @@ func main() {
 
 **输出**
 
-```
+```go
 DEV
 SQL
 ```
@@ -75,11 +75,11 @@ SQL
 
 它还可以用于加载多个 .env 文件。创建一个新的文件 **test.env**，并包含以下内容。
 
-```
+```go
 TEST=UNIT
 ```
 
-```
+```go
 package main
 
 import (
@@ -109,7 +109,7 @@ func main() {
 
 **输出**
 
-```
+```go
 DEV
 SQL
 UNIT
@@ -119,12 +119,12 @@ UNIT
 
 在当前目录中创建一个名为 **.env** 的文件，并包含以下内容。
 
-```
+```go
 STACK=DEV
 DATABASE=SQL
 ```
 
-```
+```go
 package main
 
 import (
@@ -153,7 +153,7 @@ func main() {
 
 **输出**
 
-```
+```go
 DEV
 SQL
 ```

@@ -30,7 +30,7 @@ ResponseWriter接口由HTTP处理程序用于构造HTTP响应。它提供三个�
 
 **Write**函数可用于设置响应体。它接受一个字节切片作为输入。此外，还有一个**Header**函数。此函数可用于通过Content-Type头设置响应体的内容类型。例如，对于text/plain响应体，我们需要将Content-Type头设置为**“text/plain”。**
 
-```
+```go
 w.Header().Set("Content-Type", "text/plain")
 ```
 
@@ -42,7 +42,7 @@ w.Header().Set("Content-Type", "text/plain")
 
 下面是相应的程序。
 
-```
+```go
 package main
 
 import (
@@ -65,7 +65,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 我们使用**Write**函数返回text/plain响应体。上述代码返回以下**text/plain**体作为响应。
 
-```
+```go
 Success
 ```
 
@@ -73,13 +73,13 @@ Success
 
 运行上述程序。它将在本地机器的8080端口启动一个服务器。现在对服务器进行以下curl调用。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 下面将是输出。
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080

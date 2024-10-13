@@ -22,7 +22,7 @@
 
 下面是此方法的签名。它接受一个数字n并返回一个范围在0<=x<n的数字。
 
-```
+```go
 func Intn(n int) int
 ```
 
@@ -30,7 +30,7 @@ func Intn(n int) int
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -58,7 +58,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Number between 5<=x<=20
 Number between 100<=x<=200
 ```

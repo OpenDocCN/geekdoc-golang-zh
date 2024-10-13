@@ -36,13 +36,13 @@
 
 这样的双向通道的签名在作为函数参数传递时如下所示。
 
-```
+```go
 func process(ch chan int){ //doSomething }
 ```
 
 **代码:**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -62,25 +62,25 @@ func process(ch chan int) {
 
 +   只能发送数据的通道的签名在作为函数参数传递时如下所示。
 
-```
+```go
 func process(ch chan<- int){ //doSomething }
 ```
 
 +   尝试从这样的通道接收数据时会出现以下错误。
 
-```
+```go
 invalid operation: <-ch (receive from send-only type chan<- int)
 ```
 
 尝试取消注释代码中的以下行以查看上述错误
 
-```
+```go
 s := <-ch
 ```
 
 **代码:**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -100,25 +100,25 @@ func process(ch chan<- int) {
 
 +   仅接收数据的通道的签名在作为函数参数传递时如下所示
 
-```
+```go
 func process(ch <-chan int){ //doSomething }
 ```
 
 +   尝试向这样的通道发送数据时会出现以下错误。
 
-```
+```go
 invalid operation: ch <- 2 (send to receive-only type <-chan int)
 ```
 
 尝试取消注释代码中的以下行以查看上述错误
 
-```
+```go
 ch <- 2
 ```
 
 **代码:**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -140,13 +140,13 @@ func process(ch <-chan int) {
 
 以这种方式传递通道只有在您想要修改通道时才有意义。这是非常不常见的，且不是一种可取的使用方式。这样的通道作为指针传递的签名。
 
-```
+```go
 func process(ch *chan int){ //doSomething}
 ```
 
 **代码:**
 
-```
+```go
 package main
 
 import "fmt"

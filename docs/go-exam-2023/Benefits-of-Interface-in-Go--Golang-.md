@@ -20,7 +20,7 @@
 
 不同国家有不同的税收计算方式。这可以通过接口来表示。
 
-```
+```go
 type taxCalculator interface{
     calculateTax()
 }
@@ -28,7 +28,7 @@ type taxCalculator interface{
 
 现在，不同国家可以拥有自己的结构并实现 **calculateTax()** 方法。相同的 **calculateTax** 方法在不同的上下文中用于计算税款。当编译器看到这个调用时，它会推迟在运行时调用哪个具体的方法。
 
-```
+```go
 package main
 
 import "fmt"
@@ -79,7 +79,7 @@ func calculateTotalTax(taxSystems []taxSystem) int {
 
 **输出：**
 
-```
+```go
 Total Tax is 300
 ```
 

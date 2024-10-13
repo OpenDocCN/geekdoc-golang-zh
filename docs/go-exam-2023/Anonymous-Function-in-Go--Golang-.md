@@ -34,7 +34,7 @@ date: 2024-10-13 06:11:11
 
 # **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -54,13 +54,13 @@ func main() {
 
 **输出：**
 
-```
+```go
 3
 ```
 
 匿名函数也可以被执行为IIF或立即调用函数。在这种情况下，你不需要将它赋值给任何变量。请看下面的例子：
 
-```
+```go
 package main
 
 import "fmt"
@@ -74,7 +74,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 From anoymous function
 ```
 

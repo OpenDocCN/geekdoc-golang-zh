@@ -42,7 +42,7 @@ category: 未分类
 
 让我们看看在 GOLANG 中的工作代码。
 
-```
+```go
 package main
 
 import (
@@ -101,13 +101,13 @@ func getIP(r *http.Request) (string, error) {
 
 发起一个 curl 调用。
 
-```
+```go
 curl -v -X  GET http://localhost:8080/getIp
 ```
 
 **输出：**
 
-```
+```go
 On my machine it outputs ::1 which is actually loopback address for IPV6
 ```
 

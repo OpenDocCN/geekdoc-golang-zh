@@ -30,7 +30,7 @@ date: 2024-10-13 06:33:31
 
 +   结构体字段具有一个元部分，其中包含有关该字段的附加信息。这些元字段在将结构体转换为 JSON 及其反向转换时使用。此外，请注意这些结构体元字段是可选的。假设我们有以下结构体。
 
-```
+```go
 type employee struct {
 	Name string `json:"name"`
 	Age  int    `json:"age"`
@@ -41,7 +41,7 @@ type employee struct {
 
 因此，上述结构体转换为 JSON 后将如下所示。
 
-```
+```go
 {
   "name" : "John",
   "age"  : 21
@@ -52,7 +52,7 @@ type employee struct {
 
 作为另一个示例，假设我们有以下结构体。
 
-```
+```go
 type employee struct {
 	Name string `json:"n"`
 	Age  int    `json:"ag"`
@@ -61,7 +61,7 @@ type employee struct {
 
 然后在转换为 JSON 后，JSON 的 **‘n’** 键将映射到结构体的 **Name** 字段，而 JSON 的 **‘ag’** 键将映射到结构体的 **Age** 字段。因此，它将生成如下 JSON。
 
-```
+```go
 {
   "n" : "John",
   "age"  : 21
@@ -72,7 +72,7 @@ type employee struct {
 
 如果结构体不包含任何元标签，则结果 JSON 中的键名将与结构体字段的名称相同，反之亦然。例如，如果我们有以下结构体。
 
-```
+```go
 type employee struct {
 	Name string 
 	Age  int   
@@ -81,7 +81,7 @@ type employee struct {
 
 注意，字段没有 JSON 元数据标签。因此，转换为 JSON 后将如下所示。
 
-```
+```go
 {
   "Name" : "John",
   "Age"  : 21
@@ -98,7 +98,7 @@ type employee struct {
 
 此外，两个结构体中的salary字段均为未导出。
 
-```
+```go
 package main
 import (
     "encoding/json"
@@ -141,7 +141,7 @@ func main() {
 
 **输出**
 
-```
+```go
 employee1 JSON: {"n":"John","a":21}
 
 employee2 JSON: {"Name":"John","Age":21}
@@ -151,7 +151,7 @@ employee2 JSON: {"Name":"John","Age":21}
 
 对于**employee1**结构体到JSON的转换，输出为
 
-```
+```go
 {"n":"John","a":21}
 ```
 
@@ -163,7 +163,7 @@ employee2 JSON: {"Name":"John","Age":21}
 
 对于**employee2**结构体到JSON的转换，输出为
 
-```
+```go
 {"Name":"John","Age":21}
 ```
 
@@ -177,7 +177,7 @@ employee2 JSON: {"Name":"John","Age":21}
 
 **json.Unmarshal**函数可用于将JSON转换为结构体。我们之前讨论的规则同样适用于从JSON转换为结构体。让我们来看一个例子。
 
-```
+```go
 package main
 
 import (
@@ -220,7 +220,7 @@ func main() {
 
 **输出**
 
-```
+```go
 employee1 Struct: main.employee1{Name:"John", Age:21, salary:0}
 
 employee2 Struct: main.employee2{Name:"John", Age:21, salary:0}
@@ -228,7 +228,7 @@ employee2 Struct: main.employee2{Name:"John", Age:21, salary:0}
 
 此示例使用了第一个示例的输出JSON字符串。在这里，我们使用**json.Unmarshal**函数将JSON字符串转换为结构体。首先需要注意的是，我们需要将结构体的地址传递给**json.Unmarshal**函数，如下所示。
 
-```
+```go
 err = json.Unmarshal(j, &e1Converted)
 ```
 
@@ -236,39 +236,39 @@ err = json.Unmarshal(j, &e1Converted)
 
 解组
 
-```
+```go
 {"n":"John","a":21}
 ```
 
 输出到**employee1**结构体。
 
-```
+```go
 main.employee1{Name:"John", Age:21, salary:0}
 ```
 
 解组
 
-```
+```go
 {"Name":"John","Age":21}
 ```
 
 输出到**employee2**结构体。
 
-```
+```go
 main.employee2{Name:"John", Age:21, salary:0}
 ```
 
 如果你尝试解组
 
-```
+```go
 {"n":"John","a":21}
 ```
 
-```
+```go
  into employee2 struct then the output will be 
 ```
 
-```
+```go
 main.employee2{Name:"", Age:0, salary:0}
 ```
 
@@ -276,7 +276,7 @@ main.employee2{Name:"", Age:0, salary:0}
 
 如果JSON字符串包含**salary**字段，那么JSON字符串中的**salary**字段的值将不会反映在结构体的**salary**字段中，因为**salary**字段在结构体中未导出。请参见此示例。
 
-```
+```go
 package main
 import (
     "encoding/json"
@@ -301,7 +301,7 @@ func main() {
 
 **输出**
 
-```
+```go
 employee1 Struct: main.employee1{Name:"John", Age:21, salary:0}
 ```
 

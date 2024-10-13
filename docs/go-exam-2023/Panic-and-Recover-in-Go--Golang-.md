@@ -44,7 +44,7 @@ Go 语言中的 panic 类似于异常。panic 旨在在异常条件下退出程�
 
 Go 提供了一种特殊的函数来创建 panic。以下是该函数的语法
 
-```
+```go
 func panic(v interface{})
 ```
 
@@ -68,7 +68,7 @@ func panic(v interface{})
 
 让我们来看一个由于超出范围的数组访问导致的运行时错误示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -86,7 +86,7 @@ func print(a []string, index int) {
 
 **输出**
 
-```
+```go
 panic: runtime error: index out of range [2] with length 2
 
 goroutine 1 [running]:
@@ -115,7 +115,7 @@ exit status 2
 
 让我们来看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -136,7 +136,7 @@ func checkAndPrint(a []string, index int) {
 
 **输出**
 
-```
+```go
 panic: Out of bound access for slice
 
 goroutine 1 [running]:
@@ -161,7 +161,7 @@ exit status 2
 
 让我们来看一个例子。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -173,7 +173,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Defer in main
 panic: Panic Create
 
@@ -185,7 +185,7 @@ exit status 2
 
 在上述程序中，我们首先有一个 defer 函数，然后我们手动触发 panic。正如你在输出中看到的，defer 函数得到了执行，下面的行在输出中被打印。
 
-```
+```go
 Defer in main
 ```
 
@@ -205,7 +205,7 @@ Defer in main
 
 让我们看看一个程序。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -225,7 +225,7 @@ func f2() {
 
 **输出**
 
-```
+```go
 Defer in f2
 Defer in f1
 panic: Panic Demo
@@ -242,25 +242,25 @@ exit status 2
 
 在上述程序中，panic 在 **f2** 函数中发生，如下所示。
 
-```
+```go
 panic("Panic Demo")
 ```
 
 **f2** 中的 defer 函数在此之后被调用，并打印以下消息。
 
-```
+```go
 Defer in f2
 ```
 
 请注意，一旦 **f2** 函数中发生 panic，其执行将停止，因此下面的代码行将不会执行 **f2**。
 
-```
+```go
 fmt.Println("After painc in f2")
 ```
 
 控制返回到 **f1**，如果它有 defer 函数，则会执行该 defer 函数，并打印以下消息。
 
-```
+```go
 Defer in f1
 ```
 
@@ -270,7 +270,7 @@ Defer in f1
 
 Go提供了一个内置函数**recover**用于从panic中恢复。以下是该函数的签名
 
-```
+```go
 func recover() interface{}
 ```
 
@@ -278,7 +278,7 @@ func recover() interface{}
 
 让我们来看一个recover的例子
 
-```
+```go
 package main
 
 import "fmt"
@@ -307,14 +307,14 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Exiting normally
 ```
 
 在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印传入参数中的切片元素。如果传入的索引大于数组的长度，则程序将引发panic。我们在函数**checkAndPrint**的开始处添加了一个名为**handleOutIfBounds**的defer函数。此函数包含如下的recover函数调用。
 
-```
+```go
 if r := recover(); r != nil {
     fmt.Println("Recovering from panic:", r)
 }
@@ -322,19 +322,19 @@ if r := recover(); r != nil {
 
 **recover**函数将捕获panic，我们还可以打印来自panic的消息。
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 ```
 
 在recover函数之后，程序继续运行，控制权返回到调用的函数，即这里的**main**。这就是为什么我们会得到如下输出
 
-```
+```go
 Exiting normally
 ```
 
 recover函数返回传递给panic函数的值。因此，检查recover函数的返回值是一种好习惯。如果返回值为nil，则表示没有发生panic，且recover函数没有与panic一起被调用。这就是为什么在defer函数**handleOutOfBounds**中有以下代码。
 
-```
+```go
 if r := recover(); r != nil 
 ```
 
@@ -344,7 +344,7 @@ if r := recover(); r != nil
 
 让我们来看这个的一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -373,7 +373,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Exiting normally
 ```
@@ -390,7 +390,7 @@ Exiting normally
 
 让我们来看一个示例程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -419,7 +419,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 panic: Out of bound access for slice
 
 goroutine 1 [running]:
@@ -436,7 +436,7 @@ exit status 2
 
 关于 recover 函数需要注意的一个重要点是，它只能恢复同一 goroutine 中发生的 panic。如果 panic 发生在不同的 goroutine 中，而 recover 在另一个 goroutine 中，那么它不会停止 panic。让我们看一个程序来演示这一点。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -464,7 +464,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Exiting normally
 panic: Out of bound access for slice
 
@@ -482,7 +482,7 @@ exit status 2
 
 golang 的 Debug 包还提供 StackTrace 函数，可以用来在 recover 函数中打印 panic 的堆栈跟踪。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -511,7 +511,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Stack Trace:
 goroutine 1 [running]:
@@ -538,7 +538,7 @@ Exiting normally
 
 让我们看一个程序来演示这一点。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -565,7 +565,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Val: 0
 Error: 
@@ -573,13 +573,13 @@ Error:
 
 在上面的程序中，我们有一个 **checkAndGet** 函数，它在 int 切片的特定索引获取值。如果传递给此函数的索引大于（切片长度 - 1），那么它会引发 panic。还有一个 **handleOutOfBounds** 函数用于从 panic 中恢复。因此，我们将索引 2 传递给 **checkAndGet** 函数，它引发的 panic 在 **handleOutOfBounds** 函数中恢复。这就是我们首先得到这个输出的原因。
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 ```
 
 请注意在主函数中，我们以这样的方式重新获取 **checkAndGet** 的返回值。
 
-```
+```go
 val, err := checkAndGet(a, 2)
 ```
 
@@ -593,13 +593,13 @@ val, err := checkAndGet(a, 2)
 
 因此
 
-```
+```go
  fmt.Printf("Val: %d\n", val)
 ```
 
 输出
 
-```
+```go
 Val: 0
 ```
 
@@ -607,13 +607,13 @@ Val: 0
 
 而且
 
-```
+```go
 fmt.Println("Error: ", err)
 ```
 
 输出
 
-```
+```go
 Error: 
 ```
 
@@ -621,7 +621,7 @@ Error:
 
 如果你不想返回类型的默认零值，可以使用命名返回值。让我们看一个程序来演示这一点。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -650,7 +650,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Val: 10
 Error: 
@@ -658,19 +658,19 @@ Error:
 
 这个程序与之前的程序相同，唯一的区别是我们在 **checkAndGet** 函数中使用了命名返回值。
 
-```
+```go
 func checkAndGet(a []int, index int) (value int, err error)
 ```
 
 我们在 **checkAndGet** 函数中将命名返回值设置为 10。
 
-```
+```go
 value = 10
 ```
 
 这就是为什么在这个程序中我们得到下面的输出，因为引发了 panic 并且它被恢复。
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Val: 10
 Error: 

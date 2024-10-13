@@ -28,7 +28,7 @@
 
 假设我们有一个员工结构体，如下所示：
 
-```
+```go
 type employee struct {
     name   string
     age    int
@@ -44,37 +44,37 @@ type employee struct {
 
 首先让我们创建一个员工的实例。
 
-```
+```go
 emp := employee{name: "Sam", age: 31, salary: 2000}
 ```
 
 +   **%v** – 仅打印值，字段名不会被打印。这是打印结构体的默认方式。例如：
 
-```
+```go
 fmt.Printf("%v", emp)  -  {Sam 31 2000}
 ```
 
 +   **%+v –** 它将打印字段和值。例如：
 
-```
+```go
 fmt.Printf("%+v", emp) - {name:Sam age:31 salary:2000}
 ```
 
 +   %#v – 它将打印结构体名称，以及字段和值。例如：
 
-```
+```go
 fmt.Printf("%#v", emp) - main.employee{name:"Sam", age:31, salary:2000}
 ```
 
 **fmt.Println()**函数也可以用来打印一个结构体。由于**fmt.Println()**函数的默认值是%v，因此输出将与使用%v的**fmt.Printf()**相同。
 
-```
+```go
 fmt.Println(emp) - {Sam 31 2000}
 ```
 
 我们也来看一个工作程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -96,7 +96,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Emp: {Sam 31 2000}
 Emp: {name:Sam age:31 salary:2000}
 Emp: main.employee{name:"Sam", age:31, salary:2000}
@@ -109,19 +109,19 @@ Emp: main.employee{name:"Sam", age:31, salary:2000}
 
 +   **Marshal** – 以下是**Marshal**函数的签名。该函数通过递归遍历值返回**v**的JSON编码。
 
-```
+```go
 Marshal(v interface{}) ([]byte, error)
 ```
 
 +   **MarshalIndent**– 以下是**MarshalIndent**函数的签名。它类似于**Marshal**函数，但应用了缩进以格式化输出。因此，可以用来美观地打印一个结构体。
 
-```
+```go
 MarshalIndent(v interface{}, prefix, indent string) ([]byte, error)
 ```
 
 需要注意的是，**Marshal**和**MarshalIndent**函数只能访问结构体的导出字段，这意味着只有以大写字母开头的字段才能被访问和编码为JSON格式。
 
-```
+```go
 package main
 
 import (
@@ -156,7 +156,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Marshal funnction output {"Name":"Sam","Age":31}
 
 MarshalIndent funnction output {
@@ -171,7 +171,7 @@ MarshalIndent funnction output {
 
 以下是附加元数据的格式。元数据是一个字符串文字，即它被反引号包围。
 
-```
+```go
 type strutName struct{
    fieldName type `key:value key2:value2`
 }
@@ -179,7 +179,7 @@ type strutName struct{
 
 现在针对我们的用例，我们将为员工结构体添加JSON标签，如下所示。Marshal函数将使用标签中指定的键名。
 
-```
+```go
 type employee struct {
     Name   string `json:"n"`
     Age    int    `json:"a"`
@@ -189,7 +189,7 @@ type employee struct {
 
 让我们看看完整的程序
 
-```
+```go
 package main
 
 import (
@@ -217,7 +217,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 {
   "n": "Sam",
   "a": 31,
@@ -231,7 +231,7 @@ func main() {
 
 即使结构体包含另一个结构体，也可以使用上述讨论的方法打印相同内容。
 
-```
+```go
 package main
 
 import (
@@ -266,7 +266,7 @@ func main() {
 
 **输出**
 
-```
+```go
 MarshalIndent function output
  {
   "name": "Sam",

@@ -12,7 +12,7 @@
 
 **strings.ReplaceAll** 函数可以用来去掉 Golang 字符串中的所有空白字符。以下是该函数的签名：
 
-```
+```go
 func ReplaceAll(s, old, new string) string
 ```
 
@@ -22,7 +22,7 @@ func ReplaceAll(s, old, new string) string
 
 **有效代码：**
 
-```
+```go
 package main
 
 import (
@@ -39,7 +39,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Thisisasamplestring
 ```
 

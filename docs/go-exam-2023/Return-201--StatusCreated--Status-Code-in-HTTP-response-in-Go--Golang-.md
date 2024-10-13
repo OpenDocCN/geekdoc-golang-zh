@@ -20,7 +20,7 @@
 
 同样可以用于返回201（状态创建）HTTP状态码。HTTP 201状态码由以下常量定义。
 
-```
+```go
 http.StatusCreated
 ```
 
@@ -30,7 +30,7 @@ http.StatusCreated
 
 以下是相同的程序。
 
-```
+```go
 package main
 
 import (
@@ -61,19 +61,19 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 在这里，我们使用**WriteHeader**函数指定201 HTTP状态码，并使用**Write**函数返回响应体。上述代码返回以下JSON请求体作为响应。
 
-```
+```go
 {"message":"Status Created"}
 ```
 
 运行上述程序，它将在你的本地机器上启动一个8080端口的服务器。现在进行以下curl调用到服务器。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 以下将是输出。
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080
@@ -93,7 +93,7 @@ curl -v -X POST http://localhost:8080/example
 
 你也可以直接将201传递给WriteHeader函数以发送201响应。
 
-```
+```go
 w.WriteHeader(201)
 ```
 

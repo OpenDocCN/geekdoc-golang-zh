@@ -34,7 +34,7 @@
 
 以下是 Go 中头部的表示格式。
 
-```
+```go
 type Header map[string][]string
 ```
 
@@ -42,7 +42,7 @@ type Header map[string][]string
 
 +   键以规范形式表示。规范形式意味着第一个字符和破折号后面的任何字符都为大写。其他所有字符均为小写。规范形式的示例包括
 
-```
+```go
 Content-Type
 Accept-Encoding
 ```
@@ -51,7 +51,7 @@ Accept-Encoding
 
 例如，如果在传入请求中有以下头部
 
-```
+```go
 content-type: applcation/json
 foo: bar1
 foo: bar2
@@ -59,7 +59,7 @@ foo: bar2
 
 然后在服务器上，头部看起来像
 
-```
+```go
 map[string][]string {
   "Content-Type": {"application/json"},
   "Foo": {"bar1" , "bar2"}
@@ -76,7 +76,7 @@ map[string][]string {
 
 现在我们已经看到请求中的头部是如何表示的。让我们看看如何根据键获取头部值。假设我们有以下头部的键值对
 
-```
+```go
 content-type: applcation/json
 foo: bar1In the below example let's assume that variable r of type *http.Request type. Now let's see different ways of getting a header value.
 foo: bar2
@@ -84,7 +84,7 @@ foo: bar2
 
 **Header** 在 **http.Request** 结构中如下所示。
 
-```
+```go
 type Request struct {
     Method string
     Header Header
@@ -98,13 +98,13 @@ type Request struct {
 
 用于访问给定键的头部的所有值，使用 Values 方法。下面是该方法的格式
 
-```
+```go
 func (h Header) Values(key string) []string
 ```
 
 注意返回类型是字符串切片。它将返回与给定头部键相关的所有值。同时，在获取值之前，给定的键会首先转换为规范形式。可以如下调用
 
-```
+```go
 r.Header.Values(key)
 ```
 
@@ -118,13 +118,13 @@ r.Header.Values(key)
 
 用于根据键访问头部的第一个值。这是最常用的方法，因为通常只有单个值与头部关联。下面是该方法的格式。
 
-```
+```go
 func (h Header) Get(key string) string
 ```
 
 请注意，返回类型只是一个字符串。它将返回与给定键关联的第一个值。此外，给定键在获取值之前会先转换为规范形式。可以如下调用。
 
-```
+```go
 r.Header.Get(key)
 ```
 
@@ -142,19 +142,19 @@ r.Header.Get(key)
 
 +   **r.Header**将输出一个映射
 
-```
+```go
 map[Accept:[*/*] Content-Type:[application/json] Foo:[bar1 bar2]
 ```
 
 +   **r.Header[“Content-Type”]**将输出
 
-```
+```go
 [application/json]
 ```
 
 +   **r.Header[“Foo”]**将输出
 
-```
+```go
 [bar1 bar2]
 ```
 
@@ -164,7 +164,7 @@ map[Accept:[*/*] Content-Type:[application/json] Foo:[bar1 bar2]
 
 让我们看看一个演示上述所有要点的程序。
 
-```
+```go
 package main
 
 import (
@@ -198,13 +198,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 在上述程序中，我们启动了一个监听在8080端口的服务器。我们还在该端点定义了一个URL。运行此服务器并进行以下API调用。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example -H "content-type: application/json" -H "foo: bar1" -H "foo: bar2"
 ```
 
 运行此API后，请检查终端中的输出。它将输出。你可以检查输出，它与我们讨论的完全一致。
 
-```
+```go
 r.Header.Values("foo"):: [bar1 bar2]
 
 r.Header.Get("content-type"):: application/json

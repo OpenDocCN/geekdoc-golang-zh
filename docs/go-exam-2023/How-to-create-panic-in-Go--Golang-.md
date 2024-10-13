@@ -26,7 +26,7 @@
 
 Go提供了一个特殊函数来创建恐慌。下面是该函数的语法。
 
-```
+```go
 func panic(v interface{})
 ```
 
@@ -50,7 +50,7 @@ func panic(v interface{})
 
 让我们看一个因超出边界的数组访问而导致的运行时错误的例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -68,7 +68,7 @@ func print(a []string, index int) {
 
 **输出**
 
-```
+```go
 panic: runtime error: index out of range [2] with length 2
 
 goroutine 1 [running]:
@@ -97,7 +97,7 @@ exit status 2
 
 让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -118,7 +118,7 @@ func checkAndPrint(a []string, index int) {
 
 **输出**
 
-```
+```go
 panic: runtime error: index out of range [2] with length 2
 
 goroutine 1 [running]:

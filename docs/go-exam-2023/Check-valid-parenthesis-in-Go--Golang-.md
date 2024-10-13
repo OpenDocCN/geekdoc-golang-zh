@@ -40,7 +40,7 @@
 
 有效括号示例。
 
-```
+```go
 ()
 {}
 []
@@ -51,7 +51,7 @@
 
 无效括号示例。
 
-```
+```go
 ([)]
 (
 {
@@ -71,7 +71,7 @@
 
 以下是相同的程序。
 
-```
+```go
 package main
 
 import (
@@ -182,7 +182,7 @@ func isValid(s string) bool {
 
 **输出**
 
-```
+```go
 true
 true
 true

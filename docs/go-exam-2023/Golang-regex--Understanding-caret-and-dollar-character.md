@@ -26,13 +26,13 @@
 
 插入符号和美元元字符是分别用于匹配字符串的开始和结束的锚字符。不清楚吗？让我们通过一个例子来理解。假设你有下面的正则表达式，包含三个简单字符
 
-```
+```go
 abc
 ```
 
 这个正则表达式将匹配任何包含**abc**作为子字符串的字符串。请看下面的例子
 
-```
+```go
 package main
 
 import (
@@ -55,7 +55,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For abcd: true
 For 1abc23: true
 For abc: true
@@ -63,7 +63,7 @@ For abc: true
 
 上述程序会匹配所有包含**“abc”**作为子字符串的字符串。因此它会提供匹配
 
-```
+```go
 abc
 abcd
 1abc23
@@ -73,7 +73,7 @@ abcd
 
 如果我们只想匹配完整字符串，则需要在开头用**插入符号**字符锚定字符串，并在末尾用**美元**字符锚定。这将使我们能够进行完整字符串匹配。请看下面的例子。
 
-```
+```go
 package main
 
 import (
@@ -97,7 +97,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For abcd: false
 For 1abc23: false
 For abc: true
@@ -105,20 +105,20 @@ For abc: true
 
 上述程序提供匹配
 
-```
+```go
 abc
 ```
 
 但不匹配下面的内容，因为它仅匹配完整字符串
 
-```
+```go
 abcd
 1abc23
 ```
 
 这是我们想匹配完整字符串的情况。如果我们还想匹配以**“abc”**开头的字符串。尾随字符无关紧要。我们该怎么做？你猜对了。在这种情况下，我们只需在正则表达式的开头使用**插入符号**字符，而不使用**美元**字符。请看下面的例子
 
-```
+```go
 package main
 import (
     "fmt"
@@ -143,7 +143,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For abcd: true
 For abc: true
 For 1abc23: false
@@ -152,21 +152,21 @@ For ab: false
 
 它为所有以**“abc”**开头的字符串提供匹配。这就是为什么它提供匹配的原因
 
-```
+```go
 For abcd: true
 For abc: true
 ```
 
 并且不匹配
 
-```
+```go
 For 1abc23: false
 For ab: false
 ```
 
 如果我们想匹配字面上的**插入符号** ^，则需要用反斜杠转义它。请看下面的例子
 
-```
+```go
 package main
 
 import (
@@ -187,14 +187,14 @@ func main() {
 
 **输出**
 
-```
+```go
 For abcd: true
 For abcd: false
 ```
 
 如果我们还想匹配以**“abc”**结尾的字符串。起始字符无关紧要。我们该怎么做？在这种情况下，我们只需在正则表达式的开头使用**美元**字符，而不在开头使用**插入符号**字符。请看下面的例子
 
-```
+```go
 package main
 
 import (
@@ -221,7 +221,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For 1abc: true
 For abc: true
 For abcd: false
@@ -230,21 +230,21 @@ For ab: false
 
 它为所有以**“abc”**结尾的字符串提供匹配。这就是为什么它提供匹配的原因
 
-```
+```go
 For 1abc: true
 For abc: true
 ```
 
 并且不匹配
 
-```
+```go
 For abcd: false
 For ab: false
 ```
 
 如果我们想匹配字面上的美元符号 $，则需要用反斜杠进行转义。请看下面的示例
 
-```
+```go
 package main
 
 import (
@@ -265,7 +265,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For abc$: true
 For abc: false
 ```

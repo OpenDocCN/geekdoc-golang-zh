@@ -26,7 +26,7 @@
 
 +   **n** 表示替换的次数。如果 **n** 为 -1，则所有 **old** 的实例将被替换为 **new**。
 
-```
+```go
 func Replace(s, old, new string, n int)
 ```
 
@@ -34,7 +34,7 @@ func Replace(s, old, new string, n int)
 
 # **代码:**
 
-```
+```go
 package main
 
 import (
@@ -55,7 +55,7 @@ func main() {
 
 **输出:**
 
-```
+```go
 1bcdabxyabr
 1bcd1bxy1br
 ```*

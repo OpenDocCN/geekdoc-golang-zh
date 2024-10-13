@@ -20,19 +20,19 @@
 
 +   获取所有环境变量。它返回一个字符串数组。
 
-```
+```go
 func Environ() []string 
 ```
 
 还有一种方法可以清除所有环境变量。**Clearenv()**函数可以用来实现同样的功能。
 
-```
+```go
 func Clearenv()
 ```
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -66,6 +66,6 @@ func main() {
 
 **输出：**
 
-```
+```go
 List of all env varialbes on your system including a and b
 ```*

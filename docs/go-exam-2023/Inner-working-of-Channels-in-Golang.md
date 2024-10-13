@@ -38,7 +38,7 @@
 
 让我们了解创建通道时内部发生的事情。通道在内部由**hchan**结构表示，其主要元素为：
 
-```
+```go
 type hchan struct {
     qcount   uint           // total data in the queue
     dataqsiz uint           // size of the circular queue
@@ -61,7 +61,7 @@ type waitq struct {
 
 结构体**sudog**的主要元素如下所示：
 
-```
+```go
 type sudog struct {
    g     *g             //goroutine
    elem  unsafe.Pointer // data element 

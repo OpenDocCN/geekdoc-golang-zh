@@ -20,7 +20,7 @@
 
 以下是函数的签名。
 
-```
+```go
 func Shuffle(n int, swap func(i, j int))
 ```
 
@@ -38,7 +38,7 @@ func Shuffle(n int, swap func(i, j int))
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -69,7 +69,7 @@ func main() {
 
 它将在你的机器上产生不同的输出。
 
-```
+```go
 dd£cebaf
 feb£cadd
 ```

@@ -14,6 +14,6 @@
 
 只需在终端中输入`groups`。以下是我在Mac机器上的输出。
 
-```
+```go
 staff everyone localaccounts _appserverusr admin
 ```

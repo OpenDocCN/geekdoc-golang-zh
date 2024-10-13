@@ -22,7 +22,7 @@
 
 同样的方式也可以用来返回403（禁止）HTTP状态码。HTTP 403状态码由以下常量定义。
 
-```
+```go
 http.StatusForbidden
 ```
 
@@ -32,7 +32,7 @@ http.StatusForbidden
 
 以下是相应的程序
 
-```
+```go
 package main
 
 import (
@@ -63,19 +63,19 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 在这里，我们使用**WriteHeader**函数来指定403 HTTP状态码，并使用**Write**函数返回响应体。上述代码将以下JSON请求体作为响应返回。
 
-```
+```go
 {"message":"Forbidden"}
 ```
 
 运行上述程序。它将在你本地机器的8080端口启动一个服务器。现在进行以下curl调用到服务器。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 下面将是输出。
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080
@@ -95,7 +95,7 @@ curl -v -X POST http://localhost:8080/example
 
 你也可以直接将403传递给WriteHeader函数以发送403响应。
 
-```
+```go
 w.WriteHeader(403)
 ```
 

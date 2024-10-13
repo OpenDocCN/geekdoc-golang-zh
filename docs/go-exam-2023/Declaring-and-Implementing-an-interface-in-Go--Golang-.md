@@ -24,7 +24,7 @@
 
 让我们定义一个名为**动物**的接口。**动物**接口有两个方法**呼吸**和**行走**。它仅定义方法签名，别无其他。
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -43,7 +43,7 @@ type animal interface {
 
 定义一个**动物**类型的变量是可以的。让我们创建一个**动物**接口类型的变量。
 
-```
+```go
 package main
 
 import "fmt"
@@ -64,7 +64,7 @@ func main() {
 
 **输出**
 
-```
+```go
  <nil>Underlying Type: <nil>Underlying Value:</nil></nil> 
 ```
 
@@ -74,7 +74,7 @@ func main() {
 
 任何实现了呼吸和行走方法的类型都可以被称为实现了**动物**接口。因此，如果我们定义一个**狮子**结构体并实现呼吸和行走方法，那么它将实现动物接口。
 
-```
+```go
 package main
 
 import "fmt"
@@ -106,20 +106,20 @@ func main() {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 ```
 
 我们声明一个动物接口类型的变量
 
-```
+```go
 var a animal
 ```
 
 然后我们将一个狮子结构体的实例赋值给它。
 
-```
+```go
 a = lion{}
 ```
 

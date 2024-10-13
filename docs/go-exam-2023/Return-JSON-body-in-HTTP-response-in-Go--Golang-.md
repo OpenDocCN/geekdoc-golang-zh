@@ -32,7 +32,7 @@ ResponseWriter接口由HTTP处理程序用于构建HTTP响应。它提供三个�
 
 **Write**函数可以用于设置响应体。它接受一个字节切片作为输入。此外，还有一个**Header**函数。该函数可用于通过Content-Type头设置响应体的内容类型。例如，在JSON响应体的情况下，我们需要将Content-Type头设置为**“application/json”。**
 
-```
+```go
 w.Header().Set("Content-Type", "application/json")
 ```
 
@@ -44,7 +44,7 @@ w.Header().Set("Content-Type", "application/json")
 
 以下是相同的程序
 
-```
+```go
 package main
 
 import (
@@ -75,7 +75,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 在上述程序中，这就是我们如何创建JSON响应。我们使用**json.Marshal**函数将**map[string]string**转换为JSON字节。
 
-```
+```go
 resp := make(map[string]string)
 resp["message"] = "Status Created"
 jsonResp, err := json.Marshal(resp)
@@ -87,7 +87,7 @@ w.Write(jsonResp)
 
 然后它使用**Write**函数返回JSON响应体。上述代码返回以下JSON响应体作为响应
 
-```
+```go
 {"message":"Status Created"}
 ```
 
@@ -95,13 +95,13 @@ w.Write(jsonResp)
 
 运行上述程序。它将在本地机器的8080端口启动一个服务器。现在请对服务器进行以下curl调用
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 以下将是输出
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080

@@ -22,7 +22,7 @@
 
 Go有类似于其他编程语言的if-else语句，以执行基本的条件逻辑。以下是golang中if-else语句的格式。
 
-```
+```go
 if condition {
    //Do something
 } else if condition {
@@ -49,7 +49,7 @@ if condition {
 
 if语句单独具有以下格式。
 
-```
+```go
 if condition {
    //Do something
 }
@@ -63,7 +63,7 @@ if condition {
 
 让我们看一个工作示例。以下程序检查一个数字是否大于5。
 
-```
+```go
 package main
 
 import "fmt"
@@ -78,13 +78,13 @@ func main() {
 
 **输出**
 
-```
+```go
 a is greater than 5
 ```
 
 让我们看另一个if条件中的多个语句的示例。以下是一个程序，用于检查一个数字是否在特定范围内。注意条件中的多个语句由&&运算符连接。
 
-```
+```go
 package main
 
 import "fmt"
@@ -99,7 +99,7 @@ func main() {
 
 **输出**
 
-```
+```go
 a is within range
 ```
 
@@ -107,7 +107,7 @@ a is within range
 
 如果-否则语句具有以下格式。
 
-```
+```go
 if condition {
    //Do something
 } else {
@@ -119,13 +119,13 @@ if condition {
 
 +   else关键字应该与其闭合括号在同一行。如果不在同一行，将会出现以下编译器错误。
 
-```
+```go
 syntax error: unexpected else, expecting }
 ```
 
 让我们看一个小的if-else语句示例。在下面的程序中，我们使用if-else语句找出两个数字中的最大值。
 
-```
+```go
 package main
 
 import "fmt"
@@ -144,7 +144,7 @@ func main() {
 
 **输出**
 
-```
+```go
 b is greater than a
 ```
 
@@ -152,7 +152,7 @@ b is greater than a
 
 如果-否则阶梯具有以下格式。
 
-```
+```go
 if condition1 {
    //Do something
 } else if condition2 {
@@ -170,7 +170,7 @@ if condition1 {
 
 以下是一个可工作的代码示例。该代码根据年龄使用if-else阶梯来判断一个人是“孩子”、“年轻”还是“老年”。
 
-```
+```go
 package main
 
 import "fmt"
@@ -189,7 +189,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Young
 ```
 
@@ -199,7 +199,7 @@ Young
 
 仅嵌套 if
 
-```
+```go
 if condition {
   //Do something
   if condition2 { 
@@ -211,7 +211,7 @@ if condition {
 
 嵌套 if else
 
-```
+```go
 if condition1 {
    //....
    if condition2 {
@@ -225,7 +225,7 @@ if condition1 {
 
 下面的组合也可以用于嵌套的 if else。
 
-```
+```go
 if condition1 {
    //...
 } else {
@@ -241,7 +241,7 @@ if condition1 {
 
 让我们看一个嵌套 if else 的工作示例。在下面的程序中，我们使用嵌套 if else 打印三个数字中的最大值。
 
-```
+```go
 package main
 
 import "fmt"
@@ -266,7 +266,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Biggest is c
 ```
 
@@ -274,7 +274,7 @@ Biggest is c
 
 If 语句也支持在条件前添加语句。这个语句将在条件之前执行。语句中还可以有新的初始化变量。下面是该格式。
 
-```
+```go
 if statement; condition {
    //Do something
 }
@@ -282,7 +282,7 @@ if statement; condition {
 
 如果语句中存在初始化，它将是一个短声明。注意，在语句中不支持 var 关键字。让我们看一个工作示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -296,13 +296,13 @@ func main() {
 
 **输出**
 
-```
+```go
 a is greater than 5
 ```
 
 在 if 语句中初始化的变量在所有分支中都可用。如下面示例中，变量 **a** 在 else 块中也可用。
 
-```
+```go
 package main
 
 import "fmt"
@@ -318,7 +318,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 a is less than 5
 ```
 
@@ -326,7 +326,7 @@ a is less than 5
 
 我们在开头提到过，if 条件中只允许布尔值或结果为布尔值的语句。让我们看看使用非布尔值时出现的错误的工作代码。
 
-```
+```go
 package main
 
 import "fmt"
@@ -340,7 +340,7 @@ func main() {
 
 **输出：** 下面的编译器错误被抛出
 
-```
+```go
 non-bool 1 (type int) used as if condition
 ```
 

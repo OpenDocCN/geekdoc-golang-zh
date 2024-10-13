@@ -97,7 +97,7 @@
 
 **button.go**
 
-```
+```go
 package main
 
 type button struct {
@@ -111,7 +111,7 @@ func (b *button) press() {
 
 **command.go**
 
-```
+```go
 package main
 
 type command interface {
@@ -121,7 +121,7 @@ type command interface {
 
 **onCommand.go**
 
-```
+```go
 package main
 
 type onCommand struct {
@@ -135,7 +135,7 @@ func (c *onCommand) execute() {
 
 **offCommand.go**
 
-```
+```go
 package main
 
 type offCommand struct {
@@ -149,7 +149,7 @@ func (c *offCommand) execute() {
 
 **device.go**
 
-```
+```go
 package main
 
 type device interface {
@@ -160,7 +160,7 @@ type device interface {
 
 **tv.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -182,7 +182,7 @@ func (t *tv) off() {
 
 **main.go**
 
-```
+```go
 package main
 
 func main() {
@@ -206,14 +206,14 @@ func main() {
 
 **输出：**
 
-```
+```go
 Turning tv on
 Turning tv off
 ```
 
 ## **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -286,7 +286,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Turning tv on
 Turning tv off
 ```

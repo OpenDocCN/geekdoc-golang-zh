@@ -16,13 +16,13 @@ GO可在Windows、Mac和Linux平台上安装。让我们看看Linux的安装设�
 
 +   从这里下载最新版本的GO的压缩包 – [https://golang.org/dl/](https://golang.org/dl/)。下载后在**/usr/local.**位置解压。你也可以运行以下命令来解压。
 
-```
+```go
 tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
 ```
 
 +   解压后，下面的路径包含GO二进制文件**‘/usr/local/go/bin’**。你必须将此位置添加到你的.bashrc中。打开你的.bashrc并进行以下条目。如果文件尚不存在，请创建它。
 
-```
+```go
 export PATH=$PATH:/usr/local/go/bin
 ```
 
@@ -34,7 +34,7 @@ export PATH=$PATH:/usr/local/go/bin
 
 +   尝试运行**‘go’**命令。它将输出。
 
-```
+```go
 Go is a tool for managing Go source code.
 
 Usage:
@@ -92,13 +92,13 @@ Use "go help <topic>" for more information about that topic.</topic>
 
 +   运行以下命令以删除文件。这需要sudo权限。
 
-```
+```go
 rm -rf /usr/local/go
 ```
 
 +   从.bashrc文件中删除以下条目。
 
-```
+```go
 export PATH=$PATH:/usr/local/go/bin
 ```
 

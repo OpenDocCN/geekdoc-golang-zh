@@ -22,7 +22,7 @@
 
 以下是该函数的签名。它返回写入目标的字节数。
 
-```
+```go
 func Copy(dst Writer, src Reader) (written int64, err error)
 ```
 
@@ -30,7 +30,7 @@ func Copy(dst Writer, src Reader) (written int64, err error)
 
 首先创建一个名为 **“original.txt”** 的文件，并在其中写入一些内容。
 
-```
+```go
 package main
 
 import (
@@ -67,7 +67,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Bytes Written: 
 ```
 
@@ -77,7 +77,7 @@ Bytes Written:
 
 在这里同样首先创建一个名为 **“original.txt**” 的文件，并在其中写入一些内容。
 
-```
+```go
 package main
 import (
     "io/ioutil"
@@ -102,7 +102,7 @@ func main() {
 
 **输出**
 
-```
+```go
 new.txt file will have same content as original.txt
 ```
 

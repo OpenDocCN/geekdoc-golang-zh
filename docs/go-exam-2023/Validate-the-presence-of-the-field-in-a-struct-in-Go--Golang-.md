@@ -26,7 +26,7 @@
 
 对于本教程，我们将使用下面的员工结构体。
 
-```
+```go
 type employee struct {
     Name string
 }
@@ -38,7 +38,7 @@ type employee struct {
 
 **go.mod**
 
-```
+```go
 module sample.com/validate
 go 1.14
 require (
@@ -51,7 +51,7 @@ require (
 
 **main.go**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -84,19 +84,19 @@ func validateStruct(e employee) error {
 
 **输出**
 
-```
+```go
 Error: Key: 'employee.Name' Error:Field validation for 'Name' failed on the 'required' tag
 ```
 
 首先，我们需要声明Validate的实例。
 
-```
+```go
 var validate *validator.Validate
 ```
 
 注意，我们需要将元标签与结构体字段关联，以让验证器知道你想验证这个字段。在上述示例中，我们为Name字段添加了标签。该标签由playground验证库解释。
 
-```
+```go
 type employee struct {
     Name string `validate:"required"`
 }
@@ -104,7 +104,7 @@ type employee struct {
 
 然后调用Struct方法来验证结构体。
 
-```
+```go
 validate.Struct(e)
 ```
 
@@ -114,7 +114,7 @@ validate.Struct(e)
 
 **go.mod**
 
-```
+```go
 module sample.com/validator
 go 1.14
 
@@ -123,7 +123,7 @@ require github.com/asaskevich/govalidator v0.0.0-20200907205600-7a23bdc65eef
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -156,13 +156,13 @@ func validateStruct(e employee) error {
 
 **输出**
 
-```
+```go
 Error: Name: non zero value required
 ```
 
 与上述示例类似，我们将标签与Name字段关联，govalidator可以解释这些标签。
 
-```
+```go
 Name string `valid:"required"`
 ```
 

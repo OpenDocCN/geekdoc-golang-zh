@@ -12,7 +12,7 @@ date: 2024-10-13 06:08:58
 
 net 包的 ParseIP 函数可用于验证 IP 地址。该函数可以同时验证 IPV4 和 IPV6 地址。以下是该函数的签名。
 
-```
+```go
 func ParseIP(s string) IP
 ```
 
@@ -26,7 +26,7 @@ ParseIP 函数
 
 让我们看看一个可运行的代码：
 
-```
+```go
 package main
 
 import (
@@ -60,7 +60,7 @@ func checkIPAddress(ip string) {
 
 **输出：**
 
-```
+```go
 IP Address: 10.40.210.253 - Valid
 IP Address: 1000.40.210.253 - Invalid
 IP Address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334 - Valid

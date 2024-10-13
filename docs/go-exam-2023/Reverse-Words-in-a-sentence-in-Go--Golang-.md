@@ -20,14 +20,14 @@
 
 示例
 
-```
+```go
 Input: "hello world"
 Output: "word hello"
 ```
 
 另一个例子。如果输入包含一个单词，则返回该单词。
 
-```
+```go
 Input: "hello"
 Output: "hello"
 ```
@@ -36,13 +36,13 @@ Output: "hello"
 
 +   首先，我们反转整个字符串。因此，对于“hello world”来说，它变成了
 
-```
+```go
 "dlrow olleh"
 ```
 
 +   然后我们反转每个单词
 
-```
+```go
 "world hello"
 ```
 
@@ -52,7 +52,7 @@ Output: "hello"
 
 这是相应的程序。
 
-```
+```go
 package main
 
 import (
@@ -127,7 +127,7 @@ func main() {
 
 **输出**
 
-```
+```go
 world hello
 hello
 ```

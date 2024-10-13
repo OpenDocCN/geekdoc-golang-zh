@@ -26,7 +26,7 @@ URL实例的查询函数可用于获取URL中存在的查询参数。
 
 这是
 
-```
+```go
 map[string][]string
 ```
 
@@ -34,7 +34,7 @@ map[string][]string
 
 示例
 
-```
+```go
 http://localhost:8080/products?filters=color&filters=price&order=asc
 ```
 
@@ -44,7 +44,7 @@ http://localhost:8080/products?filters=color&filters=price&order=asc
 
 让我们来看一个工作示例。
 
-```
+```go
 package main
 
 import (
@@ -73,7 +73,7 @@ func main() {
 
 **输出**
 
-```
+```go
 map[filters:[color price] order:[asc]]
 [color price]
 [asc]

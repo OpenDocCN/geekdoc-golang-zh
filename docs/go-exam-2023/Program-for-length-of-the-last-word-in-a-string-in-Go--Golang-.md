@@ -20,7 +20,7 @@
 
 示例
 
-```
+```go
 Input: "computer science"
 Output: 7
 
@@ -41,7 +41,7 @@ There is no last word hence answer is zero
 
 下面是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -85,7 +85,7 @@ func main() {
 
 **输出**
 
-```
+```go
 7
 7
 0

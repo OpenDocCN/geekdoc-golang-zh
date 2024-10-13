@@ -22,7 +22,7 @@
 
 # **程序**
 
-```
+```go
 package main
 
 import (
@@ -46,7 +46,7 @@ func main() {
 
 **输出**
 
-```
+```go
 true
 true
 ```

@@ -50,7 +50,7 @@
 
 第二种选择是请求特性的团队可以自己编写行为逻辑。因此，根据他们喜欢的形状结构体类型，可以使用以下代码
 
-```
+```go
 if shape.type == square {
    //Calculate area for squre
 } elseif shape.type == circle {
@@ -68,7 +68,7 @@ if shape.type == square {
 
 第三种选择是使用访问者模式来解决上述问题。我们可以定义一个访问者接口，如下所示
 
-```
+```go
 type visitor interface {
    visitForSquare(square)
    visitForCircle(circle)
@@ -82,7 +82,7 @@ type visitor interface {
 
 我们在形状接口中添加一个 accept 方法，其签名如下，每个形状结构需要定义此方法。
 
-```
+```go
 func accept(v visitor)
 ```
 
@@ -90,7 +90,7 @@ func accept(v visitor)
 
 square 结构将实现如下的 accept 方法：
 
-```
+```go
 func (obj *squre) accept(v visitor){
     v.visitForSquare(obj)
 }
@@ -102,7 +102,7 @@ func (obj *squre) accept(v visitor){
 
 **areaCalculator.go**
 
-```
+```go
 type areaCalculator struct{
     area int
 }
@@ -120,7 +120,7 @@ func (a *areaCalculator) visitForTriangle(s *square){
 
 要计算正方形的面积，我们首先创建一个正方形实例，他们可以简单调用。
 
-```
+```go
 sq := &square{}
 ac := &areaCalculator{}
 sq.accept(ac)
@@ -130,7 +130,7 @@ sq.accept(ac)
 
 **middleCoordinates.go**
 
-```
+```go
 type middleCoordinates struct {
     x int
     y int
@@ -175,7 +175,7 @@ func (a *middleCoordinates) visitForTriangle(t *triangle) {
 
 **shape.go**
 
-```
+```go
 package main
 
 type shape interface {
@@ -186,7 +186,7 @@ type shape interface {
 
 **square.go**
 
-```
+```go
 package main
 
 type square struct {
@@ -204,7 +204,7 @@ func (s *square) getType() string {
 
 **circle.go**
 
-```
+```go
 package main
 
 type circle struct {
@@ -222,7 +222,7 @@ func (c *circle) getType() string {
 
 **rectangle.go**
 
-```
+```go
 package main
 
 type rectangle struct {
@@ -241,7 +241,7 @@ func (t *rectangle) getType() string {
 
 **visitor.go**
 
-```
+```go
 package main
 
 type visitor interface {
@@ -253,7 +253,7 @@ type visitor interface {
 
 **areaCalculator.go**
 
-```
+```go
 package main
 
 import (
@@ -282,7 +282,7 @@ func (a *areaCalculator) visitForrectangle(s *rectangle) {
 
 **middleCoordinates.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -310,7 +310,7 @@ func (a *middleCoordinates) visitForrectangle(t *rectangle) {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -335,7 +335,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Calculating area for square
 Calculating area for circle
 Calculating area for rectangle
@@ -347,7 +347,7 @@ Calculating middle point coordinates for rectangle
 
 # **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -458,7 +458,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Calculating area for square
 Calculating area for circle
 Calculating area for rectangle

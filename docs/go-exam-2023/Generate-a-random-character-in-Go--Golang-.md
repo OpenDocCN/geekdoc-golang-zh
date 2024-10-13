@@ -22,7 +22,7 @@ golang 的 **‘mat/rand’** 包包含一个 **Intn** 函数，可以用来生�
 
 以下是此方法的签名。它接收一个数字 n，并将返回一个范围在 0 <= x < n 的数字。
 
-```
+```go
 func Intn(n int) int
 ```
 
@@ -36,7 +36,7 @@ func Intn(n int) int
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -69,7 +69,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Will be lowercase between a to z
 Will be uppercase between A to Z
 Will be lowercase between a to z or uppsercase between A to Z

@@ -26,7 +26,7 @@
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -51,7 +51,7 @@ func send(ch chan int) {
 
 **输出**
 
-```
+```go
 Sending value to channnel start
 fatal error: all goroutines are asleep - deadlock!
 goroutine 1 [chan receive (nil chan)]:

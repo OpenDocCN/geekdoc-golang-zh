@@ -20,7 +20,7 @@
 
 以下是该函数的签名。它接受一个浮点数作为输入，并返回一个浮点数。
 
-```
+```go
 func Ceil(x float64) float64
 ```
 
@@ -34,7 +34,7 @@ func Ceil(x float64) float64
 
 # **代码:**
 
-```
+```go
 package main
 
 import (
@@ -56,7 +56,7 @@ func main() {
 
 **输出:**
 
-```
+```go
 2
 -1
 1

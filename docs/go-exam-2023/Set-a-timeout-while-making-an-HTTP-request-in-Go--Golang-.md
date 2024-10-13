@@ -18,7 +18,7 @@
 
 **client** 结构体来自HTTP包，可以用来指定超时。在创建**HTTP**客户端时，我们可以指定超时的值。关于HTTP客户端需要注意的一点是，它只会被创建一次，并且同一个实例会被用于多个HTTP请求。以下是**http.Client**结构体的结构。
 
-```
+```go
 type Client struct {
 	Transport RoundTripper
 	CheckRedirect func(req *Request, via []*Request) error
@@ -35,7 +35,7 @@ type Client struct {
 
 在下面的程序中，我们设置了1纳秒的超时，以展示在发起请求时确实会发生超时。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -58,7 +58,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Timeout Happened
 ```
 

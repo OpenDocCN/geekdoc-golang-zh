@@ -20,7 +20,7 @@
 
 以下是该函数的签名：
 
-```
+```go
 func Split(s, sep string) []string
 ```
 
@@ -36,7 +36,7 @@ func Split(s, sep string) []string
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -65,7 +65,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 [ab cd ef]
 [ab$cd$ef]
 [a b $ c d $ e f]

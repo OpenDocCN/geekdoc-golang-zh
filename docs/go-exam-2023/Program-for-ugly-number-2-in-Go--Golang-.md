@@ -22,7 +22,7 @@
 
 **示例 1**
 
-```
+```go
 Input: 5
 Output: 5
 Reason: First five ugly numbers are 1, 2, 3, 4, 5 hence 5th ugly number is 5
@@ -30,7 +30,7 @@ Reason: First five ugly numbers are 1, 2, 3, 4, 5 hence 5th ugly number is 5
 
 **示例 2**
 
-```
+```go
 Input: 20
 Output: 36
 ```
@@ -41,7 +41,7 @@ Output: 36
 
 以下是相同的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -107,7 +107,7 @@ func main() {
 
 **输出**
 
-```
+```go
 5
 36
 ```

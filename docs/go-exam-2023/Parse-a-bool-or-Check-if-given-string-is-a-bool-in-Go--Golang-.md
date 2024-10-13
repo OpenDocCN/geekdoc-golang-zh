@@ -16,13 +16,13 @@
 
 下面是该函数的签名
 
-```
+```go
 func ParseBool(str string) (bool, error)
 ```
 
 让我们看看一个工作代码
 
-```
+```go
 package main
 
 import (
@@ -52,7 +52,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 bool, true
 bool, false
 Given input is not a bool

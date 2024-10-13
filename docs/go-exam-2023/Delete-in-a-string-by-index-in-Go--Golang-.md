@@ -16,7 +16,7 @@
 
 因此，在下面的程序中，我们通过索引删除给定字符串中的字符，首先将字符串转换为rune数组，以便可以对rune数组进行索引，然后通过索引删除字符。
 
-```
+```go
 package main
 
 import "fmt"
@@ -35,6 +35,6 @@ func delChar(s []rune, index int) []rune {
 
 **输出：**
 
-```
+```go
 abc
 ```

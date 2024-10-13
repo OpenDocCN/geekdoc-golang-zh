@@ -52,11 +52,11 @@
 
 在下面的代码中，我们进行如下运算，以获取结构体sample中字段**“b”**的地址，然后打印该地址处的值。下面的代码与垃圾回收器是原子的。
 
-```
+```go
 p := unsafe.Pointer(uintptr(unsafe.Pointer(s)) + unsafe.Offsetof(s.b))
 ```
 
-```
+```go
 package main
 import (
     "fmt"
@@ -79,7 +79,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 test
 ```
 
@@ -87,7 +87,7 @@ test
 
 参见下面的代码，我们将unsafe.Pointer转换为uintptr并打印它。同时，注意如前所述，一旦unsafe.Pointer被转换为uintptr，引用就丢失了，引用变量可以被垃圾回收。
 
-```
+```go
 package main
 
 import (
@@ -115,7 +115,7 @@ func main() {
 
 输出将依赖于机器，因为它是一个地址。
 
-```
+```go
 Start Address of s: 824634330992
 ```
 

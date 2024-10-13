@@ -98,7 +98,7 @@ Go 通过其内置并发试图解决与其他语言相关的两个主要问题�
 
 Go 对并发的处理可以最好地描述为。
 
-```
+```go
 Do not communicate by sharing memory; instead, share memory by communicating
 ```
 

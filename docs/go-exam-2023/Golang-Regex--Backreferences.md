@@ -30,7 +30,7 @@ Golang正则表达式包[regexp](https://golang.org/pkg/regexp/)使用[re2引擎
 
 **然而，还有另一个可用的golang包，它使用libpcre++、Perl正则表达式，并且支持回溯引用。**
 
-```
+```go
 https://github.com/glenn-brown/golang-pkg-pcre/tree/master/src/pkg/pcre
 ```
 
@@ -42,7 +42,7 @@ https://github.com/glenn-brown/golang-pkg-pcre/tree/master/src/pkg/pcre
 
 假设我们想匹配数字的重复。有效输入是
 
-```
+```go
 1111
 888888888
 444
@@ -50,7 +50,7 @@ https://github.com/glenn-brown/golang-pkg-pcre/tree/master/src/pkg/pcre
 
 匹配同样内容的正则表达式将是
 
-```
+```go
 (\d)\1+
 ```
 
@@ -64,7 +64,7 @@ https://github.com/glenn-brown/golang-pkg-pcre/tree/master/src/pkg/pcre
 
 同样的程序
 
-```
+```go
 package main
 
 import (
@@ -92,7 +92,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For 1111 :  true
 For 88888888 :  true
 For 444 :  true
@@ -101,7 +101,7 @@ For 123 :  false
 
 如预期，它能匹配数字的重复
 
-```
+```go
 1111
 888888888
 444
@@ -109,7 +109,7 @@ For 123 :  false
 
 并且它不会匹配以下内容，因为这不是重复
 
-```
+```go
 123
 ```
 
@@ -117,14 +117,14 @@ For 123 :  false
 
 假设我们想匹配以冒号分隔的单词重复。有效输入是
 
-```
+```go
 John:John
 The names are Simon:Simon
 ```
 
 匹配同样内容的正则表达式将是
 
-```
+```go
 (\w+):\1
 ```
 
@@ -136,7 +136,7 @@ The names are Simon:Simon
 
 同样的程序
 
-```
+```go
 package main
 
 import (
@@ -162,7 +162,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For John:John:  true
 For The names are Simon:Simon:  true
 For John:Simon:  false
@@ -170,14 +170,14 @@ For John:Simon:  false
 
 如预期，它能匹配包含重复单词子字符串的字符串
 
-```
+```go
 John:John
 The names are Simon:Simon
 ```
 
 并且它不会匹配以下内容，因为它不包含单词的重复
 
-```
+```go
 John:Simon
 ```
 
@@ -185,7 +185,7 @@ John:Simon
 
 **pcre**包还提供了替换匹配字符串的功能。以下是相同的示例。
 
-```
+```go
 package main
 
 import (
@@ -206,19 +206,19 @@ func main() {
 
 **输出**
 
-```
+```go
 result:  The number is 91-redacted
 ```
 
 在上面的例子中，我们有一个包含回溯引用的正则表达式，用于匹配数字的重复。然后我们使用**ReplaceAll**方法对该数字的重复进行修饰
 
-```
+```go
 result := regex.ReplaceAll([]byte(input), []byte("redacted"), 0)
 ```
 
 如预期，输出中数字的重复被正确修饰
 
-```
+```go
 result:  The number is 91-redacted
 ```
 

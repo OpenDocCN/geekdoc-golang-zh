@@ -184,20 +184,20 @@ Golang是一种静态类型编程语言，意味着每个变量都有一个类�
 
 +   声明一个 int
 
-```
+```go
  var a int
 ```
 
 +   int 是**整数**的默认类型。当你不指定类型时，默认类型为 int
 
-```
+```go
 b := 2 //The default is also int
 fmt.Println(reflect.TypeOf(b)) => int
 ```
 
 +   golang 的 **bits** 包可以帮助了解系统上 **int** 的大小
 
-```
+```go
 //This is computed as const uintSize = 32 << (^uint(0) >> 32 & 1) // 32 or 64
 sizeOfIntInBits := bits.UintSize
 fmt.Println(sizeOfIntInBits) => 32 0r 34
@@ -209,7 +209,7 @@ fmt.Println(sizeOfIntInBits) => 32 0r 34
 
 以下是上述属性的完整工作代码
 
-```
+```go
 package main
 
 import (
@@ -235,7 +235,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 64 bits
 8 bytes
 a's type is int
@@ -264,7 +264,7 @@ b's typs is int
 
 +   打印 int8 的字节大小
 
-```
+```go
 package main
 
 import (
@@ -285,7 +285,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 1 bytes
 a's type is int8
 ```
@@ -310,7 +310,7 @@ a's type is int8
 
 +   打印 int16 的字节大小
 
-```
+```go
 package main
 
 import (
@@ -331,7 +331,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 2 bytes
 a's type is int16
 ```
@@ -350,7 +350,7 @@ a's type is int16
 
 +   打印 int8 的字节大小
 
-```
+```go
 package main
 
 import (
@@ -371,7 +371,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 4 bytes
 a's type is int32
 ```
@@ -394,7 +394,7 @@ a's type is int32
 
 +   打印 int64 的字节大小
 
-```
+```go
 package main
 
 import (
@@ -415,7 +415,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 8 bytes
 a's type is int64
 ```
@@ -458,13 +458,13 @@ a's type is int64
 
 +   声明一个uint。
 
-```
+```go
  var a uint
 ```
 
 +   golang的**bits**包可以帮助了解系统上**uint**的大小。
 
-```
+```go
 //This is computed as const uintSize = 32 << (^uint(0) >> 32 & 1) // 32 or 64
 sizeOfUintInBits := bits.UintSize
 fmt.Println(sizeOfIntInBits) => 32 or 64
@@ -476,7 +476,7 @@ fmt.Println(sizeOfIntInBits) => 32 or 64
 
 以下是上述属性的完整工作代码。
 
-```
+```go
 package main
 
 import (
@@ -499,7 +499,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 64 bits
 8 bytes
 a's type is uint
@@ -539,7 +539,7 @@ a's type is uint
 
 +   当你想保存指针地址值以进行打印或存储时。由于地址只是被存储并不引用任何东西，相应的对象可以被垃圾收集。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -562,7 +562,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 test
 ```
 
@@ -586,7 +586,7 @@ test
 
 +   打印uint8的字节大小。
 
-```
+```go
 package main
 
 import (
@@ -608,7 +608,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 1 bytes
 a's type is uint8
 ```
@@ -633,7 +633,7 @@ a's type is uint8
 
 +   打印uint16的字节大小
 
-```
+```go
 package main
 
 import (
@@ -653,7 +653,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 2 bytes
 a's type is uint16
 ```
@@ -672,7 +672,7 @@ a's type is uint16
 
 +   打印uint32的字节大小
 
-```
+```go
 package main
 
 import (
@@ -693,7 +693,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 1 bytes
 a's type is uint32
 ```
@@ -716,7 +716,7 @@ a's type is uint32
 
 +   打印uint64的字节大小
 
-```
+```go
 package main
 
 import (
@@ -737,7 +737,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 8 bytes
 a's type is uint64
 ```
@@ -777,7 +777,7 @@ a's type is uint64
 
 **代码：**
 
-```
+```go
 package main
 
 import (
@@ -798,7 +798,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 4 bytes
 a's type is float32
 ```
@@ -827,7 +827,7 @@ float64使用双精度浮点格式存储值。基本上，它是所有IEEE-754 6
 
 +   当你不指定类型时，默认是float64
 
-```
+```go
 package main
 
 import (
@@ -852,7 +852,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 8 bytes
 a's type is float64
 b's type is float64
@@ -875,13 +875,13 @@ b's type is float64
 
 +   使用复数函数。它具有以下签名。请确保a和b的类型相同，意味着它们要么都是float32，要么都是float64。
 
-```
+```go
 complext(a, b)
 ```
 
 +   使用简写语法。这在使用直接数字创建复数时使用。如果未指定类型，则使用下面的方法创建的复数类型将为**complex128**。
 
-```
+```go
 a := 5 + 6i
 ```
 
@@ -907,7 +907,7 @@ a := 5 + 6i
 
 **代码：**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -940,7 +940,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 c's size is 8 bytes
 d's size is 8 bytes
 c's type is complex64
@@ -970,7 +970,7 @@ d's type is complex64
 
 **代码：**
 
-```
+```go
 package main
 
 import (
@@ -1004,7 +1004,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 c's size is 16 bytes
 d's size is 16 bytes
 c's type is complex128
@@ -1022,7 +1022,7 @@ Go 中的字节是 **uint8** 的别名，意味着它是一个整数值。这个
 
 **定义字节**
 
-```
+```go
 var rbyte byte := 'a'
 ```
 
@@ -1038,7 +1038,7 @@ var rbyte byte := 'a'
 
 +   打印字节大小
 
-```
+```go
 package main
 import (
     "fmt"
@@ -1065,7 +1065,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Size: 1
 Type: uint8
 Character: a
@@ -1096,7 +1096,7 @@ utf-8 使用 1、2、3 或 4 个字节保存每个 Unicode 点。ASCII 点使用
 
 每个 rune 旨在指代一个 Unicode 点。例如，如果你在将字符串强制转换为 rune 数组后打印它，则会打印每个字符的 Unicode 点。对于下面的字符串 **“0b£”**，输出将是 – **[U+0030 U+0062 U+00A3]**。
 
-```
+```go
 fmt.Printf("%U\n", []rune("0b£"))
 ```
 
@@ -1104,7 +1104,7 @@ fmt.Printf("%U\n", []rune("0b£"))
 
 一个 rune 是通过在单引号中声明的字符，例如声明一个名为 **‘rPound’** 的变量。
 
-```
+```go
 rPound := '£'
 ```
 
@@ -1112,19 +1112,19 @@ rPound := '£'
 
 +   **打印类型 –** 输出将是 **int32**。
 
-```
+```go
 fmt.Printf("Type: %s\n", reflect.TypeOf(rPound))
 ```
 
 +   **打印 Unicode 代码点 –** 输出将是 **U+00A3**。
 
-```
+```go
 fmt.Printf("Unicode CodePoint: %U\n", rPound)
 ```
 
 +   **打印字符 –** 输出将是 **£**。
 
-```
+```go
 fmt.Printf("Character: %c\n", r)
 ```
 
@@ -1136,7 +1136,7 @@ fmt.Printf("Character: %c\n", r)
 
 以下是说明我们讨论的每一点的代码。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -1169,7 +1169,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Size: 4
 Type: int32
 Unicode CodePoint: U+0061
@@ -1192,14 +1192,14 @@ Character: a
 
 字符串中的每个字符将根据使用的编码占用一些字节。例如，在 utf-8 编码的字符串中，每个字符将占用 1 到 4 个字节。你可以阅读关于 utf-8 的必读博客——[每个软件开发者必须了解的 Unicode 和字符集的绝对最小知识（没有借口！）](http://www.joelonsoftware.com/articles/Unicode.html)。在 utf-8 中，字符 **a** 或 **b** 使用 1 个字节编码，而字符英镑符号 **£** 使用 2 个字节编码。因此，字符串 “ab£” 在转换为字节数组并打印时将输出 4 个字节。
 
-```
+```go
 s := "ab£"
 fmt.Println([]byte(s))
 ```
 
 **输出**
 
-```
+```go
 [48 98 194 163]
 ```
 
@@ -1207,7 +1207,7 @@ fmt.Println([]byte(s))
 
 还要注意，**range** 循环遍历每个字符形成的字节序列，因此对于下面的 range 循环。
 
-```
+```go
 for _, c := range s {
    fmt.Println(string(c))
 }
@@ -1215,7 +1215,7 @@ for _, c := range s {
 
 输出将是
 
-```
+```go
 a
 b
 £
@@ -1225,7 +1225,7 @@ b
 
 **代码：**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -1260,7 +1260,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 x is: this
 that
 y is: this\nthat
@@ -1296,7 +1296,7 @@ cd
 
 **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -1322,7 +1322,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 a's value is false
 Ouput of AND operation on one true and other false false
 Ouput of OR operation on one true and other false: true
@@ -1345,13 +1345,13 @@ Go 中的数组是值。它们是固定长度的同类型序列。由于 Go 中�
 
 +   同时指定大小和数值。
 
-```
+```go
 newArray := [n]Type{val1, val2, val3}
 ```
 
 +   指定大小 – 无数值。值被设置为该类型的默认零值。
 
-```
+```go
 newArray := [len]Type{}
 ```
 
@@ -1367,7 +1367,7 @@ newArray := [len]Type{}
 
 +   将数组作为函数参数传递。
 
-```
+```go
 package main
 
 import "fmt"
@@ -1385,7 +1385,7 @@ func print(sample [3]string) {
 
 **输出：**
 
-```
+```go
 [a b c]
 ```
 
@@ -1401,7 +1401,7 @@ func print(sample [3]string) {
 
 ..等等。结构体可以用来表示一个员工。
 
-```
+```go
 type employee struct {
     name string
     age  int
@@ -1417,7 +1417,7 @@ type employee struct {
 
 +   结构体的大小是其字段大小的总和。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -1449,7 +1449,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 {John 21 1000}
 {Sam 22 1100}
 {Tina 24 0}
@@ -1473,13 +1473,13 @@ func main() {
 
 +   使用 make – 它帮助你创建一个切片，指定数组的类型、长度和容量。指定长度和容量是可选的。如果指定了长度而未指定容量，则容量将等于长度。
 
-```
+```go
 make([]TYPE, length, capacity)
 ```
 
 +   直接初始化。以下示例创建一个字符串的切片。
 
-```
+```go
 p := []string{"a", "b", "c"}
 ```
 
@@ -1493,7 +1493,7 @@ p := []string{"a", "b", "c"}
 
 +   如何遍历一个切片
 
-```
+```go
 package main
 
 import "fmt"
@@ -1520,7 +1520,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 [ ]
 [a b c]
 [a b c d]
@@ -1534,7 +1534,7 @@ d
 
 通道提供了goroutine之间的同步和通信。你可以将其视为一个管道，通过这个管道，goroutine可以发送和接收值。操作符<-用于发送或接收，箭头的方向指定了数据流的方向。
 
-```
+```go
 ch <- val    //Sending a value present in var variable to channel
 val := <-cha  //Receive a value from  the channel and assign it to val variable
 ```
@@ -1555,7 +1555,7 @@ val := <-cha  //Receive a value from  the channel and assign it to val variable
 
 一个通道一次只能持有特定类型的数据。在创建通道时，必须在初始化新通道时指定数据类型。在下面的示例中，我们创建了一个持有字符串类型数据的通道。
 
-```
+```go
 events := make(chan string)  //Unbuffered channel
 events2 := make(chan string, 2)  //Buffered channel of length 2
 ```
@@ -1568,7 +1568,7 @@ events2 := make(chan string, 2)  //Buffered channel of length 2
 
 **缓冲通道示例：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -1589,7 +1589,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 a
 b
 c
@@ -1597,7 +1597,7 @@ c
 
 **无缓冲通道示例：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -1620,7 +1620,7 @@ func sendEvents(eventsChan chan<- string) {
 
 **输出：**
 
-```
+```go
 a
 b
 c
@@ -1638,7 +1638,7 @@ c
 
 +   可以使用var关键字声明一个映射，并指定其键和值的类型。例如，下面的映射声明了一个名称为
 
-```
+```go
 var employeeSalary map[string]int
 ```
 
@@ -1646,13 +1646,13 @@ var employeeSalary map[string]int
 
 +   使用make
 
-```
+```go
 var employeeSalary make(map[string]int)
 ```
 
 +   使用大括号。你可以在映射中指定映射字面量值，也可以留空的大括号
 
-```
+```go
 //Empty braces
 employeeSalary := map[string]int{}
 
@@ -1667,19 +1667,19 @@ employeeSalary := map[string]int{
 
 +   添加到一个映射
 
-```
+```go
 employeeSalary["John"] = 1000
 ```
 
 +   从映射中获取
 
-```
+```go
 salary := employeeSalary["John"]
 ```
 
 +   从映射中删除一个键
 
-```
+```go
 delete(employeeSalary, "John")
 ```
 
@@ -1687,7 +1687,7 @@ delete(employeeSalary, "John")
 
 下面的示例展示了我们讨论过的所有要点
 
-```
+```go
 package main
 
 import "fmt"
@@ -1726,7 +1726,7 @@ func main() {
 
 **输出**
 
-```
+```go
 map[]
 map[]
 map[John:1000 Sam:1200]
@@ -1744,7 +1744,7 @@ map[John:1000 Sam:1200]
 
 在下面的示例中，ex是int指针。
 
-```
+```go
 var ex *int
 ```
 
@@ -1752,20 +1752,20 @@ var ex *int
 
 **&** 用于获取变量的地址
 
-```
+```go
 a := 2
 b := &b
 ```
 
 * 运算符可用于解引用指针，这意味着获取存储在指针地址中的值。
 
-```
+```go
 fmt.Println(*b) //Print the value stored at address b 
 ```
 
 指针也可以使用 **new** 运算符初始化
 
-```
+```go
 a := new(int)
 *a = 10
 fmt.Println(*a) //Output will be 10
@@ -1773,7 +1773,7 @@ fmt.Println(*a) //Output will be 10
 
 让我们来看一个涵盖上述所有要点的工作代码
 
-```
+```go
 package main
 
 import "fmt"
@@ -1795,7 +1795,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 0xc000018080
 2
 10
@@ -1805,7 +1805,7 @@ func main() {
 
 在Go中，函数是值，可以像值一样传递。基本上，函数可以作为一等对象使用并被传递。函数的签名是
 
-```
+```go
 func some_func_name(arguments) return_values
 ```
 
@@ -1813,7 +1813,7 @@ func some_func_name(arguments) return_values
 
 **方法：**
 
-```
+```go
 func (receiver receiver_type) some_func_name(arguments) return_values
 ```
 
@@ -1821,7 +1821,7 @@ func (receiver receiver_type) some_func_name(arguments) return_values
 
 下面是一个函数的工作示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -1840,7 +1840,7 @@ func doOperation(fn func(int, int) int, x, y int) int {
 
 **输出：**
 
-```
+```go
 3
 ```
 
@@ -1850,7 +1850,7 @@ func doOperation(fn func(int, int) int, x, y int) int {
 
 **接口的签名**
 
-```
+```go
 type name_of_interface interface{
 //Method signature 1
 //Method signature 2
@@ -1871,7 +1871,7 @@ type name_of_interface interface{
 
 +   s 被分配了具体类型 square 的值。这是可行的，因为 square 结构体实现了 shape 接口的所有方法。
 
-```
+```go
 package main
 
 import "fmt"
@@ -1897,7 +1897,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 16
 ```
 
@@ -1905,7 +1905,7 @@ func main() {
 
 一个空接口没有方法，因此默认情况下所有具体类型都实现了空接口。如果您编写一个接受空接口的函数，那么您可以将任何类型传递给该函数。请参见下面的工作代码：
 
-```
+```go
 package main
 
 import "fmt"
@@ -1923,7 +1923,7 @@ func test(a interface{}) {
 
 **输出：**
 
-```
+```go
 (thisisstring, string)
 (10, string)
 (true, bool)

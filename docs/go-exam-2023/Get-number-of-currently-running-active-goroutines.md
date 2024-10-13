@@ -16,13 +16,13 @@
 
 以下是该函数的签名
 
-```
+```go
 func NumGoroutine() int
 ```
 
 **工作代码：**
 
-```
+```go
 package main
 
 import (
@@ -45,7 +45,7 @@ func execute() {
 
 **输出：**
 
-```
+```go
 21
 ```
 

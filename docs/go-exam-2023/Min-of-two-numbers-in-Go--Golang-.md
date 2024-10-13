@@ -20,7 +20,7 @@ date: 2024-10-13 06:15:42
 
 以下是函数的签名。它接受两个浮点数作为输入并返回一个浮点数。
 
-```
+```go
 func Min(x, y float64) float64
 ```
 
@@ -36,7 +36,7 @@ func Min(x, y float64) float64
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -55,7 +55,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 2
 -3.3
 ```

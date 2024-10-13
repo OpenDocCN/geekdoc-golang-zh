@@ -22,7 +22,7 @@
 
 在本教程中，我们将使用以下员工结构体
 
-```
+```go
 type employee struct {
     Age int
 }
@@ -34,7 +34,7 @@ type employee struct {
 
 **go.mod**
 
-```
+```go
 module sample.com/validate
 go 1.14
 require (
@@ -47,7 +47,7 @@ require (
 
 **main.go**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -86,7 +86,7 @@ func validateStruct(e employee) error {
 
 **输出**
 
-```
+```go
 Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'required' tag
 Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'gte' tag
 Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'lte' tag
@@ -94,7 +94,7 @@ Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'lte' 
 
 首先，我们需要声明 Validate 的实例
 
-```
+```go
 var validate *validator.Validate
 ```
 
@@ -106,7 +106,7 @@ var validate *validator.Validate
 
 +   **lte** – 验证字段值是否小于等于特定值
 
-```
+```go
 type employee struct {
 	Age int `validate:"required,gte=10,lte=20"`
 }
@@ -114,43 +114,43 @@ type employee struct {
 
 然后调用 Struct 方法来验证结构体
 
-```
+```go
 validate.Struct(e)
 ```
 
 对于
 
-```
+```go
 e := employee{}
 ```
 
 输出如下，因为**年龄**字段为空
 
-```
+```go
 Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'required' tag
 ```
 
 对于
 
-```
+```go
 e := employee{Age: 5}
 ```
 
 输出如下，因为**年龄**字段的值是5，小于10
 
-```
+```go
 Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'gte' tag
 ```
 
 对于
 
-```
+```go
 e := employee{Age: 25}
 ```
 
 输出如下，因为**年龄**字段的值是25，超过了20
 
-```
+```go
 Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'lte' tag
 ```
 

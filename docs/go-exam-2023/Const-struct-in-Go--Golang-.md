@@ -30,7 +30,7 @@ Go 仅支持四种常量类型
 
 # **示例**
 
-```
+```go
 package main
 import "fmt"
 type employee struct {
@@ -48,13 +48,13 @@ func main() {
 
 **输出**
 
-```
+```go
 const initializer employee literal is not a constant
 ```
 
 然而，解决方法是创建一个可以返回结构体的函数。这在某种程度上满足了常量结构体的目的，因为它每次都会返回相同的结构体。
 
-```
+```go
 package main
 import "fmt"
 type employee struct {
@@ -75,7 +75,7 @@ func baseEmployee() employee {
 
 **输出**
 
-```
+```go
 {Unnamed 0}
 ```
 

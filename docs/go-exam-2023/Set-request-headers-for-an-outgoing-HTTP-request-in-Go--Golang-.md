@@ -32,7 +32,7 @@ date: 2024-10-13 06:32:02
 
 以下是头部在 Go 中表示的格式。
 
-```
+```go
 type Header map[string][]string
 ```
 
@@ -40,7 +40,7 @@ type Header map[string][]string
 
 +   键以规范形式表示。规范形式意味着第一个字符和任何在连字符后的字符都是大写。所有其他字符为小写。规范形式的示例为
 
-```
+```go
 Content-Type
 Accept-Encoding
 ```
@@ -49,7 +49,7 @@ Accept-Encoding
 
 例如，如果在客户端的输出请求中设置了以下头部，则
 
-```
+```go
 user-agent: goapplication
 foo: bar1
 foo: bar2
@@ -57,7 +57,7 @@ foo: bar2
 
 然后在服务器上，头部将如下所示
 
-```
+```go
 User-Agent: goapplication
 Foo: bar1
 Foo: bar2
@@ -71,7 +71,7 @@ Foo: bar2
 
 现在我们已经看到头部在请求中的表示。让我们看看在进行 HTTP 请求时如何设置请求头部值。假设我们有以下需要在 HTTP 请求中设置的键值对头部
 
-```
+```go
 user-agent: goapplication
 foo: bar1
 foo: bar2
@@ -79,7 +79,7 @@ foo: bar2
 
 **Header** 在 **http.Request** 结构中如下所示。
 
-```
+```go
 type Request struct {
     Method string
     Header Header
@@ -93,13 +93,13 @@ type Request struct {
 
 以下是 Add 方法的签名
 
-```
+```go
 func (h Header) Add(key, value string)
 ```
 
 此方法用于将键值对添加到请求头部。我们已经看到，头部值也可以是数组。因此，此方法将附加到可能已与该键关联的现有值上。此外，键将被转换为规范形式。例如，如果我们用不同的值两次添加 foo 头部
 
-```
+```go
 r.Header.Add("foo", "bar1")
 r.Header.Add("foo", "bar2")
 ```
@@ -110,7 +110,7 @@ r.Header.Add("foo", "bar2")
 
 以下是函数的签名
 
-```
+```go
 func (h Header) Set(key, value string)
 ```
 
@@ -120,7 +120,7 @@ func (h Header) Set(key, value string)
 
 让我们看看一个程序，阐明以上所有要点
 
-```
+```go
 package main
 import (
     "fmt"
@@ -152,7 +152,7 @@ func call(url, method string) error {
 
 请注意在上述示例中我们在进行 HTTP 调用时如何设置头部
 
-```
+```go
 req.Header.Set("user-agent", "goapplication")
 req.Header.Add("foo", "bar1")
 req.Header.Add("foo", "bar2")

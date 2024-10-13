@@ -68,7 +68,7 @@
 
 **component.go**
 
-```
+```go
 package main
 
 type component interface {
@@ -78,7 +78,7 @@ type component interface {
 
 **folder.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -102,7 +102,7 @@ func (f *folder) add(c component) {
 
 **file.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -122,7 +122,7 @@ func (f *file) getName() string {
 
 **main.go**
 
-```
+```go
 package main
 
 func main() {
@@ -145,7 +145,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Serching recursively for keyword rose in folder Folder2
 Searching for keyword rose in file File2
 Searching for keyword rose in file File3

@@ -20,7 +20,7 @@
 
 注意语法
 
-```
+```go
 sample := "test"
 ```
 
@@ -28,7 +28,7 @@ sample := "test"
 
 # 程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -41,13 +41,13 @@ func main() {
 
 **输出**
 
-```
+```go
 test
 ```
 
 如果我们只想声明一个字符串变量，下面就是方法。声明的字符串会初始化为空字符串。
 
-```
+```go
 package main
 
 import "fmt"

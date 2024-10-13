@@ -12,7 +12,7 @@
 
 下面是一个示例代码，用于检测使用 net/http 包的上游调用是否存在超时。Http 客户端创建时设置为 1 纳秒超时，因此它在访问 google.com 时总是会超时。
 
-```
+```go
 package main
 
 import (

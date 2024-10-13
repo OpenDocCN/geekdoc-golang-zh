@@ -20,14 +20,14 @@
 
 **示例 1**
 
-```
+```go
 s = "mbacnago", dictionary = ["ale","mango","monkey","plea"]
 Output: "mango"
 ```
 
 **示例 2**
 
-```
+```go
 s = "mbacnago", dictionary = ["ba","ag"]
 Output: "ag"
 ```
@@ -36,7 +36,7 @@ Output: "ag"
 
 下面是相同的程序
 
-```
+```go
 package main
 
 import (
@@ -106,7 +106,7 @@ func main() {
 
 **输出**
 
-```
+```go
 mango
 ag
 ```

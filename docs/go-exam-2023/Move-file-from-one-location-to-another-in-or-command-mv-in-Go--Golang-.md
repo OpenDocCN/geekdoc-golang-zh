@@ -12,13 +12,13 @@
 
 os.Rename() 函数可用于在不同位置之间移动文件。它相当于 Linux 的命令 **‘mv’**。以下是该函数的签名
 
-```
+```go
 func Rename(oldpath, newpath string) error
 ```
 
 **代码：**
 
-```
+```go
 package main
 
 import (

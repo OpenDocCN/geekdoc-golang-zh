@@ -52,7 +52,7 @@ Golang使用特殊关键字**‘go’**来启动协程。只需在函数或方�
 
 +   正常运行一个函数
 
-```
+```go
 statment1
 start()
 statement2
@@ -68,7 +68,7 @@ statement2
 
 +   将函数作为协程运行
 
-```
+```go
 statment1
 go start()
 statement2
@@ -86,7 +86,7 @@ statement2
 
 让我们看一个程序以理解上述观点。
 
-```
+```go
 package main
 
 import (
@@ -108,7 +108,7 @@ func start() {
 
 **输出**
 
-```
+```go
 Started
 In Goroutine
 Finished
@@ -116,25 +116,25 @@ Finished
 
 在上述程序中，我们在函数调用前使用“go”关键字来启动协程。
 
-```
+```go
 go start()
 ```
 
 上面的代码将启动一个协程，该协程将运行**start()**函数。程序首先打印“Started”。注意打印“Started”的行是在协程启动之后。这说明了上述提到的，在协程启动后调用会从下一行继续。然后我们设置一个超时。超时的目的是确保协程在主协程退出之前被调度。因此，现在协程执行并打印。
 
-```
+```go
 In Goroutine
 ```
 
 然后它打印。
 
-```
+```go
 Finished
 ```
 
 当我们移除超时时，会发生什么？让我们看一个程序。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -151,14 +151,14 @@ func start() {
 
 **输出**
 
-```
+```go
 Started
 Finished
 ```
 
 上面的程序从未打印。
 
-```
+```go
 In Goroutine
 ```
 
@@ -174,7 +174,7 @@ In Goroutine
 
 让我们看一个程序来演示协程没有父子关系。
 
-```
+```go
 package main
 
 import (
@@ -200,7 +200,7 @@ func start2() {
 
 **输出**
 
-```
+```go
 Started
 In Goroutine
 In Goroutine2
@@ -215,7 +215,7 @@ Finished
 
 让我们看下面的程序以启动多个协程。这个例子也将演示协程是并发执行的。
 
-```
+```go
 package main
 
 import (
@@ -239,7 +239,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Started
 id: 4
 id: 9
@@ -262,7 +262,7 @@ Finished
 
 一旦Go程序启动，Go运行时将启动与当前进程可用的逻辑CPU数量相等的操作系统线程。每个虚拟核心有一个逻辑CPU，其中虚拟核心的含义是
 
-```
+```go
 virtual_cores = x*number_of_physical_cores
 ```
 
@@ -270,7 +270,7 @@ virtual_cores = x*number_of_physical_cores
 
 **runtime.Numcpus**函数可用于获取可用于Go程序的逻辑处理器数量。见下面的程序
 
-```
+```go
 package main
 import (
     "fmt"
@@ -329,7 +329,7 @@ Go调度器是一个协作调度器。这意味着它是非抢占式的。没有
 
 +   Goroutines 通过内置的原始 channel 进行通信，这些 channel 是为处理竞争条件而设计的。因此，goroutines 之间的通信是安全的，并且避免了显式锁定。所以在 goroutines 之间共享的数据结构不需要被锁定。多线程编程需要使用锁来访问共享变量，这可能导致死锁和竞争条件，且难以检测。相比之下，goroutines 使用 channel 进行通信，整个同步由 Go 运行时管理。这样就避免了死锁和竞争条件。实际上，Go 信奉这样一个口号
 
-```
+```go
 "Don't share memory for communication, instead share memory by communicating"
 ```
 
@@ -339,7 +339,7 @@ Go调度器是一个协作调度器。这意味着它是非抢占式的。没有
 
 下面是调用匿名函数在 goroutine 中的格式
 
-```
+```go
 go func(){
    //body
 }(args..)
@@ -349,7 +349,7 @@ go func(){
 
 让我们看一个例子：
 
-```
+```go
 package main
 
 import (
@@ -370,7 +370,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Started
 In Goroutine
 Finished

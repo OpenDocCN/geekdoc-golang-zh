@@ -14,7 +14,7 @@ Go没有**while**关键字。相反，它只有**for**关键字。然而，**for
 
 GO中的**for**循环基本上有三个部分：
 
-```
+```go
 for initialization_part; condition_part; increment_part {
    ...
 }
@@ -22,7 +22,7 @@ for initialization_part; condition_part; increment_part {
 
 如果**initialization_part**和**increment_part**可以被跳过，**for**循环可以被实现为与**while**行为相同。以下是一个示例：
 
-```
+```go
 package main
 
 import "fmt"
@@ -38,7 +38,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 1
 2
 3

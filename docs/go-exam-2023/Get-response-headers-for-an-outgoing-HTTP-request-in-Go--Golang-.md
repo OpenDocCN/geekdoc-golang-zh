@@ -34,7 +34,7 @@
 
 以下是Go中表示头部的格式。
 
-```
+```go
 type Header map[string][]string
 ```
 
@@ -42,7 +42,7 @@ type Header map[string][]string
 
 +   键以规范形式表示。规范形式意味着第一个字符和任何在连字符后面的字符都是大写。其他所有字符都是小写。规范形式的示例包括
 
-```
+```go
 Content-Type
 Accept-Encoding
 ```
@@ -55,7 +55,7 @@ HTTP请求中的响应由**http.Response**结构表示。
 
 在**http.Response**结构中定义了一个**Header**字段，如下所示。它包含与响应相关的响应头。
 
-```
+```go
 type Response interface {
     Header() Header
     ...
@@ -64,7 +64,7 @@ type Response interface {
 
 在下面的示例中，假设变量**w**的类型是**http.Response**。现在让我们看看获取响应头的不同方法。此外，假设我们在发出的请求中目前有以下响应头。
 
-```
+```go
 User-Agent: application/json
 Foo: bar1
 Foo: bar2
@@ -74,13 +74,13 @@ Foo: bar2
 
 用于访问给定键的头部的所有值，使用Values方法。下面是该方法的格式。
 
-```
+```go
 func (h Header) Values(key string) []string
 ```
 
 请注意，返回类型是字符串切片。它将返回与给定头部键相关的所有值。此外，在获取值之前，给定键会先转换为规范形式。可以如下调用
 
-```
+```go
 w.Header.Values(key)
 ```
 
@@ -94,13 +94,13 @@ w.Header.Values(key)
 
 用于根据给定键访问头部的第一个值。这是最常用的方法，因为通常与头部关联的值只有一个。以下是该方法的格式。
 
-```
+```go
 func (h Header) Get(key string) string
 ```
 
 注意返回类型只是一个字符串。它将返回与给定键关联的第一个值。此外，在获取值之前，给定的键首先会转换为规范形式。可以如下调用：
 
-```
+```go
 w.Header.Get(key)
 ```
 
@@ -118,19 +118,19 @@ Header 映射也可以直接访问，它存在于 *http.Response* 中。
 
 +   **w.Header** 将输出一个映射
 
-```
+```go
 map[Accept:[*/*] Content-Type:[application/json] Foo:[bar1 bar2]
 ```
 
 +   **w.Header[“Content-Type”]** 将输出
 
-```
+```go
 [application/json]
 ```
 
 +   **w.Header[“Foo”]** 将输出
 
-```
+```go
 [bar1 bar2]
 ```
 
@@ -140,7 +140,7 @@ map[Accept:[*/*] Content-Type:[application/json] Foo:[bar1 bar2]
 
 让我们看一个展示以上所有要点的程序
 
-```
+```go
 package main
 
 import (
@@ -183,7 +183,7 @@ func call(url, method string) error {
 
 运行上述程序后，检查终端中的输出。结果与我们讨论的完全一致。以下是输出：
 
-```
+```go
 res.Header.Values("content-type"):: 
 
 res.Header.Get("content-type"):: text/html; charset=ISO-8859-1
@@ -195,10 +195,10 @@ res.Headers["Content-Type"]::
 
 注意
 
-```
+```go
 res.Header.Values("content-type"):
 ```
 
 输出一个数组
 
-````while    ``` res.Header.Get("content-type") ```    outputs    ``` text/html; charset=ISO-8859-1 ```    Also    ``` res.Headers ```    outputs the entire header map. Notice that each key is in the canonical format    ``` map[Alt-Svc:[h3-29=":443"; ma=2592000,h3-T051=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"] Cache-Control:[private, max-age=0] Content-Type: Date:[Thu, 10 Dec 2020 16:38:03 GMT] Expires:[-1] P3p:[CP="This is not a P3P policy! See g.co/p3phelp for more info."] Server:[gws] Set-Cookie:[1P_JAR=2020-12-10-16; expires=Sat, 09-Jan-2021 16:38:03 GMT; path=/; domain=.google.com; Secure NID=204=w6zf-xFyVywx7QaClDZuQ5N-Yc-4HqKWBS-JXWp2Tat9kmq0BRsanM35PJHiM2iEn4TbP2HcTUd0KkIuMuIW7xFewD5un2_mc0O4fm2IXzrQyRmPWHJSeQJUUVb0-_lIfJgSnGmJm2MptRsd2egrPsbZJQBZWd97o7KlFBI3CIE; expires=Fri, 11-Jun-2021 16:38:03 GMT; path=/; domain=.google.com; HttpOnly] X-Frame-Options:[SAMEORIGIN] X-Xss-Protection:[0]] ```  *   [golang](https://golangbyexample.com/tag/golang/)````*
+```go`while    ``` res.Header.Get("content-type") ```go    outputs    ``` text/html; charset=ISO-8859-1 ```go    Also    ``` res.Headers ```go    outputs the entire header map. Notice that each key is in the canonical format    ``` map[Alt-Svc:[h3-29=":443"; ma=2592000,h3-T051=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443"; ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"] Cache-Control:[private, max-age=0] Content-Type: Date:[Thu, 10 Dec 2020 16:38:03 GMT] Expires:[-1] P3p:[CP="This is not a P3P policy! See g.co/p3phelp for more info."] Server:[gws] Set-Cookie:[1P_JAR=2020-12-10-16; expires=Sat, 09-Jan-2021 16:38:03 GMT; path=/; domain=.google.com; Secure NID=204=w6zf-xFyVywx7QaClDZuQ5N-Yc-4HqKWBS-JXWp2Tat9kmq0BRsanM35PJHiM2iEn4TbP2HcTUd0KkIuMuIW7xFewD5un2_mc0O4fm2IXzrQyRmPWHJSeQJUUVb0-_lIfJgSnGmJm2MptRsd2egrPsbZJQBZWd97o7KlFBI3CIE; expires=Fri, 11-Jun-2021 16:38:03 GMT; path=/; domain=.google.com; HttpOnly] X-Frame-Options:[SAMEORIGIN] X-Xss-Protection:[0]] ```go  *   [golang](https://golangbyexample.com/tag/golang/)````*

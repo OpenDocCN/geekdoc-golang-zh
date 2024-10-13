@@ -20,7 +20,7 @@
 
 # **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -38,7 +38,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Default statement executed
 ```
 
@@ -48,7 +48,7 @@ select 语句检查是否有值在任何案例语句的通道中可用。如果�
 
 让我们看一个例子，在这个例子中，值在其中一个通道中立即可用。我们会看到在这种情况下默认案例不会被执行。
 
-```
+```go
 package main
 
 import "fmt"
@@ -67,7 +67,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Some value
 ```
 

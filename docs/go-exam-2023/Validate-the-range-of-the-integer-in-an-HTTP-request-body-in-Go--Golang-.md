@@ -22,7 +22,7 @@
 
 在本教程中，我们将尝试将传入的 JSON 请求体解析为以下员工结构。
 
-```
+```go
 type employee struct {
     Age int `validate:"required,gte=10,lte=20"`
 }
@@ -38,7 +38,7 @@ type employee struct {
 
 # **程序**
 
-```
+```go
 package main
 import (
     "encoding/json"
@@ -93,7 +93,7 @@ func validateStruct(e employee) error {
 
 运行程序。
 
-```
+```go
 go run main.go
 ```
 
@@ -101,36 +101,36 @@ go run main.go
 
 +   以下 curl 调用
 
-```
+```go
 curl  -X POST -H "content-type: application/json" http://localhost:8080/employee -d '{"Age": 5}'
 ```
 
 返回以下响应，因为 5 小于最小值 10。
 
-```
+```go
 {"message":"Bad Request Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'gte' tag"}
 ```
 
 +   以下 curl 调用
 
-```
+```go
 curl  -X POST -H "content-type: application/json" http://localhost:8080/employee -d '{"Age": 10}'
 ```
 
 返回以下响应，因为 10 大于最大值 20。
 
-```
+```go
 {"message":"Bad Request Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'lte' tag"}
 ```
 
 +   以下 curl 调用
 
-```
+```go
 curl  -X POST -H "content-type: application/json" http://localhost:8080/employee -d '{"Age": 15}'
 ```
 
 返回成功，因为 15 大于 10 且小于 20。
 
-```
+```go
 {"message":"Success"}
 ```*

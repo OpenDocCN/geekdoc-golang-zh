@@ -18,7 +18,7 @@
 
 **application/x-www-form-urlencoded**内容类型的请求主体就像一个巨大的查询字符串。类似于 URI 中的查询字符串，它是一个键值对，具有以下格式。
 
-```
+```go
 key1=value1&key2=value21&key2=value22&key3=value3
 ```
 
@@ -44,7 +44,7 @@ key1=value1&key2=value21&key2=value22&key3=value3
 
 它的表示如下
 
-```
+```go
 type Values map[string][]string
 ```
 
@@ -52,7 +52,7 @@ type Values map[string][]string
 
 下面是相应的程序。这就是我们在程序中创建主体的方式
 
-```
+```go
 data := url.Values{}
 data.Set("name", "John")
 data.Set("age", "18")
@@ -68,14 +68,14 @@ data.Add("hobbies", "music")
 
 之后，我们需要对数据进行编码。然后编码后的数据传递给**http.NewRequest**函数。也不要忘记将内容类型头设置为**application/x-www-form-urlencoded**
 
-```
+```go
 encodedData := data.Encode()
 http.NewRequest(method, urlPath, strings.NewReader(encodedData))
 ```
 
 相应的完整程序。
 
-```
+```go
 package main
 
 import (
@@ -124,13 +124,13 @@ func call(urlPath, method string) error {
 
 也是
 
-```
+```go
 fmt.Println(encodedData)
 ```
 
 将会是
 
-```
+```go
 age=18&hobbies=sports&hobbies=music&name=John
 ```
 

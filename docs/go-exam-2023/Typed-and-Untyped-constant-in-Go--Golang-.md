@@ -24,13 +24,13 @@
 
 在声明中指定类型的常量是已命名常量。例如，下面我们声明一个类型为int32的常量。
 
-```
+```go
 const a int32 = 8
 ```
 
 这个常量a只能赋值给类型为int32的变量。如果将其赋值给其他类型的变量，则会引发错误。有关说明，请参见下面的程序。
 
-```
+```go
 package main
 
 func main() {
@@ -46,7 +46,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 cannot use a (type int32) as type int64 in assignment
 ```
 
@@ -56,7 +56,7 @@ cannot use a (type int32) as type int64 in assignment
 
 未命名未指定常量的示例。
 
-```
+```go
 123        //Default hidden type is int
 "circle"   //Default hidden type is string
 5.6\.       //Default hidden type is float64
@@ -67,7 +67,7 @@ true       //Default hidden type is bool
 
 已命名未命名常量的示例。
 
-```
+```go
 const a = 123        //Default hidden type is int
 const b = "circle"   //Default hidden type is string
 const c = 5.6       //Default hidden type is float64
@@ -90,7 +90,7 @@ const f = 3+5i       //Default hidden type is complex128
 
 当你使用**fmt.Printf**打印任何未命名常量时，它将打印默认的隐式类型。请参见下面的程序及未命名和已命名的未命名常量的输出。
 
-```
+```go
 package main
 
 import "fmt"
@@ -124,7 +124,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Type: int Value: 123
 Type: string Value: circle
 Type: float64 Value: 5.6
@@ -144,13 +144,13 @@ Type: complex128 Value: (3+5i)
 
 已命名或未命名常量的默认类型将成为其赋值变量的类型。例如，在下面的代码中，变量a将获得来自未命名常量**123**的默认类型**int**。
 
-```
+```go
 var a = 123
 ```
 
 让我们看一个程序，说明上述所有未命名类型常量的要点。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -172,7 +172,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Type: int Value: 123
 Type: string Value: circle
 Type: float64 Value: 5.6
@@ -185,13 +185,13 @@ Type: complex128 Value: (3+5i)
 
 数学包中的**π**常量值如下所示。
 
-```
+```go
 const Pi = 3.14159265358979323846264338327950288419716939937510582097494459
 ```
 
 请注意，类型未指定，它仅具有一个隐式默认类型（在此为**float64**）。让我们来看一段代码。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -211,7 +211,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Type: float64 Value: 3.141592653589793
 Type: float32 Value: 3.1415927
 Type: float64 Value: 3.141592653589793

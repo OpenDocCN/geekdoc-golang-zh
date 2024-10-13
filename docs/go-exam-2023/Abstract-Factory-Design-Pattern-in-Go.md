@@ -40,7 +40,7 @@
 
 **iSportsFactory.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -63,7 +63,7 @@ func getSportsFactory(brand string) (iSportsFactory, error) {
 
 **adidas.go**
 
-```
+```go
 package main
 
 type adidas struct {
@@ -90,7 +90,7 @@ func (a *adidas) makeShort() iShort {
 
 **nike.go**
 
-```
+```go
 package main
 
 type nike struct {
@@ -117,7 +117,7 @@ func (n *nike) makeShort() iShort {
 
 **iShoe.go**
 
-```
+```go
 package main
 
 type iShoe interface {
@@ -151,7 +151,7 @@ func (s *shoe) getSize() int {
 
 **adidasShoe.go**
 
-```
+```go
 package main
 
 type adidasShoe struct {
@@ -161,7 +161,7 @@ type adidasShoe struct {
 
 **nikeShoe.go**
 
-```
+```go
 package main
 
 type nikeShoe struct {
@@ -171,7 +171,7 @@ type nikeShoe struct {
 
 **iShort.go**
 
-```
+```go
 package main
 
 type iShort interface {
@@ -205,7 +205,7 @@ func (s *short) getSize() int {
 
 **adidasShort.go**
 
-```
+```go
 package main
 
 type adidasShort struct {
@@ -215,7 +215,7 @@ type adidasShort struct {
 
 **nikeShort.go**
 
-```
+```go
 package main
 
 type nikeShort struct {
@@ -225,7 +225,7 @@ type nikeShort struct {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -260,7 +260,7 @@ func printShortDetails(s iShort) {
 
 **输出：**
 
-```
+```go
 Logo: nike
 Size: 14
 Logo: nike

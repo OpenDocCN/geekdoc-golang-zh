@@ -20,7 +20,7 @@
 
 假设我们有以下已排序的链表
 
-```
+```go
 -2->-1->0->1->2
 ```
 
@@ -32,7 +32,7 @@
 
 以下是相应程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -128,7 +128,7 @@ func main() {
 
 **输出**
 
-```
+```go
 AddFront: 2
 AddFront: 1
 AddFront: 0

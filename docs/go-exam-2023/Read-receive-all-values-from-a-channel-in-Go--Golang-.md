@@ -22,7 +22,7 @@ category: 未分类
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -51,7 +51,7 @@ func sum(ch chan int) {
 
 **输出**
 
-```
+```go
 Sum: 6
 ```
 
@@ -59,13 +59,13 @@ Sum: 6
 
 现在脑海中浮现的问题是，如果在主函数中不关闭通道会发生什么。尝试注释掉关闭通道的那一行。然后运行程序。它也会输出死锁，因为 for-range 循环在 sum 函数中永远不会结束。
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
 如果我们需要在通道关闭前接收固定数量的值，可以使用 for 循环。让我们看一个例子。
 
-```
+```go
 package main
 
 import (
@@ -95,7 +95,7 @@ func sum(ch chan int) {
 
 **输出**
 
-```
+```go
 Sum: 4
 ```
 

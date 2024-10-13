@@ -40,7 +40,7 @@
 
 我们将解析以下URL
 
-```
+```go
 https://test:abcd123@golangbyexample.com:8000/tutorials/intro?type=advance&compact=false#history
 ```
 
@@ -62,7 +62,7 @@ https://test:abcd123@golangbyexample.com:8000/tutorials/intro?type=advance&compa
 
 # **程序**
 
-```
+```go
 package main
 
 import (
@@ -91,7 +91,7 @@ func main() {
 
 **输出**
 
-```
+```go
 https
 test:abcd123
 golangbyexample.com

@@ -56,7 +56,7 @@ Go 处理错误的方式是显式地将错误作为一个单独的值返回。
 
 [https://golang.org/pkg/builtin/#error](https://golang.org/pkg/builtin/#error)
 
-```
+```go
 type error interface {
     Error() string
 }
@@ -66,7 +66,7 @@ type error interface {
 
 任何定义了**Error**方法的类型都被视为实现了**error**接口。正如我们之前提到的，Go没有异常和try-catch，因此处理错误条件的惯用方式是将错误作为最后一个返回值返回。然后可以检查该值是否为nil。如果是nil，则调用的函数没有返回错误，否则返回了错误。现在让我们看看一个演示我们刚才讨论内容的程序。
 
-```
+```go
 package main
 
 import (
@@ -86,7 +86,7 @@ func main() {
 
 **输出**
 
-```
+```go
 open non-existing.txt: no such file or directory
 ```
 
@@ -94,7 +94,7 @@ open non-existing.txt: no such file or directory
 
 以下是**os.Open**函数的签名。
 
-```
+```go
 func Open(name string) (*File, error)
 ```
 
@@ -106,7 +106,7 @@ func Open(name string) (*File, error)
 
 请查看**PathError**结构体类型这里- [https://golang.org/src/os/error.go](https://golang.org/src/os/error.go)
 
-```
+```go
 type PathError struct {
    Op   string
    Path string
@@ -116,7 +116,7 @@ type PathError struct {
 
 **PathError**结构体的指针定义了**Error()**方法。
 
-```
+```go
 func (e *PathError) Error() string { return e.Op + " " + e.Path + ": " + e.Err.Error() }
 ```
 
@@ -126,13 +126,13 @@ func (e *PathError) Error() string { return e.Op + " " + e.Path + ": " + e.Err.E
 
 另外，**fmt.Println**函数内部检查传递给它的类型是否实现了**error**接口。如果是，则会调用该类型的**Error**方法。这就是这一行的意思。
 
-```
+```go
 fmt.Println(err)
 ```
 
 输出结果
 
-```
+```go
 open non-existing.txt: no such file or directory
 ```
 
@@ -152,7 +152,7 @@ open non-existing.txt: no such file or directory
 
 ## **使用errors.New("some_error_message")**
 
-```
+```go
 package main
 
 import (
@@ -167,7 +167,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 error occured
 ```
 
@@ -175,7 +175,7 @@ error occured
 
 这种方式创建格式化的错误消息。
 
-```
+```go
 package main
 
 import (
@@ -190,7 +190,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Err is: database connection issue
 ```
 
@@ -206,7 +206,7 @@ Err is: database connection issue
 
 **示例：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -247,7 +247,7 @@ func validate(name, gender string) error {
 
 **输出：**
 
-```
+```go
 Name is mandatory
 Missing Field is name
 ```
@@ -256,7 +256,7 @@ Missing Field is name
 
 下划线（‘_’）操作符可用于忽略函数调用返回的错误。在查看程序之前，重要的是要注意错误绝不应该被忽略。这并不是推荐的做法。让我们来看一个程序。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -270,7 +270,7 @@ func main() {
 
 **输出**
 
-```
+```go
 {nil}
 ```
 

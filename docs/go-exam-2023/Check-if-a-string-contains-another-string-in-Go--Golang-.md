@@ -20,7 +20,7 @@ date: 2024-10-13 06:11:55
 
 以下是函数的签名
 
-```
+```go
 func Contains(s, substr string) bool
 ```
 
@@ -32,7 +32,7 @@ func Contains(s, substr string) bool
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -51,7 +51,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 true
 false
 ```*

@@ -20,7 +20,7 @@ golang的HTTP包提供了可以用于返回不同状态码的状态码常量 - [
 
 同样也可以用于返回404（资源未找到）HTTP状态码。HTTP 404状态码由下面的常量定义。
 
-```
+```go
 http.StatusNotFound
 ```
 
@@ -30,7 +30,7 @@ http.StatusNotFound
 
 下面是相同的程序。
 
-```
+```go
 package main
 
 import (
@@ -61,19 +61,19 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 在这里，我们使用**WriteHeader**函数指定404 HTTP状态码，并使用**Write**函数返回响应正文。上述代码将下面的JSON请求正文返回作为响应。
 
-```
+```go
 {"message":"Resource Not Found"}
 ```
 
 运行上述程序。它将在你的本地机器上启动一个8080端口的服务器。现在对服务器进行如下curl调用。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 下面将是输出。
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080
@@ -93,7 +93,7 @@ curl -v -X POST http://localhost:8080/example
 
 你也可以直接将404传递给**WriteHeader**函数来发送404响应。
 
-```
+```go
 w.WriteHeader(404)
 ```
 
@@ -105,13 +105,13 @@ golang的**net/http**包也提供了一个**"NotFound"**处理程序，可以用
 
 此处理程序函数返回404状态及下面的响应正文。
 
-```
+```go
 404 page not found
 ```
 
 下面是相同的简单程序。
 
-```
+```go
 package main
 
 import (
@@ -126,17 +126,17 @@ func main() {
 
 在上述程序中，我们简单地为**localhost:8080/example** API指定了NotFound处理程序，如下所示。
 
-```
+```go
 http.HandleFunc("/example", http.NotFound)
 ```
 
 运行上述程序。它将在你的本地机器上启动一个8080端口的服务器。现在对服务器进行如下curl调用。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080

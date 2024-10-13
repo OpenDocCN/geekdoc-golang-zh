@@ -12,13 +12,13 @@
 
 **os.Remove()**函数可以用于删除Golang中的文件夹。以下是该函数的签名。
 
-```
+```go
 func Remove(name string) error
 ```
 
 **代码：**
 
-```
+```go
 package main
 
 import (
@@ -36,7 +36,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Deletes sample folder from the current working directory
 ```
 

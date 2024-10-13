@@ -16,13 +16,13 @@
 
 要查看所有可能的 GOOS 和 GOARCH 的组合，请运行以下命令
 
-```
+```go
 go tool dist list
 ```
 
 以下是获取当前运行操作系统的代码：
 
-```
+```go
 package main
 
 import (
@@ -47,6 +47,6 @@ func main() {
 
 **输出：**
 
-```
+```go
 Your current operating system
 ```

@@ -30,7 +30,7 @@
 
 +   fmt.Printf
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -42,7 +42,7 @@ func main() {
 
 **输出**
 
-```
+```go
 [1 2 3]
 Numbers: [1 2 3]
 ```
@@ -53,7 +53,7 @@ Numbers: [1 2 3]
 
 +   for-range 循环
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -66,7 +66,7 @@ func main() {
 
 **输出**
 
-```
+```go
 1
 2
 3
@@ -82,7 +82,7 @@ func main() {
 
 +   fmt.Printf
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -94,7 +94,7 @@ func main() {
 
 **输出**
 
-```
+```go
 [1 2 3]
 Numbers: [1 2 3]
 ```
@@ -105,7 +105,7 @@ Numbers: [1 2 3]
 
 +   for-range 循环
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -118,7 +118,7 @@ func main() {
 
 **输出**
 
-```
+```go
 1
 2
 3

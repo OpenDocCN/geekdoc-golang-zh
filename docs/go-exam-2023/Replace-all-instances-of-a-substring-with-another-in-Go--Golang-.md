@@ -20,7 +20,7 @@
 
 下面是该函数的签名。该函数将在字符串**s**中替换所有不重叠的**old**实例为**new**。如果**old**为空，则它将在字符串**s**中的每个有效的UTF-8字节序列之间插入**new**。
 
-```
+```go
 func ReplaceAll(s, old, new string) string
 ```
 
@@ -28,7 +28,7 @@ func ReplaceAll(s, old, new string) string
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -47,7 +47,7 @@ func main() {
 
 **输出**
 
-```
+```go
 12cd12xy12r
 12a12b12c12d12a12b12x12y12a12b12r12
 ```*

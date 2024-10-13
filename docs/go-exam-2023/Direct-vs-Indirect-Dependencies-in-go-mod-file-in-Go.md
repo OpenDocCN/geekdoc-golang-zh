@@ -42,13 +42,13 @@
 
 让我们来看一个直接依赖的示例。为此，首先创建一个模块
 
-```
+```go
 git mod init learn
 ```
 
 现在创建一个文件 **learn.go**
 
-```
+```go
 package main
 
 import (
@@ -62,13 +62,13 @@ func main() {
 
 请注意，我们在 **learn.go** 中指定的依赖是
 
-```
+```go
 "github.com/pborman/uuid"
 ```
 
 所以 **[github.com](http://github.com)/pborman/uuid** 是 learn 模块的直接依赖，因为它在模块中被直接导入。现在让我们运行以下命令
 
-```
+```go
 go mod tidy
 ```
 
@@ -76,7 +76,7 @@ go mod tidy
 
 执行 cat **go.mod**
 
-```
+```go
 module learn
 
 go 1.14
@@ -88,7 +88,7 @@ require github.com/pborman/uuid v1.2.1
 
 执行 cat **go.sum**
 
-```
+```go
 github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=
 github.com/google/uuid v1.0.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/pborman/uuid v1.2.1 h1:+ZZIw58t/ozdjRaXh/3awHfmWRbzYxJoAdNJxe/3pvw=
@@ -103,13 +103,13 @@ github.com/pborman/uuid v1.2.1/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtP
 
 让我们通过一个示例来理解这一点。为此，首先创建一个模块。
 
-```
+```go
 git mod init learn
 ```
 
 现在创建一个文件**learn.go**。
 
-```
+```go
 package main
 
 import (
@@ -122,13 +122,13 @@ func main() {
 
 请注意，我们在**learn.go**中指定了依赖，如下所示。
 
-```
+```go
 github.com/gocolly/colly
 ```
 
 因此，github.com/gocolly/colly是learn模块的直接依赖，因为它在模块中直接导入。让我们将colly版本v1.2.0作为依赖添加到go.mod文件中。
 
-```
+```go
 module learn
 
 go 1.14
@@ -138,7 +138,7 @@ require	github.com/gocolly/colly v1.2.0
 
 现在让我们运行下面的命令。
 
-```
+```go
 go mod tidy
 ```
 
@@ -146,7 +146,7 @@ go mod tidy
 
 执行**cat go.mod**。
 
-```
+```go
 module learn
 
 go 1.14
@@ -169,13 +169,13 @@ require (
 
 我们还提到，任何未在任何源文件中导入的依赖项将标记为//indirect。为了说明这一点，删除上面创建的**learn.go**。同时清理**go.mod**文件以删除所有require行。现在运行下面的命令。
 
-```
+```go
 go get github.com/pborman/uuid
 ```
 
 现在检查**go.mod**文件的内容。
 
-```
+```go
 module learn
 
 go 1.14

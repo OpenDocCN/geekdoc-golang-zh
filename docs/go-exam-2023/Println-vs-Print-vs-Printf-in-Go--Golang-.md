@@ -44,19 +44,19 @@
 
 以下是**Println**的函数原型
 
-```
+```go
 func Println(a ...interface{}) (n int, err error)
 ```
 
 **Println**接受可变数量的参数，每个参数都是一个空接口。它返回打印的字符数和任何发生的错误。由于参数类型是空接口，我们可以传递任何数据类型。我们可以传递字符串、整型、浮点型、结构体或任何其他数据类型。每个传递给**Println**函数的参数都根据该参数类型的默认格式说明符进行格式化。例如，结构体将根据以下说明符进行格式化
 
-```
+```go
 %v
 ```
 
 此格式说明符仅打印结构体中的值部分。让我们看一个例子
 
-```
+```go
 package main
 import "fmt"
 type employee struct {
@@ -85,7 +85,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is: John
 Age is: 21
 {John 21}
@@ -100,13 +100,13 @@ Name is: John
 
 +   输出中的每个参数将用空格分隔。这就是为什么
 
-```
+```go
 fmt.Println("Name is: ", name)
 ```
 
 打印
 
-```
+```go
 Name is: John
 ```
 
@@ -114,7 +114,7 @@ Name is: John
 
 +   它返回打印的字符数或任何发生的错误
 
-```
+```go
 bytesPrinted, err := fmt.Println("Name is: ", name)
 if err != nil {
     log.Fatalln("Error occured", err)
@@ -124,7 +124,7 @@ fmt.Println(bytesPrinted)
 
 将输出如下
 
-```
+```go
 Name is: John
 14
 ```
@@ -135,7 +135,7 @@ Name is: John
 
 **Print**的函数原型
 
-```
+```go
 func Print(a ...interface{}) (n int, err error)
 ```
 
@@ -147,7 +147,7 @@ func Print(a ...interface{}) (n int, err error)
 
 让我们看一个相同的例子
 
-```
+```go
 package main
 
 import "fmt"
@@ -184,7 +184,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is:John
 Age is:21
 {John 21}
@@ -200,25 +200,25 @@ Name is: John
 
 +   只有在每个参数都是非字符串时，它才会在两个参数之间添加空格。这就是原因
 
-```
+```go
 fmt.Print(12, 12.0, "\n")
 ```
 
 打印
 
-```
+```go
 12 12
 ```
 
 当
 
-```
+```go
 fmt.Print("a", 12, "b", 12.0, "\n")
 ```
 
 打印
 
-```
+```go
 a12b12
 ```
 
@@ -228,7 +228,7 @@ a12b12
 
 **Printf** 的函数原型
 
-```
+```go
 func Printf(format string, a ...interface{}) (n int, err error)
 ```
 
@@ -248,7 +248,7 @@ func Printf(format string, a ...interface{}) (n int, err error)
 
 +   示例
 
-```
+```go
 name := "John"
 fmt.Printf("Name is: %s\n", name)
 ```
@@ -259,7 +259,7 @@ fmt.Printf("Name is: %s\n", name)
 
 +   示例
 
-```
+```go
 age := 21
 fmt.Printf("Age is: %d\n", age)
 ```
@@ -276,7 +276,7 @@ fmt.Printf("Age is: %d\n", age)
 
 这就是为什么
 
-```
+```go
 fmt.Printf("Employee is %v\n", e)
 fmt.Printf("Employee is %+v\n", e)
 fmt.Printf("Employee is %#v\n", e)
@@ -284,7 +284,7 @@ fmt.Printf("Employee is %#v\n", e)
 
 分别打印如下
 
-```
+```go
 Employee is {John 21}
 Employee is {Name:John Age:21}
 Employee is main.employee{Name:"John", Age:21}
@@ -296,7 +296,7 @@ Employee is main.employee{Name:"John", Age:21}
 
 下面是相应的工作程序
 
-```
+```go
 package main
 
 import (
@@ -337,7 +337,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is: John
 Age is: 21
 Name: John Age: 21
@@ -350,7 +350,7 @@ Name is: John
 
 请注意下面的 **Printf**
 
-```
+```go
 fmt.Printf("Name: %s Age: %d\n", name, age)
 ```
 
@@ -366,7 +366,7 @@ fmt.Printf("Name: %s Age: %d\n", name, age)
 
 而下一个可变数量的参数只有一个。因此，当我们打印时，它将按照原样打印第二个格式说明符，并显示“MISSING”作为警告
 
-```
+```go
 package main
 import "fmt"
 type employee struct {
@@ -381,7 +381,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is: John %!d(MISSING)
 ```
 

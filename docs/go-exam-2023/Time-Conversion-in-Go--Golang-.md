@@ -94,37 +94,37 @@
 
 设：
 
-```
+```go
 timeT := time.Now()
 ```
 
 ### **时间 Unix**
 
-```
+```go
 tUnix := timeT.Unix()
 ```
 
 ### **时间 Unix 毫秒**
 
-```
+```go
 tUnixMilli := int64(time.Nanosecond) * timeT.UnixNano() / int64(time.Millisecond)
 ```
 
 ### **时间 Unix 微秒**
 
-```
+```go
 tUnixMicro := int64(time.Nanosecond) * timeT.UnixNano() / int64(time.Microsecond)
 ```
 
 ### **时间 Unix 纳秒**
 
-```
+```go
 tUnixNano := timeT.UnixNano()
 ```
 
 ### **完整工作代码**
 
-```
+```go
 package main
 
 import (
@@ -156,7 +156,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 time.Time 2020-01-27 23:03:21.528106 +0530 IST m=+0.000191621
 timeUnix: 1580146401
 timeUnixMilli: 1580146401528
@@ -168,37 +168,37 @@ timeUnixNano: 1580146401528106000
 
 设
 
-```
+```go
 tUnix := time.Now().Unix()
 ```
 
 ### **time.Time**
 
-```
+```go
 tUnix := timeT.Unix()
 ```
 
 ### **时间 Unix 毫秒**
 
-```
+```go
  tUnixMili := tUnix * int64(time.Microsecond)
 ```
 
 ### **时间 Unix 微秒**
 
-```
+```go
 tUnixMicro := tUnix * int64(time.Millisecond)
 ```
 
 ### **时间 Unix 纳秒**
 
-```
+```go
 tUnixNano := tUnix * int64(time.Second)
 ```
 
 ### **完整工作代码**
 
-```
+```go
 package main
 
 import (
@@ -230,7 +230,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 timeUnix 1580146705
 time.Time: 2020-01-27 23:08:25 +0530 IST
 timeUnixMilli: 1580146705000
@@ -242,13 +242,13 @@ timeUnixNano: 1580146705000000000
 
 让
 
-```
+```go
 tUnixMilli := int64(time.Nanosecond) * time.Now().UnixNano() / int64(time.Millisecond)
 ```
 
 ### **time.Time**
 
-```
+```go
 tUnix := tUnixMilli / int64(time.Microsecond)
 tUnixNanoRemainder := (tUnixMilli % int64(time.Microsecond)) * int64(time.Millisecond)
 timeT := time.Unix(tUnix, tUnixNanoRemainder)
@@ -256,25 +256,25 @@ timeT := time.Unix(tUnix, tUnixNanoRemainder)
 
 ### **时间 Unix**
 
-```
+```go
 tUnix = tUnixMilli / int64(time.Microsecond)
 ```
 
 ### **时间 Unix 微秒**
 
-```
+```go
 tUnixMicro := tUnixMilli * int64(time.Microsecond)
 ```
 
 ### **时间 Unix 纳秒**
 
-```
+```go
 tUnixNano := tUnixMilli * int64(time.Millisecond)
 ```
 
 ### **完整工作代码：**
 
-```
+```go
 package main
 
 import (
@@ -308,7 +308,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 timeMilli 1580146846747
 time.Time: 2020-01-27 23:10:46.747 +0530 IST
 timeUnix: 1580146846
@@ -320,13 +320,13 @@ timeUnixNano: 1580146846747000000
 
 让
 
-```
+```go
 tUnixMicro := int64(time.Nanosecond) * time.Now().UnixNano() / int64(time.Microsecond)
 ```
 
 ### **time.Time**
 
-```
+```go
 tUnix := tUnixMicro / int64(time.Millisecond)
 tUnixNanoRemainder := (tUnixMicro % int64(time.Millisecond)) * int64(time.Microsecond)
 timeT := time.Unix(tUnix, tUnixNanoRemainder)
@@ -334,25 +334,25 @@ timeT := time.Unix(tUnix, tUnixNanoRemainder)
 
 ### **时间 Unix**
 
-```
+```go
 tUnix = tUnixMicro / int64(time.Millisecond)
 ```
 
 ### **时间 Unix 毫秒**
 
-```
+```go
 tUnixMilli := tUnixMicro / int64(time.Microsecond)
 ```
 
 ### **时间 Unix 纳秒**
 
-```
+```go
 tUnixNano := tUnixMicro * int64(time.Microsecond)
 ```
 
 ### **完整工作代码：**
 
-```
+```go
 package main
 
 import (
@@ -386,7 +386,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 tUnixMicro 1580147023233931
 time.Time: 2020-01-27 23:13:43.233931 +0530 IST
 timeUnix: 1580147023
@@ -398,13 +398,13 @@ timeUnixNano: 1580147023233931000
 
 让
 
-```
+```go
 tUnixNano := time.Now().UnixNano()
 ```
 
 ### **time.Time**
 
-```
+```go
 tUnix := tUnixNano / int64(time.Second)
 tUnixNanoRemainder := (tUnixNano % int64(time.Second))
 timeT := time.Unix(tUnix, tUnixNanoRemainder)
@@ -412,25 +412,25 @@ timeT := time.Unix(tUnix, tUnixNanoRemainder)
 
 ### **时间 Unix**
 
-```
+```go
 tUnix = tUnixNano / int64(time.Second)
 ```
 
 ### **时间 Unix 毫秒**
 
-```
+```go
 tUnixMilli := tUnixNano / int64(time.Millisecond)
 ```
 
 ### **时间 Unix 微秒**
 
-```
+```go
 tUnixMicro := tUnixNano / int64(time.Microsecond)
 ```
 
 ### **完整工作代码**
 
-```
+```go
 package main
 
 import (
@@ -464,7 +464,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 tUnixNano 1580147160564568000
 time.Time: 2020-01-27 23:16:00.564568 +0530 IST
 timeUnix: 1580147160

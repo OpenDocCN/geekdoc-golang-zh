@@ -20,7 +20,7 @@
 
 **示例1**
 
-```
+```go
 Input: [8,5,4,3]
 Output: true
 Explanation: 4 and 8
@@ -28,7 +28,7 @@ Explanation: 4 and 8
 
 **示例2**
 
-```
+```go
 Input: [1,3,7,9]
 Output: false
 Explanation: There exists no number for which its double exist
@@ -44,7 +44,7 @@ Explanation: There exists no number for which its double exist
 
 下面是相同程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -76,7 +76,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 true
 false
 ```

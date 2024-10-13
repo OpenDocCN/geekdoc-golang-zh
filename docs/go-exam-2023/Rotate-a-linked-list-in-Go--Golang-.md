@@ -20,7 +20,7 @@
 
 示例
 
-```
+```go
 Input: 1->2->3->4->5
 k: 2
 
@@ -31,7 +31,7 @@ Output: 4->5->1->2->3
 
 这是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -149,7 +149,7 @@ func rotateRight(head *ListNode, k int) *ListNode {
 
 **输出**
 
-```
+```go
 12345
 45123
 ```

@@ -32,7 +32,7 @@ Golang提供了另一个类似的函数**Printf**。**Fprintf**和**Printf**之�
 
 以下是**Fprintf**的函数原型
 
-```
+```go
 func Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error)
 ```
 
@@ -56,14 +56,14 @@ func Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error)
 
 +   示例
 
-```
+```go
 name := "John"
 fmt.Fprintf(os.Stdout, "Name is: %s\n", name)
 ```
 
 输出将如下所示。它将写入**os.Stdout**，即标准输出。请注意，我们将**os.Stdout**作为第一个参数传递。
 
-```
+```go
 Name is John
 ```
 
@@ -73,7 +73,7 @@ Name is John
 
 +   示例
 
-```
+```go
 age := 21
 fmt.Fprintf(os.Stdout, "Age is: %d\n", age)
 ```
@@ -92,7 +92,7 @@ fmt.Fprintf(os.Stdout, "Age is: %d\n", age)
 
 这就是为什么
 
-```
+```go
 fmt.Fprintf(os.Stdout, "Employee is %v\n", e)
 fmt.Fprintf(os.Stdout, "Employee is %+v\n", e)
 fmt.Fprintf(os.Stdout,"Employee is %#v\n", e)
@@ -100,7 +100,7 @@ fmt.Fprintf(os.Stdout,"Employee is %#v\n", e)
 
 分别写入以下内容到**os.Stdout**实例
 
-```
+```go
 Employee is {John 21}
 Employee is {Name:John Age:21}
 Employee is main.employee{Name:"John", Age:21}
@@ -112,7 +112,7 @@ Employee is main.employee{Name:"John", Age:21}
 
 这是相应的工作程序。
 
-```
+```go
 package main
 
 import (
@@ -154,7 +154,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is: John
 Age is: 21
 Name: John Age: 21
@@ -167,13 +167,13 @@ Name is: John
 
 在上面的所有**Fprintf**函数中，我们将**os.Stdout**的实例传递给它，该实例实现了**io.Writer**接口。基本上，使用**os.Stdout**时，**Fprintf**写入标准输出。这就是**os.Stdout**的定义。
 
-```
+```go
 Stdout = NewFile(uintptr(syscall.Stdout), "/dev/stdout")
 ```
 
 注意下面的**Fprintf**。
 
-```
+```go
 fmt.Fprintf(os.Stdout, "Name: %s Age: %d\n", name, age)
 ```
 
@@ -185,7 +185,7 @@ fmt.Fprintf(os.Stdout, "Name: %s Age: %d\n", name, age)
 
 **Fprintf**也可以用于写入文件。由于文件实例在golang中实现了**io.Writer**，因此这不是问题。下面是相应的程序。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -220,7 +220,7 @@ func main() {
 
 它将在当前目录中创建文件名**temp.txt**，并包含以下内容。在此程序中，我们将**os.Stdout**替换为创建的文件。
 
-```
+```go
 Name is: John
 Age is: 21
 Name: John Age: 21
@@ -237,7 +237,7 @@ Employee is main.employee{Name:"John", Age:21}
 
 而下一个可变参数只有一个。因此，当我们调用它时，它将把第二个格式说明符原样写出，并发出MISSING警告。
 
-```
+```go
 package main
 
 import (
@@ -259,7 +259,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is: John %!d(MISSING)
 ```
 

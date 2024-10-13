@@ -28,13 +28,13 @@ Go 支持四种不同方式的 base64。
 
 +   **标准编码**– 标准的 64 个字符，带有填充。它编码为以下字符
 
-```
+```go
 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
 ```
 
 +   **URL编码** – 与标准编码相同，只是其中的 **‘+’** 和 **‘\’** 符号被替换为 **‘-‘** 和 **‘_’**。它们被替换以使其与文件名和 URL 兼容。以下是 base64 URL 编码的字符集
 
-```
+```go
 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_
 ```
 
@@ -50,13 +50,13 @@ Encoding 结构进一步定义了两个编码和解码的方法
 
 +   **编码为字符串** – 以下是该方法的签名。它将字节作为输入，并根据使用的四种编码之一返回 base64 编码的字符串。
 
-```
+```go
 func (enc *Encoding) EncodeToString(src []byte) string
 ```
 
 +   **解码字符串** – 以下是该方法的签名。它将编码字符串作为输入，并根据使用的四种编码之一返回原始字符串。
 
-```
+```go
 func (enc *Encoding) DecodeString(s string) ([]byte, error)
 ```
 
@@ -66,7 +66,7 @@ func (enc *Encoding) DecodeString(s string) ([]byte, error)
 
 这是标准的 base64 编码，定义在 RFC 4648 中。它使用以下 64 个字符集以及填充字符 **‘=’**。
 
-```
+```go
 Value Encoding  Value Encoding  Value Encoding  Value Encoding
          0 A            17 R            34 i            51 z
          1 B            18 S            35 j            52 0
@@ -91,7 +91,7 @@ Value Encoding  Value Encoding  Value Encoding  Value Encoding
 
 **例子**
 
-```
+```go
 package main
 
 import (
@@ -115,21 +115,21 @@ func main() {
 
 **输出**
 
-```
+```go
 YUA=
 a@
 ```
 
 请注意，在上面的例子中，我们使用 base64 标准编码对下面的字符串进行编码
 
-```
+```go
 sample := "a@"
 encodedString := base64.StdEncoding.EncodeToString([]byte(sample))
 ```
 
 然后我们将 base64 编码的字符串解码回原始字符串
 
-```
+```go
 originalStringBytes, err := base64.StdEncoding.DecodeString(encodedString)
 if err != nil {
 	log.Fatalf("Some error occured during base64 decode. Error %s", err.Error())
@@ -149,7 +149,7 @@ fmt.Println(string(originalStringBytes))
 
 让我们看一个例子
 
-```
+```go
 package main
 
 import (
@@ -176,7 +176,7 @@ func main() {
 
 **输出**
 
-```
+```go
 URL Encoding: 77-9
 STD Encoding: 77+9
 �
@@ -184,13 +184,13 @@ STD Encoding: 77+9
 
 注意在上述示例中，我们取了下面字符串的示例
 
-```
+```go
 sample := "�"
 ```
 
 然后我们打印上述字符串的标准编码和 URL 编码
 
-```
+```go
 encodedStringURL := base64.URLEncoding.EncodeToString([]byte(sample))
 fmt.Printf("URL Encoding: %s\n", encodedStringURL)
 encodedStringSTD := base64.StdEncoding.EncodeToString([]byte(sample))
@@ -201,13 +201,13 @@ fmt.Printf("STD Encoding: %s\n", encodedStringSTD)
 
 对于 URL 编码，它输出
 
-```
+```go
 77-9
 ```
 
 而对于标准编码，它输出
 
-```
+```go
 77+9
 ```
 
@@ -233,13 +233,13 @@ fmt.Printf("STD Encoding: %s\n", encodedStringSTD)
 
 在这种情况下，串联的 Base64 字符串将是
 
-```
+```go
 YQYmMZGVm
 ```
 
 尝试解码它，你将得到如下的最终字符串，这是不正确的
 
-```
+```go
 a&1
 ```
 
@@ -247,13 +247,13 @@ a&1
 
 在这种情况下，串联的 Base64 字符串将是
 
-```
+```go
 YQ==YmM=ZGVm
 ```
 
 尝试按 4 个字符分组解码，你将得到如下的最终字符串，这是正确的
 
-```
+```go
 abcdef
 ```
 
@@ -261,7 +261,7 @@ abcdef
 
 所以这就是为什么填充是被鼓励的，尽管在所有情况下并非绝对必要。现在让我们看一个原始标准编码的例子。
 
-```
+```go
 package main
 
 import (
@@ -288,7 +288,7 @@ func main() {
 
 **输出**
 
-```
+```go
 STD Encoding: YUA=
 Raw STD Encoding: YUA
 a@
@@ -296,7 +296,7 @@ a@
 
 在上面的示例中，我们打印了 **标准编码** 和 **原始标准编码** 的结果。
 
-```
+```go
 encodedStringStdEncoding := base64.StdEncoding.EncodeToString([]byte(sample))
 fmt.Printf("STD Encoding: %s\n", encodedStringStdEncoding)
 
@@ -308,13 +308,13 @@ fmt.Printf("Raw STD Encoding: %s\n", encodedStringRawStdEncoding)
 
 对于标准编码，它输出
 
-```
+```go
 YUA=
 ```
 
 而对于原始标准编码，它输出
 
-```
+```go
 YUA
 ```
 
@@ -324,7 +324,7 @@ YUA
 
 这与 URL 编码相同，只是它省略了填充字符。所以这是未填充的标准 base64 编码。
 
-```
+```go
 package main
 import (
     "encoding/base64"
@@ -349,7 +349,7 @@ func main() {
 
 **输出**
 
-```
+```go
 URL Encoding: YUA=
 Raw URL Encoding: YUA
 a@

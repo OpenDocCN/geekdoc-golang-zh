@@ -26,25 +26,25 @@
 
 +   如果你知道 JSON 的格式，那么请按相同格式初始化 map。例如，当我们知道 JSON 中的值部分为字符串类型时，我们可以按以下格式初始化 map。
 
-```
+```go
 map[string]string
 ```
 
 +   如果 JSON 的格式未知，则需要按照以下格式初始化相应的 map。值部分需要是一个空接口。
 
-```
+```go
 map[string]interface{}
 ```
 
 让我们看看一些示例。在第一个示例中，我们有以下 JSON 字符串。
 
-```
+```go
 {"1":"John"}
 ```
 
 假设 JSON 的格式是已知的。以下是程序。
 
-```
+```go
 package main
 
 import (
@@ -63,25 +63,25 @@ func main() {
 
 **输出**
 
-```
+```go
 map[1:John]
 ```
 
 在第二个示例中，我们有以下 JSON 字符串。
 
-```
+```go
 {"1":{"Name":"John"}}
 ```
 
 我们正在将这个 JSON 字符串解析成下面的 map 类型。
 
-```
+```go
 map[int]employee
 ```
 
 其中 **employee** 是一个结构体。
 
-```
+```go
 type employee struct {
     Name string
 }
@@ -89,7 +89,7 @@ type employee struct {
 
 这是代码。
 
-```
+```go
 package main
 
 import (
@@ -112,13 +112,13 @@ func main() {
 
 **输出**
 
-```
+```go
 map[1:{John}]
 ```
 
 让我们再看看一种情况，即 JSON 的格式未知的例子。
 
-```
+```go
 package main
 
 import (
@@ -137,7 +137,7 @@ func main() {
 
 **输出**
 
-```
+```go
 John
 ```
 

@@ -30,7 +30,7 @@
 
 **示例 1：**
 
-```
+```go
 First String: abc
 Second String: abcd
 Output: 1
@@ -40,7 +40,7 @@ Output: 1
 
 **示例 2：**
 
-```
+```go
 First String: abc
 Second String: ab
 Output: 1
@@ -50,7 +50,7 @@ Output: 1
 
 **示例 3：**
 
-```
+```go
 First String: abc
 Second String: abd
 Output: 1
@@ -60,7 +60,7 @@ Output: 1
 
 **示例 4：**
 
-```
+```go
 First String: abce
 Second String: abd
 Output: 2
@@ -92,7 +92,7 @@ Output: 2
 
 下面是相同问题的递归解决方案。
 
-```
+```go
 package main
 
 import (
@@ -154,7 +154,7 @@ func minOfThree(x, y, z int) int {
 
 **输出**
 
-```
+```go
 1
 1
 1
@@ -167,7 +167,7 @@ func minOfThree(x, y, z int) int {
 
 ## **动态规划解决方案**
 
-```
+```go
 package main
 
 import (
@@ -229,7 +229,7 @@ func minOfThree(x, y, z int) int {
 
 **输出**
 
-```
+```go
 1
 1
 1

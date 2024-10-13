@@ -22,7 +22,7 @@
 
 1.  存在
 
-```
+```go
 package main
 
 import (
@@ -80,7 +80,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Add: B
 Add: B
 Size: 2

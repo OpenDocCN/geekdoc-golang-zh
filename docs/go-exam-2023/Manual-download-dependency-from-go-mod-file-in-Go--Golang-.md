@@ -18,7 +18,7 @@ category: 未分类
 
 可以使用下面的命令下载 **go.mod** 文件中存在的依赖项。
 
-```
+```go
 go mod download
 ```
 
@@ -28,19 +28,19 @@ go mod download
 
 让我们先创建一个模块。
 
-```
+```go
 go mod init learn
 ```
 
 让我们也将直接依赖添加到 go.mod 文件中。
 
-```
+```go
 require github.com/pborman/uuid v1.2.1
 ```
 
 有了这个依赖，go.mod 文件将如下所示。
 
-```
+```go
 module learn
 
 go 1.14
@@ -50,7 +50,7 @@ require github.com/pborman/uuid v1.2.1
 
 现在我们需要下载新添加的依赖。为此，我们可以使用下面的命令
 
-```
+```go
 go mod download
 ```
 
@@ -58,7 +58,7 @@ go mod download
 
 执行 `cat **go.sum**`
 
-```
+```go
 github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=
 github.com/google/uuid v1.0.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/pborman/uuid v1.2.1 h1:+ZZIw58t/ozdjRaXh/3awHfmWRbzYxJoAdNJxe/3pvw=

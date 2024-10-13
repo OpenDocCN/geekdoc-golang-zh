@@ -24,7 +24,7 @@
 
 下面是 Set-Cookie 头的语法
 
-```
+```go
 Set-Cookie: <cookie_name>=<cookie_value>; Expires={some_date}; Max-Age={some_integer}; Domain={some_domain}; Path={some_path}; 
 SameSite={Strict/Lax/None}</cookie_value></cookie_name>
 ```
@@ -55,19 +55,19 @@ SameSite={Strict/Lax/None}</cookie_value></cookie_name>
 
 +   仅名称-值对
 
-```
+```go
 show_pop=true
 ```
 
 +   带有 Expires 字段的名称-值对
 
-```
+```go
 show_pop=true; Expires=Tues, 27 Nov 2016 07:45:00 GMT
 ```
 
 +   带有其他字段的名称-值对
 
-```
+```go
 show_pop=true; Expires=Tues, 27 Nov 2016 07:45:00 GMT; Domain=foo_test.com; SameSite=Strict
 ```
 
@@ -83,7 +83,7 @@ show_pop=true; Expires=Tues, 27 Nov 2016 07:45:00 GMT; Domain=foo_test.com; Same
 
 **go.mod**
 
-```
+```go
 module sample.com/learn
 
 go 1.16
@@ -91,7 +91,7 @@ go 1.16
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -132,7 +132,7 @@ func docGetID(w http.ResponseWriter, r *http.Request) {
 
 从上面的代码可以看到我们有两个 API，如上所述。使用以下命令运行上述程序。
 
-```
+```go
 go run main.go
 ```
 
@@ -140,7 +140,7 @@ go run main.go
 
 现在从浏览器发起 API 调用 **localhost:8080/doc**。服务器在响应中发送以下 **Set-Cookie**。
 
-```
+```go
 Set-Cookie: id=abcd; Max-Age=300
 ```
 

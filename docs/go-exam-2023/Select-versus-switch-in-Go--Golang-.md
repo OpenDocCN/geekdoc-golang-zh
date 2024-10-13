@@ -24,7 +24,7 @@
 
 +   **开关的格式**
 
-```
+```go
 switch statement; expression {
 case expression1:
      //Dosomething
@@ -37,7 +37,7 @@ default:
 
 **选择**的格式
 
-```
+```go
 select {
 case channel_send_or_receive:
      //Dosomething
@@ -66,7 +66,7 @@ default:
 
 # **开关示例**
 
-```
+```go
 package main
 
 import "fmt"
@@ -88,7 +88,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 b
 ```
 
@@ -96,7 +96,7 @@ b
 
 # **选择示例**
 
-```
+```go
 package main
 
 import "fmt"
@@ -125,7 +125,7 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 From goOne goroutine
 ```
 

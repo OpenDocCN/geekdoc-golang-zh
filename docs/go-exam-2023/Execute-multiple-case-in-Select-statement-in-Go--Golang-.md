@@ -22,7 +22,7 @@ select 语句仅在发送或接收通道操作准备好的情况下执行其中�
 
 # **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -53,7 +53,7 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 From goOne goroutine
 From goTwo goroutine
 ```

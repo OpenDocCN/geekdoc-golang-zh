@@ -52,19 +52,19 @@
 
 +   声明一个**const**并指定类型 – 它以**const**关键字开头，后面是名称，然后是类型。值必须立即赋值，如上所述。
 
-```
+```go
 const c string = "circle"
 ```
 
 +   声明一个不指定类型的const – 一个没有指定类型的const是一个未类型化常量。我们稍后将深入了解类型常量和未类型常量。现在，重要的是要知道未指定类型的const具有默认的隐藏类型。常量一旦以任何方式（直接初始化、传递给函数等）分配给变量，就会被赋予类型。
 
-```
+```go
 const c = "circle"
 ```
 
 +   一次声明多个const。
 
-```
+```go
 const (
   c = "circle"
   s = "square"
@@ -75,7 +75,7 @@ const (
 
 +   常量变量在声明后不能重新赋值。例如，下面的代码将引发编译错误。
 
-```
+```go
 package main
 func main() {
     const a int = 8
@@ -85,13 +85,13 @@ func main() {
 
 **错误：**
 
-```
+```go
 main.go:5:4: cannot assign to a
 ```
 
 +   const值必须在编译时已知。因此，const值不能赋值给运行时评估的函数调用。在下面的程序中，a是一个const，其值应该在编译时可用，但函数**getValue**将在运行时调用，因此在编译时会引发错误。
 
-```
+```go
 package main
 const name = "test"
 func main() {
@@ -104,13 +104,13 @@ func getValue() int {
 
 **错误：**
 
-```
+```go
 const initializer getValue() is not a constant
 ```
 
 +   在内部声明的常量如果与外部作用域中声明的常量同名，则会遮蔽外部作用域中的常量。
 
-```
+```go
 package main
 import "fmt"
 const a = 123
@@ -122,7 +122,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 456
 ```
 
@@ -134,13 +134,13 @@ func main() {
 
 声明时指定类型的常量是类型化常量。例如，下面我们声明一个类型为 int32 的常量。
 
-```
+```go
 const a int32 = 8
 ```
 
 这个常量 a 只能赋值给类型为 int32 的变量。如果你将其赋值给任何其他类型的变量，将会引发错误。请参见下面的程序进行说明。
 
-```
+```go
 package main
 
 func main() {
@@ -156,7 +156,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 cannot use a (type int32) as type int64 in assignment
 ```
 
@@ -166,7 +166,7 @@ cannot use a (type int32) as type int64 in assignment
 
 未命名未类型化常量的示例。
 
-```
+```go
 123        //Default hidden type is int
 "circle"   //Default hidden type is string
 5.6\.       //Default hidden type is float64
@@ -177,7 +177,7 @@ true       //Default hidden type is bool
 
 命名未类型化常量的示例。
 
-```
+```go
 const a = 123        //Default hidden type is int
 const b = "circle"   //Default hidden type is string
 const c = 5.6       //Default hidden type is float64
@@ -200,7 +200,7 @@ const f = 3+5i       //Default hidden type is complex128
 
 当你使用 **fmt.Printf** 打印任何未类型化的常量时，它将打印默认的隐藏类型。请查看下面的程序和未命名与命名未类型化常量的输出。
 
-```
+```go
 package main
 
 import "fmt"
@@ -234,7 +234,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Type: int Value: 123
 Type: string Value: circle
 Type: float64 Value: 5.6
@@ -254,13 +254,13 @@ Type: complex128 Value: (3+5i)
 
 命名或未命名常量的默认类型将成为它们赋值的变量的类型。例如，在下面的代码中，变量 **a** 将从未命名常量 **123** 的默认类型 **int** 中获得类型。
 
-```
+```go
 var a = 123
 ```
 
 让我们看一个程序，说明上述所有未命名类型常量的要点。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -282,7 +282,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Type: int Value: 123
 Type: string Value: circle
 Type: float64 Value: 5.6
@@ -295,13 +295,13 @@ Type: complex128 Value: (3+5i)
 
 数学包中的 **Pi** 常量值声明如下。
 
-```
+```go
 const Pi = 3.14159265358979323846264338327950288419716939937510582097494459
 ```
 
 请注意，类型未被指定，只具有一个隐藏的默认类型（这里是 **float64**）。让我们看一段代码。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -321,7 +321,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Type: float64 Value: 3.141592653589793
 Type: float32 Value: 3.1415927
 Type: float64 Value: 3.141592653589793
@@ -347,7 +347,7 @@ Type: float64 Value: 3.141592653589793
 
 见下面的代码。它还展示了一个包内局部常量的示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -394,7 +394,7 @@ func testGlobal() {
 
 +   无类型命名字符串常量
 
-```
+```go
 package main
 
 import "fmt"
@@ -431,7 +431,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Untyped named string constant
 uu: Type: string Value: abc
 
@@ -446,7 +446,7 @@ zz: Type: string Value: abc
 
 在上述程序中，我们在代码中创建了一个新类型**myString**。
 
-```
+```go
 type myString string
 ```
 
@@ -464,19 +464,19 @@ type myString string
 
 定义如下
 
-```
+```go
 const aa string = "abc"
 ```
 
 注意上面这行会导致编译错误。这是因为有类型字符串常量**aa**是**string**类型。因此下面这一行会导致编译错误，因为它不能分配给**myString**类型的变量。
 
-```
+```go
 var v myString = aa
 ```
 
 但有类型字符串常量可以分配给用**var**关键字创建的变量，如下所示
 
-```
+```go
 var uu = aa
 ```
 
@@ -484,13 +484,13 @@ var uu = aa
 
 定义如下
 
-```
+```go
 const bb = "abc"
 ```
 
 无类型命名字符串常量可以分配给**myString**类型的变量，以及用**var**关键字创建的变量，因为它是无类型的，所以常量的类型将根据所分配变量的类型来决定。
 
-```
+```go
 var ww myString = bb
 var xx = bb
 ```
@@ -499,13 +499,13 @@ var xx = bb
 
 它是这样的
 
-```
+```go
 abc
 ```
 
 无类型未命名字符串常量可以分配给**myString**类型的变量，以及用**var**关键字创建的变量，因为它是无类型的，所以常量的类型将根据所分配变量的类型来决定。
 
-```
+```go
 var yy myString = "abc"
 var zz = "abc"
 ```
@@ -540,7 +540,7 @@ var zz = "abc"
 
 +   未类型命名整数常量
 
-```
+```go
 package main
 
 import "fmt"
@@ -582,7 +582,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Typed named integer constant
 uu: Type: int Value: 123
 
@@ -613,19 +613,19 @@ oo: Type: complex128 Value: (123+0i)
 
 定义如下
 
-```
+```go
 const aa int = 123
 ```
 
 类型整数常量可以赋值给使用**var**关键字创建的变量，如下所示。
 
-```
+```go
 var uu = aa
 ```
 
 当赋值给另一个**int**类型时，会引发编译错误。因此，下面的代码引发编译错误，因为**aa**变量已经是**int**类型。
 
-```
+```go
 var v int32 = aa
 ```
 
@@ -633,13 +633,13 @@ var v int32 = aa
 
 定义如下
 
-```
+```go
 const bb = 123
 ```
 
 未类型命名整数常量可以赋值给任何**int**类型、任何**float**类型和任何**complex**数类型，以及使用**var**关键字创建的任何变量。因此，下面的代码可以正常工作。
 
-```
+```go
 var ww = bb
 var xx int32 = bb
 var yy float64 = bb
@@ -650,13 +650,13 @@ var zz complex128 = bb
 
 如下所示
 
-```
+```go
 123
 ```
 
 未类型命名整数常量可以赋值给任何**int**类型、任何**float**类型和任何**complex**数类型，以及使用**var**关键字创建的任何变量。因此，下面的代码可以正常工作。
 
-```
+```go
 var ww = 123
 var xx int32 = 123
 var yy float64 = 123
@@ -667,7 +667,7 @@ var zz complex128 = 123
 
 由于未类型常量的特性，不同数值常量类型可以混合搭配形成表达式。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -678,7 +678,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 p: Type: float64 Value: 1.7333333333333334
 ```
 
@@ -686,7 +686,7 @@ p: Type: float64 Value: 1.7333333333333334
 
 有两个未类型布尔常量**true**和**false**。下面是一个展示布尔常量的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -723,7 +723,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Typed named boolean constant
 uu: Type: bool Value: true
 
@@ -738,7 +738,7 @@ zz: Type: bool Value: true
 
 在上述程序中，我们创建了一个新类型**myBool**。
 
-```
+```go
 type myBool bool
 ```
 
@@ -756,19 +756,19 @@ type myBool bool
 
 定义如下
 
-```
+```go
 const aa bool = true
 ```
 
 注意上面的这行会导致编译错误。这是因为变量**aa**是类型为**boolean**的常量。因此，下面这行会导致编译错误，因为无法赋值给类型为**myBool**的变量。
 
-```
+```go
 var v mybool = aa
 ```
 
 但类型字符串常量可以赋值给使用**var**关键字创建的变量，如下所示。
 
-```
+```go
 var uu = aa
 ```
 
@@ -776,13 +776,13 @@ var uu = aa
 
 定义如下
 
-```
+```go
 const bb = true
 ```
 
 未类型命名字符串常量可以赋值给类型为**myBool**的变量以及使用**var**关键字创建的变量，因为它是未类型的，因此常量的类型将根据赋值的变量类型决定。
 
-```
+```go
 var ww mybool = bb
 var xx = bb
 ```
@@ -791,13 +791,13 @@ var xx = bb
 
 定义如下
 
-```
+```go
 true
 ```
 
 未类型化的无名字符串常量可以赋值给**myBool**类型的变量以及使用**var**关键字创建的变量，因为它是无类型的，所以常量的类型将根据所赋值的变量类型决定。
 
-```
+```go
 var yy mybool = true
 var zz = true
 ```
@@ -806,7 +806,7 @@ var zz = true
 
 以下是演示字符常量的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -843,7 +843,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Untyped unnamed character constant
 uu: Type: int32 Value: 97
 
@@ -858,7 +858,7 @@ zz: Type: int32 Value: 97
 
 在上述程序中，我们创建了一个新类型**myChar**
 
-```
+```go
 type myChar int32
 ```
 
@@ -876,19 +876,19 @@ type myChar int32
 
 它的定义如下
 
-```
+```go
 const aa int32 = 'a'
 ```
 
 上述内容中请注意，下面的行将导致编译错误。这是因为变量**aa**是**int32**类型。因此，下面的行将导致编译错误，因为它不能赋值给**myChar**类型的变量。
 
-```
+```go
 var v myChar = aa
 ```
 
 但是，类型化字符串常量可以赋值给使用**var**关键字创建的变量，如下所示。
 
-```
+```go
 var uu = aa
 ```
 
@@ -896,13 +896,13 @@ var uu = aa
 
 它的定义如下
 
-```
+```go
 const bb = 'a'
 ```
 
 未类型化的有名字符串常量可以赋值给**myChar**类型的变量以及使用**var**关键字创建的变量，因为它是无类型的，所以常量的类型将根据所赋值的变量类型决定。
 
-```
+```go
 var ww myChar = bb
 var xx = bb
 ```
@@ -911,13 +911,13 @@ var xx = bb
 
 它如下所示
 
-```
+```go
 'a'
 ```
 
 未类型化的无名字符串常量可以赋值给**myChar**类型的变量以及使用**var**关键字创建的变量，因为它是无类型的，所以常量的类型将根据所赋值的变量类型决定。
 
-```
+```go
 var yy myChar = 'a'
 var zz = 'a'
 ```

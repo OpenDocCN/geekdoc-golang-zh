@@ -26,7 +26,7 @@
 
 它的语法是
 
-```
+```go
 {min, max}
 ```
 
@@ -38,13 +38,13 @@
 
 例如
 
-```
+```go
 a{n}
 ```
 
 这指定字符“a”可以恰好出现n次。类似地，对于以下正则表达式
 
-```
+```go
 \d{n}
 ```
 
@@ -62,7 +62,7 @@ a{n}
 
 # **示例**
 
-```
+```go
 package main
 
 import (
@@ -86,7 +86,7 @@ func main() {
 
 **输出**
 
-```
+```go
 bb
 bb
 bb
@@ -98,13 +98,13 @@ bb
 
 这就是给定正则表达式的原因
 
-```
+```go
 ab{2,4}
 ```
 
 对于以下所有输入字符串，它给出匹配**abb**
 
-```
+```go
 abb
 abbb
 abbbb
@@ -112,7 +112,7 @@ abbbb
 
 相同的程序
 
-```
+```go
 package main
 
 import (
@@ -136,7 +136,7 @@ func main() {
 
 **输出**
 
-```
+```go
 abb
 abbb
 abbbb
@@ -148,7 +148,7 @@ abbbb
 
 相同的程序
 
-```
+```go
 package main
 
 import (
@@ -172,7 +172,7 @@ func main() {
 
 **输出**
 
-```
+```go
 abb
 abb
 abb
@@ -184,7 +184,7 @@ abb
 
 让我们看一个相同的例子。
 
-```
+```go
 package main
 
 import (
@@ -205,7 +205,7 @@ func main() {
 
 **输出**
 
-```
+```go
 abab
 abab
 ```
@@ -216,7 +216,7 @@ abab
 
 在上述程序中，我们有以下正则表达式
 
-```
+```go
 [ab]{4}
 ```
 
@@ -224,7 +224,7 @@ abab
 
 这就是为什么正则表达式匹配下面的字符串
 
-```
+```go
 abab
 aaaa
 bbbb
@@ -234,7 +234,7 @@ bbaa
 
 而且它不匹配
 
-```
+```go
 aba - String of length 3
 abbaa - String of length 5
 ```

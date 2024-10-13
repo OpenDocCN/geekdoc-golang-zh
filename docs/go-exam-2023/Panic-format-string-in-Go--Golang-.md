@@ -18,7 +18,7 @@
 
 下面是panic函数的语法
 
-```
+```go
 func panic(v interface{})
 ```
 
@@ -26,7 +26,7 @@ func panic(v interface{})
 
 # **示例**
 
-```
+```go
 package main
 
 import (
@@ -50,7 +50,7 @@ func checkAndPrint(a []string, index int) {
 
 **输出**
 
-```
+```go
 panic: Out of bounds access for slice. Index passed: 2
 
 goroutine 1 [running]:
@@ -63,13 +63,13 @@ exit status 2
 
 在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印在参数中传递的索引处的切片元素。如果传递的索引大于数组的长度，则程序将发生panic。注意我们是如何在**checkAndPrint**函数中格式化错误字符串然后传递给panic的
 
-```
+```go
 errorString := fmt.Sprintf("Out of bounds access for slice. Index passed: %d", index)
 ```
 
 程序也输出正确格式化的消息
 
-```
+```go
 panic: Out of bounds access for slice. Index passed: 2
 ```
 

@@ -22,7 +22,7 @@ Go 的 **‘mat/rand’** 包包含一个 **Intn** 函数，可以用来生成�
 
 下面是此方法的签名。它接收一个数字 n，并将返回一个范围在 0<=x<n 内的数字 x。
 
-```
+```go
 func Intn(n int) int
 ```
 
@@ -30,7 +30,7 @@ func Intn(n int) int
 
 我们可以直接通过索引在一个整型切片中选择元素。请参见下面的程序，从整型切片中随机选择。
 
-```
+```go
 package main
 
 import (
@@ -48,7 +48,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Between 2, 5 or 6
 ```
 

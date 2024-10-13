@@ -28,7 +28,7 @@
 
 1.  大小
 
-```
+```go
 package main
 
 import "fmt"
@@ -180,7 +180,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 AddFront: A
 AddFront: B
 AddBack: C

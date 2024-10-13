@@ -36,7 +36,7 @@
 
 ## **整数**
 
-```
+```go
 package main
 
 import "fmt"
@@ -54,14 +54,14 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default zero value of int: 0
 Default zero value of uint: 0
 ```
 
 ## **浮点数**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -73,13 +73,13 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default zero value of float: 0
 ```
 
 ## **复数**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -91,13 +91,13 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default zero value of complex: (0+0i)
 ```
 
 ## **字节**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -109,13 +109,13 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default zero value of byte: 0
 ```
 
 ## **字符**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -127,13 +127,13 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default zero value of rune: 0
 ```
 
 ## **字符串**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -145,13 +145,13 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default zero value of string:    //An emtpy string. Hence nothing is printed
 ```
 
 ## **布尔值**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -163,7 +163,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default zero value of bool: false
 ```
 
@@ -171,7 +171,7 @@ Default zero value of bool: false
 
 数组的默认值是其值的默认值。例如，在下面的代码中，有一个长度为2的bool类型数组。当我们打印时，输出是**[false false]**。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -183,7 +183,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default Zero Value of a array: [false false]
 ```
 
@@ -191,7 +191,7 @@ Default Zero Value of a array: [false false]
 
 **结构体**的默认值是其字段的默认值。例如，在下面的代码中，有一个包含两个字段的结构体样本。其中一个是int类型，另一个是bool类型。我们创建这个结构体的一个实例，当我们打印它时，输出是**{0 false}**。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -207,7 +207,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default Zero Value of a struct: {0 false} 
 ```
 
@@ -215,7 +215,7 @@ Default Zero Value of a struct: {0 false}
 
 **映射**的默认值是**nil**。这就是为什么**fmt.Println(a==nil)**的输出为true。当映射传递给**fmt.Println**时，它尝试打印映射中的值。这就是输出为map[]的原因。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -228,14 +228,14 @@ func main() {
 
 **输出：**
 
-```
+```go
 true
 Printing map: map[]
 ```
 
 ## **通道**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -251,7 +251,7 @@ func main() {
 
 ## **接口**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -269,7 +269,7 @@ func main() {
 
 切片的默认值是**nil**。这就是为什么**fmt.Println(a==nil)**的输出为true。当切片传递给**fmt.Println**时，它尝试打印切片中的值。这就是输出为[]的原因。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -282,14 +282,14 @@ func main() {
 
 **输出：**
 
-```
+```go
 true
 Printing slice: []
 ```
 
 ## **函数**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -305,7 +305,7 @@ func main() {
 
 ## **指针**
 
-```
+```go
 package main
 import "fmt"
 func main() {

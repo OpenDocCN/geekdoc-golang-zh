@@ -42,7 +42,7 @@
 
 **defer**（延迟）顾名思义用于延迟函数中的清理操作。这些清理操作将在函数结束时执行。这些清理操作将在一个由**defer**调用的不同函数中完成。这个不同的函数会在周围函数返回之前被调用。下面是**defer**函数的语法。
 
-```
+```go
 defer {function_or_method_call}
 ```
 
@@ -54,7 +54,7 @@ defer {function_or_method_call}
 
 理解**defer**函数的一个好例子是查看写入文件的使用案例。一个为写入而打开的文件也必须关闭。
 
-```
+```go
 package main
 
 import (
@@ -88,7 +88,7 @@ func writeToTempFile(text string) error {
 
 在上述程序中，在**writeToTempFile**函数中，我们打开一个文件，然后尝试向文件写入一些内容。在我们写入文件内容后关闭文件。在写入操作期间，可能会导致错误，函数会在不关闭文件的情况下返回。**Defer**函数帮助避免这些问题。**Defer**函数总是在周围函数返回之前执行。让我们在这里重写上述程序，使用**defer**函数。
 
-```
+```go
 package main
 
 import (
@@ -127,7 +127,7 @@ func writeToTempFile(text string) error {
 
 我们也可以在**defer**中调用自定义函数。让我们看看一个例子。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -141,20 +141,20 @@ func test() {
 
 **输出**
 
-```
+```go
 Executed in main
 In Defer
 ```
 
 在上述程序中，有一个**defer**语句调用名为**test**的自定义函数。从输出中可以看到，**test**函数在主函数中的所有内容执行完毕后、主函数返回之前被调用。这就是原因。
 
-```
+```go
 Executed in main
 ```
 
 被打印在前。
 
-```
+```go
 In Defer
 ```
 
@@ -164,7 +164,7 @@ In Defer
 
 也可以在`defer`中使用内联函数。让我们看看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -177,32 +177,32 @@ func main() {
 
 **输出**
 
-```
+```go
 Executed
 In inline defer
 ```
 
 在上述代码中，我们有一个带内联函数的**defer**。
 
-```
+```go
 defer func() { fmt.Println("In inline defer") }()
 ```
 
 在Go中这是允许的。此外，请注意在函数后添加**“()”**是强制性的，否则编译器会抛出错误。
 
-```
+```go
 expression in defer must be function call
 ```
 
 从输出中可以看到，内联函数在主函数中的所有内容执行完毕后、主函数返回之前被调用。这就是原因。
 
-```
+```go
 Executed in main
 ```
 
 被打印在前。
 
-```
+```go
 In inline Defer
 ```
 
@@ -224,7 +224,7 @@ In inline Defer
 
 让我们看看一个程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -252,7 +252,7 @@ func f2() {
 
 **输出**
 
-```
+```go
 Stat main
 Start f1
 Start f2
@@ -270,7 +270,7 @@ Defer in main
 
 让我们看看一个程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -285,7 +285,7 @@ func main() {
 
 **输出**
 
-```
+```go
 In defer sample is: abc
 ```
 
@@ -297,7 +297,7 @@ In defer sample is: abc
 
 让我们来看一个程序。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -313,7 +313,7 @@ func main() {
 
 **输出**
 
-```
+```go
 3
 2
 1
@@ -321,7 +321,7 @@ func main() {
 
 在上面的程序中，我们有三个 **defer** 函数，每个函数打印变量 **i** 的值。变量 **i** 在每个 defer 之前递增。代码首先输出 3，这意味着第三个 defer 函数首先执行。然后输出 2，表示第二个 defer 之后执行，最后输出 1，意味着第一个 defer 最后执行。这表明在特定函数中存在多个 defer 函数时，它们遵循“后进先出”规则。因此程序输出。
 
-```
+```go
 3
 2
 1
@@ -333,7 +333,7 @@ func main() {
 
 让我们来看一个程序。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -349,7 +349,7 @@ func test() (size int) {
 
 **输出**
 
-```
+```go
 20
 ```
 
@@ -367,7 +367,7 @@ func test() (size int) {
 
 让我们来看一个示例。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -379,7 +379,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Defer in main
 panic: Panic Create
 
@@ -391,7 +391,7 @@ exit status 2
 
 在上面的程序中，我们首先有一个 defer 函数，然后手动触发 panic。正如你从输出中看到的，defer 函数得到了执行，输出中打印了以下行。
 
-```
+```go
 Defer in main
 ```
 

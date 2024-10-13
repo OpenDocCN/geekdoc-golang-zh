@@ -28,7 +28,7 @@
 
 ![](img/8b4e0e594249c6a7b6637fa47baf728d.png)
 
-```
+```go
 Input: [[1,3],[0,2],[1,3],[0,2]]
 Output: true
 ```
@@ -37,7 +37,7 @@ Output: true
 
 ![](img/77e0b7968865633eddb6ee990215089a.png)
 
-```
+```go
 Input: [[1,4],[0,2],[1,3],[2,4],[0,3]
 Output: false
 ```
@@ -54,7 +54,7 @@ Output: false
 
 下面是相应的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -125,7 +125,7 @@ func main() {
 
 **[输出：](http://Output:)**
 
-```
+```go
 true
 false
 ```

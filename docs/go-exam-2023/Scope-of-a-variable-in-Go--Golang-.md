@@ -38,14 +38,14 @@ date: 2024-10-13 06:21:22
 
 因此，下面的程序将引发编译错误。
 
-```
+```go
 undefined: i
 undefined: aaa.  #this occurs in the testLocal() function
 ```
 
 **代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -76,7 +76,7 @@ func testLocal() {
 
 例如，在下面的程序中，变量aaa将是一个在主包中可用的全局变量。它将在**main**包内的任何函数中可用。请注意，由于变量名以小写字母开头，因此该变量名在**main**包外不可用。
 
-```
+```go
 package main
 
 import "fmt"
@@ -94,7 +94,7 @@ func testGlobal() {
 
 **输出：**
 
-```
+```go
 test
 ```
 
@@ -102,7 +102,7 @@ test
 
 +   在内部作用域声明的变量，如果与外部作用域中的变量同名，将会遮蔽外部作用域中的变量。
 
-```
+```go
 package main
 
 import "fmt"
@@ -117,7 +117,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 456
 ```
 

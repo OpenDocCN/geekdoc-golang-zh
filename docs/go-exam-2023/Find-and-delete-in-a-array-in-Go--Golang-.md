@@ -22,7 +22,7 @@
 
 +   在最后进行切片。
 
-```
+```go
 package main
 
 import "fmt"
@@ -47,7 +47,7 @@ func findAndDelete(s [4]int, item int) []int {
 
 **输出：**
 
-```
+```go
 [2,3]
 ```
 
@@ -55,7 +55,7 @@ func findAndDelete(s [4]int, item int) []int {
 
 创建一个新数组并持续插入数据。
 
-```
+```go
 package main
 
 import "fmt"
@@ -81,6 +81,6 @@ func findAndDelete(s [4]int, itemToDelete int) []int {
 
 **输出**
 
-```
+```go
 [2,3]
 ```*

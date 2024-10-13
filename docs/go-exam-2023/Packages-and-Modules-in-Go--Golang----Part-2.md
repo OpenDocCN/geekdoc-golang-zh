@@ -102,7 +102,7 @@
 
 在查看每种方式之前，先创建一个模块。
 
-```
+```go
 go mod init sample.com/learn
 ```
 
@@ -112,13 +112,13 @@ go mod init sample.com/learn
 
 将以下依赖添加到**go.mod**文件中。
 
-```
+```go
 require github.com/pborman/uuid v1.2.1
 ```
 
 添加此依赖后，go.mod文件将如下所示。
 
-```
+```go
 module sample.com/learn
 
 go 1.14
@@ -128,7 +128,7 @@ require github.com/pborman/uuid v1.2.1
 
 现在我们也需要下载新添加的依赖。为此，我们可以使用下面的命令。
 
-```
+```go
 go mod download
 ```
 
@@ -138,14 +138,14 @@ go mod download
 
 只需执行`go get`也会在`go.mod`文件中添加依赖项。将我们之前在`go.mod`中添加的uuid依赖项删除，并清理`go.sum`文件。现在运行下面的命令。
 
-```
+```go
 export GO111MODULE=on
 go get github.com/pborman/uuid
 ```
 
 现在检查`go.mod`文件的内容。执行`cat **go.mod**`。
 
-```
+```go
 module sample.com/learn
 
 go 1.14
@@ -165,7 +165,7 @@ require github.com/pborman/uuid v1.2.1 //indirect
 
 让我们看一个例子。创建一个导入路径为“**sample.com/learn**”的模块。
 
-```
+```go
 go mod init sample.com/learn
 ```
 
@@ -173,7 +173,7 @@ go mod init sample.com/learn
 
 **uuid.go**
 
-```
+```go
 package main
 
 import (
@@ -192,19 +192,19 @@ func main() {
 
 注意我们在`uuid.go`中也导入了依赖项。
 
-```
+```go
 "github.com/pborman/uuid"
 ```
 
 让我们运行下面的命令。
 
-```
+```go
 go mod tidy
 ```
 
 这个命令将下载在你的源文件中所需的所有依赖项，并使用该依赖项更新**go.mod**文件。运行此命令后，让我们再次检查**go.mod**文件的内容。执行`cat **go.mod**`。
 
-```
+```go
 module sample.com/learn
 
 go 1.14
@@ -216,7 +216,7 @@ require github.com/pborman/uuid v1.2.1
 
 如果你想将依赖项放入vendor中，可以使用下面的命令来实现。
 
-```
+```go
 go mod vendor
 ```
 
@@ -256,7 +256,7 @@ go mod vendor
 
 +   创建一个导入路径为**“sample.com/learn”**的模块。
 
-```
+```go
 go mod init sample.com/learn
 ```
 
@@ -266,7 +266,7 @@ go mod init sample.com/learn
 
 **main.go**。
 
-```
+```go
 package main
 
 import (
@@ -281,7 +281,7 @@ func main() {
 
 **math/math.go**。
 
-```
+```go
 package math
 
 func Add(a, b int) int {
@@ -291,7 +291,7 @@ func Add(a, b int) int {
 
 查看我们如何在main.go文件中导入数学包。
 
-```
+```go
 "sample.comlearn/math"
 ```
 
@@ -313,13 +313,13 @@ func Add(a, b int) int {
 
 +   创建一个导入路径为**sample.com/math**的模块。
 
-```
+```go
 go mod init sample.com/math
 ```
 
 +   在**math**目录中创建一个名为**math.go**的文件，内容如下。
 
-```
+```go
 package math
 
 func Add(a, b int) int {
@@ -333,13 +333,13 @@ func Add(a, b int) int {
 
 +   创建一个模块名称为**school**。
 
-```
+```go
 go mod init school
 ```
 
 +   现在，让我们修改**go.mod**文件，以便在学校模块中导入数学模块。要导入一个未推送到版本控制系统的本地模块，我们将使用替换目录。替换目录将用你指定的路径替换模块路径。
 
-```
+```go
 module school
 
 go 1.14
@@ -349,7 +349,7 @@ replace sample.com/math => ../math
 
 +   创建一个名为school.go的文件，它将使用**[sample.com](http://sample.com)/math**模块中的Add函数。
 
-```
+```go
 package main
 
 import (
@@ -364,7 +364,7 @@ func main() {
 
 现在运行`go run`。
 
-```
+```go
 go run school.go
 ```
 
@@ -372,7 +372,7 @@ go run school.go
 
 另外，它将更新**[sample.com](http://sample.com)/math**模块的go.mod版本信息。
 
-```
+```go
 module school
 
 go 1.14
@@ -388,7 +388,7 @@ require sample.com/math v0.0.0-00010101000000-000000000000
 
 语义版本控制由三个部分组成，由点分隔。以下是版本控制的格式。
 
-```
+```go
 v{major_version}.{minor_version}.{patch_version}
 ```
 
@@ -416,13 +416,13 @@ Go在选择两个版本在**go.mod**文件中指定的库版本时遵循最小�
 
 例如，如果你使用相同库的两个版本，它们是。
 
-```
+```go
 1.2.0
 ```
 
 并且
 
-```
+```go
 1.3.0
 ```
 
@@ -432,13 +432,13 @@ Go在选择两个版本在**go.mod**文件中指定的库版本时遵循最小�
 
 Go将主要版本视为不同的模块。那这意味着什么呢？这本质上意味着导入路径将以主要版本作为后缀。让我们以任何go库的VCS为**github.com/sample**为例。让我们最新的语义版本是。
 
-```
+```go
 v8.2.3
 ```
 
 然后go.mod文件将如下所示。
 
-```
+```go
 module github.com/sample/v8
 
 go 1.13
@@ -448,25 +448,25 @@ go 1.13
 
 它在导入路径中有主要版本。因此，任何使用此示例库的库必须像这样导入。
 
-```
+```go
 import "github.com/sample/v8"
 ```
 
 如果未来发布**v9**版本，则必须像这样导入到应用程序中。
 
-```
+```go
 import "github.com/sample/v9"
 ```
 
 此外，该库将更改其go.mod文件以反映v9主要版本。
 
-```
+```go
 module github.com/sample/v9
 ```
 
 它本质上允许在同一go应用程序中使用相同库的不同主要版本。当在同一应用程序中导入相同库的不同主要版本时，我们还可以给出有意义的名称。例如。
 
-```
+```go
 import sample_v8 "github.com/sample/v8"
 import sample_v9 "github.com/sample/v9"
 ```
@@ -481,32 +481,32 @@ import sample_v9 "github.com/sample/v9"
 
 同样出于同样的原因，当你使用更新特定模块时。
 
-```
+```go
 go get -u
 ```
 
 然后它只会升级到最新的小版本或补丁版本（如果适用）。例如，假设应用程序使用的当前版本是
 
-```
+```go
 v1.1.3
 ```
 
 同样，假设我们有以下可用版本。
 
-```
+```go
 v1.2.0
 v2.1.0
 ```
 
 然后当我们运行时
 
-```
+```go
 go get
 ```
 
 然后它将更新为
 
-```
+```go
 v1.2.0
 ```
 
@@ -518,25 +518,25 @@ v1.2.0
 
 +   要仅将依赖项升级到其最新补丁版本，请使用以下命令。
 
-```
+```go
 go get -u=patch <dependency_name></dependency_name>
 ```
 
 +   要将依赖项升级到特定版本，请使用以下命令。
 
-```
+```go
 go get dependency@version
 ```
 
 +   要将依赖项升级到特定提交，请使用以下命令。
 
-```
+```go
 go get <dependency_name>@commit_number</dependency_name>
 ```
 
 +   要将所有依赖项升级到它们最新的小版本和补丁版本，请使用以下命令。
 
-```
+```go
 go get ./...
 ```
 
@@ -548,7 +548,7 @@ go get ./...
 
 +   **编辑** – 这是用于编辑 go.mod 文件。它提供了一组编辑标志。运行以下命令查看所有可用的编辑标志。
 
-```
+```go
 go help mod edit
 ```
 
@@ -570,13 +570,13 @@ go help mod edit例如，以下是一些可用的编辑标志。
 
 +   **为什么 –** 此命令分析来自主模块的包图。它打印从主模块到给定包的最短路径。例如，在“从不同模块本地导入包”部分中创建的 school 模块，如果我们打印为什么命令如下。
 
-```
+```go
 go mod why sample.com/math
 ```
 
 然后以下将是输出。
 
-```
+```go
 # sample.com/math
 school
 sample.com/math
@@ -600,13 +600,13 @@ sample.com/math
 
 让我们通过一个示例来理解它。为此，让我们先创建一个模块。
 
-```
+```go
 git mod init sample.com/learn
 ```
 
 让我们在 go.mod 文件中添加 colly 库版本 v1.2.0 作为依赖。colly 版本 v1.2.0 没有 go.mod 文件。
 
-```
+```go
 module sample.com/learn
 
 go 1.14
@@ -616,7 +616,7 @@ require github.com/gocolly/colly v1.2.0
 
 现在创建一个文件 learn.go。
 
-```
+```go
 package main
 
 import (
@@ -630,7 +630,7 @@ func main() {
 
 现在执行 go build。由于 colly 版本 v1.2.0 没有 go.mod 文件，colly 所需的所有依赖将以 //indirect 作为后缀添加到 go.mod 文件中。执行 go build。现在检查 go.mod 文件。你会看到以下文件内容。
 
-```
+```go
 module learn
 
 go 1.14

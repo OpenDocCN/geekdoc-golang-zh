@@ -42,7 +42,7 @@
 
 在查看每种方式之前，我们先创建一个模块。
 
-```
+```go
 go mod init learn
 ```
 
@@ -52,13 +52,13 @@ go mod init learn
 
 我们也可以直接将依赖添加到 go.mod 文件中。让我们来做这个。在 **go.mod** 文件中添加以下依赖。
 
-```
+```go
 require github.com/pborman/uuid v1.2.1
 ```
 
 有了这个依赖项，**go.mod** 文件看起来如下。
 
-```
+```go
 module learn
 
 go 1.14
@@ -68,7 +68,7 @@ require github.com/pborman/uuid v1.2.1
 
 现在我们需要下载新添加的依赖项。我们可以使用以下命令。
 
-```
+```go
 go mod download
 ```
 
@@ -78,14 +78,14 @@ go mod download
 
 只需执行 go get 也会将依赖添加到 go.mod 文件中。将我们之前添加的 uuid 依赖从 go.mod 文件中删除，并清理 go.sum 文件。现在运行以下命令。
 
-```
+```go
 export GO111MODULE=on
 go get github.com/pborman/uuid
 ```
 
 现在检查 go.mod 文件的内容。执行 **cat go.mod**
 
-```
+```go
 module learn
 
 go 1.14
@@ -105,7 +105,7 @@ require github.com/pborman/uuid v1.2.1 //indirect
 
 让我们看一个例子。移除我们之前在go.mod文件中添加的依赖项。你的go.mod文件应该如下所示。
 
-```
+```go
 module learn
 
 go 1.14
@@ -115,7 +115,7 @@ go 1.14
 
 **uuid.go**
 
-```
+```go
 package main
 
 import (
@@ -134,13 +134,13 @@ func main() {
 
 请注意，我们在uuid.go中也导入了该依赖项。
 
-```
+```go
 "github.com/pborman/uuid"
 ```
 
 让我们运行下面的命令。
 
-```
+```go
 go mod tidy
 ```
 
@@ -148,7 +148,7 @@ go mod tidy
 
 执行`cat go.mod`。
 
-```
+```go
 module learn
 
 go 1.14
@@ -158,7 +158,7 @@ require github.com/pborman/uuid v1.2.1
 
 它列出了在uuid文件中指定的直接依赖项，以及该依赖项的确切版本。现在让我们检查一下**go.sum**文件。执行`cat go.sum`。
 
-```
+```go
 github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=
 github.com/google/uuid v1.0.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/pborman/uuid v1.2.1 h1:+ZZIw58t/ozdjRaXh/3awHfmWRbzYxJoAdNJxe/3pvw=
@@ -167,19 +167,19 @@ github.com/pborman/uuid v1.2.1/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtP
 
 现在让我们看一个例子，如果依赖项在源文件中不需要，**go mod tidy**将从**go.mod**文件中移除该依赖项。为了说明这一点，让我们移除之前创建的**uuid.go**文件。现在运行该命令。
 
-```
+```go
 go mod tidy -v
 ```
 
 它将输出如下。
 
-```
+```go
 unused github.com/pborman/uuid
 ```
 
 现在检查一下**go.mod**文件的内容。它将如下所示。
 
-```
+```go
 module learn
 
 go 1.14
@@ -187,7 +187,7 @@ go 1.14
 
 该
 
-```
+```go
 require github.com/pborman/uuid v1.2.1
 ```
 

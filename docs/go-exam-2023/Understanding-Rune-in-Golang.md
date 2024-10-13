@@ -50,7 +50,7 @@ utf-8 将每个 Unicode 点保存为 1、2、3 或 4 字节。ASCII 点使用 1 
 
 每个 rune 旨在引用一个 Unicode 点。例如，如果你在类型转换为 rune 数组后打印字符串，它将打印每个字符的 Unicode 点。对于下面的字符串 **“0b£”**，输出将为 – **[U+0030 U+0062 U+00A3]**
 
-```
+```go
 fmt.Printf("%U\n", []rune("0b£"))
 ```
 
@@ -64,7 +64,7 @@ fmt.Printf("%U\n", []rune("0b£"))
 
 一个 rune 使用单引号中的字符声明，如下所示，声明一个名为 **‘rPound’** 的变量。
 
-```
+```go
 rPound := '£'
 ```
 
@@ -72,19 +72,19 @@ rPound := '£'
 
 +   **打印类型 –** 输出将为 **int32**
 
-```
+```go
 fmt.Printf("Type: %s\n", reflect.TypeOf(rPound))
 ```
 
 +   **打印 Unicode 代码点 –** 输出将为 **U+00A3**
 
-```
+```go
 fmt.Printf("Unicode CodePoint: %U\n", rPound)
 ```
 
 +   **打印字符 –** 输出将为 **£**
 
-```
+```go
 fmt.Printf("Character: %c\n", r)
 ```
 
@@ -92,7 +92,7 @@ fmt.Printf("Character: %c\n", r)
 
 下面是演示我们讨论的每个要点的代码
 
-```
+```go
 package main
 
 import (
@@ -127,7 +127,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Size: 4
 Type: int32
 Unicode CodePoint: U+0061
@@ -140,7 +140,7 @@ Character: a
 
 ## **符文数组转为字符串**
 
-```
+```go
 package main
 
 import "fmt"
@@ -154,13 +154,13 @@ func main() {
 
 **输出：**
 
-```
+```go
 ab£
 ```
 
 ## **字符串转为符文数组**
 
-```
+```go
 package main
 
 import "fmt"
@@ -174,7 +174,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 [U+0061 U+0062 U+00A3]
 ```
 

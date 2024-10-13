@@ -38,7 +38,7 @@
 
 在 Go 语言中实现双向链表，创建一个包含**数据**、**前**指针和**下一个**指针的节点结构，添加节点的方法（从前端和后端），以及向前和向后遍历的方法。
 
-```
+```go
 package main
 
 import "fmt"
@@ -152,7 +152,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Add Front Node: C
 Add Front Node: B
 Add Front Node: A

@@ -34,7 +34,7 @@
 
 **train.go**
 
-```
+```go
 package main
 
 type train interface {
@@ -46,7 +46,7 @@ type train interface {
 
 **passengerTrain.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -75,7 +75,7 @@ func (g *passengerTrain) permitArrival() {
 
 **goodsTrain.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -104,7 +104,7 @@ func (g *goodsTrain) permitArrival() {
 
 **mediator.go**
 
-```
+```go
 package main
 
 type mediator interface {
@@ -115,7 +115,7 @@ type mediator interface {
 
 **stationManager.go**
 
-```
+```go
 package main
 
 import "sync"
@@ -160,7 +160,7 @@ func (s *stationManager) notifyFree() {
 
 **main.go**
 
-```
+```go
 package main
 
 func main() {
@@ -179,7 +179,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 PassengerTrain: Landing
 GoodsTrain: Waiting
 PassengerTrain: Leaving
@@ -188,7 +188,7 @@ GoodsTrain: Arrival Permitted. Landing
 
 ## **完整工作代码：**
 
-```
+```go
 package main
 
 import (
@@ -302,7 +302,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 PassengerTrain: Landing
 GoodsTrain: Waiting
 PassengerTrain: Leaving

@@ -24,7 +24,7 @@
 
 下面是**Fprint**的函数原型
 
-```
+```go
 func Fprint(w io.Writer, a ...interface{}) (n int, err error)
 ```
 
@@ -36,7 +36,7 @@ func Fprint(w io.Writer, a ...interface{}) (n int, err error)
 
 **Fprint**使用默认格式说明符格式化字符串，但在字符串后不添加新行。**Fprint**在第一个参数后接受可变数量的参数，其中每个参数都是一个空接口。由于参数类型是空接口，我们可以将任何数据类型传递给它。我们可以传递字符串、整数、浮点数、结构体或任何其他数据类型。传递给**Fprint**函数的每个参数都根据该参数类型的默认格式说明符进行格式化。例如，结构体将根据以下说明符进行格式化
 
-```
+```go
 %v
 ```
 
@@ -46,7 +46,7 @@ func Fprint(w io.Writer, a ...interface{}) (n int, err error)
 
 让我们来看一个例子
 
-```
+```go
 package main
 
 import (
@@ -88,7 +88,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is:John
 Age is:21
 {John 21}
@@ -102,7 +102,7 @@ Name is: John
 
 +   在上面的所有**Fprint**函数中，我们将**os.Stdout**的实例传递给它，该实例实现了**io.Writer**接口。基本上，使用**os.Stdout**，**Fprint**写入标准输出。这就是**os.Stdout**的定义。
 
-```
+```go
 Stdout = NewFile(uintptr(syscall.Stdout), "/dev/stdout")
 ```
 
@@ -110,31 +110,31 @@ Stdout = NewFile(uintptr(syscall.Stdout), "/dev/stdout")
 
 +   只有当两个参数都是非字符串时，它才会在这两个参数之间添加空格。这就是为什么
 
-```
+```go
 fmt.Fprint(os.Stdout, 12, 12.0, "\n")
 ```
 
 打印
 
-```
+```go
 12 12
 ```
 
 while
 
-```
+```go
 fmt.Fprint(os.Stdout, "a", 12, "b", 12.0, "\n")
 ```
 
 打印
 
-```
+```go
 a12b12
 ```
 
 +   它还返回打印的字符数以及发生的任何错误
 
-```
+```go
 bytesPrinted, err := fmt.Fprint(os.Stdout, "Name is: ", name, "\n")
 if err != nil {
     log.Fatalln("Error occured", err)
@@ -144,7 +144,7 @@ fmt.Fprint(bytesPrinted)
 
 将输出以下内容
 
-```
+```go
 Name is: John
 14
 ```
@@ -153,7 +153,7 @@ Name is: John
 
 **Fprint**也可以用于写入文件。由于在golang中的文件实例实现了**io.Writer**，这不是问题。下面是相应的程序
 
-```
+```go
 package main
 import (
     "fmt"
@@ -187,7 +187,7 @@ func main() {
 
 它将在当前目录中创建文件名temp.txt，内容如下。在这个程序中，我们用创建的文件替换了**os.Stdout**。
 
-```
+```go
 Name is:John
 Age is:21
 {John 21}

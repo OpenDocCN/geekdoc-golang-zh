@@ -22,7 +22,7 @@
 
 # **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -53,7 +53,7 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 From goOne goroutine
 From goTwo goroutine
 ```

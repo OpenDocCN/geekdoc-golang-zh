@@ -18,7 +18,7 @@
 
 +   [文件夹存在](#Folder_Exists "Folder Exists")*  *# **文件存在   **
 
-```
+```go
 package main
 
 import (
@@ -37,7 +37,7 @@ func main() {
 
 # **文件夹存在**
 
-```
+```go
 package main
 
 import (

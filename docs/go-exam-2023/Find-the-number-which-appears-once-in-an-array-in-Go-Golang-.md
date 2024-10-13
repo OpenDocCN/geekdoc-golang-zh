@@ -20,14 +20,14 @@
 
 **示例 1**
 
-```
+```go
 Input: [2, 1, 2, 3, 3]
 Output: 1
 ```
 
 **示例 2**
 
-```
+```go
 Input: [1, 1, 4]
 Output: 4
 ```
@@ -44,7 +44,7 @@ Output: 4
 
 以下是相应的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -71,7 +71,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 1
 4
 ```

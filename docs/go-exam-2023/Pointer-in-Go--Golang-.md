@@ -46,7 +46,7 @@
 
 在下面的示例中，**ex** 是 **T** 类型的指针。
 
-```
+```go
 var ex *T
 ```
 
@@ -64,7 +64,7 @@ var ex *T
 
 指针可以使用 **new** 运算符进行初始化
 
-```
+```go
 a := new(int)
 *a = 10
 fmt.Println(*a) //Output will be 10
@@ -72,7 +72,7 @@ fmt.Println(*a) //Output will be 10
 
 ***** 运算符可用于解引用指针，意味着获取存储在指针中的地址的值
 
-```
+```go
 fmt.Println(*a) //Print the value stored at address a
 ```
 
@@ -80,7 +80,7 @@ fmt.Println(*a) //Print the value stored at address a
 
 **&** 用于获取变量的地址
 
-```
+```go
 a := 2
 b := &a
 fmt.Println(*b) //Output will be 2
@@ -90,7 +90,7 @@ fmt.Println(*b) //Output will be 2
 
 让我们看看一个涵盖以上所有要点的工作代码
 
-```
+```go
 package main
 
 import "fmt"
@@ -112,7 +112,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 2
 10
 0xc0000b0018
@@ -126,7 +126,7 @@ func main() {
 
 +   也可以更改该指针位置的值
 
-```
+```go
 package main
 
 import "fmt"
@@ -149,7 +149,7 @@ func main() {
 
 **输出**
 
-```
+```go
 2
 2
 3
@@ -180,7 +180,7 @@ func main() {
 
 在 Go 中也可以创建指向指针的指针
 
-```
+```go
 a := 2
 b := &a
 c := &b
@@ -198,7 +198,7 @@ c := &b
 
 让我们来看看，一个描绘指向指针的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -233,7 +233,7 @@ func main() {
 
 **输出**
 
-```
+```go
 a: 2
 b: c000018078
 c: c00000e028
@@ -287,7 +287,7 @@ b: 824633778216
 
 在golang中，指针算术是不可能的，这与C语言不同。这会引发编译错误。
 
-```
+```go
 package main
 func main() {
     a := 1
@@ -300,7 +300,7 @@ func main() {
 
 上述程序引发编译错误
 
-```
+```go
 invalid operation: b + 1 (mismatched types *int and int)
 ```
 
@@ -308,7 +308,7 @@ invalid operation: b + 1 (mismatched types *int and int)
 
 指针的默认零值是nil。让我们来看一个示例程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -322,7 +322,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default value of pointer: 
 ```
 

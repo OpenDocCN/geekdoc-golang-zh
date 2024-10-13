@@ -22,13 +22,13 @@ date: 2024-10-13 06:16:04
 
 以下是该方法的签名。它接受一个数字n作为输入，并返回一个范围为0<=x<n的数字。
 
-```
+```go
 func Intn(n int) int
 ```
 
 在下面的代码中，我们首先定义了生成密码的字符集
 
-```
+```go
 lowerCharSet   = "abcdedfghijklmnopqrst"
 upperCharSet   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 specialCharSet = "!@#$%&*"
@@ -42,7 +42,7 @@ allCharSet     = lowerCharSet + upperCharSet + specialCharSet + numberSet
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -115,7 +115,7 @@ func generatePassword(passwordLength, minSpecialChar, minNum, minUpperCase int) 
 
 输出在你的机器上会有所不同
 
-```
+```go
 e$e&tD19
 4T$&Qmg2rA4DXD5a2OGs
 ```

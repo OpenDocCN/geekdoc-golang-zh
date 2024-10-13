@@ -26,7 +26,7 @@
 
 函数可以接受接口类型的参数。任何实现该接口的类型都可以作为参数传递给该函数。让我们通过一个示例来理解。假设我们有如下动物接口。
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -35,7 +35,7 @@ type animal interface {
 
 我们有两个结构类型实现该接口。
 
-```
+```go
 type lion struct {
     age int
 }
@@ -43,7 +43,7 @@ type lion struct {
 
 和
 
-```
+```go
 type dog struct {
      age int
 }
@@ -51,7 +51,7 @@ type dog struct {
 
 在下面的代码中，我们有**callBreathe**和**callWalk**函数，它们接受**动物**接口类型的参数。**狮子**和**狗**实例都可以传递给该函数。我们创建**狮子**和**狗**类型的实例并将其传递给该函数。在编译期间，调用函数时不会检查类型，而只需检查传递给函数的类型是否实现了**呼吸**和**行走**方法。
 
-```
+```go
 package main
 
 import "fmt"
@@ -106,7 +106,7 @@ func callWalk(a animal) {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 Dog breathes
@@ -117,7 +117,7 @@ Dog walk
 
 一个空接口没有方法，因此默认情况下所有类型都实现空接口。如果你编写一个接受空接口的函数，那么你可以将任何类型传递给该函数。请参见下面的工作代码。
 
-```
+```go
 package main
 
 import "fmt"
@@ -135,7 +135,7 @@ func test(a interface{}) {
 
 **输出：**
 
-```
+```go
 (thisisstring, string)
 (10, string)
 (true, bool)

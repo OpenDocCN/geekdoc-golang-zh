@@ -14,7 +14,7 @@
 
 Golang的**sort.Slice**包可用于排序完整切片或部分切片，完整切片按升序排序
 
-```
+```go
 package main
 
 import (
@@ -34,13 +34,13 @@ func main() {
 
 **输出**
 
-```
+```go
 [1,2,3,4]
 ```
 
 完整切片按降序排序
 
-```
+```go
 package main
 import (
     "fmt"
@@ -57,13 +57,13 @@ func main() {
 
 **输出**
 
-```
+```go
 [4 3 2 1]
 ```
 
 部分切片排序
 
-```
+```go
 package main
 
 import (
@@ -85,7 +85,7 @@ func main() {
 
 **输出**
 
-```
+```go
 [3 4 1 2]
 ```
 

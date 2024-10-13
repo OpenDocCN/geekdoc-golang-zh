@@ -32,7 +32,7 @@
 
 ## **示例 1**
 
-```
+```go
 package main
 
 import "fmt"
@@ -55,7 +55,7 @@ func getAreaFunc() func(int, int) int {
 
 **输出：**
 
-```
+```go
 12
 ```
 
@@ -67,7 +67,7 @@ func getAreaFunc() func(int, int) int {
 
 +   一个函数返回两个函数
 
-```
+```go
 package main
 
 import "fmt"
@@ -95,7 +95,7 @@ func getAddSubtract() (func(int, int) int, func(int, int) int) {
 
 **输出**：
 
-```
+```go
 Sum is: 7
 Difference Value is: 1
 ```*

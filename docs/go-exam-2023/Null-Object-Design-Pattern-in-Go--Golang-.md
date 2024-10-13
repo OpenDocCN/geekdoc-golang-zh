@@ -34,7 +34,7 @@
 
 **department** 由一个接口表示。
 
-```
+```go
 type department interface {
     getNumberOfProfessors() int
     getName() string
@@ -43,7 +43,7 @@ type department interface {
 
 其中**college**表示为
 
-```
+```go
 type college struct {
     departments []department
 }
@@ -61,7 +61,7 @@ type college struct {
 
 **agency.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -104,7 +104,7 @@ func createCollege2() *college {
 
 **college.go –** 表示学院。
 
-```
+```go
 package main
 
 type college struct {
@@ -136,7 +136,7 @@ func (c *college) getDepartment(departmentName string) department {
 
 **department.go –** 它表示部门接口。
 
-```
+```go
 package main
 
 type department interface {
@@ -147,7 +147,7 @@ type department interface {
 
 **computerscience.go –** 部门接口的具体实现。
 
-```
+```go
 package main
 
 type computerscience struct {
@@ -165,7 +165,7 @@ func (c *computerscience) getName() string {
 
 **mechanical.go –** 部门接口的具体实现。
 
-```
+```go
 package main
 
 type mechanical struct {
@@ -183,7 +183,7 @@ func (c *mechanical) getName() string {
 
 **nullDepartment.go** – 部门接口的null对象实现。
 
-```
+```go
 package main
 
 type nullDepartment struct {
@@ -201,14 +201,14 @@ func (c *nullDepartment) getName() string {
 
 **输出：**
 
-```
+```go
 Total number of professors in college1 is 9
 Total number of professors in college2 is 2
 ```
 
 ## **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -314,7 +314,7 @@ func createCollege2() *college {
 
 **输出：**
 
-```
+```go
 Total number of professors in college1 is 9
 Total number of professors in college2 is 2
 ```

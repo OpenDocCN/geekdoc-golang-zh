@@ -14,7 +14,7 @@
 
 因此，在下面的程序中，为了交换字符串中的字符，我们首先将字符串转换为 rune 数组，以便可以通过索引访问该 rune 数组中的单个字符。
 
-```
+```go
 package main
 
 import "fmt"
@@ -31,7 +31,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Before: ab£d
 After: abd£
 ```

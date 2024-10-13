@@ -22,14 +22,14 @@
 
 **示例 1**
 
-```
+```go
 Input: 12
 Output: true
 ```
 
 **示例 2**
 
-```
+```go
 Input: 7 
 Output: false
 ```
@@ -48,7 +48,7 @@ Output: false
 
 以下是相同的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -96,7 +96,7 @@ func main() {
 
 **输出**
 
-```
+```go
 true
 false
 ```

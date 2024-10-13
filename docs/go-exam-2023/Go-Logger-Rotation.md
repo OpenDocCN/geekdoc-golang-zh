@@ -18,37 +18,37 @@
 
 +   **MaxAge**设置为10秒。这表示在日志文件被从文件系统中清除之前的最大年龄。也就是说，文件将在10秒后被删除。见
 
-```
+```go
 rotatelogs.WithMaxAge(time.Second*10)
 ```
 
 +   **RotationTime**是1秒**。**它设置了文件轮换的时间。所以文件将每秒轮换一次。见
 
-```
+```go
 rotatelogs.WithRotationTime(time.Second*1)
 ```
 
 +   **Location**是/var/log/service/。见
 
-```
+```go
 path := "/var/log/service/"
 ```
 
 +   文件的**Pattern**是“old.UTC..2019-11-30.22:40:10”。见
 
-```
+```go
  fmt.Sprintf("%s.%s", path, "%Y-%m-%d.%H:%M:%S")
 ```
 
 +   **Link Path**是/var/log/service/current。这个文件将是实际文件的符号链接。见
 
-```
+```go
 rotatelogs.WithLinkName("/var/log/service/current")
 ```
 
 **代码：**
 
-```
+```go
 package main
 
 import (

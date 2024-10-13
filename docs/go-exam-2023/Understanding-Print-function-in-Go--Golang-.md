@@ -20,19 +20,19 @@
 
 **Print**在**fmt**包中定义，用于格式化字符串并写入标准输出
 
-```
+```go
 https://golang.org/pkg/fmt/#Print
 ```
 
 以下是**Print**的函数原型
 
-```
+```go
 func Print(a ...interface{}) (n int, err error)
 ```
 
 **Print**使用默认格式说明符格式化字符串，但在字符串后不添加换行。**Print**接受可变数量的参数，每个参数都是一个空接口。它返回打印的字符数和发生的任何错误。由于参数类型是空接口，我们可以传递任何数据类型。我们可以传递字符串、整数、浮点数、结构体或任何其他数据类型。**Print**函数的每个参数根据该参数类型的默认格式说明符进行格式化。例如，结构体将根据以下说明符进行格式化
 
-```
+```go
 %v
 ```
 
@@ -48,7 +48,7 @@ func Print(a ...interface{}) (n int, err error)
 
 让我们看一个相同的例子
 
-```
+```go
 package main
 
 import "fmt"
@@ -85,7 +85,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is:John
 Age is:21
 {John 21}
@@ -101,31 +101,31 @@ Name is: John
 
 +   只有当两个参数都不是字符串时，它才会在两个参数之间添加空格。这就是原因
 
-```
+```go
 fmt.Print(12, 12.0, "\n")
 ```
 
 打印
 
-```
+```go
 12 12
 ```
 
 而
 
-```
+```go
 fmt.Print("a", 12, "b", 12.0, "\n")
 ```
 
 打印
 
-```
+```go
 a12b12
 ```
 
 +   它还返回打印的字符数和发生的任何错误
 
-```
+```go
 bytesPrinted, err := fmt.Print("Name is: ", name, "\n")
 if err != nil {
     log.Fatalln("Error occured", err)
@@ -135,7 +135,7 @@ fmt.Print(bytesPrinted)
 
 将输出以下内容
 
-```
+```go
 Name is: John
 14
 ```

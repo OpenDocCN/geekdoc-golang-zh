@@ -20,7 +20,7 @@ date: 2024-10-13 06:23:58
 
 # **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -42,13 +42,13 @@ func main() {
 
 **输出**
 
-```
+```go
 Before break
 ```
 
 **break**语句将终止最内层语句的执行，以下行将永远不会被执行。
 
-```
+```go
 fmt.Println("After break")
 ```
 

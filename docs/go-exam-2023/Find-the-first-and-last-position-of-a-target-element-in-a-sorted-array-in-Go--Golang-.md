@@ -20,7 +20,7 @@
 
 例如
 
-```
+```go
 Input: [1, 2, 2, 5]
 Target: 2
 Output: [1, 2]
@@ -44,7 +44,7 @@ Output: [-1,-1]
 
 以下是相应的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -124,7 +124,7 @@ func findRightPivot(nums []int, start, end, target, len int) int {
 
 **输出**
 
-```
+```go
 [1 2]
 [1 1]
 [-1 -1]

@@ -16,7 +16,7 @@
 
 出于这个原因，在下面的程序中生成排列时，我们首先将字符串转换为rune数组，以便能够对rune数组进行索引，从而获取单个字符。
 
-```
+```go
 package main
 
 import "fmt"
@@ -42,7 +42,7 @@ func generatePermutation(sampleRune []rune, left, right int) {
 
 **输出：**
 
-```
+```go
 ab£
 a£b
 ba£

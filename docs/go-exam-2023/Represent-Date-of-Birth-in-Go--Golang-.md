@@ -16,7 +16,7 @@
 
 +   `getDOB` 是一个接受年份、月份和日期并返回日期的函数。
 
-```
+```go
 package main
 
 import (
@@ -45,7 +45,7 @@ func getDOB(year, month, day int) time.Time {
 
 **输出：**
 
-```
+```go
 2011-04-02
 April 02, 2011
 ```

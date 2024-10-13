@@ -20,7 +20,7 @@
 
 # **示例**
 
-```
+```go
 package main
 
 import (
@@ -57,7 +57,7 @@ func writeToTempFile(text string) error {
 
 让我们看看一个在延迟函数中调用自定义结构体的方法的另一个示例。
 
-```
+```go
 package main
 
 import (
@@ -102,7 +102,7 @@ func main() {
 
 **输出**
 
-```
+```go
 In the setDefaultName function
 First employee name is: John
 
@@ -114,7 +114,7 @@ Second employee name is: DefaultName
 
 在上述程序中，我们有一个自定义结构体**employee**。
 
-```
+```go
 type employee struct {
 	name string
 }
@@ -122,7 +122,7 @@ type employee struct {
 
 结构体**employee**有一个**setName**函数，用于设置名称。但如果传入的名称长度小于3，该函数也会抛出错误。我们在**setName**中有一个延迟函数，它在**setName**完成后执行，并检查名称是否为空。如果为空，它会设置一个默认名称。这个延迟函数实际上是一个方法**setDefaultName**。
 
-```
+```go
 func (e *employee) setDefaultName() {
 	if e.name == "" {
 		e.name = "DefaultName"
@@ -135,21 +135,21 @@ func (e *employee) setDefaultName() {
 
 由于“John”的长度大于3，**setName**函数不会抛出错误。但如果你注意输出，延迟函数**setDefaultName**仍然被执行。
 
-```
+```go
 In the setDefaultName function
 First employee name is: John
 ```
 
 然后我们创建一个**employee**实例**e2**并设置它的名称。
 
-```
+```go
 e1 := &employee{}
 e1.setName("Ko")
 ```
 
 由于“Ko”的长度小于3，**setName**函数抛出错误。在这种情况下，延迟函数**setDefaultName**也会执行，并设置默认名称。这就是为什么你在下面的输出中看到这种情况。
 
-```
+```go
 Length of name passed is less than 3
 In the setDefaultName function
 Default name is set

@@ -22,7 +22,7 @@ golang的**debug**包提供了一个**StackTrace**函数，可以用来打印rec
 
 让我们看看一个程序
 
-```
+```go
 package main
 import (
     "fmt"
@@ -51,7 +51,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Stack Trace:
 goroutine 1 [running]:
@@ -72,7 +72,7 @@ Exiting normally
 
 在上述程序中，我们有一个函数**checkAndPrint**，它检查并打印传入参数的索引处的切片元素。如果传入的索引大于数组的长度，程序将会出现崩溃。我们在函数**checkAndPrint**的开始处添加了一个名为**handleOutIfBounds**的延迟函数。这个函数包含了下面的recover函数调用。
 
-```
+```go
 if r := recover(); r != nil {
     fmt.Println("Recovering from panic:", r)
 }
@@ -80,7 +80,7 @@ if r := recover(); r != nil {
 
 **recover**函数将捕获崩溃，我们也可以打印崩溃中的消息。
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 ```
 

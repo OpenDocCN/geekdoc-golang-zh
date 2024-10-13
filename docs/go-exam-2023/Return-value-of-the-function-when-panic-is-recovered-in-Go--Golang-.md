@@ -22,7 +22,7 @@
 
 让我们来看一个程序示例
 
-```
+```go
 package main
 import (
     "fmt"
@@ -49,7 +49,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Val: 0
 Error: 
@@ -57,13 +57,13 @@ Error:
 
 在上面的程序中，我们有一个**checkAndGet**函数，它获取int切片中特定索引的值。如果传递给此函数的索引大于（切片长度-1），则会引发恐慌。同时还有一个**handleOutOfBounds**函数用于从恐慌中恢复。因此，我们将索引2传递给**checkAndGet**函数，它引发了恐慌，并在**handleOutOfBounds**函数中得以恢复。这就是我们首先得到这个输出的原因。
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 ```
 
 请注意在主函数中，我们以这样的方式重新获取**checkAndGet**的返回值。
 
-```
+```go
 val, err := checkAndGet(a, 2)
 ```
 
@@ -77,13 +77,13 @@ val, err := checkAndGet(a, 2)
 
 因此
 
-```
+```go
 fmt.Printf("Val: %d\n", val)
 ```
 
 输出
 
-```
+```go
 Val: 0
 ```
 
@@ -91,13 +91,13 @@ Val: 0
 
 而且
 
-```
+```go
 fmt.Println("Error: ", err)
 ```
 
 输出
 
-```
+```go
 Error: 
 ```
 
@@ -105,7 +105,7 @@ Error:
 
 如果你不想返回类型的默认零值，那么可以使用命名返回值。我们来看一个程序示例。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -134,7 +134,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Val: 10
 Error: 
@@ -142,19 +142,19 @@ Error:
 
 这个程序与前面的程序相同，唯一的区别是我们在**checkAndGet**函数中使用了命名返回值。
 
-```
+```go
 func checkAndGet(a []int, index int) (value int, err error)
 ```
 
 我们在**checkAndGet**函数中将命名返回值设置为10
 
-```
+```go
 value = 10
 ```
 
 这就是为什么我们在这个程序中得到以下输出，因为引发了恐慌并得以恢复
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Val: 10
 Error: 

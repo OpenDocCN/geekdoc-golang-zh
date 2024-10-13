@@ -70,7 +70,7 @@
 
 **server.go**
 
-```
+```go
 package main
 
 type server interface {
@@ -80,7 +80,7 @@ type server interface {
 
 **nginx.go**
 
-```
+```go
 package main
 
 type nginx struct {
@@ -119,7 +119,7 @@ func (n *nginx) checkRateLimiting(url string) bool {
 
 **application.go**
 
-```
+```go
 package main
 
 type application struct {
@@ -138,7 +138,7 @@ func (a *application) handleRequest(url, method string) (int, string) {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -162,7 +162,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Url: /app/status
 HttpCode: 200
 Body: Ok
@@ -186,7 +186,7 @@ Body: Not Ok
 
 ## **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -260,7 +260,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Url: /app/status
 HttpCode: 200
 Body: Ok

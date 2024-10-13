@@ -62,7 +62,7 @@ Golang 在包级别提供封装。Go 没有公共、私有或受保护的关键�
 
 **data.go**
 
-```
+```go
 package model
 
 import "fmt"
@@ -112,7 +112,7 @@ func getCompanyName() string {
 
 **test.go**
 
-```
+```go
 package model
 
 import "fmt"
@@ -152,7 +152,7 @@ func Test() {
 
 **输出：**
 
-```
+```go
 &{test 21}
 &{}
 21
@@ -172,7 +172,7 @@ test
 
 **test.go**
 
-```
+```go
 package view
 
 import "fmt"
@@ -210,7 +210,7 @@ func Test() {
 
 **输出：**
 
-```
+```go
 test.go:13:3: unknown field 'age' in struct literal of type model.Person
 test.go:17:8: cannot refer to unexported name model.company
 test.go:17:8: undefined: model.company

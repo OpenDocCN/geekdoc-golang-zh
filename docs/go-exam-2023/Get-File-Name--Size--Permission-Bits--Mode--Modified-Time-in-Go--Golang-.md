@@ -28,13 +28,13 @@
 
 以下是函数的签名。它接受指定的文件并返回**FileInfo**结构体，该结构体定义了获取上述信息的实用方法。
 
-```
+```go
 func Stat(name string) (FileInfo, error)
 ```
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -70,7 +70,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Permission: -rwxrwxrwx
 Name: temp.txt
 Size: 17

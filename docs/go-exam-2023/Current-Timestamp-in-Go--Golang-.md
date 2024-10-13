@@ -20,41 +20,41 @@
 
 +   **time.Time**对象
 
-```
+```go
 t := time.Now() //It will return time.Time object with current timestamp
 ```
 
 +   **Unix时间（也称为纪元时间）** – 它是自1970年1月1日00:00:00 UTC以来经过的秒数。这个时间也被称为Unix纪元。
 
-```
+```go
 t := time.Now().Unix() 
 //Will return number of seconds passed since Unix epoch
 ```
 
 +   **Unix纳秒** – 自1970年1月1日00:00:00 UTC以来经过的纳秒数
 
-```
+```go
 t := time.Now().UnixNano() 
 //Will return number of nano seconds passed since Unix epoch
 ```
 
 +   **Unix毫秒** – 自1970年1月1日00:00:00 UTC以来经过的毫秒数
 
-```
+```go
 t:= int64(time.Nanosecond) * t.UnixNano() / int64(time.Millisecond)/ time.Millisecond  
 //Number of millisecond elapsed since Unix epoch
 ```
 
 +   **Unix微秒** – 自1970年1月1日00:00:00 UTC以来经过的微秒数
 
-```
+```go
 t:= int64(time.Nanosecond) * t.UnixNano() / int64(time.Millisecond)/ time.Millisecond  
 //Number of millisecond elapsed since Unix epoch
 ```
 
 # 代码
 
-```
+```go
 package main
 
 import (
@@ -82,7 +82,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 time.Time 2020-01-24 09:43:42.196901 UTC m=+0.000229700
 timeUnix: 1579839222
 timeUnixNano: 1579839222196901000

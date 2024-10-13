@@ -18,7 +18,7 @@
 
 给定一个二维数组，表示所得税的税率区间。输入数组为**税率区间**，其中
 
-```
+```go
 brackets[i] = [upperi, percenti]
 ```
 
@@ -34,14 +34,14 @@ brackets[i] = [upperi, percenti]
 
 **示例 1**
 
-```
+```go
 Input: brackets = [[4,10],[9,20],[12,30]], income = 10
 Output: 1.7
 ```
 
 **示例 2**
 
-```
+```go
 Input: brackets = [[3,10]], income = 1
 Output: 0.3
 ```
@@ -50,7 +50,7 @@ Output: 0.3
 
 下面是该程序的内容
 
-```
+```go
 package main
 
 import "fmt"
@@ -97,7 +97,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 1.7
 0.3
 ```

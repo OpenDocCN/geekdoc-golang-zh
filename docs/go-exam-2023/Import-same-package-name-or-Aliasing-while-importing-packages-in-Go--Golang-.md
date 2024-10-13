@@ -18,7 +18,7 @@
 
 导入包时的别名意味着给导入的包一个不同的名称。其语法为
 
-```
+```go
 import <new_name> <directory_path></directory_path></new_name>
 ```
 
@@ -32,7 +32,7 @@ import <new_name> <directory_path></directory_path></new_name>
 
 创建一个模块，导入路径为 [sample.com](http://sample.com)/learn
 
-```
+```go
 go mod init sample.com/learn
 ```
 
@@ -40,7 +40,7 @@ go mod init sample.com/learn
 
 +   math 目录包含文件 math.go，包声明为
 
-```
+```go
 package math
 ```
 
@@ -48,7 +48,7 @@ package math
 
 请注意，包名（即 **math**）在 **math** 文件夹和 **math2\.** 文件夹中是相同的。因此，两个文件夹 **math2** 和 **math** 都包含相同的包，即 **math.** 由于这两个目录具有相同的包名，别名是将两个包用于同一文件的唯一方法。这就是我们在 main.go 中如何别名和使用两个包。
 
-```
+```go
 import (
     "sample.com/learn/math"
     math2 "sample.com/learn/math2"
@@ -61,7 +61,7 @@ import (
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -69,7 +69,7 @@ go 1.14
 
 **learn/math2/math2.go**
 
-```
+```go
 package math
 func Subtract(a, b int) int {
     return a - b
@@ -78,7 +78,7 @@ func Subtract(a, b int) int {
 
 **learn/math/math.go**
 
-```
+```go
 package math
 func Add(a, b int) int {
     return a + b
@@ -87,7 +87,7 @@ func Add(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -102,7 +102,7 @@ func main() {
 
 让我们运行这个程序
 
-```
+```go
 go install
 learn $ learn
 3

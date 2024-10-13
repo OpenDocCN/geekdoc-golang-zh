@@ -24,13 +24,13 @@
 
 +   创建一个导入路径为**sample.com/math**的模块
 
-```
+```go
 go mod init sample.com/math
 ```
 
 +   在**math**目录中创建一个名为**math.go**的文件，内容如下
 
-```
+```go
 package math
 
 func Add(a, b int) int {
@@ -44,13 +44,13 @@ func Add(a, b int) int {
 
 +   创建一个模块名为**school**
 
-```
+```go
 go mod init school
 ```
 
 +   现在让我们修改**go.mod**文件以在school模块中导入math模块。要导入一个未推送到版本控制系统的本地模块，我们将使用替换目录。替换目录将用你指定的路径替换模块路径。
 
-```
+```go
 module school
 
 go 1.14
@@ -60,7 +60,7 @@ replace sample.com/math => ../math
 
 +   创建文件**school.go**，该文件将使用**[sample.com](http://sample.com)/math**模块中的**Add**函数
 
-```
+```go
 package main
 
 import (
@@ -75,7 +75,7 @@ func main() {
 
 现在执行 go run
 
-```
+```go
 go run school.go
 ```
 
@@ -83,7 +83,7 @@ go run school.go
 
 此外，它还将更新**go.mod**，并包含**[sample.com](http://sample.com)/math**模块的版本信息
 
-```
+```go
 module school
 
 go 1.14

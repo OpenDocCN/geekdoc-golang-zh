@@ -14,7 +14,7 @@
 
 让我们看看一个程序来理解它。
 
-```
+```go
 package main
 
 import (
@@ -43,7 +43,7 @@ func sum(ch chan int) {
 
 **输出**
 
-```
+```go
 Sum: 6
 ```
 
@@ -51,7 +51,7 @@ Sum: 6
 
 现在脑海中出现的问题是，如果你在主函数中不关闭一个通道会发生什么。尝试注释掉关闭通道的那一行。现在运行这个程序。它也会输出死锁，因为对于范围循环在求和函数中将永远不会结束。
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 

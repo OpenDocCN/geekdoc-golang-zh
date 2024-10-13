@@ -68,7 +68,7 @@ Go 中的数字常量进一步分为三种类型。
 
 +   未类型命名的整数常量。
 
-```
+```go
 package main
 
 import "fmt"
@@ -110,7 +110,7 @@ func main() {
 
 **输出**。
 
-```
+```go
 Typed named integer constant
 uu: Type: int Value: 123
 
@@ -141,19 +141,19 @@ oo: Type: complex128 Value: (123+0i)
 
 它定义如下。
 
-```
+```go
 const aa int = 123
 ```
 
 类型化整数常量可以赋值给使用 **var** 关键字创建的变量，如下所示。
 
-```
+```go
 var uu = aa
 ```
 
 当赋值给另一个 **int** 类型时会引发编译错误。因此下面的代码会引发编译错误，因为 **aa** 变量已经是 **int** 类型。
 
-```
+```go
 var v int32 = aa
 ```
 
@@ -161,13 +161,13 @@ var v int32 = aa
 
 它定义如下。
 
-```
+```go
 const bb = 123
 ```
 
 未类型命名的整数常量可以赋值给任何 **int** 类型、任何 **float** 类型和任何 **complex** 数字类型，以及使用 **var** 关键字创建的任何变量。因此下面的代码是可行的。
 
-```
+```go
 var ww = bb
 var xx int32 = bb
 var yy float64 = bb
@@ -178,13 +178,13 @@ var zz complex128 = bb
 
 它如下所示。
 
-```
+```go
 123
 ```
 
 无类型命名整数常量可以赋值给任何**int**类型、任何**float**类型以及任何**complex**数字类型，也可以赋值给任何使用**var**关键字创建的变量。因此，下面的代码是可行的。
 
-```
+```go
 var ww = 123
 var xx int32 = 123
 var yy float64 = 123
@@ -195,7 +195,7 @@ var zz complex128 = 123
 
 由于常量数值的无类型特性，不同的数值常量类型可以混合使用以形成一个表达式。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -206,7 +206,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 p: Type: float64 Value: 1.7333333333333334
 ```
 

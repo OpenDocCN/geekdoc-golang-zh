@@ -22,7 +22,7 @@
 
 创建一个名为 **learn** 的目录。我们将在 learn 目录中创建一个导入路径为 **“sample.com/learn”** 的模块。
 
-```
+```go
 go mod init sample.com/learn
 ```
 
@@ -30,7 +30,7 @@ go mod init sample.com/learn
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -48,7 +48,7 @@ go 1.14
 
 **learn/math/math.go**
 
-```
+```go
 package math
 func Add(a, b int) int {
     return a + b
@@ -60,7 +60,7 @@ func Subtract(a, b int) int {
 
 **learn/math/advanced/advanced.go**
 
-```
+```go
 package advanced
 func Square(a int) int {
     return a * a
@@ -69,7 +69,7 @@ func Square(a int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -85,7 +85,7 @@ func main() {
 
 让我们运行这个程序
 
-```
+```go
 learn $ go install
 learn $ learn
 3

@@ -20,7 +20,7 @@
 
 以下是该函数的签名
 
-```
+```go
 func ToLower(s string) string
 ```
 
@@ -28,7 +28,7 @@ func ToLower(s string) string
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -47,7 +47,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 abc
 abc12$a
 ```*

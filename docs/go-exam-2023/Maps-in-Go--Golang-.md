@@ -60,13 +60,13 @@
 
 映射是引用数据类型。当你将一个映射赋值给另一个映射时，它们都引用相同的基础映射。以下是映射的格式
 
-```
+```go
 map[key_type]value_type
 ```
 
 **key_type** 和 **value_type** 可以是不同类型或相同类型。在以下示例中，键类型是 **string**，值类型是 **int**。
 
-```
+```go
 map[string]int
 ```
 
@@ -116,19 +116,19 @@ map[string]int
 
 创建地图的最常见方法之一是使用地图字面量：
 
-```
+```go
 map[key_type]value_type{}
 ```
 
 以上是一个示例，其中键类型为字符串，值类型为整数。
 
-```
+```go
 employeeSalary := map[string]int{}
 ```
 
 地图也可以创建为一些已初始化的键值。
 
-```
+```go
 employeeSalary := map[string]int{
 "John": 1000
 "Sam": 2000
@@ -137,13 +137,13 @@ employeeSalary := map[string]int{
 
 也可以向地图添加新的键值对。
 
-```
+```go
 employeeSalary["Tom"] = 2000
 ```
 
 让我们看一个程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -167,7 +167,7 @@ func main() {
 
 **输出**
 
-```
+```go
 map[]
 map[John:1000 Sam:1200 Tom:2000]
 ```
@@ -176,7 +176,7 @@ map[John:1000 Sam:1200 Tom:2000]
 
 地图也可以使用var关键字声明，但它默认创建一个nil地图，因为地图的零值是nil。向该地图添加任何键值对将导致panic。让我们看一个例子。
 
-```
+```go
 package main
 
 func main() {
@@ -187,7 +187,7 @@ func main() {
 
 **输出**
 
-```
+```go
 panic: assignment to entry in nil map
 ```
 
@@ -199,7 +199,7 @@ panic: assignment to entry in nil map
 
 这是另一种创建地图的方法。内置函数**make**可以用来创建地图。它返回一个已初始化的地图。因此，可以向其添加键值对。
 
-```
+```go
 package main
 
 import "fmt"
@@ -215,7 +215,7 @@ func main() {
 
 **输出**
 
-```
+```go
 map[Tom:2000]
 ```
 
@@ -239,13 +239,13 @@ map[Tom:2000]
 
 以下是向地图添加键值对的格式。
 
-```
+```go
 mapName[key] = value
 ```
 
 让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -261,7 +261,7 @@ func main() {
 
 **输出**
 
-```
+```go
 map[Tom:2000]
 ```
 
@@ -271,7 +271,7 @@ map[Tom:2000]
 
 当尝试向已经存在的地图添加一个键时，新值将覆盖旧值。这类似于在地图中更新一个键。让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -293,7 +293,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Before update
 map[Tom:2000]
 After update
@@ -306,13 +306,13 @@ map[Tom:3000]
 
 以下是检索与键对应的值的格式。
 
-```
+```go
 val := mapName[key]
 ```
 
 让我们看一个程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -334,11 +334,11 @@ func main() {
 
 以下是删除与键对应的值的格式。
 
-```
+```go
 delete(map_name, key)
 ```
 
-```
+```go
 package main
 
 import "fmt"
@@ -360,7 +360,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Adding key
 map[Tom:2000]
 
@@ -374,7 +374,7 @@ map[]
 
 以下是检查地图中是否存在某个键的格式。
 
-```
+```go
 val, ok := mapName[key]
 ```
 
@@ -386,7 +386,7 @@ val, ok := mapName[key]
 
 让我们看一个例子
 
-```
+```go
 package main
 
 import "fmt"
@@ -409,7 +409,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Key exists case
 Val: 2000, ok: true
 Key doesn't exists case
@@ -420,7 +420,7 @@ Val: 0, ok: false
 
 如果我们只想检查一个键是否存在，而不需要值，则可以使用空标识符，即“_”来代替值。
 
-```
+```go
 _, ok = employeeSalary["Sam"]
 ```
 
@@ -434,13 +434,13 @@ _, ok = employeeSalary["Sam"]
 
 **len()**函数可以用于获取映射的长度，即映射中存在的键值对的数量。下面是使用此函数的格式。
 
-```
+```go
 len(mapName)
 ```
 
 让我们看一个程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -460,7 +460,7 @@ func main() {
 
 **输出**
 
-```
+```go
 2
 ```
 
@@ -468,7 +468,7 @@ func main() {
 
 映射的零值是nil。当我们使用**var**关键字声明一个映射时，这一点也得到了证明。请参见下面的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -483,7 +483,7 @@ func main() {
 
 **输出**
 
-```
+```go
 employeeSalary map is nil
 ```
 
@@ -491,7 +491,7 @@ employeeSalary map is nil
 
 映射是引用数据类型。因此，将一个映射分配给一个新变量时，这两个变量都引用同一个映射。一个映射的任何更改都会反映在另一个映射中，反之亦然。
 
-```
+```go
 package main
 
 import "fmt"
@@ -534,7 +534,7 @@ range操作符可以用于在Go中遍历映射
 
 首先让我们定义一个映射
 
-```
+```go
 sample := map[string]string{
         "a": "x",
         "b": "y",
@@ -543,7 +543,7 @@ sample := map[string]string{
 
 +   **迭代所有键和值**
 
-```
+```go
 for k, v := range sample {
    fmt.Printf("key :%s value: %s\n", k, v)
 }
@@ -551,14 +551,14 @@ for k, v := range sample {
 
 **输出：**
 
-```
+```go
 key :a value: x
 key :b value: y
 ```
 
 +   **仅迭代键**
 
-```
+```go
 for k := range sample {
    fmt.Printf("key :%s\n", k)
 }
@@ -566,14 +566,14 @@ for k := range sample {
 
 **输出：**
 
-```
+```go
 key :a
 key :b
 ```
 
 +   **仅迭代值**
 
-```
+```go
 for _, v := range sample {
    fmt.Printf("value :%s\n", v)
 }
@@ -581,14 +581,14 @@ for _, v := range sample {
 
 **输出：**
 
-```
+```go
 value :x
 value :y
 ```
 
 +   **获取所有键的列表**
 
-```
+```go
 keys := getAllKeys(sample)
 fmt.Println(keys)
 
@@ -603,7 +603,7 @@ func getAllKeys(sample map[string]string) []string {
 
 **输出：**
 
-```
+```go
 [a b]
 ```
 
@@ -613,7 +613,7 @@ golang映射在并发使用时是不安全的。
 
 **有错误的代码：** 下面是一段有错误的代码。如果发生并发读取和写入映射，可能会导致崩溃。
 
-```
+```go
 package main
 
 var (
@@ -639,7 +639,7 @@ func main() {
 
 **可能的输出：**
 
-```
+```go
 fatal error: concurrent map read and map write
 ```
 
@@ -647,7 +647,7 @@ fatal error: concurrent map read and map write
 
 我们可以使用锁来允许并发访问映射
 
-```
+```go
 package main
 
 import (
@@ -683,7 +683,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Some data
 ```
 

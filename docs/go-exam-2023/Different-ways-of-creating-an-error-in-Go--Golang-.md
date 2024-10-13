@@ -12,7 +12,7 @@
 
 在学习 Go 中创建错误的不同方式之前，首先了解错误。错误是一个具有以下签名的接口类型。
 
-```
+```go
 type error interface {  
     Error() string
 }
@@ -24,7 +24,7 @@ type error interface {
 
 # 1\. **使用 errors.New(“some_error_message”)**
 
-```
+```go
 package main
 
 import (
@@ -40,13 +40,13 @@ func main() {
 
 **输出：**
 
-```
+```go
 error occured
 ```
 
 # 2\. **使用 fmt.Errorf(“error is %s”, “some_error_message”)。这种方式可以创建带格式的错误信息**
 
-```
+```go
 package main
 
 import (
@@ -61,7 +61,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Err is: database connection issue
 ```
 
@@ -77,7 +77,7 @@ Err is: database connection issue
 
 **示例：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -118,7 +118,7 @@ func validate(name, gender string) error {
 
 **输出：**
 
-```
+```go
 Name is mandatory
 Missing Field is name
 ```

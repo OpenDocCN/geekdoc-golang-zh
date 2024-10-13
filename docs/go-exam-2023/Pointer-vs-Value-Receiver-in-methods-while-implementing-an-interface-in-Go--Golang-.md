@@ -20,7 +20,7 @@
 
 假设我们有一个接口**动物**如下
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -29,7 +29,7 @@ type animal interface {
 
 我们也有一个**狮子**结构体实现了这个**动物**接口
 
-```
+```go
 type lion struct {
     age int
 }
@@ -37,7 +37,7 @@ type lion struct {
 
 **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -74,7 +74,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 Lion breathes
@@ -85,13 +85,13 @@ Lion walk
 
 这样可以
 
-```
+```go
  a = lion{age: 10}
 ```
 
 以及这个
 
-```
+```go
 a = &lion{age: 5}
 ```
 
@@ -99,24 +99,24 @@ a = &lion{age: 5}
 
 所以这样可以
 
-```
+```go
 a = &lion{age: 5}
 ```
 
 但这会导致编译错误
 
-```
+```go
 a = lion{age: 10}
 ```
 
-```
+```go
 cannot use lion literal (type lion) as type animal in assignment:
         lion does not implement animal (breathe method has pointer receiver)
 ```
 
 查看完整工作代码
 
-```
+```go
 package main
 
 import "fmt"
@@ -153,13 +153,13 @@ func main() {
 
 取消注释这一行
 
-```
+```go
 a = lion{age: 10}
 ```
 
 这将导致编译错误
 
-```
+```go
 cannot use lion literal (type lion) as type animal in assignment:
         lion does not implement animal (breathe method has pointer receiver)
 ```

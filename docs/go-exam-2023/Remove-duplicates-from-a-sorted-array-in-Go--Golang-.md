@@ -20,7 +20,7 @@
 
 **示例**
 
-```
+```go
 Input: [1, 1, 1, 2]
 Output: [1, 2]
 
@@ -32,7 +32,7 @@ Output: [1, 2, 3]
 
 以下是相同的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -66,7 +66,7 @@ func removeDuplicates(nums []int) []int {
 
 **输出**
 
-```
+```go
 [1 2]
 [1 2 3]
 ```

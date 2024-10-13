@@ -36,7 +36,7 @@ HTTP（超文本传输协议）是应用层协议，以客户端-服务器模式
 
 **net**包包含http包，提供HTTP客户端（用于发送http请求）和HTTP服务器（监听http请求）实现。本文将讨论HTTP服务器。下面是导入http包的语句：
 
-```
+```go
 import "net/http"
 ```
 
@@ -92,13 +92,13 @@ API 签名和它的处理程序是成对的。当接收到与 API 签名匹配�
 
 +   **函数** – 函数应具有以下签名。
 
-```
+```go
 func(ResponseWriter, *Request)
 ```
 
 +   **类型** – 该类型应实现 **Handler** 接口。
 
-```
+```go
 type Handler interface {
    ServeHTTP(ResponseWriter, *Request)
 }
@@ -108,7 +108,7 @@ type Handler interface {
 
 +   **函数 –** 处理程序可以只是具有以下签名的简单函数。
 
-```
+```go
 func(ResponseWriter, *Request)
 ```
 
@@ -118,7 +118,7 @@ func(ResponseWriter, *Request)
 
 +   **类型 –** 该类型应实现 **Handler** 接口 – [https://golang.org/pkg/net/http/#Handler](https://golang.org/pkg/net/http/#Handler)。
 
-```
+```go
 type Handler interface {
    ServeHTTP(ResponseWriter, *Request)
 }
@@ -128,7 +128,7 @@ type Handler interface {
 
 如果你注意到，作为处理程序的**function**的API签名和**ListenAndServe**函数是相同的。
 
-```
+```go
 func(ResponseWriter, *Request)
 ```
 
@@ -142,7 +142,7 @@ Go提供了一个内置的默认mux – [https://golang.org/pkg/net/http/#ServeM
 
 这就是我们创建mux的方式。
 
-```
+```go
 mux := http.NewServeMux()
 ```
 
@@ -150,13 +150,13 @@ mux := http.NewServeMux()
 
 +   当处理程序是一个**function**时，它注册的是API签名的模式和作为处理程序的函数。
 
-```
+```go
 mux.HandleFunc(pattern, handlerFunc)
 ```
 
 +   当处理程序是实现了**Handler**接口的**type**时。
 
-```
+```go
 mux.Handle(pattern, handler)
 ```
 
@@ -166,7 +166,7 @@ mux.Handle(pattern, handler)
 
 这就是我们创建服务器的方式。创建服务器时，我们还可以指定一些其他参数，例如ReadTimeout、WriteTimeout等，但这超出了本教程的范围。所有未提供的参数都取默认零值。
 
-```
+```go
 s := &http.Server{
   Addr:    ":8080",
   Handler: mux,
@@ -177,7 +177,7 @@ s := &http.Server{
 
 该地址的形式为。
 
-```
+```go
 {ip_address}:{port}
 ```
 
@@ -193,7 +193,7 @@ s := &http.Server{
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -240,7 +240,7 @@ func (h studentHandler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 
 +   我们定义了一个名为 **teacherHandler** 的函数，该函数的签名接受 **http.ResponseWriter** 和指向 **http.Request** 的指针。
 
-```
+```go
 func teacherHandler(res http.ResponseWriter, req *http.Request) {
 	data := []byte("V1 of teacher's called")
 	res.Header().Set("Content-Type", "application/text")
@@ -251,7 +251,7 @@ func teacherHandler(res http.ResponseWriter, req *http.Request) {
 
 +   我们定义了一个名为 **studentHandler** 的结构体，该结构体定义了 **ServeHTTP** 方法。因此，**studentHandler** 是一个实现了 **Handler** 接口的类型。
 
-```
+```go
 type studentHandler struct{}
 
 func (h studentHandler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
@@ -264,26 +264,26 @@ func (h studentHandler) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 
 +   我们创建了一个 **ServerMux** 的实例。
 
-```
+```go
 mux := http.NewServeMux()
 ```
 
 +   我们注册了 API 签名“/v1/teachers”及其处理程序 **teacherHandler**。
 
-```
+```go
 mux.HandleFunc("/v1/teachers", teacherHandler)
 ```
 
 +   我们注册了 API 签名“/v1/students”及其处理程序 **studentHandler**，它是一个实现了 **Handler** 接口的类型。
 
-```
+```go
 sHandler := studentHandler{}
 mux.Handle("/v1/students", sHandler)
 ```
 
 +   我们创建了服务器，并提供了 **ServerMux** 的实例和要监听的端口，即 8080。然后调用了服务器实例上的 **ListenAndServe** 方法。
 
-```
+```go
 s := &http.Server{
 		Addr:    ":8080",
 		Handler: mux,
@@ -293,7 +293,7 @@ s.ListenAndServe()
 
 现在让我们运行服务器。
 
-```
+```go
 go run main.go
 ```
 
@@ -301,7 +301,7 @@ go run main.go
 
 调用 **“v1/teachers”** API – 它返回正确的响应 – ‘**V1 of teacher’s called’**，以及正确的状态码 200。
 
-```
+```go
 curl -v -X GET http://localhost:8080/v1/teachers
 Note: Unnecessary use of -X or --request, GET is already inferred.
 *   Trying ::1...
@@ -323,7 +323,7 @@ V1 of teacher's called
 
 调用 **"v1/students"** API - 它返回正确的响应 - '**V1 of student's called'**，以及正确的状态码 200。
 
-```
+```go
 curl -v -X GET http://localhost:8080/v1/students
 Note: Unnecessary use of -X or --request, GET is already inferred.
 *   Trying ::1...
@@ -359,25 +359,25 @@ V1 of student's called
 
 **ListenAndServe** 函数有一个 **addr** 和 **handler** 作为输入参数，并启动一个 HTTP 服务器。它开始监听传入的 HTTP 请求，并在收到请求时进行服务。下面是 **ListenAndServe** 函数的签名。
 
-```
+```go
 func ListenAndServe(addr string, handler Handler) error
 ```
 
 以下是调用此函数的方法。
 
-```
+```go
 http.ListenAndServe(:8080, nil)
 ```
 
 如果你注意到上面，我们以 nil 值调用了 **ListenAndServe** 函数。
 
-```
+```go
 http.ListenAndServe(:8080, nil)
 ```
 
 在这种情况下，将创建一个默认实例的 **ServeMux** ([https://golang.org/pkg/net/http/#ServeMux](https://golang.org/pkg/net/http/#ServeMux) )。
 
-```
+```go
 package main
 
 import (
@@ -415,7 +415,7 @@ net/http 包提供了 **HandleFunc** 和 **Handle**。这两个函数的工作�
 
 运行服务器。
 
-```
+```go
 go run main.go
 ```
 

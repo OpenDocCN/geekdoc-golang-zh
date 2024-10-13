@@ -28,7 +28,7 @@
 
 例如
 
-```
+```go
 Input String: aa
 Regex Sring: aa
 Output: true
@@ -60,7 +60,7 @@ Output: false
 
 这是程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -150,7 +150,7 @@ func restPatternStar(pattern []rune, patternIndex int, patternLength int) bool {
 
 **输出**
 
-```
+```go
 true
 true
 true
@@ -168,7 +168,7 @@ false
 
 **isMatchingMatrix[i][j]** 将为真，如果输入字符串的前 **i** 个字符与模式的前 **j** 个字符匹配。
 
-```
+```go
 If both input and pattern is empty
 isMatchingMatrix[0][0] = true
 
@@ -181,7 +181,7 @@ isMatchingMatrix[0][j] = isMatchingMatrix[0][j - 1] if pattern[j – 1] is '*'
 
 下面是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -260,7 +260,7 @@ func isMatch(s string, p string) bool {
 
 **输出**
 
-```
+```go
 true
 true
 true

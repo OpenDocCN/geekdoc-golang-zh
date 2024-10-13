@@ -20,14 +20,14 @@
 
 例如
 
-```
+```go
 regex := `b+`
 sampleRegexp := regexp.MustCompile("a" + regex)
 ```
 
 因此，在这里我们正在进行连接以获取整个模式。
 
-```
+```go
 "a" + regex
 ```
 
@@ -35,7 +35,7 @@ sampleRegexp := regexp.MustCompile("a" + regex)
 
 # **程序**
 
-```
+```go
 package main
 
 import (
@@ -55,7 +55,7 @@ func main() {
 
 **输出**
 
-```
+```go
 abb
 ```
 

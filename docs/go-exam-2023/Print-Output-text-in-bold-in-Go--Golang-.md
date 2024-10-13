@@ -22,7 +22,7 @@ date: 2024-10-13 06:41:13
 
 # **程序**
 
-```
+```go
 package main
 
 import "github.com/fatih/color"

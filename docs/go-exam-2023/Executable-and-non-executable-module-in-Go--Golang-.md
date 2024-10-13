@@ -30,13 +30,13 @@ date: 2024-10-13 06:29:45
 
 +   创建一个导入路径为**sample.com/math**的模块
 
-```
+```go
 go mod init sample.com/math
 ```
 
 +   在**math**目录中创建一个名为**math.go**的文件，内容如下
 
-```
+```go
 package math
 
 func Add(a, b int) int {
@@ -50,13 +50,13 @@ func Add(a, b int) int {
 
 +   创建一个模块名为**school**
 
-```
+```go
 go mod init school
 ```
 
 +   现在让我们修改**go.mod**文件，以在school模块中导入math模块。为了导入未推送到VCS的本地模块，我们将使用replace目录。replace目录将用您指定的路径替换模块路径。
 
-```
+```go
 module school
 
 go 1.14
@@ -66,7 +66,7 @@ replace sample.com/math => ../math
 
 +   创建文件**school.go**，将使用**[sample.com](http://sample.com)/math**模块中的**Add**函数
 
-```
+```go
 package main
 
 import (
@@ -81,7 +81,7 @@ func main() {
 
 现在执行`go run`
 
-```
+```go
 go run school.go
 ```
 

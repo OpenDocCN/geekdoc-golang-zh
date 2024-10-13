@@ -12,7 +12,7 @@
 
 以下是检查键是否存在于映射中的格式。
 
-```
+```go
 val, ok := mapName[key]
 ```
 
@@ -24,7 +24,7 @@ val, ok := mapName[key]
 
 让我们来看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -47,7 +47,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Key exists case
 Val: 2000, ok: true
 Key doesn't exists case
@@ -58,7 +58,7 @@ Val: 0, ok: false
 
 如果我们只想检查键是否存在而不需要 val，那么可以用空标识符“_”替代 val。
 
-```
+```go
 _, ok = employeeSalary["Sam"]
 ```
 

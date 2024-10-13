@@ -20,7 +20,7 @@
 
 # **示例**。
 
-```
+```go
 package main
 
 import "fmt"
@@ -42,7 +42,7 @@ func testGlobal() {
 
 **输出**。
 
-```
+```go
 8
 test
 ```
@@ -55,7 +55,7 @@ test
 
 **main.go**。
 
-```
+```go
 package main
 
 import (
@@ -72,7 +72,7 @@ func main() {
 
 **data.go**。
 
-```
+```go
 package data
 
 const PI = 3.142
@@ -80,13 +80,13 @@ const PI = 3.142
 
 前往 **learn** 目录并运行命令。
 
-```
+```go
 go run main.go
 ```
 
 **输出**。
 
-```
+```go
 3.142
 ```
 
@@ -94,7 +94,7 @@ go run main.go
 
 如果将常量名称从 **PI** 更改为 **pi**，则上述程序将引发编译错误。
 
-```
+```go
 cannot refer to unexported name data.pi
 ./main.go:11:7: undefined: data.pi
 ```
@@ -103,7 +103,7 @@ cannot refer to unexported name data.pi
 
 **main.go**。
 
-```
+```go
 package main
 
 import (
@@ -120,7 +120,7 @@ func main() {
 
 **data.go**。
 
-```
+```go
 package data
 
 const pi = 3.142
@@ -128,13 +128,13 @@ const pi = 3.142
 
 前往 **learn** 目录并运行命令。
 
-```
+```go
 go run main.go
 ```
 
 **输出**。
 
-```
+```go
 cannot refer to unexported name data.pi
 ./main.go:11:7: undefined: data.pi
 ```

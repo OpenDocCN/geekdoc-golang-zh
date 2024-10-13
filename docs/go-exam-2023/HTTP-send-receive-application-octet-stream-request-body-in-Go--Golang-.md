@@ -34,7 +34,7 @@
 
 **client/main.go**
 
-```
+```go
 package main
 
 import (
@@ -78,25 +78,25 @@ func call(urlPath, method string) error {
 
 在上述程序中，我们将文件**photo.png**作为**application/octet-stream**请求主体发送在POST请求中。首先将photo.png转换为字节，这些字节作为**application/octet-stream**主体发送。为此，首先读取文件的字节。
 
-```
+```go
 b, err := ioutil.ReadFile("photo.png")
 ```
 
 文件转换为字节后，它将作为第三个参数传递给**http.NewRequest**方法，如下所示。
 
-```
+```go
 bytes.NewReader(b)
 ```
 
 **bytes.NewReader**返回**bytes.Reader**实例。**bytes.Reader**实现了**io.Reader**和**io.Writer**。**http.NewRequest**方法接受`io.Reader`作为主体部分。因此，**bytes.Reader**实例可以作为第三个参数传递给http.NewRequest。
 
-```
+```go
 req, err := http.NewRequest(method, urlPath, bytes.NewReader(b))
 ```
 
 在上述程序中，我们还调用了以下API。
 
-```
+```go
 http://localhost:8080/photo
 ```
 
@@ -108,7 +108,7 @@ http://localhost:8080/photo
 
 **server/main.go**
 
-```
+```go
 package main
 
 import (
@@ -142,7 +142,7 @@ func createEmployee(w http.ResponseWriter, request *http.Request) {
 
 在上述程序中，我们创建了一个将在端口8080上监听的API。API签名将是：
 
-```
+```go
 http://localhost:8080/photo
 ```
 
@@ -150,13 +150,13 @@ http://localhost:8080/photo
 
 让我们运行服务器和客户端。先运行服务器。
 
-```
+```go
 go run server/main.go
 ```
 
 它将开始监听端口8080。之后运行客户端。
 
-```
+```go
 go run client/main.go
 ```
 

@@ -22,7 +22,7 @@
 
 +   **getAreaFunc** 函数的返回类型是 **func(int, int) int**
 
-```
+```go
 func getAreaFunc() func(int, int)
 ```
 
@@ -30,7 +30,7 @@ func getAreaFunc() func(int, int)
 
 **代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -50,6 +50,6 @@ func getAreaFunc() func(int, int) int {
 
 **输出：**
 
-```
+```go
 8
 ```

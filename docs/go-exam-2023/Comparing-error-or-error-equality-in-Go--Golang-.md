@@ -28,7 +28,7 @@
 
 +   使用错误包的Is函数 – [https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)。 使用Is函数优于使用相等运算符，因为它通过逐步解包第一个错误来检查相等性，并在每一步解包时与目标错误匹配。稍后我们将看到一个例子，以充分理解为什么它更可取。下面是Is函数的语法。
 
-```
+```go
 func Is(err, target error) bool
 ```
 
@@ -36,7 +36,7 @@ func Is(err, target error) bool
 
 让我们看一个例子
 
-```
+```go
 package main
 import (
     "errors"
@@ -63,7 +63,7 @@ func do() error {
 
 **输出**
 
-```
+```go
 Equality Operator: Both errors are equal
 Is function: Both errors are equal
 ```
@@ -74,13 +74,13 @@ Is function: Both errors are equal
 
 +   使用相等运算符
 
-```
+```go
 err1 == err2
 ```
 
 +   使用错误包的**Is**函数
 
-```
+```go
 errors.Is(err1, err2)
 ```
 
@@ -92,7 +92,7 @@ errors.Is(err1, err2)
 
 我们在上面提到，使用**Is**函数优于使用相等运算符，因为它通过逐步解包第一个错误来检查相等性，并在每一步解包时与目标错误匹配。让我们看一个例子。
 
-```
+```go
 package main
 
 import (
@@ -129,26 +129,26 @@ func do() error {
 
 **输出**
 
-```
+```go
 Equality Operator: Both errors are not equal
 Is function: Both errors are equal
 ```
 
 上面的程序几乎与前一个程序相同，唯一的区别在于在**do()**函数中我们也包装了错误。
 
-```
+```go
 return fmt.Errorf("E2: %w", errorOne{})
 ```
 
 +   相等运算符输出
 
-```
+```go
 Equality Operator: Both errors are not equal
 ```
 
 +   当**Is**函数输出时
 
-```
+```go
 Is function: Both errors are equal
 ```
 

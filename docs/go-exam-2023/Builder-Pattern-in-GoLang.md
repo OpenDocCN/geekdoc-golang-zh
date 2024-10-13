@@ -51,7 +51,7 @@
 
 **iBuilder.go**
 
-```
+```go
 package main
 
 type iBuilder interface {
@@ -74,7 +74,7 @@ func getBuilder(builderType string) iBuilder {
 
 **normalBuilder.go**
 
-```
+```go
 package main
 
 type normalBuilder struct {
@@ -110,7 +110,7 @@ func (b *normalBuilder) getHouse() house {
 
 **iglooBuilder.go**
 
-```
+```go
 package main
 
 type iglooBuilder struct {
@@ -146,7 +146,7 @@ func (b *iglooBuilder) getHouse() house {
 
 **house.go**
 
-```
+```go
 package main
 
 type house struct {
@@ -158,7 +158,7 @@ type house struct {
 
 **director.go**
 
-```
+```go
 package main
 
 type director struct {
@@ -185,7 +185,7 @@ func (d *director) buildHouse() house {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -212,7 +212,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Normal House Door Type: Wooden Door
 Normal House Window Type: Wooden Window
 Normal House Num Floor: 2

@@ -22,7 +22,7 @@
 
 可以使用os.Rename()函数来重命名文件或文件夹。下面是该函数的签名。
 
-```
+```go
 func Rename(old, new string) error
 ```
 
@@ -34,7 +34,7 @@ func Rename(old, new string) error
 
 下面是重命名文件的代码
 
-```
+```go
 package main
 
 import (
@@ -71,7 +71,7 @@ func main() {
 
 下面是重命名文件夹的代码
 
-```
+```go
 package main
 
 import (

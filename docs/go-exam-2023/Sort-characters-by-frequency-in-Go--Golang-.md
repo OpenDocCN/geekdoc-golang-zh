@@ -20,14 +20,14 @@
 
 **示例 1**
 
-```
+```go
 Input: "bcabcb"
 Output: "bbbcca"
 ```
 
 **示例 2**
 
-```
+```go
 Input: "mniff"
 Output: "ffmni"
 ```
@@ -36,7 +36,7 @@ Output: "ffmni"
 
 下面是相同的程序
 
-```
+```go
 package main
 
 import (
@@ -94,7 +94,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 bbbcca
 ffmni
 ```

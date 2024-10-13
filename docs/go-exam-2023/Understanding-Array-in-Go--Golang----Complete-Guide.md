@@ -44,7 +44,7 @@
 
 这是数组声明的格式。
 
-```
+```go
 sample := [size_of_array]{type}{a1, a2... an}
 ```
 
@@ -56,13 +56,13 @@ sample := [size_of_array]{type}{a1, a2... an}
 
 在golang中，数组的大小是其类型的一部分。这意味着两个具有不同元素数量的数组是两种不同的类型，不能相互赋值。如果尝试赋值两个不同长度的数组，将会引发下面的错误。
 
-```
+```go
 cannot use sample1 (type [1]int) as type [2]int in assignment
 ```
 
 代码如下：
 
-```
+```go
 sample1 := [1]int{1}
 sample2 := [2]int{1,2}
 
@@ -79,31 +79,31 @@ sample2 = sample1
 
 +   同时指定数组的长度和实际元素。例如：
 
-```
+```go
 [2]int{1, 2}
 ```
 
 +   仅长度 – 在这种情况下，所有实际元素都填充为该类型的默认值零。例如：
 
-```
+```go
 [2]int{}
 ```
 
 +   仅实际元素 – 在这种情况下，数组的长度将等于实际元素的数量。当不指定长度时，符号**‘…’**需要在方括号内使用，格式为**[…]**。该符号是对编译器的指令，以计算长度。
 
-```
+```go
 [...]int{2, 3}
 ```
 
 +   如果没有长度和实际元素——在这种情况下，将创建一个空数组。与上面类似，符号 **‘…’** 在这种情况下也需要使用。
 
-```
+```go
 [...]int{}
 ```
 
 让我们看一个代码示例来说明上述要点。还请记住，内置函数 **len()** 可以用来计算数组的长度。在下面的程序中，我们使用 **len()** 函数来计算数组的长度。
 
-```
+```go
 package main
 
 import "fmt"
@@ -129,7 +129,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Sample1: Len: 2, [1 2]
 Sample2: Len: 2, [2 3]
 Sample3: Len: 2, [0 0]
@@ -140,7 +140,7 @@ Sample4: Len: 0, []
 
 如果实际指定的元素少于数组的长度，也是可以的。其余元素将用指定类型的默认值填充。请参见下面的示例。指定的数组长度为 4，而只声明了 2 个实际元素。因此，其余两个元素被赋值为 0，这是 **int** 的默认零值。
 
-```
+```go
 package main
 
 import "fmt"
@@ -153,7 +153,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Sample: Len: 4, [5 8 0 0]
 ```
 
@@ -161,7 +161,7 @@ Sample: Len: 4, [5 8 0 0]
 
 由于数组元素是以连续方式存储的，我们可以使用索引访问数组元素。同样，单个数组元素也可以使用索引赋值。访问越界索引将导致编译错误。请参见下面的示例以说明这些要点。第一个索引位置将是 **零**，最后一个索引将是 **(length_of_array-1)**
 
-```
+```go
 package main
 
 import "fmt"
@@ -180,7 +180,7 @@ func main() {
 
 **输出**
 
-```
+```go
 aa
 bb
 [xx bb]
@@ -188,13 +188,13 @@ bb
 
 取消注释下面的行
 
-```
+```go
 sample[3] = "yy"
 ```
 
 , 这将导致编译错误
 
-```
+```go
 invalid array index 3 (out of bounds for 2-element array)
 ```
 
@@ -208,7 +208,7 @@ invalid array index 3 (out of bounds for 2-element array)
 
 让我们用另一个示例来看上述要点
 
-```
+```go
 package main
 
 import "fmt"
@@ -231,7 +231,7 @@ func test(sample [2]string) {
 
 **输出**
 
-```
+```go
 Sample1 Before: [a b]
 Sample1 After assignment: [a b]
 Sample2: 
@@ -255,7 +255,7 @@ Sample1 After Test Function Call: [a b]
 
 让我们看一个两者的代码示例
 
-```
+```go
 package main
 
 import "fmt"
@@ -278,7 +278,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Using for loop
 a
 b
@@ -294,7 +294,7 @@ Using for-range loop
 
 下面是声明二维数组的格式
 
-```
+```go
 sample := [x][y]{type}{{a11, a12 .. a1y},
                        {a21, a22 .. a2y},
                        {.. },
@@ -313,7 +313,7 @@ sample := [x][y]{type}{{a11, a12 .. a1y},
 
 让我们看一个代码示例
 
-```
+```go
 package main
 
 import "fmt"
@@ -340,7 +340,7 @@ func main() {
 
 **输出**
 
-```
+```go
 First Run
 1
 2
@@ -360,7 +360,7 @@ Second Run
 
 在上面的示例中，我们使用索引访问二维数组的元素，适用于第一维和第二维。
 
-```
+```go
 sample[0][0] = 6
 ```
 

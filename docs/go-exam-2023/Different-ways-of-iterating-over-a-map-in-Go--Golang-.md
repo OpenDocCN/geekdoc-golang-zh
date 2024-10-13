@@ -14,7 +14,7 @@
 
 首先定义一个映射
 
-```
+```go
 sample := map[string]string{
         "a": "x",
         "b": "y",
@@ -23,7 +23,7 @@ sample := map[string]string{
 
 +   **迭代所有键和值**
 
-```
+```go
 for k, v := range sample {
    fmt.Printf("key :%s value: %s\n", k, v)
 }
@@ -31,14 +31,14 @@ for k, v := range sample {
 
 **输出：**
 
-```
+```go
 key :a value: x
 key :b value: y
 ```
 
 +   **仅迭代键**
 
-```
+```go
 for k := range sample {
    fmt.Printf("key :%s\n", k)
 }
@@ -46,14 +46,14 @@ for k := range sample {
 
 **输出：**
 
-```
+```go
 key :a
 key :b
 ```
 
 +   **仅迭代值**
 
-```
+```go
 for _, v := range sample {
    fmt.Printf("value :%s\n", v)
 }
@@ -61,14 +61,14 @@ for _, v := range sample {
 
 **输出：**
 
-```
+```go
 value :x
 value :y
 ```
 
 +   **获取所有键的列表**
 
-```
+```go
 keys := getAllKeys(sample)
 fmt.Println(keys)
 
@@ -83,7 +83,7 @@ func getAllKeys(sample map[string]string) []string {
 
 **输出：**
 
-```
+```go
 [a b]
 ```
 

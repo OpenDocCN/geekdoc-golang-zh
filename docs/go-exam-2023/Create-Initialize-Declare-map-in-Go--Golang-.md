@@ -26,13 +26,13 @@ map是Golang内置的数据类型，类似于哈希表，它将键映射到值�
 
 下面是map的格式：
 
-```
+```go
 map[key_type]value_type
 ```
 
 **key_type**和**value_type**可以是不同类型或相同类型。在下面的例子中，键类型是**string**，值类型是**int**
 
-```
+```go
 map[string]int
 ```
 
@@ -40,7 +40,7 @@ map[string]int
 
 map也可以使用var关键字声明，但它会创建一个nil map，因为map的默认零值是nil。向该map添加任何键值对将导致恐慌。让我们看看这个例子
 
-```
+```go
 package main
 
 func main() {
@@ -51,7 +51,7 @@ func main() {
 
 **输出**
 
-```
+```go
 panic: assignment to entry in nil map
 ```
 
@@ -73,19 +73,19 @@ panic: assignment to entry in nil map
 
 创建map的最常见方式之一是使用map字面量：
 
-```
+```go
 map[key_type]value_type{}
 ```
 
 上述例子的键类型是字符串，值类型是整数
 
-```
+```go
 employeeSalary := map[string]int{}
 ```
 
 map也可以创建并初始化一些键值
 
-```
+```go
 employeeSalary := map[string]int{
 "John": 1000
 "Sam": 2000
@@ -94,13 +94,13 @@ employeeSalary := map[string]int{
 
 也可以向map中添加键值对
 
-```
+```go
 employeeSalary["Tom"] = 2000
 ```
 
 让我们看看一个程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -124,7 +124,7 @@ func main() {
 
 **输出**
 
-```
+```go
 map[]
 map[John:1000 Sam:1200 Tom:2000]
 ```
@@ -135,7 +135,7 @@ map[John:1000 Sam:1200 Tom:2000]
 
 这是创建map的另一种方式。内置函数**make**可用于创建map。它返回一个初始化的map。因此可以向其中添加键值对。
 
-```
+```go
 package main
 
 import "fmt"
@@ -151,7 +151,7 @@ func main() {
 
 **输出**
 
-```
+```go
 map[Tom:2000]
 ```
 

@@ -20,7 +20,7 @@
 
 例如
 
-```
+```go
 Input: [4, 5 ,-3]
 Maximum Subarray is [4, 5]
 Output: 9
@@ -28,7 +28,7 @@ Output: 9
 
 另一个示例
 
-```
+```go
 Input: [1, 2, -4, 4, 1]
 Maximum Subarray is [4, 1]
 Output: 5
@@ -50,7 +50,7 @@ Output: 5
 
 这里是相同的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -93,7 +93,7 @@ func maxSubArray(nums []int) int {
 
 **输出**
 
-```
+```go
 9
 5
 ```

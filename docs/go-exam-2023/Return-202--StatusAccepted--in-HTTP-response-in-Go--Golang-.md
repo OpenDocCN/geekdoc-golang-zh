@@ -20,7 +20,7 @@
 
 同样也可以用于返回202（StatusAccepted）HTTP状态码。HTTP 202状态码由下面的常量定义。
 
-```
+```go
 http.StatusAccepted
 ```
 
@@ -30,7 +30,7 @@ http.StatusAccepted
 
 下面是相应的程序
 
-```
+```go
 package main
 
 import (
@@ -61,19 +61,19 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 在这里我们使用**WriteHeader**函数来指定202 HTTP状态码，并使用**Write**函数返回响应主体。上述代码将以下JSON请求主体返回作为响应
 
-```
+```go
 {"message":"Status Accepted"}
 ```
 
 运行上述程序。它将在你的本地机器上启动一个8080端口的服务器。现在对服务器进行下面的curl调用。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 下面将是输出结果
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080
@@ -93,7 +93,7 @@ curl -v -X POST http://localhost:8080/example
 
 你也可以直接将202传递给WriteHeader函数以发送202响应。
 
-```
+```go
 w.WriteHeader(202)
 ```
 

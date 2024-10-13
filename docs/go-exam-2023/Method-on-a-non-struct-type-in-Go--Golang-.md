@@ -12,13 +12,13 @@
 
 方法也可以在非结构体自定义类型上定义。非结构体自定义类型可以通过类型定义创建。以下是创建新自定义类型的格式
 
-```
+```go
 type {type_name} {built_in_type}
 ```
 
 例如，我们可以定义一个名为**myFloat**的自定义类型，其类型为**float64**。
 
-```
+```go
 type myFloat float64
 ```
 
@@ -26,7 +26,7 @@ type myFloat float64
 
 **代码**
 
-```
+```go
 package main
 
 import (
@@ -48,7 +48,7 @@ func main() {
 
 **输出**
 
-```
+```go
 2
 ```
 

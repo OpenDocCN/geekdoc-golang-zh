@@ -42,7 +42,7 @@
 
 让我们看看一些时间格式代码示例
 
-```
+```go
 package main
 
 import (
@@ -78,7 +78,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 YYYY-MM-DD: 2020-01-25
 YY-MM-DD: 20-01-25
 YYYY-#{MonthName}-DD: 2020-Jan-25

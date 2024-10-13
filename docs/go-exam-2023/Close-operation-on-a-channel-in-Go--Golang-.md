@@ -12,7 +12,7 @@
 
 关闭是一个内置函数，可以用于关闭通道。关闭通道意味着不能再向通道发送更多数据。当所有数据都已发送且没有更多数据要发送时，通道通常会被关闭。让我们看看一个程序。
 
-```
+```go
 package main
 
 import (
@@ -41,7 +41,7 @@ func sum(ch chan int, len int) {
 
 **输出**
 
-```
+```go
 Sum: 6
 ```
 
@@ -49,7 +49,7 @@ Sum: 6
 
 在一个关闭的通道上发送会导致恐慌。请查看下面的程序。
 
-```
+```go
 package main
 func main() {
     ch := make(chan int)
@@ -60,7 +60,7 @@ func main() {
 
 **输出**
 
-```
+```go
 panic: send on closed channel
 ```
 
@@ -68,7 +68,7 @@ panic: send on closed channel
 
 在从通道接收时，我们还可以使用一个附加变量来确定通道是否已关闭。下面是相应的语法。
 
-```
+```go
 val,ok <- ch
 ```
 
@@ -78,7 +78,7 @@ ok 的值将是
 
 +   如果通道已关闭则为假。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -97,7 +97,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Val: 2 OK: true
 Val: 0 OK: false
 ```
@@ -108,7 +108,7 @@ Val: 0 OK: false
 
 范围循环可以用来从通道接收数据，直到它被关闭。
 
-```
+```go
 package main
 
 import (
@@ -137,7 +137,7 @@ func sum(ch chan int) {
 
 **输出**
 
-```
+```go
 Sum: 6
 ```
 
@@ -145,7 +145,7 @@ Sum: 6
 
 现在浮现的问题是，如果在主函数中不关闭通道会发生什么。尝试注释掉关闭通道的那一行。现在运行程序。它也会输出死锁，因为范围循环在求和函数中将永远不会结束。
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 

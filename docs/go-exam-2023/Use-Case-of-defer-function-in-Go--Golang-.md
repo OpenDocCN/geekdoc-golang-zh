@@ -18,7 +18,7 @@
 
 如名称所示，Defer用于推迟函数中的清理活动。这些清理活动将在函数结束时执行。这些清理活动将在一个由defer调用的不同函数中完成。这个不同的函数在其所在函数返回之前的最后执行。以下是defer函数的语法。
 
-```
+```go
 defer {function_or_method_call}
 ```
 
@@ -26,7 +26,7 @@ defer {function_or_method_call}
 
 # **示例**
 
-```
+```go
 package main
 
 import (
@@ -60,7 +60,7 @@ func writeToTempFile(text string) error {
 
 在上述程序中，在**writeToTempFile**函数中，我们打开一个文件，然后尝试向该文件写入一些内容。写入完内容后，我们关闭文件。在写入操作期间可能会出现错误，从而导致函数在未关闭文件的情况下返回。**Defer**函数可以帮助避免这些问题。**Defer**函数总是在其所在函数返回之前执行。让我们在这里重写上述程序并使用**defer**函数。
 
-```
+```go
 package main
 
 import (

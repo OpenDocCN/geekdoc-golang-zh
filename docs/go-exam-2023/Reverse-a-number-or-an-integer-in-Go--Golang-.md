@@ -18,7 +18,7 @@
 
 目标是反转一个整数。整数可以是负数。以下是一些示例
 
-```
+```go
 Input: 123
 Output: 321
 
@@ -38,7 +38,7 @@ Output: 0
 
 +   使用下面的逻辑遍历数字，每次获取最后一位数字。使用最后一位数字来创建**reversedDigit**
 
-```
+```go
 for x > 0 {
 	lastDigit := x % 10
 	reversedDigit = reversedDigit*10 + lastDigit
@@ -51,7 +51,7 @@ for x > 0 {
 
 ## **程序**
 
-```
+```go
 package main
 
 import (
@@ -101,7 +101,7 @@ func reverse(x int) int {
 
 **输出**
 
-```
+```go
 321
 41
 -321

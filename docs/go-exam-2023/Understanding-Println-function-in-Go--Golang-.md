@@ -24,13 +24,13 @@
 
 以下是 **Println** 的函数原型。
 
-```
+```go
 func Println(a ...interface{}) (n int, err error)
 ```
 
 **Println** 使用默认格式说明符格式化字符串，并在字符串后添加换行。**Println** 接受可变数量的参数，每个参数都是一个空接口。它返回打印的字符数量以及发生的任何错误。由于参数类型是空接口，我们可以传递任何数据类型。我们可以传递字符串、整数、浮点数、结构体或任何其他数据类型。**Println** 函数的每个参数都根据该参数类型的默认格式说明符进行格式化。例如，结构体将根据下面的说明符进行格式化。
 
-```
+```go
 %v
 ```
 
@@ -38,7 +38,7 @@ func Println(a ...interface{}) (n int, err error)
 
 ## **程序**
 
-```
+```go
 package main
 import "fmt"
 type employee struct {
@@ -67,7 +67,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is: John
 Age is: 21
 {John 21}
@@ -82,13 +82,13 @@ Name is: John
 
 +   输出中的每个参数将用空格分隔。这就是为什么
 
-```
+```go
 fmt.Println("Name is: ", name)
 ```
 
 打印
 
-```
+```go
 Name is: John
 ```
 
@@ -96,7 +96,7 @@ Name is: John
 
 +   它返回打印的字符数量或发生的任何错误。
 
-```
+```go
 bytesPrinted, err := fmt.Println("Name is: ", name)
 if err != nil {
     log.Fatalln("Error occured", err)
@@ -106,7 +106,7 @@ fmt.Println(bytesPrinted)
 
 将输出如下
 
-```
+```go
 Name is: John
 14
 ```

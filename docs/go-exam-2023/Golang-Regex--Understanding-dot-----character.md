@@ -30,13 +30,13 @@
 
 [https://golang.org/pkg/regexp/#MustCompile](https://golang.org/pkg/regexp/#MustCompile)。以下是该函数的签名。
 
-```
+```go
 func MustCompile(str string) *Regexp
 ```
 
 我们首先使用**MustCompile**函数编译给定的正则表达式字符串。如果给定的正则表达式无效，该函数会引发错误。在成功编译给定的正则表达式后，它返回**regexp**结构的实例。
 
-```
+```go
 sampleRegexp := regexp.MustCompile("some_regular_expression")
 ```
 
@@ -46,13 +46,13 @@ sampleRegexp := regexp.MustCompile("some_regular_expression")
 
 以下是该方法的签名。
 
-```
+```go
 func (re *Regexp) Match(b []byte) bool
 ```
 
 我们可以在**regexp**结构实例上调用**Match**方法，将给定模式与正则表达式匹配。如果正则表达式与输入字符串匹配，则返回true，否则返回false。我们需要将输入字符串的字节传递给此方法。
 
-```
+```go
 match := sampleRegexp.Match([]byte("some_string"))
 ```
 
@@ -60,7 +60,7 @@ match := sampleRegexp.Match([]byte("some_string"))
 
 现在让我们看一个简单的点字符‘.’程序。
 
-```
+```go
 package main
 
 import (
@@ -87,7 +87,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For a: true
 For b: true
 For ab: true
@@ -96,13 +96,13 @@ For empty string: false
 
 在上述程序中，我们有一个仅包含一个点字符的简单正则表达式。
 
-```
+```go
 sampleRegexp := regexp.MustCompile(".")
 ```
 
 它匹配以下字符和字符串。
 
-```
+```go
 a
 b
 ab
@@ -114,7 +114,7 @@ ab
 
 让我们看另一个示例，其中正则表达式中有两个点。
 
-```
+```go
 package main
 
 import (
@@ -140,7 +140,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For ab: true
 For ba: true
 For abc: true
@@ -149,7 +149,7 @@ For a: false
 
 在上述程序中，我们有一个包含两个点的简单正则表达式。
 
-```
+```go
 sampleRegexp := regexp.MustCompile("..")
 ```
 
@@ -157,7 +157,7 @@ sampleRegexp := regexp.MustCompile("..")
 
 这就是它给出匹配的原因。
 
-```
+```go
 ab
 ba
 abc
@@ -165,19 +165,19 @@ abc
 
 并且不匹配
 
-```
+```go
 a
 ```
 
 如前所述，点**‘.’**也不匹配新行。但可以通过在正则表达式的开头添加一组标志来改变默认行为。我们需要添加到正则表达式开头的标志是：
 
-```
+```go
 (?s)
 ```
 
 让我们看一个相同的程序。
 
-```
+```go
 package main
 
 import (
@@ -200,18 +200,18 @@ func main() {
 
 **输出**
 
-```
+```go
 For \n: false
 For \n: true
 ```
 
-```
+```go
 sampleRegexp := regexp.MustCompile(".")
 ```
 
 和
 
-```
+```go
 sampleRegexp = regexp.MustCompile("(?s).")
 ```
 
@@ -221,19 +221,19 @@ sampleRegexp = regexp.MustCompile("(?s).")
 
 如果你想将**点‘.’**作为字面字符使用，我们需要用反斜杠进行转义。转义后，它将匹配一个字面点字符。例如，如果我们想匹配以下的字面字符串或文本。
 
-```
+```go
 a.b
 ```
 
 那么相应的正则表达式将是。
 
-```
+```go
 a\.b
 ```
 
 这里是相应的程序。
 
-```
+```go
 package main
 
 import (
@@ -252,7 +252,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For a.b string: true
 ```
 
@@ -260,7 +260,7 @@ For a.b string: true
 
 点或**‘.’**在方括号或字符类内被视为字面字符。在那里面不需要转义。让我们看看一个相应的工作程序。
 
-```
+```go
 package main
 
 import (
@@ -279,11 +279,11 @@ func main() {
 
 **输出**
 
-```
+```go
 true
 ```
 
-```
+```go
 Also, check out our Golang advance tutorial Series – Golang Advance Tutorial
 ```
 

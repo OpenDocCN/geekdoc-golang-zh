@@ -12,7 +12,7 @@
 
 接口的默认值或零值为nil。下面的程序演示了这一点。
 
-```
+```go
 package main
 
 import "fmt"
@@ -29,7 +29,7 @@ func main() {
 
 **输出**
 
-```
+```go
 nil
 ```
 

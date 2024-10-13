@@ -22,7 +22,7 @@ GO 中的空结构体 **struct{}** 不占用任何内存。它的大小为零字
 
 例如：在 GO 的 context 包中，我们有 **cancelCtx**，如下所示。可以看到，done 通道使用了空结构体，因为它仅用于通知取消，并没有数据值。
 
-```
+```go
 type cancelCtx struct {
     Context
     mu       sync.Mutex            // protects following fields
@@ -38,7 +38,7 @@ type cancelCtx struct {
 
 +   是布尔通道的完美替代。布尔值占用一定空间，而结构体不占用，因此使用 `struct{}` 的通道更有效。请看下面的示例。
 
-```
+```go
 package main
 
 import (

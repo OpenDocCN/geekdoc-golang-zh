@@ -20,7 +20,7 @@
 
 下面是函数的签名。
 
-```
+```go
 func Replace(s, old, new string, n int)
 ```
 
@@ -34,7 +34,7 @@ func Replace(s, old, new string, n int)
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -53,7 +53,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 12cdabxyabr
 12cd12xy12r
 ```*

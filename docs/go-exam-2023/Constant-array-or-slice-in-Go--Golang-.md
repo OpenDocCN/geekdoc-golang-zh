@@ -30,7 +30,7 @@ Go 不支持常量数组或切片。这是因为在 Go 中常量值在编译时�
 
 # **示例**
 
-```
+```go
 package main
 func main() {
 	const e = [1]int{1}
@@ -39,7 +39,7 @@ func main() {
 
 **输出**
 
-```
+```go
 const initializer [1]int literal is not a constant
 ```
 

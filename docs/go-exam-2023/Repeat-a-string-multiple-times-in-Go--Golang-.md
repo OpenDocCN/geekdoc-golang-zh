@@ -24,7 +24,7 @@
 
 这是该方法的签名
 
-```
+```go
 func Repeat(s string, count int) string
 ```
 
@@ -34,7 +34,7 @@ func Repeat(s string, count int) string
 
 这是相同内容的程序
 
-```
+```go
 package main
 
 import (
@@ -53,7 +53,7 @@ func main() {
 
 **输出:**
 
-```
+```go
 aa
 abcabcabc
 ```

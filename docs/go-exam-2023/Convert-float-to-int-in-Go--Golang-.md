@@ -20,7 +20,7 @@
 
 Golang需要明确转换才能在不同类型之间进行转换。浮点数据类型可以通过显式类型转换直接转换为浮点数据类型。以下是其语法。
 
-```
+```go
 {destination_type}(some_value) 
 ```
 
@@ -28,20 +28,20 @@ Golang需要明确转换才能在不同类型之间进行转换。浮点数据�
 
 ## **float64 转 int**
 
-```
+```go
 var a float64 = 12
 var b int = int(a)
 ```
 
 或
 
-```
+```go
 b := int(a)
 ```
 
 以下是相应的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -58,27 +58,27 @@ func main() {
 
 **输出**
 
-```
+```go
 Underlying Type of b: int
 Underlying Type of b2: int
 ```
 
 ## **float32 转 int**
 
-```
+```go
 var a float32 = 12
 var b int = int(a)
 ```
 
 或
 
-```
+```go
 b := int(a)
 ```
 
 以下是相应的工作程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -95,20 +95,20 @@ func main() {
 
 **输出**
 
-```
+```go
 Underlying Type of b: int
 Underlying Type of b2: int
 ```
 
 如果我们直接将浮点值赋给整数变量而没有明确转换，将会引发以下编译错误。
 
-```
+```go
 cannot use a (type float64) as type int in assignment
 ```
 
 或
 
-```
+```go
 cannot use a (type float32) as type int in assignment
 ```
 

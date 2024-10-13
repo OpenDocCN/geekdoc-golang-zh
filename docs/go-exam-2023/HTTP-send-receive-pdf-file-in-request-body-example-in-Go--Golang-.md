@@ -30,7 +30,7 @@
 
 以下是相应的程序。
 
-```
+```go
 package main
 
 import (
@@ -76,13 +76,13 @@ func createImage(w http.ResponseWriter, request *http.Request) {
 
 让我们也理解程序。我们需要做的第一件事是在**请求**对象上调用**ParseMultipartForm**函数
 
-```
+```go
 request.ParseMultipartForm()
 ```
 
 它将解析表单数据请求体。之后，我们可以在请求对象上调用**FormFile**函数，传入键作为参数。它将返回给定键的**multipart.File**对象，这里的键是**"photo"**。该对象是访问该键的多部分消息文件部分的接口。程序使用它将文件保存到磁盘。
 
-```
+```go
 _, err = io.Copy(tmpfile, file)
 ```
 
@@ -90,7 +90,7 @@ _, err = io.Copy(tmpfile, file)
 
 # **HTTP客户端**
 
-```
+```go
 package main
 
 import (
@@ -145,7 +145,7 @@ func call(urlPath, method string) error {
 
 首先，我们必须创建一个多部分写入器 [https://golang.org/pkg/mime/multipart/#Writer](https://golang.org/pkg/mime/multipart/#Writer)
 
-```
+```go
 writer := multipart.NewWriter(body)
 ```
 

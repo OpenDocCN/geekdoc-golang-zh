@@ -20,7 +20,7 @@
 
 对于
 
-```
+```go
 Input Array: [0,2,3,-1] Target Sum:6
 Output: 5 . It can be formed using 0+2+3 
 ```
@@ -29,7 +29,7 @@ Output: 5 . It can be formed using 0+2+3
 
 以下是相同的程序
 
-```
+```go
 package main
 
 import (
@@ -80,7 +80,7 @@ func threeSumClosest(nums []int, target int) int {
 
 **输出**
 
-```
+```go
 5
 ```
 

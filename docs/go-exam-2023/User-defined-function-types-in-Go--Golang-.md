@@ -28,7 +28,7 @@
 
 可以使用**type**关键字声明用户定义的类型作为函数，如下所示。**area**是类型为**func(int, int) int**的函数名称。
 
-```
+```go
 type area func(int, int) int
 ```
 
@@ -38,7 +38,7 @@ type area func(int, int) int
 
 在这个例子中，我们创建一个用户定义的函数类型**area**。然后在主函数中创建一个类型为**area**的变量。
 
-```
+```go
 package main
 
 import "fmt"
@@ -59,7 +59,7 @@ func print(x, y int, a area) {
 
 **输出：**
 
-```
+```go
 6
 ```
 
@@ -67,7 +67,7 @@ func print(x, y int, a area) {
 
 在这个例子中，我们也创建一个用户定义的函数类型**area**。然后我们创建一个函数**getAreaFunc()**，它返回类型为**area**的函数。
 
-```
+```go
 package main
 
 import "fmt"
@@ -93,7 +93,7 @@ func getAreaFunc() area {
 
 **输出：**
 
-```
+```go
 6
 ```
 

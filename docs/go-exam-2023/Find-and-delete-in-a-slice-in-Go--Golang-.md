@@ -18,7 +18,7 @@
 
 +   在末尾重新切片
 
-```
+```go
 package main
 
 import "fmt"
@@ -42,7 +42,7 @@ func findAndDelete(s []int, item int) []int {
 
 **输出：**
 
-```
+```go
 [2,3]
 ```
 
@@ -50,7 +50,7 @@ func findAndDelete(s []int, item int) []int {
 
 +   创建一个新切片并持续插入内容。
 
-```
+```go
 package main
 
 import "fmt"
@@ -76,6 +76,6 @@ func findAndDelete(s []int, itemToDelete int) []int {
 
 **输出**：
 
-```
+```go
 [2,3]
 ```

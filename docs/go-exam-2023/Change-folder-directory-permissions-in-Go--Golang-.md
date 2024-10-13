@@ -12,13 +12,13 @@
 
 **os.Chmod()** 函数可用于更改现有文件夹或目录的权限。以下是该函数的签名。
 
-```
+```go
 func Chmod(name string, mode FileMode) error
 ```
 
 **代码** 
 
-```
+```go
 package main
 
 import (
@@ -51,7 +51,7 @@ func main() {
 
 **输出：** 
 
-```
+```go
 Permission Folder Before: drwxr-xr-x
 Permission Folder After:  drwx------
 ```

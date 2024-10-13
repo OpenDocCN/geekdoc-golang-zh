@@ -64,7 +64,7 @@
 
 **iGun.go**
 
-```
+```go
 package main
 
 type iGun interface {
@@ -77,7 +77,7 @@ type iGun interface {
 
 **gun.go**
 
-```
+```go
 package main
 
 type gun struct {
@@ -104,7 +104,7 @@ func (g *gun) getPower() int {
 
 **ak47.go**
 
-```
+```go
 package main
 
 type ak47 struct {
@@ -123,7 +123,7 @@ func newAk47() iGun {
 
 **maverick.go**
 
-```
+```go
 package main
 
 type maverick struct {
@@ -142,7 +142,7 @@ func newMaverick() iGun {
 
 **gunFactory.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -160,7 +160,7 @@ func getGun(gunType string) (iGun, error) {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -182,7 +182,7 @@ func printDetails(g iGun) {
 
 **输出：**
 
-```
+```go
 Gun: AK47 gun
 Power: 4
 Gun: Maverick gun
@@ -191,7 +191,7 @@ Power: 5
 
 ## **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -277,7 +277,7 @@ func printDetails(g iGun) {
 
 **输出：**
 
-```
+```go
 Gun: AK47 gun
 Power: 4
 Gun: Maverick gun

@@ -24,7 +24,7 @@
 
 反射包提供了一些有用的检查函数，可以让我们了解类型
 
-```
+```go
 package main
 
 import (
@@ -41,13 +41,13 @@ func main() {
 
 **输出：**
 
-```
+```go
 string
 ```
 
 # **使用类型断言**
 
-```
+```go
 package main
 
 import "fmt"
@@ -73,14 +73,14 @@ func main() {
 
 **输出：**
 
-```
+```go
 Test is of type string with value test_string
 Test is of type int with value 2
 ```
 
 # **使用 Switch**
 
-```
+```go
 package main
 
 import "fmt"
@@ -104,14 +104,14 @@ func printType(t interface{}) {
 
 **输出：**
 
-```
+```go
 Type: string
 Type: int
 ```
 
 # **使用 printf 或 sprintf**
 
-```
+```go
 package main
 
 import (
@@ -131,7 +131,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 string
 string
 ```

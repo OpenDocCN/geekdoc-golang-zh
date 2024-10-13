@@ -40,7 +40,7 @@
 
 **iPoolObject.go**
 
-```
+```go
 package main
 
 type iPoolObject interface {
@@ -50,7 +50,7 @@ type iPoolObject interface {
 
 **pool.go**
 
-```
+```go
 package main
 
 import (
@@ -120,7 +120,7 @@ func (p *pool) remove(target iPoolObject) error {
 
 **connection.go**
 
-```
+```go
 package main
 
 type connection struct {
@@ -134,7 +134,7 @@ func (c *connection) getID() string {
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -167,7 +167,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Loan Pool Object with ID: 0
 Loan Pool Object with ID: 1
 Return Pool Object with ID: 0
@@ -176,7 +176,7 @@ Return Pool Object with ID: 1
 
 ## **完整工作代码：**
 
-```
+```go
 package main
 
 import (
@@ -282,7 +282,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Loan Pool Object with ID: 0
 Loan Pool Object with ID: 1
 Return Pool Object with ID: 0

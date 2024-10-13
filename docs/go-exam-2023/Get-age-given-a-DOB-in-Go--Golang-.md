@@ -14,7 +14,7 @@
 
 请看下面的工作示例：
 
-```
+```go
 package main
 
 import (
@@ -36,7 +36,7 @@ func getDOB(year, month, day int) time.Time {
 
 **输出：**
 
-```
+```go
 Age is 8
 ```
 

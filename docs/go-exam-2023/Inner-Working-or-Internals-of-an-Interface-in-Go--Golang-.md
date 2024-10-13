@@ -30,7 +30,7 @@
 
 假设我们有一个接口**动物**如下
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -39,7 +39,7 @@ type animal interface {
 
 我们还有一个实现了这个**动物**接口的**狮子**结构
 
-```
+```go
 type lion struct {
     age int
 }
@@ -47,7 +47,7 @@ type lion struct {
 
 # **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -79,7 +79,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 ```
@@ -94,7 +94,7 @@ Golang提供格式标识符来打印由接口值表示的底层类型和底层�
 
 +   %v可以用于打印接口值的具体值。
 
-```
+```go
 package main
 
 import "fmt"
@@ -126,7 +126,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Concrete Type: main.lion
 Concrete Value: {10}
 ```

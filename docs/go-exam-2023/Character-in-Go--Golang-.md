@@ -40,7 +40,7 @@ Golang没有任何‘**char**’数据类型。因此
 
 +   一个字符微符号**‘µ’**的字符串
 
-```
+```go
 package main
 
 import (
@@ -71,7 +71,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Priting Byte:
 Size: 1
 Type: uint8
@@ -93,13 +93,13 @@ Character: µ
 
 +   用非ASCII字符声明byte会导致编译器错误，如下所示。我尝试用一个对应代码为285的字符
 
-```
+```go
 constant 285 overflows byte
 ```
 
 +   在初始化**byte**或**rune**时，只能在单引号内声明一个字符。当尝试在单引号中添加两个字符时，将生成如下编译器警告
 
-```
+```go
 invalid character literal (more than one character)
 ```
 

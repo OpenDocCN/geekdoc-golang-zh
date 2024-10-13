@@ -42,7 +42,7 @@
 
 发送操作用于将数据发送到通道。以下是发送到通道的格式。
 
-```
+```go
 ch <- data
 ```
 
@@ -66,7 +66,7 @@ ch <- data
 
 接收操作用于从通道读取数据。以下是从通道接收的格式。
 
-```
+```go
 data := <- ch 
 ```
 
@@ -78,7 +78,7 @@ data := <- ch
 
 让我们看一个示例，其中我们将从一个 goroutine 发送数据，并在另一个 goroutine 中接收这些数据。
 
-```
+```go
 package main
 
 import (
@@ -110,7 +110,7 @@ func receive(ch chan int) {
 
 **输出**
 
-```
+```go
 Sending value to channel
 Receiving from channel
 Value Received=1 in receive function
@@ -128,7 +128,7 @@ Value Received=1 in receive function
 
 Close 是一个内置函数，可用于关闭通道。关闭通道意味着不能再向通道发送数据。当所有数据发送完毕且没有更多数据可发送时，通道通常会关闭。让我们看看一个程序。
 
-```
+```go
 package main
 
 import (
@@ -157,7 +157,7 @@ func sum(ch chan int, len int) {
 
 **输出**
 
-```
+```go
 Sum: 6
 ```
 
@@ -165,7 +165,7 @@ Sum: 6
 
 在关闭的通道上发送将导致恐慌。请参见下面的程序。
 
-```
+```go
 package main
 
 func main() {
@@ -177,7 +177,7 @@ func main() {
 
 **输出**
 
-```
+```go
 panic: send on closed channel
 ```
 
@@ -185,7 +185,7 @@ panic: send on closed channel
 
 在从通道接收时，我们还可以使用一个额外的变量来确定通道是否已关闭。以下是相应的语法。
 
-```
+```go
 val,ok <- ch
 ```
 
@@ -195,7 +195,7 @@ ok的值将是
 
 +   每个通道都已关闭为假
 
-```
+```go
 package main
 import (
     "fmt"
@@ -214,7 +214,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Val: 2 OK: true
 Val: 0 OK: false
 ```
@@ -227,7 +227,7 @@ Val: 0 OK: false
 
 无缓冲通道的长度始终为零
 
-```
+```go
 package main
 
 import "fmt"
@@ -246,7 +246,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Len: 1
 Len: 2
 Len: 3
@@ -260,7 +260,7 @@ Len: 3
 
 无缓冲通道的容量始终为零
 
-```
+```go
 package main
 
 import "fmt"
@@ -273,13 +273,13 @@ func main() {
 
 **输出**
 
-```
+```go
 Capacity: 3
 ```
 
 在上面的程序中，我们在make函数中指定了容量为3。
 
-```
+```go
 make(chan int, 3)
 ```
 

@@ -24,7 +24,7 @@
 
 下面是**Printf**的函数原型。
 
-```
+```go
 func Printf(format string, a ...interface{}) (n int, err error)
 ```
 
@@ -44,7 +44,7 @@ func Printf(format string, a ...interface{}) (n int, err error)
 
 +   示例
 
-```
+```go
 name := "John"
 fmt.Printf("Name is: %s\n", name)
 ```
@@ -55,7 +55,7 @@ fmt.Printf("Name is: %s\n", name)
 
 +   示例
 
-```
+```go
 age := 21
 fmt.Printf("Age is: %d\n", age)
 ```
@@ -72,7 +72,7 @@ fmt.Printf("Age is: %d\n", age)
 
 这就是原因。
 
-```
+```go
 fmt.Printf("Employee is %v\n", e)
 fmt.Printf("Employee is %+v\n", e)
 fmt.Printf("Employee is %#v\n", e)
@@ -80,7 +80,7 @@ fmt.Printf("Employee is %#v\n", e)
 
 分别打印如下。
 
-```
+```go
 Employee is {John 21}
 Employee is {Name:John Age:21}
 Employee is main.employee{Name:"John", Age:21}
@@ -94,7 +94,7 @@ Employee is main.employee{Name:"John", Age:21}
 
 这里是相应的工作程序。
 
-```
+```go
 package main
 
 import (
@@ -135,7 +135,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is: John
 Age is: 21
 Name: John Age: 21
@@ -148,7 +148,7 @@ Name is: John
 
 请注意下面的**Printf**
 
-```
+```go
 fmt.Printf("Name: %s Age: %d\n", name, age)
 ```
 
@@ -166,7 +166,7 @@ fmt.Printf("Name: %s Age: %d\n", name, age)
 
 而下一个可变数量的参数仅有一个。因此，当我们打印它时，它会如实打印第二个格式说明符，并显示“MISSING”作为警告。
 
-```
+```go
 package main
 import "fmt"
 type employee struct {
@@ -181,7 +181,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is: John %!d(MISSING)
 ```
 

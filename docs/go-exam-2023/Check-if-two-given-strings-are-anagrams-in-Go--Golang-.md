@@ -20,7 +20,7 @@
 
 例如
 
-```
+```go
 Input: abc, bac
 Ouput: true
 
@@ -42,7 +42,7 @@ Ouput: false
 
 这里是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -86,7 +86,7 @@ func main() {
 
 **输出**
 
-```
+```go
 true
 false
 ```

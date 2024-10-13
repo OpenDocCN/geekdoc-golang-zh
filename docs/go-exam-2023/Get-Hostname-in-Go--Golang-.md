@@ -20,7 +20,7 @@ golang的**‘os’**包提供了一个**Hostname**函数，可用于获取内�
 
 下面是此方法的签名。如果无法成功获取主机名，则返回错误
 
-```
+```go
 func Hostname() (name string, err error)
 ```
 
@@ -28,7 +28,7 @@ func Hostname() (name string, err error)
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -48,7 +48,7 @@ func main() {
 
 **输出**：
 
-```
+```go
 Hostname: <hostname of="" your="" machine=""></hostname>
 ```
 

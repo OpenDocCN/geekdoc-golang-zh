@@ -32,7 +32,7 @@ Go语言有两种浮点类型
 
 可以使用Go的==运算符比较两个浮点数，前提是它们是相同的浮点类型。请看下面的例子
 
-```
+```go
 package main
 
 import "fmt"
@@ -58,7 +58,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Same
 Not Same
 ```
@@ -67,7 +67,7 @@ Not Same
 
 比较float32和float64将导致编译错误
 
-```
+```go
 package main
 
 import "fmt"
@@ -86,7 +86,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 invalid operation: a == b (mismatched types float32 and float64)
 ```
 
@@ -94,7 +94,7 @@ invalid operation: a == b (mismatched types float32 and float64)
 
 如果在比较浮点类型时可接受某种容差，则可以使用以下方法
 
-```
+```go
 package main
 
 import (
@@ -119,7 +119,7 @@ func withTolerane(a, b float64) {
 
 **输出：**
 
-```
+```go
 When a=3.140000 and b =3.141000 => Nearly same by tolerance
 When a=3.140000 and b=3.142000 => Not same Even by Tolerance
 ```
@@ -128,7 +128,7 @@ When a=3.140000 and b=3.142000 => Not same Even by Tolerance
 
 big包支持大数，并支持整型、有理数和浮点数。它有一个比较方法，可以用来比较两个浮点数
 
-```
+```go
 package main
 
 import (
@@ -161,7 +161,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 a less than b
 ```
 

@@ -28,7 +28,7 @@
 
 ## **字符串切片**
 
-```
+```go
 package main
 
 import "fmt"
@@ -61,7 +61,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Output for First slice of string
 abc
 def
@@ -75,7 +75,7 @@ abc
 
 我们有两种创建字符串切片的方法。第一种方法是
 
-```
+```go
 var string_first []string
 string_first = append(string_first, "abc")
 string_first = append(string_first, "def")
@@ -84,7 +84,7 @@ string_first = append(string_first, "ghi")
 
 在第二种方法中，我们使用make命令来创建字符串切片。
 
-```
+```go
 string_second := make([]string, 3)
 string_second[0] = "ghi"
 string_second[1] = "def"
@@ -95,7 +95,7 @@ string_second[2] = "abc"
 
 ## **字符串数组**
 
-```
+```go
 package main
 
 import "fmt"
@@ -128,7 +128,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Output for First Array of string
 abc
 def
@@ -142,7 +142,7 @@ abc
 
 我们有两种创建数组的方法。第一种方法是
 
-```
+```go
 var string_first [3]string
 string_first[0] = "abc"
 string_first[1] = "def"
@@ -151,7 +151,7 @@ string_first[2] = "ghi"
 
 在第二种方法中，我们直接用一些字符串初始化数组。
 
-```
+```go
 string_second := [3]string{
 	"ghi",
 	"def",

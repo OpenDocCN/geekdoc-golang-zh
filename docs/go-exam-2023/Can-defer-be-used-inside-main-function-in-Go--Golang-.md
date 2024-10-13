@@ -22,7 +22,7 @@
 
 # **示例**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -36,20 +36,20 @@ func test() {
 
 **输出**
 
-```
+```go
 Executed in main
 In Defer
 ```
 
 在上述程序中，有一个 **defer** 语句调用名为 **test** 的自定义函数。从输出可以看出，**test** 函数在 `main` 中的所有内容执行完毕后被调用，并在 `main` 返回之前调用。这就是
 
-```
+```go
 Executed in main
 ```
 
 在输出之前打印。
 
-```
+```go
 In Defer
 ```
 

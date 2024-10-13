@@ -30,7 +30,7 @@
 
 一个简单的示例
 
-```
+```go
 resp, err := http.Get("http://google.com/")
 if err != nil {
     //Handle the error here.

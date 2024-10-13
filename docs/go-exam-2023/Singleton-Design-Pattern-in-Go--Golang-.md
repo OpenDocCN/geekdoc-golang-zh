@@ -24,7 +24,7 @@
 
 在GO中我们有goroutines。因此，单例结构体应该在多个goroutines尝试访问该实例时返回相同的实例。实现单例设计模式很容易出错。下面的代码说明了创建单例对象的正确方法。
 
-```
+```go
 var lock = &sync.Mutex{}
 
 type single struct {
@@ -61,7 +61,7 @@ func getInstance() *single {
 
 **single.go**
 
-```
+```go
 package main
 
 import (
@@ -95,7 +95,7 @@ func getInstance() *single {
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -114,7 +114,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Creting Single Instance Now
 Single Instance already created-1
 Single Instance already created-1
@@ -167,7 +167,7 @@ sync.Once只会执行一次操作。请参见下面的代码。
 
 **single.go**
 
-```
+```go
 var once sync.Once
 
 type single struct {
@@ -191,7 +191,7 @@ func getInstance() *single {
 
 **输出：**
 
-```
+```go
 Creting Single Instance Now
 Single Instance already created-2
 Single Instance already created-2

@@ -12,7 +12,7 @@
 
 导入包中的空标识符意味着为导入的包指定空导入。其语法为：
 
-```
+```go
 import _ <directory_path></directory_path>
 ```
 
@@ -50,7 +50,7 @@ Go 不允许任何未使用的变量。任何未使用的变量可以被空标�
 
 例如，mysql 包作为空导入，用于其副作用，即在 mysql 包的 init() 函数中注册 mysql 驱动程序作为数据库驱动程序，而不导入任何其他函数：
 
-```
+```go
 _ "github.com/go-sql-driver/mysql"
 ```
 

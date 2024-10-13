@@ -20,7 +20,7 @@ GO的**strings**包提供了一个**Repeat**方法，可用于创建给定字符
 
 以下是函数的签名。它返回字符串的副本。
 
-```
+```go
 func Repeat(s string, count int) string
 ```
 
@@ -28,7 +28,7 @@ func Repeat(s string, count int) string
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -44,7 +44,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 abcabcabcabc
 ```
 

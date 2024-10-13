@@ -18,7 +18,7 @@
 
 给定一个字符串，我们必须找到其中最长的无重复字符的子字符串。例如，如果字符串是
 
-```
+```go
 abbabcda
 ```
 
@@ -48,7 +48,7 @@ abbabcda
 
 ## **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -87,6 +87,6 @@ func lengthOfLongestSubstring(s string) int {
 
 **输出**
 
-```
+```go
 4
 ```*

@@ -57,7 +57,7 @@
 
 **collection.go**
 
-```
+```go
 package main
 
 type collection interface {
@@ -67,7 +67,7 @@ type collection interface {
 
 **userCollection.go**
 
-```
+```go
 package main
 
 type userCollection struct {
@@ -83,7 +83,7 @@ func (u *userCollection) createIterator() iterator {
 
 **iterator.go**
 
-```
+```go
 package main
 
 type iterator interface {
@@ -94,7 +94,7 @@ type iterator interface {
 
 **userIterator.go**
 
-```
+```go
 package main
 
 type userIterator struct {
@@ -121,7 +121,7 @@ func (u *userIterator) getNext() *user {
 
 **user.go**
 
-```
+```go
 package main
 
 type user struct {
@@ -132,7 +132,7 @@ type user struct {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -159,14 +159,14 @@ func main() {
 
 **输出：**
 
-```
+```go
 User is &{name:a age:30}
 User is &{name:b age:20}
 ```
 
 # **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -238,7 +238,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 User is &{name:a age:30}
 User is &{name:b age:20}
 ```

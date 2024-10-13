@@ -36,7 +36,7 @@
 
 让我们通过一个例子来理解这个游戏。假设有一个3*3的网格。点（‘.’）表示一个空块。
 
-```
+```go
 Player 1 Move with Symbol * at Position X:1 Y:1
 ...
 .*.
@@ -86,7 +86,7 @@ o.o
 
 **symbol.go**
 
-```
+```go
 package main
 
 type Symbol uint8
@@ -100,7 +100,7 @@ const (
 
 **iPlayer.go**
 
-```
+```go
 package main
 
 type iPlayer interface {
@@ -112,7 +112,7 @@ type iPlayer interface {
 
 **humanPlayer.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -150,7 +150,7 @@ func (h *humanPlayer) getID() int {
 
 **computerPlayer.go**
 
-```
+```go
 package main
 
 type computerPlayer struct {
@@ -174,7 +174,7 @@ func (c *computerPlayer) getID() int {
 
 **gameStatus.go**
 
-```
+```go
 package main
 
 type GameStatus uint8
@@ -189,7 +189,7 @@ const (
 
 **board.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -274,7 +274,7 @@ func (b *board) checkWin(i, j int, symbol Symbol) bool {
 
 **game.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -386,7 +386,7 @@ func (g *game) printResult() {
 
 在上述程序中，我们为两位玩家固定了移动，保存在**humanPlayer.go**文件中。以下是基于这些移动的输出。
 
-```
+```go
 Player 1 Move with Symbol * at Position X:1 Y:1
 ...
 .*.
@@ -434,7 +434,7 @@ o.o
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -718,7 +718,7 @@ func main() {
 
 在上述程序中，我们也为两位玩家固定了移动，保存在**humanPlayer类**中。以下是基于这些移动的输出。
 
-```
+```go
 Player 1 Move with Symbol * at Position X:1 Y:1
 ...
 .*.

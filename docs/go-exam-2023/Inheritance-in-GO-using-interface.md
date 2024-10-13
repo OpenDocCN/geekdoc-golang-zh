@@ -28,7 +28,7 @@ Go通过嵌入结构体或使用接口支持继承。有不同的实现方式，
 
 子结构体实现公共接口的方法。这个方法也解决了子类型化的问题。见以下代码
 
-```
+```go
 package main
 
 import "fmt"
@@ -60,7 +60,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 somestyle
 somestyle
 ```

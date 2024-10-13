@@ -18,7 +18,7 @@
 
 它类似于**AND**运算符。例如，如果有两个正则表达式**r1**和**r2**，它们的串联将表示如下。
 
-```
+```go
 r1r2
 ```
 
@@ -28,7 +28,7 @@ r1r2
 
 这是相应的示例程序
 
-```
+```go
 package main
 
 import (
@@ -57,7 +57,7 @@ func main() {
 
 **输出**
 
-```
+```go
 true
 false
 false
@@ -66,25 +66,25 @@ false
 
 它只匹配
 
-```
+```go
 abcxyz
 ```
 
 我们首先使用**[MustCompile](https://golang.org/pkg/regexp/#MustCompile)**函数编译给定的正则表达式。如果给定的正则表达式无效，则该函数会引发恐慌。在成功编译给定的正则表达式后，它将返回**[regexp](https://golang.org/pkg/regexp/)**结构的实例。
 
-```
+```go
 sampleRegexp := regexp.MustCompile(first + second)
 ```
 
 我们可以在正则表达式实例上调用**[Match](https://golang.org/pkg/regexp/#Match)**方法，将给定模式与正则表达式进行匹配。如果正则表达式与输入字符串匹配，则返回true，否则返回false。我们需要将输入字符串的字节传递给此方法。
 
-```
+```go
 match := sampleRegexp.Match([]byte("abcxyz"))
 ```
 
 串联也可以在三个以上的正则表达式之间进行。以下是一个示例
 
-```
+```go
 package main
 
 import (
@@ -116,7 +116,7 @@ func main() {
 
 **输出**
 
-```
+```go
 true
 false
 false
@@ -126,7 +126,7 @@ false
 
 它只匹配
 
-```
+```go
 abcxyz123
 ```
 

@@ -30,7 +30,7 @@
 
 ## **通道切片**
 
-```
+```go
 package main
 
 import "fmt"
@@ -67,7 +67,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Output for First slice of channels
 0xc000118000
 0xc000118060
@@ -83,7 +83,7 @@ Output for Second slice of channels
 
 在上面的程序中，我们创建了三个数据类型为int的通道。
 
-```
+```go
 channel1 := make(chan int)
 channel2 := make(chan int)
 channel3 := make(chan int)
@@ -91,7 +91,7 @@ channel3 := make(chan int)
 
 我们有两种创建通道切片的方法。第一种方式是
 
-```
+```go
 var channels_first []chan int
 channels_first = append(channels_first, channel1)
 channels_first = append(channels_first, channel2)
@@ -100,7 +100,7 @@ channels_first = append(channels_first, channel3)
 
 在第二种方法中，我们使用**make**命令来创建通道切片。
 
-```
+```go
 channels_second := make([]chan int, 3)
 channels_second[0] = channel1
 channels_second[1] = channel2
@@ -111,7 +111,7 @@ channels_second[2] = channel3
 
 ## **通道数组**
 
-```
+```go
 package main
 
 import "fmt"
@@ -147,7 +147,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Output for First Array of channels
 0xc00008c060
 0xc00008c0c0
@@ -163,7 +163,7 @@ Output for Second Array of channels
 
 在上面的程序中，我们创建了三个数据类型为int的通道。
 
-```
+```go
 channel1 := make(chan int)
 channel2 := make(chan int)
 channel3 := make(chan int)
@@ -171,7 +171,7 @@ channel3 := make(chan int)
 
 我们有两种创建数组的方法。第一种方式是
 
-```
+```go
 var channels_first [3]chan int
 channels_first[0] = channel1
 channels_first[1] = channel2
@@ -180,7 +180,7 @@ channels_first[2] = channel3
 
 在第二种方法中，我们直接用创建的通道初始化数组。
 
-```
+```go
 channel_second := [3]chan int{
 	channel1,
 	channel2,

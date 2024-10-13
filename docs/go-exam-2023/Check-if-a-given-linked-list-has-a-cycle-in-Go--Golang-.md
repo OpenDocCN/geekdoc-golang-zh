@@ -28,7 +28,7 @@
 
 +   现在将慢指针移动1个节点，将快指针移动2个节点。
 
-```
+```go
 slow := slow.Next
 fast := fast.Next.Next
 ```
@@ -39,7 +39,7 @@ fast := fast.Next.Next
 
 这是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -113,7 +113,7 @@ func hasCycle(head *ListNode) bool {
 
 **输出**
 
-```
+```go
 true
 ```
 

@@ -22,7 +22,7 @@
 
 下面是该方法的签名。它输入一个数字n，并返回一个范围在0<=x<n内的数字x。
 
-```
+```go
 func Intn(n int) int
 ```
 
@@ -30,7 +30,7 @@ func Intn(n int) int
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -71,14 +71,14 @@ func main() {
 
 下面是我机器上的输出。在你的机器上可能会给出不同的输出。
 
-```
+```go
 himsemkpkd
 nHaiEpccEdBfCFPtaBbi
 ```
 
 在上面的程序中，我们使用的字符集为
 
-```
+```go
 abcdedfghijklmnopqrst and abcdedfghijklmnopqrstABCDEFGHIJKLMNOP
 ```
 
@@ -90,7 +90,7 @@ abcdedfghijklmnopqrst and abcdedfghijklmnopqrstABCDEFGHIJKLMNOP
 
 在下面的示例中，我们的charSet包含一个非ASCII字符**'£'**。该字符占用两个字节。
 
-```
+```go
 package main
 
 import (
@@ -130,7 +130,7 @@ func main() {
 
 下面是我机器上的输出。在你的机器上可能会给出不同的输出。
 
-```
+```go
 aidqpbse£j
 rebhjblsePsLpGBPOhfB
 ```

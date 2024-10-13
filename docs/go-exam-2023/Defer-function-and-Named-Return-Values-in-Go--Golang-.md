@@ -22,7 +22,7 @@
 
 # **示例**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -38,7 +38,7 @@ func test() (size int) {
 
 **输出**
 
-```
+```go
 20
 ```
 

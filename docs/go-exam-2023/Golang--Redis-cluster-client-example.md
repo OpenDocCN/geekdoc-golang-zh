@@ -14,7 +14,7 @@
 
 **client.go**
 
-```
+```go
 package main
 
 import (
@@ -75,7 +75,7 @@ func (client *redisCluterClient) setKey(key string, value interface{}, expiratio
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -109,7 +109,7 @@ func main() {
 
 **输出**:
 
-```
+```go
 Name: someName 
 Email: someemail@abc.com
 ```

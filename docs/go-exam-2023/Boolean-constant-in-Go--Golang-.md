@@ -38,7 +38,7 @@
 
 # **示例**
 
-```
+```go
 package main
 
 import "fmt"
@@ -75,7 +75,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Typed named boolean constant
 uu: Type: bool Value: true
 
@@ -90,7 +90,7 @@ zz: Type: bool Value: true
 
 在上述程序中，我们创建了一个新类型**myBool**。
 
-```
+```go
 type myBool bool
 ```
 
@@ -108,19 +108,19 @@ type myBool bool
 
 它的定义如下
 
-```
+```go
 const aa bool = true
 ```
 
 上述注意到，以下代码行将导致编译错误。这是因为变量**aa**是类型为**boolean**的常量。因此，以下代码行会导致编译错误，因为它无法被赋值给类型为**myBool**的变量。
 
-```
+```go
 var v mybool = aa
 ```
 
 但类型字符串常量可以像下面那样赋值给用**var**关键字创建的变量。
 
-```
+```go
 var uu = aa
 ```
 
@@ -128,13 +128,13 @@ var uu = aa
 
 它的定义如下
 
-```
+```go
 const bb = true
 ```
 
 未类型命名字符串常量可以赋值给类型为**myBool**的变量以及用**var**关键字创建的变量，因为它是未类型的，因此常量的类型将根据赋值给的变量类型决定。
 
-```
+```go
 var ww mybool = bb
 var xx = bb
 ```
@@ -143,13 +143,13 @@ var xx = bb
 
 它类似于下面的情况。
 
-```
+```go
 true
 ```
 
 未类型未命名字符串常量可以赋值给类型为**myBool**的变量以及用**var**关键字创建的变量，因为它是未类型的，因此常量的类型将根据赋值给的变量类型决定。
 
-```
+```go
 var yy mybool = true
 var zz = true
 ```

@@ -20,7 +20,7 @@
 
 示例
 
-```
+```go
 Input: [4,2,3,8,1]
 Output: 6
 Buy on the second day at 2 and sell on the 4th day at 8\. Profit = 8-2 = 6
@@ -32,7 +32,7 @@ Buy on the second day at 2 and sell on the 4th day at 8\. Profit = 8-2 = 6
 
 下面是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -81,7 +81,7 @@ func main() {
 
 **输出**
 
-```
+```go
 6
 ```
 

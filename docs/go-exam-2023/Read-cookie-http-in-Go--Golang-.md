@@ -18,13 +18,13 @@
 
 net/http Request结构体提供了一种方便的方法，可以根据名称读取特定cookie。以下是该方法的签名。[https://golang.org/pkg/net/http/#Request.Cookie](https://golang.org/pkg/net/http/#Request.Cookie)
 
-```
+```go
 func (r *Request) Cookie(name string) (*Cookie, error)
 ```
 
 要打印所有cookies，我们可以遍历**http.Request**结构体的**Cookies**方法。我们可以为此使用range关键字。
 
-```
+```go
 for _, c := range r.Cookies() {
      fmt.Println(c)
 }
@@ -34,7 +34,7 @@ for _, c := range r.Cookies() {
 
 [https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)
 
-```
+```go
 type Cookie struct {
 	Name  string
 	Value string
@@ -62,7 +62,7 @@ type Cookie struct {
 
 以下是相同程序，展示**Cookie**和**Cookies**方法的**http.Request**结构体
 
-```
+```go
 package main
 
 import (
@@ -101,7 +101,7 @@ func docHandler(w http.ResponseWriter, r *http.Request) {
 
 运行上面的程序并进行以下curl调用
 
-```
+```go
 curl -X GET localhost:8080/doc --cookie "id=abcd; token=some_token"
 ```
 
@@ -113,7 +113,7 @@ curl调用传递了两个cookie名称-值对
 
 它将给出以下输出
 
-```
+```go
 Cookies in API Call:
 
 Printing cookie with name as "token"
@@ -126,19 +126,19 @@ token=some_token
 
 这就是我们如何打印名为**“token”**的特定cookie
 
-```
+```go
 tokenCookie, err := r.Cookie("token")
 ```
 
 它的输出如所见
 
-```
+```go
 token=some_token
 ```
 
 这就是我们如何打印所有的cookie
 
-```
+```go
 for _, c := range r.Cookies() {
      fmt.Println(c)
 }
@@ -146,7 +146,7 @@ for _, c := range r.Cookies() {
 
 它输出我们在curl调用中发送的cookie名称-值对
 
-```
+```go
 id=abcd
 token=some_token
 ```

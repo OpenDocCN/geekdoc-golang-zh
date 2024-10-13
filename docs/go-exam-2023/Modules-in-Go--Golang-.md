@@ -116,13 +116,13 @@
 
 当我们执行 `go get` 时，它将在 `$GOPATH/src` 目录中下载所需的包。运行下面的 `go get` 命令。
 
-```
+```go
 go get github.com/pborman/uuid
 ```
 
 它将下载位于该位置的包。
 
-```
+```go
 $GOPATH/src/github.com/pborman/uuid
 ```
 
@@ -178,7 +178,7 @@ $GOPATH/src/github.com/pborman/uuid
 
 可以使用以下命令创建模块。
 
-```
+```go
 go mod init {module_import_path}
 ```
 
@@ -202,14 +202,14 @@ go mod init {module_import_path}
 
 转到$GOPATH/src文件夹外的任何目录。假设目录名称为**learn**。
 
-```
+```go
 mkdir learn
 cd learn
 ```
 
 假设模块名称也是**learn**。
 
-```
+```go
 go mod init learn
 ```
 
@@ -219,7 +219,7 @@ go mod init learn
 
 做一个**cat go.mod**。
 
-```
+```go
 module learn
 
 go 1.14
@@ -229,13 +229,13 @@ go 1.14
 
 +   模块名称在顶部。
 
-```
+```go
 module learn
 ```
 
 创建模块时所用的go版本。
 
-```
+```go
 go 1.14
 ```
 
@@ -243,7 +243,7 @@ go 1.14
 
 **uuid.go**
 
-```
+```go
 package main
 
 import (
@@ -262,13 +262,13 @@ func main() {
 
 请注意，我们在uuid.go中也导入了依赖项。
 
-```
+```go
 "github.com/pborman/uuid"
 ```
 
 让我们运行下面的命令。
 
-```
+```go
 go mod tidy
 ```
 
@@ -276,7 +276,7 @@ go mod tidy
 
 执行 **cat go.mod**。
 
-```
+```go
 module learn
 
 go 1.14
@@ -288,7 +288,7 @@ require github.com/pborman/uuid v1.2.1
 
 执行 **cat go.sum**。
 
-```
+```go
 github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=
 github.com/google/uuid v1.0.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/pborman/uuid v1.2.1 h1:+ZZIw58t/ozdjRaXh/3awHfmWRbzYxJoAdNJxe/3pvw=
@@ -299,13 +299,13 @@ github.com/pborman/uuid v1.2.1/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtP
 
 我们现在也可以运行这个文件，它将产生正确的输出。
 
-```
+```go
 go run uuid.go
 ```
 
 **输出**
 
-```
+```go
 e594dc4d9a754bcb83b56e89b18b4b46
 ```
 
@@ -337,7 +337,7 @@ e594dc4d9a754bcb83b56e89b18b4b46
 
 在查看每种方法之前，我们先创建一个模块。
 
-```
+```go
 go mod init learn
 ```
 
@@ -347,13 +347,13 @@ go mod init learn
 
 将以下依赖项添加到 `go.mod` 文件中。
 
-```
+```go
 require github.com/pborman/uuid v1.2.1
 ```
 
 添加此依赖项后，`go.mod` 文件将如下所示。
 
-```
+```go
 module learn
 
 go 1.14
@@ -363,7 +363,7 @@ require github.com/pborman/uuid v1.2.1
 
 现在我们还需要下载新添加的依赖项。为此，我们可以使用下面的命令。
 
-```
+```go
 go mod download
 ```
 
@@ -373,7 +373,7 @@ go mod download
 
 只需执行`go get`也会将依赖项添加到go.mod文件中。从go.mod文件中删除我们之前添加的uuid依赖项，并清理go.sum文件。现在运行以下命令。
 
-```
+```go
 export GO111MODULE=on
 go get github.com/pborman/uuid
 ```
@@ -382,7 +382,7 @@ go get github.com/pborman/uuid
 
 执行**cat go.mod**。
 
-```
+```go
 module learn
 
 go 1.14
@@ -404,7 +404,7 @@ require github.com/pborman/uuid v1.2.1 //indirect
 
 如果您想要管理您的依赖项，则可以使用以下命令来实现相同的目的。
 
-```
+```go
 go mod vendor
 ```
 
@@ -444,7 +444,7 @@ go mod vendor
 
 +   创建一个导入路径为“learn”的模块。
 
-```
+```go
 go mod init learn
 ```
 
@@ -454,7 +454,7 @@ go mod init learn
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -469,7 +469,7 @@ func main() {
 
 **math/math.go**
 
-```
+```go
 package math
 
 func Add(a, b int) int {
@@ -479,7 +479,7 @@ func Add(a, b int) int {
 
 查看我们如何在`main.go`文件中导入math包。
 
-```
+```go
 "learn/math"
 ```
 
@@ -501,13 +501,13 @@ func Add(a, b int) int {
 
 +   创建一个导入路径为**sample.com/math**的模块。
 
-```
+```go
 go mod init sample.com/math
 ```
 
 +   在**math**目录中创建一个名为**math.go**的文件，内容如下。
 
-```
+```go
 package math
 
 func Add(a, b int) int {
@@ -521,13 +521,13 @@ func Add(a, b int) int {
 
 +   创建一个名为**school**的模块。
 
-```
+```go
 go mod init school
 ```
 
 +   现在让我们修改**go.mod**文件，以在school模块中导入math模块。要导入一个未推送到VCS的本地模块，我们将使用替换目录。替换目录将用你指定的路径替换模块路径。
 
-```
+```go
 module school
 
 go 1.14
@@ -537,7 +537,7 @@ replace sample.com/math => ../math
 
 +   创建文件`school.go`，该文件将使用**[sample.com](http://sample.com)/math**模块中的Add函数。
 
-```
+```go
 package main
 
 import (
@@ -552,7 +552,7 @@ func main() {
 
 现在运行`go run`。
 
-```
+```go
 go run school.go
 ```
 
@@ -560,7 +560,7 @@ go run school.go
 
 它还将使用**[sample.com](http://sample.com)/math**模块的版本信息更新go.mod。
 
-```
+```go
 module school
 
 go 1.14
@@ -574,7 +574,7 @@ require sample.com/math v0.0.0-00010101000000-000000000000
 
 要了解GO在选择**go.mod**文件中指定的两个版本的库时的方式，我们首先需要理解语义版本控制。语义版本控制由用点分隔的三个部分组成。以下是版本控制的格式。
 
-```
+```go
 v{major_version}.{minor_version}.{patch_version}
 ```
 
@@ -602,13 +602,13 @@ Go在选择`go.mod`文件中指定的两个仅在次要或补丁版本上不同�
 
 例如，在使用相同库的两个版本时，可能是
 
-```
+```go
 1.2.0
 ```
 
 和
 
-```
+```go
 1.3.0
 ```
 
@@ -618,13 +618,13 @@ Go在选择`go.mod`文件中指定的两个仅在次要或补丁版本上不同�
 
 Go将主要版本视为一个不同的模块。那么，这意味着什么？这基本上意味着导入路径将以主要版本作为后缀。让我们以VCS为**github.com/sample**的任意Go库为例。让我们最新的语义版本是
 
-```
+```go
 v8.2.3
 ```
 
 然后`go.mod`文件将如下所示
 
-```
+```go
 module github.com/sample/v8
 
 go 1.13
@@ -634,25 +634,25 @@ go 1.13
 
 它在导入路径中具有主要版本。因此，任何使用此示例库的库都必须像这样导入它。
 
-```
+```go
 import "github.com/sample/v8"
 ```
 
 如果将来发布**v9**版本，则必须以如下方式在应用程序中导入它。
 
-```
+```go
 import "github.com/sample/v9"
 ```
 
 此外，go-redis库将更改其`go.mod`文件以反映v9主要版本。
 
-```
+```go
 module github.com/samples/v9
 ```
 
 它基本上允许在同一Go应用程序中使用相同库的不同主要版本。当在同一应用程序中导入同一库的不同主要版本时，我们还可以给出有意义的名称。例如
 
-```
+```go
 import redis_v8 "github.com/sample/v8"
 import redis_v9 "github.com/sample/v9"
 ```
@@ -665,32 +665,32 @@ import redis_v9 "github.com/sample/v9"
 
 也因为同样的原因，当你使用更新特定模块时
 
-```
+```go
 go get -u
 ```
 
 然后它只会升级到适用的最新次要版本或补丁版本。例如，假设当前应用程序使用的版本是
 
-```
+```go
 v1.1.3
 ```
 
 此外，假设我们有以下可用版本
 
-```
+```go
 v1.2.0
 v2.1.0
 ```
 
 然后当我们运行
 
-```
+```go
 go get
 ```
 
 然后它会更新到
 
-```
+```go
 v1.2.0
 ```
 
@@ -702,25 +702,25 @@ v1.2.0
 
 +   要将依赖升级到其最新的补丁版本，请使用以下命令。
 
-```
+```go
 go get -u=patch <dependency_name></dependency_name>
 ```
 
 +   要将依赖升级到特定版本，请使用以下命令。
 
-```
+```go
 go get dependency@version
 ```
 
 +   要将依赖升级到特定提交，请使用以下命令。
 
-```
+```go
 go get <dependency_name>@commit_number</dependency_name>
 ```
 
 +   要将所有依赖升级到其最新的小版本和补丁版本，请使用以下命令。
 
-```
+```go
 go get ./...
 ```
 
@@ -732,7 +732,7 @@ go get ./...
 
 +   **edit –** 该命令用于编辑go.mod文件。它提供了一组编辑标志。运行以下命令查看所有可用的编辑标志。
 
-```
+```go
 go help mod edit
 ```
 
@@ -754,13 +754,13 @@ go help mod edit
 
 +   **why –** 此命令分析主模块的包图。它打印从主模块到给定包的最短路径。例如，在“从不同模块本地导入包”部分创建的学校模块，如果我们像下面这样打印why命令。
 
-```
+```go
 go mod why sample.com/math
 ```
 
 然后，下面将是输出。
 
-```
+```go
 # sample.com/math
 school
 sample.com/math
@@ -784,13 +784,13 @@ sample.com/math
 
 让我们通过一个例子来理解这一点。为此，让我们首先创建一个模块。
 
-```
+```go
 git mod init learn
 ```
 
 让我们在go.mod文件中添加colly库版本v1.2.0作为依赖项。colly版本v1.2.0没有go.mod文件。
 
-```
+```go
 module learn
 
 go 1.14
@@ -800,7 +800,7 @@ require github.com/gocolly/colly v1.2.0
 
 现在创建一个文件learn.go。
 
-```
+```go
 package main
 
 import (
@@ -816,7 +816,7 @@ func main() {
 
 进行go build。现在检查go.mod文件。你会看到文件的以下内容。
 
-```
+```go
 module learn
 
 go 1.14

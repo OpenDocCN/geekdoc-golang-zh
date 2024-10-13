@@ -20,7 +20,7 @@
 
 例如
 
-```
+```go
 Input: [1,5,7,6]
 The longest subsequence is [1,5,6] which is of length 3
 Output: 3
@@ -28,7 +28,7 @@ Output: 3
 
 另一个例子
 
-```
+```go
 Input: [3,2,1]
 The longest subsequence is either {3}, {2} or {1}. Each is of length 1
 Output: 1
@@ -48,7 +48,7 @@ Output: 1
 
 这里是相同程序的代码。
 
-```
+```go
 package main
 
 import "fmt"
@@ -92,7 +92,7 @@ func main() {
 
 **输出**
 
-```
+```go
 3
 1
 ```

@@ -30,7 +30,7 @@ Golang 正则表达式包含两个锚字符，可以用于匹配给定正则表�
 
 它是一个锚字符，可以用来匹配字符串的前缀。它在正则表达式的开始处使用，以确保给定的输入字符串从开头与正则表达式匹配。基本上，它匹配输入字符串的开头。
 
-```
+```go
 package main
 
 import (
@@ -57,7 +57,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For abcd: true
 For abc: true
 For 1abc23: false
@@ -66,7 +66,7 @@ For ab: false
 
 在上面的示例中，我们使用了以下正则表达式
 
-```
+```go
 ^abc
 ```
 
@@ -74,14 +74,14 @@ For ab: false
 
 它匹配所有以**“abc”**开头的字符串。这就是它能匹配的原因。
 
-```
+```go
 For abcd: true
 For abc: true
 ```
 
 并且不会匹配以下内容。
 
-```
+```go
 For 1abc23: false
 For ab: false
 ```
@@ -90,7 +90,7 @@ For ab: false
 
 它是一个锚字符，可以用来匹配字符串的后缀。它在正则表达式的末尾使用，以确保给定的输入字符串与正则表达式在末尾匹配。它匹配输入字符串的结尾。
 
-```
+```go
 package main
 
 import (
@@ -117,7 +117,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For 1abc: true
 For abc: true
 For abcd: false
@@ -126,7 +126,7 @@ For ab: false
 
 在上面的示例中，我们使用了以下正则表达式
 
-```
+```go
 abc$
 ```
 
@@ -134,21 +134,21 @@ abc$
 
 它匹配所有以**“abc”**结尾的字符串。这就是它能匹配的原因。
 
-```
+```go
 For 1abc: true
 For abc: true
 ```
 
 并且不会匹配以下内容。
 
-```
+```go
 For abcd: false
 For ab: false
 ```
 
 如果我们只想匹配完整字符串，则需要在开头用**插入符号**字符和在末尾用**美元符号**字符将字符串锚定。这样我们就能进行完整字符串匹配。请参见下面的示例。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -169,7 +169,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For abcd: false
 For 1abc23: false
 For abc: true
@@ -177,19 +177,19 @@ For abc: true
 
 在上面的程序中，正则表达式是
 
-```
+```go
 ^abc$
 ```
 
 上面的程序为
 
-```
+```go
 abc
 ```
 
 但不会匹配以下内容，因为它仅匹配完整字符串。
 
-```
+```go
 abcd
 1abc23
 ```

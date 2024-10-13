@@ -42,7 +42,7 @@ date: 2024-10-13 06:10:53
 
 ## **示例 1**
 
-```
+```go
 package main
 
 import (
@@ -71,7 +71,7 @@ func getModulus() func(int) int {
 
 **输出：**
 
-```
+```go
 modulus function called 1 times
 modulus function called 2 times
 modulus function called 3 times
@@ -81,7 +81,7 @@ modulus function called 3 times
 
 下面是另一个闭包函数的示例。该函数能够访问 **valueOutside** 变量。
 
-```
+```go
 package main
 
 import "fmt"
@@ -96,7 +96,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 somevalue
 ```
 
@@ -104,7 +104,7 @@ somevalue
 
 在下面的示例中，闭包函数能够访问 **count** 变量及其值，并且该值在不同的函数调用之间得以保留。
 
-```
+```go
 package main
 
 import "fmt"
@@ -122,7 +122,7 @@ func main() {
 
 **输出**
 
-```
+```go
 1
 2
 3

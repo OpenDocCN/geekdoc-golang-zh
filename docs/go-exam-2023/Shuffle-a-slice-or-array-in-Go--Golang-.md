@@ -20,7 +20,7 @@ Go 的 **math/rand** 包提供了一个 **Shuffle** 方法，可以用于洗牌�
 
 以下是函数的签名。
 
-```
+```go
 func Shuffle(n int, swap func(i, j int))
 ```
 
@@ -34,7 +34,7 @@ func Shuffle(n int, swap func(i, j int))
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -63,7 +63,7 @@ func main() {
 
 它可能会在你的机器上产生不同的输出。
 
-```
+```go
 [5 3 2 8]
 [3 5 8 2]
 ```

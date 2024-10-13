@@ -22,7 +22,7 @@
 
 ![](img/9a9347838908483552b24df3dc54cd38.png)
 
-```
+```go
 Output: 16
 Maximum Sum Path is: 4->2->1->3->6
 ```
@@ -31,7 +31,7 @@ Maximum Sum Path is: 4->2->1->3->6
 
 ![](img/5d5d541966db0c009ee43d55823891a8.png)
 
-```
+```go
 Output: 14
 Maximum Sum Path is: 5->3->6
 ```
@@ -56,7 +56,7 @@ Maximum Sum Path is: 5->3->6
 
 下面是相同的程序
 
-```
+```go
 package main
 
 import (
@@ -144,7 +144,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 16
 14
 ```

@@ -18,13 +18,13 @@
 
 以下是单个变量声明的格式，不包含初始值。首先是`var`关键字，其次是变量名称，最后是变量类型。此外，请注意当未提供值时，变量会被初始化为该类型的默认值，这也被称为该类型的零值。在Go中，**int**的默认值或零值是零。
 
-```
+```go
 var <variable_name></variable_name> 
 ```
 
 请看下面的示例，它声明了一个名为**aaa**的类型为**int**的变量。
 
-```
+```go
 package main
 
 import "fmt"
@@ -37,7 +37,7 @@ func main() {
 
 **输出：** 它将打印**int**的默认值，即零。
 
-```
+```go
 0
 ```
 
@@ -45,13 +45,13 @@ func main() {
 
 以下是带有初始值的单个变量声明格式。与上述相同，唯一不同的是我们在最后给变量赋值。
 
-```
+```go
 var <variable_name> <type> = <value></value></type></variable_name>
 ```
 
 请看下面的示例，它声明了一个名为**aaa**的类型为**int**的变量，并给它赋值为**8**。
 
-```
+```go
 package main
 
 import "fmt"
@@ -64,7 +64,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 8
 ```
 
@@ -72,13 +72,13 @@ func main() {
 
 以下是多个变量声明的格式，没有赋初值。请注意，只有相同类型的变量可以一起声明。类型在最后出现。
 
-```
+```go
 var <name1><name2>etc</name2></name1> 
 ```
 
 请看下面的示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -92,7 +92,7 @@ func main() {
 
 **输出：** 它将打印**aaa**和**bbb**的默认或零值，均为零。
 
-```
+```go
 0
 0
 ```
@@ -101,13 +101,13 @@ func main() {
 
 以下是带有初始值的多个变量声明的格式。请注意，只有相同类型的变量可以一起声明。类型在最后出现。
 
-```
+```go
 var <name1> <name2> etc <type> = <value1> <value2> etc</value2></value1></type></name2></name1>
 ```
 
 请看下面的代码示例。变量**aaa**和**bbb**在一次声明中分别赋值为8和9。
 
-```
+```go
 package main
 
 import "fmt"
@@ -121,7 +121,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 8
 9
 ```
@@ -130,7 +130,7 @@ func main() {
 
 以下是声明多个不同类型变量的格式。此时可以或不可以为变量赋值。未赋值的变量将获得该类型的默认值。在下面的示例中，我们看到三个声明。
 
-```
+```go
 package main
 
 import "fmt"
@@ -150,7 +150,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 0
 8
 a
@@ -162,7 +162,7 @@ a
 
 Go编译器会根据赋给它的值推断类型。因此，如果变量有初始值，则类型可以省略。这也被称为**类型推断**。以下是这种声明的格式。
 
-```
+```go
 var <varialbe_name> = value</varialbe_name>
 ```
 
@@ -180,7 +180,7 @@ var <varialbe_name> = value</varialbe_name>
 
 还要注意，变量**z**的类型被正确推断为结构体**a**。
 
-```
+```go
 package main
 
 import "fmt"
@@ -210,7 +210,7 @@ type a struct {
 
 **输出：**
 
-```
+```go
 Type: int Value: 123
 Type: string Value: circle
 Type: float64 Value: 5.6

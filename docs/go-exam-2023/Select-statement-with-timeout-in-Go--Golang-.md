@@ -20,7 +20,7 @@
 
 在选择中，可以通过使用时间包的**After()**函数实现超时。下面是**After()**函数的签名。
 
-```
+```go
 func After(d Duration) <-chan Time
 ```
 
@@ -32,7 +32,7 @@ func After(d Duration) <-chan Time
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -60,13 +60,13 @@ func goOne(ch chan string) {
 
 **输出**
 
-```
+```go
 Timeout
 ```
 
 在上述选择语句中，我们正在等待**ch1**上的接收操作完成。在其他案例语句中，我们有**time.After**，持续时间为1秒。因此，这个选择语句实际上将等待至少1秒以完成**ch1**上的接收操作，之后**time.After**的案例语句将被执行。我们在**goOne**函数中设置了超过1秒的超时，因此我们看到**time.After**语句被执行，并且
 
-```
+```go
 Timeout
 ```
 
@@ -80,7 +80,7 @@ Timeout
 
 请参见以下示例
 
-```
+```go
 package main
 
 import (
@@ -117,7 +117,7 @@ func newsFeed(ch chan string) {
 
 **输出**
 
-```
+```go
 News: 1
 News: 2
 Timeout: News feed finished

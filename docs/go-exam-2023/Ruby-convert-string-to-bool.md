@@ -16,7 +16,7 @@
 
 在 Ruby 语言中，字符串“true”和“false”在 **if** 条件中被解释为 true。请参见下面的示例。
 
-```
+```go
 if "false"
    puts "yes"
 end
@@ -24,7 +24,7 @@ end
 
 **输出**
 
-```
+```go
 "yes"
 ```
 
@@ -34,7 +34,7 @@ end
 
 我们可以创建一个自定义方法，根据字符串的内容返回布尔值 true 或 false
 
-```
+```go
 def true?(str)
   str.to_s.downcase == "true"
 end
@@ -42,12 +42,12 @@ end
 
 我们可以尝试上述函数。
 
-```
+```go
 true?("false")
  => false
 ```
 
-```
+```go
 true?("true")
  => true
 ```

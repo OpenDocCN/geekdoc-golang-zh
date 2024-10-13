@@ -16,7 +16,7 @@
 
 以下是 header 在 Go 中表示的格式。
 
-```
+```go
 type Header map[string][]string
 ```
 
@@ -24,7 +24,7 @@ type Header map[string][]string
 
 +   键以规范形式表示。规范形式意味着第一个字符和连字符后面的任何字符都是大写字母。其余字符都是小写字母。规范形式的示例包括：
 
-```
+```go
 Content-Type
 Accept-Encoding
 ```
@@ -33,7 +33,7 @@ Accept-Encoding
 
 例如，如果在传入请求中有以下 headers：
 
-```
+```go
 content-type: applcation/json
 foo: bar1
 foo: bar2
@@ -41,7 +41,7 @@ foo: bar2
 
 然后在服务器上，header 将如下所示：
 
-```
+```go
 map[string][]string {
   "Content-Type": {"application/json"},
   "Foo": {"bar1" , "bar2"}
@@ -50,7 +50,7 @@ map[string][]string {
 
 由于 header 是一个映射，我们可以利用映射的特性检查某个特定键是否存在。以下是检查映射中键是否存在的格式。
 
-```
+```go
 val, ok := mapName[key]
 ```
 
@@ -62,7 +62,7 @@ val, ok := mapName[key]
 
 让我们来看一个例子。
 
-```
+```go
 package main
 
 import (
@@ -95,25 +95,25 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 在上述程序中，我们启动了一个监听端口 8080 的服务器。我们还在该端点定义了一个 URL。运行此服务器并进行以下 API 调用。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example -H "content-type: application/json" 
 ```
 
 运行此 API 后，请检查终端中的输出。它将输出结果。你可以检查输出。content-type header 存在，因此输出其值。someKey header 不存在，因此打印未找到。此外，请注意，在访问 header 映射时，我们需要以规范形式输入键。例如，即使 curl 中提供的 header 是：
 
-```
+```go
 content-type
 ```
 
 但是在代码中访问 header 映射时，我们使用的键是规范形式 **Content-Type**。
 
-```
+```go
 val, ok := headers["Content-Type"]
 ```
 
 如果我们只想检查一个键是否存在而不需要值，则可以用空标识符即“_”替代值。
 
-```
+```go
 _, ok = employeeSalary["Sam"]
 ```
 

@@ -12,7 +12,7 @@
 
 让我们看看一个工作代码
 
-```
+```go
 package main
 
 import "fmt"
@@ -37,7 +37,7 @@ func find(source []string, value string) bool {
 
 **输出：**
 
-```
+```go
 Item san found: true
 Item can found: false
 ```

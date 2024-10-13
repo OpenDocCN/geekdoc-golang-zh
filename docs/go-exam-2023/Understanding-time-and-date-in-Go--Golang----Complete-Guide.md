@@ -52,7 +52,7 @@
 
 **time.Time** 对象用于表示特定的时间点。 **time.Time** 结构如下
 
-```
+```go
 type Time struct {
     // wall and ext encode the wall time seconds, wall time nanoseconds,
     // and optional monotonic clock reading in nanoseconds.
@@ -72,7 +72,7 @@ type Time struct {
 
 此函数可用于获取当前本地时间戳。函数的签名为
 
-```
+```go
 func Now() Time
 ```
 
@@ -80,7 +80,7 @@ func Now() Time
 
 此函数返回对应于给定位置的 **yyyy-mm-dd hh:mm:ss + nsec** 纳秒的时间，并具有适当的时区。函数的签名为：
 
-```
+```go
 func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) Time
 ```
 
@@ -90,19 +90,19 @@ func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) T
 
 例如，两次时间值之间相差 1 小时的持续时间将等于下面的值，表示 1 小时中的纳秒数。
 
-```
+```go
 1 *60*60*1000*1000*1000
 ```
 
 它在 **time** 包中表示如下。
 
-```
+```go
 type Duration int64
 ```
 
 以下是一些在**time**包中定义的常见持续时间
 
-```
+```go
 const (
     Nanosecond  Duration = 1
     Microsecond          = 1000 * Nanosecond
@@ -129,13 +129,13 @@ golang中的**time**包定义了两种添加或减去时间的方法。
 
 +   **Add**函数 - 用于将持续时间加到时间t。由于持续时间可以表示为小时、分钟、秒、毫秒、微秒和纳秒，因此Add函数可以用于从时间中加/减小时、分钟、秒、毫秒、微秒和纳秒。其签名为
 
-```
+```go
 func (t Time) Add(d Duration) Time
 ```
 
 +   **AddDate**函数 - 用于给时间t加/减年份、月份和天数。其签名为
 
-```
+```go
 func (t Time) AddDate(years int, months int, days int) Time
 ```
 
@@ -145,7 +145,7 @@ func (t Time) AddDate(years int, months int, days int) Time
 
 以下代码可用于加时间
 
-```
+```go
 package main
 
 import (
@@ -188,7 +188,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Adding 1 hour:
  2020-02-01 02:16:35.893847 +0530 IST m=+3600.000239893
 
@@ -215,7 +215,7 @@ Adding 1 year 2 month 4 day:
 
 以下代码可用于减去时间
 
-```
+```go
 package main
 
 import (
@@ -258,7 +258,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Subtracting 1 hour:
  2020-02-01 00:18:29.772673 +0530 IST m=-3599.999784391
 
@@ -293,7 +293,7 @@ Subtracting 1 year 2 month 4 day:
 
 Golang没有使用上述代码，而是使用看起来像日期和时间的日期和时间格式占位符。Go使用标准时间，即：
 
-```
+```go
 Mon Jan 2 15:04:05 MST 2006  (MST is GMT-0700)
 or 
 01/02 03:04:05PM '06 -0700
@@ -335,7 +335,7 @@ or
 
 现在回到**time.Parse**。该函数的签名为
 
-```
+```go
 func Parse(layout, value string) (Time, error)
 ```
 
@@ -353,7 +353,7 @@ func Parse(layout, value string) (Time, error)
 
 下面是**time.Parse()**的工作代码示例。
 
-```
+```go
 package main
 
 import (
@@ -386,7 +386,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 2020-01-29 00:00:00 +0000 UTC
 2020-01-29 00:00:00 +0000 UTC
 2020-01-29 00:00:00 +0000 UTC
@@ -398,13 +398,13 @@ func main() {
 
 **time.Format**函数可以用来将时间格式化为字符串表示。该函数的签名是。
 
-```
+```go
 func (t Time) Format(layout string)
 ```
 
 让我们看看一些时间格式代码示例。
 
-```
+```go
 package main
 
 import (
@@ -440,7 +440,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 YYYY-MM-DD: 2020-01-25
 YY-MM-DD: 20-01-25
 YYYY-#{MonthName}-DD: 2020-Jan-25
@@ -454,11 +454,11 @@ YYYY-#{MonthName}-DD WeekDay HH:MM:SS PM Timezone TimezoneOffset: 2020-Jan-25 Sa
 
 **time**包有一个方法**Sub**，可以用来获取两个不同时间值之间的差。该函数的签名是。
 
-```
+```go
 func (t Time) Sub(u Time) Duration
 ```
 
-```
+```go
 currentTime := time.Now()
 oldTime := time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC)
 diff := currentTime.Sub(oldTime)
@@ -472,7 +472,7 @@ diff := currentTime.Sub(oldTime)
 
 +   Unix时间戳转换为time.Time。
 
-```
+```go
 package main
 
 import (
@@ -495,7 +495,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 timeUnix 1257894000
 time.Time: 2009-11-10 23:00:00 +0000 UTC
 ```
@@ -512,7 +512,7 @@ time.Time: 2009-11-10 23:00:00 +0000 UTC
 
 让我们看看下面的工作代码，这可以用来更改与特定时间相关联的位置值。
 
-```
+```go
 package main
 
 import (
@@ -539,7 +539,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 UTC Time: 2020-01-31 18:09:41.705858 +0000 UTC
 Berlin Time: 2020-01-31 19:09:41.705858 +0100 CET
 New York Time: 2020-01-31 13:09:41.705858 -0500 EST

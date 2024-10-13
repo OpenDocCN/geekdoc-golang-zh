@@ -26,7 +26,7 @@
 
 [https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)
 
-```
+```go
 type Cookie struct {
 	Name  string
 	Value string
@@ -64,7 +64,7 @@ type Cookie struct {
 
 这是golang作为HTTP客户端的情况。可以使用**net/http**包的**AddCookie**方法添加cookie。如果我们为两个不同的名称和值调用此方法，则这两个名称和值将被添加到结果cookie中。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -113,7 +113,7 @@ func main() {
 
 **输出**
 
-```
+```go
 token=some_token
 clicked=true
 StatusCode: 200
@@ -123,7 +123,7 @@ StatusCode: 200
 
 [https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)
 
-```
+```go
 cookie := &http.Cookie{
     Name:   "token",
     Value:  "some_token",
@@ -133,7 +133,7 @@ cookie := &http.Cookie{
 
 一旦创建了cookie，就使用**AddCookie**方法将其添加到HTTP请求对象中。
 
-```
+```go
 req.AddCookie(cookie)
 ```
 
@@ -153,7 +153,7 @@ golang中的HTTP客户端允许你指定一个**CookieJar**，可用于在进行
 
 以下是net/http **Client**结构的结构。它包含一个名为**Jar**的实例变量，类型为**CookieJar**，这是一个接口。
 
-```
+```go
 type Client struct {
     Transport RoundTripper
 
@@ -167,7 +167,7 @@ type Client struct {
 
 以下是**CookieJar**接口
 
-```
+```go
 type CookieJar interface {
     SetCookies(u *url.URL, cookies []*Cookie)
     Cookies(u *url.URL) []*Cookie
@@ -196,14 +196,14 @@ HTTP客户端以两种方式使用这个jar。
 
 **go.mod**
 
-```
+```go
 module sample.com/client
 go 1.16
 ```
 
 **client.go**
 
-```
+```go
 package main
 
 import (
@@ -264,7 +264,7 @@ func main() {
 
 在上述客户端程序中，我们正在创建一个带有cookie Jar的HTTP客户端。
 
-```
+```go
 jar, err := cookiejar.New(nil)
 if err != nil {
      log.Fatalf("Got error while creating cookie jar %s", err.Error())
@@ -277,7 +277,7 @@ client = http.Client{
 
 我们正在向Cookie Jar添加一个cookie。
 
-```
+```go
 cookie := &http.Cookie{
 		Name:   "token",
 		Value:  "some_token",
@@ -301,7 +301,7 @@ client.Jar.SetCookies(urlObj, []*http.Cookie{cookie})
 
 **go.mod**
 
-```
+```go
 module sample.com/server
 
 go 1.16
@@ -309,7 +309,7 @@ go 1.16
 
 **server.go**
 
-```
+```go
 package main
 
 import (
@@ -351,19 +351,19 @@ func docGetID(w http.ResponseWriter, r *http.Request) {
 
 现在运行服务器。
 
-```
+```go
 go run server.go
 ```
 
 以及客户端。
 
-```
+```go
 go run client.go
 ```
 
 注意服务器端的输出。
 
-```
+```go
 Cookie in First API Call
 token=some_token
 

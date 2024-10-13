@@ -16,7 +16,7 @@ date: 2024-10-13 06:43:56
 
 在Golang中，字符串是字节的序列。字符串字面量实际上表示一个UTF-8字节序列。在UTF-8中，ASCII字符是单字节，对应前128个Unicode字符。所有其他字符的字节数在1到4之间。要更好地理解，请考虑下面的字符串 
 
-```
+```go
 sample := "a£c"
 ```
 
@@ -30,7 +30,7 @@ sample := "a£c"
 
 上述字符串总共占用1+2+1 = 4个字节。因此，当我们使用标准的**len()**函数打印字符串长度时，它将输出4，而不是3，因为**len()**函数返回字符串中的字节数。 
 
-```
+```go
 fmt.Printf("Length is %d\n", len(sample))
 ```
 
@@ -38,13 +38,13 @@ fmt.Printf("Length is %d\n", len(sample))
 
 以下是**sort.Sort**函数的签名 
 
-```
+```go
 func Sort(data Interface)
 ```
 
 这里是**接口**的定义 
 
-```
+```go
 type Interface interface {
 	// Len is the number of elements in the collection.
 	Len() int
@@ -68,7 +68,7 @@ type Interface interface {
 
 在下面的程序中，我们做了同样的事情 
 
-```
+```go
 package main
 
 import (
@@ -103,7 +103,7 @@ func (s sortRuneString) Len() int {
 
 **输出** 
 
-```
+```go
 abc
 ```
 

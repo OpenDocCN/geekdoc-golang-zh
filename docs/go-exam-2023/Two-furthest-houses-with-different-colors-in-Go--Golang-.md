@@ -22,7 +22,7 @@
 
 示例 1
 
-```
+```go
 Input: intervals = [2,2,2,1,2,2]
 Output: 3
 Explanation: House at index 0 and house at index 3 is of different colors
@@ -30,7 +30,7 @@ Explanation: House at index 0 and house at index 3 is of different colors
 
 示例 2
 
-```
+```go
 Input: intervals = [1, 2 ,3, 1, 2]
 Output: 2
 Explanation: House at index 0 and house at index 4 is of different colors
@@ -48,7 +48,7 @@ Explanation: House at index 0 and house at index 4 is of different colors
 
 下面是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -92,7 +92,7 @@ func main() {
 
 **输出**
 
-```
+```go
 4
 -1
 ```

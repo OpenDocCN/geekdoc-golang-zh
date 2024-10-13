@@ -22,7 +22,7 @@
 
 现在让我们看看一个简单的点 ‘.’ 字符程序
 
-```
+```go
 package main
 
 import (
@@ -49,7 +49,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For a: true
 For b: true
 For ab: true
@@ -58,13 +58,13 @@ For empty string: false
 
 在上述程序中，我们有一个简单的正则表达式，仅包含一个点字符。
 
-```
+```go
 sampleRegexp := regexp.MustCompile(".")
 ```
 
 它匹配下面的字符和字符串。
 
-```
+```go
 a
 b
 ab
@@ -76,7 +76,7 @@ ab
 
 让我们看看另一个例子，其中正则表达式中有两个点。
 
-```
+```go
 package main
 
 import (
@@ -102,7 +102,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For ab: true
 For ba: true
 For abc: true
@@ -111,7 +111,7 @@ For a: false
 
 在上述程序中，我们有一个简单的正则表达式，包含两个点。
 
-```
+```go
 sampleRegexp := regexp.MustCompile("..")
 ```
 
@@ -119,7 +119,7 @@ sampleRegexp := regexp.MustCompile("..")
 
 这就是为什么它给出匹配的原因
 
-```
+```go
 ab
 ba
 abc
@@ -127,19 +127,19 @@ abc
 
 并且不匹配
 
-```
+```go
 a
 ```
 
 点 **‘.’** 如前所述，不匹配新行。但默认行为可以通过在正则表达式开头添加一组标志来更改。我们需要添加到正则表达式开头的标志是：
 
-```
+```go
 (?s)
 ```
 
 让我们看看相同的程序
 
-```
+```go
 package main
 
 import (
@@ -162,18 +162,18 @@ func main() {
 
 **输出**
 
-```
+```go
 For \n: false
 For \n: true
 ```
 
-```
+```go
 sampleRegexp := regexp.MustCompile(".")
 ```
 
 和
 
-```
+```go
 sampleRegexp = regexp.MustCompile("(?s).")
 ```
 

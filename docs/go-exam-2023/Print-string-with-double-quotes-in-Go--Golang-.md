@@ -20,7 +20,7 @@
 
 ## **双引号字符串的程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -32,7 +32,7 @@ func main() {
 
 **输出**
 
-```
+```go
 "test"
 ```
 
@@ -40,7 +40,7 @@ func main() {
 
 **反引号的程序**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -50,7 +50,7 @@ func main() {
 
 **输出**
 
-```
+```go
 "test"
 ```
 

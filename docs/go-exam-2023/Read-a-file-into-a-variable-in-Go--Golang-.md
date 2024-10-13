@@ -40,7 +40,7 @@
 
 下面是相应的程序
 
-```
+```go
 package main
 
 import (
@@ -60,7 +60,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Some Garbage Output depending upon the file
 ```
 
@@ -70,7 +70,7 @@ Some Garbage Output depending upon the file
 
 下面是相应的程序
 
-```
+```go
 package main
 
 import (
@@ -97,7 +97,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Some Garbage Output depending upon the file
 ```
 
@@ -107,7 +107,7 @@ Some Garbage Output depending upon the file
 
 下面是相应的程序
 
-```
+```go
 package main
 
 import (
@@ -134,7 +134,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Some Garbage Output depending upon the file
 ```
 

@@ -69,7 +69,7 @@ MacBook Pro 的 USB 端口是**方形**的，而 Windows 的 USB 端口是**圆�
 
 **computer.go**
 
-```
+```go
 package main
 
 type computer interface {
@@ -79,7 +79,7 @@ type computer interface {
 
 **mac.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -94,7 +94,7 @@ func (m *mac) insertInSquarePort() {
 
 **windowsAdapter.go**
 
-```
+```go
 package main
 
 type windowsAdapter struct {
@@ -108,7 +108,7 @@ func (w *windowsAdapter) insertInSquarePort() {
 
 **windows.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -122,7 +122,7 @@ func (w *windows) insertInCirclePort() {
 
 **client.go**
 
-```
+```go
 package main
 
 type client struct {
@@ -135,7 +135,7 @@ func (c *client) insertSquareUsbInComputer(com computer) {
 
 **main.go**
 
-```
+```go
 package main
 
 func main() {
@@ -152,7 +152,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Insert square port into mac machine
 Insert circle port into windows machine
 ```

@@ -20,7 +20,7 @@
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -57,7 +57,7 @@ func newsFeed(ch chan string) {
 
 **输出**
 
-```
+```go
 News: 1
 Timeout: News feed finished
 ```
@@ -66,7 +66,7 @@ Timeout: News feed finished
 
 在接收第一条新闻后，我们通过将新闻通道设置为 nil 来禁用该 case 语句。
 
-```
+```go
 case n := <-news:
    fmt.Println(n)
    news = nil
@@ -74,13 +74,13 @@ case n := <-news:
 
 因此，我们只接收到第一条消息，之后就超时了。这是 select 语句中 nil 通道的用例。如果我们移除下面的行
 
-```
+```go
 news = nil
 ```
 
 然后我们将在输出中接收所有新闻，即输出将是
 
-```
+```go
 News: 1
 News: 2
 Timeout: News feed finished

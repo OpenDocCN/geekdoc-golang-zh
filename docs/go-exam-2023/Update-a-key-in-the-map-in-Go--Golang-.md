@@ -14,7 +14,7 @@
 
 让我们看看一个例子
 
-```
+```go
 package main
 
 import "fmt"
@@ -36,7 +36,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Before update
 map[Tom:2000]
 After update

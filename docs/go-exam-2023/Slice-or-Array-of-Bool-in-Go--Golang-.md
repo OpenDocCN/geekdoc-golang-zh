@@ -28,7 +28,7 @@
 
 ## **布尔切片**
 
-```
+```go
 package main
 
 import "fmt"
@@ -61,7 +61,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Output for First slice of booleans
 true
 false
@@ -75,7 +75,7 @@ false
 
 我们有两种创建布尔切片的方法。第一种方法是
 
-```
+```go
 var booleans_first []bool
 booleans_first = append(booleans_first, true)
 booleans_first = append(booleans_first, false)
@@ -84,7 +84,7 @@ booleans_first = append(booleans_first, true)
 
 第二种方法，我们使用make命令创建布尔切片
 
-```
+```go
 booleans_second := make([]bool, 3)
 booleans_second[0] = false
 booleans_second[1] = true
@@ -95,7 +95,7 @@ booleans_second[2] = false
 
 ## **布尔数组**
 
-```
+```go
 package main
 
 import "fmt"
@@ -128,7 +128,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Output for First Array of booleans
 true
 false
@@ -142,7 +142,7 @@ false
 
 我们有两种创建数组的方法。第一种方法是
 
-```
+```go
 var booleans_first [3]bool
 booleans_first[0] = true
 booleans_first[1] = false
@@ -151,7 +151,7 @@ booleans_first[2] = true
 
 在第二种方法中，我们直接用创建的布尔值初始化数组
 
-```
+```go
 booleans_second := [3]bool{
 	false,
 	true,

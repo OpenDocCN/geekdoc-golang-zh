@@ -24,7 +24,7 @@
 
 ## **程序**
 
-```
+```go
 package main
 
 import (
@@ -41,13 +41,13 @@ func main() {
 
 **输出**  
 
-```
+```go
 true
 ```
 
 此正则表达式  
 
-```
+```go
 [.]
 ```
 
@@ -55,13 +55,13 @@ true
 
 我们首先使用MustCompile函数编译给定的正则表达式。如果给定的正则表达式无效，此函数会导致恐慌。成功编译后，它返回regexp结构的实例。  
 
-```
+```go
 sampleRegexp := regexp.MustCompile("[.]")
 ```
 
 我们可以在regexp实例上调用Match方法，将给定模式与正则表达式进行匹配。如果正则表达式与输入字符串匹配，则返回true，否则返回false。我们需要将输入字符串的字节传递给此方法。  
 
-```
+```go
 match := sampleRegexp.Match([]byte("."))
 ```
 

@@ -56,7 +56,7 @@
 
 让我们看看一个程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -111,7 +111,7 @@ func main() {
 
 **输出**
 
-```
+```go
 a and b are equal
 a and c are not equal
 d and e are equal

@@ -18,7 +18,7 @@ date: 2024-10-13 06:31:52
 
 **json/encoding**包包含可以用于将传入HTTP请求的请求体转换为Go语言结构体的方法。在开始之前，先说一句关于请求体的话。HTTP请求的请求体是一系列字节。请求体的内容类型表示这些字节的表示格式，并且意味着要被读取。对于JSON请求体，内容类型是
 
-```
+```go
 application/json
 ```
 
@@ -28,7 +28,7 @@ application/json
 
 +   结构体字段有一个元信息部分，包含关于该字段的附加信息。这些元字段在将传入的JSON请求体解析为结构体时使用。例如，假设我们有以下结构体：
 
-```
+```go
 type employee struct {
 	Name string `json:"name"`
 	Age  int    `json:"age"`
@@ -37,7 +37,7 @@ type employee struct {
 
 注意与每个标记为‘json’的字段相关联的元标签。这些元字段用于将JSON中的键映射到结构体的字段。例如，如果我们有以下JSON：
 
-```
+```go
 {
   "name" : "John",
   "age"  : 21
@@ -46,7 +46,7 @@ type employee struct {
 
 然后上述JSON的**name**键将映射到**employee**结构体的**Name**字段，JSON中的**age**键将映射到结构体的**Age**字段。假设我们有以下结构体和JSON：
 
-```
+```go
 type employee struct {
 	Name string `json:"n"`
 	Age  int    `json:"ag"`
@@ -96,49 +96,49 @@ type employee struct {
 
 +   传入的 JSON 中有一个额外的字段。例如，假设我们有一个额外的**性别**字段。
 
-```
+```go
 '{"Name":"John", "Age": 21, "Gender": "M"}'
 ```
 
 解码函数返回的错误将是
 
-```
+```go
 unknown field "Gender"
 ```
 
 +   请求体不是有效的 JSON
 
-```
+```go
 '{"Name": "John", "Age":}'
 ```
 
 解码函数返回的错误将是
 
-```
+```go
 invalid character '}' looking for beginning of value
 ```
 
 +   请求体为空
 
-```
+```go
 ''
 ```
 
 解码函数返回的错误将是
 
-```
+```go
 EOF
 ```
 
 +   某个字段的类型与预期不同。例如，发送一个字符串值的年龄，而预期是 int。
 
-```
+```go
 '{"Name":"John", "Age": "21"}'
 ```
 
 解码函数返回的错误将是
 
-```
+```go
 json: cannot unmarshal string into Go struct field employee.age of type int
 ```
 
@@ -146,7 +146,7 @@ json: cannot unmarshal string into Go struct field employee.age of type int
 
 在下面的代码中，我们还设置了**解码器**的禁止未知字段选项，因此传入 JSON 主体中的任何额外字段都会导致错误。
 
-```
+```go
 decore.DisallowUnknownFields()
 ```
 
@@ -154,7 +154,7 @@ decore.DisallowUnknownFields()
 
 下面是完整的程序示例。
 
-```
+```go
 package main
 
 import (
@@ -212,78 +212,78 @@ func errorResponse(w http.ResponseWriter, message string, httpStatusCode int) {
 
 +   **正确的请求**
 
-```
+```go
 curl -X POST -H "content-type: application/json" http://localhost:8080/employee -d '{"Name":"John", "Age": 21}'
 ```
 
 **输出**
 
-```
+```go
 Response Code: 200
 Response Body: {"message":"Success"}
 ```
 
 +   **传入的 JSON 中有一个额外的字段**
 
-```
+```go
 curl -v -X POST -H "content-type: application/json" http://localhost:8080/employee -d '{"Name":"John", "Age": 21, "Gender": "M"}'
 ```
 
 **输出**
 
-```
+```go
 Response Code: 400
 Response Body: {"message":"Bad Request json: unknown field \"Gender\""}
 ```
 
 +   **请求体不是有效的 JSON**
 
-```
+```go
 curl -v -X POST -H "content-type: application/json" http://localhost:8080/employee -d '{"Name": "John", "Age":}'
 ```
 
 **输出**
 
-```
+```go
 Response Code: 400
 Response Body: {"message":"Bad Request invalid character '}' looking for beginning of value"}
 ```
 
 +   **请求体为空**
 
-```
+```go
 curl -v -X POST -H "content-type: application/json" http://localhost:8080/employee
 ```
 
 **输出**
 
-```
+```go
 Response Code: 400
 Response Body: {"message":"Bad Request EOF"}
 ```
 
 +   **某个字段的类型与预期不同。例如，发送一个字符串值的年龄，而预期是 int**
 
-```
+```go
 curl -v -X POST -H "content-type: application/json" http://localhost:8080/employee -d '{"Name":"John", "Age": "21"}'
 ```
 
 **输出**
 
-```
+```go
 Response Code: 400
 Response Body: {"message":"Bad Request. Wrong Type provided for field age"}
 ```
 
 +   **未提供内容类型或内容类型不是 application/json**
 
-```
+```go
 curl -X POST -H "content-type: application/json" http://localhost:8080/employee -d '{"Name":"John", "Age": 21}'
 ```
 
 **输出**
 
-```
+```go
 Response Code: 415 Unsupported Media Type
 Response Body: {"message":"Content Type is not application/json"}
 ```

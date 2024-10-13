@@ -12,7 +12,7 @@
 
 **os.LookupEnv** 函数可用于检查特定环境变量是否已设置。它返回一个布尔值，如果给定的环境变量已设置，则为 true，否则为 false。让我们来看一个工作代码：
 
-```
+```go
 package main
 
 import (
@@ -39,7 +39,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 a env variable present: true
 x
 b env variable present: false

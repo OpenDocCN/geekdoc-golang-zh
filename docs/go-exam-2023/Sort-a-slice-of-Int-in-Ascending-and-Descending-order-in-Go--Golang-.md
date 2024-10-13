@@ -22,7 +22,7 @@
 
 [https://pkg.go.dev/sort#Ints](https://pkg.go.dev/sort#Ints)
 
-```
+```go
 func Ints(x []int)
 ```
 
@@ -30,7 +30,7 @@ func Ints(x []int)
 
 下面是相同程序的代码。
 
-```
+```go
 package main
 
 import (
@@ -49,7 +49,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Before: [3 4 2 1]
 After: [1 2 3 4]
 ```
@@ -62,7 +62,7 @@ After: [1 2 3 4]
 
 下面是该方法的签名。
 
-```
+```go
 func Slice(x any, less func(i, j int) bool)
 ```
 
@@ -74,7 +74,7 @@ func Slice(x any, less func(i, j int) bool)
 
 我们可以使用这个比较函数来决定切片中元素的降序。下面是一个例子。
 
-```
+```go
 package main
 
 import (
@@ -95,14 +95,14 @@ func main() {
 
 **输出**
 
-```
+```go
 Before: [3 4 2 1]
 After: [4 3 2 1]
 ```
 
 实际上，你也可以使用**sort.Slice**方法以降序排序切片。下面是一个例子。
 
-```
+```go
 package main
 
 import (
@@ -123,7 +123,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Before: [3 4 2 1]
 After: [1 2 3 4]
 ```

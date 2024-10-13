@@ -20,7 +20,7 @@
 
 以下是该函数的签名
 
-```
+```go
 func Count(s, substr string) int
 ```
 
@@ -30,7 +30,7 @@ func Count(s, substr string) int
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -56,7 +56,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 2
 0
 9

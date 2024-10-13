@@ -20,7 +20,7 @@
 
 以下是函数的签名
 
-```
+```go
 func Fields(s string) []string 
 ```
 
@@ -32,7 +32,7 @@ func Fields(s string) []string
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -65,7 +65,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 [ab cd ef]
 [abcdef]
 [ab cd ef]

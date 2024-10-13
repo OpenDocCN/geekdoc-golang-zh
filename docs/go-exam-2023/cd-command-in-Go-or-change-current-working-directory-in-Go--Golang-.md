@@ -16,13 +16,13 @@ date: 2024-10-13 06:17:57
 
 以下是该函数的签名
 
-```
+```go
 func Chdir(dir string) error
 ```
 
 **代码**
 
-```
+```go
 package main
 
 import (
@@ -41,7 +41,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Current Working Direcoty: /Users
 ```
 

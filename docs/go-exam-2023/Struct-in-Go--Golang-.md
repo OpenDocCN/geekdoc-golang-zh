@@ -68,7 +68,7 @@ GO 结构是不同类型数据字段的命名集合。结构作为一个容器�
 
 ..等等。结构可以用来表示一个员工
 
-```
+```go
 type employee struct {
     name   string
     age    int
@@ -82,7 +82,7 @@ golang 中的结构可以与面向对象语言中的类相比较
 
 以下是声明结构的格式
 
-```
+```go
 type struct_name struct {
     field_name1 field_type1
     field_name2 field_type2
@@ -94,7 +94,7 @@ type struct_name struct {
 
 示例
 
-```
+```go
 type point struct {
     x float64
     y float64
@@ -107,7 +107,7 @@ type point struct {
 
 声明一个结构体仅声明一个命名的结构体类型。创建一个结构体变量则创建了该结构体的实例，同时也初始化了内存。我们可以创建一个空的结构体变量，而不为任何字段提供值。
 
-```
+```go
 emp := employee{}
 ```
 
@@ -117,13 +117,13 @@ emp := employee{}
 
 +   每个字段在同一行上。
 
-```
+```go
 emp := employee{name: "Sam", age: 31, salary: 2000}
 ```
 
 +   每个字段在不同的行上。
 
-```
+```go
 emp := employee{
    name:   "Sam",
    age:    31,
@@ -133,7 +133,7 @@ emp := employee{
 
 只初始化某些字段的值也是可以的。未初始化的字段将获得其类型的默认零值。
 
-```
+```go
 emp := employee{
    name: "Sam",
    age: 31,
@@ -144,7 +144,7 @@ emp := employee{
 
 让我们看看一个工作代码，说明上述要点：
 
-```
+```go
 package main
 
 import "fmt"
@@ -179,7 +179,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Emp1: {name: age:0 salary:0}
 Emp2: {name:Sam age:31 salary:2000}
 Emp3: {name:Sam age:31 salary:2000}
@@ -200,13 +200,13 @@ Emp4: {name:Sam age:31 salary:0}
 
 需要注意的是，在结构体的初始化中，每个新行在花括号内必须以逗号结尾。因此，下面的初始化将引发错误。
 
-```
+```go
 "salary" : 2000
 ```
 
 不以逗号结尾。
 
-```
+```go
 emp := employee{
   name:   "Sam",
   age:    31,
@@ -216,7 +216,7 @@ emp := employee{
 
 这将是可以的。
 
-```
+```go
 emp := employee{
   name:   "Sam",
   age:    31,
@@ -227,7 +227,7 @@ emp := employee{
 
 结构体也可以在不指定字段名称的情况下进行初始化。但在这种情况下，必须按顺序提供每个字段的所有值。
 
-```
+```go
 emp := employee{"Sam", 31, 2000}
 ```
 
@@ -235,7 +235,7 @@ emp := employee{"Sam", 31, 2000}
 
 让我们看看一个程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -256,19 +256,19 @@ func main() {
 
 **输出**
 
-```
+```go
 Emp2: {name:Sam age:31 salary:2000}
 ```
 
 取消注释该行。
 
-```
+```go
 emp = employee{"Sam", 31}
 ```
 
 在上面的程序中，它将引发编译器错误。
 
-```
+```go
 too few values in employee literal
 ```
 
@@ -276,17 +276,17 @@ too few values in employee literal
 
 结构体字段可以通过点运算符访问。获取值的格式如下。
 
-```
+```go
 n := emp.name
 ```
 
 同样，也可以为结构体字段分配一个值。
 
-```
+```go
 emp.name = "some_new_name"
 ```
 
-```
+```go
 package main
 
 import "fmt"
@@ -312,7 +312,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Current name is: Sam
 New name is: John
 ```
@@ -331,20 +331,20 @@ New name is: John
 
 **&**运算符可用于获取指向结构体变量的指针。
 
-```
+```go
 emp := employee{name: "Sam", age: 31, salary: 2000}
 empP := &emp
 ```
 
 结构体指针也可以直接创建
 
-```
+```go
 empP := &employee{name: "Sam", age: 31, salary: 2000}
 ```
 
 让我们来看一个程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -366,7 +366,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Emp: &{name:Sam age:31 salary:2000}
 Emp: &{name:John age:30 salary:3000}
 ```
@@ -383,43 +383,43 @@ Emp: &{name:John age:30 salary:3000}
 
 这将返回一个指针
 
-```
+```go
 empP := new(employee)
 ```
 
 可以使用**%p**格式修饰符打印指针地址
 
-```
+```go
 fmt.Printf("Emp Pointer: %p\n", empP)
 ```
 
 解引用运算符‘*’可以用于打印指针所指向的值。
 
-```
+```go
 fmt.Printf("Emp Value: %+v\n", *empP)
 ```
 
 它将打印
 
-```
+```go
 Emp Value: {name: age:0 salary:0}
 ```
 
 当不使用解引用指针而是使用格式标识符**%+v**时，将在结构体前添加一个&符号，表明这是一个指针。
 
-```
+```go
 fmt.Printf("Emp Value: %+v\n", empP)
 ```
 
 它将打印
 
-```
+```go
 Emp Value: &{name: age:0 salary:0}
 ```
 
 让我们看看完整程序以说明上述要点
 
-```
+```go
 package main
 
 import "fmt"
@@ -440,7 +440,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Emp Pointer Address: 0xc000130000
 Emp Pointer: &{name: age:0 salary:0}
 Emp Value: {name: age:0 salary:0}
@@ -462,31 +462,31 @@ Emp Value: {name: age:0 salary:0}
 
 让我们首先创建一个员工实例
 
-```
+```go
 emp := employee{name: "Sam", age: 31, salary: 2000}
 ```
 
 +   **%v** – 它将只打印值。字段名称将不会被打印。这是打印结构体的默认方式。例如
 
-```
+```go
 fmt.Printf("%v", emp)  -  {Sam 31 2000}
 ```
 
 +   **%+v –** 它将同时打印字段和值。例如
 
-```
+```go
 fmt.Printf("%+v", emp) - {name:Sam age:31 salary:2000}
 ```
 
 **fmt.Println()**函数也可以用于打印结构体。由于%v是**fmt.Println()**函数的默认格式，因此输出将与使用%v的**fmt.Printf()**相同。
 
-```
+```go
 fmt.Println(emp) - {Sam 31 2000}
 ```
 
 让我们也看看一个工作程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -508,7 +508,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Emp: {Sam 31 2000}
 Emp: {name:Sam age:31 salary:2000}
 Emp: main.employee{name:"Sam", age:31, salary:2000}
@@ -521,19 +521,19 @@ Emp: main.employee{name:"Sam", age:31, salary:2000}
 
 +   **Marshal** – 以下是**Marshal**函数的签名。该函数通过递归遍历值返回**v**的JSON编码。
 
-```
+```go
 Marshal(v interface{}) ([]byte, error)
 ```
 
 +   **MarshalIndent**– 以下是**MarshalIndent**函数的签名。它与**Marshal**函数相似，但应用缩进来格式化输出。因此可以用于美观地打印结构体。
 
-```
+```go
 MarshalIndent(v interface{}, prefix, indent string) ([]byte, error)
 ```
 
 值得注意的是，**Marshal**和**MarshalIndent**函数只能访问结构体的导出字段，这意味着只有大写字段才能被访问并编码为JSON格式。
 
-```
+```go
 package main
 
 import (
@@ -568,7 +568,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Marshal funnction output {"Name":"Sam","Age":31}
 
 MarshalIndent funnction output {
@@ -587,7 +587,7 @@ Go中的结构体也允许为其字段添加元数据。这些元字段可以用
 
 以下是附加元数据的格式。元数据是字符串字面量，即用反引号括起来。
 
-```
+```go
 type strutName struct{
    fieldName type `key:value key2:value2`
 }
@@ -595,7 +595,7 @@ type strutName struct{
 
 现在针对我们的用例，我们将为employee结构体添加JSON标签如下。Marshal函数将使用标签中指定的键名。
 
-```
+```go
 type employee struct {
     Name   string `json:"n"`
     Age    int    `json:"a"`
@@ -605,7 +605,7 @@ type employee struct {
 
 让我们看看完整的程序。
 
-```
+```go
 package main
 
 import (
@@ -633,7 +633,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 {
   "n": "Sam",
   "a": 31,
@@ -647,7 +647,7 @@ func main() {
 
 结构体可以有匿名字段，也就是说一个字段没有名称。类型将成为字段名称。在下面的例子中，**string**也将是字段名称。
 
-```
+```go
 type employee struct {
     string
     age    int
@@ -657,7 +657,7 @@ type employee struct {
 
 匿名字段也可以被访问并赋值。
 
-```
+```go
 package main
 
 import "fmt"
@@ -681,7 +681,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Current name is: Sam
 New name is: John
 ```
@@ -690,7 +690,7 @@ New name is: John
 
 结构体可以嵌套另一个结构体。让我们看看嵌套结构体的一个例子。在下面的**employee**结构体中嵌套了**address**结构体。
 
-```
+```go
 package main
 
 import "fmt"
@@ -717,14 +717,14 @@ func main() {
 
 **输出**
 
-```
+```go
 City: London
 Country: UK
 ```
 
 请注意如何访问嵌套结构体字段。
 
-```
+```go
 emp.address.city
 emp.address.country
 ```
@@ -733,21 +733,21 @@ emp.address.country
 
 嵌套结构体字段也可以是匿名的。在这种情况下，可以直接访问嵌套结构体的字段。所以下面的写法是有效的。
 
-```
+```go
 emp.city
 emp.country
 ```
 
 还需注意，下面的写法在这种情况下仍然有效。
 
-```
+```go
 emp.address.city
 emp.address.country
 ```
 
 让我们看看一个程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -779,7 +779,7 @@ func main() {
 
 **输出**
 
-```
+```go
 City: London
 Country: UK
 City: London
@@ -788,7 +788,7 @@ Country: UK
 
 请注意上面的程序，地址结构体的城市字段可以通过两种方式访问。
 
-```
+```go
 emp.city
 emp.address.city
 ```
@@ -819,7 +819,7 @@ Go没有任何公共、私有或受保护的关键字。控制包外可见性的
 
 **model.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -838,7 +838,7 @@ type company struct {
 
 **test.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -864,7 +864,7 @@ func Test() {
 
 **输出：**
 
-```
+```go
 &{test 21}
 &{}
 test
@@ -875,7 +875,7 @@ test
 
 **model.go**
 
-```
+```go
 package model
 
 //Person struct
@@ -890,7 +890,7 @@ type company struct {
 
 **test.go**
 
-```
+```go
 package main
 
 import (
@@ -918,7 +918,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 cannot refer to unexported name model.company
 p.age undefined (cannot refer to unexported field or method age)
 ```
@@ -955,7 +955,7 @@ p.age undefined (cannot refer to unexported field or method age)
 
 因此，如果两个结构体的所有字段类型都是可比较的，且所有对应字段的值相等，则它们是相等的。让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -979,13 +979,13 @@ func main() {
 
 **输出**
 
-```
+```go
 emp1 annd emp2 are equal
 ```
 
 如果结构体字段类型不可比较，那么在使用==运算符检查结构体相等性时会出现编译错误。
 
-```
+```go
 package main
 import "fmt"
 type employee struct {
@@ -1007,7 +1007,7 @@ func main() {
 
 上面的程序会引发编译错误，因为**employee**结构体包含一个字段**departments**，它是**字符串**的一个**切片**。**切片**不是可比较类型，因此导致编译错误。
 
-```
+```go
 invalid operation: emp1 == emp2 (struct containing []string cannot be compared)
 ```
 
@@ -1021,7 +1021,7 @@ invalid operation: emp1 == emp2 (struct containing []string cannot be compared)
 
 让我们通过另一个例子来看上面的要点。
 
-```
+```go
 package main
 
 import "fmt"
@@ -1054,7 +1054,7 @@ func test(emp employee) {
 
 **输出**
 
-```
+```go
 Emp1 Before: {Sam 31 2000}
 Emp1 After assignment: {Sam 31 2000}
 Emp2: {John 31 2000}

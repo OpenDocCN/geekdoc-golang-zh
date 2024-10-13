@@ -20,7 +20,7 @@
 
 # 示例
 
-```
+```go
 package main
 
 import "fmt"
@@ -44,7 +44,7 @@ func main() {
 
 **输出**
 
-```
+```go
 0
 1
 2
@@ -53,19 +53,19 @@ func main() {
 
 在上述程序中，我们创建了一个新类型。
 
-```
+```go
 type Size uint8
 ```
 
 然后我们声明了一些类型为**Size**的常量。第一个常量**small**被设置为iota，因此它将被设置为零。
 
-```
+```go
 small Size = iota
 ```
 
 这就是原因。
 
-```
+```go
 fmt.Println(small)      >> outputs 0  
 fmt.Println(medium)     >> outputs 1
 fmt.Println(large)      >> outputs 2
@@ -74,7 +74,7 @@ fmt.Println(extraLarge) >> outputs 3
 
 没有IOTA，我们必须显式设置每个枚举值的值。
 
-```
+```go
 package main
 
 import "fmt"
@@ -98,7 +98,7 @@ func main() {
 
 **输出**
 
-```
+```go
 0
 1
 2
@@ -107,7 +107,7 @@ func main() {
 
 我们还可以在Size类型上定义一个**toString**方法，以打印枚举的确切值。请参见下面的程序。
 
-```
+```go
 package main
 import "fmt"
 type Size int
@@ -139,7 +139,7 @@ func (s Size) toString() {
 
 **输出**
 
-```
+```go
 medium
 ```
 

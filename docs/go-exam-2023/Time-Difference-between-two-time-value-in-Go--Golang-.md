@@ -18,7 +18,7 @@
 
 在 **Go** 中，时间由 time.Time 结构体表示。该结构体有一个 **Sub** 方法，可用于获取两个不同时间值之间的差值。
 
-```
+```go
 currentTime := time.Now()
 oldTime := time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC)
 diff := currentTime.Sub(oldTime)
@@ -38,7 +38,7 @@ diff := currentTime.Sub(oldTime)
 
 让我们看一个实际的例子：
 
-```
+```go
 package main
 
 import (
@@ -67,7 +67,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Hours 712.985400
 Minutes 42779.124024
 Seconds 2566747.441457

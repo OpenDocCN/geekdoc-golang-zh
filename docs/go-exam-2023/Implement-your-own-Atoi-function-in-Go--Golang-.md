@@ -18,7 +18,7 @@
 
 **Atoi** 函数将给定字符串转换为其数字表示。例如
 
-```
+```go
 Input: "121"
 Output: 121
 
@@ -33,7 +33,7 @@ Output: 0
 
 以下是相应的程序。
 
-```
+```go
 package main
 
 import (
@@ -81,7 +81,7 @@ func myAtoi(s string) int {
 
 **输出**
 
-```
+```go
 121
 -121
 0

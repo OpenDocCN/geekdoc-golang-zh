@@ -14,7 +14,7 @@
 
 让我们来看一个示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -46,7 +46,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 ```
@@ -57,7 +57,7 @@ Lion walk
 
 让我们看看另一个类型实现动物接口的更复杂示例。如果我们定义一个 **狗** 结构体，并且它实现了 **呼吸** 和 **行走** 方法，那么它也将成为一种动物。让我们来看一个示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -106,7 +106,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 Dog breathes

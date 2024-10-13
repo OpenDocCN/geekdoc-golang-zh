@@ -24,7 +24,7 @@
 
 以下是 **Sprintf** 函数的语法。
 
-```
+```go
 func Sprintf(format string, a ...interface{}) string
 ```
 
@@ -34,7 +34,7 @@ func Sprintf(format string, a ...interface{}) string
 
 让我们看一个程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -47,7 +47,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is: John. Age is: 21
 ```
 

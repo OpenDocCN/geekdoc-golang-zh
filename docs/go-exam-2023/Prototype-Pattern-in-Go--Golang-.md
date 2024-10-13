@@ -56,7 +56,7 @@
 
 **inode.go**
 
-```
+```go
 package main
 
 type inode interface {
@@ -69,7 +69,7 @@ type inode interface {
 
 **file.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -91,7 +91,7 @@ func (f *file) clone() inode {
 
 **folder.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -124,7 +124,7 @@ func (f *folder) clone() inode {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -151,7 +151,7 @@ func main() {
 
 **输出:**
 
-```
+```go
 Printing hierarchy for Folder2
   Folder2
     Folder1

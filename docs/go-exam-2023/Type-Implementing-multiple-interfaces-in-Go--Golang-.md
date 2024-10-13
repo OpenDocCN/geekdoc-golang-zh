@@ -22,7 +22,7 @@
 
 假设我们有一个接口**动物**如下
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -31,7 +31,7 @@ type animal interface {
 
 另外假设我们也有一个**哺乳动物**接口如下
 
-```
+```go
 type mammal interface {
     feed()
 }
@@ -39,7 +39,7 @@ type mammal interface {
 
 我们还有一个**狮子**结构体实现了这个**动物**和**哺乳动物**接口
 
-```
+```go
 type lion struct {
     age int
 }
@@ -47,7 +47,7 @@ type lion struct {
 
 # **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -88,7 +88,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 Lion feeds young
@@ -96,7 +96,7 @@ Lion feeds young
 
 在上面的程序中，狮子结构体定义了动物接口的所有方法。它也定义了哺乳动物接口的所有方法。这就是为什么这样可行
 
-```
+```go
 var a animal
 l := lion{}
 a = l
@@ -106,7 +106,7 @@ a.walk()
 
 这同样也是可行的
 
-```
+```go
 var m mammal
 m = l
 m.feed()

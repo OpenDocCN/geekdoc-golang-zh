@@ -16,7 +16,7 @@
 
 +   创建一个导入路径为**“learn”**的模块
 
-```
+```go
 go mod init learn
 ```
 
@@ -26,7 +26,7 @@ go mod init learn
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -41,7 +41,7 @@ func main() {
 
 **math/math.go**
 
-```
+```go
 package math
 
 func Add(a, b int) int {
@@ -51,7 +51,7 @@ func Add(a, b int) int {
 
 查看我们如何在main.go文件中导入math包
 
-```
+```go
 "learn/math"
 ```
 

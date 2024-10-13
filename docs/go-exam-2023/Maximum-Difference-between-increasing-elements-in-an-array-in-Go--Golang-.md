@@ -26,7 +26,7 @@
 
 示例 1
 
-```
+```go
 Input: intervals = [8, 2, 6, 5]
 Output: 4
 Explanation: 6-2 = 4
@@ -34,7 +34,7 @@ Explanation: 6-2 = 4
 
 示例 2
 
-```
+```go
 Input: intervals = [8, 3, 2, 1]
 Output: -1
 Explanation: Condition is not satified
@@ -44,7 +44,7 @@ Explanation: Condition is not satified
 
 这是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -84,7 +84,7 @@ func main() {
 
 **输出**
 
-```
+```go
 4
 -1
 ```

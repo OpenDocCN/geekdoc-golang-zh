@@ -32,7 +32,7 @@
 
 以下是玩家的结构，我们可以看到服装对象嵌入在玩家结构中。
 
-```
+```go
 type player struct {
     dress      dress
     playerType string //Can be T or CT
@@ -93,7 +93,7 @@ type player struct {
 
 **dressFactory.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -137,7 +137,7 @@ func getDressFactorySingleInstance() *dressFactory {
 
 **dress.go**
 
-```
+```go
 package main
 
 type dress interface {
@@ -147,7 +147,7 @@ type dress interface {
 
 **terroristDress.go**
 
-```
+```go
 package main
 
 type terroristDress struct {
@@ -165,7 +165,7 @@ func newTerroristDress() *terroristDress {
 
 **counterTerroristDress.go**
 
-```
+```go
 package main
 
 type counterTerroristDress struct {
@@ -183,7 +183,7 @@ func newCounterTerroristDress() *counterTerroristDress {
 
 **player.go**
 
-```
+```go
 package main
 
 type player struct {
@@ -209,7 +209,7 @@ func (p *player) newLocation(lat, long int) {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -234,7 +234,7 @@ func main() {
 
 **输出:**
 
-```
+```go
 DressColorType: ctDress
 DressColor: green
 DressColorType: tDress

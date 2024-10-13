@@ -20,7 +20,7 @@
 
 示例
 
-```
+```go
 Input: [3, 2, -2]
 Output: 1
 
@@ -39,7 +39,7 @@ Output: 4
 
 +   最后，我们遍历并返回仍为正数的索引。如果所有索引都是负数，则返回
 
-```
+```go
 total_num_of_positive_int + 1
 ```
 
@@ -47,7 +47,7 @@ total_num_of_positive_int + 1
 
 以下是相同的程序
 
-```
+```go
 package main
 
 import (
@@ -117,7 +117,7 @@ func segregate(nums []int) ([]int, int) {
 
 **输出**
 
-```
+```go
 1
 1
 1

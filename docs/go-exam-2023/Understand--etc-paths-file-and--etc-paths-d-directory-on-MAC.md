@@ -12,7 +12,7 @@
 
 MAC OS 使用 **/etc/paths** 文件和 **/etc/paths.d** 目录来设置 **PATH** 环境变量的值。一个工具 **path_helper** 用于根据 **/etc/paths** 文件的内容和 **/etc/paths.d** 目录中文件的内容来设置 **PATH** 环境变量。这就是如何运行 path_helper。
 
-```
+```go
 eval `/usr/libexec/path_helper -s`
 ```
 
@@ -22,7 +22,7 @@ eval `/usr/libexec/path_helper -s`
 
 该文件包含需要设置在 **PATH** 环境变量中的路径。如果我在 MAC 上打印该文件的内容，它输出
 
-```
+```go
 / $ cat /etc/paths
 /usr/local/bin
 /usr/bin
@@ -39,7 +39,7 @@ eval `/usr/libexec/path_helper -s`
 
 安装后，它将在 **‘/etc/paths.d’** 目录中创建一个名为 **‘go’** 的文件。让我们输出该文件的内容。
 
-```
+```go
 / $ cat /etc/paths.d/go
 /usr/local/go/bin
 ```

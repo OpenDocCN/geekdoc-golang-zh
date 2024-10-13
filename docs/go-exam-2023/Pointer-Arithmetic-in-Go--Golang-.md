@@ -20,7 +20,7 @@
 
 # **程序**
 
-```
+```go
 package main
 func main() {
     a := 1
@@ -33,7 +33,7 @@ func main() {
 
 上述程序引发编译错误
 
-```
+```go
 invalid operation: b + 1 (mismatched types *int and int)
 ```
 

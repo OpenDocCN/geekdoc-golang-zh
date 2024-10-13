@@ -20,7 +20,7 @@ GO的**math**包提供了一个**Max**方法，可以用来获取两个数字的
 
 以下是函数的签名。它接收两个浮点数作为输入，并返回一个浮点数。
 
-```
+```go
 func Max(x, y float64) float64
 ```
 
@@ -36,7 +36,7 @@ func Max(x, y float64) float64
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -55,7 +55,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 3
 -2.1
 ```

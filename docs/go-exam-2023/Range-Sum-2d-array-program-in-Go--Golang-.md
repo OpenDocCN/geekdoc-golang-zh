@@ -28,7 +28,7 @@
 
 +   对于给定的左角（row1, col1）和右角（row2, col2），计算
 
-```
+```go
 topSum = sum_matrix[row1-1][col2]
 leftSum = sum_matrix[row2][col1-1]
 cornerSum = sum_matrix[row1-1][col1-1]
@@ -36,7 +36,7 @@ cornerSum = sum_matrix[row1-1][col1-1]
 
 +   然后返回
 
-```
+```go
 sum_matrix[row2][col2] - topSum - leftSum + cornerSum
 ```
 
@@ -44,7 +44,7 @@ sum_matrix[row2][col2] - topSum - leftSum + cornerSum
 
 这里是相同的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -126,7 +126,7 @@ func main() {
 
 **输出**
 
-```
+```go
 19
 ```
 

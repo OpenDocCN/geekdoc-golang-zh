@@ -12,7 +12,7 @@
 
 Go 的 **builtin** 包提供了 **copy** 函数，可以用于复制切片。以下是此函数的签名。它接收两个切片 **dst** 和 **src**，并将数据从 **src** 复制到 **dst**。它返回复制的元素数量。
 
-```
+```go
 func copy(dst, src []Type) int
 ```
 
@@ -28,7 +28,7 @@ func copy(dst, src []Type) int
 
 一个简单的整数类型复制示例，说明上述要点。
 
-```
+```go
 package main
 
 import "fmt"
@@ -68,7 +68,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Number Of Elements Copied: 5
 dst: [1 2 3 4 5]
 src: [1 2 3 4 5]
@@ -92,7 +92,7 @@ src: [1 2 3 4 5]
 
 在 Go 中，字符串只是一系列字节。因此，将字符串复制到字节切片是合法的。
 
-```
+```go
 package main
 
 import "fmt"
@@ -110,7 +110,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Number Of Elements Copied: 3
 dst: [97 98 99]
 src: abc
@@ -118,7 +118,7 @@ src: abc
 
 在使用复制函数时，源和目标也可以重叠。因此，可以从一个切片复制到自身。以下示例中，我们将切片的最后两个元素复制到同一顺序的前两个元素中。
 
-```
+```go
 package main
 
 import "fmt"
@@ -134,7 +134,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Number Of Elements Copied: 2
 src: [4 5 3 4 5]
 ```

@@ -30,7 +30,7 @@
 
 要声明**字节**或**rune**，我们使用单引号。在声明**字节**时，我们必须指定类型。如果不指定类型，则默认为**rune**。单引号只允许一个字符。在单引号中声明一个包含两个字符的字节或rune时，编译器会产生如下错误。
 
-```
+```go
 invalid character literal (more than one character)
 ```
 
@@ -40,13 +40,13 @@ invalid character literal (more than one character)
 
 +   取消注释下面的行以查看我们上面讨论的编译器错误。
 
-```
+```go
 r = 'ab'
 ```
 
 # **示例：**
 
-```
+```go
 package main
 
 import (

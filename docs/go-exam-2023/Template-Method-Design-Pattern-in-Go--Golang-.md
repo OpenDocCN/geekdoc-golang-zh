@@ -56,7 +56,7 @@
 
 **otp.go**
 
-```
+```go
 package main
 
 type iOtp interface {
@@ -86,7 +86,7 @@ func (o *otp) genAndSendOTP(otpLength int) error {
 
 **sms.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -121,7 +121,7 @@ func (s *sms) publishMetric() {
 
 **email.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -156,7 +156,7 @@ func (s *email) publishMetric() {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -178,7 +178,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 SMS: generating random otp 1234
 SMS: saving otp: 1234 to cache
 SMS: sending sms: SMS OTP for login is 1234
@@ -192,7 +192,7 @@ EMAIL: publishing metrics
 
 # **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -292,7 +292,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 SMS: generating random otp 1234
 SMS: saving otp: 1234 to cache
 SMS: sending sms: SMS OTP for login is 1234

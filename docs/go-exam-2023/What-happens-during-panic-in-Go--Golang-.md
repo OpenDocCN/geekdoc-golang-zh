@@ -34,7 +34,7 @@
 
 让我们看看一个程序
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -54,7 +54,7 @@ func f2() {
 
 **输出**
 
-```
+```go
 Defer in f2
 Defer in f1
 panic: Panic Demo
@@ -71,25 +71,25 @@ exit status 2
 
 在上述程序中，恐慌发生在**f2**函数中，如下所示
 
-```
+```go
 panic("Panic Demo")
 ```
 
 **f2**中的延迟函数在那之后被调用，并打印以下消息
 
-```
+```go
 Defer in f2
 ```
 
 请注意，恐慌发生在**f2**函数中时，其执行停止，因此下面的代码行如果**f2**将不会被执行
 
-```
+```go
 fmt.Println("After painc in f2")
 ```
 
 控制返回到**f1**，如果它有一个延迟函数，延迟函数将被执行，并打印以下消息
 
-```
+```go
 Defer in f1
 ```
 

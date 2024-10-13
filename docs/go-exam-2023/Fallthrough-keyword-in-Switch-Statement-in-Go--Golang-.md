@@ -14,7 +14,7 @@ date: 2024-10-13 06:21:12
 
 为了更好地理解这一点，让我们先看一个没有fallthrough关键字的示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -35,7 +35,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 i is less than 50
 ```
 
@@ -43,7 +43,7 @@ i is less than 50
 
 fallthrough关键字提供了一种绕过此限制的方法。请参见下面的代码，了解**fallthrough**关键字的示例。在下面的示例中，尽管第二个case已匹配，但由于**fallthrough**关键字，它仍然经过了第三个case。
 
-```
+```go
 package main
 
 import "fmt"
@@ -65,20 +65,20 @@ func main() {
 
 **输出**
 
-```
+```go
 i is less than 50
 i is less than 100
 ```
 
 **fallthrough**必须是switch块内的最后一个语句。如果不是，编译器将引发错误。
 
-```
+```go
 fallthrough statement out of place
 ```
 
 以下程序将引发上述错误，因为我们在**fmt.Println**语句之后有**fallthrough**语句。
 
-```
+```go
 package main
 
 import "fmt"
@@ -103,7 +103,7 @@ func main() {
 
 以下是**break**语句的示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -124,13 +124,13 @@ func main() {
 
 **输出**
 
-```
+```go
 b
 ```
 
 **break**语句将终止switch的执行，下面的行将永远不会被执行。
 
-```
+```go
 fmt.Println("after b")
 ```
 

@@ -20,7 +20,7 @@
 
 在本教程中，我们将了解中缀和后缀表达式的表示法，后缀表示法相比中缀的优点，以及如何将中缀表达式转换为后缀表达式。我们将在另一个教程中涵盖后缀表达式的计算。
 
-```
+```go
 Infix Expression: In infix expression, the operator is in between pair of operands like (a op b).
 example: a+b, 2/2 .
 Postfix Expression: In postfix expression, the operator is placed post to both operands like (a b op).
@@ -71,13 +71,13 @@ example: ab+, 22/ .
 
 中缀表达式为
 
-```
+```go
 a+b*c+d
 ```
 
 然后后缀表达式为
 
-```
+```go
 abc*+d+:
 ```
 
@@ -101,7 +101,7 @@ abc*+d+:
 
 以下是 Go 语言中中缀到后缀转换的实现：
 
-```
+```go
 package main
 
 import "fmt"
@@ -198,7 +198,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 2+3*(2^3-5)^(2+1*2)-4 infix has 2323^5-212*+^*+4- postfix
 ```
 

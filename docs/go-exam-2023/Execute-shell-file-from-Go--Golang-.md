@@ -22,14 +22,14 @@
 
 **sample.sh**
 
-```
+```go
 #!/bin/sh
 echo "Triggered from .go file" > out.out
 ```
 
 +   使此 sample.sh 文件可执行
 
-```
+```go
 chmod +x sample.sh
 ```
 
@@ -37,7 +37,7 @@ chmod +x sample.sh
 
 在同一目录下创建一个 **main.go** 文件
 
-```
+```go
 package main
 
 import (
@@ -57,7 +57,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 A out.out file will be created in the same directory
 ```
 

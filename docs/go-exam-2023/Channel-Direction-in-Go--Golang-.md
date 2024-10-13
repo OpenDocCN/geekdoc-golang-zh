@@ -30,7 +30,7 @@
 
 这是这样的通道的语法。
 
-```
+```go
 chan<- int
 ```
 
@@ -38,7 +38,7 @@ chan<- int
 
 这是这样的通道的语法。
 
-```
+```go
 <-chan int
 ```
 
@@ -56,25 +56,25 @@ chan<- int
 
 +   这样的通道只能发送数据，当作为参数传递给函数时，将如下所示。
 
-```
+```go
 func process(ch chan<- int){ //doSomething }
 ```
 
 +   尝试从这样的通道接收数据将会产生以下错误。
 
-```
+```go
 invalid operation: <-ch (receive from send-only type chan<- int)
 ```
 
 尝试取消注释下面的代码行以查看上述错误。
 
-```
+```go
 s := <-ch
 ```
 
 **代码：**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -94,25 +94,25 @@ func process(ch chan<- int) {
 
 +   这样的通道的签名，当作为参数传递给函数时，将如下所示。
 
-```
+```go
 func process(ch <-chan int){ //doSomething }
 ```
 
 +   尝试向这样的通道发送数据将会产生以下错误。
 
-```
+```go
 invalid operation: ch <- 2 (send to receive-only type <-chan int)
 ```
 
 尝试取消注释下面的代码行以查看上述错误。
 
-```
+```go
 ch <- 2
 ```
 
 **代码：**
 
-```
+```go
 package main
 
 import "fmt"

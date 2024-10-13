@@ -14,7 +14,7 @@ Go中的结构体也允许向其字段添加元数据。这些元字段可以用
 
 下面是附加元数据的格式。元数据是一个字符串字面量，即用反引号括起来。
 
-```
+```go
 type strutName struct{
    fieldName type `key:value key2:value2`
 }
@@ -24,7 +24,7 @@ type strutName struct{
 
 让我们给员工结构体添加JSON标签，如下所示。**MarshalIndent**函数将使用标签中指定的键名。
 
-```
+```go
 type employee struct {
     Name   string `json:"n"`
     Age    int    `json:"a"`
@@ -34,7 +34,7 @@ type employee struct {
 
 让我们看看完整的程序
 
-```
+```go
 package main
 
 import (
@@ -62,7 +62,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 {
   "n": "Sam",
   "a": 31,

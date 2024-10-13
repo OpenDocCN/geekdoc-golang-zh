@@ -20,13 +20,13 @@
 
 以下是该函数的签名。该方法返回布尔值，指示提供的两个字符串是否不区分大小写地相等。
 
-```
+```go
 func EqualFold(s, t string) bool
 ```
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -51,7 +51,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 true
 true
 true

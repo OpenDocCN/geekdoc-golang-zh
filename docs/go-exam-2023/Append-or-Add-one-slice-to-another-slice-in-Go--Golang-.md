@@ -18,7 +18,7 @@
 
 也可以将一个切片追加到另一个切片。下面是该操作的格式。
 
-```
+```go
 res := append(slice1, slice2...)
 ```
 
@@ -26,7 +26,7 @@ res := append(slice1, slice2...)
 
 ## **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -43,7 +43,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[1 2 3 4]
 length=4
 capacity=4

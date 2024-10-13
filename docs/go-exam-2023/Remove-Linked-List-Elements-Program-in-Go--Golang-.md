@@ -20,14 +20,14 @@
 
 **示例 1**
 
-```
+```go
 Input: [1, 2, 1, 3, 6], 1
 Output: [2, 3, 6]
 ```
 
 **示例 2**
 
-```
+```go
 Input: [2, 2, 3], 2
 Output: [3]
 ```
@@ -36,7 +36,7 @@ Output: [3]
 
 下面是相应的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -123,7 +123,7 @@ func (l *ListNode) Traverse() {
 
 **输出**
 
-```
+```go
 Resultant First List
 2
 3

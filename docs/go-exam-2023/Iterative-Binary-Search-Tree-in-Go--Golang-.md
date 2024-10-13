@@ -28,7 +28,7 @@
 
 **insertRec()** 函数以迭代方式插入到二叉搜索树中。
 
-```
+```go
 package main
 
 import "fmt"
@@ -159,7 +159,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Printing Inorder
 -1
 -1

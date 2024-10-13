@@ -24,7 +24,7 @@
 
 示例
 
-```
+```go
 Input: m=2 , n=2
 Output: 2
 
@@ -51,7 +51,7 @@ Robot can reach the right down corner in two ways.
 
 这是相同程序的代码。
 
-```
+```go
 package main
 
 import "fmt"
@@ -90,7 +90,7 @@ func main() {
 
 **输出**
 
-```
+```go
 6
 ```
 
@@ -108,7 +108,7 @@ func main() {
 
 ### **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -165,7 +165,7 @@ func main() {
 
 **输出**
 
-```
+```go
 2
 ```
 

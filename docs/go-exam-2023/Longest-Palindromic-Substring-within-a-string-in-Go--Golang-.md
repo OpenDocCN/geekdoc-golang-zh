@@ -18,7 +18,7 @@
 
 目标是在字符串中找到最大的回文子串。例如，假设输入字符串为
 
-```
+```go
 cabae
 ```
 
@@ -34,13 +34,13 @@ cabae
 
 +   如果**string[i] == string[j]**且**i+1**到**j-1**的子串是回文，则
 
-```
+```go
 len(i,j) = 2 + len(i+1, j-1)
 ```
 
 +   如果**string[i] != string[j]**，那么
 
-```
+```go
 len(i,j) = max(len(i+1,j), len(i,j-1)
 ```
 
@@ -48,7 +48,7 @@ len(i,j) = max(len(i+1,j), len(i,j-1)
 
 以下是相应的程序。
 
-```
+```go
 package main
 
 import (
@@ -138,6 +138,6 @@ func longestPalindrome(s string) string {
 
 **输出**
 
-```
+```go
 aba
 ```*

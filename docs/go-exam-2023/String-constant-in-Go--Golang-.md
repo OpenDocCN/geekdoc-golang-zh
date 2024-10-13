@@ -50,7 +50,7 @@
 
 +   未类型化的命名字符串常量
 
-```
+```go
 package main
 
 import "fmt"
@@ -87,7 +87,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Untyped named string constant
 uu: Type: string Value: abc
 
@@ -102,7 +102,7 @@ zz: Type: string Value: abc
 
 在上述程序中，我们在代码中创建了一个新类型**myString**。
 
-```
+```go
 type myString string
 ```
 
@@ -120,19 +120,19 @@ type myString string
 
 定义如下
 
-```
+```go
 const aa string = "abc"
 ```
 
 上述内容注意，下面的行将导致编译错误。这是因为类型字符串常量**aa**的类型是**string**。因此，下面的行将导致编译错误，因为它无法分配给类型为**myString**的变量。
 
-```
+```go
 var v myString = aa
 ```
 
 但是，有类型的字符串常量可以分配给用**var**关键字创建的变量，如下所示
 
-```
+```go
 var uu = aa
 ```
 
@@ -140,13 +140,13 @@ var uu = aa
 
 定义如下
 
-```
+```go
 const bb = "abc"
 ```
 
 未类型化的命名字符串常量可以分配给类型为**myString**的变量，以及用**var**关键字创建的变量，因为它是未类型化的，因此常量的类型将根据被分配的变量的类型决定。
 
-```
+```go
 var ww myString = bb
 var xx = bb
 ```
@@ -155,13 +155,13 @@ var xx = bb
 
 它如下所示
 
-```
+```go
 abc
 ```
 
 未类型化的未命名字符串常量可以分配给类型为**myString**的变量，以及用**var**关键字创建的变量，因为它是未类型化的，因此常量的类型将根据被分配的变量的类型决定。
 
-```
+```go
 var yy myString = "abc"
 var zz = "abc"
 ```

@@ -22,7 +22,7 @@
 
 **json.Unmarshal**函数可用于将JSON转换为结构体或应用程序。以下是该方法的签名：
 
-```
+```go
 func Unmarshal(data []byte, v interface{}) error
 ```
 
@@ -36,13 +36,13 @@ func Unmarshal(data []byte, v interface{}) error
 
 创建一个名为**employee.json**的文件，内容如下：
 
-```
+```go
 {"Name":"John","Age":21}
 ```
 
 以下是代码
 
-```
+```go
 package main
 
 import (
@@ -74,13 +74,13 @@ func main() {
 
 **输出**
 
-```
+```go
 emp Struct: main.employee{Name:"John", Age:21}
 ```
 
 在上述代码中，我们创建了一个员工结构体。
 
-```
+```go
 type employee struct {
 	Name string `json:"Name"`
 	Age  int    `json:"Age"`
@@ -91,7 +91,7 @@ type employee struct {
 
 这就是我们如何将文件字节解析到员工实例中的。
 
-```
+```go
 err = json.Unmarshal([]byte(file), &emp)
 ```
 
@@ -101,13 +101,13 @@ err = json.Unmarshal([]byte(file), &emp)
 
 假设我们有以下JSON
 
-```
+```go
 {"1":"John", "2": "Simon"}
 ```
 
 以下是一个程序，将从上述内容读取并将上述JSON转换为映射：
 
-```
+```go
 package main
 
 import (
@@ -132,7 +132,7 @@ func main() {
 
 **输出**
 
-```
+```go
 map[1:John 2:Simon]
 ```
 

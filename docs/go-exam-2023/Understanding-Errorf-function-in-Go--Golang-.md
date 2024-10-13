@@ -32,7 +32,7 @@
 
 以下是**Errorf**的函数原型
 
-```
+```go
 func Errorf(format string, a ...interface{}) error
 ```
 
@@ -54,7 +54,7 @@ func Errorf(format string, a ...interface{}) error
 
 +   示例
 
-```
+```go
 name := "J"
 fmt.Errorf("Name has less then 3 character. Name: %s\n", name)
 ```
@@ -65,7 +65,7 @@ fmt.Errorf("Name has less then 3 character. Name: %s\n", name)
 
 +   示例
 
-```
+```go
 age := 0
 fmt.Errorf("Age is 0: Age:%d\n", age)
 ```
@@ -82,7 +82,7 @@ fmt.Errorf("Age is 0: Age:%d\n", age)
 
 这就是为什么
 
-```
+```go
 fmt.Errorf("Employee not found. Details: %v\n", e)
 fmt.Errorf("Employee not found. Details: %+v\n", e)
 fmt.Errorf("Employee not found. Details: %#v\n", e)
@@ -92,7 +92,7 @@ fmt.Errorf("Employee not found. Details: %#v\n", e)
 
 这是相同功能的工作程序
 
-```
+```go
 package main
 
 import (
@@ -130,7 +130,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Err is: database connection issue
 Err is: database connection issue to port 8080
 Employee not found. Details {John 0}
@@ -140,7 +140,7 @@ Employee not found. Details main.employee{Name:"John", Age:0}
 
 请注意下面的**Errorf**
 
-```
+```go
 err = fmt.Errorf("Err is: %s to port %d", sampleErr, port)
 ```
 
@@ -158,7 +158,7 @@ err = fmt.Errorf("Err is: %s to port %d", sampleErr, port)
 
 而下一个变量参数的数量仅为一个。因此，当我们格式化它时，它返回带有第二个格式说明符的格式化错误，原样显示MISSING作为警告。
 
-```
+```go
 package main
 
 import "fmt"
@@ -173,7 +173,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Employee not found with name: John and age %!d(MISSING)
 ```
 
@@ -181,13 +181,13 @@ Employee not found with name: John and age %!d(MISSING)
 
 以下是封装错误的语法。
 
-```
+```go
 e := fmt.Errorf("... %w ...", ..., err, ...)
 ```
 
 **%w**指令用于封装错误。**fmt.Errorf**应该仅使用一个%w指令调用。让我们看一个例子。
 
-```
+```go
 package main
 
 import (
@@ -217,32 +217,32 @@ func main() {
 
 **输出**
 
-```
+```go
 E2: Error One happened
 E3: E2: Error One happened
 ```
 
 在上面的程序中，我们创建了一个名为**errorOne**的结构体，它具有一个**Error**方法，因此它实现了**error**接口。然后我们创建了一个名为**e1**的**errorOne**结构体实例。接着我们将该实例**e1**封装到另一个错误**e2**中，如下所示。
 
-```
+```go
 e2 := fmt.Errorf("E2: %w", e1)
 ```
 
 然后我们将**e2**封装到**e3**中，如下所示。
 
-```
+```go
 e3 := fmt.Errorf("E3: %w", e2)
 ```
 
 因此我们创建了一个错误层次结构，其中**e3**封装了**e2**，而**e2**封装了**e1**。因此，**e3**也以传递方式封装了**e1**。当我们打印**e2**时，它也会打印来自**e1**的错误并给出输出。
 
-```
+```go
 E2: Error One happened
 ```
 
 当我们打印**e3**时，它打印来自**e2**以及**e1**的错误并给出输出。
 
-```
+```go
 E3: E2: Error One happened
 ```
 

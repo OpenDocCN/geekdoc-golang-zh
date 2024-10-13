@@ -30,7 +30,7 @@
 
 让我们看一个由于超出范围的数组访问而导致的运行时错误示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -48,7 +48,7 @@ func print(a []string, index int) {
 
 **输出**
 
-```
+```go
 panic: runtime error: index out of range [2] with length 2
 
 goroutine 1 [running]:

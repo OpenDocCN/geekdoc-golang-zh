@@ -22,19 +22,19 @@
 
 如果断言成功，它将返回相应的错误，否则将引发panic。以下是语法。
 
-```
+```go
 err := err.({type})
 ```
 
 最好使用**ok**变量以防断言失败而导致panic。以下是语法：如果错误的底层类型正确，**ok**变量将被设置为true。
 
-```
+```go
 err, ok := err.({type})
 ```
 
 使用**errors**包的**As**函数 - [https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)。使用**As**函数比使用.({type})断言更可取，因为它通过顺序解包第一个错误并在每一步解包时与目标错误进行匹配。以下是Is函数的语法。
 
-```
+```go
 func As(err error, target interface{}) bool
 ```
 
@@ -44,7 +44,7 @@ func As(err error, target interface{}) bool
 
 让我们来看一个例子。
 
-```
+```go
 package main
 
 import (
@@ -80,7 +80,7 @@ func openFile(fileName string) error {
 
 **输出：**
 
-```
+```go
 Using Assert: Error e is of type path error. Path: non-existing.txt
 Using As function: Error e is of type path error. Path: non-existing.txt
 ```
@@ -89,13 +89,13 @@ Using As function: Error e is of type path error. Path: non-existing.txt
 
 +   使用.assert运算符。如果底层错误类型是***os.PathError**，则ok变量将被设置为true，否则将被设置为false。
 
-```
+```go
 e,ok := err.(*os.PathError); ok
 ```
 
 +   使用errors包的**As**函数。
 
-```
+```go
 errors.As(err, &pathError)
 ```
 
@@ -103,7 +103,7 @@ errors.As(err, &pathError)
 
 我们上面提到，使用**As**函数比使用.({type})断言更可取，因为它通过顺序解包第一个错误并在每一步解包时与目标错误进行匹配。让我们看看一个例子来理解这一点。
 
-```
+```go
 import (
 	"errors"
 	"fmt"
@@ -136,26 +136,26 @@ func openFile(fileName string) error {
 
 **输出：**
 
-```
+```go
 Using Assert: Error not of type path error
 Using As function: Error e is of type path error. Error: open non-existing.txt: no such file or directory
 ```
 
 上面的程序几乎与之前的程序相同，唯一的区别是我们在openFile函数中也包装了错误。
 
-```
+```go
 return fmt.Errorf("Error opening: %w", err)
 ```
 
 +   .assert的输出。
 
-```
+```go
 Using Assert: Error not of type path error
 ```
 
 +   当As函数输出时。
 
-```
+```go
 Using As function: Error e is of type path error. Error: open non-existing.txt: no such file or directory
 ```
 

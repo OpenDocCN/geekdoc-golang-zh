@@ -56,7 +56,7 @@
 
 GO应用程序文件中的每个GO源文件（.go文件）都属于一个包。这就是每个**.go**文件以此开头的原因。
 
-```
+```go
 package <package_name></package_name>
 ```
 
@@ -128,13 +128,13 @@ package <package_name></package_name>
 
 当我们执行go get时，它将在$GOPATH/src目录中下载所需的包。因此，在Go 1.11版本之前，以下go get命令
 
-```
+```go
 go get github.com/pborman/uuid
 ```
 
 它将在该位置下载包。
 
-```
+```go
 $GOPATH/src/github.com/pborman/uuid
 ```
 
@@ -190,7 +190,7 @@ $GOPATH/src/github.com/pborman/uuid
 
 可以使用以下命令来创建模块。
 
-```
+```go
 go mod init {module_import_path}
 ```
 
@@ -214,14 +214,14 @@ go mod init {module_import_path}
 
 转到$GOPATH/src文件夹外的任何目录。假设目录名称为**learn**。
 
-```
+```go
 mkdir learn
 cd learn
 ```
 
 假设模块的导入路径是**sample.com/learn**。
 
-```
+```go
 go mod init sample.com/learn
 ```
 
@@ -229,7 +229,7 @@ go mod init sample.com/learn
 
 让我们检查一下该文件的内容。执行命令`cat go.mod`。
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -239,13 +239,13 @@ go 1.14
 
 +   模块的导入路径位于顶部。
 
-```
+```go
 module sameple.com/learn
 ```
 
 +   创建模块时使用的Go版本。
 
-```
+```go
 go 1.14
 ```
 
@@ -253,7 +253,7 @@ go 1.14
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -272,13 +272,13 @@ func main() {
 
 注意上面文件中的包声明。
 
-```
+```go
 package main
 ```
 
 这意味着上面的源文件属于**main**包。注意我们在**main.go**中也导入了该依赖项。
 
-```
+```go
 "github.com/pborman/uuid"
 ```
 
@@ -294,7 +294,7 @@ package main
 
 这里目录的名称无关紧要。可执行文件的名称将始终与模块名称相同。上述所有命令将在**$GOBIN**目录中创建名为**learn**的可执行文件。如果**$GOBIN**目录在你的路径中，你可以直接运行该可执行文件。
 
-```
+```go
 learn
 ```
 
@@ -304,7 +304,7 @@ learn
 
 执行命令`cat go.mod`
 
-```
+```go
 module learn
 
 go 1.14
@@ -316,7 +316,7 @@ require github.com/pborman/uuid v1.2.1
 
 执行命令`cat go.sum`
 
-```
+```go
 github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=
 github.com/google/uuid v1.0.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/pborman/uuid v1.2.1 h1:+ZZIw58t/ozdjRaXh/3awHfmWRbzYxJoAdNJxe/3pvw=
@@ -327,7 +327,7 @@ github.com/pborman/uuid v1.2.1/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtP
 
 我们还可以直接运行可执行文件。
 
-```
+```go
 learn
 ```
 
@@ -335,7 +335,7 @@ learn
 
 **输出**
 
-```
+```go
 e594dc4d9a754bcb83b56e89b18b4b46
 ```
 
@@ -351,7 +351,7 @@ e594dc4d9a754bcb83b56e89b18b4b46
 
 可执行文件的名称始终是模块导入路径最后部分的名称，这里是 **learn**。导入路径的重要性将在教程的第二部分学习。现在只需理解模块导入路径用于将该模块导入到另一个模块中。如果模块导入路径仅是一个名称，那么可执行文件将只会以该名称创建。例如，模块导入路径可能仅为 **learn**。在这种情况下，可执行文件的名称也是 learn。因此，对于以下模块导入路径，可执行文件的名称将是 **learn**。
 
-```
+```go
 sample.com/manage/learn
 sample.com/learn
 learn
@@ -383,7 +383,7 @@ learn
 
 **$GOPATH/src/learn/main.go**
 
-```
+```go
 package main
 
 import (
@@ -402,7 +402,7 @@ func main() {
 
 运行
 
-```
+```go
 export GO111MODULE=off
 go install
 ```
@@ -411,7 +411,7 @@ go install
 
 上述所有命令将在$GOBIN目录中创建一个名为**learn**的可执行文件。如果$GOBIN目录在你的路径中，那么你可以直接运行这个可执行文件。
 
-```
+```go
 learn
 ```
 
@@ -429,7 +429,7 @@ learn
 
 **learn/subtract.go**
 
-```
+```go
 package main
 func subtract(a, b int) int {
     return a - b
@@ -438,7 +438,7 @@ func subtract(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -452,7 +452,7 @@ func add(a, b int) int {
 
 请再次尝试运行`go install`命令。它将在**$GOBIN**目录中创建一个名为**learn**的可执行文件。尝试运行这个可执行文件，它将给出以下输出。此外，请注意**main.go**中的**main**函数能够调用**subtract.go**中的**subtract**函数。这是因为**main**和**subtract**都属于同一个包main。
 
-```
+```go
 learn $ learn
 3
 -1
@@ -464,13 +464,13 @@ learn $ learn
 
 同一目录中的所有**.go**文件将属于同一个包。这对于所有包含包的目录都是正确的。无论该目录是否包含**go.mod**文件，这一点都不重要。让我们验证一下。将包声明更改为
 
-```
+```go
 package subtract
 ```
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -478,7 +478,7 @@ go 1.14
 
 **learn/subtract.go**
 
-```
+```go
 package subtract
 
 func subtract(a, b int) int {
@@ -488,7 +488,7 @@ func subtract(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -505,13 +505,13 @@ func add(a, b int) int {
 
 注意**包声明。** 它是
 
-```
+```go
 package subtract
 ```
 
 让我们尝试运行**go install**命令。它将产生错误。
 
-```
+```go
 can't load package: package learn: found packages subtract (subtract.go) and main (main.go) in
 ```
 
@@ -521,7 +521,7 @@ can't load package: package learn: found packages subtract (subtract.go) and mai
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -529,7 +529,7 @@ go 1.14
 
 **learn/math/math.go**
 
-```
+```go
 package math
 
 func Add(a, b int) int {
@@ -542,7 +542,7 @@ func Subtract(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 
 import (
@@ -558,7 +558,7 @@ func main() {
 
 如果你运行这个程序，输出将是相同的：
 
-```
+```go
 3
 1
 ```
@@ -569,7 +569,7 @@ func main() {
 
 main.go文件通过**“sample.com/learn/math”**导入包，并能够使用math.Add(..)和math.Subtract(..)调用Add和Subtract。看看我们是如何在main.go文件中导入math包的。
 
-```
+```go
 "sample.com/learn/math"
 ```
 
@@ -583,7 +583,7 @@ main.go文件通过**“sample.com/learn/math”**导入包，并能够使用mat
 
 +   导入的简写方式
 
-```
+```go
 import (
     "fmt"
     "sample.com/learn/math"
@@ -592,7 +592,7 @@ import (
 
 还有另一种形式
 
-```
+```go
 import "fmt"
 import "sample.com/learn/math"
 ```
@@ -603,7 +603,7 @@ import "sample.com/learn/math"
 
 +   使用模块时，从模块的根开始解析路径，即包含**go.mod**文件的目录。
 
-```
+```go
 import "sample.com/learn/math"
 ```
 
@@ -611,7 +611,7 @@ import "sample.com/learn/math"
 
 **go.mod**
 
-```
+```go
 module sample.com/learn
 
 go 1.14
@@ -619,7 +619,7 @@ go 1.14
 
 **learn/math2/math.go –** 请注意，这里目录名称是**math2**。
 
-```
+```go
 package math
 
 func Add(a, b int) int {
@@ -633,7 +633,7 @@ func Subtract(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 
 import (
@@ -683,7 +683,7 @@ Go没有任何**public**、**private**或**protected**关键字。控制可见�
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -691,7 +691,7 @@ go 1.14
 
 **learn/math/math.go**
 
-```
+```go
 package math
 func Add(a, b int) int {
     return a + b
@@ -706,7 +706,7 @@ func multiply(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -721,7 +721,7 @@ func main() {
 
 让我们运行这个程序。它会产生错误。
 
-```
+```go
 learn $ go install
 learn $ learn
 ./main.go:12:14: cannot refer to unexported name math.multiply
@@ -730,7 +730,7 @@ learn $ learn
 
 错误是因为**main.go**无法引用未导出的名称**math.multiply**。将multiply改为大写，它就能工作了。之后应该会输出如下结果。
 
-```
+```go
 3
 1
 2
@@ -740,7 +740,7 @@ learn $ learn
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -748,7 +748,7 @@ go 1.14
 
 **learn/math/math.go**
 
-```
+```go
 package math
 func Add(a, b int) int {
     return a + b
@@ -766,7 +766,7 @@ func multiply(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -781,7 +781,7 @@ func main() {
 
 让我们运行这个程序。
 
-```
+```go
 learn $ go install
 learn $ learn
 3
@@ -795,7 +795,7 @@ learn $ learn
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -803,7 +803,7 @@ go 1.14
 
 **learn/math/add.go**
 
-```
+```go
 package math
 func Add(a, b int) int {
     return a + b
@@ -812,7 +812,7 @@ func Add(a, b int) int {
 
 **learn/math/subtract.go**
 
-```
+```go
 package math
 func Subtract(a, b int) int {
     return a - b
@@ -821,7 +821,7 @@ func Subtract(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -835,7 +835,7 @@ func main() {
 
 让我们运行这个程序。
 
-```
+```go
 learn $ go install
 learn $ learn
 3
@@ -850,7 +850,7 @@ learn $ learn
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -858,7 +858,7 @@ go 1.14
 
 **learn/math/math.go**
 
-```
+```go
 package math
 func Add(a, b int) int {
     return a + b
@@ -870,7 +870,7 @@ func Subtract(a, b int) int {
 
 **learn/math/advanced/advanced.go**
 
-```
+```go
 package advanced
 func Square(a int) int {
     return a * a
@@ -879,7 +879,7 @@ func Square(a int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -895,7 +895,7 @@ func main() {
 
 让我们运行这个程序。
 
-```
+```go
 learn $ go install
 learn $ learn
 3
@@ -917,7 +917,7 @@ learn $ learn
 
 在导入包时使用别名意味着为导入的包指定不同的名称。其语法为：
 
-```
+```go
 import <new_name> <directory_path></directory_path></new_name>
 ```
 
@@ -937,7 +937,7 @@ import <new_name> <directory_path></directory_path></new_name>
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -945,7 +945,7 @@ go 1.14
 
 **learn/math2/math2.go**
 
-```
+```go
 package math
 func Subtract(a, b int) int {
     return a - b
@@ -954,7 +954,7 @@ func Subtract(a, b int) int {
 
 **learn/math/math.go**
 
-```
+```go
 package math
 func Add(a, b int) int {
     return a + b
@@ -963,7 +963,7 @@ func Add(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -978,7 +978,7 @@ func main() {
 
 让我们运行这个程序。
 
-```
+```go
 go install
 learn $ learn
 3
@@ -987,7 +987,7 @@ learn $ learn
 
 请注意这一行。我们将**“sample.com/learn/math2”**中存在的**math**包别名为**math2\.** 如果我们没有这样做，那么GO将引发编译问题，因为它无法从两个不同的文件夹导入同名的包。这是使用别名的一个优势。
 
-```
+```go
 math2 "sample.com/learn/math2"
 ```
 
@@ -1011,7 +1011,7 @@ init 函数主要用于初始化无法通过初始化表达式初始化的全局
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -1019,7 +1019,7 @@ go 1.14
 
 **learn/math/add.go**
 
-```
+```go
 package math
 
 import "fmt"
@@ -1035,7 +1035,7 @@ func Add(a, b int) int {
 
 **learn/math/subtract.go**
 
-```
+```go
 package math
 
 import "fmt"
@@ -1051,7 +1051,7 @@ func Subtract(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 
 import (
@@ -1072,7 +1072,7 @@ func main() {
 
 **输出**
 
-```
+```go
 In add init
 In subtract init
 In main init
@@ -1124,7 +1124,7 @@ In main init
 
 **go.mod**
 
-```
+```go
 module sameple.com/learn
 
 go 1.14
@@ -1132,7 +1132,7 @@ go 1.14
 
 **learn/b/b1.go**
 
-```
+```go
 package b
 
 import (
@@ -1150,7 +1150,7 @@ func TestB() error {
 
 **learn/b/b2.go**
 
-```
+```go
 package b
 
 import (
@@ -1164,7 +1164,7 @@ func init() {
 
 **learn/a/a1.go**
 
-```
+```go
 package a
 
 import (
@@ -1183,7 +1183,7 @@ func TestA() error {
 
 **learn/a/a2.go**
 
-```
+```go
 package a
 
 import (
@@ -1197,7 +1197,7 @@ func init() {
 
 **learn/main.go**
 
-```
+```go
 package main
 
 import (
@@ -1216,7 +1216,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Init: b1
 Init: b2
 Init: a1
@@ -1231,7 +1231,7 @@ Main Function Executing
 
 导入包中的空标识符意味着为导入的包指定一个空导入。其语法为
 
-```
+```go
 import _ <directory_path></directory_path>
 ```
 
@@ -1255,7 +1255,7 @@ import _ <directory_path></directory_path>
 
 所以基本上，空导入是在仅为其副作用导入包时使用的。例如，MySQL 包作为空导入使用，目的是在 MySQL 包的 **init()** 函数中注册 MySQL 驱动程序作为数据库驱动程序，而不导入任何其他函数：
 
-```
+```go
 _ "github.com/go-sql-driver/mysql"
 ```
 

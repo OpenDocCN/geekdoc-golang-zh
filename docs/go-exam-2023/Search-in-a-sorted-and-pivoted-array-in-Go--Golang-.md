@@ -18,13 +18,13 @@
 
 我们有一个已排序但在某个索引处旋转的输入数组。例如，考虑以下数组
 
-```
+```go
 [1, 3, 5, 7, 9]
 ```
 
 它已在索引 3 处旋转和旋转
 
-```
+```go
 [5, 7, 9, 1, 3]
 ```
 
@@ -32,7 +32,7 @@
 
 例如
 
-```
+```go
 Input: [5, 7, 9, 1, 3]
 Target Element: 7
 Output: 2
@@ -62,7 +62,7 @@ Output: -1
 
 以下是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -159,7 +159,7 @@ func binarySearch(nums []int, start, end, target int) int {
 
 **输出**
 
-```
+```go
 4
 5
 6

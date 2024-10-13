@@ -16,13 +16,13 @@
 
 函数的签名是
 
-```
+```go
 func Atoi(s string) (int, error)
 ```
 
 **有效代码：**
 
-```
+```go
 package main
 
 import (
@@ -50,7 +50,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Supplied value 1234 is a number with value 1234
 Supplied value 123b is not a number
 ```

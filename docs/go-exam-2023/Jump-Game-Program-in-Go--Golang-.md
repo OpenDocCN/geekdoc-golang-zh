@@ -20,7 +20,7 @@
 
 示例
 
-```
+```go
 Input: [2, 3, 1, 1, 4]
 Output: true
 
@@ -40,7 +40,7 @@ Output: false
 
 ## **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -81,14 +81,14 @@ func main() {
 
 **输出**
 
-```
+```go
 true
 false
 ```
 
 还有一种变体，要求返回最少跳跃次数。下面是该程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -133,7 +133,7 @@ func main() {
 
 **输出**
 
-```
+```go
 2
 -1
 ```

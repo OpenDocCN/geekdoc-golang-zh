@@ -14,7 +14,7 @@
 
 **有缺陷的代码：** 以下是有缺陷的代码。如果发生映射的并发读写，可能会导致崩溃。
 
-```
+```go
 package main
 
 var (
@@ -42,7 +42,7 @@ func main() {
 
 **正确代码：**
 
-```
+```go
 package main
 
 import (

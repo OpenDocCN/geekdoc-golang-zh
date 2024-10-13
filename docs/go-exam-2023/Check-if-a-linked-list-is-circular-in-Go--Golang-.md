@@ -24,7 +24,7 @@
 
 在下面的程序中，我们首先创建一个链表。然后检查它是否是循环链表。它会先打印false。之后，我们将链表转换为循环链表。然后再次检查它是否是循环链表。现在打印true。
 
-```
+```go
 package main
 import "fmt"
 type node struct {
@@ -111,7 +111,7 @@ func main() {
 
 **输出**
 
-```
+```go
 AddFront: D
 AddFront: C
 AddFront: B

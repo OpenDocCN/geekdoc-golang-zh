@@ -58,7 +58,7 @@
 
 要解析**multipart/form-data**请求体，我们需要先在**请求**对象上调用以下函数
 
-```
+```go
 request.ParseMultipartForm()
 ```
 
@@ -66,7 +66,7 @@ request.ParseMultipartForm()
 
 +   **MultipartForm –** 整个**multipart/form-data**请求体将加载到此字段中。例如，在上述情况下，它将保存**姓名**、**年龄**字段以及**照片**字段。其表示格式如下
 
-```
+```go
 type Form struct {
 	Value map[string][]string
 	File  map[string][]*FileHeader
@@ -77,7 +77,7 @@ type Form struct {
 
 +   **表单** – 它包含**multipart/form-data**请求体的查询字符串和非文件字段的组合数据。例如，在上述情况下，它只会包含名称和年龄字段。它的格式如下：
 
-```
+```go
 map[string][]string
 ```
 
@@ -85,7 +85,7 @@ map[string][]string
 
 它的格式也与**表单**相同。
 
-```
+```go
 map[string][]string
 ```
 
@@ -99,7 +99,7 @@ map[string][]string
 
 **名称键**
 
-```
+```go
 request.Form["name"]
 request.PostForm["name"] 
 request.MultipartForm.Value["name"]
@@ -107,7 +107,7 @@ request.MultipartForm.Value["name"]
 
 将返回
 
-```
+```go
 ["John"]
 ```
 
@@ -115,13 +115,13 @@ request.MultipartForm.Value["name"]
 
 当
 
-```
+```go
 request.PostFormValue("name") 
 ```
 
 将返回
 
-```
+```go
 John
 ```
 
@@ -129,7 +129,7 @@ John
 
 **年龄键**
 
-```
+```go
 request.Form["age"]
 request.PostForm["age"] 
 request.MultipartForm.Value["age"]
@@ -137,43 +137,43 @@ request.MultipartForm.Value["age"]
 
 将返回
 
-```
+```go
 ["21"]
 ```
 
 当
 
-```
+```go
 request.PostFormValue("age") 
 ```
 
 将返回
 
-```
+```go
 21
 ```
 
 **照片键**
 
-```
+```go
 request.MultipartForm.File["photo"]
 ```
 
 将返回该图像的**FileHeader**。图像的字节可以通过它访问。
 
-```
+```go
 [FileHeader_object_of_the_image]
 ```
 
 当
 
-```
+```go
 request.FormFile("photo") 
 ```
 
 将返回
 
-```
+```go
 FileHeader_object_of_the_image
 ```
 
@@ -181,7 +181,7 @@ FileHeader_object_of_the_image
 
 现在让我们看看一个示例。
 
-```
+```go
 package main
 import (
 	"fmt"
@@ -239,7 +239,7 @@ func createEmployee(w http.ResponseWriter, request *http.Request) {
 
 注意在上述程序中，我们是如何使用所有方法打印**名称**键的。
 
-```
+```go
 //Access the name key - First Approach
 fmt.Println(request.Form["name"])
 //Access the name key - Second Approach
@@ -258,7 +258,7 @@ fmt.Println(request.PostFormValue("name"))
 
 +   发送**名称**、**年龄**和**照片**。
 
-```
+```go
 curl --location --request PUT 'http://localhost:8080/employee' \
 --header 'Content-Type: multipart/form-data' \
 --form 'name=John' \
@@ -270,7 +270,7 @@ curl --location --request PUT 'http://localhost:8080/employee' \
 
 从输出中可以注意到，它正好打印了我们之前讨论的内容。
 
-```
+```go
 [John] 
 [John] 
 [John] 
@@ -283,7 +283,7 @@ John
 
 它还会保存两个文件，文件名如下：
 
-```
+```go
 formfile-test.png
 mapaccess-test.png
 ```
@@ -292,7 +292,7 @@ mapaccess-test.png
 
 +   发送**名称**、**年龄**和**照片**，但在此示例中，同一个键**'照片'**用于发送两个文件。
 
-```
+```go
 curl --location --request PUT 'http://localhost:8080/employee' \
 --header 'Content-Type: multipart/form-data' \
 --form 'name=John' \
@@ -303,7 +303,7 @@ curl --location --request PUT 'http://localhost:8080/employee' \
 
 **输出**
 
-```
+```go
 [John] 
 [John] 
 [John] 
@@ -316,7 +316,7 @@ John
 
 这次将保存三个文件，文件名如下。由于**FormFile**只访问给定键下的第一个文件，因此只有**formfile-test1.png**会通过**FormFile**方法保存。
 
-```
+```go
 formfile-test1.png
 mapaccess-test2.png
 mapaccess-test2.png
@@ -326,7 +326,7 @@ mapaccess-test2.png
 
 +   发送两个 **name** 键的值
 
-```
+```go
 curl --location --request PUT 'http://localhost:8080/employee' \
 --header 'Content-Type: multipart/form-data' \
 --form 'name=John' \
@@ -337,7 +337,7 @@ curl --location --request PUT 'http://localhost:8080/employee' \
 
 **输出**
 
-```
+```go
 [John John2] 
 [John John2] 
 [John John2] 
@@ -350,13 +350,13 @@ John
 
 rqeuest.**PostFormValue** 返回
 
-```
+```go
 John
 ```
 
 而所有其他选项则返回两个值
 
-```
+```go
 [John John2]
 ```
 
@@ -366,7 +366,7 @@ John
 
 首先，我们必须创建一个多部分写入器 [https://golang.org/pkg/mime/multipart/#Writer](https://golang.org/pkg/mime/multipart/#Writer)
 
-```
+```go
 writer := multipart.NewWriter(body)
 ```
 
@@ -378,7 +378,7 @@ writer := multipart.NewWriter(body)
 
 现在让我们看看程序
 
-```
+```go
 package main
 import (
     "bytes"
@@ -442,7 +442,7 @@ func call(urlPath, method string) error {
 
 运行这个程序，观察在服务器端的输出，因为上述客户端会调用你在第一个示例中创建的服务器。服务器程序将给出类似于 curl 调用的输出。
 
-```
+```go
 [John] 
 [John] 
 [John] 
@@ -455,7 +455,7 @@ John
 
 此外，服务器将保存两个文件，名称与 curl 调用类似
 
-```
+```go
 formfile-test.png
 mapaccess-test.png
 ```

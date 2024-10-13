@@ -22,7 +22,7 @@
 
 **示例 1**
 
-```
+```go
 Input: [1, 4, 5, 6]
 Target Element: 4
 Output: 1
@@ -32,7 +32,7 @@ Target element 4 is present at index 1
 
 **示例 2**
 
-```
+```go
 Input: [1, 2, 3]
 Target Element: 4
 Output: -1
@@ -42,7 +42,7 @@ Target element 4 is present at index 1
 
 ## **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -79,7 +79,7 @@ func main() {
 
 **输出**
 
-```
+```go
 1
 -1
 ```

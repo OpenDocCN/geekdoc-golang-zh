@@ -36,7 +36,7 @@
 
 +   后置部分
 
-```
+```go
 for init_part; condition_part; post_part {
    ...
 }
@@ -64,7 +64,7 @@ for init_part; condition_part; post_part {
 
 ## **简单的 for 循环**
 
-```
+```go
 package main
 
 import "fmt"
@@ -78,7 +78,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 0
 1
 2
@@ -88,7 +88,7 @@ func main() {
 
 ## **仅带条件的 for 循环**
 
-```
+```go
 package main
 
 import "fmt"
@@ -104,7 +104,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 0
 1
 2
@@ -114,7 +114,7 @@ func main() {
 
 ## **无限循环**
 
-```
+```go
 package main
 
 import (
@@ -134,7 +134,7 @@ func main() {
 
 **输出：** 上述程序打印一个无限循环
 
-```
+```go
 0
 1
 2
@@ -149,7 +149,7 @@ func main() {
 
 **break** 语句帮助退出 for 循环。循环内 break 后的语句不被执行。
 
-```
+```go
 package main
 
 import (
@@ -170,7 +170,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 0
 1
 2
@@ -184,7 +184,7 @@ func main() {
 
 让我们看看下面程序的例子，我们只想打印非 3 的倍数。
 
-```
+```go
 package main
 
 import "fmt"
@@ -201,7 +201,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 1
 2
 4
@@ -215,7 +215,7 @@ func main() {
 
 for 循环也可以嵌套。请看下面的例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -232,7 +232,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Outer loop iteration 0
 i= 0 j=0
 i= 0 j=1
@@ -248,7 +248,7 @@ i= 2 j=1
 
 下面的代码是一个示例，我们也可以在初始化部分进行函数调用或赋值。
 
-```
+```go
 package main
 
 import "fmt"
@@ -272,7 +272,7 @@ func test() {
 
 **输出**
 
-```
+```go
 In test function
 1
 2
@@ -285,7 +285,7 @@ Go没有**while**关键字。相反，它只有**for**关键字。然而，**for
 
 如果可以跳过**初始化部分**和**增量部分**，则可以将**for**循环实现为与**while**相同的行为。以下是一个示例：
 
-```
+```go
 package main
 
 import "fmt"
@@ -301,7 +301,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 1
 2
 3

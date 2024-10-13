@@ -20,7 +20,7 @@
 
 例如
 
-```
+```go
 Input: ()(()
 Output: 2
 
@@ -30,7 +30,7 @@ Output: 6
 
 ## **程序**
 
-```
+```go
 package main
 
 import (
@@ -152,7 +152,7 @@ func longestValidParentheses(s string) int {
 
 **输出**
 
-```
+```go
 2
 6
 2

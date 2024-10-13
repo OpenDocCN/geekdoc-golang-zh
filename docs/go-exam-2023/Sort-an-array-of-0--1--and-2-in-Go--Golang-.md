@@ -22,7 +22,7 @@
 
 例如
 
-```
+```go
 Input: [0, 1, 2, 0, 1]
 Output: [0, 0, 1, 1, 2]
 
@@ -54,7 +54,7 @@ Output: [0, 1]
 
 ## **第一种方法 - 使用计数**
 
-```
+```go
 package main
 
 import "fmt"
@@ -97,13 +97,13 @@ func sortNums(nums []int) {
 
 **输出**
 
-```
+```go
 [0 0 1 1 2 2]
 ```
 
 ## **第二种方法 - 使用交换和洗牌**
 
-```
+```go
 package main
 
 import "fmt"
@@ -137,7 +137,7 @@ func sortNums(nums []int) {
 
 **输出**
 
-```
+```go
 [0 0 1 1 2 2]
 ```
 

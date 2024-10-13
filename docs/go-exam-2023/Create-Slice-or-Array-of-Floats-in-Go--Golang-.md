@@ -28,7 +28,7 @@
 
 ## **浮点切片**
 
-```
+```go
 package main
 
 import "fmt"
@@ -61,7 +61,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Output for First slice of floats
 1.1
 2.2
@@ -75,7 +75,7 @@ Output for Second slice of floats
 
 我们有两种创建浮点切片的方法。第一种方法是
 
-```
+```go
 var floats_first []float64
 floats_first = append(floats_first, 1.1)
 floats_first = append(floats_first, 2.2)
@@ -84,7 +84,7 @@ floats_first = append(floats_first, 3.3)
 
 在第二种方法中，我们使用make命令来创建浮点切片。
 
-```
+```go
 floats_second := make([]float64, 3)
 floats_second[0] = 3.3
 floats_second[1] = 2.2
@@ -93,7 +93,7 @@ floats_second[2] = 1.1
 
 ## **浮点数组**
 
-```
+```go
 package main
 
 import "fmt"
@@ -126,7 +126,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Output for First Array of floats
 1.1
 2.2
@@ -140,7 +140,7 @@ Output for Second Array of floats
 
 我们有两种创建数组的方法。第一种方法是
 
-```
+```go
 var floats_first [3]float64
 floats_first[0] = 1.1
 floats_first[1] = 2.2
@@ -149,7 +149,7 @@ floats_first[2] = 3.3
 
 在第二种方法中，我们直接用创建的浮点数初始化数组。
 
-```
+```go
 floats_second := [3]float64{
 	3.3,
 	2.2,

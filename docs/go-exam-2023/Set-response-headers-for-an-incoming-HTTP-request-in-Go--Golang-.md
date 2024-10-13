@@ -32,7 +32,7 @@
 
 下面是头部在 Go 中表示的格式。
 
-```
+```go
 type Header map[string][]string
 ```
 
@@ -40,7 +40,7 @@ type Header map[string][]string
 
 +   键以规范形式表示。规范形式意味着第一个字符和任何在连字符后面的字符都为大写。其他所有字符均为小写。规范形式的示例有：
 
-```
+```go
 Content-Type
 Accept-Encoding
 ```
@@ -49,7 +49,7 @@ Accept-Encoding
 
 例如，如果以下头部在服务器的外发响应中设置，则：
 
-```
+```go
 content-type: applcation/json
 foo: bar1
 foo: bar2
@@ -57,7 +57,7 @@ foo: bar2
 
 然后在客户端，头部将如下所示：
 
-```
+```go
 Content-Type: applcation/json
 Foo: bar1
 Foo: bar2
@@ -71,7 +71,7 @@ Foo: bar2
 
 现在我们已经看到头部在请求中的表示。让我们看看如何设置响应头的值。假设我们有以下需要在响应头中设置的键值对：
 
-```
+```go
 content-type: applcation/json
 foo: bar1
 foo: bar2
@@ -79,7 +79,7 @@ foo: bar2
 
 在 **http.ResponseWriter** 接口中定义了一个 **Header** 方法，如下所示。它返回与响应相关联的头部。
 
-```
+```go
 type ResponseWriter interface {
     Header() Header
     ...
@@ -92,7 +92,7 @@ type ResponseWriter interface {
 
 下面是 Add 方法的签名。
 
-```
+```go
 func (h Header) Add(key, value string)
 ```
 
@@ -100,7 +100,7 @@ func (h Header) Add(key, value string)
 
 例如，如果我们用不同的值添加 foo 头部两次：
 
-```
+```go
 w.Header().Add("foo", "bar1")
 w.Header().Add("foo", "bar2")
 ```
@@ -111,7 +111,7 @@ w.Header().Add("foo", "bar2")
 
 以下是该函数的签名。
 
-```
+```go
 func (h Header) Set(key, value string)
 ```
 
@@ -121,7 +121,7 @@ func (h Header) Set(key, value string)
 
 让我们看看一个展示以上所有要点的程序。
 
-```
+```go
 package main
 
 import (
@@ -150,26 +150,26 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 在上述程序中，我们启动了一个监听在8085端口的服务器。我们将**content-type**头部设置如下。
 
-```
+```go
 w.Header().Set("content-type", "application/json")
 ```
 
 我们将**foo**头部设置如下。
 
-```
+```go
 w.Header().Add("foo", "bar1")
 w.Header().Add("foo", "bar2")
 ```
 
 我们还在该端点定义了一个URL。运行此服务器并进行以下API调用。
 
-```
+```go
 curl -v -X POST http://localhost:8085/example
 ```
 
 运行此API后，请在终端检查响应头。它与我们讨论的内容完全一致。此外，每个头部键都转换为其规范形式。
 
-```
+```go
 < HTTP/1.1 200 OK
 < Content-Type: application/json
 < Foo: bar1

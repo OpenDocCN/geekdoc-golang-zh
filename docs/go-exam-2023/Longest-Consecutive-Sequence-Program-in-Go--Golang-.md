@@ -20,7 +20,7 @@
 
 **示例 1**
 
-```
+```go
 Input: [4,7,3,8,2,1]
 Output: 4
 Reason: The longest consecutive sequence is [1,2,3,4]
@@ -28,7 +28,7 @@ Reason: The longest consecutive sequence is [1,2,3,4]
 
 **示例 2**
 
-```
+```go
 Input: [4,7,3,8,2,1,9,24,10,11]
 Output: 5
 Reason: The longest consecutive sequence is [7,8,9,10,11]
@@ -46,7 +46,7 @@ Reason: The longest consecutive sequence is [7,8,9,10,11]
 
 下面是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -101,7 +101,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 4
 5
 ```

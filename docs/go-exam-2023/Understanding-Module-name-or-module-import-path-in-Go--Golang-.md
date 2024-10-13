@@ -28,13 +28,13 @@
 
 现在让我们更详细地讨论模块导入路径。这是用于导入该模块所有包的前缀路径。让我们看看一个例子来更好地理解模块导入路径。为此，让我们创建一个模块
 
-```
+```go
 go mod init sample.com/learn
 ```
 
 上述命令将创建一个导入路径为 [sample.com](http://sample.com)/learn 的模块。它还会在同一目录中创建一个 **go.mod** 文件。让我们检查一下该文件的内容。执行 cat **go.mod**
 
-```
+```go
 module sample.com/learn
 
 go 1.14
@@ -42,13 +42,13 @@ go 1.14
 
 go.mod 文件的第一行将包含模块导入路径，正如你在上面的 **go.mod** 文件中看到的那样。现在，这个模块导入路径有什么用。模块的导入路径用于从任何其他模块导入该模块的任何包。这个其他模块将使用模块导入路径作为前缀路径，加上包的文件夹路径。
 
-```
+```go
 module_import_path + folder_path_of_package
 ```
 
 因此，如果 **sample.com/learn** 模块包含位于目录 **math** 中的 **math** 包，那么任何其他模块都可以使用以下路径导入 **math** 包
 
-```
+```go
 sample.com/learn/math
 ```
 
@@ -66,7 +66,7 @@ sample.com/learn/math
 
 例如，注意该模块的导入路径 [https://github.com/pborman/uuid](https://github.com/pborman/uuid)。go.mod 文件如下所示
 
-```
+```go
 module github.com/pborman/uuid
 
 ...

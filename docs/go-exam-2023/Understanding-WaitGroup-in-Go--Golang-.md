@@ -20,7 +20,7 @@
 
 让我们来看一个工作的代码：
 
-```
+```go
 package main
 
 import (
@@ -47,7 +47,7 @@ func sleep(wg *sync.WaitGroup, t time.Duration) {
 
 **输出：**
 
-```
+```go
 Finished Execution
 Finished Execution
 All goroutines finished

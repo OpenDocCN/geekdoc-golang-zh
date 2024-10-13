@@ -40,7 +40,7 @@
 
 下面是一个说明字符常量的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -77,7 +77,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Untyped unnamed character constant
 uu: Type: int32 Value: 97
 
@@ -92,7 +92,7 @@ zz: Type: int32 Value: 97
 
 在上述程序中，我们创建了一个新类型**myChar**
 
-```
+```go
 type myChar int32
 ```
 
@@ -110,19 +110,19 @@ type myChar int32
 
 定义如下
 
-```
+```go
 const aa int32 = 'a'
 ```
 
 请注意，上述代码中的以下行将导致编译错误。这是因为变量**aa**的类型为**int32**。因此，下面的行将导致编译错误，因为它无法赋值给类型为**myChar**的变量。
 
-```
+```go
 var v myChar = aa
 ```
 
 但是类型字符串常量可以赋值给使用**var**关键字创建的变量，如下所示
 
-```
+```go
 var uu = aa
 ```
 
@@ -130,13 +130,13 @@ var uu = aa
 
 定义如下
 
-```
+```go
 const bb = 'a'
 ```
 
 未类型命名字符串常量可以赋值给类型为**myChar**的变量以及使用**var**关键字创建的变量，因为它是未类型的，所以常量的类型将根据赋值给它的变量类型决定。
 
-```
+```go
 var ww myChar = bb
 var xx = bb
 ```
@@ -145,13 +145,13 @@ var xx = bb
 
 它如下所示
 
-```
+```go
 'a'
 ```
 
 未类型未命名字符串常量可以赋值给类型为**myChar**的变量以及使用**var**关键字创建的变量，因为它是未类型的，所以常量的类型将根据赋值给它的变量类型决定。
 
-```
+```go
 var yy myChar = 'a'
 var zz = 'a'
 ```

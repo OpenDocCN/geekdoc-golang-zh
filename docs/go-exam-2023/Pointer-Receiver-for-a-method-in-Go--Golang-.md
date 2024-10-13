@@ -16,7 +16,7 @@
 
 让我们看看值接收者的一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -45,7 +45,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: Sam
 Age: 31
 Salary 2000
@@ -55,7 +55,7 @@ Salary 2000
 
 让我们看看这个。
 
-```
+```go
 package main
 
 import "fmt"
@@ -79,19 +79,19 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: Sam
 ```
 
 在上述代码中，定义了一个方法**setNewName**，它在**employee**结构体上。在这个方法中，我们像这样更新员工的名字。
 
-```
+```go
 e.name = newName
 ```
 
 在设置新名字后，当我们在主函数中再次打印员工名字时，我们看到打印的是旧名字“Sam”，而不是“John”。这是因为方法是在值接收者上定义的。
 
-```
+```go
 func (e employee) setNewName(newName string) 
 ```
 
@@ -101,7 +101,7 @@ func (e employee) setNewName(newName string)
 
 在上述示例中，我们看到了一个值接收者的方法。对值接收者所做的任何更改对调用者不可见。方法也可以在指针接收者上定义。对指针接收者所做的任何更改对调用者是可见的。让我们来看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -125,13 +125,13 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: John
 ```
 
 在上面的程序中，我们在指针接收者上定义了方法**setNewName**。
 
-```
+```go
 func (e *employee) setNewName(newName string)
 ```
 
@@ -141,7 +141,7 @@ func (e *employee) setNewName(newName string)
 
 让我们看看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -169,20 +169,20 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: John
 Name: Mike
 ```
 
 我们在上面的程序中看到，即使方法在指针接收者上定义，但我们仍然使用非指针的员工实例调用该方法。
 
-```
+```go
 emp.setNewName("John")
 ```
 
 但是语言将接收者作为指针传递，因此更改对调用者是可见的。即使这样调用也是有效的。
 
-```
+```go
 (&emp).setNewName("Mike")
 ```
 
@@ -190,7 +190,7 @@ emp.setNewName("John")
 
 是的，这也是有效的，语言会确保正确地将参数作为值接收者传递，无论方法是调用在指针还是普通结构上。让我们看看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -221,7 +221,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: Sam
 Name: Sam
 Name: Sam

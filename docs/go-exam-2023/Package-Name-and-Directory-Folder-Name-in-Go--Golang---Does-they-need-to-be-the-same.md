@@ -18,7 +18,7 @@
 
 包名称和包含该包的目录名称不一定必须相同。那么包的导入路径指定了什么呢？例如，如果我们有任何包，则导入路径可能如下所示：
 
-```
+```go
 import "xyz.com/abc/sample"
 ```
 
@@ -28,7 +28,7 @@ import "xyz.com/abc/sample"
 
 首先让我们创建一个名为**learn**的目录，然后创建一个导入路径为**“sample.com/learn”**的模块。
 
-```
+```go
 go mod create sample.com/learn
 ```
 
@@ -36,7 +36,7 @@ go mod create sample.com/learn
 
 **learn/math/math.go**
 
-```
+```go
 package mathematics
 
 func Add(a, b int) int {
@@ -46,7 +46,7 @@ func Add(a, b int) int {
 
 注意上面的包声明
 
-```
+```go
 package mathematics
 ```
 
@@ -56,7 +56,7 @@ package mathematics
 
 **learn/main.go**
 
-```
+```go
 package main
 
 import (
@@ -71,7 +71,7 @@ func main() {
 
 在上面的**main.go**中，看看我们是如何导入包的。
 
-```
+```go
 "sample.com/learn/math"
 ```
 
@@ -79,7 +79,7 @@ func main() {
 
 请查看在**main**函数中我们是如何使用该包的。
 
-```
+```go
 fmt.Println(mathematics.Add(2, 1))
 ```
 
@@ -87,13 +87,13 @@ fmt.Println(mathematics.Add(2, 1))
 
 如果你运行这个程序，输出将是正确的。
 
-```
+```go
 3
 ```
 
 这表明包的名称不一定要与包含该包的目录名称相同。另一种方便的方法是在这种情况下使用包别名，如下所示。
 
-```
+```go
 import (
     "fmt"
     mathematics "sample.com/learn/math"

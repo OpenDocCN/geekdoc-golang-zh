@@ -36,7 +36,7 @@
 
 # **实现：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -66,7 +66,7 @@ func bubbleSort(arr []int) {
 
 **输出：**
 
-```
+```go
 After Bubble Sorting
 1
 2

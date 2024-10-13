@@ -22,7 +22,7 @@ GO 有一个 **sort** 包，提供了用于排序切片和用户定义类型的�
 
 [https://golang.org/pkg/sort/#Interface](https://golang.org/pkg/sort/#Interface)
 
-```
+```go
 type Interface interface {
     // Len is the number of elements in the collection.
     Len() int
@@ -48,7 +48,7 @@ type Interface interface {
 
 # **完整工作代码：**
 
-```
+```go
 package main
 
 import (
@@ -90,7 +90,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Name: Bill Salary 4000
 Name: John Salary 3000
 Name: Sam Salary 1000
@@ -98,7 +98,7 @@ Name: Sam Salary 1000
 
 要从最低薪资排序到最高薪资，我们需要用 **‘>’** 符号更改 **Less** 函数。
 
-```
+```go
 func (e employeeList) Less(i, j int) bool {
     return e[i].salary > e[j].salary
 }
@@ -106,7 +106,7 @@ func (e employeeList) Less(i, j int) bool {
 
 修改后，当我们运行程序时，输出将是：
 
-```
+```go
 Name: Sam Salary 1000
 Name: John Salary 3000
 Name: Bill Salary 4000

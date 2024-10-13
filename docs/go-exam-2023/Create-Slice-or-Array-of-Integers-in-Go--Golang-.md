@@ -28,7 +28,7 @@
 
 ## **整数切片**
 
-```
+```go
 package main
 
 import "fmt"
@@ -61,7 +61,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Output for First slice of integers
 1
 2
@@ -75,7 +75,7 @@ Output for Second slice of integers
 
 我们有两种创建整数切片的方法。第一种方法是
 
-```
+```go
 var integers_first []int
 integers_first = append(integers_first, 1)
 integers_first = append(integers_first, 2)
@@ -84,7 +84,7 @@ integers_first = append(integers_first, 3)
 
 在第二种方法中，我们使用make命令来创建整数切片
 
-```
+```go
 integers_second := make([]int, 3)
 integers_second[0] = 3
 integers_second[1] = 2
@@ -95,7 +95,7 @@ integers_second[2] = 1
 
 ## **整数数组**
 
-```
+```go
 package main
 
 import "fmt"
@@ -128,7 +128,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Output for First Array of integers
 1
 2
@@ -142,7 +142,7 @@ Output for Second Array of integers
 
 我们有两种创建数组的方法。第一种方法是
 
-```
+```go
 var integers_first [3]int
 integers_first[0] = 1
 integers_first[1] = 2
@@ -151,7 +151,7 @@ integers_first[2] = 3
 
 在第二种方法中，我们直接用创建的整数初始化数组
 
-```
+```go
 integers_second := [3]int{
 	3,
 	2,

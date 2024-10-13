@@ -12,7 +12,7 @@
 
 在 Go 中，日期仅通过 **time.Time** 结构表示。Go 中没有单独的 Date 结构。可以使用 **time.Date** 函数构造日期。该函数返回格式为 **yyyy-mm-dd hh:mm:ss + nsec** 的时间，包含与给定位置对应的适当时区。函数的签名是：
 
-```
+```go
 func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) Time
 ```
 
@@ -42,7 +42,7 @@ func Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) T
 
 让我们看看一个工作示例：
 
-```
+```go
 package main
 
 import (
@@ -58,6 +58,6 @@ func main() {
 
 **输出：**
 
-```
+```go
 2021-02-21 01:10:30 +0000 UTC
 ```

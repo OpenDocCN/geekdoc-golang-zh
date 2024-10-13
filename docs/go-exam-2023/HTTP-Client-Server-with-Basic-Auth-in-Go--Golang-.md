@@ -20,7 +20,7 @@
 
 基本身份验证是为网络服务器上的资源提供访问控制的最简单形式。基本访问认证是在进行 HTTP 请求时向服务器提供用户名和密码的一种方式。凭据在请求的头部发送。以下是发送凭据的头部和格式。
 
-```
+```go
 Authorization : Basic <credentials></credentials>
 ```
 
@@ -28,7 +28,7 @@ Authorization : Basic <credentials></credentials>
 
 +   凭据是通过冒号（:）连接的用户名和密码进行 Base64 编码发送的。基本上是对以下字符串的 Base64 编码。
 
-```
+```go
 <username>:<password></password></username>
 ```
 
@@ -44,7 +44,7 @@ Authorization : Basic <credentials></credentials>
 
 首先，让我们看看与 **HTTP** 服务器相关的基本身份验证。Golang 的 **net/http** 包提供了一种在 ***http.Request** 结构上定义的方法，可以返回传入请求的 **Authorization** 头中存在的用户名和密码。以下是该方法的签名。
 
-```
+```go
 func (r *Request) BasicAuth() (username, password string, ok bool)
 ```
 
@@ -52,7 +52,7 @@ func (r *Request) BasicAuth() (username, password string, ok bool)
 
 让我们看看一个程序。
 
-```
+```go
 package main
 
 import (
@@ -104,13 +104,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 为了发出请求，我们必须对以下字符串进行 Base64 编码，该字符串是由一个冒号（:）连接的用户名和密码。
 
-```
+```go
 abc:123
 ```
 
 上述字符串的 Base64 编码将是。
 
-```
+```go
 YWJjOjEyMw==
 ```
 
@@ -118,26 +118,26 @@ YWJjOjEyMw==
 
 现在发出以下请求。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example -H "Authorization: Basic YWJjOjEyMw=="
 ```
 
 此请求将获得状态代码 200。同时，它还会在日志中正确打印用户名和密码。
 
-```
+```go
 Username: abc
 Password: 123
 ```
 
 现在发送格式错误的 **Base64** 编码值。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example -H "Authorization: Basic YWJjOjEy"
 ```
 
 它将获得状态代码 401。它还将在日志中打印以下内容。
 
-```
+```go
 Error parsing basic auth
 ```
 
@@ -145,7 +145,7 @@ Error parsing basic auth
 
 Golang 的 **net/http** 包还提供了一种在 ***http.Request** 结构上定义的方法，可用于设置基本身份验证头。以下是该方法的签名。
 
-```
+```go
 func (r *Request) SetBasicAuth(username, password string)
 ```
 
@@ -153,7 +153,7 @@ func (r *Request) SetBasicAuth(username, password string)
 
 让我们看看一个程序。
 
-```
+```go
 package main
 
 import (
@@ -191,7 +191,7 @@ func call(url, method string) error {
 
 在上面的程序中，我们正在调用之前设置的服务器。看看我们如何在发出的请求中设置基本认证。
 
-```
+```go
 req.SetBasicAuth(username, password)
 ```
 

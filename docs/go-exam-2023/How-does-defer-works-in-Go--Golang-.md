@@ -34,7 +34,7 @@
 
 # **单个Defer**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -48,20 +48,20 @@ func test() {
 
 **输出**
 
-```
+```go
 Executed in main
 In Defer
 ```
 
 在上面的程序中，有一个**defer**语句调用了名为**test**的自定义函数。从输出可以看出，**test**函数在主函数的所有内容执行完后被调用，并在主函数返回之前执行。这就是原因。
 
-```
+```go
 Executed in main
 ```
 
 在此之前会打印
 
-```
+```go
 In Defer
 ```
 
@@ -71,7 +71,7 @@ In Defer
 
 让我们看一下这个程序。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -87,7 +87,7 @@ func main() {
 
 **输出**
 
-```
+```go
 3
 2
 1
@@ -95,7 +95,7 @@ func main() {
 
 在上面的程序中，我们有三个**defer**函数，每个函数打印**i**的值。变量**i**在每个defer之前递增。代码首先输出3，表示第三个defer函数首先执行。然后输出2，表示第二个defer在其后执行，最后输出1，表示第一个defer最后执行。这表明，当特定函数中有多个defer函数时，遵循“后进先出”的规则。这就是程序输出的原因。
 
-```
+```go
 3
 2
 1
@@ -117,7 +117,7 @@ func main() {
 
 让我们来看一个程序示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -145,7 +145,7 @@ func f2() {
 
 **输出**
 
-```
+```go
 Stat main
 Start f1
 Start f2

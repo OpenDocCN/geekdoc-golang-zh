@@ -30,7 +30,7 @@
 
 # ****在相同协程中的recover函数作为panic****
 
-```
+```go
 package main
 
 import "fmt"
@@ -62,7 +62,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Exiting normally
 Recovering from panic: Out of bound access for slice
 ```
@@ -73,7 +73,7 @@ Recovering from panic: Out of bound access for slice
 
 如前所述，在这种情况下无法从panic中恢复。
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -100,7 +100,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Exiting normally
 panic: Out of bound access for slice
 

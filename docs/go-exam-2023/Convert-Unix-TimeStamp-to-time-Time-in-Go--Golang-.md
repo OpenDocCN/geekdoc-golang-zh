@@ -16,7 +16,7 @@
 
 +   Unix 时间戳转 time.Time
 
-```
+```go
 package main
 
 import (
@@ -39,7 +39,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 timeUnix 1257894000
 time.Time: 2009-11-10 23:00:00 +0000 UTC
 ```

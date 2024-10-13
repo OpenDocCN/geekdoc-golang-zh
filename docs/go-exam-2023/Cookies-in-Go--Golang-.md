@@ -36,7 +36,7 @@ golang 中的 cookie 如下所示
 
 [https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)
 
-```
+```go
 type Cookie struct {
 	Name  string
 	Value string
@@ -82,7 +82,7 @@ type Cookie struct {
 
 这是 golang 作为 HTTP 客户端的情况。**AddCookie** 方法可用于添加 cookie。如果我们对两个不同的名称和值调用此方法，那么这两个名称和值都将添加到结果 cookie 中
 
-```
+```go
 package main
 import (
     "fmt"
@@ -131,7 +131,7 @@ func main() {
 
 **输出**
 
-```
+```go
 token=some_token
 clicked=true
 StatusCode: 200
@@ -153,7 +153,7 @@ HTTP 客户端以两种方式使用此 jar。
 
 这是 golang 作为 HTTP 服务器的情况。**http.ResponseWriter** 结构提供了一个方便的方法来设置 cookie。下面是该方法的签名。
 
-```
+```go
 func SetCookie(w ResponseWriter, cookie *Cookie)
 ```
 
@@ -161,7 +161,7 @@ func SetCookie(w ResponseWriter, cookie *Cookie)
 
 以下是相应的程序。
 
-```
+```go
 package main
 import (
     "net/http"
@@ -186,7 +186,7 @@ func docHandler(w http.ResponseWriter, r *http.Request) {
 
 使用以下命令运行上述程序。
 
-```
+```go
 go run main.go
 ```
 
@@ -194,7 +194,7 @@ go run main.go
 
 现在从浏览器发起 API 调用 **localhost:8080/doc**。服务器在响应中发送了以下 **Set-Cookie**。
 
-```
+```go
 Set-Cookie: id=abcd; Max-Age=300
 ```
 
@@ -208,13 +208,13 @@ Set-Cookie: id=abcd; Max-Age=300
 
 net/http Request 结构提供了一个方便的方法来读取特定名称的 cookie。下面是该方法的签名。[https://golang.org/pkg/net/http/#Request.Cookie](https://golang.org/pkg/net/http/#Request.Cookie)
 
-```
+```go
 func (r *Request) Cookie(name string) (*Cookie, error)
 ```
 
 要打印所有 cookies，我们可以遍历 **http.Request** 结构的 **Cookies** 方法。我们可以为此使用 range 关键字。
 
-```
+```go
 for _, c := range r.Cookies() {
      fmt.Println(c)
 }
@@ -222,7 +222,7 @@ for _, c := range r.Cookies() {
 
 以下是相应的程序，演示 **http.Request** 结构的 **Cookie** 和 **Cookies** 方法。
 
-```
+```go
 package main
 
 import (
@@ -261,7 +261,7 @@ func docHandler(w http.ResponseWriter, r *http.Request) {
 
 运行上述程序并进行以下 curl 调用。
 
-```
+```go
 curl -X GET localhost:8080/doc --cookie "id=abcd; token=some_token"
 ```
 
@@ -273,7 +273,7 @@ curl 调用传递了两个 cookie 名称-值对。
 
 它将产生以下输出。
 
-```
+```go
 Cookies in API Call:
 
 Printing cookie with name as token
@@ -286,19 +286,19 @@ token=some_token
 
 这就是我们如何打印给定名称 **“token”** 的特定 cookie。
 
-```
+```go
 tokenCookie, err := r.Cookie("token")
 ```
 
 它的输出如所示。
 
-```
+```go
 token=some_token
 ```
 
 这就是我们如何打印所有 cookies。
 
-```
+```go
 for _, c := range r.Cookies() {
      fmt.Println(c)
 }
@@ -306,7 +306,7 @@ for _, c := range r.Cookies() {
 
 它输出我们在 curl 调用中发送的 cookie 名称-值对。
 
-```
+```go
 id=abcd
 token=some_token
 ```

@@ -22,7 +22,7 @@
 
 **输入链表：**
 
-```
+```go
 A-> B-> C-> D-> E-> F-> Null
 ```
 
@@ -30,13 +30,13 @@ A-> B-> C-> D-> E-> F-> Null
 
 **输出链表：**
 
-```
+```go
 A-> B-> D-> E-> F-> Null
 ```
 
 ## **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -162,7 +162,7 @@ func main() {
 
 **输出**
 
-```
+```go
 AddFront: F
 AddFront: E
 AddFront: D
@@ -200,13 +200,13 @@ Err: Given number is greater than linked list length
 
 我们创建了如下链表
 
-```
+```go
 A-> B-> C-> D-> E-> F-> Null
 ```
 
 然后我们移除前面的第2个节点，即**B**。我们遍历链表。从输出中可以看出**B**被移除。
 
-```
+```go
 A
 C
 D
@@ -216,7 +216,7 @@ F
 
 然后我们移除前面的第5个节点，即**F**。我们遍历链表。从输出中可以看出**F**被移除。
 
-```
+```go
 A
 C
 D
@@ -225,7 +225,7 @@ E
 
 然后我们尝试从链表中删除一个节点，位置超过链表的大小。这会产生以下错误。
 
-```
+```go
 Err: Given number is greater than linked list length
 ```
 

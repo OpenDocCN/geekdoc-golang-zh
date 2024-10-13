@@ -70,7 +70,7 @@
 
 +   创建一个文件 **temp.txt**。检查其权限。
 
-```
+```go
 ls -all | grep temp.txt
 -rw-r--r--    1 root  root      0 Aug  9 14:50 temp.txt
 ```
@@ -79,7 +79,7 @@ ls -all | grep temp.txt
 
 +   现在运行命令以给予其他用户写入权限。
 
-```
+```go
 chmod o+w temp.txt
 ls -all | grep temp.txt
 -rw-r--rw-    1 root  root      0 Aug  9 14:50 temp.txt
@@ -89,7 +89,7 @@ ls -all | grep temp.txt
 
 +   现在运行命令以取消其他用户的写入权限。
 
-```
+```go
 chmod o-w temp.txt
 ls -all | grep temp.txt
 -rw-r--r--    1 root  root      0 Aug  9 14:50 temp.txt

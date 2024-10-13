@@ -22,7 +22,7 @@
 
 # **示例**
 
-```
+```go
 package main
 import (
     "encoding/json"
@@ -43,6 +43,6 @@ func main() {
 
 **输出**
 
-```
+```go
 ["John","Sam"]
 ```*

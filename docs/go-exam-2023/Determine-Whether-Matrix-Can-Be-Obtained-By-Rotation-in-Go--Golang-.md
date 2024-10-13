@@ -20,7 +20,7 @@
 
 **示例 1**
 
-```
+```go
 Input: source = [2,1],[1,2]], target = [[1,2],[2,1]]
 Output: true
 ```
@@ -29,7 +29,7 @@ Output: true
 
 **示例 2**
 
-```
+```go
 Input:  source = [[1,2],[2,2]], target = [[2,1],[1,2]]
 Output: false
 ```
@@ -40,7 +40,7 @@ Output: false
 
 下面是相同的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -81,7 +81,7 @@ func main() {
 
 **输出**
 
-```
+```go
 true
 false
 ```

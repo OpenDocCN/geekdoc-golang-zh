@@ -20,7 +20,7 @@
 
 以下是该函数的签名
 
-```
+```go
 func TrimSuffix(s, suffix string)
 ```
 
@@ -28,7 +28,7 @@ func TrimSuffix(s, suffix string)
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -49,7 +49,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 removed
 removedtes
 ```*

@@ -87,7 +87,7 @@
 
 **walletFacade.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -151,7 +151,7 @@ func (w *walletFacade) deductMoneyFromWallet(accountID string, securityCode int,
 
 **account.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -177,7 +177,7 @@ func (a *account) checkAccount(accountName string) error {
 
 **securityCode.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -203,7 +203,7 @@ func (s *securityCode) checkCode(incomingCode int) error {
 
 **wallet.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -236,7 +236,7 @@ func (w *wallet) debitBalance(amount int) error {
 
 **ledger.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -252,7 +252,7 @@ func (s *ledger) makeEntry(accountID, txnType string, amount int) {
 
 **notification.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -271,7 +271,7 @@ func (n *notification) sendWalletDebitNotification() {
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -297,7 +297,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Starting create account
 Account created
 
@@ -318,7 +318,7 @@ Make ledger entry for accountId abc with txnType debit for amount 5
 
 ## **完整工作代码：**
 
-```
+```go
 package main
 
 import (
@@ -480,7 +480,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Starting create account
 Account created
 

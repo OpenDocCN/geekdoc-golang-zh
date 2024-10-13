@@ -20,7 +20,7 @@
 
 # **示例**
 
-```
+```go
 package main
 import "fmt"
 const a = 123
@@ -32,7 +32,7 @@ func main() {
 
 **输出**
 
-```
+```go
 456
 ```
 

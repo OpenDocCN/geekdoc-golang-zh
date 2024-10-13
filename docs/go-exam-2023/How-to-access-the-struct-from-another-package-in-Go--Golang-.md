@@ -26,14 +26,14 @@
 
 **go.mod**
 
-```
+```go
 module sample.com/learn
 go 1.16
 ```
 
 **model/person.go**
 
-```
+```go
 package model
 type Person struct {
     Name string
@@ -42,7 +42,7 @@ type Person struct {
 
 **main.go**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -58,13 +58,13 @@ func main() {
 
 在这个程序中，我们首先从**main**包导入**model**包，如下所示。
 
-```
+```go
 "sample.com/learn/model"
 ```
 
 然后我们从**main**包访问**Person**结构体如下。
 
-```
+```go
 p := &model.Person{
    Name: "John",
 }
@@ -74,7 +74,7 @@ p := &model.Person{
 
 让我们将结构体名称改为小写并运行这个程序。它会产生以下编译错误
 
-```
+```go
 cannot refer to unexported name model.person
 ```
 

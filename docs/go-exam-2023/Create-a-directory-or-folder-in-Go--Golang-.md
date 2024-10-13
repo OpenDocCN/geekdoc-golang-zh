@@ -20,7 +20,7 @@
 
 以下是该函数的签名。
 
-```
+```go
 func Mkdir(name string, perm FileMode)
 ```
 
@@ -32,7 +32,7 @@ func Mkdir(name string, perm FileMode)
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -57,7 +57,7 @@ func main() {
 
 **输出**
 
-```
+```go
 It will create a directory temp at location /Users location and at the current working directory location
 ```
 

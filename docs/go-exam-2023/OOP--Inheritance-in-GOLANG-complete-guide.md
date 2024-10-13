@@ -22,7 +22,7 @@ date: 2024-10-13 06:00:50
 
 **程序1**
 
-```
+```go
 package main
 import "fmt"
 type base struct {
@@ -48,7 +48,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Hi from say function
 The color is Red
 ```
@@ -57,7 +57,7 @@ The color is Red
 
 **程序2**
 
-```
+```go
 package main
 import "fmt"
 type base struct {
@@ -87,7 +87,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 cannot use child (type *child) as type base in argument to check
 ```
 
@@ -95,7 +95,7 @@ cannot use child (type *child) as type base in argument to check
 
 **程序3**
 
-```
+```go
 package main
 import "fmt"
 type iBase interface {
@@ -128,7 +128,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Hi from say function
 The color is Red
 Hi from say function
@@ -142,7 +142,7 @@ Hi from say function
 
 **程序 4**
 
-```
+```go
 package main
 import "fmt"
 type iBase interface {
@@ -179,7 +179,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Clear from base's function
 ```
 
@@ -189,7 +189,7 @@ Clear from base's function
 
 **程序 5**
 
-```
+```go
 package main
 import "fmt"
 type iBase interface {
@@ -224,7 +224,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Clear from child's function
 ```
 
@@ -234,7 +234,7 @@ Clear from child's function
 
 **程序 6**
 
-```
+```go
 package main
 import "fmt"
 type iBase1 interface {
@@ -285,7 +285,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Hi from say function
 Hi from walk function
 Hi from say function
@@ -300,7 +300,7 @@ Hi from walk function
 
 **程序 7**
 
-```
+```go
 package main
 import "fmt"
 type iAnimal interface {
@@ -352,7 +352,7 @@ func checkAnimal(a iAnimal) {}
 
 请查看上面的程序，我们是如何能够创建层次结构的（见下文）。这是 Go 创建类型层次结构的惯用方法，我们通过在结构体层级和接口层级上使用嵌入来实现这一点。需要注意的是，如果你希望在类型层次结构中有所区分，比如 **“鲨鱼”** 不应该同时是 **“iAquatic”** 和 **“iNonAquatic”**，那么在 **“iAquatic”** 和 **“iNonAquatic”** 的方法集中，应该至少有一个方法在另一个中不存在。在我们的例子中，**“游泳”** 和 **“行走”** 就是这些方法。
 
-```
+```go
 iAnimal
 --iAquatic
 ----shark

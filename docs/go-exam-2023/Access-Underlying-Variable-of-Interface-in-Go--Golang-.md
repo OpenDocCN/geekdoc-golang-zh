@@ -38,7 +38,7 @@
 
 类型断言提供了一种通过断言正确的基础值类型来访问接口值内部的基础变量的方法。下面是该语法，其中i是一个接口。
 
-```
+```go
 val := i.({type})
 ```
 
@@ -46,7 +46,7 @@ val := i.({type})
 
 假设我们有如下的接口**动物**：
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -55,7 +55,7 @@ type animal interface {
 
 我们还有一个实现了**动物**接口的**狮子**结构体。
 
-```
+```go
 type lion struct {
     age int
 }
@@ -63,7 +63,7 @@ type lion struct {
 
 **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -116,25 +116,25 @@ func print(a animal) {
 
 **输出**
 
-```
+```go
 Age: 10
 ```
 
 这就是我们如何将类型为**动物**的变量**a**断言为具有基础类型**狮子**。
 
-```
+```go
 l := a.(lion)
 ```
 
 下面的行将导致恐慌，因为基础类型是**狮子**而不是**狗**。取消注释该行以查看。
 
-```
+```go
 //d := a.(dog)
 ```
 
 类型断言提供了另一种获取基础值的方法，也能防止恐慌。其语法为：
 
-```
+```go
 val, ok := i.(<type>)</type>
 ```
 
@@ -146,7 +146,7 @@ val, ok := i.(<type>)</type>
 
 所以第二种方法是进行类型断言的好方法，因为它可以防止恐慌。让我们来看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -207,7 +207,7 @@ func print(a animal) {
 
 **输出：**
 
-```
+```go
 {10}
 a is not of type lion
 ```
@@ -218,7 +218,7 @@ a is not of type lion
 
 类型切换使我们能够逐个进行上述类型断言。请查看下面的代码示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -274,7 +274,7 @@ func print(a animal) {
 
 **输出：**
 
-```
+```go
 Type: lion
 ```
 

@@ -30,7 +30,7 @@
 
 上述每种比萨都有其价格。因此你将创建如下比萨接口。
 
-```
+```go
 package main
 
 type pizza interface {
@@ -84,7 +84,7 @@ type pizza interface {
 
 **pizza.go**
 
-```
+```go
 package main
 
 type pizza interface {
@@ -94,7 +94,7 @@ type pizza interface {
 
 **peppyPaneer.go**
 
-```
+```go
 package main
 
 type peppyPaneer struct {
@@ -107,7 +107,7 @@ func (p *peppyPaneer) getPrice() int {
 
 **veggeMania.go**
 
-```
+```go
 package main
 
 type veggeMania struct {
@@ -120,7 +120,7 @@ func (p *veggeMania) getPrice() int {
 
 **cheeseTopping.go**
 
-```
+```go
 package main
 
 type cheeseTopping struct {
@@ -135,7 +135,7 @@ func (c *cheeseTopping) getPrice() int {
 
 **tomatoTopping.go**
 
-```
+```go
 package main
 type tomatoTopping struct {
     pizza pizza
@@ -148,7 +148,7 @@ func (c *tomatoTopping) getPrice() int {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -182,14 +182,14 @@ func main() {
 
 **输出**
 
-```
+```go
 Price of veggieMania pizza with tomato and cheese topping is 32
 Price of peppyPaneer with tomato and cheese topping is 30
 ```
 
 # **完整工作代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -259,7 +259,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Price of veggieMania pizza with tomato and cheese topping is 32
 Price of peppyPaneer with tomato and cheese topping is 30
 ```

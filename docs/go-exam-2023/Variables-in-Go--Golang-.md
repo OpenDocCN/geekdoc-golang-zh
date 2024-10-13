@@ -78,7 +78,7 @@
 
 见下面的示例，它声明了一个名为**aaa**的**int**类型的变量。
 
-```
+```go
 package main
 
 import "fmt"
@@ -91,7 +91,7 @@ func main() {
 
 **输出：** 将打印int的默认值，即零。
 
-```
+```go
 0
 ```
 
@@ -103,7 +103,7 @@ func main() {
 
 见下面的示例，它声明了一个名为**aaa**的**int**类型的变量，并给它赋值为**8**。
 
-```
+```go
 package main
 
 import "fmt"
@@ -116,7 +116,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 8
 ```
 
@@ -128,7 +128,7 @@ func main() {
 
 见下面的示例
 
-```
+```go
 package main
 
 import "fmt"
@@ -142,7 +142,7 @@ func main() {
 
 **输出：** 将打印**int**的默认值或零值，对**aaa**和**bbb**都是零。
 
-```
+```go
 0
 0
 ```
@@ -155,7 +155,7 @@ func main() {
 
 见下面的代码示例。变量**aaa**和**bbb**在一次声明中分别被赋值为8和9。
 
-```
+```go
 package main
 
 import "fmt"
@@ -169,7 +169,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 8
 9
 ```
@@ -178,7 +178,7 @@ func main() {
 
 以下是声明不同类型多个变量的格式。可以在那时为变量分配值，也可以不分配。没有分配值的变量将获得该类型的默认值。在下面的示例中，我们看到三个声明。
 
-```
+```go
 package main
 
 import "fmt"
@@ -198,7 +198,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 0
 8
 a
@@ -226,7 +226,7 @@ GO编译器会根据分配给变量的值确定类型。因此，如果变量有
 
 还注意到变量 **z** 的类型被正确推断为结构体 **main.sample**。
 
-```
+```go
 package main
 
 import "fmt"
@@ -256,7 +256,7 @@ type sample struct {
 
 **输出：**
 
-```
+```go
 Type: int Value: 123
 Type: string Value: circle
 Type: float64 Value: 5.6
@@ -270,13 +270,13 @@ Type: main.sample Value: &{test}
 
 Go 还提供了另一种声明变量的方法，即使用 **:=** 运算符。当使用 **:=** 运算符时，可以省略 **var** 关键字和类型信息。下面是这种声明的格式。
 
-```
+```go
  <variable_name>:= <value></value></variable_name>
 ```
 
 类型推断将如上所述进行。让我们看看一个工作示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -306,7 +306,7 @@ type sample struct {
 
 **输出**
 
-```
+```go
 Type: int Value: 123
 Type: string Value: circle
 Type: float64 Value: 5.6
@@ -322,20 +322,20 @@ Type: main.sample Value: &{test}
 
 +   一旦使用 := 声明的变量，不能再次使用 := 运算符重新声明。因此，下面的语句将引发编译器错误“**左侧没有新变量**”。
 
-```
+```go
 a := 8
 a := 16
 ```
 
 +   := 运算符还可以用来在一行中声明多个变量。见下面的例子。
 
-```
+```go
 a,b := 1, 2
 ```
 
 +   在多重声明的情况下，如果左侧至少有一个变量是新的，则可以再次使用 := 进行特定变量的声明。见下面的例子。注意 b 又是通过 := 声明的。这只有在至少有一个变量是新的情况下才能实现，这里是变量 **c**。在这种情况下，它作为变量 **b** 的赋值。
 
-```
+```go
 package main
 
 import "fmt"
@@ -349,7 +349,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 1, 3, 4
 ```
 
@@ -357,11 +357,11 @@ func main() {
 
 +   未使用的变量将被报告为编译器错误。Go 编译器不允许任何未使用的变量。这是 Go 的一种优化。同样的规则适用于常量，稍后我们将看到。例如，下面的程序将引发编译器错误。
 
-```
+```go
 a declared but not used
 ```
 
-```
+```go
 package main
 
 func main() {
@@ -371,7 +371,7 @@ func main() {
 
 +   在内层作用域中声明的变量如果与外层作用域中声明的变量同名，将会遮蔽外层作用域的变量。
 
-```
+```go
 package main
 
 import "fmt"
@@ -386,7 +386,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 456
 ```
 
@@ -396,7 +396,7 @@ func main() {
 
     +   变量 **b** 是通过函数调用 math.Max(4, 5) 声明的，其结果将在运行时赋值给 b。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -412,14 +412,14 @@ func main() {
 
 **输出：**
 
-```
+```go
 8
 5
 ```
 
 +   一旦初始化为特定类型的变量，不能再赋值为不同类型的值。这对于简写声明同样适用。见下面的例子。
 
-```
+```go
 package main
 
 func main() {
@@ -433,7 +433,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 cannot use "atest" (type untyped string) as type int in assignment
 cannot use "btest" (type untyped string) as type int in assignment
 ```
@@ -466,14 +466,14 @@ cannot use "btest" (type untyped string) as type int in assignment
 
 因此，下面的程序将引发编译器错误。
 
-```
+```go
 undefined: i
 undefined: aaa
 ```
 
 **代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -504,7 +504,7 @@ func testLocal() {
 
 例如，在下面的程序中，变量 **aaa** 将是一个全局变量，在 **main** 包中可用。它将在 **main** 包内的任何函数中可用。请注意，由于变量名以小写字母开头，因此该变量名在 **main** 包之外不可用。
 
-```
+```go
 package main
 
 import "fmt"
@@ -522,7 +522,7 @@ func testGlobal() {
 
 **输出：**
 
-```
+```go
 test
 ```
 

@@ -20,13 +20,13 @@
 
 在 Go 中，能够接受动态数量参数的函数称为变长函数。下面是变长函数的语法。三个点用作类型前缀。
 
-```
+```go
 func add(numbers ...int)
 ```
 
 上述函数可以用零个或多个参数调用。
 
-```
+```go
 add()
 add(1,2)
 add(1,2,3,4)
@@ -34,7 +34,7 @@ add(1,2,3,4)
 
 在此情况下，变长参数**numbers**会在函数内部转换为切片，可以使用**range**进行迭代。
 
-```
+```go
 func add(numbers ...int) int {
     sum := 0
     for _, num := range numbers {
@@ -46,20 +46,20 @@ func add(numbers ...int) int {
 
 如果你已经有一个切片，并且需要将其作为变长参数传递，那么可以在调用函数时在参数后添加三个点（…）。
 
-```
+```go
 var numbers := []int{2,3,5}
 add(numbers...)
 ```
 
 如果需要将变长参数和非变长参数传递给函数，则非变长参数需要作为初始参数传递，而变长参数需要作为最后一个参数传递。
 
-```
+```go
 func add(val string, numbers ...int)
 ```
 
 在 GO 库中，变长函数的最佳示例是**fmt.Println()**函数。以下是该函数的签名。
 
-```
+```go
 func Println(a ...interface{}) (n int, err error) 
 ```
 
@@ -69,7 +69,7 @@ func Println(a ...interface{}) (n int, err error)
 
 上述案例可以很容易地通过变长函数处理。注意下面的代码中参数是单一类型，即**int。**
 
-```
+```go
 package main
 
 import "fmt"
@@ -91,7 +91,7 @@ func add(numbers ...int) int {
 
 **输出：**
 
-```
+```go
 3
 6
 10
@@ -101,7 +101,7 @@ func add(numbers ...int) int {
 
 这个案例可以使用变长函数和空接口来处理。
 
-```
+```go
 package main
 
 import "fmt"
@@ -122,7 +122,7 @@ func handle(params ...interface{}) {
 
 **输出：**
 
-```
+```go
 Handle func called with parameters:
 1
 abc
@@ -139,7 +139,7 @@ Handle func called with parameters:
 
 我们还可以使用 switch case 来获取精确的参数并相应地使用它们。请参见下面的示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -208,7 +208,7 @@ func addPerson(args ...interface{}) error {
 
 **输出：**
 
-```
+```go
 Person struct is &{name:Tina gender:Female age:20}
 Person struct is &{name:John gender:Male age:0}
 PersonAdd Error: Gender is not passed as string

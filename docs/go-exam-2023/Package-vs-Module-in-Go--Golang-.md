@@ -82,13 +82,13 @@
 
 当我们执行 go get 时，它将在 $GOPATH/src 目录中下载所需的包。请运行下面的 go get 命令。
 
-```
+```go
 go get github.com/pborman/uuid
 ```
 
 它将下载位于该位置的包。
 
-```
+```go
 $GOPATH/src/github.com/pborman/uuid
 ```
 
@@ -132,13 +132,13 @@ $GOPATH/src/github.com/pborman/uuid
 
 可以使用以下命令创建一个模块。
 
-```
+```go
 go mod init {module_import_path}
 ```
 
 让我们创建一个模块。
 
-```
+```go
 go mod init learn
 ```
 
@@ -146,7 +146,7 @@ go mod init learn
 
 让我们检查一下这个文件的内容。执行`cat go.mod`。
 
-```
+```go
 module learn
 
 go 1.14
@@ -158,7 +158,7 @@ go 1.14
 
 **uuid.go**
 
-```
+```go
 package main
 
 import (
@@ -177,19 +177,19 @@ func main() {
 
 请注意，我们在uuid.go中也导入了依赖项。
 
-```
+```go
 "github.com/pborman/uuid"
 ```
 
 让我们运行以下命令。
 
-```
+```go
 go mod tidy
 ```
 
 此命令将下载您源文件中所需的所有依赖项，并用该依赖项更新**go.mod**文件。在运行此命令后，让我们再次检查**go.mod**文件的内容。执行`cat go.mod`。
 
-```
+```go
 module learn
 
 go 1.14
@@ -201,7 +201,7 @@ require github.com/pborman/uuid v1.2.1
 
 执行`cat go.sum`。
 
-```
+```go
 github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=
 github.com/google/uuid v1.0.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/pborman/uuid v1.2.1 h1:+ZZIw58t/ozdjRaXh/3awHfmWRbzYxJoAdNJxe/3pvw=

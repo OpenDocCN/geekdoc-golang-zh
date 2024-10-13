@@ -26,7 +26,7 @@
 
 让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -40,7 +40,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Defer in main
 panic: Panic Create
 
@@ -52,7 +52,7 @@ exit status 2
 
 在上述程序中，我们首先有一个 **defer** 函数，然后手动引发 panic。正如你从输出中看到的，defer 函数被执行，输出中打印了如下行。
 
-```
+```go
 Defer in main
 ```
 
@@ -60,7 +60,7 @@ Defer in main
 
 Go 提供了一个内置函数 **recover** 用于从 panic 中恢复。下面是这个函数的签名。
 
-```
+```go
 func recover() interface{}
 ```
 
@@ -68,7 +68,7 @@ func recover() interface{}
 
 让我们看看 recover 的一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -97,14 +97,14 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Exiting normally
 ```
 
 在上述程序中，我们有一个函数 **checkAndPrint**，它检查并打印传入参数的索引处的切片元素。如果传入的索引大于数组的长度，则程序会发生 panic。我们在函数 **checkAndPrint** 的开头添加了一个名为 **handleOutIfBounds** 的 defer 函数。这个函数包含了对 **recover** 函数的调用，如下所示。
 
-```
+```go
 if r := recover(); r != nil {
     fmt.Println("Recovering from panic:", r)
 }
@@ -112,13 +112,13 @@ if r := recover(); r != nil {
 
 **recover** 函数将捕获 panic，我们还可以打印 panic 中的消息。
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 ```
 
 在 **recover** 函数之后，程序继续执行，控制返回到调用的函数，即这里的 **main**。这就是我们获得输出的原因。
 
-```
+```go
 Exiting normally
 ```
 

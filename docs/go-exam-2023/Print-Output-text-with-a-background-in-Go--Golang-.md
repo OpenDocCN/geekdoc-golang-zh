@@ -24,7 +24,7 @@
 
 在下面的程序中，我们将文本以白色字体打印在红色背景上
 
-```
+```go
 package main
 
 import (
@@ -54,7 +54,7 @@ func main() {
 
 [https://github.com/fatih/color/blob/master/color.go](https://github.com/fatih/color/blob/master/color.go)
 
-```
+```go
 // Background text colors
 const (
     BgBlack Attribute = iota + 40

@@ -18,7 +18,7 @@
 
 **代码**
 
-```
+```go
 package main
 
 import (
@@ -42,7 +42,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Username: "someusername"
 ```
 

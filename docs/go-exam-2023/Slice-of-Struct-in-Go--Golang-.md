@@ -20,7 +20,7 @@
 
 ## **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -45,7 +45,7 @@ func main() {
 
 **输出**
 
-```
+```go
 {John 21}
 {Simon 25}
 {David 18}
@@ -53,7 +53,7 @@ func main() {
 
 在上述程序中，我们创建了一个名为 **employee** 的结构体
 
-```
+```go
 type employee struct {
 	name string
 	age  int
@@ -62,7 +62,7 @@ type employee struct {
 
 然后我们创建了一个结构体的切片，如下所示
 
-```
+```go
 employees := make([]employee, 3)
 ```
 

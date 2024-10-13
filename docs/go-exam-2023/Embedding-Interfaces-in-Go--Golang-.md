@@ -22,7 +22,7 @@
 
 假设我们有一个接口**动物**如下。
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -31,7 +31,7 @@ type animal interface {
 
 假设有另一个接口名为**人类**，它嵌入了**动物**接口。
 
-```
+```go
 type human interface {
     animal
     speak()
@@ -44,7 +44,7 @@ type human interface {
 
 +   **speak()**方法的人类接口。
 
-```
+```go
 package main
 
 import "fmt"
@@ -87,7 +87,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Employee breathes
 Employee walk
 Employee speaks
@@ -99,7 +99,7 @@ Employee speaks
 
 +   写入器接口 – [https://golang.org/pkg/io/#Writer](https://golang.org/pkg/io/#Writer)
 
-```
+```go
 type ReadWriter interface {
     Reader
     Writer
@@ -116,7 +116,7 @@ type ReadWriter interface {
 
 让我们看一个程序来说明上述要点。
 
-```
+```go
 package main
 
 import "fmt"
@@ -169,7 +169,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Milo
 Dog breathes
 Dod walk
@@ -183,7 +183,7 @@ Dog walk
 
 我们声明了两个结构**pet1**和**pet2**。**pet1**结构中有命名的**动物**接口。
 
-```
+```go
 type pet1 struct {
     a    animal
     name string
@@ -192,7 +192,7 @@ type pet1 struct {
 
 **pet2**嵌入了未命名/匿名的**动物**接口。
 
-```
+```go
 type pet2 struct {
     animal
     name string
@@ -201,26 +201,26 @@ type pet2 struct {
 
 对于**pet1**结构的一个实例，我们可以这样调用**breathe()**和**walk()**方法。
 
-```
+```go
 p1.a.breathe()
 p1.a.walk()
 ```
 
 直接调用这些方法会导致编译错误。
 
-```
+```go
 //p1.breathe()
 //p1.walk()
 ```
 
-```
+```go
 p1.breathe undefined (type pet1 has no field or method breathe)
 p1.walk undefined (type pet1 has no field or method walk)
 ```
 
 对于**pet2**结构的一个实例，我们可以直接调用**breathe()**和**walk()**方法。
 
-```
+```go
 p2.breathe()
 p2.walk()
 ```
@@ -229,14 +229,14 @@ p2.walk()
 
 下面也是有效的另一种调用未命名/匿名嵌入接口的方法。
 
-```
+```go
 p2.animal.breathe()
 p2.animal.walk()
 ```
 
 请注意，在创建**pet1**或**pet2**结构的实例时，嵌入的接口即**animal**是用实现该接口的类型初始化的，即**dog**。
 
-```
+```go
 p1 := pet1{name: "Milo", a: d}
 p2 := pet2{name: "Oscar", animal: d}
 ```

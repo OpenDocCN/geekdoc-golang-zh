@@ -42,7 +42,7 @@
 
 # **实现：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -74,7 +74,7 @@ func insertionSort(arr []int) {
 
 **输出：**
 
-```
+```go
 After Sorting
 1
 2

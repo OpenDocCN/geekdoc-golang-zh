@@ -20,7 +20,7 @@
 
 以下是该函数的签名
 
-```
+```go
 func TrimSpace(s string) string
 ```
 
@@ -28,7 +28,7 @@ func TrimSpace(s string) string
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -48,7 +48,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 test
 This is test
 ```*

@@ -20,7 +20,7 @@
 
 例如
 
-```
+```go
 Input: [1,2,3]
 Output: [1,3,2]
 
@@ -46,7 +46,7 @@ Output: [2, 1, 3]
 
 下面是相同的程序
 
-```
+```go
 package main
 
 import (
@@ -102,7 +102,7 @@ func nextPermutation(nums []int) {
 
 **输出**
 
-```
+```go
 [1 3 2]
 [2 1]
 [1 4 1 3 5]

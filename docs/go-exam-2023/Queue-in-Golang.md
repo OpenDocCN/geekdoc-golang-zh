@@ -38,7 +38,7 @@
 
 # **列表实现**
 
-```
+```go
 package main
 
 import (
@@ -101,7 +101,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Enqueue: A
 Enqueue: B
 Size: 2
@@ -114,7 +114,7 @@ Size: 0
 
 # **切片实现**
 
-```
+```go
 package main
 
 import (
@@ -183,7 +183,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Enqueue: A
 Enqueue: B
 Size: 2

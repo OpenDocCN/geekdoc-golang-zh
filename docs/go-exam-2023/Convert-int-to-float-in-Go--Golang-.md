@@ -20,7 +20,7 @@
 
 Golang需要显式转换才能从一种类型转换为另一种类型。int数据类型可以通过显式类型转换直接转换为float数据类型。以下是语法。
 
-```
+```go
 {destination_type}(some_value) 
 ```
 
@@ -28,20 +28,20 @@ Golang需要显式转换才能从一种类型转换为另一种类型。int数�
 
 ## **int到float64**
 
-```
+```go
 var a int = 12
 var b float64 = float64(a)
 ```
 
 或
 
-```
+```go
 b := float64(a)
 ```
 
 以下是相同的程序
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -56,27 +56,27 @@ func main() {
 
 **输出**
 
-```
+```go
 Underlying Type of b: float64
 Underlying Type of b2: float64
 ```
 
 ## **int到float32**
 
-```
+```go
 var a int = 12
 var b float32 = float32(a)
 ```
 
 或
 
-```
+```go
 b := float32(a)
 ```
 
 以下是相同的工作程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -94,14 +94,14 @@ func main() {
 
 **输出**
 
-```
+```go
 Underlying Type of b: float32
 Underlying Type of b2: float32
 ```
 
 如果我们直接将一个int赋值给float变量而不进行转换，将会引发编译错误。
 
-```
+```go
 cannot use a (type int) as type float64 in assignment
 ```
 

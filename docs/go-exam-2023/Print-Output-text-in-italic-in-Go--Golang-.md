@@ -22,7 +22,7 @@
 
 # **程序**
 
-```
+```go
 package main
 
 import (

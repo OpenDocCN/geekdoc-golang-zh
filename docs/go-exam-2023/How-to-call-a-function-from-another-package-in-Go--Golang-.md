@@ -26,14 +26,14 @@
 
 **go.mod**
 
-```
+```go
 module sample.com/learn
 go 1.16
 ```
 
 **hello/hello.go**
 
-```
+```go
 package hello
 
 import "fmt"
@@ -45,7 +45,7 @@ func SayHello() {
 
 **main.go**
 
-```
+```go
 package main
 
 import "sample.com/learn/hello"
@@ -57,19 +57,19 @@ func main() {
 
 **输出**
 
-```
+```go
 Hello
 ```
 
 在这个程序中，我们首先从**main**包导入**hello**包，如下所示。
 
-```
+```go
 import "sample.com/learn/hello"
 ```
 
 然后我们从**main**包调用**SayHello**函数，如下所示。
 
-```
+```go
 hello.SayHello()
 ```
 
@@ -77,7 +77,7 @@ hello.SayHello()
 
 将函数改为小写并运行此程序。它会产生以下编译错误。
 
-```
+```go
 cannot refer to unexported name hello.sayHello
 ```
 

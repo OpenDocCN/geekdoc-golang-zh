@@ -20,7 +20,7 @@ golang 的 **sync** 包提供 **WaitGroup** 结构，可以用来等待一组 go
 
 让我们看看一个有效的代码
 
-```
+```go
 package main
 
 import (
@@ -49,7 +49,7 @@ func sleep(wg *sync.WaitGroup, t time.Duration) {
 
 **输出：**
 
-```
+```go
 Finished Execution
 Finished Execution
 All goroutines finished

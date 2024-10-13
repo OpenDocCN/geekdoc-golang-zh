@@ -24,13 +24,13 @@
 
 以下是该函数的签名。它接收一个浮点数作为输入，并返回一个布尔值
 
-```
+```go
 func Signbit(x float64) bool 
 ```
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -59,7 +59,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 false
 true
 false

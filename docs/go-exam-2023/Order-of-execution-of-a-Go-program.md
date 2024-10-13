@@ -50,7 +50,7 @@
 
 **go.mod**
 
-```
+```go
 module sample
 
 go 1.14
@@ -58,7 +58,7 @@ go 1.14
 
 **sample/b/b1.go**
 
-```
+```go
 package b
 
 import (
@@ -76,7 +76,7 @@ func TestB() error {
 
 **sample/b/b2.go**
 
-```
+```go
 package b
 
 import (
@@ -90,7 +90,7 @@ func init() {
 
 **sample/a/a1.go**
 
-```
+```go
 package a
 
 import (
@@ -109,7 +109,7 @@ func TestA() error {
 
 **sample/a/a2.go**
 
-```
+```go
 package a
 
 import (
@@ -123,7 +123,7 @@ func init() {
 
 **sample/main.go**
 
-```
+```go
 package main
 
 import (
@@ -142,7 +142,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Init: b1
 Init: b2
 Init: a1

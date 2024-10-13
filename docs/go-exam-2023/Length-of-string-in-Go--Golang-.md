@@ -12,7 +12,7 @@
 
 在Golang中，字符串是字节序列。字符串字面量实际上表示的是UTF-8字节序列。在UTF-8中，ASCII字符是单字节，对应于前128个Unicode字符。所有其他字符占用1到4个字节。为了更好地理解，考虑以下字符串
 
-```
+```go
 sample := "a£c"
 ```
 
@@ -26,13 +26,13 @@ sample := "a£c"
 
 上述字符串总共有1+2+1 = 4个字节。因此，当我们尝试使用标准的**len()**函数打印字符串的长度时，它会输出4，而不是3，因为**len()**函数返回的是字符串中的字节数。
 
-```
+```go
 fmt.Printf("Length is %d\n", len(sample))
 ```
 
 因此，独立的for循环不能用于遍历字符串的所有字符，因为它将遍历字节而不是字符。因此，下面的**for**循环将迭代四次，并打印对应于该索引的字节值。
 
-```
+```go
 for i := 0; i < len(sample); i++ {
     fmt.Printf("%c\n", sample[i])
  }
@@ -40,7 +40,7 @@ for i := 0; i < len(sample); i++ {
 
 它将输出下面的字符串，这与**示例**字符串不同
 
-```
+```go
 aÂ£b
 ```
 
@@ -58,7 +58,7 @@ aÂ£b
 
 [https://golang.org/pkg/unicode/utf8/#RuneCountInString](https://golang.org/pkg/unicode/utf8/#RuneCountInString)
 
-```
+```go
 package main
 
 import (
@@ -75,7 +75,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Length of given string is 3
 ```
 
@@ -83,7 +83,7 @@ Length of given string is 3
 
 for-range遍历字符串中的Unicode点（在golang中也称为rune），并将正确输出a, £, b。因此，它也可以用于计算字符串的长度。以下是使用for-range与字符串时的格式
 
-```
+```go
 for index, character := range string {
     //Do something with index and character
 }
@@ -91,7 +91,7 @@ for index, character := range string {
 
 示例代码
 
-```
+```go
 package main
 
 import "fmt"
@@ -113,7 +113,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Start Index: 0 Value:a
 Start Index: 1 Value:£
 Start Index: 3 Value:b
@@ -124,7 +124,7 @@ Length of given string is 3
 
 一个rune表示一个Unicode点。通过将字符串转换为rune数组，基本上就是创建该字符串的Unicode点数组。因此，一旦字符串被转换为rune数组，它就可以用来遍历字符串的所有字符。
 
-```
+```go
 package main
 
 import "fmt"
@@ -140,7 +140,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Length of given string is 3
 ```
 

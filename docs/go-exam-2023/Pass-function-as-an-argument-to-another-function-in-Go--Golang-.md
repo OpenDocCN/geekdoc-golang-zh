@@ -20,7 +20,7 @@ Golang 函数是一级变量，意味着。
 
 在 Go 中，函数也是一种类型。如果两个函数具有相同的参数和相同的返回值，它们就是同一种类型。在将一个函数作为参数传递给另一个函数时，必须在参数列表中指定函数的确切签名。如下例所示，print 函数接受的第一个参数是类型为 **func(int, int) int** 的函数。
 
-```
+```go
 func print(f func(int, int) int, a, b int)
 ```
 
@@ -38,7 +38,7 @@ func print(f func(int, int) int, a, b int)
 
 **代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -63,7 +63,7 @@ func sum(a, b int) int {
 
 **输出**
 
-```
+```go
 8
 6
 ```

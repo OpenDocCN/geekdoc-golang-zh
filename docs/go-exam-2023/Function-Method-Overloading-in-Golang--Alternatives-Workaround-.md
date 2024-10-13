@@ -16,7 +16,7 @@
 
 例如。
 
-```
+```go
 func X()
 func X(name string)
 func X(name, address string)
@@ -39,7 +39,7 @@ Go不支持方法/函数重载。请查看此常见问题以了解原因 [https:
 
 上述情况可以通过变参函数轻松处理。请注意，以下代码中的参数都是同一类型，即**int。**
 
-```
+```go
 package main
 
 import "fmt"
@@ -60,7 +60,7 @@ func add(numbers ...int) int {
 
 **输出：**
 
-```
+```go
 3
 6
 10
@@ -70,7 +70,7 @@ func add(numbers ...int) int {
 
 该情况可以使用变参函数和空接口来处理
 
-```
+```go
 package main
 
 import "fmt"
@@ -91,7 +91,7 @@ func handle(params ...interface{}) {
 
 **输出：**
 
-```
+```go
 Handle func called with parameters:
 1
 abc
@@ -108,7 +108,7 @@ Handle func called with parameters:
 
 我们还可以使用switch语句来获取确切的参数并相应使用。请参见以下示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -177,7 +177,7 @@ func addPerson(args ...interface{}) error {
 
 **输出：**
 
-```
+```go
 Person struct is &{name:Tina gender:Female age:20}
 Person struct is &{name:John gender:Male age:0}
 PersonAdd Error: Gender is not passed as string

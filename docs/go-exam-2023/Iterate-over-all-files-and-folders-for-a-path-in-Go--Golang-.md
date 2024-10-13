@@ -12,13 +12,13 @@
 
 **‘Walk’** 函数来自 **‘filepath’** 包，可用于递归遍历目录树中的所有文件/文件夹。
 
-```
+```go
 https://golang.org/pkg/path/filepath/
 ```
 
 **‘Walk’** 函数将遍历以根路径为根的整个树，包括所有子目录。以下是该函数的签名。
 
-```
+```go
 type WalkFunc func(path string, info os.FileInfo, err error) error
 ```
 
@@ -34,7 +34,7 @@ WalkFunc 将被调用，并传入文件/文件夹的 **path** 和 **fileInfo** �
 
 让我们看一个例子：
 
-```
+```go
 package main
 
 import (

@@ -62,7 +62,7 @@ GO可以在MAC上通过三种方式安装。
 
 +   从这里下载MAC pkg安装程序 – [https://golang.org/dl/](https://golang.org/dl/)。双击.pkg文件并按照屏幕上的说明操作。完成后，GO将安装在以下目录中。
 
-```
+```go
 /usr/local/go
 ```
 
@@ -78,7 +78,7 @@ GO可以在MAC上通过三种方式安装。
 
 卸载请执行以下两个步骤：
 
-```
+```go
 rm -rf /usr/local/go      //Will require sudo permission
 rm -rf /etc/paths.do/go   //Will require sudo permission. This action deletes will remove /usr/local/go/bin from PATH env
 ```
@@ -89,13 +89,13 @@ rm -rf /etc/paths.do/go   //Will require sudo permission. This action deletes wi
 
 +   从这里下载最新版本GO的归档 – [https://golang.org/dl/](https://golang.org/dl/)。下载后在**/usr/local**位置解压。你可以运行以下命令进行解压。
 
-```
+```go
 tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
 ```
 
 +   解压后，以下路径将包含go二进制文件**‘/usr/local/go/bin’**。你必须将此位置添加到你的**.bashrc**。打开你的**.bashrc**并做以下条目。
 
-```
+```go
 export PATH=$PATH:/usr/local/go/bin
 ```
 
@@ -107,7 +107,7 @@ export PATH=$PATH:/usr/local/go/bin
 
 +   也尝试运行 **‘go’** 命令。它会输出
 
-```
+```go
 Go is a tool for managing Go source code.
 
 Usage:
@@ -122,13 +122,13 @@ go <command></command> [arguments]
 
 +   运行以下命令以删除文件。这将需要 sudo 权限。
 
-```
+```go
 rm -rf /usr/local/go 
 ```
 
 +   从 **.bashrc** 文件中删除以下条目。
 
-```
+```go
 export PATH=$PATH:/usr/local/go/bin
 ```
 
@@ -138,7 +138,7 @@ export PATH=$PATH:/usr/local/go/bin
 
 在 MAC 上安装 GO 最简单的方法是使用 brew。
 
-```
+```go
 brew install go
 ```
 
@@ -152,7 +152,7 @@ brew install go
 
 要卸载，只需运行命令。
 
-```
+```go
 brew uninstall go
 ```
 
@@ -182,7 +182,7 @@ brew uninstall go
 
 +   从 .bashrc 文件中删除以下条目。
 
-```
+```go
 export PATH=$PATH:/usr/local/go/bin
 ```
 
@@ -194,7 +194,7 @@ export PATH=$PATH:/usr/local/go/bin
 
 +   从这里下载 .msi 安装程序 – [https://golang.org/dl/](https://golang.org/dl/)。双击 .msi 文件并按照屏幕上的说明进行操作。完成后，GO 将安装在以下目录中。
 
-```
+```go
 c:\Go
 
 ```

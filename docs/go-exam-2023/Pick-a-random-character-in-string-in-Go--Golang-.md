@@ -26,7 +26,7 @@
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -45,7 +45,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 One of a,b,c,d,e,f,£
 ```
 

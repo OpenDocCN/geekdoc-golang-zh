@@ -24,7 +24,7 @@
 
 示例
 
-```
+```go
 Input: [1,2,3]
 Target Value: 4
 Output: 3
@@ -38,7 +38,7 @@ Output: 2
 
 这是相同程序的内容。
 
-```
+```go
 package main
 
 import "fmt"
@@ -78,7 +78,7 @@ func main() {
 
 **输出**
 
-```
+```go
 3
 2
 ```

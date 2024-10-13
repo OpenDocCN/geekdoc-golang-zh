@@ -20,14 +20,14 @@
 
 示例 1
 
-```
+```go
 Input: ["fan", "fat", "fame"]
 Output: "fa"
 ```
 
 示例 2
 
-```
+```go
 Input: ["bat", "van", "cat"]
 Output: ""
 ```
@@ -36,7 +36,7 @@ Output: ""
 
 以下是相同的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -90,7 +90,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 "fa"
 ""
 ```

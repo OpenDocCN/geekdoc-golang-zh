@@ -20,7 +20,7 @@
 
 ## **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -49,7 +49,7 @@ func main() {
 
 **输出**
 
-```
+```go
 map[1:a]
 map[2:b]
 map[3:c]
@@ -57,7 +57,7 @@ map[3:c]
 
 在上述程序中，我们创建了三种类型为**map[string]string**的映射
 
-```
+```go
 map1 := make(map[string]string)
 map1["1"] = "a"
 
@@ -70,7 +70,7 @@ map3["3"] = "c"
 
 我们也像这样创建了一个映射数据类型的切片
 
-```
+```go
 maps := make([]map[string]string, 3)
 ```
 

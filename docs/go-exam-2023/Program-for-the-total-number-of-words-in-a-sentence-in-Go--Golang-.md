@@ -20,7 +20,7 @@
 
 示例
 
-```
+```go
 Input: "Hello World"
 Output: 2
 
@@ -32,7 +32,7 @@ Output: 3
 
 这是相同的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -70,7 +70,7 @@ func main() {
 
 **输出**
 
-```
+```go
 2
 3
 ```

@@ -26,7 +26,7 @@
 
 # 代码
 
-```
+```go
 package main
 
 import (
@@ -78,7 +78,7 @@ func downloadFile(URL, fileName string) error {
 
 **输出：**
 
-```
+```go
 File sample.pdf downlaod in current working directory
 ```
 

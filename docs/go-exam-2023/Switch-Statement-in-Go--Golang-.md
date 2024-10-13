@@ -22,7 +22,7 @@
 
 Switch 语句是防止 if-else 梯形结构的完美方法。以下是 switch 语句的格式。
 
-```
+```go
 switch statement; expression {
 case expression1:
      //Dosomething
@@ -43,7 +43,7 @@ default:
 
 同时存在 **switch 语句** 和 **switch 表达式**。
 
-```
+```go
 switch statement; expression {
    ... 
 }
@@ -51,7 +51,7 @@ switch statement; expression {
 
 只有 **switch 语句**。请注意下面的语法。在 **switch 语句**后面需要有分号。
 
-```
+```go
 switch statement; {
     ...
 }
@@ -59,7 +59,7 @@ switch statement; {
 
 只有 **switch 表达式**。请注意下面的语法。在 **switch 表达式**后面没有分号。
 
-```
+```go
 switch expression {
    ..
 }
@@ -67,7 +67,7 @@ switch expression {
 
 **switch 语句** 和 **switch 表达式** 都缺失。
 
-```
+```go
 switch {
   ... 
 }
@@ -85,7 +85,7 @@ switch {
 
 +   case 可以有多个用逗号分隔的表达式。然后 case 的样子如下。
 
-```
+```go
 case expression1_1, expression_2 ...:
 ```
 
@@ -103,7 +103,7 @@ case expression1_1, expression_2 ...:
 
 ## **缺少 `switch` 语句和 `switch` 表达式**
 
-```
+```go
 package main
 
 import "fmt"
@@ -125,7 +125,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 b or c
 ```
 
@@ -137,13 +137,13 @@ b or c
 
 +   此外，case 中可以有多个表达式，如上所示，第二个 case 有两个表达式。
 
-```
+```go
  case "b", "c":
 ```
 
 +   **ch** 变量仅在 **switch** 块内可用。取消注释位于 `switch` 块外的 **fmt.Println(ch)** 行，它将引发错误。
 
-```
+```go
 undefined: ch
 ```
 
@@ -151,7 +151,7 @@ undefined: ch
 
 让我们看另一个示例，其中我们省略了 **switch 语句** 和 **switch 表达式**。
 
-```
+```go
 package main
 
 import "fmt"
@@ -171,7 +171,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Old
 ```
 
@@ -185,7 +185,7 @@ Old
 
 注意语句后面的 **';'**
 
-```
+```go
 package main
 
 import "fmt"
@@ -205,13 +205,13 @@ func main() {
 
 **输出：**
 
-```
+```go
 Young
 ```
 
 ## **仅 `switch` 表达式**
 
-```
+```go
 package main
 
 import "fmt"
@@ -231,7 +231,7 @@ func main() {
 
 **输出**
 
-```
+```go
 a
 ```
 
@@ -239,11 +239,11 @@ a
 
 两个 case 语句不能有相同的常量。例如，在下面的 case 中，会出现编译错误，因为 "a" 在两个 case 中都存在。
 
-```
+```go
 duplicate case "a" in switch
 ```
 
-```
+```go
 package main
 
 import "fmt"
@@ -266,7 +266,7 @@ func main() {
 
 请查看下面的代码以了解 **fallthrough** 关键字的示例。在下面的示例中，尽管第二个 case 匹配，但由于 **fallthrough** 关键字，它进入了第三个 case。
 
-```
+```go
 package main
 
 import "fmt"
@@ -288,20 +288,20 @@ func main() {
 
 **输出**
 
-```
+```go
 i is less than 50
 i is less than 100
 ```
 
 **fallthrough** 必须是 `switch` 块内的最后一条语句。如果不是，编译器将引发错误。
 
-```
+```go
 fallthrough statement out of place
 ```
 
 下面的程序将在 **fallthrough** 语句之后有 **fmt.Println** 时引发上述错误。
 
-```
+```go
 package main
 
 import "fmt"
@@ -326,7 +326,7 @@ func main() {
 
 下面是 **break** 语句示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -347,13 +347,13 @@ func main() {
 
 **输出**
 
-```
+```go
 b
 ```
 
 **break** 语句将终止 `switch` 的执行，下面的行将永远不会执行。
 
-```
+```go
 fmt.Println("after b")
 ```
 
@@ -361,7 +361,7 @@ fmt.Println("after b")
 
 `switch` 语句也可以用于在运行时知道接口的类型，如下面示例所示。类型开关比较类型而不是值。
 
-```
+```go
 package main
 
 import "fmt"
@@ -385,7 +385,7 @@ func printType(t interface{}) {
 
 **输出：**
 
-```
+```go
 Type: string
 Type: int
 ```

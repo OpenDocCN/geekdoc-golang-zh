@@ -20,7 +20,7 @@ GO 的 **strings** 包提供了一个 **ReplaceAll** 方法，可以用来替换
 
 以下是函数的签名。该函数将在字符串 **s** 中替换所有不重叠的 **old** 实例为 **new**。要删除一个子字符串，我们可以将该子字符串作为 **old**，并将 **new** 设为空字符串。
 
-```
+```go
 func ReplaceAll(s, old, new string) string
 ```
 
@@ -28,7 +28,7 @@ func ReplaceAll(s, old, new string) string
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -44,6 +44,6 @@ func main() {
 
 **输出：**
 
-```
+```go
 cccdef
 ```*

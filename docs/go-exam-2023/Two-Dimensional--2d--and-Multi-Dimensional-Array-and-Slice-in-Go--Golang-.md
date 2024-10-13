@@ -40,7 +40,7 @@
 
 下面是声明多维数组的格式
 
-```
+```go
 [len1][len2][len3]....[lenN]T{}
 ```
 
@@ -54,7 +54,7 @@
 
 下面是声明一个指定数组元素的二维数组的格式。
 
-```
+```go
 var sample = [len1][len2]T{{a11, a12 .. a1y},
                        {a21, a22 .. a2y},
                        {.. },
@@ -73,7 +73,7 @@ var sample = [len1][len2]T{{a11, a12 .. a1y},
 
 让我们看看一个小示例，说明上述要点：
 
-```
+```go
 package main
 
 import "fmt"
@@ -97,7 +97,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Number of rows in array: 2
 Number of columns in array: 3
 Total number of elements in array: 6
@@ -120,7 +120,7 @@ Traversing Array
 
 相同的思路可以扩展到三维、四维等等。让我们看看一个小的三维数组示例。在下面的程序中，我们创建了一个 2*2*3 的三维数组。
 
-```
+```go
 package main
 
 import "fmt"
@@ -147,7 +147,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Length of first dimension: 2
 Length of second dimension: 2
 Length of third dimension: 3
@@ -171,7 +171,7 @@ Total number of elements in array: 12
 
 多维数组的元素可以通过每个维度的索引进行访问。例如，二维数组可以通过提供其行索引和列索引进行访问。一旦我们能够使用每个维度的索引访问它们，那么也可以给它分配一个新值。让我们看看一个程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -206,7 +206,7 @@ func main() {
 
 **输出**
 
-```
+```go
 1
 2
 3
@@ -232,7 +232,7 @@ func main() {
 
 让我们来看一个遍历二维数组的代码示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -264,7 +264,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Using for-rage
 1
 2
@@ -306,7 +306,7 @@ Using for loop
 
 为数组分配的内存是连续的，无论数组是一维还是二维。例如，在二维数组的情况下，第二行在内存中从第一行结束的地方开始。让我们看看一个说明这一点的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -328,7 +328,7 @@ func main() {
 
 **输出**
 
-```
+```go
 First row
 0xc0000b4002
 0xc0000b4003
@@ -348,7 +348,7 @@ Second row
 
 由于多维数组是数组的数组，因此多维切片也是切片的切片。要理解这一点，我们先来看切片的定义。切片指向一个底层数组，并由切片头表示。切片头是一个结构体，样子如下。
 
-```
+```go
 type SliceHeader struct {
         Data uintptr
         Len  int
@@ -358,19 +358,19 @@ type SliceHeader struct {
 
 切片头中的**数据**字段是指向底层数组的指针。对于一维切片，我们有如下声明。
 
-```
+```go
 oneDSlice := make([]int, 2)
 ```
 
 要声明一个二维切片，声明如下。
 
-```
+```go
 twoDSlice := make([][]int, 2)
 ```
 
 上述声明意味着我们想要创建一个**切片**，包含2个切片。仔细理解这一点。但在这里等一下，我们还没有指定第二个维度，这意味着每个内层切片的长度。在切片的情况下，每个内层切片必须像下面这样明确初始化。
 
-```
+```go
 for i := range twoDSlice {
     twoDSlice[i] = make([]int, 3)
 }
@@ -378,7 +378,7 @@ for i := range twoDSlice {
 
 所以使用原始切片上的范围，我们使用make指定每个2个切片的长度。下面是另一种相同的方法，但指定了切片元素。
 
-```
+```go
 var twoDSlice = make([][]int, 2)
 twoDSlice[0] = []int{1, 2, 3}
 twoDSlice[1] = []int{4, 5, 6}
@@ -388,7 +388,7 @@ twoDSlice[1] = []int{4, 5, 6}
 
 上述两点的完整工作示例
 
-```
+```go
 package main
 
 import "fmt"
@@ -425,7 +425,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Number of rows in slice: 2
 Number of columns in arsliceray: 3
 Total number of elements in slice: 6
@@ -453,7 +453,7 @@ Second Slice
 
 让我们来看一个示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -477,7 +477,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Number of rows in slice: 2
 Len of first row: 3
 Len of second row: 2
@@ -491,7 +491,7 @@ Traversing slice
 
 让我们看看一个三维切片的小示例。在下面的程序中，我们创建一个维度为2*2*3的切片。
 
-```
+```go
 package main
 
 import "fmt"
@@ -522,7 +522,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Length of first dimension: 2
 Length of second dimension: 2
 Length of third dimension: 3
@@ -545,7 +545,7 @@ Total number of elements in slice: 12
 
 访问切片元素与访问数组元素是相同的。让我们来看一个示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -583,7 +583,7 @@ func main() {
 
 **输出**
 
-```
+```go
 1
 2
 3
@@ -609,7 +609,7 @@ func main() {
 
 让我们来看一个示例：
 
-```
+```go
 package main
 
 import "fmt"
@@ -640,7 +640,7 @@ func main() {
 
 由于在切片的情况下，每个内层切片是分别初始化的，因此内层切片在内存中可能不是彼此连续的。尽管每个内层切片内的每个元素将在连续的位置上。让我们看一个程序来说明这一点。
 
-```
+```go
 package main
 
 import "fmt"
@@ -668,7 +668,7 @@ func main() {
 
 **输出**
 
-```
+```go
 First row
 0xc000018072
 0xc000018073

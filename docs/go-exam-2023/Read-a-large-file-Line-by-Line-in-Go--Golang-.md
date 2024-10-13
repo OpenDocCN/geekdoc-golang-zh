@@ -12,7 +12,7 @@
 
 当涉及到读取大文件时，显然我们不想将整个文件加载到内存中。Golang中的bufio包在读取大文件时提供了帮助。假设我们有一个名为sample.txt的文件，其内容如下
 
-```
+```go
 This is an example
 to show how
 to read file 
@@ -21,7 +21,7 @@ line by line.
 
 这是程序：
 
-```
+```go
 package main
 import (
     "bufio"
@@ -50,7 +50,7 @@ func LinebyLineScan() {
 
 **输出：**
 
-```
+```go
 This is an example
 to show how 
 to read file 
@@ -59,7 +59,7 @@ line by line.
 
 不过请注意，bufio.Scanner的最大缓冲区大小为64*1024字节，这意味着如果你的文件中有任何一行超过64*1024的大小，那么它将会报错
 
-```
+```go
 bufio.Scanner: token too long
 ```
 

@@ -24,7 +24,7 @@
 
 下面是该命令的使用格式
 
-```
+```go
 go mod tidy [-v]
 ```
 
@@ -34,7 +34,7 @@ go mod tidy [-v]
 
 让我们看一个例子。创建一个导入路径为“**learn**”的模块。
 
-```
+```go
 go mod init learn
 ```
 
@@ -42,7 +42,7 @@ go mod init learn
 
 **uuid.go**
 
-```
+```go
 package main
 
 import (
@@ -61,13 +61,13 @@ func main() {
 
 请注意，我们在uuid.go中也导入了该依赖项。
 
-```
+```go
 "github.com/pborman/uuid"
 ```
 
 让我们运行以下命令
 
-```
+```go
 go mod tidy
 ```
 
@@ -75,7 +75,7 @@ go mod tidy
 
 执行**cat go.mod**
 
-```
+```go
 module learn
 
 go 1.14
@@ -87,7 +87,7 @@ require github.com/pborman/uuid v1.2.1
 
 执行**cat go.sum**
 
-```
+```go
 github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=
 github.com/google/uuid v1.0.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/pborman/uuid v1.2.1 h1:+ZZIw58t/ozdjRaXh/3awHfmWRbzYxJoAdNJxe/3pvw=
@@ -96,19 +96,19 @@ github.com/pborman/uuid v1.2.1/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtP
 
 现在让我们再看一个示例，如果**go mod tidy**在源文件中不需要，则会从**go.mod**文件中移除依赖项。为此，让我们删除上面创建的**uuid.go**文件。现在运行该命令
 
-```
+```go
 go mod tidy -v
 ```
 
 它将输出以下内容
 
-```
+```go
 unused github.com/pborman/uuid
 ```
 
 现在检查**go.mod**文件的内容。它将如下所示
 
-```
+```go
 module learn
 
 go 1.14
@@ -116,7 +116,7 @@ go 1.14
 
 该
 
-```
+```go
 require github.com/pborman/uuid v1.2.1
 ```
 

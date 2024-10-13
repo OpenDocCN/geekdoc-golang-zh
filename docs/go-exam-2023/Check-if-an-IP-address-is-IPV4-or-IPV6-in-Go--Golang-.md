@@ -22,7 +22,7 @@
 
 **代码：**
 
-```
+```go
 package main
 
 import (
@@ -64,7 +64,7 @@ func checkIPAddressType(ip string) {
 
 **输出：**
 
-```
+```go
 Given IP Address 10.40.210.253 is IPV4 type
 Invalid IP Address: 1000.40.210.253
 Given IP Address 2001:0db8:85a3:0000:0000:8a2e:0370:7334 is IPV6 type

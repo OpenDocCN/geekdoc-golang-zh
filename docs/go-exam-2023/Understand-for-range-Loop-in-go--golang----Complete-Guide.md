@@ -46,7 +46,7 @@
 
 这是 **for-range** 与数组/切片一起使用时的格式
 
-```
+```go
 for index, value := range array/slice {
     //Do something with index and value
 }
@@ -64,7 +64,7 @@ for index, value := range array/slice {
 
 +   无索引和值
 
-```
+```go
 package main
 
 import "fmt"
@@ -102,7 +102,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Both Index and Value
 Index: 0 Value:a
 Index: 1 Value:b
@@ -128,7 +128,7 @@ Index: 2 Value: c
 
 在 Golang 中，字符串是字节序列。字符串字面量实际上表示 UTF-8 字节序列。在 UTF-8 中，ASCII 字符是单字节的，对应前 128 个 Unicode 字符。所有其他字符则在 1 - 4 字节之间。要更好地理解，请考虑下面的字符串
 
-```
+```go
 sample := "a£c"
 ```
 
@@ -142,13 +142,13 @@ sample := "a£c"
 
 上述字符串总共有 1+2+1 = 4 字节。因此，当我们尝试使用标准 **len()** 函数打印字符串的长度时，它将输出 4，而不是 3，因为 **len()** 函数返回字符串中的字节数。
 
-```
+```go
 fmt.Printf("Length is %d\n", len(sample))
 ```
 
 因此，**独立的 for** 循环不能用于遍历字符串中的所有字符，因为它会遍历字节而不是字符。因此，下面的 **for** 循环将遍历四次，并打印出与该索引处的字节对应的值。
 
-```
+```go
  for i := 0; i < len(sample); i++ {
     fmt.Printf("%c\n", sample[i])
  }
@@ -156,13 +156,13 @@ fmt.Printf("Length is %d\n", len(sample))
 
 它将输出下面的字符串，与 **"a£c"** 字符串不同
 
-```
+```go
 aÂ£b
 ```
 
 上述输出不是我们想要的。这就是 **for-range** 循环在字符串中的应用。它遍历字符串中的 Unicode 点（在 golang 中也称为 rune），并正确输出 a, £, b。以下是与字符串一起使用 **for-range** 的格式
 
-```
+```go
 for index, character := range string {
     //Do something with index and character
 }
@@ -178,7 +178,7 @@ for index, character := range string {
 
 现在让我们看一个代码示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -208,7 +208,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Both Index and Value
 Start Index: 0 Value:a
 Start Index: 1 Value:£
@@ -229,7 +229,7 @@ Start Index: 3
 
 在映射的情况下，**for-range** 遍历映射的键和值。以下是与映射一起使用时的 **for-range** 格式。
 
-```
+```go
 for key, value := range map {
     //Do something with key and value
 }
@@ -237,7 +237,7 @@ for key, value := range map {
 
 值得注意的是，在使用 **for-range** 与映射时，键和值都是可选的。我们来看一个简单的代码示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -270,7 +270,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Both Key and Value
 key :a value: x
 key :b value: y
@@ -292,7 +292,7 @@ value :y
 
 使用 **for-range** 与通道时的格式如下。
 
-```
+```go
 for value := range channel {
     //Do something value
 }
@@ -300,7 +300,7 @@ for value := range channel {
 
 让我们看一个代码示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -322,7 +322,7 @@ func pushToChannel(ch chan<- string) {
 
 **输出：**
 
-```
+```go
 a
 b
 c

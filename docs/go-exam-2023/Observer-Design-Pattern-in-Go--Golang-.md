@@ -61,7 +61,7 @@
 
 **subject.go**
 
-```
+```go
 package main
 
 type subject interface {
@@ -73,7 +73,7 @@ type subject interface {
 
 **item.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -124,7 +124,7 @@ func removeFromslice(observerList []observer, observerToRemove observer) []obser
 
 **observer.go**
 
-```
+```go
 package main
 
 type observer interface {
@@ -135,7 +135,7 @@ type observer interface {
 
 **customer.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -155,7 +155,7 @@ func (c *customer) getID() string {
 
 **main.go**
 
-```
+```go
 package main
 
 func main() {
@@ -170,7 +170,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Item Nike Shirt is now in stock
 Sending email to customer abc@gmail.com for item Nike Shirt
 Sending email to customer xyz@gmail.com for item Nike Shirt
@@ -178,7 +178,7 @@ Sending email to customer xyz@gmail.com for item Nike Shirt
 
 # **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -261,7 +261,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Item Nike Shirt is now in stock
 Sending email to customer abc@gmail.com for item Nike Shirt
 Sending email to customer xyz@gmail.com for item Nike Shirt

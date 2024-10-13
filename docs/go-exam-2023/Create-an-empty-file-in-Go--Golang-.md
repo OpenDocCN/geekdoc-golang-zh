@@ -18,7 +18,7 @@ date: 2024-10-13 06:09:20
 
 **os.Create()** 可用于在 Go 中创建一个空文件。该函数的签名为
 
-```
+```go
 func Create(name string) (*File, error) 
 ```
 
@@ -34,7 +34,7 @@ func Create(name string) (*File, error)
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -53,7 +53,7 @@ func main() {
 
 **输出**：
 
-```
+```go
 Check the contents of the file. It will be empty
 ```
 

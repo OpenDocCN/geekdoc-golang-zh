@@ -18,7 +18,7 @@
 
 给定一个输入字符串，其中包含一些数字。数字与字母的映射类似于电话键盘。
 
-```
+```go
 2 = either "a", "b" or "c"
 3 = either "d", "e" or "f"
 4 = either "g", "h" or "i"
@@ -33,7 +33,7 @@
 
 示例
 
-```
+```go
 Input: "3"
 Output: [d e f]
 
@@ -48,7 +48,7 @@ Output: [dgj dgk dgl dhj dhk dhl dij dik dil egj egk egl ehj ehk ehl eij eik eil
 
 这里是相同程序的代码。
 
-```
+```go
 package main
 
 import "fmt"
@@ -111,7 +111,7 @@ func main() {
 
 **输出**
 
-```
+```go
 [d e f]
 [dg dh di eg eh ei fg fh fi]
 [dgj dgk dgl dhj dhk dhl dij dik dil egj egk egl ehj ehk ehl eij eik eil fgj fgk fgl fhj fhk fhl fij fik fil]

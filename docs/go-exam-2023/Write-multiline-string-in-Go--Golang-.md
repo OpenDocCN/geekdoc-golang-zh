@@ -14,7 +14,7 @@
 
 **工作代码:**
 
-```
+```go
 package main
 
 import "fmt"
@@ -30,7 +30,7 @@ string`
 
 **输出**
 
-```
+```go
 This is 
 a multiline 
 string

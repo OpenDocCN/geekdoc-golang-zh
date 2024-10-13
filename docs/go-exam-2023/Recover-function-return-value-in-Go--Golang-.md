@@ -22,7 +22,7 @@
 
 让我们看一个程序以充分理解它
 
-```
+```go
 package main
 
 import "fmt"
@@ -51,14 +51,14 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Exiting normally
 ```
 
 在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印传递给参数的索引处的切片元素。如果传递的索引大于数组的长度，则程序将发生`panic`。我们在函数**checkAndPrint**的开始处添加了一个名为**handleOutIfBounds**的`defer`函数。此函数包含对`recover`函数的调用，如下所示。
 
-```
+```go
 if r := recover(); r != nil {
     fmt.Println("Recovering from panic:", r)
 }
@@ -66,19 +66,19 @@ if r := recover(); r != nil {
 
 **recover**函数将捕获`panic`，我们也可以打印来自`panic`的消息。
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 ```
 
 在`recover`函数之后，程序继续执行，控制权返回到调用的函数，这里是**main**。这就是我们得到输出的原因。
 
-```
+```go
 Exiting normally
 ```
 
 `recover`函数返回传递给`panic`函数的值。这就是我们在`defer`函数**handleOutofBounds**中有下面代码的原因。
 
-```
+```go
 if r := recover(); r != nil 
 ```
 

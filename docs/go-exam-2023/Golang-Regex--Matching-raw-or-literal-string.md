@@ -28,13 +28,13 @@
 
 以下是函数的签名
 
-```
+```go
 func MustCompile(str string) *Regexp
 ```
 
 我们首先使用 **MustCompile** 函数编译给定的正则表达式字符串。如果给定的正则表达式无效，该函数将引发恐慌。成功编译给定的正则表达式后，它返回 regexp 结构的实例。
 
-```
+```go
 sampleRegexp := regexp.MustCompile("some_regular_expression"")
 ```
 
@@ -44,19 +44,19 @@ sampleRegexp := regexp.MustCompile("some_regular_expression"")
 
 以下是该方法的签名
 
-```
+```go
 func (re *Regexp) Match(b []byte) bool
 ```
 
 我们可以在 regexp 实例上调用 **Match** 方法，将给定模式与正则表达式进行匹配。如果正则表达式与输入字符串匹配，则返回 true，否则返回 false。我们需要将输入字符串的字节传递给此方法。
 
-```
+```go
 match := sampleRegexp.Match([]byte("some_string"))
 ```
 
 让我们看看一个具有字面或原始字符串的基本正则表达式的简单程序
 
-```
+```go
 package main
 
 import (
@@ -80,7 +80,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For abc: true
 For 1abc2: true
 For xyz: false

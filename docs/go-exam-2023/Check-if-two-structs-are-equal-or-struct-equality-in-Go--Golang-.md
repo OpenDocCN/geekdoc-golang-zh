@@ -42,7 +42,7 @@
 
 让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -66,13 +66,13 @@ func main() {
 
 **输出**
 
-```
+```go
 emp1 annd emp2 are equal
 ```
 
 如果结构体字段类型不可比较，则在使用 == 运算符检查结构体相等性时会出现编译错误。
 
-```
+```go
 package main
 
 import "fmt"
@@ -97,7 +97,7 @@ func main() {
 
 上述程序会引发编译错误，因为 **employee** 结构体包含一个字段 **departments**，这是一个 **slice** 类型的 **string**。**slice** 不是可比较类型，因此会出现编译错误。
 
-```
+```go
 invalid operation: emp1 == emp2 (struct containing []string cannot be compared)
 ```
 

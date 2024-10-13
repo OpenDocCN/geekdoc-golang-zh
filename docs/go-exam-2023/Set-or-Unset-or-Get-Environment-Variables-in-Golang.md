@@ -28,7 +28,7 @@
 
 ## 设置环境值
 
-```
+```go
 func Setenv(key, value string) error
 ```
 
@@ -36,13 +36,13 @@ func Setenv(key, value string) error
 
 如果环境变量的**Getenv()**函数返回的值为空，表示该环境变量不存在。要区分未设置和为空的环境变量，请使用LookupEnv()函数，它会返回额外的布尔值，指示环境变量是否存在。
 
-```
+```go
 func Getenv(key string) string
 ```
 
 ## 取消设置环境值
 
-```
+```go
 func Unsetenv(key string) error 
 ```
 
@@ -54,13 +54,13 @@ func Unsetenv(key string) error
 
 +   如果key代表的环境变量不存在，则返回的值为空，返回的布尔值为假。
 
-```
+```go
 func LookupEnv(key string) (string, bool)
 ```
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -93,7 +93,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 b
 a env variable present: false
 ```*

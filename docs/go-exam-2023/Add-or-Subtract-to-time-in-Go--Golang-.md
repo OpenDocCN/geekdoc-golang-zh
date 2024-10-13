@@ -22,13 +22,13 @@ golang 中的 **time** 包定义了两种添加或减去时间的方法。
 
 +   **Add** 函数 – 用于 **添加/减去** 一个 **持续时间** 到 **时间** t。由于 **持续时间** 可以用小时、分钟、秒、毫秒、微秒和纳秒表示，因此 **Add** 函数可以用于从时间中添加/减去这些单位。它的签名是
 
-```
+```go
 func (t Time) Add(d Duration) Time
 ```
 
 +   **AddDate** 函数 – 用于给时间 t 添加/减去年份、月份和天数。它的签名是
 
-```
+```go
 func (t Time) AddDate(years int, months int, days int) Time
 ```
 
@@ -38,7 +38,7 @@ func (t Time) AddDate(years int, months int, days int) Time
 
 以下代码可以用于加时间
 
-```
+```go
 package main
 
 import (
@@ -81,7 +81,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Adding 1 hour:
  2020-02-01 02:16:35.893847 +0530 IST m=+3600.000239893
 
@@ -108,7 +108,7 @@ Adding 1 year 2 month 4 day:
 
 以下代码可以用于减去时间
 
-```
+```go
 package main
 
 import (
@@ -151,7 +151,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Subtracting 1 hour:
  2020-02-01 00:18:29.772673 +0530 IST m=-3599.999784391
 

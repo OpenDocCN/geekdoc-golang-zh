@@ -28,7 +28,7 @@
 
 **go.mod**
 
-```
+```go
 module learn
 
 go 1.14
@@ -38,7 +38,7 @@ require github.com/pborman/uuid v1.2.1
 
 **learn.go**
 
-```
+```go
 package main
 
 import (
@@ -57,25 +57,25 @@ func main() {
 
 注意我们在**learn.go**中导入了该依赖项，并且这个依赖项也被添加到**go.mod**文件中
 
-```
+```go
 "github.com/pborman/uuid"
 ```
 
 现在让我们尝试从上述模块完全移除这个依赖项。命令**go mod tidy**将从**go.mod**文件中移除该依赖项，如果它在源文件中不需要。为了说明这一点，让我们删除之前创建的**learn.go**文件。现在运行命令
 
-```
+```go
 go mod tidy -v
 ```
 
 它将给出以下输出
 
-```
+```go
 unused github.com/pborman/uuid
 ```
 
 现在检查**go.mod**文件的内容。它将如下所示
 
-```
+```go
 module learn
 
 go 1.14
@@ -83,7 +83,7 @@ go 1.14
 
 那
 
-```
+```go
 require github.com/pborman/uuid v1.2.1
 ```
 

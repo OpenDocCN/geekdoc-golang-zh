@@ -62,7 +62,7 @@
 
 **doublylinklist.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -176,7 +176,7 @@ func (d *doublyLinkedList) Size() int {
 
 **evictionAlgorithm.go**
 
-```
+```go
 package main
 
 type evictionAlgo interface {
@@ -199,7 +199,7 @@ func createEvictioAlgo(algoType string) evictionAlgo {
 
 **lru.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -233,7 +233,7 @@ func (l *lru) set_overwrite(node *node, value string, c *Cache) {
 
 **fifo.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -264,7 +264,7 @@ func (l *fifo) set_overwrite(node *node, value string, c *Cache) {
 
 **cache.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -333,7 +333,7 @@ func (this *Cache) print() {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -364,7 +364,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Shuffling doubly linked list due to set operation
 key :a value: 1
 key = a, value = 1, prev = <nil>, next = <nil>Shuffling doubly linked list due to set operation

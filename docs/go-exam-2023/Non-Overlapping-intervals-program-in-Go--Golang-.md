@@ -20,7 +20,7 @@
 
 让我们通过一个例子来理解。
 
-```
+```go
 Input: intervals = [[2,3],[3,4],[4,5],[2,4]]
 Output: 1
 Explanation: [2,4] can be removed and the rest of the intervals are non-overlapping.
@@ -32,7 +32,7 @@ Explanation: [2,4] can be removed and the rest of the intervals are non-overlapp
 
 这里是相应的程序。
 
-```
+```go
 package main
 
 import (
@@ -75,7 +75,7 @@ func main() {
 
 **输出**
 
-```
+```go
 6
 13
 ```

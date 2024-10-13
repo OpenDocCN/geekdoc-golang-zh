@@ -22,7 +22,7 @@
 
 例如
 
-```
+```go
 Input: ["art", "tap", "rat", "pat", "tar","arm"]
 Output: [["art", "rat", "tar"], ["tap", "pat"], ["arm"]]
 ```
@@ -31,19 +31,19 @@ Output: [["art", "rat", "tar"], ["tap", "pat"], ["arm"]]
 
 +   复制原始数组。对副本数组中的每个字符串进行排序。排序后的副本数组将如下所示
 
-```
+```go
 ["art", "apt", "art", "apt", "art", "arm"]
 ```
 
 +   创建一个映射以存储输出
 
-```
+```go
 var output map[string][]int
 ```
 
 +   为上述副本数组构建一个前缀树，所有字符串都已排序。插入每个元素后更新上述映射。对于“art”，映射应如下所示，因为art在原始数组中的位置为0、2和5。
 
-```
+```go
 map["art"] = [0,2,4]
 ```
 
@@ -53,7 +53,7 @@ map["art"] = [0,2,4]
 
 以下是相应的程序
 
-```
+```go
 package main
 
 import (
@@ -152,7 +152,7 @@ func (t *trie) insert(input string, wordIndex int, anagramMap map[string][]int) 
 
 **输出**
 
-```
+```go
 [[art rat tar] [tap pat] [arm]]
 [[]]
 [[a]]

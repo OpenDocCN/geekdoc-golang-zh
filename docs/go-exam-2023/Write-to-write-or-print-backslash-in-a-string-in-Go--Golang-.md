@@ -22,7 +22,7 @@
 
 ## **双引号的程序**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -38,7 +38,7 @@ func main() {
 
 ## **反引号的程序**
 
-```
+```go
 package main
 import "fmt"
 func main() {

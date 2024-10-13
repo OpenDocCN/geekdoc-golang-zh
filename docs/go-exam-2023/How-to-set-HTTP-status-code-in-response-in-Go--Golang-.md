@@ -38,7 +38,7 @@ ResponseWriter接口由HTTP处理程序用于构建HTTP响应。它提供了三�
 
 以下是相同程序的内容
 
-```
+```go
 package main
 
 import (
@@ -73,19 +73,19 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 它还使用**Write**函数返回响应正文。上述代码将以下JSON请求正文作为响应返回
 
-```
+```go
 {"message":"Status Created"}
 ```
 
 运行上述程序。这将在你本地机器的8080端口上启动一个服务器。现在可以向服务器发出以下curl调用
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 下面是输出结果
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080
@@ -105,7 +105,7 @@ curl -v -X POST http://localhost:8080/example
 
 你也可以直接将201传递给WriteHeader函数，以发送201响应。
 
-```
+```go
 w.WriteHeader(201)
 ```
 
@@ -113,7 +113,7 @@ w.WriteHeader(201)
 
 我们提到过，我们并没有显式调用WriteHeader，因此对**Write**函数的调用将内部调用WriteHeader函数，并返回状态码200，即StatusOk。我们来看看一个例子-
 
-```
+```go
 package main
 
 import (
@@ -145,13 +145,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 运行上述程序。这将在你本地机器的8080端口上启动一个服务器。现在可以向服务器发出以下curl调用
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 下面是输出结果
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080

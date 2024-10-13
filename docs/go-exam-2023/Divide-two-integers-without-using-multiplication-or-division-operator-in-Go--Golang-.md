@@ -24,7 +24,7 @@
 
 例如
 
-```
+```go
 Input: 15,2
 Ouput: 7
 
@@ -58,7 +58,7 @@ Ouput: 7
 
 这里是相同程序的代码。
 
-```
+```go
 package main
 
 import (
@@ -116,7 +116,7 @@ func main() {
 
 **输出**
 
-```
+```go
 7
 -7
 -7

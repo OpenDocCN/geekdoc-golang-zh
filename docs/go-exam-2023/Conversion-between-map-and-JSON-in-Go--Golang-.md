@@ -24,7 +24,7 @@
 
 让我们来看一个将映射转换为JSON的程序。
 
-```
+```go
 package main
 
 import (
@@ -48,25 +48,25 @@ func main() {
 
 **输出**
 
-```
+```go
 {"1":"John"}
 ```
 
 在上面的代码中，我们使用**json.Marshal**函数将映射转换为JSON。该映射的键对应一个整数值。
 
-```
+```go
 a := make(map[int]string)
 ```
 
 在转换后，结果JSON作为键的字符串值。
 
-```
+```go
 {"1":"John"}
 ```
 
 让我们再看一个例子，在这个例子中，我们将映射转换为**JSON**，其中映射的值是一个结构体。以下是相关代码。
 
-```
+```go
 package main
 import (
     "encoding/json"
@@ -89,7 +89,7 @@ func main() {
 
 **输出**
 
-```
+```go
 {"1":{"Name":"John"}}
 ```
 
@@ -101,7 +101,7 @@ func main() {
 
 **第一种情况：**
 
-```
+```go
 package main
 
 import (
@@ -130,14 +130,14 @@ func main() {
 
 **输出**
 
-```
+```go
 {"1":"John"}
 map[1:John]
 ```
 
 **第二种情况**
 
-```
+```go
 package main
 import (
     "encoding/json"
@@ -163,7 +163,7 @@ func main() {
 
 **输出**
 
-```
+```go
 {"1":{"Name":"John"}}
 map[1:{John}]
 ```

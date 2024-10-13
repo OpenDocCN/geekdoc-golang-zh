@@ -20,7 +20,7 @@ Golang 的 **net/http** 包提供了可以用来返回不同状态码的状态�
 
 同样可以用来返回 200 (状态正常) HTTP 状态码。 HTTP 200 状态码由以下常量定义。
 
-```
+```go
 http.StatusOK
 ```
 
@@ -30,7 +30,7 @@ http.StatusOK
 
 以下是相同的程序
 
-```
+```go
 package main
 
 import (
@@ -61,19 +61,19 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 在这里，我们使用 **WriteHeader** 函数来指定 200 HTTP 状态码，并使用 **Write** 函数返回响应主体。上述代码将以下 JSON 请求主体作为响应返回。
 
-```
+```go
 {"message":"Status OK"}
 ```
 
 运行上述程序。这将在你的本地机器上启动一个 8080 端口的服务器。现在对服务器进行以下 curl 调用。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 以下将是输出。
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080
@@ -93,7 +93,7 @@ curl -v -X POST http://localhost:8080/example
 
 你也可以直接将 200 传递给 WriteHeader 函数以发送 200 响应。
 
-```
+```go
 w.WriteHeader(200)
 ```
 

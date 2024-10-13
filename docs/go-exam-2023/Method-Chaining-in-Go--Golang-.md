@@ -14,7 +14,7 @@
 
 让我们看看方法链的一个示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -47,7 +47,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: Sam
 Age: 31
 Salary: 2000

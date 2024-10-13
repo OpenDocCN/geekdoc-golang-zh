@@ -20,7 +20,7 @@
 
 同样可以用于返回401（未授权）HTTP状态码。HTTP 401状态码由以下常量定义。
 
-```
+```go
 http.StatusUnauthorized
 ```
 
@@ -30,7 +30,7 @@ http.StatusUnauthorized
 
 以下是相应的程序。
 
-```
+```go
 package main
 
 import (
@@ -61,19 +61,19 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 在这里，我们使用**WriteHeader**函数来指定401 HTTP状态码，并使用**Write**函数来返回响应主体。上述代码将返回以下JSON请求主体作为响应。
 
-```
+```go
 {"message":"Unauthorized"}
 ```
 
 运行上述程序。它将在本地机器的8080端口启动一个服务器。现在对服务器进行以下curl调用。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example
 ```
 
 以下将是输出。
 
-```
+```go
 * Connected to localhost (::1) port 8080 (#0)
 > POST /example HTTP/1.1
 > Host: localhost:8080
@@ -93,7 +93,7 @@ curl -v -X POST http://localhost:8080/example
 
 你也可以直接将401传递给WriteHeader函数以发送401响应。
 
-```
+```go
 w.WriteHeader(401)
 ```
 

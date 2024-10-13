@@ -24,7 +24,7 @@
 
 # **代码**
 
-```
+```go
 package main
 
 import (
@@ -44,7 +44,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 It will output the location of current working directory
 ```
 

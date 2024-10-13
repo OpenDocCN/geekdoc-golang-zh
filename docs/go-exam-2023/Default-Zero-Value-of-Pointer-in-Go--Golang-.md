@@ -20,7 +20,7 @@ date: 2024-10-13 06:29:05
 
 # **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -34,7 +34,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Default value of pointer: 
 ```
 

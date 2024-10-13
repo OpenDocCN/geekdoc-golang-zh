@@ -18,7 +18,7 @@
 
 Go提供了一个内置函数**recover**用于从恐慌中恢复。下面是这个函数的签名
 
-```
+```go
 func recover() interface{}
 ```
 
@@ -28,7 +28,7 @@ func recover() interface{}
 
 让我们看一个recover的例子
 
-```
+```go
 package main
 
 import "fmt"
@@ -57,14 +57,14 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Exiting normally
 ```
 
 在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印传递到参数中的索引处的切片元素。如果传递的索引大于数组的长度，则程序将会恐慌。我们在**checkAndPrint**函数的开始处添加了一个名为**handleOutOfBounds**的defer函数。这个函数包含对recover函数的调用，如下所示。
 
-```
+```go
 if r := recover(); r != nil {
     fmt.Println("Recovering from panic:", r)
 }
@@ -72,19 +72,19 @@ if r := recover(); r != nil {
 
 **recover**函数将捕获恐慌，我们还可以打印恐慌中的消息。
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 ```
 
 在恢复函数之后，程序继续运行，控制权返回到调用的函数，这里是**main**。这就是为什么我们得到输出为
 
-```
+```go
 Exiting normally
 ```
 
 recover函数返回传递给panic函数的值。因此，检查recover函数的返回值是一个好习惯。如果返回值非nil，则没有发生恐慌，并且recover函数没有与恐慌一起被调用。这就是我们在defer函数**handleOutOfBounds**中有以下代码的原因。
 
-```
+```go
 if r := recover(); r != nil 
 ```
 
@@ -94,7 +94,7 @@ if r := recover(); r != nil
 
 让我们看一个示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -123,7 +123,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Exiting normally
 ```

@@ -44,13 +44,13 @@
 
 **application/x-www-form-urlencoded**将每个非ASCII字节编码为3个字节。基本上，**application/x-www-form-urlencoded**内容类型请求体就像一个巨大的查询字符串。类似于URI中的查询字符串，它是一个具有以下格式的键值对
 
-```
+```go
 key1=value1&key2=value21&key2=value22&key3=value3
 ```
 
 发送**application/x-www-form-urlencoded**时，所有非字母数字字符都会被URL编码。所有非字母数字字符（仅限保留）将以以下格式进行URL编码
 
-```
+```go
 %WW
 ```
 
@@ -62,7 +62,7 @@ key1=value1&key2=value21&key2=value22&key3=value3
 
 正如我们之前提到的，**multipart/form-data** 有不同的部分由分隔符或边界分隔。每个部分都有自己的头部。multipart/form-data 的格式如下
 
-```
+```go
 -- <delimiter_or_boundary>Content-Disposition: form-data; name="<key1>"
 Content-Type: <content-type>
 
@@ -95,13 +95,13 @@ Content-Type: <content-type>
 
 假设分隔符或边界是
 
-```
+```go
 xyz
 ```
 
 那么格式将如下
 
-```
+```go
 --xyz
 Content-Disposition: form-data; name="name"
 Content-Type: text/plain
@@ -130,13 +130,13 @@ Content-Type: image/jpeg
 
 然后在使用 **application/x-www-form-urlencoded** 时，数据将被发送为
 
-```
+```go
 name=John&age=23
 ```
 
 但是在发送 **multipart/form-data** 时，数据将如下发送，几乎是以 **application/x-www-form-urlencoded** 发送的数据的十倍。
 
-```
+```go
 --xyz
 Content-Disposition: form-data; name="name"
 Content-Type: text/plain

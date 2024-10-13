@@ -20,7 +20,7 @@
 
 示例
 
-```
+```go
 Input: 4->5->3->1
 Output: 2
 Target: 1->4->5->3
@@ -32,7 +32,7 @@ Target: 1->4->5->3
 
 这里是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -134,7 +134,7 @@ func partition(head *ListNode, x int) *ListNode {
 
 **输出**
 
-```
+```go
 4
 5
 3

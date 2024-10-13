@@ -52,7 +52,7 @@
 
 # **实现**
 
-```
+```go
 package main
 
 import "fmt"
@@ -165,7 +165,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 2
 3
 5

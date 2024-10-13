@@ -38,26 +38,26 @@
 
 go **builtin**包提供了一个**append**函数，可以在切片末尾追加或添加。以下是此函数的签名。
 
-```
+```go
 func append(slice []Type, elems ...Type) []Type
 ```
 
 第一个参数是切片本身。第二个参数是可变数量的参数。
 
-```
+```go
 elems ...Type
 ```
 
 **‘…’**运算符是可变参数语法。因此，基本上**…Type**表示追加函数可以接受类型为**Type**的可变数量的参数。以下是使用此函数的方法。在下面的代码中，我们正在向一个有两个元素的切片追加4。它会在末尾追加并返回原始切片。这就是为什么我们再次将结果收集到**numbers**变量中的原因。将结果赋值给其他变量也是可以的。
 
-```
+```go
 numbers := []int{1,2}
 numbers := append(numbers, 4) //Slice will become [1, 2, 3, 4]
 ```
 
 追加任意数量的元素也是可以的，因为第二个参数是可变参数。
 
-```
+```go
 numbers := []int{1,2}
 numbers := append(numbers, 3, 4, 5) //Slice will become [1, 2, 3, 4, 5]
 ```
@@ -72,7 +72,7 @@ numbers := append(numbers, 3, 4, 5) //Slice will become [1, 2, 3, 4, 5]
 
 在这种情况下，通过使用追加函数，切片的长度将增加1，而容量不会发生变化。让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -104,7 +104,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[1 2 3]
 length=3
 capacity=5
@@ -126,7 +126,7 @@ capacity=5
 
 在这种情况下，由于没有更多的容量，所以无法容纳新的元素。因此，在后台，将分配一个容量为两倍的数组。切片指向的当前数组将被复制到那个新数组。现在切片将开始指向这个新数组。因此，容量将翻倍，长度将增加1。让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -152,7 +152,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[1 2 3]
 length=3
 capacity=3
@@ -167,13 +167,13 @@ capacity=6
 
 也可以将一个切片附加到另一个切片。下面是该格式。
 
-```
+```go
 res := append(slice1, slice2...)
 ```
 
 注意第二个切片后面的**‘…’**。**‘…’**是表示参数为可变参数的操作符。这意味着在运行时，slice2将扩展为其单独元素，并作为多个参数传递给append函数。
 
-```
+```go
 package main
 
 import "fmt"
@@ -190,7 +190,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[1 2 3 4]
 length=4
 capacity=4
@@ -200,7 +200,7 @@ capacity=4
 
 Go中的字符串只是字节序列。因此，将字符串附加到字节切片是合法的。下面是该程序。注意字符串末尾的**‘…’**
 
-```
+```go
 package main
 
 import "fmt"
@@ -216,7 +216,7 @@ func main() {
 
 **输出**
 
-```
+```go
 sample: HelloWorld
 ```
 

@@ -12,7 +12,7 @@
 
 GO提供了一种非常简洁的方式来交换两个字符串。请看下面的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -28,7 +28,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Before a:123 b:xyz
 After a:xyz b:123
 ```

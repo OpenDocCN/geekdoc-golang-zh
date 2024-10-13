@@ -16,7 +16,7 @@ GO可以在Win、Mac和Linux平台上安装。让我们来看一下Windows的安
 
 +   从这里下载.msi安装程序 – [https://golang.org/dl/](https://golang.org/dl/)。双击.msi文件并按照屏幕上的指示进行操作。一旦完成，GO将安装在以下目录中。
 
-```
+```go
 c:\Go
 ```
 
@@ -28,7 +28,7 @@ c:\Go
 
 +   也尝试运行**‘go’**命令。它将输出
 
-```
+```go
 Go is a tool for managing Go source code.
 
 Usage:

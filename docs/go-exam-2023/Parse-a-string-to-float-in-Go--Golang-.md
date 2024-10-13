@@ -16,7 +16,7 @@
 
 以下是函数的签名
 
-```
+```go
 func ParseFloat(s string, bitSize int) (float64, error) 
 ```
 
@@ -30,7 +30,7 @@ func ParseFloat(s string, bitSize int) (float64, error)
 
 让我们看看一个工作代码
 
-```
+```go
 package main
 
 import (
@@ -51,7 +51,7 @@ func main() {
 
 **输出**
 
-```
+```go
 float64, 1.343400001525879
 float64, 1.3434
 ```

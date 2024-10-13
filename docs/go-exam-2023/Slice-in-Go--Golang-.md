@@ -68,7 +68,7 @@
 
 上述内部表示由**SliceHeader**结构描述，结构如下所示：
 
-```
+```go
 type SliceHeader struct {
         Pointer uintptr
         Len  int
@@ -98,13 +98,13 @@ type SliceHeader struct {
 
 声明切片的最常用方法是这个。
 
-```
+```go
 s := []int
 ```
 
 它声明了一个长度为 0、容量为 0 的空切片。我们也可以在声明时初始化切片。
 
-```
+```go
 s := []int{1,2}
 ```
 
@@ -116,7 +116,7 @@ s := []int{1,2}
 
 让我们看看一个展示上述要点的小程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -136,7 +136,7 @@ func main() {
 
 **输出**
 
-```
+```go
 0
 0
 []
@@ -156,7 +156,7 @@ func main() {
 
 通过重新切片现有数组创建新切片的格式是
 
-```
+```go
 [n]sample[start:end]
 ```
 
@@ -168,7 +168,7 @@ func main() {
 
 让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -208,7 +208,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Both start and end
 num1=[3 4]
 length=2
@@ -242,7 +242,7 @@ capacity=5
 
 新创建的切片仍然指向原数组。要检查此更改，可以在数组的任一索引处更改元素，然后重新打印切片。
 
-```
+```go
 numbers[3] = 8
 fmt.Printf("num1=%v\n", num2)
 fmt.Printf("num3=%v\n", num3)
@@ -251,7 +251,7 @@ fmt.Printf("num4=%v\n", num4)
 
 这是输出：
 
-```
+```go
 num1=[3 8 5]
 num3=[1 2 3 8]
 num4=[1 2 3 8 5]
@@ -263,7 +263,7 @@ num4=[1 2 3 8 5]
 
 我们讨论的从数组重新切片的内容在这里同样适用。请看下面的示例，它说明了同样的事情。
 
-```
+```go
 package main
 
 import "fmt"
@@ -303,7 +303,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Both start and end
 num1=[3 4]
 length=2
@@ -327,7 +327,7 @@ capacity=5
 
 在这里，新创建的切片也指向原切片所引用的同一基础数组。要检查此更改，可以在原切片的任一索引处更改元素，然后重新打印所有新创建的切片。
 
-```
+```go
 numbers[3] = 8
 fmt.Printf("num1=%v\n", num2)
 fmt.Printf("num3=%v\n", num3)
@@ -336,7 +336,7 @@ fmt.Printf("num4=%v\n", num4)
 
 这是输出：
 
-```
+```go
 num1=[3 8 5]
 num3=[1 2 3 8]
 num4=[1 2 3 8 5]
@@ -346,13 +346,13 @@ num4=[1 2 3 8 5]
 
 **make** 是 Go 提供的一个内置函数，也可以用来创建切片。以下是 make 函数的签名。
 
-```
+```go
 func make([]{type}, length, capacity int) []{type}
 ```
 
 在使用make函数创建切片时，容量是一个可选参数。当省略容量时，切片的容量等于指定的长度。当使用make函数时，后台Go会分配一个等于容量的数组。所有分配的数组元素都初始化为该类型的默认零值。让我们看一个说明这一点的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -374,7 +374,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[0 0 0]
 length=3
 capacity=5
@@ -389,7 +389,7 @@ capacity=3
 
 **new**是Go提供的一个内置函数，也可以用来创建切片。这不是一种非常流行的创建切片的方法，因为**make**在功能上更灵活。它通常不被使用，使用**new**函数返回一个指向nil切片的指针。让我们看一个例子。在下面的例子中，我们使用解引用操作符**‘*’**，因为**new**函数返回一个指向nil切片的指针。
 
-```
+```go
 package main
 
 import "fmt"
@@ -404,7 +404,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[]
 length=0
 capacity=0
@@ -414,25 +414,25 @@ capacity=0
 
 在继续之前，让我们强调理解长度和容量的注意事项。让我们创建一个容量大于长度的简单切片。
 
-```
+```go
 numbers := make([]int, 3, 5)
 ```
 
 +   访问切片超出其长度会导致运行时错误“索引超出范围”。即使访问的索引在容量内也无关紧要。因此，下面的行将导致运行时错误。
 
-```
+```go
 numbers[4] = 5
 ```
 
 +   切片的长度可以通过重新切片增加到其容量。因此，下面的重新切片将长度从3增加到5。
 
-```
+```go
 numbers = numbers[0:5]
 ```
 
 +   切片的长度也可以通过重新切片来减少。所以下面的重新切片将长度从3减少到2。
 
-```
+```go
 numbers = numbers[0:2]
 ```
 
@@ -440,7 +440,7 @@ numbers = numbers[0:2]
 
 让我们看一个说明上述要点的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -472,7 +472,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[0 0 0]
 length=3
 capacity=5
@@ -492,7 +492,7 @@ capacity=5
 
 可以通过指定索引访问切片元素。切片元素也可以通过索引分配一个新值。此外，请注意，任何对基础数组的更改都会在切片中反映出来，正如我们上面看到的。让我们看一个小例子，展示访问和修改。
 
-```
+```go
 package main
 
 import "fmt"
@@ -517,7 +517,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Modifying Slice
 Array=[1 7 3 4 5]
 Slice=[1 7 3 4 5]
@@ -537,7 +537,7 @@ Slice=[1 2 3 4 5]
 
 让我们看一个代码示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -561,7 +561,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Using for loop
 a
 b
@@ -577,26 +577,26 @@ Using for-range loop
 
 Go的**builtin**包提供了一个**append**函数，可以在切片末尾追加元素。下面是这个函数的签名。
 
-```
+```go
 func append(slice []Type, elems ...Type) []Type
 ```
 
 第一个参数是切片本身。第二个是可变数量的参数。
 
-```
+```go
 elems ...Type
 ```
 
 **'...'**运算符是可变语法。因此，基本上**...Type**意味着追加函数可以接受可变数量的类型为**Type**的参数。以下是使用该函数的方法。在下面的代码中，我们将4追加到一个有两个元素的切片中。它在末尾追加并返回原始切片。这就是为什么我们将结果再次收集到**numbers**变量中的原因。将结果分配给其他变量也是可以的。
 
-```
+```go
 numbers := []int{1,2}
 numbers = append(numbers, 4) //Slice will become [1, 2, 4]
 ```
 
 追加多个元素也是可以的，因为第二个参数是可变参数。
 
-```
+```go
 numbers := []int{1,2}
 numbers = append(numbers, 3, 4, 5) //Slice will become [1, 2, 3, 4, 5]
 ```
@@ -607,7 +607,7 @@ numbers = append(numbers, 3, 4, 5) //Slice will become [1, 2, 3, 4, 5]
 
 在这种情况下，使用追加函数时，切片的长度将增加1，而容量保持不变。让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -639,7 +639,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[1 2 3]
 length=3
 capacity=5
@@ -661,7 +661,7 @@ capacity=5
 
 在这种情况下，由于没有更多的容量，所以无法容纳新的元素。因此在底层将分配一个容量翻倍的数组。当前切片指向的数组将被复制到这个新数组。现在切片将开始指向这个新数组。因此容量将翻倍，长度将增加1。让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -687,7 +687,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[1 2 3]
 length=3
 capacity=3
@@ -702,13 +702,13 @@ capacity=6
 
 也可以将一个切片追加到另一个切片。以下是该操作的格式。
 
-```
+```go
 res := append(slice1, slice2...)
 ```
 
 注意第二个切片后的**'...'**。**'...'**是运算符，表示该参数是可变参数。这意味着在运行时，slice2将扩展为作为多个参数传递给追加函数的各个元素。
 
-```
+```go
 package main
 
 import "fmt"
@@ -725,7 +725,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[1 2 3 4]
 length=4
 capacity=4
@@ -735,7 +735,7 @@ capacity=4
 
 Go的**builtin**包提供了**copy**函数，可以用于复制切片。以下是该函数的签名。它接受两个切片**dst**和**src**，并将数据从**src**复制到**dst**。它返回复制的元素数量。
 
-```
+```go
 func copy(dst, src []Type) int
 ```
 
@@ -749,7 +749,7 @@ func copy(dst, src []Type) int
 
 还需注意，一旦复制完成，对**dst**的任何更改将不会反映在**src**中，反之亦然。让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -773,7 +773,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Number Of Elements Copied: 5
 dst: [1 2 3 4 5]
 src: [1 2 3 4 5]
@@ -787,7 +787,7 @@ src: [1 2 3 4 5]
 
 切片的默认零值是nil。nil切片的长度和容量都是零。虽然将元素追加到nil切片也是可以的。让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -806,7 +806,7 @@ func main() {
 
 **输出**
 
-```
+```go
 numbers=[]
 length=0
 capacity=0
@@ -821,19 +821,19 @@ capacity=1
 
 切片头中的**数据**字段是指向基础数组的指针。 对于一维切片，我们有以下声明。
 
-```
+```go
 oneDSlice := make([]int, 2)
 ```
 
 声明一个二维切片的声明应该是。
 
-```
+```go
 twoDSlice = make([][]int, 2)
 ```
 
 上述声明意味着我们想创建一个**切片**，包含2个切片。仔细理解这一点。但等一下，这里我们没有指定第二维，意味着每个内部2个切片的长度。在切片的情况下，每个内部切片必须像下面那样显式初始化。
 
-```
+```go
 for i := range twoDSlice {
     twoDSlice[i] = make([]int, 3)
 }
@@ -841,7 +841,7 @@ for i := range twoDSlice {
 
 因此，通过原始切片上的范围，我们使用make指定每个2个切片的长度。 下面是另一种方法，但指定了切片元素。
 
-```
+```go
 var twoDSlice = make([][]int, 2)
 twoDSlice[0] = []int{1, 2, 3}
 twoDSlice[1] = []int{4, 5, 6}
@@ -851,7 +851,7 @@ twoDSlice[1] = []int{4, 5, 6}
 
 上述两点的完整工作示例
 
-```
+```go
 package main
 
 import "fmt"
@@ -888,7 +888,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Number of rows in slice: 2
 Number of columns in arsliceray: 3
 Total number of elements in slice: 6
@@ -916,7 +916,7 @@ Second Slice
 
 让我们看看一个示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -940,7 +940,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Number of rows in slice: 2
 Len of first row: 3
 Len of second row: 2
@@ -954,7 +954,7 @@ Traversing slice
 
 让我们看看一个三维切片的小例子。在下面的程序中，我们正在创建一个2*2*3维的切片。
 
-```
+```go
 package main
 
 import "fmt"
@@ -985,7 +985,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Length of first dimension: 2
 Length of second dimension: 2
 Length of third dimension: 3

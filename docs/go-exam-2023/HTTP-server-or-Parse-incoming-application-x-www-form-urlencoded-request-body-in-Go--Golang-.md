@@ -22,7 +22,7 @@
 
 **application/x-www-form-urlencoded**内容类型的请求主体就像一个巨大的查询字符串。类似于URI中的查询字符串，它是一个具有以下格式的键值对。
 
-```
+```go
 key1=value1&key2=value21&key2=value22&key3=value3
 ```
 
@@ -50,7 +50,7 @@ net/http包的请求对象有两个字段可以保存表单数据。[https://gol
 
 要获取**x-www-form-urlencoded**请求主体，我们需要首先在请求对象上调用以下函数。
 
-```
+```go
 request.ParseForm()
 ```
 
@@ -58,13 +58,13 @@ request.ParseForm()
 
 +   它解析URL中存在的查询字符串，并填充请求对象的**Form**字段。
 
-```
+```go
 request.Form
 ```
 
 +   之后，如果请求方法是PUT、POST或PATCH，且请求主体的内容类型是x-www-form-urlencoded，则它也会解析请求主体，并填充请求对象的上述两个字段。
 
-```
+```go
 request.Form
 request.PostForm
 ```
@@ -77,7 +77,7 @@ request.PostForm
 
 **Form** 和 **PostForm** 字段都是以下类型
 
-```
+```go
 type Values map[string][]string
 ```
 
@@ -89,7 +89,7 @@ type Values map[string][]string
 
 因此，基本上为了获取 x-www-url-encoded 请求体，我们需要先在请求对象上调用 **ParseForm** 函数。这将填充 **Form** 和 **PostForm** 字段。然后我们可以访问这些字段以获取 **x-www-form-urlencoded** 请求体。例如，假设我们有以下 **x-www-form-urlencoded** 请求体。
 
-```
+```go
 name=John
 age=21
 hobbies=sports
@@ -98,14 +98,14 @@ hobbies=music
 
 然后你可以像下面这样访问 **name** 字段
 
-```
+```go
 request.Form["name"]
 request.PostForm["name"]
 ```
 
 两者都会返回
 
-```
+```go
 ["John"]
 ```
 
@@ -113,19 +113,19 @@ request.PostForm["name"]
 
 此外，请求对象还定义了一个函数 **FormValue**，可用于获取与键关联的第一个值。它仅返回第一个值，而不是数组。例如
 
-```
+```go
 request.FormValue("hobbies")
 ```
 
 将返回
 
-```
+```go
 sports
 ```
 
 让我们看看一个程序
 
-```
+```go
 package main
 
 import (
@@ -173,14 +173,14 @@ func createEmployee(w http.ResponseWriter, r *http.Request) {
 
 另外，看看我们如何在 **Form** 和 **PostForm** 中访问 **name** 字段的值。
 
-```
+```go
 r.Form["name"]
 r.PostForm["name"]
 ```
 
 此外，我们还在请求对象上调用 **FormValue** 函数以访问 **hobbies** 字段，如下所示。
 
-```
+```go
 r.FormValue("hobbies")
 ```
 
@@ -190,7 +190,7 @@ r.FormValue("hobbies")
 
 +   仅传递 x-www-form-urlencoded 请求体。没有查询字符串。
 
-```
+```go
 curl -v -X POST 'http://localhost:8080/employee' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'name=John' \
@@ -201,7 +201,7 @@ curl -v -X POST 'http://localhost:8080/employee' \
 
 **输出**
 
-```
+```go
 request.Form:: 
 Key:name, Value:[John] 
 Key:age, Value:[18] 
@@ -221,7 +221,7 @@ Hobbies field in FormValue:sports
 
 +   传递 x-www-form-urlencoded 请求体。在查询字符串中传递一个额外字段 **gender**。在输出中注意，性别字段不在 **PostForm** 中，但在 **Form** 中。
 
-```
+```go
 curl -v -X POST 'http://localhost:8080/employee?gender=male' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'name=John' \
@@ -232,7 +232,7 @@ curl -v -X POST 'http://localhost:8080/employee?gender=male' \
 
 **输出**
 
-```
+```go
 request.Form:: 
 Key:age, Value:[18] 
 Key:hobbies, Value:[sports music] 
@@ -253,7 +253,7 @@ Hobbies field in FormValue:sports
 
 +   传递 x-www-form-urlencoded 请求体。同时在查询字符串中传递相同的键，即 **age**。在查询字符串中传递 **age=20**，在请求体中传递 **age=18**。**age** 的值 **20** 将不在 **PostForm** 字段中，但会在 **Form** 字段中。由于请求体参数优先，因此 **age=18** 是 **Form** 字段数组中的第一个值。如果你运行 **r.FormValue(“age”)**，则将返回 18 而不是 20。
 
-```
+```go
 curl -v -X POST 'http://localhost:8080/employee?age=20' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'name=John' \
@@ -264,7 +264,7 @@ curl -v -X POST 'http://localhost:8080/employee?age=20' \
 
 **输出**
 
-```
+```go
 request.Form:: 
 Key:hobbies, Value:[sports music] 
 Key:name, Value:[John] 

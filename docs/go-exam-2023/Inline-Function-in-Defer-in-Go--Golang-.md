@@ -22,7 +22,7 @@
 
 让我们看看一个示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -35,32 +35,32 @@ func main() {
 
 **输出**
 
-```
+```go
 Executed
 In inline defer
 ```
 
 在上面的代码中，我们使用了一个内联函数的defer。
 
-```
+```go
 defer func() { fmt.Println("In inline defer") }()
 ```
 
 这在Go中是允许的。还要注意，函数后面必须添加**“()”**，否则编译器会报错。
 
-```
+```go
 expression in defer must be function call
 ```
 
 从输出中可以看到，内联函数在主函数的所有内容执行完毕后被调用，并在主函数返回之前调用。这就是原因。
 
-```
+```go
 Executed in main
 ```
 
 在主函数执行之前打印了。
 
-```
+```go
 In inline Defer
 ```
 

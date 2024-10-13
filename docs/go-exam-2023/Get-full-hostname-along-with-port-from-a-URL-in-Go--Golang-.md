@@ -36,13 +36,13 @@
 
 一旦我们拥有所有部分，就可以将它们连接起来，以获取完整的主机名及端口。我们将解析以下URL。
 
-```
+```go
 https://test:abcd123@golangbyexample.com:8000/tutorials/intro?type=advance&compact=false#history
 ```
 
 然后完整的主机名及端口将为
 
-```
+```go
 https://golangbyexample.com:8000
 ```
 
@@ -50,7 +50,7 @@ https://golangbyexample.com:8000
 
 以下是相应的程序。
 
-```
+```go
 package main
 
 import (
@@ -74,7 +74,7 @@ func main() {
 
 **输出**
 
-```
+```go
 https://golangbyexample.com:8000:8000
 ```
 

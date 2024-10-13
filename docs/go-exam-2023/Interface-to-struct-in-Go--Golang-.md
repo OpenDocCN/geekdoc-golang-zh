@@ -14,7 +14,7 @@
 
 为了将interface{}转换为结构体，我们将使用这个库 – [https://github.com/mitchellh/mapstructure](https://github.com/mitchellh/mapstructure)。让我们通过一个示例来理解如何将接口转换为结构体：
 
-```
+```go
 package main
 
 import (
@@ -43,7 +43,7 @@ func convert(event interface{}) {
 
 **输出：**
 
-```
+```go
 Event is: {x 082213909101 xyz@gmail.com}
 ```
 

@@ -22,7 +22,7 @@ date: 2024-10-13 06:32:13
 
 **http.Request** 结构体提供了获取请求用户代理的以下方法。
 
-```
+```go
 func (r *Request) UserAgent() string
 ```
 
@@ -32,7 +32,7 @@ func (r *Request) UserAgent() string
 
 让我们看看相应的程序。
 
-```
+```go
 package main
 
 import (
@@ -55,13 +55,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 运行上述程序并进行以下 API 调用。同时传入用户代理头部。
 
-```
+```go
 curl -v -X POST http://localhost:8080/example -H "user-agent: Mozialla -1.0"
 ```
 
 **输出**
 
-```
+```go
 UserAgent:: Mozialla -1.0
 ```
 

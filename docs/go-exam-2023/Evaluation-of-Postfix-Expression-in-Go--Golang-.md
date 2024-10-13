@@ -32,7 +32,7 @@
 
 以下是Golang中“中缀转后缀”的实现。
 
-```
+```go
 package main
 
 import (
@@ -125,7 +125,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 2+3*(2^3-5)^(2+1*2)-4 infix has 2323^5-212*+^*+4- postfix
 ```
 

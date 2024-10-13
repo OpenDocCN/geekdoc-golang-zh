@@ -54,7 +54,7 @@
 
 以下是方法的格式
 
-```
+```go
 func (receiver receiver_type) some_func_name(arguments) return_values
 ```
 
@@ -64,7 +64,7 @@ func (receiver receiver_type) some_func_name(arguments) return_values
 
 **函数：**
 
-```
+```go
 func some_func_name(arguments) return_values
 ```
 
@@ -72,7 +72,7 @@ func some_func_name(arguments) return_values
 
 **方法：**
 
-```
+```go
 func (receiver receiver_type) some_func_name(arguments) return_values
 ```
 
@@ -90,7 +90,7 @@ Golang 不是一种面向对象的语言。它不支持类型继承，但它允�
 
 让我们看一个结构体上方法的例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -119,7 +119,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: Sam
 Age: 31
 Salary 2000
@@ -131,7 +131,7 @@ Salary 2000
 
 让我们来看看。
 
-```
+```go
 package main
 
 import "fmt"
@@ -155,19 +155,19 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: Sam
 ```
 
 在上面的代码中，定义了一个方法**setNewName**在员工结构体上。在这个方法中，我们这样更新员工的名字。
 
-```
+```go
 e.name = newName
 ```
 
 在设置新名字后，当我们在主函数中再次打印员工的名字时，我们看到打印的是旧名字“Sam”，而不是“John”。这是因为方法是在值接收器上定义的。
 
-```
+```go
 func (e employee) setNewName(newName string)
 ```
 
@@ -177,7 +177,7 @@ func (e employee) setNewName(newName string)
 
 在上面的例子中，我们看到了一种关于值接收器的方法。对值接收器所做的任何更改对调用者都是不可见的。方法也可以在指针接收器上定义。对指针接收器所做的任何更改将对调用者可见。让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -201,13 +201,13 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: John
 ```
 
 在上面的程序中，我们在指针接收器上定义了方法**setNewName**。
 
-```
+```go
 func (e *employee) setNewName(newName string)
 ```
 
@@ -217,7 +217,7 @@ func (e *employee) setNewName(newName string)
 
 让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -245,14 +245,14 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: John
 Name: Mike
 ```
 
 我们在上面的程序中看到，即使方法是在指针接收器上定义的，但我们用非指针的员工实例来调用这个方法。
 
-```
+```go
 emp.setNewName("John")
 ```
 
@@ -260,7 +260,7 @@ emp.setNewName("John")
 
 这种调用方式也是有效的。
 
-```
+```go
 (&emp).setNewName("Mike")
 ```
 
@@ -270,7 +270,7 @@ emp.setNewName("John")
 
 让我们看一个示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -301,7 +301,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: Sam
 Name: Sam
 Name: Sam
@@ -331,13 +331,13 @@ Name: Sam
 
 +   接收者类型必须在与方法定义相同的包中定义。在定义一个存在于不同包中的接收者上的方法时，将会引发以下错误。
 
-```
+```go
 ERROR: cannot define new methods on non-local types
 ```
 
 +   到目前为止，我们已经看到使用点操作符进行方法调用的方法。还有另一种调用方法的方式，如下面的示例所示。
 
-```
+```go
 package main
 
 import "fmt"
@@ -369,7 +369,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: Sam
 Age: 31
 Name: John
@@ -379,19 +379,19 @@ Name: John
 
 +   当方法有一个值接收者时，可以如下调用，即结构体名称后跟方法名称。第一个参数是值接收者本身。
 
-```
+```go
 employee.details(emp)
 ```
 
 +   当方法有一个指针接收者时，可以如下调用，即指向结构体名称的指针后跟方法名称。第一个参数是指针接收者。
 
-```
+```go
 (*employee).setName(&emp, "John")
 ```
 
 还需注意，方法的参数从第二个参数开始，正如上面setName函数所示：
 
-```
+```go
 (*employee).setName(&emp, "John")
 ```
 
@@ -401,7 +401,7 @@ employee.details(emp)
 
 让我们看一个程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -436,7 +436,7 @@ func main() {
 
 **输出**
 
-```
+```go
 City: London
 Country: UK
 City: London
@@ -445,7 +445,7 @@ Country: UK
 
 请注意，在上面的程序中，地址结构的details方法可以通过两种方式访问。
 
-```
+```go
 emp.details()
 emp.address.details()
 ```
@@ -482,7 +482,7 @@ Go没有任何公共、私有或保护关键字。控制包外可见性的唯一
 
 **model.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -510,7 +510,7 @@ type company struct {
 
 **test.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -541,7 +541,7 @@ func Test() {
 
 **输出**
 
-```
+```go
 &{test 21}
 &{}
 test
@@ -554,7 +554,7 @@ test
 
 编译错误将是
 
-```
+```go
 p.getName undefined (cannot refer to unexported field or method model.(*Person).getName)
 ```
 
@@ -564,7 +564,7 @@ p.getName undefined (cannot refer to unexported field or method model.(*Person).
 
 让我们看看方法链的一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -597,7 +597,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name: Sam
 Age: 31
 Salary: 2000
@@ -607,13 +607,13 @@ Salary: 2000
 
 方法也可以在非结构自定义类型上定义。非结构自定义类型可以通过类型定义创建。以下是创建新自定义类型的格式
 
-```
+```go
 type {type_name} {built_in_type}
 ```
 
 例如，我们可以创建一个名为 **myFloat** 的自定义类型，其类型为 **float64**
 
-```
+```go
 type myFloat float64
 ```
 
@@ -621,7 +621,7 @@ type myFloat float64
 
 **代码**
 
-```
+```go
 package main
 
 import (
@@ -643,7 +643,7 @@ func main() {
 
 **输出**
 
-```
+```go
 2
 ```
 

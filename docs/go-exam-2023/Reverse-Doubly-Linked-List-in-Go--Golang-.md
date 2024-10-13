@@ -40,7 +40,7 @@
 
 +   交换所有节点的前后指针
 
-```
+```go
 package main
 import "fmt"
 type node struct {
@@ -142,7 +142,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Add Front Node: C
 Add Front Node: B
 Add Front Node: A

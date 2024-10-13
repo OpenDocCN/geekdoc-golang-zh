@@ -16,13 +16,13 @@
 
 +   在下面的示例中，**filters** 有一个值，即 [“color”]。
 
-```
+```go
 http://localhost:8080/products?filters=color
 ```
 
 +   在下面的示例中，**filters** 有多个值，即 [“color”, “price”, “brand”]。注意如何定义多个值。
 
-```
+```go
 http://localhost:8080/products?filters=red&filters=color&filters=price&filters=brand
 ```
 
@@ -34,13 +34,13 @@ http://localhost:8080/products?filters=red&filters=color&filters=price&filters=b
 
 **1.1 当特定键在查询参数中包含多个值时。例如，请参见下面的请求**
 
-```
+```go
 http://localhost:8080/products?filters=red&filters=color&filters=price&filters=brand
 ```
 
 **代码：**
 
-```
+```go
 package main
 
 import (
@@ -68,19 +68,19 @@ func getProducts(w http.ResponseWriter, r *http.Request) {
 
 **输出：**
 
-```
+```go
 color,price,brand 
 ```
 
 **1.2 当特定键在查询参数中包含单个值时。例如，请参见下面的请求**
 
-```
+```go
 http://localhost:8080/products?filters=color
 ```
 
 当我们知道特定键在查询参数中只有一个值时，可以使用 r.URL.Query().Get(keyName)。Get 函数将获取与该键关联的第一个值。如果你想获取所有值，则必须直接访问映射，如我们在上面的程序中所做的。在下面的程序中，我们在 r.URL.Query() 上使用 Get()，并且它返回一个单一值。
 
-```
+```go
 package main
 
 import (
@@ -103,7 +103,7 @@ func getProducts(w http.ResponseWriter, r *http.Request) {
 
 **输出：**
 
-```
+```go
 color
 ```
 
@@ -113,13 +113,13 @@ color
 
 **2.1** **当特定键在查询参数中包含多个值时。例如，请参见下面的请求**
 
-```
+```go
 http://localhost:8080/products?filters=red&filters=color&filters=price&filters=brand
 ```
 
 **代码：**
 
-```
+```go
 package main
 
 import (
@@ -147,7 +147,7 @@ func getProducts(w http.ResponseWriter, r *http.Request) {
 
 **输出：**
 
-```
+```go
 color,price,brand
 ```
 
@@ -157,13 +157,13 @@ color,price,brand
 
 **2.2 当特定键在查询参数中包含单个值时。例如，请参见下面的请求**
 
-```
+```go
 http://localhost:8080/products?filters=color
 ```
 
 当我们知道特定键在查询参数中只有一个值时，可以使用 r.FormValue(keyName)。FormValue 函数将获取与该键关联的第一个值。如果你想获取所有值，则必须直接访问请求的表单映射，正如我们在上面的程序中所做的。在下面的程序中，我们使用 FormValue() 函数，并且它返回一个单一值。
 
-```
+```go
 package main
 
 import (
@@ -185,7 +185,7 @@ func getProducts(w http.ResponseWriter, r *http.Request) {
 
 **输出：**
 
-```
+```go
 color
 ```
 

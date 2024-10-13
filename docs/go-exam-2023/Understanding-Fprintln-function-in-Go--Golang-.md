@@ -24,7 +24,7 @@
 
 下面是**Fprintln**的函数原型
 
-```
+```go
 func Fprintln(w io.Writer, a ...interface{}) (n int, err error)
 ```
 
@@ -40,7 +40,7 @@ func Fprintln(w io.Writer, a ...interface{}) (n int, err error)
 
 +   **Fprintln**在末尾添加新行，而**Fprint**则不添加新行。
 
-```
+```go
 %v
 ```
 
@@ -48,7 +48,7 @@ func Fprintln(w io.Writer, a ...interface{}) (n int, err error)
 
 ## **程序**
 
-```
+```go
 package main
 
 import (
@@ -84,7 +84,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Name is:  John
 Age is:  21
 {John 21}
@@ -97,7 +97,7 @@ Name is:  John
 
 +   在上述所有**Fprintln**函数中，我们将**os.Stdout**的实例传递给它，该实例实现了**io.Writer**接口。基本上，使用**os.Stdout**，**Fprintln**写入标准输出。这就是**os.Stdout**的定义。
 
-```
+```go
 Stdout = NewFile(uintptr(syscall.Stdout), "/dev/stdout")
 ```
 
@@ -105,13 +105,13 @@ Stdout = NewFile(uintptr(syscall.Stdout), "/dev/stdout")
 
 +   输出中每个参数将以空格分隔。这就是为什么
 
-```
+```go
 fmt.Fprintln(os.Stdout,"Name is: ", name)
 ```
 
 打印
 
-```
+```go
 Name is: John
 ```
 
@@ -119,7 +119,7 @@ Name is: John
 
 +   它返回打印的字符数量或发生的任何错误
 
-```
+```go
 bytesPrinted, err := fmt.Fprintln(os.Stdout, "Name is: ", name)
 if err != nil {
     log.Fatalln("Error occured", err)
@@ -129,7 +129,7 @@ fmt.Println(bytesPrinted)
 
 将输出如下
 
-```
+```go
 Name is: John
 14
 ```
@@ -138,7 +138,7 @@ Name is: John
 
 **Fprintln**还可以用于写入文件。由于文件实例在Golang中实现了**io.Writer**，这不是问题。以下是相应的程序
 
-```
+```go
 package main
 
 import (
@@ -175,7 +175,7 @@ func main() {
 
 它将在当前目录中创建名为temp.txt的文件，内容如下。在这个程序中，我们将**os.Stdou**t替换为创建的文件。
 
-```
+```go
 Name is:  John
 Age is:  21
 {John 21}

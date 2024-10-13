@@ -12,7 +12,7 @@
 
 首先，我们将编写 Redis 层，该层将具有一个初始化 Redis 客户端的功能。Redis 客户端只会被创建一次，并在整个过程中使用。在下面的代码中，初始化函数将初始化 Redis。
 
-```
+```go
 package main
 
 import (
@@ -71,7 +71,7 @@ func (client *redisClient) setKey(key string, value interface{}, expiration time
 
 测试 Redis 客户端层
 
-```
+```go
 package main
 
 import (
@@ -106,7 +106,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Name: someName
 Email: someemail@abc.com 
 ```

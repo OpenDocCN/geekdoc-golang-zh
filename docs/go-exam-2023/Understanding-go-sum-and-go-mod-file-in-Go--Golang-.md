@@ -48,13 +48,13 @@
 
 让我们看一个例子来理解我们刚才谈到的 **go.mod** 和 **go.sum** 文件。为此，让我们先创建一个模块。
 
-```
+```go
 go mod init learn
 ```
 
 此命令将在同一目录下创建一个 **go.mod** 文件。让我们检查一下这个文件的内容。执行 cat **go.mod**。
 
-```
+```go
 module learn
 
 go 1.14
@@ -64,13 +64,13 @@ go 1.14
 
 +   模块的导入路径在顶部。
 
-```
+```go
 module learn
 ```
 
 +   创建模块时使用的go版本
 
-```
+```go
 go 1.14
 ```
 
@@ -78,7 +78,7 @@ go 1.14
 
 **uuid.go**
 
-```
+```go
 package main
 
 import (
@@ -97,19 +97,19 @@ func main() {
 
 请注意，我们在uuid.go中也导入了依赖项。
 
-```
+```go
 "github.com/pborman/uuid"
 ```
 
 让我们运行以下命令：
 
-```
+```go
 go mod tidy
 ```
 
 此命令将下载源文件中所需的所有依赖项，并用该依赖项更新**go.mod**文件。运行此命令后，让我们再次检查**go.mod**文件的内容。执行`cat go.mod`
 
-```
+```go
 module learn
 
 go 1.14
@@ -121,7 +121,7 @@ require github.com/pborman/uuid v1.2.1
 
 执行`cat go.sum`
 
-```
+```go
 github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=
 github.com/google/uuid v1.0.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/pborman/uuid v1.2.1 h1:+ZZIw58t/ozdjRaXh/3awHfmWRbzYxJoAdNJxe/3pvw=
@@ -132,13 +132,13 @@ github.com/pborman/uuid v1.2.1/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtP
 
 我们现在也可以运行这个文件，它将给出正确的输出。
 
-```
+```go
 go run uuid.go
 ```
 
 **输出**
 
-```
+```go
 e594dc4d9a754bcb83b56e89b18b4b46
 ```
 
@@ -150,13 +150,13 @@ e594dc4d9a754bcb83b56e89b18b4b46
 
 让我们通过一个示例来理解。为此，我们先再次创建一个模块。
 
-```
+```go
 git mod init learn
 ```
 
 现在创建一个文件**learn.go**
 
-```
+```go
 package main
 
 import (
@@ -170,13 +170,13 @@ func main() {
 
 请注意，我们在**learn.go**中指定的依赖项如下：
 
-```
+```go
 github.com/gocolly/colly
 ```
 
 因此，**github.com/gocolly/colly**是learn模块的直接依赖项，因为它在模块中被直接导入。现在让我们运行以下命令：
 
-```
+```go
 go mod tidy
 ```
 
@@ -184,7 +184,7 @@ go mod tidy
 
 执行`cat go.mod`
 
-```
+```go
 module learn
 
 go 1.14

@@ -20,7 +20,7 @@
 
 以下是函数的签名
 
-```
+```go
 func Index(s, substr string) int 
 ```
 
@@ -28,7 +28,7 @@ func Index(s, substr string) int
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -53,7 +53,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 1
 2
 -1

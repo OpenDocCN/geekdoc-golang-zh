@@ -48,7 +48,7 @@
 
 以下是**选择**的格式
 
-```
+```go
 select {
 case channel_send_or_receive:
      //Dosomething
@@ -63,7 +63,7 @@ default:
 
 让我们看一个简单的例子。我们将在本教程中稍后学习默认情况。
 
-```
+```go
 package main
 
 import "fmt"
@@ -94,7 +94,7 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 From goOne goroutine
 ```
 
@@ -102,7 +102,7 @@ From goOne goroutine
 
 在上述程序中，由于无法确定哪个发送操作会更早完成，因此如果多次运行程序，您会看到不同的输出。让我们看另一个程序，其中在向 **ch2** 通道发送值之前，我们会在 goroutine goTwo 中设置超时。这将确保对 **ch1** 的发送操作会比对 **ch2** 的发送操作先执行。
 
-```
+```go
 package main
 
 import (
@@ -137,7 +137,7 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 From goOne goroutine
 ```
 
@@ -145,7 +145,7 @@ From goOne goroutine
 
 通过在选择语句中使用循环，也可以等待两个通道上的接收操作完成。我们来看一个程序示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -176,7 +176,7 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 From goOne goroutine
 From goTwo goroutine
 ```
@@ -185,7 +185,7 @@ From goTwo goroutine
 
 我们之前提到，如果任何一个 case 语句没有准备好，选择可能会阻塞。让我们看一个示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -201,13 +201,13 @@ func main() {
 
 **输出**
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
 在上述程序中，我们创建了一个名为 **ch1** 的通道。然后我们在选择语句中从这个通道接收。由于没有 goroutine 向该通道发送数据，因此会导致死锁，选择语句无限期阻塞。这就是它输出以下内容的原因。
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
@@ -219,7 +219,7 @@ fatal error: all goroutines are asleep - deadlock!
 
 到目前为止，我们已经看到了选择案例语句中接收操作的示例。现在我们来看一个发送操作的示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -249,7 +249,7 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 To goTwo goroutine
 ```
 
@@ -257,7 +257,7 @@ To goTwo goroutine
 
 类似于switch，选择也可以有一个默认案例。这个默认案例将在没有任何发送或接收操作准备就绪时执行。因此，从某种意义上说，默认语句防止选择永远阻塞。因此，非常重要的一点是，默认语句使选择变为非阻塞。如果选择语句不包含默认案例，则可能会永远阻塞，直到某个案例语句上的发送或接收操作准备就绪。让我们看一个例子以完全理解它。
 
-```
+```go
 package main
 
 import "fmt"
@@ -275,7 +275,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Default statement executed
 ```
 
@@ -285,7 +285,7 @@ Default statement executed
 
 在选择中实现阻塞超时可以通过使用**time**包的**After()**函数来完成。下面是**After()**函数的签名。
 
-```
+```go
 func After(d Duration) <-chan Time
 ```
 
@@ -295,7 +295,7 @@ func After(d Duration) <-chan Time
 
 让我们看看一个带有超时的选择程序。
 
-```
+```go
 package main
 
 import (
@@ -323,13 +323,13 @@ func goOne(ch chan string) {
 
 **输出**
 
-```
+```go
 Timeout
 ```
 
 在上述选择语句中，我们在等待在**ch1**上的接收操作完成。在其他案例语句中，我们有**time.After**，持续时间为1秒。因此，本质上这个选择语句将至少等待1秒以完成**ch1**上的接收操作，之后**time.After**案例语句将被执行。我们在**goOne**函数中设置了超过1秒的超时，因此我们看到了**time.After**语句被执行。
 
-```
+```go
 Timeout
 ```
 
@@ -339,7 +339,7 @@ Timeout
 
 没有任何案例语句的选择块是空选择。空选择将永远阻塞，因为没有案例语句可以执行。这也是goroutine无限期等待的一种方式。但如果这个空选择放在主goroutine中，则会导致死锁。让我们来看一个程序。
 
-```
+```go
 package main
 
 func main() {
@@ -349,13 +349,13 @@ func main() {
 
 **输出**
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
 在上面的程序中，我们有一个空的选择语句，因此导致了死锁，这就是你看到如下输出的原因。
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
@@ -363,7 +363,7 @@ fatal error: all goroutines are asleep - deadlock!
 
 我们可以在选择语句外部有一个无限循环。这将导致选择语句无限次执行。因此，当使用在选择语句外部的无限循环的for语句时，我们需要有一种方式来跳出for循环。在选择语句外部使用无限循环的一个用例可能是你在等待多个操作在同一通道上接收一段时间。请看下面的例子。
 
-```
+```go
 package main
 
 import (
@@ -400,7 +400,7 @@ func newsFeed(ch chan string) {
 
 **输出**
 
-```
+```go
 News: 1
 News: 2
 Timeout: News feed finished
@@ -412,7 +412,7 @@ Timeout: News feed finished
 
 对空通道的发送或接收操作会永远阻塞。因此，在选择语句中使用空通道的用例是，在该案例语句上的发送或接收操作完成后禁用该案例语句。然后可以将通道简单设置为nil。该案例语句在再次执行选择语句时将被忽略，接收或发送操作将等待另一个案例语句。因此，目的是忽略该案例语句并执行其他案例语句。
 
-```
+```go
 package main
 
 import (
@@ -449,14 +449,14 @@ func newsFeed(ch chan string) {
 
 **输出**
 
-```
+```go
 News: 1
 Timeout: News feed finished
 ```
 
 上述程序与我们研究的程序非常相似，都是在无限循环中包含选择语句。唯一的变化是，在接收到第一条新闻后，我们通过将新闻通道设置为nil来禁用案例语句。
 
-```
+```go
 case n := <-news:
    fmt.Println(n)
    news = nil
@@ -468,7 +468,7 @@ case n := <-news:
 
 下面是 **break** 关键字的示例。
 
-```
+```go
 import "fmt"
 
 func main() {
@@ -488,13 +488,13 @@ func main() {
 
 **输出**
 
-```
+```go
 Before break
 ```
 
 **break** 语句将终止最内层语句的执行，下面的行将永远不会被执行
 
-```
+```go
 fmt.Println("After break")
 ```
 

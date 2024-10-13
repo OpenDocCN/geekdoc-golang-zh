@@ -20,7 +20,7 @@
 
 下面是该函数的签名
 
-```
+```go
 func Join(a []string, sep string)
 ```
 
@@ -34,7 +34,7 @@ func Join(a []string, sep string)
 
 # **代码:**
 
-```
+```go
 package main
 
 import (
@@ -59,7 +59,7 @@ func main() {
 
 **输出:**
 
-```
+```go
 ab-cd-ef
 
 abcdef

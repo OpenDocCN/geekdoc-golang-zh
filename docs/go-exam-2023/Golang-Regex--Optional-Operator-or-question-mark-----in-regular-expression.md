@@ -26,7 +26,7 @@
 
 例如。
 
-```
+```go
 abcd?
 ```
 
@@ -36,7 +36,7 @@ abcd?
 
 让我们来看一个相同的例子。
 
-```
+```go
 package main
 
 import (
@@ -58,18 +58,18 @@ func main() {
 
 **输出**
 
-```
+```go
 For abc: true
 For abcd: true
 ```
 
 通过用括号将多个字符闭合并在它们后面加上问号，也可以使多个字符变为可选。例如
 
-```
+```go
 abc(de)?
 ```
 
-```
+```go
 package main
 
 import (
@@ -93,7 +93,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For abc: true
 For abcde: true
 For abcd: true
@@ -107,7 +107,7 @@ For abcd: true
 
 让我们来看一个相同的例子。
 
-```
+```go
 package main
 
 import (
@@ -131,7 +131,7 @@ func main() {
 
 **输出**
 
-```
+```go
 For abc: true
 For abcde: true
 For abcd: false
@@ -145,13 +145,13 @@ For abcd: false
 
 例如，对于给定的正则表达式
 
-```
+```go
 https? 
 ```
 
 如果你尝试匹配以下输入字符串
 
-```
+```go
 Better is https
 ```
 
@@ -165,7 +165,7 @@ Better is https
 
 让我们来看一个相同的例子。
 
-```
+```go
 package main
 
 import (
@@ -183,7 +183,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Match: https
 ```
 
@@ -195,7 +195,7 @@ Match: https
 
 让我们来看一个例子。
 
-```
+```go
 package main
 
 import (
@@ -213,7 +213,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Match: http
 ```
 
@@ -227,7 +227,7 @@ Match: http
 
 见下面的示例
 
-```
+```go
 package main
 
 import (
@@ -250,7 +250,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Match: https
 Match: http
 ```
@@ -263,13 +263,13 @@ Match: http
 
 在这两种情况下，输入字符串是
 
-```
+```go
 Better is httpsss
 ```
 
 在第一种情况下，我们在正则表达式中的加号运算符后使用了问号
 
-```
+```go
 "http(s+?)"
 ```
 
@@ -277,7 +277,7 @@ Better is httpsss
 
 在第二种情况下，我们在正则表达式中的星号符号后使用了问号
 
-```
+```go
 "http(s*?)"
 ```
 
@@ -285,7 +285,7 @@ Better is httpsss
 
 让我们看另一个示例
 
-```
+```go
 package main
 
 import (
@@ -308,7 +308,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Match: [aaaaaaa a aaaaaa] Length: 3
 Match: [aaaaaaa  aaaaaaa] Length: 3
 ```
@@ -321,7 +321,7 @@ Match: [aaaaaaa  aaaaaaa] Length: 3
 
 在第一种情况下，我们有带有两个捕获组的正则表达式
 
-```
+```go
 (a+?)(a*)
 ```
 
@@ -329,7 +329,7 @@ Match: [aaaaaaa  aaaaaaa] Length: 3
 
 在第二种情况下，我们再次有带有两个捕获组的正则表达式
 
-```
+```go
 (a*?)(a*)
 ```
 

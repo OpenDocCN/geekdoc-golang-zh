@@ -32,7 +32,7 @@ Trie 是一种用于高效信息检索的数据结构。它是一种特殊类型
 
 # **完整工作代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -108,7 +108,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Word "sam" found in trie
 Word "john" found in trie
 Word "tim" found in trie

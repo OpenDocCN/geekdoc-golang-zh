@@ -72,7 +72,7 @@
 
 **evictionAlgo.go**
 
-```
+```go
 package main
 
 type evictionAlgo interface {
@@ -82,7 +82,7 @@ type evictionAlgo interface {
 
 **fifo.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -97,7 +97,7 @@ func (l *fifo) evict(c *cache) {
 
 **lru.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -112,7 +112,7 @@ func (l *lru) evict(c *cache) {
 
 **lfu.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -127,7 +127,7 @@ func (l *lfu) evict(c *cache) {
 
 **cache.go**
 
-```
+```go
 package main
 
 type cache struct {
@@ -171,7 +171,7 @@ func (c *cache) evict() {
 
 **main.go**
 
-```
+```go
 package main
 
 func main() {
@@ -191,7 +191,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Evicting by lfu strtegy
 Evicting by lru strtegy
 Evicting by fifo strtegy

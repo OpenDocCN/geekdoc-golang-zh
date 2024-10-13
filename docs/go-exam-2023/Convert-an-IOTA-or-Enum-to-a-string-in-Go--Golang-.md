@@ -26,7 +26,7 @@
 
 # 示例
 
-```
+```go
 package main
 
 import "fmt"
@@ -50,7 +50,7 @@ func main() {
 
 **输出**
 
-```
+```go
 0
 1
 2
@@ -59,7 +59,7 @@ func main() {
 
 我们还可以在Size类型上定义一个**toString**方法，以打印枚举的确切值。请看下面的程序。
 
-```
+```go
 package main
 import "fmt"
 type Size int
@@ -91,7 +91,7 @@ func (s Size) toString() {
 
 **输出**
 
-```
+```go
 medium
 ```
 

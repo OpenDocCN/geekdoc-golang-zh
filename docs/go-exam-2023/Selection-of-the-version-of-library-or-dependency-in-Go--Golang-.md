@@ -14,7 +14,7 @@
 
 语义版本控制由三个部分组成，以点分隔。以下是版本控制的格式。
 
-```
+```go
 v{major_version}.{minor_version}.{patch_version}
 ```
 
@@ -46,13 +46,13 @@ Go在选择库版本时遵循最小版本策略，其中**go.mod**文件中指�
 
 例如，如果你使用同一个库的两个版本，分别是
 
-```
+```go
 1.2.0
 ```
 
 和
 
-```
+```go
 1.3.0
 ```
 
@@ -62,13 +62,13 @@ Go在选择库版本时遵循最小版本策略，其中**go.mod**文件中指�
 
 Go将主要版本视为不同的模块。这意味着什么呢？这基本上意味着导入路径将以主要版本作为后缀。让我们以任何Go库为例。假设最新的语义版本是
 
-```
+```go
 v8.2.3
 ```
 
 此时go.mod文件将如下所示。
 
-```
+```go
 module github.com/sample/v8
 go 1.11
 
@@ -77,25 +77,25 @@ go 1.11
 
 它在导入路径中有主要版本。因此，任何使用go-redis的库都必须像这样导入。
 
-```
+```go
 import "github.com/sample/v8"
 ```
 
 如果将来发布**v9**版本，则必须在应用程序中像这样导入。
 
-```
+```go
 import "github.com/sample/v9"
 ```
 
 此外，库将更改其go.mod文件以反映v9主要版本。
 
-```
+```go
 module github.com/sample/v9
 ```
 
 这基本上允许在同一个 Go 应用程序中使用同一库的不同主要版本。我们也可以在同一个应用程序中导入同一库的不同主要版本时，给予有意义的名称。例如：
 
-```
+```go
 import sample_v8 "github.com/sample/v8"
 import sample_v9 "github.com/sample/v9"
 ```
@@ -110,32 +110,32 @@ import sample_v9 "github.com/sample/v9"
 
 由于同样的原因，当你使用以下命令更新特定模块时：
 
-```
+```go
 go get -u
 ```
 
 然后它将仅升级到最新的次要版本或补丁版本，具体取决于适用情况。例如，假设应用程序当前使用的版本是：
 
-```
+```go
 v1.1.3
 ```
 
 假设我们有以下可用版本：
 
-```
+```go
 v1.2.0
 v2.1.0
 ```
 
 然后当我们运行：
 
-```
+```go
 go get
 ```
 
 然后它将更新为：
 
-```
+```go
 v1.2.0
 ```
 
@@ -147,25 +147,25 @@ v1.2.0
 
 +   要将依赖项升级到其最新的补丁版本，只需使用以下命令：
 
-```
+```go
 go get -u=patch <dependency_name></dependency_name>
 ```
 
 +   要将依赖项升级到特定版本，请使用以下命令：
 
-```
+```go
 go get dependency@version
 ```
 
 +   要将依赖项升级到特定的提交，请使用以下命令：
 
-```
+```go
 go get <dependency_name>@commit_number</dependency_name>
 ```
 
 +   要将所有依赖项升级到其最新的次要和补丁版本，请使用以下命令：
 
-```
+```go
 go get ./...
 ```
 

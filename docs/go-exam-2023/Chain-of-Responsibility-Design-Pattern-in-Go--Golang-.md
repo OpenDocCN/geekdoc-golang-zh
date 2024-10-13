@@ -74,7 +74,7 @@
 
 **department.go**
 
-```
+```go
 package main
 
 type department interface {
@@ -85,7 +85,7 @@ type department interface {
 
 **reception.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -112,7 +112,7 @@ func (r *reception) setNext(next department) {
 
 **doctor.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -139,7 +139,7 @@ func (d *doctor) setNext(next department) {
 
 **medical.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -166,7 +166,7 @@ func (m *medical) setNext(next department) {
 
 **cashier.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -189,7 +189,7 @@ func (c *cashier) setNext(next department) {
 
 **patient.go**
 
-```
+```go
 package main
 
 type patient struct {
@@ -203,7 +203,7 @@ type patient struct {
 
 **main.go**
 
-```
+```go
 package main
 
 func main() {
@@ -225,7 +225,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Reception registering patient
 Doctor checking patient
 Medical giving medicine to patient
@@ -234,7 +234,7 @@ Cashier getting money from patient patient
 
 ## **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -347,7 +347,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Reception registering patient
 Doctor checking patient
 Medical giving medicine to patient

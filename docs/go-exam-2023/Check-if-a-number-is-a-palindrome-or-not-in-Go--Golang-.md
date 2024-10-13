@@ -20,7 +20,7 @@
 
 例如，下面的数字是回文。
 
-```
+```go
 1
 121
 12321
@@ -30,7 +30,7 @@
 
 下面的数字不是回文。
 
-```
+```go
 -121
 1211
 ```
@@ -45,7 +45,7 @@
 
 以下是相应的程序
 
-```
+```go
 package main
 
 import (
@@ -113,7 +113,7 @@ func reverse(x int) int {
 
 **输出**
 
-```
+```go
 true
 false
 false
@@ -125,7 +125,7 @@ false
 
 以下是相应的程序
 
-```
+```go
 package main
 
 import "fmt"
@@ -177,7 +177,7 @@ func isPalindrome(x int, dup *int) bool {
 
 **输出**
 
-```
+```go
 true
 false
 false

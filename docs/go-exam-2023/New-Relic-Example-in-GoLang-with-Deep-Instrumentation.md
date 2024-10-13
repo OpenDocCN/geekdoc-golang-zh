@@ -12,7 +12,7 @@
 
 在GoLang中集成newrelic很简单。我们只需要其中一个中间件来使用newrelic.Application。例如，在GO的GIN框架中，我们可以这样做。
 
-```
+```go
 nrConfig := newrelic.NewConfig("test", "somekey")
 nrapp, err = newrelic.NewApplication(nrConfig)
 r := gin.Default()
@@ -27,7 +27,7 @@ r.Use(nrgin.Middleware(nrapp))
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -99,7 +99,7 @@ func initNewRelic() {
 
 **routes.go**
 
-```
+```go
 package main
 
 import (

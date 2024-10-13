@@ -30,7 +30,7 @@ Go 不支持常量映射，因此以下程序会引发编译错误
 
 # **示例**
 
-```
+```go
 package main
 
 func main() {
@@ -42,7 +42,7 @@ func main() {
 
 **输出**
 
-```
+```go
 const initializer map[string]int literal is not a constant
 ```
 

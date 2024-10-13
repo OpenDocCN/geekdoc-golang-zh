@@ -20,7 +20,7 @@ GO 的 **strings** 包提供了一个 **ReplaceAll** 方法，可以用于将给
 
 以下是该函数的签名。该函数将在字符串 **s** 中替换所有不重叠的 **old** 实例为 **new**。要删除一个字符，我们可以将该字符作为 **old**，将 **new** 作为一个空字符串。
 
-```
+```go
  func ReplaceAll(s, old, new string) string
 ```
 
@@ -28,7 +28,7 @@ GO 的 **strings** 包提供了一个 **ReplaceAll** 方法，可以用于将给
 
 # **代码：**
 
-```
+```go
 package main
 
 import (
@@ -44,7 +44,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 bcdbxybr
 ```
 

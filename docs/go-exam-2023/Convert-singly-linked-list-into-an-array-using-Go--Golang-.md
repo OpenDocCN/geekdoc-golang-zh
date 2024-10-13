@@ -22,19 +22,19 @@
 
 **输入单链表：**
 
-```
+```go
  "A" -> "B" -> "C" -> "D"
 ```
 
 **输出数组：**
 
-```
+```go
 ["A", "B", "C", "D"]
 ```
 
 ## **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -124,7 +124,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 AddFront: D
 AddFront: C
 AddFront: B

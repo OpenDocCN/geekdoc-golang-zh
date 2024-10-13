@@ -18,13 +18,13 @@
 
 目标是删除链表的中间节点。如果 x 是链表的大小，则中间节点是
 
-```
+```go
 mid = x/2
 ```
 
 示例
 
-```
+```go
 Input: 1->2->3->4->5
 Output: 1->2->4->5
 ```
@@ -33,7 +33,7 @@ Output: 1->2->4->5
 
 下面是相应的程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -134,7 +134,7 @@ func sizeOfList(head *ListNode) int {
 
 **输出**
 
-```
+```go
 1
 2
 3

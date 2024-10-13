@@ -48,7 +48,7 @@
 
 例如，如果你在Linux/MAC平台上将GO安装到位置~/Documents/go，那么需要在~/$HOME/.profile文件中添加以下条目。
 
-```
+```go
 export GOROOT=~/Documents/go
 export PATH=$PATH:$GOROOT/bin
 ```
@@ -103,7 +103,7 @@ export PATH=$PATH:$GOROOT/bin
 
 如果此环境变量未设置，则在Unix系统上默认为**$HOME/go**，在Windows上默认为**%USERPROFILE%\go**。如果你的工作空间位置是~**/Desktop/go**，那么在**~/$HOME/.profile**文件中添加以下条目是个好主意。始终设置**GOPATH**是个好主意，因为即使引入模块，**GOPATH**也会被使用。
 
-```
+```go
 export GOPATH=~/Desktop/go
 ```
 
@@ -111,7 +111,7 @@ export GOPATH=~/Desktop/go
 
 **GOBIN**环境变量指定了go在构建主包后放置编译应用程序二进制文件的目录。如果**GOPATH**环境变量未设置，则默认为**$GOPATH/bin**或**$HOME/go/bin**。此外，将**GOBIN**路径添加到**PATH**环境中也是个好主意，这样安装的二进制文件可以在不指定完整路径的情况下运行。在**~/.$HOME/.profile**文件中设置GOBIN，并将其添加到PATH中。
 
-```
+```go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 ```
@@ -120,7 +120,7 @@ export PATH=$PATH:$GOBIN
 
 在这个例子中，我们将创建我们的第一个hello world程序。目前**GOROOT**、**GOPATH**和**GOBIN**的值如下。
 
-```
+```go
 echo $GOROOT will give installed directory for GO
 echo $GOPATH will give ~/Desktop/go
 echo $GOBIN will give ~/Desktop/go/bin
@@ -128,7 +128,7 @@ echo $GOBIN will give ~/Desktop/go/bin
 
 一个典型的程序具有**.go**文件扩展名。现在让我们创建一个“Hello World”程序。为此，首先在$GOPATH/src外部创建一个名为hello的目录。由于项目是在$GOPATH/src外部创建的，我们还需要创建一个导入路径为**[sample.com](http://sample.com)/hello**的**go.mod**文件。我们将在即将到来的教程中详细了解导入路径、go.mod文件和模块。现在，让我们创建一个简单的模块，以便查看hello world程序在go中的样子。请使用以下命令：
 
-```
+```go
 go mod init sample.com/hello
 ```
 
@@ -136,7 +136,7 @@ go mod init sample.com/hello
 
 **go.mod**
 
-```
+```go
 module sample.com/hello
 
 go 1.14
@@ -144,7 +144,7 @@ go 1.14
 
 现在创建hello.go文件，内容如下。
 
-```
+```go
 package main
 
 import "fmt"
@@ -162,7 +162,7 @@ func main() {
 
 它将在$GOBIN目录中创建一个名为hello的二进制文件。二进制文件的名称与模块的导入路径最后一部分相同。模块的导入路径是**[sample.com](http://sample.com)/hello**，导入路径的最后一部分简单地是**hello**。因此，在我们的例子中，二进制文件名称将是**hello**。在终端中输入hello，将会输出如下内容：
 
-```
+```go
 Hello World
 ```
 
@@ -172,13 +172,13 @@ Hello World
 
 它将编译程序并将二进制文件放置在当前工作目录中。输入以下命令：
 
-```
+```go
 go build
 ```
 
 在我们的例子中，它将创建一个名为**‘hello’**的二进制文件，位于**hello.go**文件旁边。要运行该二进制文件，请在终端中输入**‘./hello’**。将会输出如下内容：
 
-```
+```go
 Hello World
 ```
 
@@ -186,13 +186,13 @@ Hello World
 
 该命令将编译并执行二进制文件。输入以下命令。
 
-```
+```go
 go run hello.go 
 ```
 
 它将输出。
 
-```
+```go
 Hello World
 ```
 

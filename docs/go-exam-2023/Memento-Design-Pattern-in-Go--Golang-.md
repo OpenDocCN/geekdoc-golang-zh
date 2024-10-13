@@ -38,7 +38,7 @@
 
 **originator.go**
 
-```
+```go
 package main
 
 type originator struct {
@@ -63,7 +63,7 @@ func (e *originator) getState() string {
 
 **memento.go**
 
-```
+```go
 package main
 
 type memento struct {
@@ -79,7 +79,7 @@ func (m *memento) getSavedState() string {
 
 注意，照管者包含了mementoArray，它保存了所有备忘录。
 
-```
+```go
 package main
 
 type caretaker struct {
@@ -97,7 +97,7 @@ func (c *caretaker) getMenento(index int) *memento {
 
 **main.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -131,7 +131,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 originator Current State: A
 originator Current State: B
 originator Current State: C
@@ -141,7 +141,7 @@ Restored to State: A
 
 # **完整工作代码：**
 
-```
+```go
 package main
 
 import "fmt"
@@ -210,7 +210,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 originator Current State: A
 originator Current State: B
 originator Current State: C

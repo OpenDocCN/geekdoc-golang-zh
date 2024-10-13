@@ -16,7 +16,7 @@
 
 +   如果temp是一个目录，输出将是 = “temp是一个目录”
 
-```
+```go
 package main
 
 import (

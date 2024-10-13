@@ -42,7 +42,7 @@ init 函数主要用于初始化无法使用初始化表达式初始化的全局
 
 **go.mod**
 
-```
+```go
 module redisexample
 
 go 1.14
@@ -50,7 +50,7 @@ go 1.14
 
 **redis/redis.go**
 
-```
+```go
 package redis
 
 import (
@@ -107,7 +107,7 @@ func SetKey(key string, value interface{}, expiration time.Duration) error {
 
 **main.go**
 
-```
+```go
 package main
 
 import (
@@ -137,7 +137,7 @@ func main() {
 
 **输出**
 
-```
+```go
 b
 ```
 
@@ -147,7 +147,7 @@ b
 
 **main** 包也可以包含 init 函数。init 函数将在 **main** 函数之前触发。
 
-```
+```go
 package main
 
 import "fmt"
@@ -168,7 +168,7 @@ func main() {
 
 **输出**
 
-```
+```go
 In Init function
 Main started
 4
@@ -183,7 +183,7 @@ Main Ended
 
 **learn/math/add.go**
 
-```
+```go
 package math
 
 import "fmt"
@@ -199,7 +199,7 @@ func Add(a, b int) int {
 
 **learn/math/subtract.go**
 
-```
+```go
 package math
 
 import "fmt"
@@ -215,7 +215,7 @@ func Subtract(a, b int) int {
 
 **learn/main.go**
 
-```
+```go
 package main
 
 import (
@@ -232,7 +232,7 @@ func main() {
 
 **输出**
 
-```
+```go
 In add init
 In subtract init
 3
@@ -243,7 +243,7 @@ In subtract init
 
 同一源文件中可以有多个init函数。
 
-```
+```go
 package main
 
 import "fmt"
@@ -266,7 +266,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Init1
 Init2
 Main started
@@ -309,7 +309,7 @@ Main Ended
 
 **go.mod**
 
-```
+```go
 module sample
 
 go 1.14
@@ -317,7 +317,7 @@ go 1.14
 
 **sample/b/b1.go**
 
-```
+```go
 package b
 
 import (
@@ -335,7 +335,7 @@ func TestB() error {
 
 **sample/b/b2.go**
 
-```
+```go
 package b
 
 import (
@@ -349,7 +349,7 @@ func init() {
 
 **sample/a/a1.go**
 
-```
+```go
 package a
 
 import (
@@ -368,7 +368,7 @@ func TestA() error {
 
 **sample/a/a2.go**
 
-```
+```go
 package a
 
 import (
@@ -382,7 +382,7 @@ func init() {
 
 **sample/main.go**
 
-```
+```go
 package main
 
 import (
@@ -401,7 +401,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Init: b1
 Init: b2
 Init: a1

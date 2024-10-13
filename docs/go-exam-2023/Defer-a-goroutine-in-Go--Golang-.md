@@ -18,7 +18,7 @@
 
 直接延迟一个 goroutine 是不可能的。但有一种变通方法。在 defer 函数中，你可以像下面这样在 goroutine 中调用另一个函数
 
-```
+```go
 defer func() {
         go some_function()
 }()
@@ -28,7 +28,7 @@ defer func() {
 
 让我们看看一个程序
 
-```
+```go
 package main
 import (
     "fmt"
@@ -51,14 +51,14 @@ func test() {
 
 **输出**
 
-```
+```go
 In call function
 In test function
 ```
 
 查看我们如何在 **调用** 函数中间接延迟一个 goroutine
 
-```
+```go
 defer func() {
         go test()
 }()

@@ -170,19 +170,19 @@ Golang是一种静态类型的编程语言，意味着每个变量都有一个�
 
 +   声明一个int
 
-```
+```go
 var a int
 ```
 
 +   int是**整数**的默认类型。当你没有指定类型时，默认类型为int。
 
-```
+```go
 b := 2 //The default is also intfmt.Println(reflect.TypeOf(b)) => int
 ```
 
 +   **bits**包可以帮助了解系统上**int**的大小
 
-```
+```go
 //This is computed as const uintSize = 32 << (^uint(0) >> 32 & 1) // 32 or 64sizeOfIntInBits := bits.UintSizefmt.Println(sizeOfIntInBits) => 32 0r 34
 ```
 
@@ -192,7 +192,7 @@ b := 2 //The default is also intfmt.Println(reflect.TypeOf(b)) => int
 
 下面是上述属性的完整工作代码
 
-```
+```go
 package main
 
 import (
@@ -218,7 +218,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 64 bits
 8 bytes
 a's type is int
@@ -301,13 +301,13 @@ b's typs is int
 
 +   声明一个 uint
 
-```
+```go
 var a uint
 ```
 
 +   golang 的 **bits** 包可以帮助了解系统中 **uint** 的大小。
 
-```
+```go
 //This is computed as const uintSize = 32 << (^uint(0) >> 32 & 1) // 32 or 64sizeOfUintInBits := bits.UintSizefmt.Println(sizeOfIntInBits) => 32 or 64
 ```
 
@@ -317,7 +317,7 @@ var a uint
 
 下面是上述属性的完整工作代码
 
-```
+```go
 package main
 
 import (
@@ -340,7 +340,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 64 bits
 8 bytes
 a's type is uint
@@ -382,7 +382,7 @@ a's type is uint
 
 **完整工作代码**
 
-```
+```go
 package main
 
 import (
@@ -408,7 +408,7 @@ func main() {
 
 **输出**
 
-```
+```go
 test
 ```
 
@@ -481,7 +481,7 @@ test
 
 **代码：**
 
-```
+```go
 package main
 
 import (
@@ -502,7 +502,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 4 bytes
 a's type is float32
 ```
@@ -533,7 +533,7 @@ float64使用双精度浮点格式来存储值。基本上它是所有IEEE-754 6
 
 **代码：**
 
-```
+```go
 package main
 
 import (
@@ -558,7 +558,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 8 bytes
 a's type is float64
 b's type is float64
@@ -581,13 +581,13 @@ b's type is float64
 
 +   使用complex函数。它具有以下签名。确保a和b的类型相同，即它们都应为float32或都应为float64。
 
-```
+```go
 complext(a, b)
 ```
 
 +   使用简写语法。这在使用直接数字创建复数时使用。如果未指定类型，使用以下方法创建的复数类型将为**complex128**。
 
-```
+```go
 a := 5 + 6i
 ```
 
@@ -613,7 +613,7 @@ a := 5 + 6i
 
 **代码：**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -646,7 +646,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 c's size is 8 bytes
 d's size is 8 bytes
 c's type is complex64
@@ -676,7 +676,7 @@ d's type is complex64
 
 **代码：**
 
-```
+```go
 package main
 
 import (
@@ -710,7 +710,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 c's size is 16 bytes
 d's size is 16 bytes
 c's type is complex128
@@ -728,7 +728,7 @@ Go中的byte是**uint8**的别名，意味着它是一个整数值。这个整�
 
 **定义字节**
 
-```
+```go
 var rbyte byte := 'a'
 ```
 
@@ -744,7 +744,7 @@ var rbyte byte := 'a'
 
 +   打印字节大小
 
-```
+```go
 package main
 import (
     "fmt"
@@ -771,7 +771,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Size: 1
 Type: uint8
 Character: a
@@ -802,7 +802,7 @@ utf-8 使用 1、2、3 或 4 个字节保存每个 Unicode 点。ASCII 点使用
 
 每个 rune 旨在指代一个 Unicode 点。例如，如果你将一个字符串类型转换为 rune 数组并打印它，那么它将打印出每个字符的 Unicode 点。对于下面的字符串 **“0b£”**，输出将是 – **[U+0030 U+0062 U+00A3]**
 
-```
+```go
 fmt.Printf("%U\n", []rune("0b£"))
 ```
 
@@ -810,7 +810,7 @@ fmt.Printf("%U\n", []rune("0b£"))
 
 rune 使用单引号声明，如下所示，声明一个名为 **‘rPound’** 的变量。
 
-```
+```go
 rPound := '£'
 ```
 
@@ -818,19 +818,19 @@ rPound := '£'
 
 +   **打印类型 –** 输出将是 **int32**
 
-```
+```go
 fmt.Printf("Type: %s\n", reflect.TypeOf(rPound))
 ```
 
 +   **打印 Unicode 码点 –** 输出将是 **U+00A3**
 
-```
+```go
 fmt.Printf("Unicode CodePoint: %U\n", rPound)
 ```
 
 +   **打印字符 –** 输出将是 **£**
 
-```
+```go
 fmt.Printf("Character: %c\n", r)
 ```
 
@@ -842,7 +842,7 @@ fmt.Printf("Character: %c\n", r)
 
 以下是说明我们讨论的每个点的代码
 
-```
+```go
 package main
 import (
     "fmt"
@@ -875,7 +875,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 Size: 4
 Type: int32
 Unicode CodePoint: U+0061
@@ -898,14 +898,14 @@ Character: a
 
 字符串中的每个字符将根据所使用的编码占用一些字节。例如，在 utf-8 编码的字符串中，每个字符将占用 1 到 4 个字节。你可以在这篇必读的著名博客中阅读关于 utf-8 的内容——[每个软件开发者绝对、肯定必须了解的 Unicode 和字符集的绝对最少知识（没有借口！）](http://www.joelonsoftware.com/articles/Unicode.html)。在 utf-8 中，字符 **a** 或 **b** 使用 1 个字节编码，而字符英镑符号 **£** 使用 2 个字节编码。因此，当你将字符串“ab£”转换为字节数组并像下面那样打印时，将输出 4 个字节。
 
-```
+```go
 s := "ab£"
 fmt.Println([]byte(s))
 ```
 
 **输出**
 
-```
+```go
 [48 98 194 163]
 ```
 
@@ -913,7 +913,7 @@ fmt.Println([]byte(s))
 
 还要注意，**range** 循环遍历每个字符形成的字节序列，因此对于下面的 range 循环
 
-```
+```go
 for _, c := range s {
    fmt.Println(string(c))
 }
@@ -921,7 +921,7 @@ for _, c := range s {
 
 输出将是
 
-```
+```go
 a
 b
 £
@@ -931,7 +931,7 @@ b
 
 **代码：**
 
-```
+```go
 package main
 import (
     "fmt"
@@ -966,7 +966,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 x is: this
 that
 y is: this\nthat
@@ -1002,7 +1002,7 @@ cd
 
 **代码**
 
-```
+```go
 package main
 
 import "fmt"
@@ -1028,7 +1028,7 @@ func main() {
 
 **输出：**
 
-```
+```go
 a's value is false
 Ouput of AND operation on one true and other false false
 Ouput of OR operation on one true and other false: true

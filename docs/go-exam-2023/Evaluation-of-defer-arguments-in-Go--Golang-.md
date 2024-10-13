@@ -24,7 +24,7 @@
 
 # **示例**
 
-```
+```go
 package main
 
 import "fmt"
@@ -39,7 +39,7 @@ func main() {
 
 # **输出**
 
-```
+```go
 In defer sample is: abc
 ```
 

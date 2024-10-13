@@ -30,7 +30,7 @@ Select 允许在其 case 语句中同时进行发送和接收操作。让我们�
 
 # **一次发送一次接收操作**
 
-```
+```go
 package main
 
 import "fmt"
@@ -60,25 +60,25 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 To goTwo goroutine
 ```
 
 在上述程序中，我们创建了两个通道，并将其传递给两个不同的 goroutine。在 select 语句中，第一个 case 语句是从 **ch1** 通道接收数据。第二个 case 语句是向 **ch2** 通道发送数据，而这些数据在 **goTwo** goroutine 中被接收。由于无法确定 **ch1** 的接收操作是否会先完成，或 **ch2** 的发送操作是否会先完成，程序可能输出如下内容：
 
-```
+```go
 To goTwo goroutine
 ```
 
 或者这个
 
-```
+```go
 From goOne goroutine
 ```
 
 # **所有发送操作**
 
-```
+```go
 package main
 
 import (
@@ -111,25 +111,25 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 To goTwo goroutine
 ```
 
 在上述程序中，两个 case 语句分别向 **ch1** 和 **ch2** 通道发送数据。来自 ch1 通道的数据在 goOne goroutine 中被接收，而来自 ch2 通道的数据在 goTwo goroutine 中被接收。每个 case 语句中的发送操作都没有被阻塞。因此，程序可能输出如下内容：
 
-```
+```go
 To goOne goroutine
 ```
 
 或者这个
 
-```
+```go
 To goTwo goroutine
 ```
 
 # **所有接收操作**
 
-```
+```go
 package main
 
 import "fmt"
@@ -158,7 +158,7 @@ func goTwo(ch chan string) {
 
 **输出**
 
-```
+```go
 From goOne goroutine
 ```
 

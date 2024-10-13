@@ -20,7 +20,7 @@
 
 例如
 
-```
+```go
 Input: 1->2->3->4->5->6->7
 k: 3
 Output: 3->2->1->6->5->4->7
@@ -30,7 +30,7 @@ Output: 3->2->1->6->5->4->7
 
 ## **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -117,7 +117,7 @@ func (s *SingleList) AddFront(num int) {
 
 **输出**
 
-```
+```go
 1
 2
 3

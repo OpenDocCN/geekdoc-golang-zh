@@ -38,7 +38,7 @@ Go没有任何公共、私有或受保护的关键字。控制包外可见性的
 
 **model.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -66,7 +66,7 @@ type company struct {
 
 **test.go**
 
-```
+```go
 package main
 
 import "fmt"
@@ -97,7 +97,7 @@ func Test() {
 
 **输出:**
 
-```
+```go
 &{test 21}
 &{}
 test
@@ -110,7 +110,7 @@ test
 
 **model.go**
 
-```
+```go
 package model
 
 //Person struct
@@ -133,7 +133,7 @@ type company struct {
 
 **test.go**
 
-```
+```go
 package main
 
 import (
@@ -166,7 +166,7 @@ func main() {
 
 **输出:**
 
-```
+```go
 unknown field 'age' in struct literal of type model.Person
 cannot refer to unexported name model.company
 undefined: model.company

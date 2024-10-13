@@ -60,13 +60,13 @@
 
 每个通道变量只能容纳特定类型的数据。Go在声明通道时使用特殊关键字**chan**。下面是声明通道的格式
 
-```
+```go
 var variable_name chan type
 ```
 
 这仅仅声明了一个可以容纳**<type>**类型数据的通道，并且默认值为nil，因此创建了一个空通道。让我们看一个程序来确认这一点。
 
-```
+```go
 package main
 
 import "fmt"
@@ -79,13 +79,13 @@ func main() {
 
 **输出**
 
-```
+```go
 {nil}
 ```
 
 为了定义通道，我们可以使用内置函数**make.**
 
-```
+```go
 package main
 
 import "fmt"
@@ -99,7 +99,7 @@ func main() {
 
 **输出**
 
-```
+```go
 0xc0000240c0
 ```
 
@@ -107,7 +107,7 @@ func main() {
 
 那么这里的make是干什么的呢？通道在内部由**hchan**结构表示，其主要元素是：
 
-```
+```go
 type hchan struct {
     qcount   uint           // total data in the queue
     dataqsiz uint           // size of the circular queue
@@ -139,7 +139,7 @@ type hchan struct {
 
 发送操作用于将数据发送到通道。以下是向通道发送的格式。
 
-```
+```go
 ch <- val
 ```
 
@@ -155,7 +155,7 @@ ch <- val
 
 接收操作用于从通道读取数据。以下是从通道接收的格式。
 
-```
+```go
 val := <- ch 
 ```
 
@@ -167,7 +167,7 @@ val := <- ch
 
 让我们看一个示例，在这个示例中，我们将在一个goroutine中发送数据，并在另一个goroutine中接收该数据。
 
-```
+```go
 package main
 
 import (
@@ -199,7 +199,7 @@ func receive(ch chan int) {
 
 **输出**
 
-```
+```go
 Sending value to channel
 Receiving from channel
 Value Received=1 in receive function
@@ -211,13 +211,13 @@ Value Received=1 in receive function
 
 默认情况下，当我们使用make创建通道时，它会创建一个无缓冲的通道，这意味着创建的通道不能存储任何数据。因此，任何对通道的发送在另一个goroutine接收之前都是阻塞的。因此在**send()**函数中，这一行将会被阻塞。
 
-```
+```go
 ch <- 1
 ```
 
 直到在**receive()**函数中接收到值。
 
-```
+```go
 val := <-ch
 ```
 
@@ -225,7 +225,7 @@ val := <-ch
 
 为了说明发送时的阻塞，让我们在**send()**函数中向通道**ch**发送值后添加一个日志，并在从**ch**接收值之前在**receive()**函数中设置一个超时。
 
-```
+```go
 package main
 
 import (
@@ -255,20 +255,20 @@ func receive(ch chan int) {
 
 **输出**
 
-```
+```go
 Timeout finished
 Sending value to channel complete
 ```
 
 日志
 
-```
+```go
 Timeout finished
 ```
 
 将始终位于之前
 
-```
+```go
 Sending value to channel complete
 ```
 
@@ -276,7 +276,7 @@ Sending value to channel complete
 
 为了说明接收时的阻塞，让我们在receive()函数中接收值后添加一个日志，并在send()函数中发送值之前设置一个超时。
 
-```
+```go
 package main
 
 import (
@@ -306,7 +306,7 @@ func receive(ch chan int) {
 
 **输出**
 
-```
+```go
 Timeout finished
 Receiving Value from channel finished. Value received: 1
 ```
@@ -315,13 +315,13 @@ Receiving Value from channel finished. Value received: 1
 
 日志
 
-```
+```go
 Timeout finished
 ```
 
 将始终在之前。
 
-```
+```go
 Receiving Value from channel finished. Value received: 1
 ```
 
@@ -329,7 +329,7 @@ Receiving Value from channel finished. Value received: 1
 
 我们也可以在主函数中接收这个值。
 
-```
+```go
 package main
 
 import (
@@ -351,7 +351,7 @@ func send(ch chan int) {
 
 **输出**
 
-```
+```go
 Sending value to channel start
 Receiving Value from channel finished. Value received: 1
 ```
@@ -370,7 +370,7 @@ Receiving Value from channel finished. Value received: 1
 
 这是使用make函数创建缓冲通道的语法。
 
-```
+```go
 a = make(chan <type>, capacity)</type>
 ```
 
@@ -378,7 +378,7 @@ a = make(chan <type>, capacity)</type>
 
 让我们看一个缓冲通道的程序。
 
-```
+```go
 package main
 
 import (
@@ -396,13 +396,13 @@ func main() {
 
 在上面的程序中，我们创建了一个长度为1的缓冲通道，如此。
 
-```
+```go
 ch := make(chan int, 1)
 ```
 
 我们在主goroutine中发送一个值并接收同一个值。这是可能的，因为如果缓冲通道没有满，发送到缓冲通道不会被阻塞。因此，下面的行对于缓冲通道不会阻塞。
 
-```
+```go
 ch <- 1
 ```
 
@@ -416,7 +416,7 @@ ch <- 1
 
 **当通道满时，发送被阻塞**
 
-```
+```go
 package main
 
 import (
@@ -435,26 +435,26 @@ func main() {
 
 **输出**
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
 在上面的程序中，我们创建了一个容量为一的通道。之后，我们向通道发送一个值，然后再向通道发送另一个值。
 
-```
+```go
 ch <- 1
 ch <- 1
 ```
 
 发送到通道的第二个请求被阻塞，因为缓冲区已满，因此导致了死锁情况，因为程序无法继续，这就是为什么你会看到输出为。
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
 **当通道为空时，接收被阻塞**
 
-```
+```go
 package main
 
 import (
@@ -473,13 +473,13 @@ func main() {
 
 **输出**
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
 在上面的程序中，我们创建了一个容量为一的通道，之后我们向通道发送一个值，然后从通道接收一个值。接着，我们尝试第二次接收通道中的值，结果导致了死锁，因为程序无法继续，因为通道为空，无法接收。这就是为什么你会看到输出为。
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
@@ -493,7 +493,7 @@ fatal error: all goroutines are asleep - deadlock!
 
 这是这种通道的语法
 
-```
+```go
 chan<- int
 ```
 
@@ -501,7 +501,7 @@ chan<- int
 
 这是这种通道的语法
 
-```
+```go
 <-chan in
 ```
 
@@ -519,25 +519,25 @@ chan<- int
 
 +   这种通道的签名只能发送数据，传递给函数作为参数时会如下所示。
 
-```
+```go
 func process(ch chan<- int){ //doSomething }
 ```
 
 +   尝试从这样的通道接收数据将出现以下错误。
 
-```
+```go
 invalid operation: <-ch (receive from send-only type chan<- int)
 ```
 
 尝试取消注释代码中的以下行以查看上述错误
 
-```
+```go
 s := <-ch
 ```
 
 **代码：**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -557,25 +557,25 @@ func process(ch chan<- int) {
 
 +   这种通道的签名只能接收数据，传递给函数作为参数时会如下所示。
 
-```
+```go
 func process(ch <-chan int){ //doSomething }
 ```
 
 +   尝试向这样的通道发送数据将出现以下错误。
 
-```
+```go
 invalid operation: ch <- 2 (send to receive-only type <-chan int)
 ```
 
 尝试取消注释代码中的以下行以查看上述错误
 
-```
+```go
 ch <- 2
 ```
 
 **代码：**
 
-```
+```go
 package main
 import "fmt"
 func main() {
@@ -599,7 +599,7 @@ func process(ch <-chan int) {
 
 无缓冲通道的容量始终为零
 
-```
+```go
 package main
 
 import "fmt"
@@ -612,13 +612,13 @@ func main() {
 
 **输出**
 
-```
+```go
 Capacity: 3
 ```
 
 在上述程序中，我们在make函数中指定了容量为3
 
-```
+```go
 make(chan int, 3)
 ```
 
@@ -628,7 +628,7 @@ make(chan int, 3)
 
 无缓冲通道的长度始终为零
 
-```
+```go
 package main
 
 import "fmt"
@@ -647,7 +647,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Len: 1
 Len: 2
 Len: 3
@@ -659,7 +659,7 @@ Len: 3
 
 关闭是一个内置函数，可用于关闭通道。关闭通道意味着无法再向通道发送数据。通道通常在所有数据已发送且没有更多数据可发送时关闭。让我们看看一个程序。
 
-```
+```go
 package main
 
 import (
@@ -688,7 +688,7 @@ func sum(ch chan int, len int) {
 
 **输出**
 
-```
+```go
 Sum: 6
 ```
 
@@ -698,7 +698,7 @@ Sum: 6
 
 请看下面的程序。
 
-```
+```go
 package main
 func main() {
     ch := make(chan int)
@@ -709,7 +709,7 @@ func main() {
 
 **输出**
 
-```
+```go
 panic: send on closed channel
 ```
 
@@ -717,7 +717,7 @@ panic: send on closed channel
 
 在接收一个通道时，我们也可以使用一个额外的变量来确定通道是否已关闭。下面是相应的语法。
 
-```
+```go
 val,ok <- ch
 ```
 
@@ -727,7 +727,7 @@ ok的值将是
 
 +   如果通道已关闭则为假。
 
-```
+```go
 package main
 import (
     "fmt"
@@ -746,7 +746,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Val: 2 OK: true
 Val: 0 OK: false
 ```
@@ -757,7 +757,7 @@ Val: 0 OK: false
 
 可以使用范围循环从通道接收数据，直到其关闭。
 
-```
+```go
 package main
 
 import (
@@ -786,7 +786,7 @@ func sum(ch chan int) {
 
 **输出**
 
-```
+```go
 Sum: 6
 ```
 
@@ -794,7 +794,7 @@ Sum: 6
 
 现在脑海中浮现的问题是，如果在主函数中不关闭通道，会发生什么。尝试注释掉关闭通道的那一行。然后运行程序。它也会输出死锁，因为范围循环在求和函数中将永远不会完成。
 
-```
+```go
 fatal error: all goroutines are asleep - deadlock!
 ```
 
@@ -802,7 +802,7 @@ fatal error: all goroutines are asleep - deadlock!
 
 通道的零值为零。因此，仅声明一个通道会创建一个默认的零通道，因为通道的零值为零。让我们看看一个演示程序。
 
-```
+```go
 package main
 
 import "fmt"
@@ -816,7 +816,7 @@ func main() {
 
 **输出**
 
-```
+```go
 nil
 ```
 

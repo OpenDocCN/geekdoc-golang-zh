@@ -12,7 +12,7 @@
 
 让我们看看如何用golang编写一个简单的Hello World程序。创建一个扩展名为.go的文件。我们将这个文件命名为**helloworld.go**。下面是文件的内容。
 
-```
+```go
 package main  
 
 import "fmt" 
@@ -32,18 +32,18 @@ func main() {
 
 +   我们使用**fmt**包的**Println**函数来打印**Hello World**字符串
 
-```
+```go
 fmt.Println("Hello World")
 ```
 
 现在让我们运行这个文件。要运行，请转到包含此文件的目录。输入下面的命令来运行该文件。这个命令的作用是编译go文件并立即运行它。
 
-```
+```go
 go run helloworld.go
 ```
 
 **输出**
 
-```
+```go
 Hello World
 ```

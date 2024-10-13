@@ -64,13 +64,13 @@
 
 鸭子类型源于以下短语。
 
-```
+```go
 If it walks like a duck and quack like a duck then it must be duck
 ```
 
 再次回到接口。那么，什么是接口？正如之前提到的，它是方法签名的集合。它定义了一个类型可能拥有的确切方法集。下面是一个接口的签名，它仅包含方法签名。
 
-```
+```go
 type name_of_interface interface{
 //Method signature 1
 //Method signature 2
@@ -79,7 +79,7 @@ type name_of_interface interface{
 
 让我们通过一个例子来理解这个概念。这样会更加清晰。我们定义一个名为**动物**的接口。**动物**接口有两个方法**呼吸**和**行走**。它仅定义方法签名，而没有其他内容。
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -98,7 +98,7 @@ type animal interface {
 
 让我们创建一个**动物**接口类型的变量。
 
-```
+```go
 package main
 
 import "fmt"
@@ -116,7 +116,7 @@ func main() {
 
 **输出**
 
-```
+```go
 nil
 ```
 
@@ -126,7 +126,7 @@ nil
 
 任何实现了呼吸和行走方法的类型都被称为实现了**动物**接口。所以如果我们定义一个**狮子**结构体并实现呼吸和行走方法，那么它就会实现动物接口。
 
-```
+```go
 package main
 
 import "fmt"
@@ -158,20 +158,20 @@ func main() {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 ```
 
 我们声明一个动物接口类型的变量。
 
-```
+```go
 var a animal
 ```
 
 然后我们将一个狮子结构体的实例赋值给它。
 
-```
+```go
 a = lion{}
 ```
 
@@ -191,7 +191,7 @@ a = lion{}
 
 如果我们定义一个**狗**结构并且它实现了**呼吸**和**行走**方法，那么它也将是动物。
 
-```
+```go
 package main
 
 import "fmt"
@@ -240,7 +240,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 Dog breathes
@@ -255,7 +255,7 @@ Dog walk
 
 +   接口静态检查是在编译时进行的——这意味着如果一个类型没有实现接口的所有方法，则将该类型实例分配给该接口类型的变量将在编译时引发错误。例如，在删除定义在狮子结构上的行走方法时，下面的错误将在赋值过程中被引发。
 
-```
+```go
 cannot use lion literal (type lion) as type animal in assignment:
 ```
 
@@ -271,7 +271,7 @@ cannot use lion literal (type lion) as type animal in assignment:
 
 想象一下，**动物**接口还有另一个方法**速度**，返回动物速度的int值。
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -281,13 +281,13 @@ type animal interface {
 
 如果**狮子**结构具有如下的**速度**方法，但不返回int值，则**狮子**结构将不实现**动物**接口。
 
-```
+```go
 func (l lion) speed()
 ```
 
 将狮子实例分配给动物类型的变量时将引发下面的编译错误。
 
-```
+```go
 cannot use lion literal (type lion) as type animal in assignment:
         lion does not implement animal (wrong type for speed method)
                 have speed()
@@ -302,7 +302,7 @@ cannot use lion literal (type lion) as type animal in assignment:
 
 它的工作方式类似于我们上面讨论的赋值。在编译过程中，调用函数时不会检查类型，而是只需检查传递给函数的类型是否实现了**呼吸**和**行走**方法。
 
-```
+```go
 package main
 
 import "fmt"
@@ -357,7 +357,7 @@ func callWalk(a animal) {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 Dog breathes
@@ -378,7 +378,7 @@ Dog walk
 
 不同国家有不同的税收计算方式。这可以通过接口来表示。
 
-```
+```go
 type taxCalculator interface{
     calculateTax()
 }
@@ -386,7 +386,7 @@ type taxCalculator interface{
 
 现在不同国家可以有自己的结构体并实现**calculateTax()**方法。同样的**calculateTax**方法在不同上下文中用于计算税。编译器在看到这个调用时，会延迟确定在运行时调用哪个确切的方法。
 
-```
+```go
 package main
 
 import "fmt"
@@ -444,13 +444,13 @@ func calculateTotalTax(taxSystems []taxSystem) int {
 
 **输出：**
 
-```
+```go
 Total Tax is 300
 ```
 
 现在下面是运行时多态性发生的地方。
 
-```
+```go
  totalTax += t.calculateTax() //This is where runtime polymorphism happens
 ```
 
@@ -466,7 +466,7 @@ Total Tax is 300
 
 示例以演示上述第一点
 
-```
+```go
 package main
 
 import "fmt"
@@ -503,7 +503,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 Lion breathes
@@ -514,13 +514,13 @@ Lion walk
 
 这可以工作。
 
-```
+```go
 a = lion{age: 10}
 ```
 
 还有这一点。
 
-```
+```go
 a = &lion{age: 5}
 ```
 
@@ -528,24 +528,24 @@ a = &lion{age: 5}
 
 所以这可以工作。
 
-```
+```go
  a = &lion{age: 5}
 ```
 
 但这会引发编译错误。
 
-```
+```go
 a = lion{age: 10}
 ```
 
-```
+```go
 cannot use lion literal (type lion) as type animal in assignment:
         lion does not implement animal (breathe method has pointer receiver)
 ```
 
 查看完整的工作代码。
 
-```
+```go
 package main
 
 import "fmt"
@@ -582,13 +582,13 @@ func main() {
 
 取消注释该行。
 
-```
+```go
 a = lion{age: 10}
 ```
 
 这也会引发编译错误。
 
-```
+```go
 cannot use lion literal (type lion) as type animal in assignment:
         lion does not implement animal (breathe method has pointer receiver)
 ```
@@ -597,7 +597,7 @@ cannot use lion literal (type lion) as type animal in assignment:
 
 到目前为止，我们只看到了结构类型实现接口的例子。任何非结构自定义类型实现接口也是完全可以的。让我们看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -628,7 +628,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Cat breathes
 Cat walk
 ```
@@ -641,7 +641,7 @@ Cat walk
 
 在下面的程序中，我们有一个哺乳动物接口，具有一个进食方法。狮子结构体也定义了这个方法，因此它实现了哺乳动物接口。
 
-```
+```go
 package main
 
 import "fmt"
@@ -681,7 +681,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Lion breathes
 Lion walk
 Lion feeds young
@@ -691,7 +691,7 @@ Lion feeds young
 
 接口的默认或零值是nil。下面的程序演示了这一点。
 
-```
+```go
 package main
 
 import "fmt"
@@ -708,7 +708,7 @@ func main() {
 
 **输出**
 
-```
+```go
 nil
 ```
 
@@ -734,7 +734,7 @@ Golang提供了格式标识符，以打印由接口值表示的底层类型和�
 
 +   %v可以用来打印接口值的具体值。
 
-```
+```go
 package main
 
 import "fmt"
@@ -766,7 +766,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Concrete Type: main.lion
 Concrete Value: {10}
 ```
@@ -783,7 +783,7 @@ Concrete Value: {10}
 
 假设我们有一个接口**动物**如下。
 
-```
+```go
 type animal interface {
     breathe()
     walk()
@@ -792,7 +792,7 @@ type animal interface {
 
 假设还有一个名为 **human** 的接口，它嵌入了 **animal** 接口。
 
-```
+```go
 type human interface {
     animal
     speak()
@@ -805,7 +805,7 @@ type human interface {
 
 +   **speak()** 方法的人类接口
 
-```
+```go
 package main
 
 import "fmt"
@@ -848,7 +848,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Employee breathes
 Employee walk
 Employee speaks
@@ -860,7 +860,7 @@ Employee speaks
 
 +   writer 接口 – [https://golang.org/pkg/io/#Writer](https://golang.org/pkg/io/#Writer)
 
-```
+```go
 type ReadWriter interface {
     Reader
     Writer
@@ -877,7 +877,7 @@ type ReadWriter interface {
 
 让我们来看一个程序，说明上述要点
 
-```
+```go
 package main
 
 import "fmt"
@@ -930,7 +930,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Milo
 Dog breathes
 Dod walk
@@ -944,7 +944,7 @@ Dog walk
 
 我们声明了两个结构 **pet1** 和 **pet2**。 **pet1** 结构中有命名的 **animal** 接口
 
-```
+```go
 type pet1 struct {
     a    animal
     name string
@@ -953,7 +953,7 @@ type pet1 struct {
 
 **pet2** 嵌入了未命名/匿名 **animal** 接口
 
-```
+```go
 type pet2 struct {
     animal
     name string
@@ -962,26 +962,26 @@ type pet2 struct {
 
 对于 **pet1** 结构的实例，我们可以这样调用 **breathe()** 和 **walk()** 方法。
 
-```
+```go
 p1.a.breathe()
 p1.a.walk()
 ```
 
 直接调用这些方法将引发编译错误
 
-```
+```go
 p1.breathe()
 p1.walk()
 ```
 
-```
+```go
 p1.breathe undefined (type pet1 has no field or method breathe)
 p1.walk undefined (type pet1 has no field or method walk)
 ```
 
 对于 **pet2** 结构的实例，我们可以直接调用 **breathe()** 和 **walk()** 方法
 
-```
+```go
 p2.breathe()
 p2.walk()
 ```
@@ -990,14 +990,14 @@ p2.walk()
 
 下面也是有效的，另一种调用未命名/匿名嵌入接口方法的方式
 
-```
+```go
 p2.animal.breathe()
 p2.animal.walk()
 ```
 
 还请注意，在创建 **pet1** 或 **pet2** 结构的实例时，嵌入的接口 **animal** 是用实现该接口的类型 **dog** 初始化的。
 
-```
+```go
 p1 := pet1{name: "Milo", a: d}
 p2 := pet2{name: "Oscar", animal: d}
 ```
@@ -1016,13 +1016,13 @@ p2 := pet2{name: "Oscar", animal: d}
 
 类型断言提供了一种通过断言底层值的正确类型来访问接口值内部的底层变量的方法。下面是其语法，其中 **i** 是一个接口。
 
-```
+```go
 val := i.({type})
 ```
 
 上述声明断言接口中的底层值的类型为 {type}。如果这个断言成立，则将底层值分配给 **val**。如果不成立，则上述声明将导致恐慌。
 
-```
+```go
 package main
 
 import "fmt"
@@ -1075,25 +1075,25 @@ func print(a animal) {
 
 **输出**
 
-```
+```go
 Age: 10
 ```
 
 这就是我们如何断言变量 **a** 的类型 **animal** 为底层类型 **lion**。
 
-```
+```go
 l := a.(lion)
 ```
 
 下面的行将引发程序崩溃，因为底层类型是**狮子**而不是**狗**。取消注释该行以查看效果。
 
-```
+```go
 //d := a.(dog)
 ```
 
 类型断言提供了获取底层值的另一种方法，同时也能防止程序崩溃。其语法为：
 
-```
+```go
 val, ok := i.(<type>)</type>
 ```
 
@@ -1105,7 +1105,7 @@ val, ok := i.(<type>)</type>
 
 所以第二种方法是一种良好的类型断言方式，因为它可以防止程序崩溃。让我们来看一个例子。
 
-```
+```go
 package main
 
 import "fmt"
@@ -1166,7 +1166,7 @@ func print(a animal) {
 
 **输出：**
 
-```
+```go
 {10}
 a is not of type lion
 ```
@@ -1177,7 +1177,7 @@ a is not of type lion
 
 类型开关使我们能够连续进行上述类型断言。请参见下面的代码示例。
 
-```
+```go
 package main
 
 import "fmt"
@@ -1233,7 +1233,7 @@ func print(a animal) {
 
 **输出：**
 
-```
+```go
 Type: lion
 ```
 
@@ -1243,7 +1243,7 @@ Type: lion
 
 空接口没有方法，因此默认情况下，所有具体类型都实现空接口。如果你编写一个接受空接口的函数，那么你可以将任何类型传递给该函数。请参见下面的工作代码。
 
-```
+```go
 package main
 
 import "fmt"
@@ -1261,7 +1261,7 @@ func test(a interface{}) {
 
 **输出**
 
-```
+```go
 (thisisstring, string)
 (10, string)
 (true, bool)

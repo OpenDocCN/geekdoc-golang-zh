@@ -30,7 +30,7 @@
 
 # **缓冲通道的长度和容量**
 
-```
+```go
 package main
 
 import "fmt"
@@ -53,7 +53,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Len: 1
 Capacity: 3
 Len: 2
@@ -68,7 +68,7 @@ Capacity: 3
 
 无缓冲通道的长度和容量始终为零
 
-```
+```go
 package main
 
 import "fmt"
@@ -82,7 +82,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Len: 0
 Capacity: 0
 ```
@@ -91,7 +91,7 @@ Capacity: 0
 
 Nil通道的长度和容量始终为零
 
-```
+```go
 package main
 
 import "fmt"
@@ -106,7 +106,7 @@ func main() {
 
 **输出**
 
-```
+```go
 Len: 0
 Capacity: 0
 ```

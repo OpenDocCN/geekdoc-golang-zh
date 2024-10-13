@@ -20,7 +20,7 @@
 
 # **程序**
 
-```
+```go
 package main
 
 import "fmt"
@@ -52,7 +52,7 @@ func handleOutOfBounds() {
 
 **输出**
 
-```
+```go
 Recovering from panic: Out of bound access for slice
 Exiting normally
 ```
@@ -69,7 +69,7 @@ Exiting normally
 
 所以我们在函数**checkAndPrintWithRecover**的开头有一个名为**handleOutIfBounds**的延迟函数。这个函数包含如下的recover函数调用。
 
-```
+```go
 if r := recover(); r != nil {
     fmt.Println("Recovering from panic:", r)
 }

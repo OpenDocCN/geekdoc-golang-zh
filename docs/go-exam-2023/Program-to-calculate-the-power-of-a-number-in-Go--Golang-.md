@@ -24,7 +24,7 @@ category: 未分类
 
 示例
 
-```
+```go
 Input: Num:2, Power:4
 Output: 16
 
@@ -36,7 +36,7 @@ Output: 0.0625
 
 这是相同程序的代码。
 
-```
+```go
 package main
 
 import "fmt"
@@ -85,7 +85,7 @@ func main() {
 
 **输出**
 
-```
+```go
 16
 0.0625
 ```

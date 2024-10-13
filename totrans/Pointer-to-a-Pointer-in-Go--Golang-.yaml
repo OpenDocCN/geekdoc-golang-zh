@@ -1,132 +1,206 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:28:51'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:28:51
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pointer to a Pointer in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的指向指针
 - en: 来源：[https://golangbyexample.com/pointer-to-pointer-golang/](https://golangbyexample.com/pointer-to-pointer-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/pointer-to-pointer-golang/](https://golangbyexample.com/pointer-to-pointer-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: It is also possible to create a pointer to a pointer in go
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go中也可以创建指向指针的指针。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**c** is a pointer to a pointer here. It stores the address of **b** which
     in turn stores the address of **a**. Double dereferencing using the ***** operator
     the can be used to print the value at pointer to pointer. Hence****c** will print
     the value at which 2'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**c**在这里是一个指向指针的指针。它存储**b**的地址，而**b**又存储**a**的地址。可以使用*****运算符进行双重解引用，从而打印指向指针的值。因此，****c**将打印值2。'
 - en: Below diagram depicits  pointer to pointer.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 下图描绘了指向指针的指针。
 - en: '**b** contains the address of **a**'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**b**包含**a**的地址。'
 - en: '**c** contains the address of **b**'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**c**包含**b**的地址。'
 - en: '![](img/648843d5f7bbd0caf2d036d24bddb2bd.png)'
+  id: totrans-15
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/648843d5f7bbd0caf2d036d24bddb2bd.png)'
 - en: '**Program**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Let’s see a program depicting pointer to pointer
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个描绘指针的程序。
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: From output is clear that
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中可以清楚看出。
 - en: Below are equivalent and equal to value of variable **a** which is 2
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是等价且值为变量**a**的2。
 - en: a
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: a
 - en: '*&a'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*&a'
 - en: '*b'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*b'
 - en: '**c'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**c'
 - en: '**Below are equivalent and equal to value of variable **b** which is address
     of **a****'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**以下是等价且值为变量**b**的**a**的地址。**'
 - en: '***   &a'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '***   &a'
 - en: b
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: b
 - en: '&*b'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '&*b'
 - en: '*&b'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*&b'
 - en: '*c'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*c'
 - en: '****Below are equivalent and equal to value of variable **c** which is address
     of **b******'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '****以下是等价且值为变量**c**的**b**的地址。******'
 - en: '*****   b'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '*****   b'
 - en: '*c'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '*c'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*******'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*******'

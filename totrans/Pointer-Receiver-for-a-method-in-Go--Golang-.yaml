@@ -1,206 +1,316 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:20:31'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:20:31
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pointer Receiver for a method in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的指针接收者方法
 - en: 来源：[https://golangbyexample.com/pointer-receiver-method-golang/](https://golangbyexample.com/pointer-receiver-method-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/pointer-receiver-method-golang/](https://golangbyexample.com/pointer-receiver-method-golang/)
 - en: To better understand pointer receiver we first have to understand the value
     receiver for a method.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了更好地理解指针接收者，我们首先必须理解方法的值接收者。
 - en: '**Methods on Value Receiver**'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**值接收者上的方法**'
 - en: Let’s see an example of a value receiver
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看值接收者的一个例子。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Notice that the receiver is available inside the method and fields of the receiver
     can be accessed inside the method. Can field of the receiver also be changed inside
     the method?
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，接收者在方法内部是可用的，接收者的字段可以在方法内部访问。接收者的字段也可以在方法内部更改吗？
 - en: Let’s see that
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看这个。
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In the above code a method **setNewName** is defined on the **employee** struct.
     In this method we update the name of the employee like this
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述代码中，定义了一个方法**setNewName**，它在**employee**结构体上。在这个方法中，我们像这样更新员工的名字。
 - en: '[PRE4]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: After setting the new name when we print the employee name again in the main
     function, we see that the old name “Sam” is printed instead of “John”. This happens
     because method is defined on a value receiver
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在设置新名字后，当我们在主函数中再次打印员工名字时，我们看到打印的是旧名字“Sam”，而不是“John”。这是因为方法是在值接收者上定义的。
 - en: '[PRE5]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Since the method is defined on a value receiver when the method is called a
     copy of the receiver is made and that copy of the receiver is available inside
     the method. Since it is a copy, any changes made to the value receiver is not
     visible to the caller. That is why it prints the old name “Sam” instead of “John”.
     Now the question which comes to the mind whether there is any way to fix this.
     And the answer is yes, and this is where pointer receivers come into the picture.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于方法是在值接收者上定义的，当调用该方法时，会生成接收者的副本，该副本在方法内部可用。由于这是一个副本，对值接收者所做的任何更改对调用者都是不可见的。这就是为什么它打印旧名字“Sam”而不是“John”。现在，脑海中产生的问题是是否有办法修复这个问题。答案是有，这就是指针接收者进入的场景。
 - en: '**Method on a Pointer Receiver**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**指针接收者上的方法**'
 - en: In the above example we saw a method on a value receiver. Any change made to
     a value receiver is not visible to the caller. Methods can also be defined on
     a pointer receiver. Any change made to the pointer receiver will be visible to
     the caller. Let’s see an example
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们看到了一个值接收者的方法。对值接收者所做的任何更改对调用者不可见。方法也可以在指针接收者上定义。对指针接收者所做的任何更改对调用者是可见的。让我们来看一个例子。
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: In above program, we defined the method **setNewName** on a pointer receiver
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们在指针接收者上定义了方法**setNewName**。
 - en: '[PRE8]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Then we created an employee pointer and called the **setNewName** methodon it.
     We see that the changes made to the employee pointer inside the **setNewName**
     are visible to the caller and it prints the new name.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们创建了一个员工指针，并在其上调用了**setNewName**方法。我们看到在**setNewName**内部对员工指针所做的更改对调用者是可见的，并且打印了新名字。
 - en: Is it necessary to create the employee pointer to call a method with a pointer
     receiver? No, it is not. The method can be called on the employee instance and
     the language will take care of it to correctly pass the receiver as a pointer
     to the method. This flexibility is provided by the language.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 是否有必要创建员工指针以调用带有指针接收者的方法？不，没有必要。可以在员工实例上调用该方法，语言会自动将接收者作为指针传递给方法。这种灵活性是语言提供的。
 - en: Let’s see an example
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个例子。
 - en: '[PRE9]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: We see in above program that even if a method is defined on a pointer receiver
     but we are calling the method with a non-pointer employee instance
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在上面的程序中看到，即使方法在指针接收者上定义，但我们仍然使用非指针的员工实例调用该方法。
 - en: '[PRE11]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: But the language passes the receiver as a pointer and therefore the changes
     are visible to the caller.Even this way of calling is valid
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是语言将接收者作为指针传递，因此更改对调用者是可见的。即使这样调用也是有效的。
 - en: '[PRE12]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Now, how about the other way around. If a method is defined on a value receiver,
     can the method be called with a pointer of the receiver?
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，反过来，如果一个方法在值接收者上定义，可以用接收者的指针来调用该方法吗？
 - en: Yes, even this is valid and the language takes care of passing the argument
     correctly as value receiver irrespective of whether the method was called on a
     pointer or normal struct. Let’s see an example
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 是的，这也是有效的，语言会确保正确地将参数作为值接收者传递，无论方法是调用在指针还是普通结构上。让我们看看一个例子。
 - en: '[PRE13]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE14]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Do note here since in all three cases, the **setNewName** method had a value
     receiver hence changes are not visible to the caller as the value is passed as
     a copy. It prints the old name in all three cases
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在这三种情况下，**setNewName** 方法具有值接收者，因此更改对调用者不可见，因为值是作为副本传递的。在这三种情况下，它都打印旧名称。
 - en: To summarize what we learned above
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 总结一下我们上面学到的内容：
 - en: If a method has a value receiver it supports calling of that method with both
     value and pointer receiver
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果一个方法有一个值接收者，它支持用值和指针接收者来调用该方法。
 - en: If a method has a pointer receiver then also it supports calling of that method
     with both value and pointer receiver
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果方法有一个指针接收者，那么它也支持使用值和指针接收者来调用该方法。
 - en: This is unlike function where if
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 这与函数不同，如果
 - en: If a function has a pointer argument then it will only accept a pointer as an
     argument
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果一个函数有一个指针参数，那么它只会接受指针作为参数。
 - en: If a function has a value argument then it will only accept a value as an argument
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果一个函数有一个值参数，那么它只会接受值作为参数。
 - en: '**When to use pointer receiver**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**何时使用指针接收者**'
 - en: When the changes to the receiver made inside the method have to be visible to
     the caller.
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当方法内部对接收者所做的更改必须对调用者可见时。
 - en: When the struct is big, then it is better to use a pointer receiver otherwise
     a copy of the struct will be made every time a method is called which will be
     expensive
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当结构体较大时，最好使用指针接收者，否则每次调用方法时都会创建结构体的副本，这将非常耗费资源。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) * [golang](https://golangbyexample.com/tag/golang/)'

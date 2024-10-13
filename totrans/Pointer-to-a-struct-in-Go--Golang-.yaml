@@ -1,171 +1,273 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:19:24'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:19:24
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pointer to a struct in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的结构体指针
 - en: 来源：[https://golangbyexample.com/pointer-to-struct-golang/](https://golangbyexample.com/pointer-to-struct-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/pointer-to-struct-golang/](https://golangbyexample.com/pointer-to-struct-golang/)
 - en: 'In golang struct is named collection of data fields. These fields can be of
     different types. Struct acts as a container that has different heterogeneous data
     types which together represents an entity. For example, different attributes are
     used to represent an employee in an organization. Employee can have:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Golang 中，结构体是命名的数据字段集合。这些字段可以是不同类型。结构体充当容器，包含不同的异构数据类型，共同表示一个实体。例如，不同的属性用于表示组织中的员工。员工可以有：
 - en: Name of string type
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 字符串类型的名称
 - en: Age of int type
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 年龄类型为 int
 - en: DOB of time.Time type
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: DOB 类型为 time.Time
 - en: Salary of int type
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 薪水类型为 int
 - en: A pointer in golang is a variable that holds a memory address of another variable.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang 中的指针是一个变量，它保存另一个变量的内存地址。
 - en: Now we have understood what struct and pointer is, let’s move unto how we can
     define a pointer to the struct.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们已经理解了结构体和指针，接下来让我们看看如何定义指向结构体的指针。
 - en: Let’s say we have an employee struct
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有一个员工结构体
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Thereare two ways of creating a pointer to the struct
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建指向结构体的指针有两种方法
 - en: Using the & operator
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用**&**运算符
 - en: Using the new keyword
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 new 关键字
 - en: Let’s looks at each of above method one by one.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐一查看上述方法。
 - en: '**Using the & operator**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**使用 & 运算符**'
 - en: The **&** operator can be used to get the pointer to a struct variable.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**&** 运算符可用于获取结构体变量的指针。'
 - en: '[PRE1]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: struct pointer can also be directly created as well
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体指针也可以直接创建
 - en: '[PRE2]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Let’s look at a program
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个程序
 - en: '[PRE3]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Using the new keyword**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**使用 new 关键字**'
 - en: 'Using the  new() keyword will:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 new() 关键字将：
 - en: Create the struct
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建结构体
 - en: Initialize all the field to the zero default value of their type
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将所有字段初始化为其类型的零默认值
 - en: Return the pointer to the newly created struct
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 返回指向新创建结构体的指针
 - en: This will return a pointer
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将返回一个指针
 - en: '[PRE5]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Pointer address can be print using the **%p** format modifier
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 指针地址可以使用**%p**格式修饰符打印
 - en: '[PRE6]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Also to note that * operator can be used to dereference a pointer which means
     getting the value at address stored in the pointer.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 还要注意，*运算符可用于解引用指针，这意味着获取存储在指针中的地址的值。
 - en: '[PRE7]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: It will print
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将打印
 - en: '[PRE8]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: When not using the dereference pointer but using the format identifier**%+v,**
     then ampersand will be appended before the struct indicating that is a pointer.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 当不使用解引用指针而使用格式标识符**%+v**时，将在结构体之前附加&符号，表示这是一个指针。
 - en: '[PRE9]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: It will print
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将打印
 - en: '[PRE10]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Let’s see full program denoting above points
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看完整程序以说明上述要点
 - en: '[PRE11]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Output**'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE12]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: The pointer address printed will be different on your machine.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印的指针地址在你的机器上会有所不同。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'

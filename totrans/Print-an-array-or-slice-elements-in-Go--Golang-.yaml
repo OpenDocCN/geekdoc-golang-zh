@@ -1,133 +1,213 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:18:55'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:18:55
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Print an array or slice elements in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中打印数组或切片元素
 - en: 来源：[https://golangbyexample.com/print-an-array-or-slice-elements-golang/](https://golangbyexample.com/print-an-array-or-slice-elements-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/print-an-array-or-slice-elements-golang/](https://golangbyexample.com/print-an-array-or-slice-elements-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Print a Slice](#Print_a_Slice "Print a Slice")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[打印切片](#Print_a_Slice "Print a Slice")'
 - en: '[Print a Array](#Print_a_Array "Print a Array")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[打印数组](#Print_a_Array "Print a Array")*  *# **概述**'
 - en: The way we print an array or slice is same. Let’s look at both one by one
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印数组或切片的方式是相同的。让我们逐个查看
 - en: '**Print a Slice**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**打印切片**'
 - en: '**Print slice elements together**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**一起打印切片元素**'
 - en: Using
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用
 - en: fmt.Println and
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: fmt.Println 和
 - en: fmt.Printf
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: fmt.Printf
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Print individual slice elements**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**打印单个切片元素**'
 - en: Using
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用
 - en: for-range loop
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: for-range 循环
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Print a Array**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**打印数组**'
 - en: '**Print array elements together**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**一起打印数组元素**'
 - en: Using
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用
 - en: fmt.Println and
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: fmt.Println 和
 - en: fmt.Printf
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: fmt.Printf
 - en: '[PRE4]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Print individual array elements**:'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**打印单个数组元素**：'
 - en: Using
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用
 - en: for-range loop
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: for-range 循环
 - en: '[PRE6]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '[array](https://golangbyexample.com/tag/array/)*   [slice](https://golangbyexample.com/tag/slice/)*'
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数组](https://golangbyexample.com/tag/array/)*   [切片](https://golangbyexample.com/tag/slice/)*'

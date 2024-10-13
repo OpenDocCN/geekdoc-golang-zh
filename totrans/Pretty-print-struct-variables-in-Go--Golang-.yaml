@@ -1,225 +1,347 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:19:29'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:19:29
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pretty print struct variables in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中美观地打印结构体变量
 - en: 来源：[https://golangbyexample.com/print-struct-variables-golang/](https://golangbyexample.com/print-struct-variables-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/print-struct-variables-golang/](https://golangbyexample.com/print-struct-variables-golang/)
 - en: '**Note:** If you are interested in learning Golang, then for that we have a
     golang comprehensive tutorial series. Do check it out – [Golang Comprehensive
     Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/).
     Now let’s see the current tutorial. Below is the table of contents.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 如果你对学习Golang感兴趣，我们有一个全面的Golang教程系列。请查看一下 – [Golang全面教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。现在让我们来看当前的教程。以下是目录。'
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Using the fmt package](#Using_the_fmt_package "Using the fmt package")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用fmt包](#Using_the_fmt_package "使用fmt包")'
 - en: '[Printing the struct in JSON form](#Printing_the_struct_in_JSON_form "Printing
     the struct in JSON form")*  *# Overview'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[以JSON格式打印结构体](#Printing_the_struct_in_JSON_form "以JSON格式打印结构体")*  *# 概述'
 - en: Thereare two ways to print all struct variables including all its key and values.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 有两种方法可以打印所有结构体变量，包括所有的键和值。
 - en: Using the **fmt** package
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用**fmt**包
 - en: Printing the struct in JSON form using the **json/encoding** package. This also
     allows pretty print of a struct as well.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用**json/encoding**包以JSON格式打印结构体。这也允许美观地打印结构体。
 - en: 'Let’s say we have an employee struct as below:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有一个员工结构体，如下所示：
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s see the two ways in which we can print the instance of the employee struct.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看两种打印员工结构体实例的方法。
 - en: '**Using the fmt package**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用fmt包**'
 - en: '**fmt.Printf()** function can be used to print a struct.  Different format
     identifiers can be used to print a struct in different ways. Let’s see how different
     format identifiers can be used to print a struct in different formats.'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**fmt.Printf()**函数可以用来打印一个结构体。可以使用不同的格式标识符以不同的方式打印结构体。让我们看看如何使用不同的格式标识符以不同的格式打印结构体。'
 - en: Let’s first create an instance of employee
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先让我们创建一个员工的实例。
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**%v** – It will print only values. Field name will not be printed. This is
     the default way of printing a struct. Eg'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%v** – 仅打印值，字段名不会被打印。这是打印结构体的默认方式。例如：'
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**%+v –** It will print both field and value. Eg'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%+v –** 它将打印字段和值。例如：'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '%#v – It will print the struct name, also both field and value. Eg'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '%#v – 它将打印结构体名称，以及字段和值。例如：'
 - en: '[PRE4]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**fmt.Println()** function can also be used to print a struct. Since %v is
     the default for **fmt.Printlin()** function, hence output will be same as using
     %v for **fmt.Printf()**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**fmt.Println()**函数也可以用来打印一个结构体。由于**fmt.Println()**函数的默认值是%v，因此输出将与使用%v的**fmt.Printf()**相同。'
 - en: '[PRE5]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Let’s see a working program too
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们也来看一个工作程序。
 - en: '[PRE6]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Printing the struct in JSON form**'
+  id: totrans-33
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**以JSON格式打印结构体**'
 - en: Second method is to print the struct in the JSON format. **Marshal** and **MarshalIndent**
     function of **encoding/json** package can be used to print a struct in JSON format.
     Here is the difference
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二种方法是以JSON格式打印结构体。**encoding/json**包的**Marshal**和**MarshalIndent**函数可以用来以JSON格式打印结构体。这里是区别：
 - en: '**Marshal** – Below is the signature of the **Marshal** function. This function
     returns the JSON encoding of **v** by traversing the value recursively'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Marshal** – 以下是**Marshal**函数的签名。该函数通过递归遍历值返回**v**的JSON编码。'
 - en: '[PRE8]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**MarshalIndent**– Below is the signature of the **MarshalIndent** function.
     It is similar to **Marshal** function but applies Indent to format the output.
     So it can be used to pretty print a struct'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**MarshalIndent**– 以下是**MarshalIndent**函数的签名。它类似于**Marshal**函数，但应用了缩进以格式化输出。因此，可以用来美观地打印一个结构体。'
 - en: '[PRE9]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: It is to be noted that both **Marshal** and **MarshalIndent** function can only
     access the exported fields of a struct, which means that only the capitalized
     fields can be accessed and encoded in JSON form.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 需要注意的是，**Marshal**和**MarshalIndent**函数只能访问结构体的导出字段，这意味着只有以大写字母开头的字段才能被访问和编码为JSON格式。
 - en: '[PRE10]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output:**'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE11]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: The salary field is not printed in the output because it begins with a lowercase
     letter and is not exported. The **Marshal** function output is not formatted while
     the **MarshalIndent** function output is formatted.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 工资字段未在输出中打印，因为它以小写字母开头且未导出。**Marshal**函数的输出未经过格式化，而**MarshalIndent**函数的输出是格式化的。
 - en: '**golang** also allows the JSON encoded struct key name to be different by
     the use of struct meta fields. Let’s first understand what is struct meta fields.
     A struct in go also allows adding metadata to its fields. These meta fields can
     be used to encode decode into different forms, doing some forms of validations
     on struct fields, etc. So basically any meta information can be stored with fields
     of a struct and can be used by any package or library for different purposes.'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**golang** 还允许通过使用结构体元字段使JSON编码结构体的键名不同。我们先来理解一下什么是结构体元字段。在Go中，结构体也允许为其字段添加元数据。这些元字段可以用于编码解码成不同形式，对结构体字段进行某些形式的验证等。因此，基本上任何元信息都可以与结构体的字段存储，并可以被任何包或库用于不同的目的。'
 - en: Below is the format for attaching a meta-data. Meta-data is a string literal
     i.e it is enclosed in backquotes
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是附加元数据的格式。元数据是一个字符串文字，即它被反引号包围。
 - en: '[PRE12]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Now for our use case, we will add JSON tags to employee struct as below. Marshal
     function will use the key name specified in the tags
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在针对我们的用例，我们将为员工结构体添加JSON标签，如下所示。Marshal函数将使用标签中指定的键名。
 - en: '[PRE13]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Let’s see full program
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看完整的程序
 - en: '[PRE14]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output:**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE15]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: The key name in the output is the same as specified in the JSON meta tags.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出中的键名与JSON元标签中指定的相同。
 - en: '**Printing nested struct**'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '**打印嵌套结构体**'
 - en: Even if the struct contains another struct , same method as discussed above
     can be used to print the same
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 即使结构体包含另一个结构体，也可以使用上述讨论的方法打印相同内容。
 - en: '[PRE16]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Output**'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE17]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: This is all about printing a struct. I hope you have liked this article. Please
     share the feedback in the comments.
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于打印结构体的全部内容。希望你喜欢这篇文章。请在评论中分享反馈。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [pretty](https://golangbyexample.com/tag/pretty/)*'
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [pretty](https://golangbyexample.com/tag/pretty/)*'

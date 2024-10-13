@@ -1,123 +1,195 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:22:21'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:22:21
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Pointer vs Value Receiver in methods while implementing an interface in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中实现接口时，指针与值接收器的方法
 - en: 来源：[https://golangbyexample.com/pointer-vs-value-receiver-method-golang/](https://golangbyexample.com/pointer-vs-value-receiver-method-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/pointer-vs-value-receiver-method-golang/](https://golangbyexample.com/pointer-vs-value-receiver-method-golang/)
 - en: A method of a type can either have a pointer receiver or a value receiver. There
     is a caveat while pointer vs value receiver for methods of a type when that type
     implements an interface
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个类型的方法可以有指针接收器或值接收器。当该类型实现接口时，指针与值接收器有一些注意事项
 - en: If a type implements all methods of an interface using value receiver, then
     both value and pointer of that type can be used while assigning to that interface
     variable or while passing to a function which accept an argument as that interface.
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果一个类型使用值接收器实现了接口的所有方法，那么该类型的值和指针都可以用于赋值给该接口变量或传递给接受该接口作为参数的函数。
 - en: If a type implements all methods of an interface using pointer receiver, then
     the only pointer of that type can be used while assigning to that interface variable
     or while passing to a function that accepts an argument as that interface.
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果一个类型使用指针接收器实现了接口的所有方法，那么只有该类型的指针可以用于赋值给该接口变量或传递给接受该接口作为参数的函数。
 - en: Example to demonstrate the first point above
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例以演示上述第一个要点
 - en: Assume we have an interface **animal** as below
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有一个接口**动物**如下
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: We also have a **lion** struct implementing this **animal** interface
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们也有一个**狮子**结构体实现了这个**动物**接口
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Code**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The **lion** structs implement the **animal** interface using value receiver.
     Hence it works for both variables of type **lion** as well as a pointer to variable
     of type **lion**.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**狮子**结构体使用值接收器实现了**动物**接口。因此它适用于**狮子**类型的两个变量以及指向**狮子**类型变量的指针。'
 - en: This works
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 这样可以
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: as well as this
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 以及这个
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Example to demonstrate the second point above. The **lion** structs implements
     the **animal** interface using a pointer receiver. Hence it works only for the
     pointer to a variable of type **lion**.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例以演示上述第二个要点。**狮子**结构体使用指针接收器实现了**动物**接口。因此它仅适用于指向**狮子**类型变量的指针。
 - en: So this works
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以这样可以
 - en: '[PRE6]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: but this raises compilation error
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 但这会导致编译错误
 - en: '[PRE7]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '[PRE8]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: See full working code
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 查看完整工作代码
 - en: '[PRE9]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Uncomment the line
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 取消注释这一行
 - en: '[PRE10]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: and it will raise compilation error
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将导致编译错误
 - en: '[PRE11]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '[go](https://golangbyexample.com/tag/go/)'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)'

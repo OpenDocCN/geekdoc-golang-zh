@@ -1,65 +1,101 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:20:10'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:20:10'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Struct Field Meta or Tags in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的结构体字段元或标签
 - en: 来源：[https://golangbyexample.com/struct-field-meta-or-tags/](https://golangbyexample.com/struct-field-meta-or-tags/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/struct-field-meta-or-tags/](https://golangbyexample.com/struct-field-meta-or-tags/)
 - en: A struct in go also allows adding metadata to its fields. These meta fields
     can be used to encode decode into different forms, doing some forms of validations
     on struct fields, etc. So basically any meta information can be stored with fields
     of a struct and can be used by any package or library for different purposes.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: Go中的结构体也允许向其字段添加元数据。这些元字段可以用于编码解码成不同形式，对结构体字段进行某些形式的验证等。因此，基本上可以与结构体的字段一起存储任何元信息，并可以被任何包或库用于不同的目的。
 - en: Below is the format for attaching a meta-data. Meta-data is a string literal
     i.e it is enclosed in backquotes
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是附加元数据的格式。元数据是一个字符串字面量，即用反引号括起来。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s see an example of JSON meta or tags. **Marshal** and **MarshalIndent**
     function of **encoding/json** package can be used to print a struct in JSON format.
     These functions utilize the JSON meta tags of the struct fields while encoding
     decoding. While printing these tags will be used as the key names.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个JSON元或标签的示例。**Marshal**和**MarshalIndent**函数来自**encoding/json**包，可以用于以JSON格式打印结构体。这些函数在编码解码时利用结构体字段的JSON元标签。打印时，这些标签将用作键名。
 - en: Let’s add JSON tags to employee struct as below. **MarshalIndent** function
     will use the key name specified in the tags
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们给员工结构体添加JSON标签，如下所示。**MarshalIndent**函数将使用标签中指定的键名。
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s see full program
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看完整的程序
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The key name in the output is same as specified in the JSON meta tags.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出中的键名与JSON元标签中指定的相同。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)'

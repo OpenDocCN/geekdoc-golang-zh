@@ -1,84 +1,133 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:49:11'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:49:11
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: The nth digit in a sequence program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的第 n 位数字序列程序
 - en: 来源：[https://golangbyexample.com/nth-digit-sequence-golang/](https://golangbyexample.com/nth-digit-sequence-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/nth-digit-sequence-golang/](https://golangbyexample.com/nth-digit-sequence-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: Given an integer n find the nth digit in the infinite sequence {1, 2, 3, 4 …..
     infinity}
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个整数 n，找出无限序列 {1, 2, 3, 4 ….. 无限} 中的第 n 位数字。
 - en: Example
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The 14th digit of the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 … is a
     1, which is part of the number 12.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 序列 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 … 的第 14 位数字是 1，它是数字 12 的一部分。
 - en: Example 2
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例 2
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The 17th digit of the sequence 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 … is
     a 3, which is part of the number 13.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 序列 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 … 的第 17 位数字是 3，它是数字 13 的一部分。
 - en: '**Program**'
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是相同的程序。
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们努力涵盖所有概念及示例。本教程适合那些希望获得专业知识并深入理解 Golang
+    的人 – [Golang 综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，那么这篇文章就是为你准备的 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

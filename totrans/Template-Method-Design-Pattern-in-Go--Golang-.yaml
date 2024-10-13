@@ -1,159 +1,246 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:04:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:04:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Template Method Design Pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的模板方法设计模式（Golang）
 - en: 来源：[https://golangbyexample.com/template-method-design-pattern-golang/](https://golangbyexample.com/template-method-design-pattern-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/template-method-design-pattern-golang/](https://golangbyexample.com/template-method-design-pattern-golang/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：如果有兴趣了解其他所有设计模式在GO中如何实现，请查看这个完整参考 – [GO中的所有设计模式（Golang）](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction:](#Introduction "Introduction:")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍：](#Introduction "介绍：")'
 - en: '[Example](#Example "Example")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[例子](#Example "例子")'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction:**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "完整工作代码：")*  *# **介绍：**'
 - en: Template Method Design Pattern is a behavioral design pattern that lets you
     define a template or algorithm for a particular operation.  Let’s understand the
     template design pattern with an example.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 模板方法设计模式是一种行为设计模式，它让你为特定操作定义一个模板或算法。让我们通过一个例子来理解模板设计模式。
 - en: Consider the example of One Time Password or OTP. There are different types
     of OTP that can be triggered for eg. OTP can be **SMS** OTP or **EMAIL** OTP. 
     But irrespective it is an **SMS** OTP or **EMAIL** OTP,  the entire steps of the
     OTP process are the same.  The steps are
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 考虑一次性密码（OTP）的例子。有不同类型的OTP可以触发，例如OTP可以是**短信** OTP或**邮件** OTP。但无论是**短信** OTP还是**邮件**
+    OTP，整个OTP过程的步骤是相同的。步骤包括
 - en: Generate a random n digit number.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 生成一个随机的n位数字。
 - en: Save this number in the cache for later verification.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将此数字保存在缓存中以备后续验证。
 - en: Prepare the content
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 准备内容
 - en: Send the notification
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 发送通知
 - en: Publish the metrics
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 发布指标
 - en: Even in the future let’s say a push notification **OTP** is introduced but still
     it will go through the above steps.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 即使将来引入推送通知**OTP**，它仍然会经过上述步骤。
 - en: In such scenarios when the steps of a particular operation are the same but
     the steps of the operations can be implemented in a different way by different
     implementors , then that becomes a candidate for the Template Method Design Pattern.
     We define a template or algorithm which comprises of a fixed number of methods.
     The implementer of the operation overrides the methods of the template.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，当特定操作的步骤相同但不同实现者可以以不同方式实现这些步骤时，它就成为模板方法设计模式的候选者。我们定义一个包含固定数量方法的模板或算法。操作的实现者重写模板的方法。
 - en: Now check out the below code example.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在查看下面的代码示例。
 - en: '**iOtp** represents an interface that defines the set of methods that any otp
     type should implement'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**iOtp**代表一个定义任何OTP类型应该实现的方法集的接口。'
 - en: '**sms** and **email** are the implementors of **iOtp** interface'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**短信**和**邮件**是**iOtp**接口的实现者。'
 - en: '**otp** is the struct which defines the template method **genAndSendOTP().
     otp** embeds **iOtp** interface.'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**otp**是定义模板方法**genAndSendOTP()**的结构体，**otp**嵌入了**iOtp**接口。'
 - en: 'Important: The combination of iOtp interface and otp struct provides the capabilities
     of Abstract Class in go. For reference see'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 重要提示：**iOtp**接口和**otp**结构的组合提供了GO中的抽象类的能力。参考见
 - en: '[Abstract Class in GO: Complete Guide](https://golangbyexample.com/go-abstract-class/)'
+  id: totrans-25
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: '[GO中的抽象类：完整指南](https://golangbyexample.com/go-abstract-class/)'
 - en: '[https://golangbyexample.com/go-abstract-class/embed/#?secret=IJrupn5jVu#?secret=fqHnV3R5rZ](https://golangbyexample.com/go-abstract-class/embed/#?secret=IJrupn5jVu#?secret=fqHnV3R5rZ)'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golangbyexample.com/go-abstract-class/embed/#?secret=IJrupn5jVu#?secret=fqHnV3R5rZ](https://golangbyexample.com/go-abstract-class/embed/#?secret=IJrupn5jVu#?secret=fqHnV3R5rZ)'
 - en: '**Example**'
+  id: totrans-27
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**例子**'
 - en: '**otp.go**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**otp.go**'
 - en: '[PRE0]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**sms.go**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sms.go**'
 - en: '[PRE1]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**email.go**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**email.go**'
 - en: '[PRE2]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**main.go**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE3]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Full Working Code:**'
+  id: totrans-38
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE5]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[design](https://golangbyexample.com/tag/design/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [method](https://golangbyexample.com/tag/method/)*   [pattern](https://golangbyexample.com/tag/pattern/)*   [template](https://golangbyexample.com/tag/template/)*'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[设计](https://golangbyexample.com/tag/design/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [方法](https://golangbyexample.com/tag/method/)*   [模式](https://golangbyexample.com/tag/pattern/)*   [模板](https://golangbyexample.com/tag/template/)*'

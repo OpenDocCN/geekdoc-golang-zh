@@ -1,959 +1,1480 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:19:44'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:19:44
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Struct in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的结构
 - en: 来源：[https://golangbyexample.com/struct-in-golang-complete-guide/](https://golangbyexample.com/struct-in-golang-complete-guide/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/struct-in-golang-complete-guide/](https://golangbyexample.com/struct-in-golang-complete-guide/)
 - en: This is the  chapter 16 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是 golang 综合教程系列的第 16 章。有关系列其他章节，请参阅此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Array](https://golangbyexample.com/understanding-array-golang-complete-guid)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一教程** – [数组](https://golangbyexample.com/understanding-array-golang-complete-guid)'
 - en: '**Previous Tutorial** – [Pointer](https://golangbyexample.com/pointer-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [指针](https://golangbyexample.com/pointer-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前的教程。以下是当前教程的目录
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "概述")'
 - en: '[Declaring a struct type](#Declaring_a_struct_type "Declaring a struct type")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[声明一个结构类型](#Declaring_a_struct_type "声明一个结构类型")'
 - en: '[Creating a struct variable](#Creating_a_struct_variable "Creating a struct
     variable")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[创建一个结构变量](#Creating_a_struct_variable "创建一个结构变量")'
 - en: '[Accessing and Setting Struct Fields](#Accessing_and_Setting_Struct_Fields
     "Accessing and Setting Struct Fields")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[访问和设置结构字段](#Accessing_and_Setting_Struct_Fields "访问和设置结构字段")'
 - en: '[Pointer to a struct](#Pointer_to_a_struct "Pointer to a struct")'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[指向结构的指针](#Pointer_to_a_struct "指向结构的指针")'
 - en: '[Using the & operator](#Using_the_operator "Using the & operator")'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 & 运算符](#Using_the_operator "使用 & 运算符")'
 - en: '[Using the new keyword](#Using_the_new_keyword "Using the new keyword")'
+  id: totrans-17
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 new 关键字](#Using_the_new_keyword "使用 new 关键字")'
 - en: '[Print a Struct Variable](#Print_a_Struct_Variable "Print a Struct Variable")'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[打印结构变量](#Print_a_Struct_Variable "打印结构变量")'
 - en: '[Using the fmt package](#Using_the_fmt_package "Using the fmt package")'
+  id: totrans-19
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 fmt 包](#Using_the_fmt_package "使用 fmt 包")'
 - en: '[Printing the struct in JSON form](#Printing_the_struct_in_JSON_form "Printing
     the struct in JSON form")'
+  id: totrans-20
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[以 JSON 形式打印结构](#Printing_the_struct_in_JSON_form "以 JSON 形式打印结构")'
 - en: '[Struct Field Meta or Tags](#Struct_Field_Meta_or_Tags "Struct Field Meta or
     Tags")'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结构字段元数据或标签](#Struct_Field_Meta_or_Tags "结构字段元数据或标签")'
 - en: '[Anonymous Fields in a Struct](#Anonymous_Fields_in_a_Struct "Anonymous Fields
     in a Struct")'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结构中的匿名字段](#Anonymous_Fields_in_a_Struct "结构中的匿名字段")'
 - en: '[Nested Struct](#Nested_Struct "Nested Struct")'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[嵌套结构](#Nested_Struct "嵌套结构")'
 - en: '[Anonymous nested struct fields](#Anonymous_nested_struct_fields "Anonymous
     nested struct fields")'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[匿名嵌套结构字段](#Anonymous_nested_struct_fields "匿名嵌套结构字段")'
 - en: '[Exported and UnExported fields of a struct](#Exported_and_UnExported_fields_of_a_struct
     "Exported and UnExported fields of a struct")'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结构的导出和未导出字段](#Exported_and_UnExported_fields_of_a_struct "结构的导出和未导出字段")'
 - en: '[Struct Equality](#Struct_Equality "Struct Equality")'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结构相等性](#Struct_Equality "结构相等性")'
 - en: '[Struct are value types](#Struct_are_value_types "Struct are value types")'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结构是值类型](#Struct_are_value_types "结构是值类型")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "结论") *  * # **概述**'
 - en: GO struct is named collection of data fields which can be of different types.
     Struct acts as a container that has different heterogeneous data types which together
     represents an entity. For example, different attributes are used to represent
     an employee in an organization. Employee can have
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: GO 结构是不同类型数据字段的命名集合。结构作为一个容器，包含不同的异构数据类型，代表一个实体。例如，不同的属性用于表示一个组织中的员工。员工可以具有
 - en: Name of string type
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 字符串类型的名称
 - en: Age of int type
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: int 类型的年龄
 - en: DOB of time.Time type
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: time.Time 类型的出生日期
 - en: Salary of int type
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: int 类型的薪水
 - en: .. and so on. A struct can be used to represent an employee
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: ..等等。结构可以用来表示一个员工
 - en: '[PRE0]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: A struct in golang can be compared to a class in Object Oriented Languages
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: golang 中的结构可以与面向对象语言中的类相比较
 - en: '**Declaring a struct type**'
+  id: totrans-37
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**声明一个结构类型**'
 - en: Below is the format for declaring a struct
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是声明结构的格式
 - en: '[PRE1]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above format, **struct_name** is the name of the struct. It has a field
     named **field_name1** of type **field_type1** and a field named **field_name2**
     of type **field_type2**. This declares a new named struct type which acts as a
     blueprint. The type keyword is used to introduce a new type
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述格式中，**struct_name**是结构体的名称。它有一个名为**field_name1**的字段，类型为**field_type1**，还有一个名为**field_name2**的字段，类型为**field_type2**。这声明了一个新的命名结构体类型，作为蓝图。类型关键字用于引入新类型。
 - en: Example
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE2]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: The above declaration declares a new struct named **point** which has two field
     **x** and **y**. Both fields are of **float64** type.Once a new struct type is
     declared we can define new concrete struct variable from it as we will see in
     next section
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述声明定义了一个名为**point**的新结构体，具有两个字段**x**和**y**。这两个字段都是**float64**类型。一旦声明了新的结构体类型，我们可以从中定义新的具体结构体变量，如我们将在下一节看到的那样。
 - en: '**Creating a struct variable**'
+  id: totrans-44
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**创建一个结构体变量**'
 - en: Declaring a struct just declares a named struct type. Creating a struct variable
     creates an instance of that struct with memory being initialized as well. We can
     create a empty struct variable without given any value to any of the field
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 声明一个结构体仅声明一个命名的结构体类型。创建一个结构体变量则创建了该结构体的实例，同时也初始化了内存。我们可以创建一个空的结构体变量，而不为任何字段提供值。
 - en: '[PRE3]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In this case, all the fields in the struct are initialized with a default zero
     value of that field type.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，结构体中的所有字段都被初始化为该字段类型的默认零值。
 - en: We can also initialize the value for each struct field while creating a struct
     variable. There are two variations
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 在创建结构体变量时，我们也可以初始化每个结构体字段的值。有两种变体。
 - en: Each field on the same line
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个字段在同一行上。
 - en: '[PRE4]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Each field on different lines
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个字段在不同的行上。
 - en: '[PRE5]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It is also ok to initialize only some of the fields with value. The field which
     are not initialized with value will get the default zero value of their type
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 只初始化某些字段的值也是可以的。未初始化的字段将获得其类型的默认零值。
 - en: '[PRE6]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: In above case salary will get default value of zero since it is not initialized
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述情况下，由于未初始化，薪水将获得默认值零。
 - en: 'Let’s see a working code illustrating above points:'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个工作代码，说明上述要点：
 - en: '[PRE7]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: For above program
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 针对上述程序。
 - en: We first declare an **employee** struct.
+  id: totrans-61
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们首先声明一个**employee**结构体。
 - en: emp1’s fields are all initialized with default zero value of its type i.e name
     with “”, age and salary with 0.
+  id: totrans-62
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: emp1的所有字段都被初始化为其类型的默认零值，即姓名为“”，年龄和薪水为0。
 - en: emp2 has been initialized with all fields on the same line. Its fields are correctly
     printed with their value
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: emp2已在同一行上初始化了所有字段。其字段的值被正确打印。
 - en: emp3’s has been initialized with all fields on different lines. Its fields are
     correctly printed with their value
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: emp3的所有字段在不同的行上初始化。其字段的值被正确打印。
 - en: emp4’s salary field is initialized with default zero value of 0\. While other
     other two fields are correctly printed with their value.
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: emp4的薪水字段被初始化为默认的零值0，而其他两个字段的值则被正确打印。
 - en: It is to be noted that in the initialization of a struct, every new line with
     in curly braces has to end with a comma. So below initialization will raise error
     as
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 需要注意的是，在结构体的初始化中，每个新行在花括号内必须以逗号结尾。因此，下面的初始化将引发错误。
 - en: '[PRE9]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: doesn’t end with a comma.
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 不以逗号结尾。
 - en: '[PRE10]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: This will be fine
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将是可以的。
 - en: '[PRE11]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Without field names**'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '**不带字段名称**'
 - en: struct can also be initialized without specifying the field names. But in this
     case, all values for each of the field has to be provided in sequence
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体也可以在不指定字段名称的情况下进行初始化。但在这种情况下，必须按顺序提供每个字段的所有值。
 - en: '[PRE12]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: A compiler error will be raised if all values are not provided when field name
     is not used.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果在不使用字段名称时未提供所有值，将引发编译错误。
 - en: Let’s see a program
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序。
 - en: '[PRE13]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output**'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE14]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Uncomment the line
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 取消注释该行。
 - en: '[PRE15]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: in the above program, and it will raise compiler error
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，它将引发编译器错误。
 - en: '[PRE16]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Accessing and Setting Struct Fields**'
+  id: totrans-84
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**访问和设置结构体字段**'
 - en: Structs fields can be accessed using the dot operator. Below is the format for
     getting the value
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体字段可以通过点运算符访问。获取值的格式如下。
 - en: '[PRE17]'
+  id: totrans-86
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Similarly a value can be assigned to a struct field too.
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样，也可以为结构体字段分配一个值。
 - en: '[PRE18]'
+  id: totrans-88
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '[PRE19]'
+  id: totrans-89
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**Output**'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE20]'
+  id: totrans-91
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Pointer to a struct**'
+  id: totrans-92
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**指向结构体的指针**'
 - en: Thereare two ways of creating a pointer to the struct
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建指向结构体的指针有两种方法。
 - en: Using the & operator
+  id: totrans-94
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用&运算符。
 - en: Using the new keyword
+  id: totrans-95
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用new关键字。
 - en: Let’s looks at each of above method one by one.
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐一查看上述每种方法。
 - en: '**Using the & operator**'
+  id: totrans-97
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用&运算符**'
 - en: The **&** operator can be used to get the pointer to a struct variable.
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: '**&**运算符可用于获取指向结构体变量的指针。'
 - en: '[PRE21]'
+  id: totrans-99
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: struct pointer can also be directly created as well
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体指针也可以直接创建
 - en: '[PRE22]'
+  id: totrans-101
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: Let’s look at a program
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个程序
 - en: '[PRE23]'
+  id: totrans-103
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Output**'
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE24]'
+  id: totrans-105
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Using the new keyword**'
+  id: totrans-106
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用new关键字**'
 - en: 'Using the  new() keyword will:'
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用new()关键字将：
 - en: Create the struct
+  id: totrans-108
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建结构体
 - en: Initialize all the field to the zero default value of their type
+  id: totrans-109
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将所有字段初始化为其类型的零默认值
 - en: Return the pointer to the newly created struct
+  id: totrans-110
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 返回指向新创建结构体的指针
 - en: This will return a pointer
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将返回一个指针
 - en: '[PRE25]'
+  id: totrans-112
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: Pointer address can be print using the **%p** format modifier
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以使用**%p**格式修饰符打印指针地址
 - en: '[PRE26]'
+  id: totrans-114
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: Deference operator ‘*’ can be used to print the value at the pointer.
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
+  zh: 解引用运算符‘*’可以用于打印指针所指向的值。
 - en: '[PRE27]'
+  id: totrans-116
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: It will print
+  id: totrans-117
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将打印
 - en: '[PRE28]'
+  id: totrans-118
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: When not using the dereference pointer but using the format identifier**%+v,**
     then ampersand will be appended before the struct indicating that is a pointer.
+  id: totrans-119
   prefs: []
   type: TYPE_NORMAL
+  zh: 当不使用解引用指针而是使用格式标识符**%+v**时，将在结构体前添加一个&符号，表明这是一个指针。
 - en: '[PRE29]'
+  id: totrans-120
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: It will print
+  id: totrans-121
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将打印
 - en: '[PRE30]'
+  id: totrans-122
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: Let’s see full program denoting above points
+  id: totrans-123
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看完整程序以说明上述要点
 - en: '[PRE31]'
+  id: totrans-124
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE31]'
 - en: '**Output**'
+  id: totrans-125
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE32]'
+  id: totrans-126
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE32]'
 - en: '**Print a Struct Variable**'
+  id: totrans-127
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**打印一个结构体变量**'
 - en: Thereare two ways to print all struct variables including all its key and values.
+  id: totrans-128
   prefs: []
   type: TYPE_NORMAL
+  zh: 有两种方法可以打印所有结构体变量，包括所有的键和值。
 - en: Using the **fmt** package
+  id: totrans-129
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用**fmt**包
 - en: Printing the struct in JSON form using the **json/encoding** package. This also
     allows pretty print of a struct as well.
+  id: totrans-130
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用**json/encoding**包以JSON形式打印结构体。这也允许以美观的方式打印结构体。
 - en: Let’s see the two ways in which we can print the instance of the employee struct.
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看两种打印员工结构体实例的方法。
 - en: '**Using the fmt package**'
+  id: totrans-132
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用fmt包**'
 - en: '**fmt.Printf()** function can be used to print a struct.  Different format
     identifiers can be used to print a struct in different ways. Let’s see how different
     format identifiers can be used to print a struct in different formats.'
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: '**fmt.Printf()**函数可以用来打印结构体。可以使用不同的格式标识符以不同方式打印结构体。让我们看看如何使用不同的格式标识符以不同格式打印结构体。'
 - en: Let’s first create an instance of employee
+  id: totrans-134
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们首先创建一个员工实例
 - en: '[PRE33]'
+  id: totrans-135
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE33]'
 - en: '**%v** – It will print only values. Field name will not be printed. This is
     the default way of printing a struct. Eg'
+  id: totrans-136
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%v** – 它将只打印值。字段名称将不会被打印。这是打印结构体的默认方式。例如'
 - en: '[PRE34]'
+  id: totrans-137
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE34]'
 - en: '**%+v –** It will print both field and value. Eg'
+  id: totrans-138
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%+v –** 它将同时打印字段和值。例如'
 - en: '[PRE35]'
+  id: totrans-139
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE35]'
 - en: '**fmt.Println()** function can also be used to print a struct. Since %v is
     the default for **fmt.Printlin()** function, hence output will be same as using
     %v for **fmt.Printf()**'
+  id: totrans-140
   prefs: []
   type: TYPE_NORMAL
+  zh: '**fmt.Println()**函数也可以用于打印结构体。由于%v是**fmt.Println()**函数的默认格式，因此输出将与使用%v的**fmt.Printf()**相同。'
 - en: '[PRE36]'
+  id: totrans-141
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE36]'
 - en: Let’s see a working program too
+  id: totrans-142
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们也看看一个工作程序
 - en: '[PRE37]'
+  id: totrans-143
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE37]'
 - en: '**Output**'
+  id: totrans-144
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE38]'
+  id: totrans-145
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE38]'
 - en: '**Printing the struct in JSON form**'
+  id: totrans-146
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**以JSON格式打印结构体**'
 - en: Second method is to print the struct in the JSON format. **Marshal** and **MarshalIndent**
     function of **encoding/json** package can be used to print a struct in JSON format.
     Here is the difference
+  id: totrans-147
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二种方法是以JSON格式打印结构体。**encoding/json**包的**Marshal**和**MarshalIndent**函数可以用来以JSON格式打印结构体。这里是区别
 - en: '**Marshal** – Below is the signature of the **Marshal** function. This function
     returns the JSON encoding of **v** by traversing the value recursively'
+  id: totrans-148
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Marshal** – 以下是**Marshal**函数的签名。该函数通过递归遍历值返回**v**的JSON编码。'
 - en: '[PRE39]'
+  id: totrans-149
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE39]'
 - en: '**MarshalIndent**– Below is the signature of the **MarshalIndent** function.
     It is similar to **Marshal** function but applies Indent to format the output.
     So it can be used to pretty print a struct'
+  id: totrans-150
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**MarshalIndent**– 以下是**MarshalIndent**函数的签名。它与**Marshal**函数相似，但应用缩进来格式化输出。因此可以用于美观地打印结构体。'
 - en: '[PRE40]'
+  id: totrans-151
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE40]'
 - en: It is to be noted that both **Marshal** and **MarshalIndent** function can only
     access the exported fields of a struct, which means that only the capitalized
     fields can be accessed and encoded in JSON form.
+  id: totrans-152
   prefs: []
   type: TYPE_NORMAL
+  zh: 值得注意的是，**Marshal**和**MarshalIndent**函数只能访问结构体的导出字段，这意味着只有大写字段才能被访问并编码为JSON格式。
 - en: '[PRE41]'
+  id: totrans-153
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE41]'
 - en: '**Output:**'
+  id: totrans-154
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE42]'
+  id: totrans-155
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE42]'
 - en: The salary field is not printed in the output because it begins with a lowercase
     letter and is not exported. The **Marshal** function output is not formatted while
     the **MarshalIndent** function output is formatted.
+  id: totrans-156
   prefs: []
   type: TYPE_NORMAL
+  zh: 薪资字段在输出中没有被打印，因为它以小写字母开头并且没有导出。**Marshal**函数的输出没有格式化，而**MarshalIndent**函数的输出是格式化的。
 - en: '**golang** also allows the JSON encoded struct key name to be different by
     the use of struct meta fields as will see in the next section.'
+  id: totrans-157
   prefs: []
   type: TYPE_NORMAL
+  zh: '**golang**还允许通过使用结构体元字段来使JSON编码的结构体键名不同，如下一节所示。'
 - en: '**Struct Field Meta or Tags**'
+  id: totrans-158
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结构体字段的元信息或标签**'
 - en: A struct in go also allows adding metadata to its fields. These meta fields
     can be used to encode decode into different forms, doing some forms of validations
     on struct fields, etc. So basically any meta information can be stored with fields
     of a struct and can be used by any package or library for different purposes.
+  id: totrans-159
   prefs: []
   type: TYPE_NORMAL
+  zh: Go中的结构体也允许为其字段添加元数据。这些元字段可以用于编码解码成不同形式，对结构体字段进行某些形式的验证等。因此，任何元信息都可以与结构体的字段一起存储，并可供任何包或库用于不同目的。
 - en: Below is the format for attaching a meta-data. Meta-data is a string literal
     i.e it is enclosed in backquotes
+  id: totrans-160
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是附加元数据的格式。元数据是字符串字面量，即用反引号括起来。
 - en: '[PRE43]'
+  id: totrans-161
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE43]'
 - en: Now for our use case, we will add JSON tags to employee struct as below. Marshal
     function will use the key name specified in the tags
+  id: totrans-162
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在针对我们的用例，我们将为employee结构体添加JSON标签如下。Marshal函数将使用标签中指定的键名。
 - en: '[PRE44]'
+  id: totrans-163
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE44]'
 - en: Let’s see full program
+  id: totrans-164
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看完整的程序。
 - en: '[PRE45]'
+  id: totrans-165
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE45]'
 - en: '**Output:**'
+  id: totrans-166
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE46]'
+  id: totrans-167
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE46]'
 - en: The key name in the output is same as specified in the json meta tags.
+  id: totrans-168
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出中的键名与json元标签中指定的相同。
 - en: '**Anonymous Fields in a Struct**'
+  id: totrans-169
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结构体中的匿名字段**'
 - en: Astruct can have anonymous fields as well, meaning a field having no name. The
     type will become the field name. In below example, **string** will be the field
     name as well
+  id: totrans-170
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体可以有匿名字段，也就是说一个字段没有名称。类型将成为字段名称。在下面的例子中，**string**也将是字段名称。
 - en: '[PRE47]'
+  id: totrans-171
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE47]'
 - en: The anonymous field can also be accessed and assigned a value
+  id: totrans-172
   prefs: []
   type: TYPE_NORMAL
+  zh: 匿名字段也可以被访问并赋值。
 - en: '[PRE48]'
+  id: totrans-173
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE48]'
 - en: '**Output**'
+  id: totrans-174
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE49]'
+  id: totrans-175
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE49]'
 - en: '**Nested Struct**'
+  id: totrans-176
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**嵌套结构体**'
 - en: A struct can have another struct nested in it. Let’s see an example of a nested
     struct. In below **employee** struct has **address** struct nested it in.
+  id: totrans-177
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体可以嵌套另一个结构体。让我们看看嵌套结构体的一个例子。在下面的**employee**结构体中嵌套了**address**结构体。
 - en: '[PRE50]'
+  id: totrans-178
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE50]'
 - en: '**Output**'
+  id: totrans-179
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE51]'
+  id: totrans-180
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE51]'
 - en: Notice how nested struct fields are accessed.
+  id: totrans-181
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意如何访问嵌套结构体字段。
 - en: '[PRE52]'
+  id: totrans-182
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE52]'
 - en: '**Anonymous nested struct fields**'
+  id: totrans-183
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**匿名嵌套结构体字段**'
 - en: The nested struct field can also be anonymous. Also, in this case, nested struct’s
     fields are directly accessed. So below is valid
+  id: totrans-184
   prefs: []
   type: TYPE_NORMAL
+  zh: 嵌套结构体字段也可以是匿名的。在这种情况下，可以直接访问嵌套结构体的字段。所以下面的写法是有效的。
 - en: '[PRE53]'
+  id: totrans-185
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE53]'
 - en: It is also to be noted that below is still valid in this case
+  id: totrans-186
   prefs: []
   type: TYPE_NORMAL
+  zh: 还需注意，下面的写法在这种情况下仍然有效。
 - en: '[PRE54]'
+  id: totrans-187
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE54]'
 - en: Let’s see a program
+  id: totrans-188
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序。
 - en: '[PRE55]'
+  id: totrans-189
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE55]'
 - en: '**Output**'
+  id: totrans-190
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE56]'
+  id: totrans-191
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE56]'
 - en: Notice in above program that city field of address struct can be accessed in
     two ways
+  id: totrans-192
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意上面的程序，地址结构体的城市字段可以通过两种方式访问。
 - en: '[PRE57]'
+  id: totrans-193
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE57]'
 - en: Similar for the country field of the address struct.
+  id: totrans-194
   prefs: []
   type: TYPE_NORMAL
+  zh: 地址结构体的国家字段也是类似的。
 - en: '**Exported and UnExported fields of a struct**'
+  id: totrans-195
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结构体的导出和未导出字段**'
 - en: Go doesn’t have any public,  private or protected keyword. The only mechanism
     to control the visibility outside the package is using the capitalized and non-capitalized
     formats
+  id: totrans-196
   prefs: []
   type: TYPE_NORMAL
+  zh: Go没有任何公共、私有或受保护的关键字。控制包外可见性的唯一机制是使用大写和小写格式。
 - en: '**Capitalized Identifiers** are exported. The capital letter indicates that
     this is an exported identifier and is available outside the package.'
+  id: totrans-197
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**大写标识符**是导出的。大写字母表示这是一个导出标识符，并且在包外可用。'
 - en: '**Non-capitalized identifiers **are not exported. The lowercase indicates that
     the identifier is not exported and will only be accessed from within the same
     package.'
+  id: totrans-198
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**小写标识符**不被导出。小写表示该标识符未被导出，只能在同一包内访问。'
 - en: So any struct which starts with a capital letter is exported to other packages. 
     Similarly any struct field which starts with capital is exported otherwise not.
     Let’s see an example that shows exporting and non-exporting of structs and struct
     fields. See **model.go** and **test.go** below. Both belong to the **main** package.
+  id: totrans-199
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有以大写字母开头的结构体将被导出到其他包。同样，任何以大写字母开头的结构体字段将被导出，否则不会。让我们看看一个示例，展示结构体和结构体字段的导出与未导出。请参见下面的**model.go**和**test.go**。两者都属于**主**包。
 - en: Structure
+  id: totrans-200
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构
 - en: Struct **Person** is exported
+  id: totrans-201
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体**Person**是导出的。
 - en: Struct **company** is non-exported
+  id: totrans-202
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体**公司**未被导出。
 - en: Structure’s Field
+  id: totrans-203
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体的字段
 - en: '**Person** struct field **Name** is exported'
+  id: totrans-204
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person**结构体字段**Name**是导出的。'
 - en: '**Person** struct field **age** is not exported but **Name** is exported'
+  id: totrans-205
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person**结构体字段**age**未被导出，但**Name**是导出的。'
 - en: '**model.go**'
+  id: totrans-206
   prefs: []
   type: TYPE_NORMAL
+  zh: '**model.go**'
 - en: '[PRE58]'
+  id: totrans-207
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE58]'
 - en: Let’s write a file **test.go** in same **main** package. See below.
+  id: totrans-208
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在同一**主**包中写一个文件**test.go**。请看下面。
 - en: '**test.go**'
+  id: totrans-209
   prefs: []
   type: TYPE_NORMAL
+  zh: '**test.go**'
 - en: '[PRE59]'
+  id: totrans-210
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE59]'
 - en: On running this file, it is able to access all exported and un-exported fields
     in **model.go** as both lies in the same package **main**. There is no compilation
     error and it gives below output
+  id: totrans-211
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行该文件时，它能够访问**model.go**中的所有导出和未导出字段，因为两者都位于同一**主**包中。没有编译错误，并且输出如下。
 - en: '**Output:**'
+  id: totrans-212
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE60]'
+  id: totrans-213
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE60]'
 - en: Let’s move the above file **model.go** to a different package named **model.**
     Now notice the output on running ‘go build’. It gives compilation errors. All
     the compilation error are because **test.go** in **main** package to not able
     to refer to un-exported fields of **model.go** in **model** package
+  id: totrans-214
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们将上述文件**model.go**移动到一个名为**model**的不同包中。现在注意运行‘go build’时的输出。它会出现编译错误。所有的编译错误都是因为**main**包中的**test.go**无法引用**model**包中**model.go**的未导出字段。
 - en: '**model.go**'
+  id: totrans-215
   prefs: []
   type: TYPE_NORMAL
+  zh: '**model.go**'
 - en: '[PRE61]'
+  id: totrans-216
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE61]'
 - en: '**test.go**'
+  id: totrans-217
   prefs: []
   type: TYPE_NORMAL
+  zh: '**test.go**'
 - en: '[PRE62]'
+  id: totrans-218
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE62]'
 - en: '**Output:**'
+  id: totrans-219
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE63]'
+  id: totrans-220
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE63]'
 - en: '**Struct Equality**'
+  id: totrans-221
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结构体相等性**'
 - en: The first thing to know before considering struct equality is weather if all
     struct fields types are comparable or not
+  id: totrans-222
   prefs: []
   type: TYPE_NORMAL
+  zh: 在考虑结构体相等性之前，首先要了解的是所有结构体字段类型是否可比较。
 - en: Some of the comparable types as defined by go specification are
+  id: totrans-223
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据Go规范定义的一些可比较类型有：
 - en: boolean
+  id: totrans-224
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 布尔值
 - en: numeric
+  id: totrans-225
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 数字
 - en: string,
+  id: totrans-226
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 字符串，
 - en: pointer
+  id: totrans-227
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 指针
 - en: channel
+  id: totrans-228
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 通道
 - en: interface types
+  id: totrans-229
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接口类型
 - en: structs – if all it’s field type is comparable
+  id: totrans-230
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体 – 如果其所有字段类型是可比较的。
 - en: array – if the type of value of array element is comparable
+  id: totrans-231
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 数组 – 如果数组元素的值类型是可比较的。
 - en: Some of the types which are not comparable as per go specification and which
     cannot be used as a key in a map are.
+  id: totrans-232
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据Go规范，某些类型不可比较，不能用作映射的键：
 - en: Slice
+  id: totrans-233
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 切片
 - en: Map
+  id: totrans-234
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 映射
 - en: Function
+  id: totrans-235
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数
 - en: So two struct will be equal if first all their field types are comparable and
     all the corresponding field values are equal. Let’s see an example
+  id: totrans-236
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，如果两个结构体的所有字段类型都是可比较的，且所有对应字段的值相等，则它们是相等的。让我们看一个例子。
 - en: '[PRE64]'
+  id: totrans-237
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE64]'
 - en: '**Output**'
+  id: totrans-238
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE65]'
+  id: totrans-239
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE65]'
 - en: If the struct field type are not comparable then there will be compilation error
     on checking struct equality using the == operator.
+  id: totrans-240
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果结构体字段类型不可比较，那么在使用==运算符检查结构体相等性时会出现编译错误。
 - en: '[PRE66]'
+  id: totrans-241
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE66]'
 - en: Above program will raise compilation error as **employee** struct contains a
     field **deparments** which is a **slice** of **string**. **slice** is not a comparable
     type and hence the compilation error.
+  id: totrans-242
   prefs: []
   type: TYPE_NORMAL
+  zh: 上面的程序会引发编译错误，因为**employee**结构体包含一个字段**departments**，它是**字符串**的一个**切片**。**切片**不是可比较类型，因此导致编译错误。
 - en: '[PRE67]'
+  id: totrans-243
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE67]'
 - en: '**Struct are value types**'
+  id: totrans-244
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结构体是值类型**'
 - en: A struct is value type in go. So a struct variable name is not a pointer to
     the struct in fact it denotes the entire struct. A new copy of the struct will
     be created when
+  id: totrans-245
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体是Go中的值类型。因此，结构体变量名并不是指向结构体的指针，而是表示整个结构体。当
 - en: A struct variable is assigned to another struct variable.
+  id: totrans-246
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个结构体变量被赋值给另一个结构体变量。
 - en: A struct variable is passed as an argument to a function.
+  id: totrans-247
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个结构体变量作为参数传递给一个函数。
 - en: Let’s see above point with another example
+  id: totrans-248
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们通过另一个例子来看上面的要点。
 - en: '[PRE68]'
+  id: totrans-249
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE68]'
 - en: '**Output**'
+  id: totrans-250
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE69]'
+  id: totrans-251
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE69]'
 - en: In above example,
+  id: totrans-252
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的例子中，
 - en: we assigned the **emp1** to **emp2** and we then changed name  **emp2** to have
     a different value.  After that when we print **emp1**, we see that it hasn’t changed.
     This is because when we assign **emp1** to **emp2**, a copy is created and changing
     **emp2** doesn’t have any effect on **emp1**
+  id: totrans-253
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将**emp1**赋值给**emp2**，然后更改**emp2**的名称为不同的值。之后，当我们打印**emp1**时，发现它没有变化。这是因为当我们将**emp1**赋值给**emp2**时，会创建一个副本，改变**emp2**不会对**emp1**产生任何影响。
 - en: We passed **emp1** to the test function and then again changed its **name**
     field in the test function.  After that when we print **emp1**, we see that it
     hasn’t changed. The reason is same, when **emp1** is passed as an argument to
     test function a copy of **emp1** is created.
+  id: totrans-254
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将**emp1**传递给测试函数，然后又在测试函数中更改了它的**name**字段。之后，当我们打印**emp1**时，发现它没有变化。原因是，当**emp1**作为参数传递给测试函数时，创建了**emp1**的副本。
 - en: '**Conclusion**'
+  id: totrans-255
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about struct in golang. In this article, we learned different ways
     of initializing a struct, pointer to struct, different ways of printing, about
     anonymous fields, etc. I hope you have liked this article. Please share the feedback/improvements/mistakes
     in the comments.
+  id: totrans-256
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于Go语言中的结构体的全部内容。在这篇文章中，我们学习了初始化结构体、指向结构体的指针、不同的打印方式、匿名字段等。我希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Array](https://golangbyexample.com/understanding-array-golang-complete-guid)'
+  id: totrans-257
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一篇教程** – [数组](https://golangbyexample.com/understanding-array-golang-complete-guid)'
 - en: '**Previous Tutorial** – [Pointer](https://golangbyexample.com/pointer-golang/)'
+  id: totrans-258
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一篇教程** – [指针](https://golangbyexample.com/pointer-golang/)'
 - en: '[complete guide](https://golangbyexample.com/tag/complete-guide/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-259
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整指南](https://golangbyexample.com/tag/complete-guide/) *   [go](https://golangbyexample.com/tag/go/)
+    *   [golang](https://golangbyexample.com/tag/golang/) *'

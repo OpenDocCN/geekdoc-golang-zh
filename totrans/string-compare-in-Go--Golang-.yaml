@@ -1,78 +1,122 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '类别: 未分类'
 - en: 'date: 2024-10-13 06:11:51'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:51
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: string compare in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的字符串比较
 - en: 来源：[https://golangbyexample.com/compare-two-strings-golang/](https://golangbyexample.com/compare-two-strings-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/compare-two-strings-golang/](https://golangbyexample.com/compare-two-strings-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码:](#Code "代码:")*  *# **概述**'
 - en: In Golang string are UTF-8 encoded. **strings** package of GO provides a **Compare**
     method that can be used to compare two strings in Go. Note that this method compares
     strings lexicographically.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中，字符串是UTF-8编码的。GO的**strings**包提供了一个**Compare**方法，可以用来比较Go中的两个字符串。请注意，这个方法是按字典顺序比较字符串的。
 - en: Below is the signature of the function
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: As you can notice the return value of the Compare function is an int. This value
     will be
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如您所注意到的，Compare函数的返回值是一个整数。这个值将是
 - en: 0 if a==b
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 a==b 则返回 0
 - en: -1 if a < b
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 a < b 则返回 -1
 - en: +1 if a > b
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 a > b 则返回 +1
 - en: So if the return value is 0 then the two strings are equal. Let’s look at a
     working program
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，如果返回值为0，则两个字符串相等。让我们来看一个工作程序。
 - en: '**Code:**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码:**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出:**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[compare](https://golangbyexample.com/tag/compare/)*   [two strings](https://golangbyexample.com/tag/two-strings/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[比较](https://golangbyexample.com/tag/compare/)*   [两个字符串](https://golangbyexample.com/tag/two-strings/)*'

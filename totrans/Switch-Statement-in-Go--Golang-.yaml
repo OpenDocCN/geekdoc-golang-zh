@@ -1,357 +1,554 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:18:12'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:18:12
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Switch Statement in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的 Switch 语句。
 - en: 来源：[https://golangbyexample.com/switch-statement-golang/](https://golangbyexample.com/switch-statement-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/switch-statement-golang/](https://golangbyexample.com/switch-statement-golang/)
 - en: This is the  chapter 13 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是 golang 综合教程系列的第 13 章。有关系列的其他章节，请参考这个链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Defer keyword](https://golangbyexample.com/defer-golang)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [延迟关键字](https://golangbyexample.com/defer-golang)'
 - en: '**Previous Tutorial** – [If Else](https://golangbyexample.com/understand-if-else-statement-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [如果则](https://golangbyexample.com/understand-if-else-statement-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前的教程。以下是当前教程的目录。
 - en: '**Overview**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**概述**'
 - en: Switch statement are a perfect way to prevent a if-else ladder. Here is the
     format for switch statement
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: Switch 语句是防止 if-else 梯形结构的完美方法。以下是 switch 语句的格式。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This is how switch works. Give a **switch expression**, it goes through all
     cases and tries to find the first **case expression** that matches the **switch
     expression** otherwise the default case is executed if present. The order of matching
     is from top to bottom and then left to right (when the case contains multiple
     expressions as we will see later in this tutorial).
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是 switch 的工作方式。给定一个 **switch 表达式**，它会遍历所有 case，尝试找到第一个匹配的 **case 表达式**，否则如果存在则执行默认
+    case。匹配的顺序是从上到下，然后从左到右（当 case 包含多个表达式时，如我们将在本教程后面看到的）。
 - en: '**Important Points**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**重要事项**'
 - en: Some important things to know about switch before we move to code examples
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们进入代码示例之前，有一些关于 switch 的重要信息需要了解。
 - en: Both **switch statement** and **switch expression** are optional statement.
     So four possible scenario exist for them
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**switch 语句** 和 **switch 表达式** 都是可选的语句。因此，它们存在四种可能的情况。'
 - en: Both **switch statement** and **switch expression** are present
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 同时存在 **switch 语句** 和 **switch 表达式**。
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Only **switch statement** is present. Notice the syntax below. Semicolon needs
     to be present after **switch statement**
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 只有 **switch 语句**。请注意下面的语法。在 **switch 语句**后面需要有分号。
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Only **switch expression** is present. Notice the syntax below. No semicolon
     after **switch expression**.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 只有 **switch 表达式**。请注意下面的语法。在 **switch 表达式**后面没有分号。
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Both **switch statement** and **switch expression** are absent.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**switch 语句** 和 **switch 表达式** 都缺失。'
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: If the **switch expression** is not provided then the default type assumed by
     the compiler is **boolean**.
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果未提供 **switch 表达式**，则编译器假定的默认类型是 **布尔**。
 - en: The type of **switch expression** and all of **case expression*** should match
     other wise there will be a compiler error raised. When **switch expression** is
     not provided the type of all **case expression*** needs to be a boolean too.
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**switch 表达式** 的类型和所有 **case 表达式** 的类型应该匹配，否则会产生编译错误。当 **switch 表达式** 未提供时，所有
+    **case 表达式** 的类型也需要是布尔值。'
 - en: '**switch statement** can be any statement with a short declaration, function
     call or assignment. If **switch statement** has a variable declaration then the
     scope of that variable is limited to the switch block'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**switch 语句** 可以是带有短声明、函数调用或赋值的任何语句。如果 **switch 语句** 包含变量声明，则该变量的作用域仅限于 switch
+    块。'
 - en: It can have any number of case statement
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它可以有任意数量的 case 语句。
 - en: default case is optional
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 默认 case 是可选的。
 - en: case can have multiple expression separated by comma. Then case will look like
     as below
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: case 可以有多个用逗号分隔的表达式。然后 case 的样子如下。
 - en: '[PRE5]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: case block also allows **fallthrough** keyword which transfer control to the
     next case even though the current case might have matched
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: case 块还允许使用 **fallthrough** 关键字，该关键字将控制权转移到下一个 case，即使当前 case 可能已经匹配。
 - en: break statement that is needed in switch cases in many other languages is not
     needed in go. Go automatically provides a break statement at the end of each case
     block. However, it is also correct to explicitly use the **break** keyword which
     terminates execution out of switch statement.
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在许多其他语言中需要的 break 语句在 Go 中是不需要的。Go 自动在每个 case 块的末尾提供 break 语句。然而，显式使用 **break**
+    关键字来终止 switch 语句的执行也是正确的。
 - en: Two cases cannot have the same constant value. There will be a compiler error
     raised in that case.
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 两个 case 不能有相同的常量值。在这种情况下会产生编译错误。
 - en: switch statement can also be used as a type switch, where it is used to know
     the type of an empty interface at run time as we will see in examples below
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`switch` 语句也可以用作类型开关，用于在运行时知道空接口的类型，正如我们在下面的示例中看到的。'
 - en: '**Examples**'
+  id: totrans-36
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see some simple example which illustrates the points above.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一些简单的示例来说明上述要点。
 - en: '**Both switch statement and switch expression**'
+  id: totrans-38
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**缺少 `switch` 语句和 `switch` 表达式**'
 - en: '[PRE6]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: 'Some points to note:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些注意事项：
 - en: In the above example, we have switch statement having a short declaration.
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在上述示例中，我们有一个带有短声明的 `switch` 语句。
 - en: Then the switch case matches the switch expression which is “b” here.
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后，switch case 匹配了这里的 `switch` 表达式“b”。
 - en: Also, there can be multiple expression in the case, as we see above that second
     case has two expressions
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 此外，case 中可以有多个表达式，如上所示，第二个 case 有两个表达式。
 - en: '[PRE8]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**ch** variable is only available within **switch** block. Uncomment the line
     **fmt.Println(ch)** which is present outside switch block and it will raise an
     error'
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**ch** 变量仅在 **switch** 块内可用。取消注释位于 `switch` 块外的 **fmt.Println(ch)** 行，它将引发错误。'
 - en: '[PRE9]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Both switch statement and switch expression absent**'
+  id: totrans-49
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**缺少 `switch` 语句和 `switch` 表达式**'
 - en: Let’s see another example where we omit the **switch statement** as well as
     the **switch expression**
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看另一个示例，其中我们省略了 **switch 语句** 和 **switch 表达式**。
 - en: '[PRE10]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: 'Couple of points to notice about above example:'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于上述示例有几点需要注意：
 - en: Since we omitted the switch expression, the default type of switch expression
     is boolean. Each of the case expressions also evaluates to boolean hence the program
     works fine.
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 由于我们省略了 `switch` 表达式，`switch` 表达式的默认类型为布尔值。每个 case 表达式也评估为布尔值，因此程序运行正常。
 - en: Default case is executed in the above example as none of the case expression
     matched.
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 默认 case 在上述示例中执行，因为没有任何 case 表达式匹配。
 - en: '**Only switch statement**'
+  id: totrans-57
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**仅 `switch` 语句**'
 - en: Notice the **';'** after the statement
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意语句后面的 **';'**
 - en: '[PRE12]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output:**'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE13]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Only switch expression**'
+  id: totrans-62
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**仅 `switch` 表达式**'
 - en: '[PRE14]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output**'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE15]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Duplicate case**'
+  id: totrans-66
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**重复的 case**'
 - en: Two case statement cannot have the same constant. For example in below case
     there will be a compiler error raised as  "a"  is present in two case
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 两个 case 语句不能有相同的常量。例如，在下面的 case 中，会出现编译错误，因为 "a" 在两个 case 中都存在。
 - en: '[PRE16]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '[PRE17]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Fallthrough keyword**'
+  id: totrans-70
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**Fallthrough 关键字**'
 - en: See below code for **fallthrough** keyword example. In below example even though
     the second case matched it went through the third case because of **fallthrough**
     keyword
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 请查看下面的代码以了解 **fallthrough** 关键字的示例。在下面的示例中，尽管第二个 case 匹配，但由于 **fallthrough**
+    关键字，它进入了第三个 case。
 - en: '[PRE18]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**Output**'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE19]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**fallthrough** needs to be final statement within the switch block. If it
     is not then compiler raise error'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: '**fallthrough** 必须是 `switch` 块内的最后一条语句。如果不是，编译器将引发错误。'
 - en: '[PRE20]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: Below program will raise the above error as we have **fmt.Println** after the
     **fallthrough** statement
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的程序将在 **fallthrough** 语句之后有 **fmt.Println** 时引发上述错误。
 - en: '[PRE21]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Break statement**'
+  id: totrans-79
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**Break 语句**'
 - en: Below is the **break** statement example.
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是 **break** 语句示例。
 - en: '[PRE22]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: '**Output**'
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE23]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**break** statement will terminate the execution of the switch and below line
     below will never be executed'
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: '**break** 语句将终止 `switch` 的执行，下面的行将永远不会执行。'
 - en: '[PRE24]'
+  id: totrans-85
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Type Switch**'
+  id: totrans-86
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**类型开关**'
 - en: Switch statement can also be used to know the type of an interface at run time
     as shown in below example. The type switch compare types instead of values
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: '`switch` 语句也可以用于在运行时知道接口的类型，如下面示例所示。类型开关比较类型而不是值。'
 - en: '[PRE25]'
+  id: totrans-88
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: '**Output:**'
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE26]'
+  id: totrans-90
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: '**Conclusion**'
+  id: totrans-91
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about switch statement in go. Hope you have liked the article. Please
     share feedback/improvements/mistakes in comments.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于 Go 中 `switch` 语句的全部内容。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Defer keyword](https://golangbyexample.com/defer-golang)'
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [Defer 关键字](https://golangbyexample.com/defer-golang)'
 - en: '**Previous Tutorial** – [If Else](https://golangbyexample.com/understand-if-else-statement-golang/)'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [If Else](https://golangbyexample.com/understand-if-else-statement-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [switch](https://golangbyexample.com/tag/switch/)'
+  id: totrans-95
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [switch](https://golangbyexample.com/tag/switch/)'

@@ -1,77 +1,122 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:09:07'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:09:07
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Generate a UUID/GUID in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中生成一个 UUID/GUID
 - en: 来源：[https://golangbyexample.com/generate-uuid-guid-golang/](https://golangbyexample.com/generate-uuid-guid-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/generate-uuid-guid-golang/](https://golangbyexample.com/generate-uuid-guid-golang/)
 - en: UUID also known as GUID is a 16 byte or 128-bit number. It is meant to uniquely
     identify something. Some of the properties of UUID are
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: UUID 也称为 GUID，是一个 16 字节或 128 位的数字。它旨在唯一标识某个事物。UUID 的一些属性包括
 - en: UUID is likely to be different from any other UUID generated. In fact, there
     will be .00000006 chance that two UUID will be the same in case you were to generate
     10 trillion UUID
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: UUID 很可能与生成的其他 UUID 不同。实际上，如果你生成 10 万亿个 UUID，两个 UUID 相同的概率为 .00000006。
 - en: UUID doesn’t depend upon any central server for their generation
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: UUID 的生成不依赖于任何中央服务器。
 - en: UUID is represented as 32 hexadecimal digits(Base 16) displayed in 5 parts separated
     by hyphens. The form is 8-4-4-4-12\. So there are a total of 36 characters which
     include 32 hexadecimal and 4 hyphens. Below is one sample
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: UUID 表示为 32 个十六进制数字（基数 16），以 5 个部分用连字符分隔。格式为 8-4-4-4-12。因此总共有 36 个字符，其中包括 32
+    个十六进制数字和 4 个连字符。以下是一个示例
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: There are different libraries available for generating the UUID. Let’s see two
     libraries which can be used to generate UUID
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 有不同的库可用于生成 UUID。让我们看看两个可以用来生成 UUID 的库
 - en: '[https://github.com/google/uuid](https://github.com/google/uuid)'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://github.com/google/uuid](https://github.com/google/uuid)'
 - en: '**Code:**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**：'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[https://github.com/pborman/uuid](https://github.com/pborman/uuid)'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://github.com/pborman/uuid](https://github.com/pborman/uuid)'
 - en: '**Code**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'

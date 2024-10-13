@@ -1,204 +1,307 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:15:53'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:15:53
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Generate Random number in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中生成随机数
 - en: 来源：[https://golangbyexample.com/generate-random-number-golang/](https://golangbyexample.com/generate-random-number-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/generate-random-number-golang/](https://golangbyexample.com/generate-random-number-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[What is a pseudo-random number](#What_is_a_pseudo-random_number "What is a
     pseudo-random number ")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[什么是伪随机数](#What_is_a_pseudo-random_number "什么是伪随机数")'
 - en: '[Random Generator Functions in rand package](#Random_Generator_Functions_in_rand_package
     "Random Generator Functions in rand package")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[rand包中的随机生成器函数](#Random_Generator_Functions_in_rand_package "rand包中的随机生成器函数")'
 - en: '[Pseudo-Random Number Generator Functions with range.](#Pseudo-Random_Number_Generator_Functions_with_range
     "Pseudo-Random Number Generator Functions with range. ")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[具有范围的伪随机数生成器函数。](#Pseudo-Random_Number_Generator_Functions_with_range "具有范围的伪随机数生成器函数。")'
 - en: '[Pseudo Random Number Generator Functions without range.](#Pseudo_Random_Number_Generator_Functions_without_range
     "Pseudo Random Number Generator Functions without range. ")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[没有范围的伪随机数生成器函数。](#Pseudo_Random_Number_Generator_Functions_without_range "没有范围的伪随机数生成器函数。")'
 - en: '[Pseudo Random Number Generator Functions with range for floats](#Pseudo_Random_Number_Generator_Functions_with_range_for_floats
     "Pseudo Random Number Generator Functions with range for floats")'
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[伪随机数生成器函数（适用于浮点数的范围）](#Pseudo_Random_Number_Generator_Functions_with_range_for_floats
+    "伪随机数生成器函数（适用于浮点数的范围）")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "代码")*  *# **概述**'
 - en: Go provide a **‘math/rand’** package which has inbuilt support for generating
     pseudo-random numbers. This package defines methods which can be used to generate
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: Go提供了一个**‘math/rand’**包，内置支持生成伪随机数。此包定义了可以用于生成的各种方法。
 - en: A pseudo-random number within the range from 0 to n
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从0到n的伪随机数
 - en: A pseudo-random number without range specified. The range will depend upon the
     type of int i.e int64, int32, uint64, etc
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未指定范围的伪随机数。范围将取决于int的类型，即int64、int32、uint64等。
 - en: '**What is a pseudo-random number**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**什么是伪随机数**'
 - en: Before proceeding let’s first understand what pseudo-random number means. Pseudo-random
     number is not truly random as its value is completed determined by the initial
     value known as seed.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 在继续之前，先理解一下伪随机数的含义。伪随机数并不是真正随机的，因为其值完全由初始值（称为种子）决定。
 - en: To understand the role of seed, let’s first look at the very basic function
     which can generate a random number in range [0, n). The below function in the
     **rand** package can be used to generate pseudo-random number in range [0, n).
     Bracket at the end in [0,n) means that n is exclusive.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 要理解种子的作用，我们首先看一下可以生成范围为[0, n)的随机数的基本函数。下面的函数在**rand**包中可以用于生成范围为[0, n)的伪随机数。末尾的括号[0,n)表示n是排除的。
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The above function returns an int value between 0 to n. Let’s write a program
     without seed value. We have passed 10, so below function will generate random
     numbers in range [0,10)
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述函数返回一个在0到n之间的int值。让我们写一个没有种子值的程序。我们传递了10，因此下面的函数将在范围[0,10)内生成随机数。
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Try running above the program multiple times. It will give the same output every
     time. On my system, it gives below output
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试多次运行上述程序。每次都会得到相同的输出。在我的系统上，输出如下。
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Now let’s try running the same program but first providing seed value.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们尝试运行相同的程序，但首先提供种子值。
 - en: '[PRE3]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: We are giving seed value as number of seconds which has elapsed till January
     1, 1970, UTC.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将种子值设为自1970年1月1日UTC以来经过的秒数。
 - en: '[PRE4]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: It gives different output each time you execute this program as seed value is
     different. That is what is meant when we say that go generates pseudo-random numbers.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 每次执行此程序时都会给出不同的输出，因为种子值不同。这就是我们所说的Go生成伪随机数的含义。
 - en: '**Random Generator Functions in rand package**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**rand包中的随机生成器函数**'
 - en: Now we have understood what pseudo-random number generation, let’s look at some
     of the function provided by the rand package for generation of random numbers.
     You can use any of these functions to generate a random number based on your requirements.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们已经理解了伪随机数生成，让我们看看rand包中提供的一些用于生成随机数的函数。你可以根据需求使用这些函数中的任何一个来生成随机数。
 - en: '**Pseudo-Random Number Generator Functions with range**.'
+  id: totrans-32
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**具有范围的伪随机数生成器函数**。'
 - en: All functions take n as an argument and will panic if n<=0.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有函数将n作为参数，如果n<=0，则会出现恐慌。
 - en: Intn(n int) – It returns a non-negative pseudo-random number in [0,n)
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Intn(n int) – 返回一个非负的伪随机数，范围在[0,n)内
 - en: Int31n(n int32) – It returns a non-negative pseudo-random number in [0,n) but
     returns a int32
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Int31n(n int32) – 返回一个非负的伪随机数，范围在[0,n)内，返回类型为int32
 - en: Int63n(n int64) – It returns a non-negative pseudo-random number in [0,n) but
     returns a int64
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Int63n(n int64) – 返回一个非负的伪随机数，范围在[0,n)内，返回类型为int64
 - en: '**Pseudo Random Number Generator Functions without range.**'
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**无范围的伪随机数生成器函数。**'
 - en: Int() – returns a non-negative pseudo-random int
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Int() – 返回一个非负的伪随机整数
 - en: Int31() – returns a non-negative pseudo-random 31-bit integer as an int32
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Int31() – 返回一个非负的伪随机31位整数，类型为int32
 - en: Int63() – returns a non-negative pseudo-random 63-bit integer as an int64
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Int63() – 返回一个非负的伪随机63位整数，类型为int64
 - en: Uint32() – returns a pseudo-random 32-bit value as a uint32
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Uint32() – 返回一个伪随机的32位值，类型为uint32
 - en: Uint64() – returns a pseudo-random 64-bit value as a uint64
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Uint64() – 返回一个伪随机的64位值，类型为uint64
 - en: '**Pseudo Random Number Generator Functions with range for floats**'
+  id: totrans-43
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**有范围的伪随机数生成器函数（用于浮点数）**'
 - en: Float64() – returns, as a float64, a pseudo-random number in [0.0,1.0)
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Float64() – 返回一个伪随机数，范围在[0.0,1.0)内，类型为float64
 - en: Float32() – returns, as a float32, a pseudo-random number in [0.0,1.0)
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Float32() – 返回一个伪随机数，范围在[0.0,1.0)内，类型为float32
 - en: '**Code**'
+  id: totrans-46
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE5]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[generate](https://golangbyexample.com/tag/generate/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [numbers](https://golangbyexample.com/tag/numbers/)*   [random](https://golangbyexample.com/tag/random/)*'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[生成](https://golangbyexample.com/tag/generate/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [数字](https://golangbyexample.com/tag/numbers/)*   [随机](https://golangbyexample.com/tag/random/)*'

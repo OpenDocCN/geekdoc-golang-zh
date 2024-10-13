@@ -1,74 +1,113 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:08:13'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:08:13
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get current time and date of different timezones in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 获取不同时区的当前时间和日期在 Go (Golang) 中
 - en: 来源：[https://golangbyexample.com/get-current-time-and-date-of-different-timezones-golang/](https://golangbyexample.com/get-current-time-and-date-of-different-timezones-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/get-current-time-and-date-of-different-timezones-golang/](https://golangbyexample.com/get-current-time-and-date-of-different-timezones-golang/)
 - en: '**time** package has a **LoadLocation(name string)** function which can be
     used to load a location of anywhere. Once you have the location, then **In** function
     can be used to change the location associated with a particular **time.Time**
     object.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**time** 包有一个 **LoadLocation(name string)** 函数，可以用来加载任何地方的位置。一旦你有了位置，**In**
+    函数可以用来改变与特定 **time.Time** 对象关联的位置。'
 - en: For **LoadLocation(locationName)** function
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于 **LoadLocation(locationName)** 函数
 - en: If the locationName is “” or “UTC” , it return UTC
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 locationName 是 “” 或 “UTC”，则返回 UTC
 - en: If the locationName is local, it returns the local Location
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 locationName 是本地的，它会返回本地位置
 - en: Else the location name has to be specified corresponding to IANA Time Zone Database
     (Refer wiki- [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)).
     Eg are
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 否则，位置名称必须对应于 IANA 时区数据库进行指定（参考维基 - [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)）。例如：
 - en: Europe/Berlin
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 欧洲/柏林
 - en: America/New_York
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 美国/纽约
 - en: Asia/Dubai
+  id: totrans-13
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 亚洲/迪拜
 - en: 'Let’s see an example:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个例子：
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[timezone](https://golangbyexample.com/tag/timezone/)'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[时区](https://golangbyexample.com/tag/timezone/)'

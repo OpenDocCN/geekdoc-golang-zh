@@ -1,41 +1,65 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:07:47'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:07:47
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get age given a DOB in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中根据DOB获取年龄
 - en: 来源：[https://golangbyexample.com/get-age-given-dob-go/](https://golangbyexample.com/get-age-given-dob-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/get-age-given-dob-go/](https://golangbyexample.com/get-age-given-dob-go/)
 - en: This tutorial will talk about how given a date of birth we can compute the age
     of a person. **go-age** comes to our rescue for doing that. It also takes into
     account the complexities of leap year while calculating age.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 本教程将讨论如何根据出生日期计算一个人的年龄。**go-age** 帮助我们完成这个任务。在计算年龄时，它还考虑了闰年的复杂性。
 - en: 'See a below working example:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 请看下面的工作示例：
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[age](https://golangbyexample.com/tag/age/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[年龄](https://golangbyexample.com/tag/age/) *   [Go语言](https://golangbyexample.com/tag/golang/)'

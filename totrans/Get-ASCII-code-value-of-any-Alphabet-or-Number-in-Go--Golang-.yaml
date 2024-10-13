@@ -1,38 +1,60 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:17:42'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:17:42
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Get ASCII code/value of any Alphabet or Number in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中获取任意字母或数字的ASCII代码/值
 - en: 来源：[https://golangbyexample.com/get-ascii-value-alphabet-go/](https://golangbyexample.com/get-ascii-value-alphabet-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/get-ascii-value-alphabet-go/](https://golangbyexample.com/get-ascii-value-alphabet-go/)
 - en: '**range** over a string can give the **ASCII** of all the characters in the
     string. In below code we are printing the ASCII value of a lowercase alphabets,
     uppercase alphabets and numbers.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**遍历**字符串可以获取字符串中所有字符的**ASCII**值。在下面的代码中，我们打印小写字母、大写字母和数字的ASCII值。'
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[alphabet](https://golangbyexample.com/tag/alphabet/)*   [ascii](https://golangbyexample.com/tag/ascii/)*   [code](https://golangbyexample.com/tag/code/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [lowercase](https://golangbyexample.com/tag/lowercase/)*   [number](https://golangbyexample.com/tag/number/)*   [uppercase](https://golangbyexample.com/tag/uppercase/)*   [value](https://golangbyexample.com/tag/value/)'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[字母](https://golangbyexample.com/tag/alphabet/)*   [ascii](https://golangbyexample.com/tag/ascii/)*   [代码](https://golangbyexample.com/tag/code/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [小写](https://golangbyexample.com/tag/lowercase/)*   [数字](https://golangbyexample.com/tag/number/)*   [大写](https://golangbyexample.com/tag/uppercase/)*   [值](https://golangbyexample.com/tag/value/)'

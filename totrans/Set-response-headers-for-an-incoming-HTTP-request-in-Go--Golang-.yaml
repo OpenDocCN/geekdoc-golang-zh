@@ -1,209 +1,324 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类。
 - en: 'date: 2024-10-13 06:31:57'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:31:57。
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Set response headers for an incoming HTTP request in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中为传入的 HTTP 请求设置响应头。
 - en: 来源：[https://golangbyexample.com/set-resposne-headers-http-go/](https://golangbyexample.com/set-resposne-headers-http-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/set-resposne-headers-http-go/](https://golangbyexample.com/set-resposne-headers-http-go/)
 - en: 'Note: Related Post'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：相关帖子。
 - en: Get headers from an incoming HTTP request in Go – [https://golangbyexample.com/headers-http-request-golang/](https://golangbyexample.com/headers-http-request-golang/)
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在 Go 中从传入的 HTTP 请求中获取头部 – [https://golangbyexample.com/headers-http-request-golang/](https://golangbyexample.com/headers-http-request-golang/)
 - en: Get response headers for an outgoing HTTP request in Golang- [https://golangbyexample.com/get-response-headers-making-go/](https://golangbyexample.com/get-response-headers-making-go/)
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 获取外发 HTTP 请求的响应头在 Golang 中 – [https://golangbyexample.com/get-response-headers-making-go/](https://golangbyexample.com/get-response-headers-making-go/)
 - en: Set headers for an outgoing HTTP request in Go (Golang) – [https://golangbyexample.com/set-headers-http-request/](https://golangbyexample.com/set-headers-http-request/)
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中为外发 HTTP 请求设置头部 – [https://golangbyexample.com/set-headers-http-request/](https://golangbyexample.com/set-headers-http-request/)
 - en: Now let’s look at how we can set response headers in an incoming HTTP request
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看如何在传入的 HTTP 请求中设置响应头。
 - en: Table of Contents
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录。
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "概述")**'
 - en: '[Using w.Header().Add() method](#Using_wHeaderAdd_method "Using w.Header().Add()
     method")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 w.Header().Add() 方法](#Using_wHeaderAdd_method "使用 w.Header().Add() 方法")。'
 - en: '[Using w.Header().Set method](#Using_wHeaderSet_method "Using w.Header().Set
     method")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 w.Header().Set 方法](#Using_wHeaderSet_method "使用 w.Header().Set 方法")。'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "示例")*  *# **概述**。'
 - en: Below is the format in which a Header is represented in go.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是头部在 Go 中表示的格式。
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: So the header is a key value pair with
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，头部是一个键值对，包含：
 - en: key being represented in canonical form. Canonical form means that first character
     and any character following a hyphen is in uppercase. All other characters is
     in lowercase. Example of canonical forms are
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 键以规范形式表示。规范形式意味着第一个字符和任何在连字符后面的字符都为大写。其他所有字符均为小写。规范形式的示例有：
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Value is represented as a slice of string. Why array of strings? Because it
     is perfectly okay to two headers with same key and different values in a request.
     Both the values will be collected in the slice.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 值表示为字符串切片。为什么是字符串数组？因为在请求中同一个键可以有两个不同值的头部是完全可以接受的。两个值将被收集到切片中。
 - en: For eg if below headers are set in the outgoing response from a server then
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果以下头部在服务器的外发响应中设置，则：
 - en: '[PRE2]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Then at client the headers will look like
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后在客户端，头部将如下所示：
 - en: '[PRE3]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 'Notice that:'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意事项：
 - en: '**content-type** is converted to canonical form **Content-Type**'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**content-type** 被转换为规范形式 **Content-Type**。'
 - en: '**foo** header is converted to **Foo**. Also note that there will be two headers
     in the response with the same key which is **foo**. The values will be **bar1**
     and **bar2**'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**foo** 头部被转换为 **Foo**。还要注意，响应中会有两个相同键的头部，即 **foo**。它们的值将是 **bar1** 和 **bar2**。'
 - en: Now we have seen how a header is represented in the request. Let’s see how we
     can set the response headers values. Assume we have the below key value pairs
     of headers which we have to set in the response headers
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们已经看到头部在请求中的表示。让我们看看如何设置响应头的值。假设我们有以下需要在响应头中设置的键值对：
 - en: '[PRE4]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: There is a **Header** method defined in the **http.ResponseWriter** interface
     as below. It returns the Header associated with the response.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 **http.ResponseWriter** 接口中定义了一个 **Header** 方法，如下所示。它返回与响应相关联的头部。
 - en: '[PRE5]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the below example let’s assume that variable **w** is of type **http.ResponseWriter**
     . Now let’s see different ways of setting a header
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的示例中，假设变量 **w** 的类型为 **http.ResponseWriter**。现在让我们看看设置头部的不同方法。
 - en: '**Using w.Header().Add() method**'
+  id: totrans-34
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 w.Header().Add() 方法**。'
 - en: Below is the signature of the Add method
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是 Add 方法的签名。
 - en: '[PRE6]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: This method is used to add the key value pair to the response header. We have
     already seen above that Header value can be array as well. So this method appends
     to the existing values that might already have been associated with the key. 
     Also the key will be converted to canonical form.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 此方法用于将键值对添加到响应头中。我们已经看到上面的头部值也可以是数组。因此，此方法将附加到可能已经与该键关联的现有值上。该键也将被转换为规范形式。
 - en: For example if we add the foo header two times with different values
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果我们用不同的值添加 foo 头部两次：
 - en: '[PRE7]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Then **foo** header will be set to **[“bar1”, “bar2”].** Also **foo** will become
     **Foo** when sending response to the client.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后**foo**头部将被设置为**[“bar1”, “bar2”]**。同时，在向客户端发送响应时，**foo**将变为**Foo**。
 - en: '**Using w.Header().Set method**'
+  id: totrans-41
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用w.Header().Set方法**'
 - en: Below is the signature of the function
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名。
 - en: '[PRE8]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: It can be used to set the header entries associated with the given key. Unlike
     the **Add** method, this method will replace any existing values associated with
     the key. Also the key will be converted to canonical form.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 它可用于设置与给定键相关的头部条目。与**Add**方法不同，此方法将替换与该键相关的任何现有值。同时，该键将转换为规范形式。
 - en: '**Example**'
+  id: totrans-45
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see a program illustrating all the above points
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个展示以上所有要点的程序。
 - en: '[PRE9]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: In above program we started a server which is listening on port 8085\. Also
     we are setting the **content-type** header as below
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们启动了一个监听在8085端口的服务器。我们将**content-type**头部设置如下。
 - en: '[PRE10]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Also we are setting the **foo** header as below
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将**foo**头部设置如下。
 - en: '[PRE11]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: We also defined a URL on that endpoint. Run this server and make the below API
     call.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还在该端点定义了一个URL。运行此服务器并进行以下API调用。
 - en: '[PRE12]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: After running this API check the response headers in the terminal. It is exactly
     as we have discussed. Also each of the header key is converted to its canonical
     form.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行此API后，请在终端检查响应头。它与我们讨论的内容完全一致。此外，每个头部键都转换为其规范形式。
 - en: '[PRE13]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

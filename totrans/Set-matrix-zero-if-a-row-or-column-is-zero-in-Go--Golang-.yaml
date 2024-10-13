@@ -1,90 +1,144 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:48:56'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:48:56
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Set matrix zero if a row or column is zero in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中，如果行或列为零，则设置矩阵为零
 - en: 来源：[https://golangbyexample.com/set-matrix-zero-golang/](https://golangbyexample.com/set-matrix-zero-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/set-matrix-zero-golang/](https://golangbyexample.com/set-matrix-zero-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program") *  * ## **概述**'
 - en: An m*n matrix is given. If an element is zero then set its row and column to
     zero
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个m*n的矩阵。如果一个元素为零，则将其行和列设置为零
 - en: Examples
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例
 - en: '**Input:**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输入：**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: We will solve it by taking two additional arrays **rowSet** and **columnSet**
     of length **m** and **n** respectively. We will iterate through the matrix and
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将通过使用长度分别为**m**和**n**的两个额外数组**rowSet**和**columnSet**来解决这个问题。我们将遍历矩阵并
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: We can then set **matrix[i][j]** to zero if **rowSet[i]** is equal to 1 or **columenSet[j]**
     is equal to 1
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果**rowSet[i]**等于1或**columnSet[j]**等于1，则可以将**matrix[i][j]**设为零。
 - en: '**Program**'
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相应的程序。
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尝试用实例覆盖所有概念。此教程适合那些希望获得Golang专业知识和扎实理解的人
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你对了解如何在Golang中实现所有设计模式感兴趣。那么这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

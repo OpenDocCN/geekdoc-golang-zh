@@ -1,115 +1,175 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:09:29'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:09:29
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Set or Unset or Get Environment Variables in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Golang中设置、取消设置或获取环境变量
 - en: 来源：[https://golangbyexample.com/set-unset-get-env-variable-golang/](https://golangbyexample.com/set-unset-get-env-variable-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/set-unset-get-env-variable-golang/](https://golangbyexample.com/set-unset-get-env-variable-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Setting an env value](#Setting_an_env_value "Setting an env value")'
+  id: totrans-8
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[设置环境值](#Setting_an_env_value "设置环境值")'
 - en: '[Get an env value](#Get_an_env_value "Get an env value")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[获取环境值](#Get_an_env_value "获取环境值")'
 - en: '[Unset an env value](#Unset_an_env_value "Unset an env value")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[取消设置环境值](#Unset_an_env_value "取消设置环境值")'
 - en: '[Lookup for an env variable](#Lookup_for_an_env_variable "Lookup for an env
     variable")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[查找环境变量](#Lookup_for_an_env_variable "查找环境变量")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "代码：")*  *# **概述**'
 - en: '**os** package provides a couple of utility methods related to playing around
     env variables in Go.'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os**包提供了一些与操作Go中的环境变量相关的实用方法。'
 - en: Setting an env value
+  id: totrans-14
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 设置环境值
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Get an env value
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 获取环境值
 - en: The value returned by the **Getenv()** function will be empty if that env variable
     is not present. To differentiate between an unset and empty env variable use LookupEnv()
     function which an additional boolean indicating if the env variable was present
     or not.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果环境变量的**Getenv()**函数返回的值为空，表示该环境变量不存在。要区分未设置和为空的环境变量，请使用LookupEnv()函数，它会返回额外的布尔值，指示环境变量是否存在。
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Unset an env value
+  id: totrans-19
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 取消设置环境值
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Lookup for an env variable
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 查找环境变量
 - en: As evident from the below signature, LookupEnv returns additional boolean.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 从下面的签名可以明显看出，LookupEnv返回额外的布尔值。
 - en: If the environment variable represented by the **key** is present, then its
     value is returned and the bool returned is true.
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果**key**代表的环境变量存在，则返回其值，返回的布尔值为真。
 - en: If the environment variable represented by the key is not present, then the
     value is empty and the bool returned is false.
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果key代表的环境变量不存在，则返回的值为空，返回的布尔值为假。
 - en: '[PRE3]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Code:**'
+  id: totrans-26
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]*'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE5]*'

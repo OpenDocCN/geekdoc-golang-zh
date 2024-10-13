@@ -1,294 +1,460 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:35:47'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:35:47
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Set cookie http in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go语言中设置http cookie
 - en: 来源：[https://golangbyexample.com/set-cookie-http-golang/](https://golangbyexample.com/set-cookie-http-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/set-cookie-http-golang/](https://golangbyexample.com/set-cookie-http-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Set cookie for one of the request](#Set_cookie_for_one_of_the_request "Set
     cookie for one of the request")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[为某个请求设置cookie](#Set_cookie_for_one_of_the_request "Set cookie for one of the
+    request")'
 - en: '[Set cookie and send that cookie for all requests to that domain](#Set_cookie_and_send_that_cookie_for_all_requests_to_that_domain
     "Set cookie and send that cookie for all requests to that domain")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[为该域的所有请求设置cookie并发送该cookie](#Set_cookie_and_send_that_cookie_for_all_requests_to_that_domain
+    "Set cookie and send that cookie for all requests to that domain")'
 - en: '[Client](#Client "Client")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Client](#Client "Client")'
 - en: '[Server](#Server "Server")*  *## **Overview**'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Server](#Server "Server")*  *## **概述**'
 - en: A cookie in golang is represented as below in golang
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在golang中，cookie的表示如下：
 - en: '[https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)'
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: See [https://tools.ietf.org/html/rfc6265](https://tools.ietf.org/html/rfc6265)
     for details of each of the fields of the above cookie.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 详见[https://tools.ietf.org/html/rfc6265](https://tools.ietf.org/html/rfc6265)了解上述cookie的每个字段的详细信息。
 - en: When it comes to the setting of cookies, there are two cases
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在设置cookies时，有两种情况。
 - en: You want to set cookie only for one of the requests for a particular domain
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 你希望只为特定域的一个请求设置cookie。
 - en: You want to set cookies and you want that cookie to be sent for all requests
     to that domain.
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 你希望设置cookies，并希望该cookie在所有请求中发送到该域。
 - en: The second use case is needed when let’s say you generate an authentication
     token in the first call by entering username and password, and you want that token
     to be passed in each subsequent call in the cookie. We will use a cookie jar for
     this use case.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二个用例是在第一次调用中通过输入用户名和密码生成身份验证令牌时需要的，你希望该令牌在每个后续调用中通过cookie传递。我们将为此用例使用cookie
+    jar。
 - en: Let’s see both the use cases one by one.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐一查看这两种用例。
 - en: '**Set cookie for one of the request**'
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**为某个请求设置cookie**'
 - en: This is the case where golang acts as an HTTP client. **AddCookie** method of
     **net/http** package can be used add a cookie. If we call this method for two
     different names and value,  then both that name and value will be added to the
     resultant cookie
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是golang作为HTTP客户端的情况。可以使用**net/http**包的**AddCookie**方法添加cookie。如果我们为两个不同的名称和值调用此方法，则这两个名称和值将被添加到结果cookie中。
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: We first need to create the instance of the cookie as below
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们首先需要创建cookie的实例，如下所示。
 - en: '[https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)'
 - en: '[PRE3]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Once the cookie is created then use the **AddCookie** method to add it to the
     HTTP request object
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦创建了cookie，就使用**AddCookie**方法将其添加到HTTP请求对象中。
 - en: '[PRE4]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the above program, HTTP Client added two cookies with the below name-value
     pair.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，HTTP客户端添加了两个带有以下名称-值对的cookie。
 - en: token=some_token
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: token=some_token
 - en: clicked=true
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: clicked=true
 - en: Both these cookies will be sent in the call to [google.com](http://google.com).
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 这两个cookie将在对[google.com](http://google.com)的调用中发送。
 - en: '****Set cookie and send that cookie for all requests to that domain****'
+  id: totrans-35
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '****为该域的所有请求设置cookie并发送该cookie****'
 - en: HTTP client in golang lets you specify a **CookieJar** that can be used for
     storing and sending the cookies while making external HTTP requests. As the name
     suggests, think of it as a jar that contains cookies.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: golang中的HTTP客户端允许你指定一个**CookieJar**，可用于在进行外部HTTP请求时存储和发送cookies。顾名思义，可以把它想象成一个装有cookies的罐子。
 - en: '[https://golang.org/pkg/net/http/#Client](https://golang.org/pkg/net/http/#Client)'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/net/http/#Client](https://golang.org/pkg/net/http/#Client)'
 - en: Below is the structure of the net/http **Client** struct. It contains an instance
     variable named **Jar** of type **CookieJar** which is an interface
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是net/http **Client**结构的结构。它包含一个名为**Jar**的实例变量，类型为**CookieJar**，这是一个接口。
 - en: '[PRE5]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Below is the **CookieJar** interface
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是**CookieJar**接口
 - en: '[PRE6]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: net/http provides a default cookie jar implementation that implements the above
     **CookieJar** interface. We will use it while initializing our net/http Client
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: net/http提供了一个默认的cookie jar实现，符合上述**CookieJar**接口。我们将在初始化我们的net/http客户端时使用它。
 - en: '[https://golang.org/pkg/net/http/cookiejar/#Jar](https://golang.org/pkg/net/http/cookiejar/#Jar)'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/net/http/cookiejar/#Jar](https://golang.org/pkg/net/http/cookiejar/#Jar)'
 - en: You can also provide your custom cookie jar during the initialization of net/http
     Client struct which implements the above **CookieJar** interface.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 你还可以在初始化net/http Client结构时提供自定义cookie jar，该结构实现了上述**CookieJar**接口。
 - en: HTTP client uses this jar in two ways
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: HTTP客户端以两种方式使用这个jar。
 - en: Adding cookies in this Jar. You can explicitly add cookies to this jar. The
     cookies will also be added to the jar if the server sends the Set-Cookies header
     in the response headers. All the cookies specified in the **Set-Cookie** header
     will be added. For more details around the Set-Cookie header please refer to this
     [link](https://golangbyexample.com/set-cookie-response-header/). This link contains
     all the details to understand the **Set-Cookie** header in golang.
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 正在向这个Jar添加cookies。你可以明确地将cookies添加到这个jar中。如果服务器在响应头中发送Set-Cookies头，cookies也会被添加到jar中。在**Set-Cookie**头中指定的所有cookies都会被添加。有关Set-Cookie头的更多细节，请参阅这个[链接](https://golangbyexample.com/set-cookie-response-header/)。这个链接包含了理解golang中**Set-Cookie**头的所有细节。
 - en: For consulting this jar while making any external HTTP requests. It checks this
     jar to know what all cookies it needs to send for a particular domain
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在进行任何外部HTTP请求时，咨询这个jar。它会检查这个jar，以了解需要为特定域发送哪些cookies。
 - en: Let’s see an example where the client will add a cookie while making HTTP requests.
     This cookie will be sent in all subsequent requests to the same domain.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个示例，客户端在进行HTTP请求时将添加一个cookie。这个cookie将会在所有后续请求中发送到同一域。
 - en: In this example, we will see how the client can set the cookie in the cookie
     jar. For that let’s first create a client. Here is the program for the same
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个示例中，我们将看到客户端如何在cookie jar中设置cookie。为此，让我们首先创建一个客户端。以下是相应的程序。
 - en: Here is the client code
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是客户端代码。
 - en: '**Client**'
+  id: totrans-51
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**客户端**'
 - en: '**go.mod**'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE7]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**client.go**'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '**client.go**'
 - en: '[PRE8]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In the above client program, we are creating an HTTP client with a cookie Jar
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述客户端程序中，我们正在创建一个带有cookie Jar的HTTP客户端。
 - en: '[PRE9]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: we are adding a cookie to the Cookie Jar
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们正在向Cookie Jar添加一个cookie。
 - en: '[PRE10]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: To test the above code and to illustrate that cookies added to the cookie jar
     in the first call are indeed sent in the subsequent call as well, we need to create
     the server as well which will print the incoming cookies.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了测试上述代码，并说明在第一次调用中添加到cookie jar中的cookies确实会在后续调用中发送，我们还需要创建服务器，以便打印传入的cookies。
 - en: '**Server**'
+  id: totrans-61
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**服务器**'
 - en: The server listens to port 8080 and has two APIs. These are the two APIs which
     is being hit by the client above.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 服务器监听8080端口并有两个API。这是客户端调用的两个API。
 - en: '**localhost:8080/doc**'
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**localhost:8080/doc**'
 - en: '**localhost:8080/doc/id**'
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**localhost:8080/doc/id**'
 - en: In both the APIs we are printing the cookies which it receives in the incoming
     header
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这两个API中，我们打印接收到的传入头中的cookies。
 - en: '**go.mod**'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE11]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**server.go**'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: '**server.go**'
 - en: '[PRE12]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Now run the server
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在运行服务器。
 - en: '[PRE13]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: and client
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 以及客户端。
 - en: '[PRE14]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Notice the output at the server end
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意服务器端的输出。
 - en: '[PRE15]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: The same cookie is being sent automatically in both the first and second call
     which the client will make to the server. How does it work out of the box? This
     is because **CookieJar** comes into the picture. The golang HTTP client checks
     the Cookie Jar before making the HTTP call. It then sends this cookie.
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样的cookie会在客户端对服务器的第一次和第二次调用中自动发送。这是如何开箱即用的？这是因为**CookieJar**的介入。golang HTTP客户端在进行HTTP调用之前会检查Cookie
+    Jar，然后发送这个cookie。
 - en: This is all about setting cookies in golang. Hope you have liked the tutorial.
     Please share feedback in the comments.
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是在golang中设置cookies的全部内容。希望你喜欢这个教程。请在评论中分享反馈。
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[cookie](https://golangbyexample.com/tag/cookie/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [set](https://golangbyexample.com/tag/set/)*'
+  id: totrans-79
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[cookie](https://golangbyexample.com/tag/cookie/) *   [go](https://golangbyexample.com/tag/go/)
+    *   [golang](https://golangbyexample.com/tag/golang/) *   [set](https://golangbyexample.com/tag/set/)
+    *'

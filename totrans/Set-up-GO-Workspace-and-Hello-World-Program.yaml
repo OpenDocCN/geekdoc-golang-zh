@@ -1,194 +1,284 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:31:06'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:31:06
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Set up GO Workspace and Hello World Program
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 设置GO工作区和Hello World程序
 - en: 来源：[https://golangbyexample.com/workspace-hello-world-golang/](https://golangbyexample.com/workspace-hello-world-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/workspace-hello-world-golang/](https://golangbyexample.com/workspace-hello-world-golang/)
 - en: This is the chapter 3 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是golang综合教程系列的第三章。请参考此链接获取系列的其他章节 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Packages and Modules – Part 1](https://golangbyexample.com/packages-modules-go-first)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [包和模块 – 第1部分](https://golangbyexample.com/packages-modules-go-first)'
 - en: '**Previous Tutorial** – [GO Installation](https://golangbyexample.com/golang-installation)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [GO安装](https://golangbyexample.com/golang-installation)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     the current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前的教程。以下是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[GO Workspace](#GO_Workspace "GO Workspace")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[GO工作区](#GO_Workspace "GO Workspace")'
 - en: '[GOROOT](#GOROOT "GOROOT")'
+  id: totrans-13
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[GOROOT](#GOROOT "GOROOT")'
 - en: '[GOPATH](#GOPATH "GOPATH")'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[GOPATH](#GOPATH "GOPATH")'
 - en: '[GOBIN](#GOBIN "GOBIN")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[GOBIN](#GOBIN "GOBIN")'
 - en: '[Run Hello World](#Run_Hello_World "Run Hello World")'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[运行Hello World](#Run_Hello_World "Run Hello World")'
 - en: '[Conclusion:](#Conclusion "Conclusion:")*  *# **Overview**'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论：](#Conclusion "Conclusion:")*  *# **概述**'
 - en: This is the third tutorial of the golang comprehensive tutorial series. Refer
     to this link for other chapters of the series.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是golang综合教程系列的第三个教程。请参考此链接获取系列的其他章节。
 - en: In chapter one we saw an intro to Go and basic advantages of GO and in chapter
     2 we have already seen how to install GO. It is now time to set up the workspace
     for GO and run our first hello world program.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第一章中，我们看到了Go的介绍和GO的基本优点，而在第二章中，我们已经看到如何安装GO。现在是时候为GO设置工作区并运行我们的第一个Hello World程序了。
 - en: '**GO Workspace**'
+  id: totrans-20
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**GO工作区**'
 - en: 'Before we proceed let’s understand some important GO ENV variables:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在继续之前，让我们理解一些重要的GO环境变量：
 - en: '**GOROOT**'
+  id: totrans-22
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**GOROOT**'
 - en: It is the location of your GO SDK. GO binary distribution assumes this location
     to be **/usr/local/go** for Linux/MAC platforms and  c:\Go for Windows. But GO
     SDK can also be installed in a custom location. In case it is installed to a custom
     location, then GOROOT should point to that directory.  GOROOT should only be set
     when installing GO to a custom location or when you want to maintain different
     versions of GO
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 它是你的GO SDK的位置。GO二进制发行版假设这个位置为Linux/MAC平台的**/usr/local/go**和Windows的c:\Go。但GO
+    SDK也可以安装在自定义位置。如果安装在自定义位置，则GOROOT应指向该目录。GOROOT仅在将GO安装到自定义位置或希望维护不同版本的GO时设置。
 - en: For example if you have installed GO to the location ~/Documents/go on Linux/MAC
     platform, then make below entry to the ~/$HOME/.profile file.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果你在Linux/MAC平台上将GO安装到位置~/Documents/go，那么需要在~/$HOME/.profile文件中添加以下条目。
 - en: '[PRE0]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**GOPATH**'
+  id: totrans-26
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**GOPATH**'
 - en: The discussion for GOPATH will revolve around whether you are using GO version
     1.13 higher or lower. In version 1.13, GO introduced a new feature for dependency
     management called GO modules. Let’s first understand the legacy behavior of **GOPATH**
     and then we will discuss what has changed with respect to **GOPATH** after GO
     version 1.13.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于**GOPATH**的讨论将围绕你使用的GO版本是1.13及以上还是低于1.13。在1.13版本中，GO引入了一种新的依赖管理特性，称为GO模块。我们首先了解**GOPATH**的传统行为，然后再讨论在GO
+    1.13版本后与**GOPATH**有关的变化。
 - en: '**Before GO version 1.13**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**在GO 1.13版本之前**'
 - en: The **GOPATH** env variable was used for resolving go imports statements as
     well as it also specifies the location of your GO workspace. It is the root of
     GO workspace. A dependency cannot be imported if it is not inside GOPATH. Hence
     earlier version required all your source code to be inside **GOPATH**. So basically
     **GOPATH** is used for
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**GOPATH**环境变量用于解析go导入语句，同时还指定你的GO工作区的位置。它是GO工作区的根目录。如果依赖项不在GOPATH内，则无法导入。因此，早期版本要求你的所有源代码都在**GOPATH**内。所以基本上**GOPATH**是用来'
 - en: Resolving imports. A dependency cannot be imported if it is not inside GOPATH.
     Hence it still requires your code to be inside GOPATH
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 解析导入。如果依赖项不在GOPATH内，则无法导入。因此，它仍然要求你的代码在GOPATH内。
 - en: Packages are installed in the directory $GOPATH/pkg/$GOOS_$GOARCH.
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包安装在目录$GOPATH/pkg/$GOOS_$GOARCH中。
 - en: Store compiled application binary in $GOPATH/bin (This can be overridden by
     setting $GOBIN to a different path)
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将编译的应用程序二进制文件存储在$GOPATH/bin中（可以通过将$GOBIN设置为不同路径来覆盖）。
 - en: It contains the following folders
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 它包含以下文件夹。
 - en: '**src** –'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**src** –'
 - en: Source file location. It contains .go and other source files
+  id: totrans-35
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 源文件位置。它包含.go和其他源文件。
 - en: When installing any dependency package using ‘go get’, all the package files
     are stored in this location.
+  id: totrans-36
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用‘go get’安装任何依赖包时，所有包文件都存储在此位置。
 - en: '**pkg** –'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**pkg** –'
 - en: Stores the compilation output of your actual source code present in src. directory.
     It contains .a files
+  id: totrans-38
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 存储你在src目录中实际源代码的编译输出。它包含.a文件。
 - en: Basically, it contains the GO packages compiled from the src/ directory. They
     are then used at link time to create binary executables which are then placed
     in the bin/ directory.
+  id: totrans-39
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 基本上，它包含从src/目录编译的GO包。然后在链接时使用它们来创建二进制可执行文件，这些文件将放置在bin/目录中。
 - en: It is a good idea to compile a package once and used it to create different
     binary executables.
+  id: totrans-40
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 编译一个包一次并用于创建不同的二进制可执行文件是个好主意。
 - en: 'Each pair of Operating System and Architecture will have its own subdirectory
     in pkg. (eg: pkg/GOOS_GOARCH)'
+  id: totrans-41
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每对操作系统和架构将在pkg中有自己的子目录（例如：pkg/GOOS_GOARCH）。
 - en: '**bin** – location of executables built by Go'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**bin** – Go构建的可执行文件位置。'
 - en: '**With Go version 1.13 or later**'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**使用Go版本1.13或更高版本**。'
 - en: In version **1.13,** GO announced a new feature of dependency management called
     GO modules. We will learn about this feature in upcoming tutorials. For now, you
     can imagine that with the new feature, GO doesn’t require putting all GO code
@@ -196,71 +286,99 @@
     anywhere and put your Go program there. Note that all legacy behavior of GOPATH
     is still valid for version 1.1.3 and higher.  Also note that with this new GO
     module feature, GO programs can be run in two ways.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 在版本**1.13**中，GO宣布了一种新的依赖管理特性，称为GO模块。我们将在接下来的教程中学习这一特性。现在，你可以想象，有了新特性，GO不再要求将所有GO代码放在Go工作空间或$GOAPTH/src目录中。你可以在任何地方创建目录并将Go程序放在那里。请注意，GOPATH的所有传统行为在1.1.3及更高版本中仍然有效。同时请注意，使用这个新的GO模块特性，GO程序可以以两种方式运行。
 - en: '**Using modules:** when using modules, **GOPATH** is not used for resolving
     imports. However, when using modules for running GO programs,  GOPATH will be
     used for'
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**使用模块**：在使用模块时，**GOPATH**不用于解析导入。然而，在使用模块运行GO程序时，GOPATH将被使用。'
 - en: Store download source code in $GOPATH/pkg/mod directory.
+  id: totrans-46
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将下载的源代码存储在$GOPATH/pkg/mod目录中。
 - en: Store compiled application binary in $GOPATH/bin (This can be overridden by
     setting $GOBIN to a different path)
+  id: totrans-47
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将编译的应用程序二进制文件存储在$GOPATH/bin中（可以通过将$GOBIN设置为不同路径来覆盖）。
 - en: '**Not using modules**:  It is still possible to run a GO program in the legacy
     ways even with version 1.13 or later. When not using modules while running GO
     programs, $GOPATH behavior is same as earlier versions which is the same as mentioned
     above'
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**不使用模块**：即使是1.13版本或更高版本，仍然可以以传统方式运行GO程序。在不使用模块的情况下运行GO程序时，$GOPATH的行为与早期版本相同，如上所述。'
 - en: '**Set Up GOPATH.**'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '**设置GOPATH。**'
 - en: If this env variable is unset, it defaults **$HOME/go** on Unix systems and
     **%USERPROFILE%\go** on Windows. If your workspace location is ~**/Desktop/go**,
     then make below entry to the **~/$HOME/.profile** file. It is good idea to always
     have the **GOPATH** set up as **GOPATH** is used even with the introduction of
     modules
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果此环境变量未设置，则在Unix系统上默认为**$HOME/go**，在Windows上默认为**%USERPROFILE%\go**。如果你的工作空间位置是~**/Desktop/go**，那么在**~/$HOME/.profile**文件中添加以下条目是个好主意。始终设置**GOPATH**是个好主意，因为即使引入模块，**GOPATH**也会被使用。
 - en: '[PRE1]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**GOBIN**'
+  id: totrans-52
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**GOBIN**'
 - en: '**GOBIN** env variable specifies the directory where go will place the compiled
     application binary after building the main package. It defaults to **$GOPATH/bin**
     or **$HOME/go/bin** if the **GOPATH** environment variable is not set. .  Also
     it is good idea to add **GOBIN** path to **PATH** env as well so that binary installed
     can be run without specifying full path of the binary. Set GOBIN in the **~/.$HOME/.profile**
     file and add it to PATH as well.'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '**GOBIN**环境变量指定了go在构建主包后放置编译应用程序二进制文件的目录。如果**GOPATH**环境变量未设置，则默认为**$GOPATH/bin**或**$HOME/go/bin**。此外，将**GOBIN**路径添加到**PATH**环境中也是个好主意，这样安装的二进制文件可以在不指定完整路径的情况下运行。在**~/.$HOME/.profile**文件中设置GOBIN，并将其添加到PATH中。'
 - en: '[PRE2]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Run Hello World**'
+  id: totrans-55
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**运行Hello World**'
 - en: In this example, we will be creating our first hello world program. So far here
     is the value of **GOROOT**, **GOPATH**, and **GOBIN**.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，我们将创建我们的第一个hello world程序。目前**GOROOT**、**GOPATH**和**GOBIN**的值如下。
 - en: '[PRE3]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: A typical program has **.go** file extension. Now let’s create a “Hello World”
     program. For that first create a directory named hello outside $GOPATH/src.  Since
     the project is getting creating outside $GOPATH/src we also need to create a **go.mod**
@@ -268,98 +386,152 @@
     look at the import path, go.mod file and module in detail in the upcoming tutorial.
     For now, let’s create a simple module so that we can see how the hello world program
     looks like in go. Use the below command for that
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个典型的程序具有**.go**文件扩展名。现在让我们创建一个“Hello World”程序。为此，首先在$GOPATH/src外部创建一个名为hello的目录。由于项目是在$GOPATH/src外部创建的，我们还需要创建一个导入路径为**[sample.com](http://sample.com)/hello**的**go.mod**文件。我们将在即将到来的教程中详细了解导入路径、go.mod文件和模块。现在，让我们创建一个简单的模块，以便查看hello
+    world程序在go中的样子。请使用以下命令：
 - en: '[PRE4]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: It will create go.mod file as below.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将创建如下的go.mod文件。
 - en: '**go.mod**'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE5]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Now create file hello.go with below contents.
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在创建hello.go文件，内容如下。
 - en: '[PRE6]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: There are three different commands to run the above GO program. First cd to
     the **‘hello’** directory.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上述GO程序有三种不同的命令。首先切换到**‘hello’**目录。
 - en: ‘**go install’**
+  id: totrans-66
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: ‘**go install’**
 - en: It will compile the program and place the binary at the **$GOBIN** folder. Type
     below command, Make sure you are in the **hello** directory which contains the
     **hello.go** file.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将编译程序并将二进制文件放置在**$GOBIN**文件夹中。输入以下命令，确保你在包含**hello.go**文件的**hello**目录中。
 - en: It will create a binary named hello in the $GOBIN directory. The name of the
     binary is same as last part of the import path of the module. The import path
     of the module is **[sample.com](http://sample.com)/hello** and last part of import
     path is simply **hello**. Hence binary name will be **hello** in our case. Type
     hello on the terminal, it will give below output
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将在$GOBIN目录中创建一个名为hello的二进制文件。二进制文件的名称与模块的导入路径最后一部分相同。模块的导入路径是**[sample.com](http://sample.com)/hello**，导入路径的最后一部分简单地是**hello**。因此，在我们的例子中，二进制文件名称将是**hello**。在终端中输入hello，将会输出如下内容：
 - en: '[PRE7]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Output of ‘which hello’ will be **‘~/Desktop/go/bin/hello’** . Remember our
     **GOBIN** path was ‘**~/Desktop/go/bin**.’ Hence the binary hello was copied to
     this directory.
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: ‘which hello’的输出将是**‘~/Desktop/go/bin/hello’**。记住我们的**GOBIN**路径是‘**~/Desktop/go/bin**’。因此，二进制文件hello被复制到此目录。
 - en: ‘**go build’**
+  id: totrans-71
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: ‘**go build’**
 - en: It will compile the program and place the binary in the current working directory.
     Type the below command
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将编译程序并将二进制文件放置在当前工作目录中。输入以下命令：
 - en: '[PRE8]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In our case it will create the binary named **‘hello’**  same as impbeside **hello.go**
     file. To run the binary type **‘./hello’** on the terminal. It will give below
     output
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们的例子中，它将创建一个名为**‘hello’**的二进制文件，位于**hello.go**文件旁边。要运行该二进制文件，请在终端中输入**‘./hello’**。将会输出如下内容：
 - en: '[PRE9]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**‘go run hello.go’**'
+  id: totrans-76
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**‘go run hello.go’**'
 - en: This command will compile and then execute the binary. Type the below command.
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 该命令将编译并执行二进制文件。输入以下命令。
 - en: '[PRE10]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: It will output
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将输出。
 - en: '[PRE11]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Conclusion:**'
+  id: totrans-81
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论：**'
 - en: That all for this tutorial. Hope you have liked this article. please share feedback/mistakes/improvements
     in comments.
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 本教程到此结束。希望你喜欢这篇文章。请在评论中分享反馈/错误/改进建议。
 - en: '****Next Tutorial** –** [Packages and Modules – Part 1](https://golangbyexample.com/packages-modules-go-first)
     ****Previous Tutorial** –** [GO Installation](https://golangbyexample.com/golang-installation)*'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: '****下一个教程** –** [包和模块 – 第1部分](https://golangbyexample.com/packages-modules-go-first)
+    ****上一个教程** –** [GO安装](https://golangbyexample.com/golang-installation)*'

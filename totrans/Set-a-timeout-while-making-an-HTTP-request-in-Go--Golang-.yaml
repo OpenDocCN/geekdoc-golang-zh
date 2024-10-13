@@ -1,68 +1,106 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:33:51'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:33:51
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Set a timeout while making an HTTP request in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中发起HTTP请求时设置超时
 - en: 来源：[https://golangbyexample.com/set-timeout-http-golang/](https://golangbyexample.com/set-timeout-http-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/set-timeout-http-golang/](https://golangbyexample.com/set-timeout-http-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: '**client** struct of HTTP package can be used to specify the timeout. While
     creating the **HTTP** client we can specify the value of the Timeout. An important
     thing to note about HTTP Client is that it is only created once and the same instance
     is used for making multiple HTTP requests. Below is the structure of **http.Client**
     struct'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**client** 结构体来自HTTP包，可以用来指定超时。在创建**HTTP**客户端时，我们可以指定超时的值。关于HTTP客户端需要注意的一点是，它只会被创建一次，并且同一个实例会被用于多个HTTP请求。以下是**http.Client**结构体的结构。'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: As you can see there is an option to specify the timeout for the **http.Client**
     which is the **Timeout** field
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如你所看到的，可以为**http.Client**指定超时选项，即**Timeout**字段。
 - en: Now let’s see a working example of this
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看一个工作示例。
 - en: '**Program**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: In the below program we are setting a timeout of 1 nanosecond to showcase that
     timeout is indeed happening while making the request.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的程序中，我们设置了1纳秒的超时，以展示在发起请求时确实会发生超时。
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

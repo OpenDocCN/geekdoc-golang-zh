@@ -1,57 +1,89 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:05:18'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:18
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Set implementation in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中的集合实现
 - en: 来源：[https://golangbyexample.com/set-implementation-in-golang/](https://golangbyexample.com/set-implementation-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/set-implementation-in-golang/](https://golangbyexample.com/set-implementation-in-golang/)
 - en: A set is a data structure that holds elements without any particular order.
     An element only appears once in a set.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 集合是一种数据结构，它无特定顺序地存放元素。元素在集合中只出现一次。
 - en: Set can be implemented in GO using a map. We will be using **map[string]struct{}**
     for the set as **struct{}** occupies no memory hence more efficient in terms of
     storage.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 集合可以在GO中使用地图实现。我们将使用**map[string]struct{}**作为集合，因为**struct{}**占用的内存为零，因此在存储方面更高效。
 - en: Below is the simple example of set having operations
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是具有操作的集合的简单示例
 - en: Add
+  id: totrans-9
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 添加
 - en: Remove
+  id: totrans-10
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 删除
 - en: Exists
+  id: totrans-11
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 存在
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[data structure](https://golangbyexample.com/tag/data-structure/)*   [set](https://golangbyexample.com/tag/set/)'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数据结构](https://golangbyexample.com/tag/data-structure/) *   [集合](https://golangbyexample.com/tag/set/)'

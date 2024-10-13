@@ -1,127 +1,203 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:35:41'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:35:41
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Read cookie http in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中读取cookie http
 - en: 来源：[https://golangbyexample.com/read-cookie-http-golang/](https://golangbyexample.com/read-cookie-http-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/read-cookie-http-golang/](https://golangbyexample.com/read-cookie-http-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: net/http Request struct provides a convenient method to read a particular cookie
     given its name. Below is the signature of that method. [https://golang.org/pkg/net/http/#Request.Cookie](https://golang.org/pkg/net/http/#Request.Cookie)
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: net/http Request结构体提供了一种方便的方法，可以根据名称读取特定cookie。以下是该方法的签名。[https://golang.org/pkg/net/http/#Request.Cookie](https://golang.org/pkg/net/http/#Request.Cookie)
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: To print all cookies,  we can iterate over the **Cookies** method of **http.Request**
     struct. We can use a range keyword for that.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 要打印所有cookies，我们可以遍历**http.Request**结构体的**Cookies**方法。我们可以为此使用range关键字。
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Both these functions will return the instance of the **Cookie** struct. A cookie
     in golang is represented as below in golang.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 这两个函数将返回**Cookie**结构体的实例。在golang中，cookie表示如下。
 - en: '[https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)'
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: See [https://tools.ietf.org/html/rfc6265](https://tools.ietf.org/html/rfc6265)
     for details of each of the fields of the above cookie.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 有关上述cookie中每个字段的详细信息，请参见[https://tools.ietf.org/html/rfc6265](https://tools.ietf.org/html/rfc6265)。
 - en: '**Program**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same to illustrate the **Cookie** and **Cookies**
     method of the **http.Request** struct
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相同程序，展示**Cookie**和**Cookies**方法的**http.Request**结构体
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Run the program above and make the below curl call
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上面的程序并进行以下curl调用
 - en: '[PRE4]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The curl call is passing two cookie name-value pairs
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: curl调用传递了两个cookie名称-值对
 - en: id=abcd
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: id=abcd
 - en: token=some_token
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: token=some_token
 - en: It will give below output
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将给出以下输出
 - en: '[PRE5]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: This is how we print a particular cookie with a given name **“token”**
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是我们如何打印名为**“token”**的特定cookie
 - en: '[PRE6]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: It prints as seen from the output
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 它的输出如所见
 - en: '[PRE7]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: This is how we print all the cookies
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是我们如何打印所有的cookie
 - en: '[PRE8]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: It outputs both the cookies name-value pairs that we had sent in the curl call
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 它输出我们在curl调用中发送的cookie名称-值对
 - en: '[PRE9]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: That was all about cookies in golang. Hope you have liked the tutorial. Please
     share feedback in the comments.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于golang中cookies的所有内容。希望你喜欢这个教程。请在评论中分享反馈。
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[cookie](https://golangbyexample.com/tag/cookie/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[cookie](https://golangbyexample.com/tag/cookie/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

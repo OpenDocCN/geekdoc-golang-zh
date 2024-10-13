@@ -1,73 +1,115 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:23:12'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:23:12
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Receive or fetch multiple return values from a goroutine in Go(Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go(Golang)中接收或获取来自goroutine的多个返回值
 - en: 来源：[https://golangbyexample.com/receive-multiple-return-value-goroutine-golang/](https://golangbyexample.com/receive-multiple-return-value-goroutine-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/receive-multiple-return-value-goroutine-golang/](https://golangbyexample.com/receive-multiple-return-value-goroutine-golang/)
 - en: Channels can be used to fetch return value from a goroutine. Channels provide
     synchronization and communication between goroutines. You can send the return
     value to a channel in the goroutine and then collect that value in the main function.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 通道可以用于从goroutine中获取返回值。通道提供了goroutine之间的同步和通信。你可以在goroutine中将返回值发送到通道，然后在主函数中收集该值。
 - en: To receive multiple values we can create a  custom struct type with fields for
     both return values, then create a channel of that type.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了接收多个值，我们可以创建一个自定义结构体类型，其中包含两个返回值的字段，然后创建该类型的通道。
 - en: Let’s see a program
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program we created a struct named **result** which has two fields
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了一个名为**result**的结构体，它有两个字段。
 - en: sumValue
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: sumValue
 - en: multiplyValue
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: multiplyValue
 - en: We then created a variable **resultChan** which is a channel of length 1 holding
     value of **result** struct type. We passed this channel to the **sumAndMultiply**
     function. The **sumAndMultiply** function pushes the resultant struct to the **resultChan**
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们创建了一个变量**resultChan**，它是一个长度为1的通道，存储**result**结构体类型的值。我们将这个通道传递给**sumAndMultiply**函数。**sumAndMultiply**函数将结果结构体推送到**resultChan**。
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Then in the main function we are waiting on the channel to collect the result
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后在主函数中，我们正在等待通道以收集结果。
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This line will wait until a value is pushed to the **resultChan** channel.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 这行代码将等待，直到一个值被推送到**resultChan**通道。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'

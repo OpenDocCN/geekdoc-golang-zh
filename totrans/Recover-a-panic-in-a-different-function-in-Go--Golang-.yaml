@@ -1,90 +1,136 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:25:30'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:25:30
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Recover a panic in a different function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go语言中在不同函数中恢复panic
 - en: 来源：[https://golangbyexample.com/recover-panic-different-function-go/](https://golangbyexample.com/recover-panic-different-function-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/recover-panic-different-function-go/](https://golangbyexample.com/recover-panic-different-function-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: If the **defer** function and **recover** function is not called from the panicking
     function then it that case **panic** can also be recovered in the called function
     as well. In fact, it is possible to recover from panic subsequently up in the
     chain of call stack as wellLet’s see an example of this.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果**defer**函数和**recover**函数没有从引发恐慌的函数中被调用，那么在这种情况下**panic**也可以在被调用的函数中恢复。实际上，panic可以在调用栈的后续链中恢复，让我们来看一个例子。
 - en: '**Program**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program we have a function **checkAndPrint** which checks and prints
     slice element at an index passed in the argument. If the index passed is greater
     than the length of the array then the program panics.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印传入参数的索引处的切片元素。如果传入的索引大于数组的长度，程序将会引发panic。
 - en: We have another function **checkAndPrintWithRecover** which contains the call
     to
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还有另一个函数**checkAndPrintWithRecover**，它包含对
 - en: We have another function **checkAndPrintWithRecover** which contains the call
     to
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还有另一个函数**checkAndPrintWithRecover**，它包含对
 - en: '**defer** function with **recover** which is **handleOutOfBounds**'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 带有**recover**的**defer**函数，名为**handleOutOfBounds**
 - en: calls **checkAndPrint** function
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 调用**checkAndPrint**函数
 - en: So we have a defer function named **handleOutIfBounds** at the start of the
     function **checkAndPrintWithRecover**. This function contains the call to recover
     function as below
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以我们在函数**checkAndPrintWithRecover**的开头有一个名为**handleOutIfBounds**的延迟函数。这个函数包含如下的recover函数调用。
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**checkAndPrint** function raises the panic but doesn’t have the recover function
     instead the call to recover lies in the **checkAndPrintWithRecover** function.
     We pass index 2 to the **checkAndPrint** function which is out of bounds index.
     Hence **checkAndPrint** raises a panic but still, the program is able to recover
     from panic as seen from the output. This is because panic can be recovered in
     the called function also and subsequently in the call chain as well'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**checkAndPrint**函数引发了panic，但没有recover函数，相反，recover的调用在**checkAndPrintWithRecover**函数中。我们将索引2传递给**checkAndPrint**函数，这个索引超出了边界。因此**checkAndPrint**引发了panic，但程序仍然能够从panic中恢复，正如输出所示。这是因为panic可以在被调用的函数中恢复，并且在调用链中也可以恢复。'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

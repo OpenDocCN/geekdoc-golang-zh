@@ -1,88 +1,136 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:47:08'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:47:08
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Range Sum Array Program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的范围和数组程序
 - en: 来源：[https://golangbyexample.com/range-sum-array-golang/](https://golangbyexample.com/range-sum-array-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/range-sum-array-golang/](https://golangbyexample.com/range-sum-array-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program") *  *## **概述**'
 - en: There is an array of numbers that are given. The objective is to find the range
     sum in that given array. What does it mean that a range will be given which will
     have a left index and a right index. And we have to find the sum between the left
     index and the right index in the given array of numbers.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 有一个给定的数字数组。目标是在该数组中找到范围和。这意味着将给定一个范围，其中包含左索引和右索引。我们必须在给定的数字数组中找到左索引和右索引之间的和。
 - en: Seem simple right. Just iterate from the left index to the right index in the
     given array and return the sum. But here is the catch. Allowed TC is O(1)
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 看起来很简单，对吧？只需从给定数组的左索引迭代到右索引并返回和。但这里有个陷阱。允许的时间复杂度是O(1)
 - en: Here is the approach we can follow so that we are able to return the answer
     in O(1) time complexity
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是我们可以遵循的方法，以便能够在O(1)时间复杂度内返回答案
 - en: Pre compute another sum_array from the given array of numbers
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从给定的数字数组预计算另一个sum_array
 - en: sum_array[i] = sum of numbers from the 0 index to the ith  index.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: sum_array[i] = 从0索引到第i索引的数字之和。
 - en: For a given range with left index and right index  simply return sum_array[left-1]
     – sum_array[right]. Of course, we need to validate that left-1 is greater than
     or equal to zero.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于给定的左索引和右索引，只需返回sum_array[left-1] – sum_array[right]。当然，我们需要验证left-1是否大于或等于零。
 - en: '**Program**'
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相同程序的实现。
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的Golang高级教程。本系列教程内容丰富，涵盖了所有概念及其示例。本教程适合那些希望获得专业知识和对Golang有扎实理解的人
+    – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你对了解如何在Golang中实现所有设计模式感兴趣，那么这篇文章适合你 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

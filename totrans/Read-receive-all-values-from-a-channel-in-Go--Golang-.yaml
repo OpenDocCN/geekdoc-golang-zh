@@ -1,91 +1,142 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:24:46'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:24:46
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Read/receive all values from a channel in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中从通道读取/接收所有值
 - en: 来源：[https://golangbyexample.com/receive-all-values-channel-golang/](https://golangbyexample.com/receive-all-values-channel-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/receive-all-values-channel-golang/](https://golangbyexample.com/receive-all-values-channel-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")**'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: For range loop can be used to receive data from the channel until it is closed. Do
     note that for- range loop will keep receiving from the channel the only way for
     range look to exit is to close the channel.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于范围循环，可以用来接收来自通道的数据，直到它被关闭。请注意，for-range 循环会持续接收通道中的数据，唯一退出范围循环的方式是关闭通道。
 - en: Let’s see a program to understand it.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个程序以理解这一点。
 - en: '**Code**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program,  we created a channel.  In the main function the send
     three values to the channel and after that, we closed the channel. Then we called
     the sum function and we passed the channel to that function. In the sum function,
     we did a for range loop over the channel.    After iterating over all the values
     in the channel the for range loop will exit  since the channel is closed
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个通道。在主函数中，发送了三个值到通道，然后关闭了通道。接着我们调用了 sum 函数，并将通道传递给该函数。在 sum 函数中，我们对通道进行了
+    for-range 循环。在遍历完通道中的所有值后，由于通道已关闭，for-range 循环将退出。
 - en: Now the question which comes to the mind is that what happens if you don't close
     a channel in the main function.  Try commenting the line in which they are closing
     the channel. Now run the program.  It will also output  deadlock because  for
     range loop will never finish in the sum function
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在脑海中浮现的问题是，如果在主函数中不关闭通道会发生什么。尝试注释掉关闭通道的那一行。然后运行程序。它也会输出死锁，因为 for-range 循环在
+    sum 函数中永远不会结束。
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In case we need to receive fixed number of vales from a channel before the channel
     is closed then we can also use a for loop. Let's see an example for it
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们需要在通道关闭前接收固定数量的值，可以使用 for 循环。让我们看一个例子。
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the above program, we have a  buffered channel of capacity 3\. We are sending
     3 values to the channel in the main function. In the sum function, we have a for
     loop in which we are iterating two times and receiving only two values from the
     channel and adding it up. For loop is only useful in case we want to receive a
     fixed number of values from the channel
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有一个容量为 3 的缓冲通道。在主函数中，我们向通道发送了 3 个值。在 sum 函数中，我们有一个 for 循环，迭代两次，只从通道中接收两个值并进行相加。只有在我们想从通道中接收固定数量的值时，for
+    循环才有用。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

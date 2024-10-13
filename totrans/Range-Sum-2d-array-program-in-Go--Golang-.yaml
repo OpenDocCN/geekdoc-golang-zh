@@ -1,96 +1,149 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:47:13'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:47:13
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Range Sum 2d array program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中的范围和二维数组程序
 - en: 来源：[https://golangbyexample.com/range-sum-2d-array-go/](https://golangbyexample.com/range-sum-2d-array-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/range-sum-2d-array-go/](https://golangbyexample.com/range-sum-2d-array-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "程序")*  *## **概述**'
 - en: There is a 2d matrix of numbers that is given. The objective Calculate the **sum**
     of the elements of matrix inside the rectangle defined by its **upper left corner**
     (row1, col1) and **lower right corner** (row2, col2).
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个数字的二维矩阵。目标是计算矩阵中由**左上角**（row1, col1）和**右下角**（row2, col2）定义的矩形内元素的**和**。
 - en: Seem simple right. Just iterate from the left corner to the right corner in
     the given array and return the sum. But here is the catch. Allowed TC is O(1)
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 看起来简单，对吧。只需从左角迭代到右角并返回总和。但这里有个问题。允许的时间复杂度是O(1)
 - en: Here is the approach we can follow so that we are able to return the answer
     in O(1) time complexity
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是我们可以遵循的方法，以便能够在O(1)时间复杂度内返回答案
 - en: Pre compute another sum_array for that 2d matrix
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 为该二维矩阵预计算另一个sum_array
 - en: sum_array[i][j] = sum of numbers from the **left corner** (0, 0) and **right
     corner** (i, j).
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: sum_array[i][j] = 从**左角**（0, 0）和**右角**（i, j）计算的数字之和。
 - en: For a given left corner (row1, col1) and right corner (row2, col2) compute
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于给定的左角（row1, col1）和右角（row2, col2），计算
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Then return
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后返回
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Program**'
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是相同的程序。
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的Golang高级教程。本系列的教程内容详尽，我们努力涵盖所有概念及其示例。本教程适合那些希望获得专业知识并深入理解Golang的人
+    – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章适合你 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,0 +1,292 @@
+- en: <!--yml
+  id: totrans-0
+  prefs: []
+  type: TYPE_NORMAL
+  zh: <!--yml
+- en: 'category: 未分类'
+  id: totrans-1
+  prefs: []
+  type: TYPE_NORMAL
+  zh: 分类：未分类
+- en: 'date: 2024-10-13 06:03:09'
+  id: totrans-2
+  prefs: []
+  type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:03:09
+- en: -->
+  id: totrans-3
+  prefs: []
+  type: TYPE_NORMAL
+  zh: -->
+- en: Proxy Design Pattern in Go (Golang)
+  id: totrans-4
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+  zh: Go（Golang）中的代理设计模式
+- en: 来源：[https://golangbyexample.com/proxy-design-pattern-in-golang/](https://golangbyexample.com/proxy-design-pattern-in-golang/)
+  id: totrans-5
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/proxy-design-pattern-in-golang/](https://golangbyexample.com/proxy-design-pattern-in-golang/)
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
+  prefs: []
+  type: TYPE_NORMAL
+  zh: 注意：想了解其他所有设计模式如何在 GO 中实现吗？请参见这个完整参考 – [Go（Golang）中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
+- en: Table of Contents
+  id: totrans-7
+  prefs: []
+  type: TYPE_NORMAL
+  zh: 目录
+- en: '**   [Introduction: ](#Introduction "Introduction: ")'
+  id: totrans-8
+  prefs: []
+  type: TYPE_NORMAL
+  zh: '**   [介绍：](#Introduction "介绍：")'
+- en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  id: totrans-9
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: '[UML 图：](#UML_Diagram "UML 图：")'
+- en: '[Mapping ](#Mapping "Mapping ")'
+  id: totrans-10
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: '[映射](#Mapping "映射")'
+- en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  id: totrans-11
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: '[实际示例：](#Practical_Example "实际示例：")'
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Introduction: **'
+  id: totrans-12
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "完整工作代码：")*  *## **介绍：**'
+- en: Proxy Design Pattern is a structural design pattern. This pattern suggests providing
+    an extra layer of indirection for controlled and intelligent access to the main
+    object.
+  id: totrans-13
+  prefs: []
+  type: TYPE_NORMAL
+  zh: 代理设计模式是一种结构设计模式。此模式建议为对主对象的受控和智能访问提供额外的间接层。
+- en: In this pattern, a new proxy class is created that implements the same interface
+    as the main object. This lets you execute some behavior before the actual logic
+    of the main object. Let’s understand it more with an example
+  id: totrans-14
+  prefs: []
+  type: TYPE_NORMAL
+  zh: 在这个模式中，创建了一个新的代理类，它实现了与主对象相同的接口。这使你可以在主对象的实际逻辑之前执行某些行为。让我们通过一个例子来更好地理解它。
+- en: A debit card is a proxy for your bank account. It follows the same interface
+    as the bank account, and it is easier to use.
+  id: totrans-15
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+  zh: 一张借记卡是你银行账户的代理。它遵循与银行账户相同的接口，更容易使用。
+- en: A web server such as Nginx can act as a proxy for your application server. It
+    provides
+  id: totrans-16
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+  zh: 像 Nginx 这样的网络服务器可以作为你的应用服务器的代理。它提供
+- en: Controlled access to your application server – For example, it can do rate limiting
+  id: totrans-17
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: 对你的应用服务器的受控访问 – 例如，它可以进行速率限制。
+- en: Additional behavior – For example, it can do some caching
+  id: totrans-18
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: 附加行为 – 例如，它可以进行某些缓存。
+- en: Let’ss see the UML Diagram
+  id: totrans-19
+  prefs: []
+  type: TYPE_NORMAL
+  zh: 让我们看看 UML 图。
+- en: '**UML Diagram:**'
+  id: totrans-20
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+  zh: '**UML 图：**'
+- en: In below UML diagram
+  id: totrans-21
+  prefs: []
+  type: TYPE_NORMAL
+  zh: 在下面的 UML 图中
+- en: '**Subject:** it represents the interface which proxy and the realSubject should
+    follow'
+  id: totrans-22
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: '**主题**：它表示代理和真实主题应遵循的接口。'
+- en: '**Proxy**: The proxy class embeds the realSubject and passes on the request
+    to the realSubject after it has finished its processing'
+  id: totrans-23
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: '**代理**：代理类嵌入真实主题，并在完成处理后将请求传递给真实主题。'
+- en: '**RealSubject**: This is the class that holds the main business logic and which
+    is kept behind a proxy'
+  id: totrans-24
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: '**真实主题**：这是持有主业务逻辑的类，保存在代理之后。'
+- en: '**Client:** Can interact with both proxy and realSubject as they both follow
+    the same interface.'
+  id: totrans-25
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: '**客户端：** 可以与代理和真实主题进行交互，因为它们都遵循相同的接口。'
+- en: '![](img/998f1371838be82becbb7346fc92376b.png)'
+  id: totrans-26
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+  zh: '![](img/998f1371838be82becbb7346fc92376b.png)'
+- en: Below is the corresponding mapping UML diagram with the practical example of
+    nginx and application server which was described above.
+  id: totrans-27
+  prefs: []
+  type: TYPE_NORMAL
+  zh: 下面是与上述 nginx 和应用服务器的实际示例相对应的映射 UML 图。
+- en: '![](img/47e93f74bd4018b8fcd5979ebbfa5cf2.png)'
+  id: totrans-28
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+  zh: '![](img/47e93f74bd4018b8fcd5979ebbfa5cf2.png)'
+- en: '**Mapping **'
+  id: totrans-29
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+  zh: '**映射**'
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in code
+  id: totrans-30
+  prefs: []
+  type: TYPE_NORMAL
+  zh: 下面的表格表示 UML 图中的参与者与代码中的实际实现参与者之间的映射。
+- en: '| subject | server.go |'
+  id: totrans-31
+  prefs: []
+  type: TYPE_TB
+  zh: '| subject | server.go |'
+- en: '| proxy | nginx.go |'
+  id: totrans-32
+  prefs: []
+  type: TYPE_TB
+  zh: '| proxy | nginx.go |'
+- en: '| realSubject | application.go |'
+  id: totrans-33
+  prefs: []
+  type: TYPE_TB
+  zh: '| realSubject | application.go |'
+- en: '| client | main.go |'
+  id: totrans-34
+  prefs: []
+  type: TYPE_TB
+  zh: '| client | main.go |'
+- en: '**Practical Example:**'
+  id: totrans-35
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+  zh: '**实际示例：**'
+- en: '**server.go**'
+  id: totrans-36
+  prefs: []
+  type: TYPE_NORMAL
+  zh: '**server.go**'
+- en: '[PRE0]'
+  id: totrans-37
+  prefs: []
+  type: TYPE_PRE
+  zh: '[PRE0]'
+- en: '**nginx.go**'
+  id: totrans-38
+  prefs: []
+  type: TYPE_NORMAL
+  zh: '**nginx.go**'
+- en: '[PRE1]'
+  id: totrans-39
+  prefs: []
+  type: TYPE_PRE
+  zh: '[PRE1]'
+- en: '**application.go**'
+  id: totrans-40
+  prefs: []
+  type: TYPE_NORMAL
+  zh: '**application.go**'
+- en: '[PRE2]'
+  id: totrans-41
+  prefs: []
+  type: TYPE_PRE
+  zh: '[PRE2]'
+- en: '**main.go**'
+  id: totrans-42
+  prefs: []
+  type: TYPE_NORMAL
+  zh: '**main.go**'
+- en: '[PRE3]'
+  id: totrans-43
+  prefs: []
+  type: TYPE_PRE
+  zh: '[PRE3]'
+- en: '**Output:**'
+  id: totrans-44
+  prefs: []
+  type: TYPE_NORMAL
+  zh: '**输出：**'
+- en: '[PRE4]'
+  id: totrans-45
+  prefs: []
+  type: TYPE_PRE
+  zh: '[PRE4]'
+- en: '**Full Working Code:**'
+  id: totrans-46
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
+- en: '[PRE5]'
+  id: totrans-47
+  prefs: []
+  type: TYPE_PRE
+  zh: '[PRE5]'
+- en: '**Output:**'
+  id: totrans-48
+  prefs: []
+  type: TYPE_NORMAL
+  zh: '**输出：**'
+- en: '[PRE6]'
+  id: totrans-49
+  prefs: []
+  type: TYPE_PRE
+  zh: '[PRE6]'
+- en: '[design pattern](https://golangbyexample.com/tag/design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [proxy
+    design pattern](https://golangbyexample.com/tag/proxy-design-pattern/)*'
+  id: totrans-50
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+  zh: '[设计模式](https://golangbyexample.com/tag/design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [代理设计模式](https://golangbyexample.com/tag/proxy-design-pattern/)*'

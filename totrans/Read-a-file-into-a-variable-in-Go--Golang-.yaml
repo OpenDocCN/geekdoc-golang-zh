@@ -1,133 +1,212 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:39:30'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:39:30
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Read a file into a variable in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中将文件读入变量
 - en: 来源：[https://golangbyexample.com/read-file-variable-golang/](https://golangbyexample.com/read-file-variable-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/read-file-variable-golang/](https://golangbyexample.com/read-file-variable-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Using ReadFile function provided by the ioutil package](#Using_ReadFile_function_provided_by_the_ioutil_package
     "Using ReadFile function provided by the ioutil package ")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 ioutil 包提供的 ReadFile 函数](#Using_ReadFile_function_provided_by_the_ioutil_package
+    "使用 ioutil 包提供的 ReadFile 函数")'
 - en: '[Using os.Open and then using bytes.Buffer](#Using_osOpen_and_then_using_bytesBuffer
     "Using os.Open and then using bytes.Buffer")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 os.Open 和 bytes.Buffer](#Using_osOpen_and_then_using_bytesBuffer "使用 os.Open
+    和 bytes.Buffer")'
 - en: '[Using os.Open and then using strings.Builder](#Using_osOpen_and_then_using_stringsBuilder
     "Using os.Open and then using strings.Builder")*  *## **Overview**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 os.Open 和 strings.Builder](#Using_osOpen_and_then_using_stringsBuilder
+    "使用 os.Open 和 strings.Builder")*  *## **概述**'
 - en: There are various ways of reading a file into a variable in golang. Here are
     some of the ways
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 有多种方法可以在 golang 中将文件读入变量。以下是一些方法
 - en: Using **ReadFile** function provided by the **ioutil** package
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 **ioutil** 包提供的 **ReadFile** 函数
 - en: Using **os.Open** and then using **bytes.Buffer**
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 **os.Open** 然后使用 **bytes.Buffer**
 - en: Using **os.Open** and then using **strings.Builder**
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 **os.Open** 然后使用 **strings.Builder**
 - en: .Also, note reading the entire file into a variable only makes sense if you
     are reading a small file. If the file is large then it makes sense to read it
     line by line. Refer to this article for the same.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，请注意，只有在读取小文件时，将整个文件读入变量才有意义。如果文件很大，那么逐行读取就更有意义。请参考这篇文章。
 - en: '[https://golangbyexample.com/read-large-file-line-by-line-go/](https://golangbyexample.com/read-large-file-line-by-line-go/)'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golangbyexample.com/read-large-file-line-by-line-go/](https://golangbyexample.com/read-large-file-line-by-line-go/)'
 - en: 'Note: Before trying out examples in this tutorial, please create a file named
     **test.png** at the location from which you will be running the program'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：在尝试本教程中的示例之前，请在运行程序的目录中创建一个名为 **test.png** 的文件
 - en: '**Using ReadFile function provided by the ioutil package**'
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用 ioutil 包提供的 ReadFile 函数**'
 - en: '[https://golang.org/pkg/io/ioutil/#ReadFile](https://golang.org/pkg/io/ioutil/#ReadFile)'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/io/ioutil/#ReadFile](https://golang.org/pkg/io/ioutil/#ReadFile)'
 - en: Below is the program for the same
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序
 - en: '[PRE0]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Using os.Open and then using bytes.Buffer**'
+  id: totrans-24
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用 os.Open 和 bytes.Buffer**'
 - en: '[https://golang.org/pkg/bytes/#Buffer](https://golang.org/pkg/bytes/#Buffer)'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/bytes/#Buffer](https://golang.org/pkg/bytes/#Buffer)'
 - en: Below is the program for the same
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Using **os.Open** and then using **strings.Builder**
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 使用 **os.Open** 然后使用 **strings.Builder**
 - en: '[https://golang.org/pkg/strings/#Builder](https://golang.org/pkg/strings/#Builder)'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/strings/#Builder](https://golang.org/pkg/strings/#Builder)'
 - en: Below is the program for the same
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序
 - en: '[PRE4]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

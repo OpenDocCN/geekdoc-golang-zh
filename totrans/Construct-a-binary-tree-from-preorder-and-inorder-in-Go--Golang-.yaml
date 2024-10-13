@@ -1,144 +1,221 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:45:14'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:45:14
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Construct a binary tree from preorder and inorder in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 从先序和中序在Go (Golang)中构造二叉树
 - en: 来源：[https://golangbyexample.com/tree-preorder-inorder-golang/](https://golangbyexample.com/tree-preorder-inorder-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/tree-preorder-inorder-golang/](https://golangbyexample.com/tree-preorder-inorder-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: Two arrays are given which represent the preorder and inorder traversal of a
     binary tree. The objective is to construct a binary tree from them
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定两个数组，它们表示一个二叉树的先序遍历和中序遍历。目标是从中构造一个二叉树。
 - en: 'Example:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例：
 - en: Consider below tree
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 考虑下面的树
 - en: '![](img/9a9347838908483552b24df3dc54cd38.png)'
+  id: totrans-12
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/9a9347838908483552b24df3dc54cd38.png)'
 - en: Preorder traversal of the tree will be
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 树的先序遍历将是
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Inorder traversal of the tree will be
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 树的中序遍历将是
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Preorder and Inorder array will be given and we have to construct the tree again
     from the inorder and preorder. Below will be the strategy
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 将给定先序和中序数组，我们必须再次从中序和先序构造树。以下是策略
 - en: We will use three indexes which is the start of the array, end of the array,
     and current index
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将使用三个索引，分别是数组的起始、结束和当前索引
 - en: The start index in the preorder will be the root.
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 先序中的起始索引将是根。
 - en: We will find the index in an inorder array whose values match the value at the
     start index in the preorder array. Let’s this index be called rootIndex
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将在中序数组中找到一个索引，其值与先序数组的起始索引处的值匹配。我们将这个索引称为rootIndex。
 - en: All values in the left side of rootIndex in the inorder array will be in the
     left subtree
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 中序数组中rootIndex左侧的所有值将位于左子树中
 - en: All values on the right side of rootIndex in the inorder array will be in the
     right subtree
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 中序数组中rootIndex右侧的所有值将位于右子树中
 - en: We can then recurse with the same strategy for the left subtree and then the
     right subtree.
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后我们可以用相同的策略递归左子树，再递归右子树。
 - en: For eg
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: The first index in the preorder traversal is the root which is value **1**
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 先序遍历的第一个索引是根，其值为**1**
 - en: The value **1** is at the **2nd** index in the inorder traversal. Hence rootIndex
     is **2**
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 值**1**在中序遍历的**第2**个索引上。因此rootIndex是**2**
 - en: The left part of rootIndex in the inorder traversal is **[4,2]**  which is part
     of the left subtree
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 中序遍历中rootIndex左侧的部分是**[4,2]**，这部分属于左子树
 - en: The right side of rootIndex in the inorder traversal  is **[5,3,6]** which is
     part of the right subtree
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 中序遍历中rootIndex右侧的部分是**[5,3,6]**，这部分属于右子树
 - en: We can recurse for the left subtree and then the right subtree
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们可以先递归左子树，然后递归右子树
 - en: '**Program**'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相同程序的代码
 - en: '[PRE2]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的Golang高级教程。本系列的教程内容详尽，我们尽力涵盖所有概念和示例。本教程适合那些希望获得专业知识和深入理解Golang的读者
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

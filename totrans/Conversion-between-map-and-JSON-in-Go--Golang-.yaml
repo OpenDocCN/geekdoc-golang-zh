@@ -1,123 +1,195 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:33:08'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:33:08
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Conversion between map and JSON in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中，映射与JSON之间的转换。
 - en: 来源：[https://golangbyexample.com/map-json-golang/](https://golangbyexample.com/map-json-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/map-json-golang/](https://golangbyexample.com/map-json-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Map to JSON](#Map_to_JSON "Map to JSON")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射到JSON](#Map_to_JSON "映射到JSON")'
 - en: '[JSON to map](#JSON_to_map "JSON to map")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[JSON到映射](#JSON_to_map "JSON到映射")*  *# **概述**'
 - en: '**encoding/json** package provides utilities that can be used to convert to
     and from JSON. The same utility can be used to convert a golang map to JSON string
     and vice versa. A very important point to note though is that map allows integer
     values for keys while JSON doesn’t allow integer values for keys. JSON only allows
     string value for keys. So a map having an integer value for the key when converted
     to JSON will have a string value for the key.'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**encoding/json**包提供了用于转换到JSON和从JSON转换的工具。可以使用相同的工具将Golang映射转换为JSON字符串，反之亦然。但需要注意的是，映射允许键的整数值，而JSON不允许键的整数值。JSON仅允许键的字符串值。因此，当将具有整数键值的映射转换为JSON时，键将具有字符串值。'
 - en: '**Map to JSON**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**映射到JSON**'
 - en: Let’s see a program for conversion of map to JSON
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个将映射转换为JSON的程序。
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above code, we are using **json.Marshal** function to convert the map
     to JSON. The map has an integer value for the key
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的代码中，我们使用**json.Marshal**函数将映射转换为JSON。该映射的键对应一个整数值。
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: While after converting, the resultant JSON as a string value for the key
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 在转换后，结果JSON作为键的字符串值。
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Let’s see one more example where we convert a map to a **JSON** where we have
     a struct for the value in the map. Below is the code for that
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们再看一个例子，在这个例子中，我们将映射转换为**JSON**，其中映射的值是一个结构体。以下是相关代码。
 - en: '[PRE4]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**JSON to map**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**JSON到映射**'
 - en: Let’s try to convert from JSON to map. We will convert the resultant JSON from
     the above example back to the map.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们尝试将JSON转换为映射。我们将把上面示例中得到的JSON结果转换回映射。
 - en: '**json.Unmarshal** function can be used to convert a JSON back to the map'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**json.Unmarshal**函数可用于将JSON转换回映射。'
 - en: '**First case:**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**第一种情况：**'
 - en: '[PRE6]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Second Case**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**第二种情况**'
 - en: '[PRE8]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

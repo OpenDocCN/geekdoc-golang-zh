@@ -1,283 +1,437 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:33:31'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:33:31'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Conversion between struct and JSON in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中结构体与 JSON 之间的转换。
 - en: 来源：[https://golangbyexample.com/struct-json-golang/](https://golangbyexample.com/struct-json-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/struct-json-golang/](https://golangbyexample.com/struct-json-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Struct to JSON](#Struct_to_JSON "Struct to JSON")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结构体转 JSON](#Struct_to_JSON "Struct to JSON")'
 - en: '[JSON to struct](#JSON_to_struct "JSON to struct")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[JSON 转结构体](#JSON_to_struct "JSON to struct")*  *# **概述**'
 - en: '**encoding/json** package provides utilities that can be used to convert to
     and from JSON. The same utility can be used to convert a golang struct to a JSON
     string and vice versa.  Two functions which are used are'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**encoding/json** 包提供了可以用于 JSON 转换的工具。相同的工具可以用于将 Go 结构体转换为 JSON 字符串及其反向转换。使用的两个函数是。'
 - en: Marshal – To convert a struct into JSON string
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Marshal - 将结构体转换为 JSON 字符串。
 - en: Unmarshal- To convert a JSON string back to struct
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Unmarshal - 将 JSON 字符串转换回结构体。
 - en: 'Before we see how to convert a struct to JSON and vice versa we need to know
     two things about golang struct:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们查看如何将结构体转换为 JSON 及其反向转换之前，我们需要了解 Go 结构体的两件事：
 - en: Only exported fields of the struct are visible to the external library. Hence
     only exported fields of the struct will be present in the converted JSON string.
     Also to note that capitalized fields of a struct are exported in go.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 只有结构体的导出字段对外部库可见。因此，在转换后的 JSON 字符串中仅会存在结构体的导出字段。还要注意，在 Go 中，结构体的大写字段是导出的。
 - en: Struct fields have a meta section that contains additional information about
     that field. These meta fields are used while converting a struct into JSON and
     vice-versa. Also, note that these struct meta fields is that they are optional.
     Let’s say we have the below struct
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体字段具有一个元部分，其中包含有关该字段的附加信息。这些元字段在将结构体转换为 JSON 及其反向转换时使用。此外，请注意这些结构体元字段是可选的。假设我们有以下结构体。
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Notice meta tags associated with each of the fields annotated with name as ‘json’.
     These meta fields are used while converting a struct into JSON and vice versa.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意与每个字段关联的元标签，这些字段的名称为 ‘json’。在将结构体转换为 JSON 及其反向转换时使用这些元字段。
 - en: So the above struct when converted to JSON will be as below
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，上述结构体转换为 JSON 后将如下所示。
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Then **name **key of the above JSON string will map to the **Name** field of
     the **employee** struct and the **age** key in the JSON string will map to the **Age** field
     of the struct. Also, when converting the above JSON string  to a struct, the value
     in the **name** field of json will go to value in the **Name** field of the struct,
     and value in the **age** field of json will go to value in the **Age** field of
     struct .
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么上述 JSON 字符串中的 **name** 键将映射到 **employee** 结构体的 **Name** 字段，而 JSON 字符串中的 **age**
+    键将映射到结构体的 **Age** 字段。此外，在将上述 JSON 字符串转换为结构体时，JSON 中 **name** 字段的值将传递给结构体的 **Name**
+    字段，而 JSON 中 **age** 字段的值将传递给结构体的 **Age** 字段。
 - en: As another example, let’s say we have below struct
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 作为另一个示例，假设我们有以下结构体。
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Then after conversion to JSON,  **‘n’** key of the JSON will map to the **Name** field
     of the struct and **‘ag’ **key of the JSON will map to the **Age** field of the
     struct. So it will produce below JSON
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后在转换为 JSON 后，JSON 的 **‘n’** 键将映射到结构体的 **Name** 字段，而 JSON 的 **‘ag’** 键将映射到结构体的
+    **Age** 字段。因此，它将生成如下 JSON。
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Also, when converting the above JSON string  to a struct, the value in the **‘n’**
     field of JSON string will go to value in the **Name** field of the struct, and
     value in the **‘a’** field of json will go to value in the **Age** field of struct
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，在将上述 JSON 字符串转换为结构体时，JSON 字符串中的 **‘n’** 字段的值将传递给结构体的 **Name** 字段，而 JSON 中
+    **‘a’** 字段的值将传递给结构体的 **Age** 字段。
 - en: If the struct doesn’t contain any meta tags then the resulting key name in the
     JSON will be the same as the struct field’s name and vice versa. For eg if we
     have below struct
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果结构体不包含任何元标签，则结果 JSON 中的键名将与结构体字段的名称相同，反之亦然。例如，如果我们有以下结构体。
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Notice then none of the fields has the JSON meta tags. So after converting to
     JSON it will be like
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，字段没有 JSON 元数据标签。因此，转换为 JSON 后将如下所示。
 - en: '[PRE5]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Struct to JSON**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结构体转 JSON**'
 - en: '**json.Marshal** function can be used to convert a struct to **JSON**. Let’s
     see an example of conversion from a struct to JSON. To illustrate all points above
     we have created two structs'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**json.Marshal** 函数可用于将结构体转换为 **JSON**。让我们来看一个从结构体转换为 JSON 的示例。为说明以上所有要点，我们创建了两个结构体。'
 - en: '**employee1** struct – It has meta tags'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**employee1** 结构体 - 它具有元标签。'
 - en: '**employee2** struct – It doesn’t have meta tags'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**employee2**结构体 - 它没有元标签。'
 - en: Also, the salary field in both the struct is unexported
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，两个结构体中的salary字段均为未导出。
 - en: '[PRE6]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Notice that we are using **json.Marshal** function to convert from the struct
     to JSON.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，我们使用**json.Marshal**函数将结构体转换为JSON。
 - en: For the **employee1** struct to JSON conversion, the output is
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于**employee1**结构体到JSON的转换，输出为
 - en: '[PRE8]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: This is because
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是因为
 - en: '**salary** field is not present in the output because it is not exported ie
     the field is not capitalized'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**salary**字段在输出中不存在，因为它未导出，即该字段未大写。'
 - en: Because of json tags associated with the **employee1** struct, the **‘Name’**
     field of the **employee1** struct is mapped to **‘n’** field of the JSON, and
     ‘**Age’** field is mapped to ‘**a’** field of the JSON
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 由于与**employee1**结构体关联的JSON标签，**‘Name’**字段映射到JSON的**‘n’**字段，而**‘Age’**字段映射到JSON的**‘a’**字段。
 - en: For the **employee2** struct to JSON conversion, the output is
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于**employee2**结构体到JSON的转换，输出为
 - en: '[PRE9]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: This is because
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是因为
 - en: '**salary** field is not present in the output because it is not exported ie
     the field is not capitalized'
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**salary**字段在输出中不存在，因为它未导出，即该字段未大写。'
 - en: Since no json tags are associated with the **employee2** struct, the **‘Name’**
     field of the **employee1** struct is mapped to **‘Name’** field of the JSON, and
     ‘**Age’** field is mapped to **‘Age’** field of the JSON
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 由于**employee2**结构体没有关联任何JSON标签，**employee1**结构体的**‘Name’**字段映射到JSON的**‘Name’**字段，而**‘Age’**字段映射到JSON的**‘Age’**字段。
 - en: '**JSON to struct**'
+  id: totrans-49
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**JSON到结构体**'
 - en: '**json.Unmarshal** function can be used to convert from JSON to a struct. Whatever
     rules we discussed above also apply to conversion from JSON to a struct.  Let’s
     see an example'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '**json.Unmarshal**函数可用于将JSON转换为结构体。我们之前讨论的规则同样适用于从JSON转换为结构体。让我们来看一个例子。'
 - en: '[PRE10]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: This example uses the json string that was the output from the first example.
     Here we are using the **json.Unmarsha**l function to convert from JSON string
     to structThe first thing to note is that we need to pass the address of the struct
     to the **json.Unmarshal** function as below
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 此示例使用了第一个示例的输出JSON字符串。在这里，我们使用**json.Unmarshal**函数将JSON字符串转换为结构体。首先需要注意的是，我们需要将结构体的地址传递给**json.Unmarshal**函数，如下所示。
 - en: '[PRE12]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: The first argument is the JSON bytes and the second is the address of the struct.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个参数是JSON字节，第二个是结构体的地址。
 - en: Unmarshing of
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 解组
 - en: '[PRE13]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: into **employee1** struct outputs
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出到**employee1**结构体。
 - en: '[PRE14]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Unmarshling of
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 解组
 - en: '[PRE15]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: into **employee2** struct outputs
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出到**employee2**结构体。
 - en: '[PRE16]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: Also if you try unmarshalling
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你尝试解组
 - en: '[PRE17]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '[PRE18]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '[PRE19]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Nothing will get unmarshalled because there are no meta tags in the **employee2**
     struct and key names in the **employee2** struct and key names in JSON is different.
     Hence an empty **employee2** struct will be created with each of the fields in
     the struct initialized with the default zero value of its type.
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于**employee2**结构体中没有元标签，且**employee2**结构体中的键名与JSON中的键名不同，因此不会进行解组。因此将创建一个空的**employee2**结构体，结构体中的每个字段都将初始化为其类型的默认零值。
 - en: What if the JSON string contains the **salary** field. Then the value for the
     **salary** field in the JSON string will not reflect in the **salary** field of
     the struct because the **salary** field is not exported in the struct. See this
     example for the same.
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果JSON字符串包含**salary**字段，那么JSON字符串中的**salary**字段的值将不会反映在结构体的**salary**字段中，因为**salary**字段在结构体中未导出。请参见此示例。
 - en: '[PRE20]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Output**'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE21]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: Even though the **salary** field in the JSON string has a value of 1000 but
     after converting it to the struct the **salary** field in the struct is 0.*
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管JSON字符串中的**salary**字段值为1000，但在转换为结构体后，结构体中的**salary**字段为0。

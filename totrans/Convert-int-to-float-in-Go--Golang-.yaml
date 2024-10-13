@@ -1,109 +1,175 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:35:00'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:35:00
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Convert int to float in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go中将int转换为float（Golang）
 - en: 来源：[https://golangbyexample.com/int-to-float-golang/](https://golangbyexample.com/int-to-float-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/int-to-float-golang/](https://golangbyexample.com/int-to-float-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[int to float64](#int_to_float64 "int to float64")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[int到float64](#int_to_float64 "int to float64")'
 - en: '[int to float32](#int_to_float32 "int to float32")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[int到float32](#int_to_float32 "int to float32")*  *## **概述**'
 - en: Golang requires explicit conversion to convert from one type to the other. An
     int data type can directly be converted into float data type using explicit type
     conversion. Below is the syntax for that.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang需要显式转换才能从一种类型转换为另一种类型。int数据类型可以通过显式类型转换直接转换为float数据类型。以下是语法。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This converts **some_value** to the **destination_type**.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将**some_value**转换为**destination_type**。
 - en: '**int to float64**'
+  id: totrans-13
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**int到float64**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Or
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 或
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Below is the program for the same
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相同的程序
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**int to float32**'
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**int到float32**'
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: or
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 或
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Below is the working program for the same.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相同的工作程序。
 - en: '[PRE7]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In case we directly assign an int to a float variable without conversion, it
     will raise a compilation error.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们直接将一个int赋值给float变量而不进行转换，将会引发编译错误。
 - en: '[PRE9]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

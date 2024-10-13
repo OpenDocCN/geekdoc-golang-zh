@@ -1,126 +1,202 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:33:21'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:33:21
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Convert a JSON to map in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中将 JSON 转换为 map。
 - en: 来源：[https://golangbyexample.com/json-to-map-golang/](https://golangbyexample.com/json-to-map-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/json-to-map-golang/](https://golangbyexample.com/json-to-map-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")**'
 - en: '[Examples](#Examples "Examples")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Examples "Examples")*  *# **概述**'
 - en: '**encoding/json** package provides utilities that can be used to convert to
     and from JSON. The same utility can be used to convert a golang map to JSON string
     and vice versa.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**encoding/json** 包提供的工具可以用于在 JSON 之间进行转换。相同的工具可以用于将 Golang map 转换为 JSON 字符串，反之亦然。'
 - en: '**Examples**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '**json.Unmarshal** function can be used to convert a JSON to the map'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**json.Unmarshal** 函数可以用于将 JSON 转换为 map。'
 - en: There can be two cases
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 可能有两种情况。
 - en: If you know the format of the JSON, then initialize the map in the same format. 
     For eg when we know that the value part in the JSON is of string type then we
     can initialize the map in the below format
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果你知道 JSON 的格式，那么请按相同格式初始化 map。例如，当我们知道 JSON 中的值部分为字符串类型时，我们可以按以下格式初始化 map。
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: If the format of the JSON is not known then the corresponding map needs to be
     initialized in the below format. The value part needs to be an empty interface
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 JSON 的格式未知，则需要按照以下格式初始化相应的 map。值部分需要是一个空接口。
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s see some examples. In the first example, we have below JSON string
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一些示例。在第一个示例中，我们有以下 JSON 字符串。
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Assume that the format of the JSON is known. Below is the program
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设 JSON 的格式是已知的。以下是程序。
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the second example, we have below JSON string
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第二个示例中，我们有以下 JSON 字符串。
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: We are parsing this JSON string into the below map type
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们正在将这个 JSON 字符串解析成下面的 map 类型。
 - en: '[PRE6]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: where the **employee** is a struct
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中 **employee** 是一个结构体。
 - en: '[PRE7]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: This is the code
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是代码。
 - en: '[PRE8]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Let’s also see an example of the case where the format of the JSON is not known.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们再看看一种情况，即 JSON 的格式未知的例子。
 - en: '[PRE10]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

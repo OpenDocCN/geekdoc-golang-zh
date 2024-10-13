@@ -1,115 +1,185 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:34:54'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:34:54
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Convert float to int in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中将浮点数转换为整数
 - en: 来源：[https://golangbyexample.com/float-to-int-golang/](https://golangbyexample.com/float-to-int-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/float-to-int-golang/](https://golangbyexample.com/float-to-int-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[float64 to int](#float64_to_int "float64 to int")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[float64 转 int](#float64_to_int "float64 to int")'
 - en: '[float32 to int](#float32_to_int "float32 to int")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[float32 转 int](#float32_to_int "float32 to int")*  *## **概述**'
 - en: Golang requires explicit conversion to convert from one type to the other. The
     float data type can directly be converted into float data type using explicit
     type conversion. Below is the syntax for that.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang需要明确转换才能在不同类型之间进行转换。浮点数据类型可以通过显式类型转换直接转换为浮点数据类型。以下是其语法。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This converts **some_value** to the **destination** type.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将**some_value**转换为**目标**类型。
 - en: '**float64 to int**'
+  id: totrans-13
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**float64 转 int**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: or
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 或
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Below is the program for the same
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的程序
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**float32 to int**'
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**float32 转 int**'
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: or
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 或
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Below is the working program for the same.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的工作程序。
 - en: '[PRE7]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In case, we directly assign a float value to an int variable without explicit conversion
     then it will raise the below compilation error.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们直接将浮点值赋给整数变量而没有明确转换，将会引发以下编译错误。
 - en: '[PRE9]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: or
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 或
 - en: '[PRE10]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，请查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

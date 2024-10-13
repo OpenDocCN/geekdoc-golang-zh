@@ -1,102 +1,158 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:45:31'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:45:31
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Jump Game Program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的跳跃游戏程序
 - en: 来源：[https://golangbyexample.com/jump-game-program-golang/](https://golangbyexample.com/jump-game-program-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/jump-game-program-golang/](https://golangbyexample.com/jump-game-program-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## Overview'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## 概述'
 - en: There is an input array provided. Each entry in the array represents the maximum
     jump length from that position. One is supposed to start from the first index
     and return true if the last index can be reached and return false if the last
     index cannot be reached
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 提供了一个输入数组。数组中的每个条目表示从该位置的最大跳跃长度。应该从第一个索引开始，如果可以到达最后一个索引，则返回true；如果无法到达，则返回false。
 - en: Example
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In the first example, there are different ways to reach the last index.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第一个示例中，有不同的方法可以到达最后一个索引。
 - en: 0-1-4
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 0-1-4
 - en: 0-2-3-4
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 0-2-3-4
 - en: In the second example, there is no way to reach the last index. The best you
     can reach is the second last index. Since the value at the second last index is
     zero, therefore it is not possible to reach the last index.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第二个示例中，无法到达最后一个索引。你能到达的最远是倒数第二个索引。由于倒数第二个索引的值为零，因此无法到达最后一个索引。
 - en: There is another variation where you have to return the minimum number of jumps.
     We will look at the program later
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有一种变体，要求返回最少跳跃次数。我们稍后会讨论这个程序。
 - en: '**Program**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: There is another variation where you have to return the minimum number of jumps.
     Here is the program for the same
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有一种变体，要求返回最少跳跃次数。下面是该程序
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的Golang高级教程。该系列教程详细且覆盖了所有概念及示例。本教程适合希望获得专业知识和扎实理解Golang的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

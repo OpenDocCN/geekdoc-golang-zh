@@ -1,306 +1,484 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:28:41'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:28:41
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: IOTA in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的IOTA（Golang）
 - en: 来源：[https://golangbyexample.com/iota-in-golang/](https://golangbyexample.com/iota-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/iota-in-golang/](https://golangbyexample.com/iota-in-golang/)
 - en: This is the  chapter 22 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是Golang综合教程系列的第22章。请参考此链接以获取该系列的其他章节– [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Goroutines](https://golangbyexample.com/goroutines-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程**– [Goroutines](https://golangbyexample.com/goroutines-golang/)'
 - en: '**Previous Tutorial** – [Interface](https://golangbyexample.com/interface-in-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程**– [接口](https://golangbyexample.com/interface-in-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看当前的教程。下面是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[More about IOTA](#More_about_IOTA "More about IOTA")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[更多关于IOTA的信息](#More_about_IOTA "More about IOTA")'
 - en: '[Enum in Golang](#Enum_in_Golang "Enum in Golang")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Golang中的枚举](#Enum_in_Golang "Enum in Golang")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "Conclusion")*  *# **概述**'
 - en: Iota is an identifier which is used with constant and which can simplify constant
     definitions that use auto increment numbers.  The **IOTA** keyword represent integer
     constant starting from zero.  So essentially it can be used to create effective
     constant in Go . They can also be used to create enum in Go as we will see later
     in this tutorial.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: Iota是一个标识符，用于常量，能够简化使用自动递增数字的常量定义。**IOTA**关键字表示从零开始的整数常量。因此，它可以用于在Go中创建有效的常量。它们还可以用于在Go中创建枚举，正如我们在本教程后面将看到的那样。
 - en: Auto increment constant without IOTA
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 没有IOTA的自动递增常量。
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Auto increment constant with IOTA
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 带IOTA的自动递增常量。
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Both will set
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 两者将设置。
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: So IOTA is
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以IOTA是。
 - en: A counter which starts with zero
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个从零开始的计数器。
 - en: Increases by 1 after each line
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每行增加1。
 - en: Is only used with constant
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅用于常量。
 - en: IOTA starts with zero and increases by 1 after each line but there are some
     caveats as well. First, let’s see a simple example where iota starts with zero
     increases by 1 after each line
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: IOTA从零开始，每行增加1，但也有一些注意事项。首先，让我们看一个简单的例子，其中iota从零开始并在每一行后递增1。
 - en: '[PRE3]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Iota sets the value of **a** to zero. Then on each new line and it increments
     the value by one. Therefore the output is 0 followed by 1 followed by 2
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: Iota将**a**的值设置为零。然后在每一行上递增该值1。因此，输出为0，接着是1，再接着是2。
 - en: '**More about IOTA**'
+  id: totrans-31
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**更多关于IOTA的信息**'
 - en: Let’s see some other points related to iota
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看与iota相关的其他几点。
 - en: Iota keyword can be used on each line as well. In that case, also iota will
     start from zero and increment on each new line. It will be the same as the above
     case
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: iota关键字也可以在每一行上使用。在这种情况下，iota将从零开始并在每一行递增。这将与上述情况相同。
 - en: '[PRE5]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: will output
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输出。
 - en: '[PRE6]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: iota keyword can be skipped as well. In that case, also iota will start from
     zero and increment on each new line. It is same as above two cases
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: iota关键字也可以跳过。在这种情况下，iota将从零开始并在每一行递增。这与上述两种情况相同。
 - en: '[PRE7]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: will output
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输出。
 - en: '[PRE8]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: There will be no increment if there is a empty line or a commented line
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果存在空行或注释行，则不会递增。
 - en: '[PRE9]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: will output
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输出。
 - en: '[PRE10]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Iota value will reset and again start with zero if the const keyword is used
     again
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果再次使用const关键字，iota值将重置并重新从零开始。
 - en: '[PRE11]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: will output
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输出。
 - en: '[PRE12]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: iota increment can be skipped using a blank identifier
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可以使用空标识符跳过iota递增。
 - en: '[PRE13]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: will output
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输出。
 - en: '[PRE14]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: iota expressions – iota allows expressions which can be used to set any value
     for the constant
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: iota表达式–iota允许表达式，可以用于为常量设置任何值。
 - en: '[PRE15]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: will output
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输出。
 - en: '[PRE16]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: The first-time iota value was zero, hence the output is zero.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一次的iota值是零，因此输出为零。
 - en: On the next line iota value is 1 hence the output is 1+4=5.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 下一行的iota值为1，因此输出为1+4=5。
 - en: On the next line, iota value is 2 hence output 2*4=8
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 下一行，iota值为2，因此输出为2*4=8。
 - en: iota can also start from non-zero number- iota expressions can also be used
     to start iota from any number
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: iota也可以从非零数字开始，iota表达式也可以用于从任何数字开始iota。
 - en: '[PRE17]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: will output
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输出
 - en: '[PRE18]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**Enum in Golang**'
+  id: totrans-64
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**Golang中的枚举**'
 - en: '**IOTA** provides an automated way to create a enum in Golang. Let’s see an
     example.'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: '**IOTA**提供了一种自动创建Golang中的枚举的方法。让我们看看一个例子。'
 - en: '[PRE19]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**Output**'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE20]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: In above program we created a new type
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了一个新类型。
 - en: '[PRE21]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: Then we declared some const of  type **Size**. The first constant **small**
     is set to iota so it will be set to zero
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们声明了一些 **Size** 类型的常量。第一个常量 **small** 被设置为 iota，因此它的值将为零。
 - en: '[PRE22]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: That’s why
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是原因。
 - en: '[PRE23]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: Without IOTA we had to explicitly set the values of each of the enum value
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 没有 IOTA，我们必须显式地设置每个枚举值的值。
 - en: '[PRE24]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Output**'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE25]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: We can also define a method **toString** on Size type to print the exact value
     of enum . See below program
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还可以在 Size 类型上定义一个 **toString** 方法，以打印枚举的确切值。见下方程序。
 - en: '[PRE26]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: '**Output**'
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE27]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: We have defined a **toString** method for the **Size** type. It can be used
     to the print the string value of the constant of Size type.
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们为 **Size** 类型定义了一个 **toString** 方法。它可以用于打印 Size 类型常量的字符串值。
 - en: '**Conclusion**'
+  id: totrans-84
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about IOTA and Enum in golang. Hope you have liked this article.
     Please share feedback/improvements/mistakes in comments
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于 IOTA 和枚举在 Golang 中的所有内容。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Goroutines](https://golangbyexample.com/goroutines-golang/)'
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一篇教程** – [协程](https://golangbyexample.com/goroutines-golang/)'
 - en: '**Previous Tutorial** – [Interface](https://golangbyexample.com/interface-in-golang/)'
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一篇教程** – [接口](https://golangbyexample.com/interface-in-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-88
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

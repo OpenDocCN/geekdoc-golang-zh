@@ -1,124 +1,196 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:20:46'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:20:46'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Iterate over a string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中遍历字符串
 - en: 来源：[https://golangbyexample.com/iterate-over-a-string-golang/](https://golangbyexample.com/iterate-over-a-string-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/iterate-over-a-string-golang/](https://golangbyexample.com/iterate-over-a-string-golang/)
 - en: In Golang string is a sequence of bytes. A string literal actually represents
     a UTF-8 sequence of bytes. In UTF-8, ASCII characters are single-byte corresponding
     to the first 128 Unicode characters. All other characters are between 1 -4 bytes.
     To understand it more consider the below string
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Golang 中，字符串是字节的序列。字符串字面量实际上表示一个 UTF-8 字节序列。在 UTF-8 中，ASCII 字符是单字节，对应于前 128
+    个 Unicode 字符。所有其他字符占用 1 到 4 个字节。为了更好地理解，考虑以下字符串：
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In above string
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述字符串中
 - en: ‘a’ takes one byte as per UTF-8
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 根据 UTF-8，‘a’占用一个字节。
 - en: ‘£’ takes two bytes as per UTF-8
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 根据 UTF-8，‘£’占用两个字节。
 - en: ‘b’ takes one byte as per UTF-8
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 根据 UTF-8，‘b’占用一个字节。
 - en: The above string has 1+2+1 = 4 bytes altogether. Therefore when we try to print
     the length of the string using the standard **len()** function it will output
     4 and not 3 as **len()** function returns the number of bytes in the string.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述字符串总共有 1+2+1 = 4 个字节。因此，当我们尝试使用标准的**len()** 函数打印字符串的长度时，它将输出 4，而不是 3，因为 **len()**
+    函数返回的是字符串中的字节数。
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Hence standalone for loop cannot be used to iterate over all characters of a
     string as it will iterate over bytes and not character. So below **for** loop
     will instead iterate four times and the print value corresponding to a byte at
     that index.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，独立的 for 循环不能用于遍历字符串中的所有字符，因为它会遍历字节而不是字符。因此，下面的 **for** 循环将循环四次，并打印对应于该索引的字节值。
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: It will output below string which is not same as **sample** string
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将输出以下字符串，与 **sample** 字符串不同。
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Not we have mentioned the above limitation of using len() function and for loop,
     let's see two ways of calculating the length of the string.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们提到了使用 `len()` 函数和 `for` 循环的上述限制，让我们来看两种计算字符串长度的方法。
 - en: Using for-range loop
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 for-range 循环
 - en: By converting string to a rune array.
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 通过将字符串转换为 rune 数组。
 - en: '**Using for-range loop**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**使用 for-range 循环**'
 - en: for-rage iterates over the Unicode points( also referred to as rune in golang)
     in a string and will correctly output  a, £, b. Hence it can also be used to calculate
     the length of the string. Here is the format when using for-range with string
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: for-range 遍历字符串中的 Unicode 点（在 golang 中也称为 rune），并将正确输出 a, £, b。因此，它也可以用于计算字符串的长度。下面是使用
+    for-range 和字符串时的格式。
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Sample code
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例代码
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**By converting string to rune array**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**通过将字符串转换为 rune 数组**'
 - en: A rune represents a Unicode Point. By converting a string to rune array basically
     it is same as creating an array of Unicode Points of that string. Therefore once
     the string is converted into the rune array, it can be used to iterate over all
     characters of the string.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个 rune 表示一个 Unicode 点。通过将字符串转换为 rune 数组，基本上就是创建该字符串的 Unicode 点数组。因此，一旦字符串转换为
+    rune 数组，就可以用于遍历字符串中的所有字符。
 - en: '[PRE7]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [iterate](https://golangbyexample.com/tag/iterate/)*   [string](https://golangbyexample.com/tag/string/)'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [iterate](https://golangbyexample.com/tag/iterate/)*   [string](https://golangbyexample.com/tag/string/)'

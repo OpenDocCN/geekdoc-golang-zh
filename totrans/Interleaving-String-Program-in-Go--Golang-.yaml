@@ -1,105 +1,164 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:44:48'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:44:48
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Interleaving String Program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的交错字符串程序
 - en: 来源：[https://golangbyexample.com/interleaving-string-program-golang/](https://golangbyexample.com/interleaving-string-program-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/interleaving-string-program-golang/](https://golangbyexample.com/interleaving-string-program-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Recursive Solution](#Recursive_Solution "Recursive Solution")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[递归解决方案](#Recursive_Solution "递归解决方案")'
 - en: '[Dynamic Programming Solution](#Dynamic_Programming_Solution "Dynamic Programming
     Solution")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[动态规划解决方案](#Dynamic_Programming_Solution "动态规划解决方案")*  *## **概述**'
 - en: Three strings are given **s1**, **s2**, **s3**. Find if string **s3** is interleaving
     of string.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定三个字符串**s1**、**s2**、**s3**。判断字符串**s3**是否为字符串的交错。
 - en: '**s3** will be an interleaving of string **s1** and **s2** if the below condition
     is satisfied'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果满足以下条件，**s3**将是字符串**s1**和**s2**的交错。
 - en: s3 contains all characters of **s1** and **s2** and the order of all characters
     in individual strings is preserved.
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: s3包含**s1**和**s2**的所有字符，并且每个字符串中的所有字符顺序保持不变。
 - en: Example
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Recursive Solution**'
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**递归解决方案**'
 - en: Below is the recursive solution for the same
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相同的递归解决方案
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: If you will notice the above program many subproblems are computed again and
     again hence the complexity of the above solution is exponential. Hence we can
     also use Dynamic Programming here to reduce the overall time complexity.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你注意到上述程序，许多子问题被反复计算，因此上述解决方案的复杂性是指数级的。因此，我们也可以在这里使用动态规划来减少整体时间复杂度。
 - en: Here is the program for the same
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相同程序的代码
 - en: '**Dynamic Programming Solution**'
+  id: totrans-22
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**动态规划解决方案**'
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：**查看我们的Golang高级教程。本系列的教程详细且我们尽力涵盖所有概念及示例。本教程适合希望获得Golang专业知识和扎实理解的人 -
+    [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

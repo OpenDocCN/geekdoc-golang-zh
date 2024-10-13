@@ -1,59 +1,93 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:07:16'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:07:16
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Iterate over all files and folders for a path in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中遍历路径下的所有文件和文件夹。
 - en: 来源：[https://golangbyexample.com/iterate-over-all-files-and-folders-go/](https://golangbyexample.com/iterate-over-all-files-and-folders-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/iterate-over-all-files-and-folders-go/](https://golangbyexample.com/iterate-over-all-files-and-folders-go/)
 - en: '**‘Walk’** function of ‘**filepath’** package can be used to recursively iterate
     over all files/folder in a directory tree.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**‘Walk’** 函数来自 **‘filepath’** 包，可用于递归遍历目录树中的所有文件/文件夹。'
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**‘Walk’** function will walk the entire tree rooted at the root path include
     all subdirectories.  Below is the signature of the function'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**‘Walk’** 函数将遍历以根路径为根的整个树，包括所有子目录。以下是该函数的签名。'
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The WalkFunc will be called for with the **path** of the file/folder and **fileInfo**
     or the **error** if any error occurred while walking that file/folder.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: WalkFunc 将被调用，并传入文件/文件夹的 **path** 和 **fileInfo** 或 **error**（如果在遍历该文件/文件夹时发生了错误）。
 - en: Some things to note about Walk function
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于 Walk 函数的一些注意事项
 - en: All errors are filtered. An error might arise while opening/visiting the file
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 所有错误都被过滤。打开/访问文件时可能会出现错误。
 - en: The function does not follow symbolic links
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该函数不遵循符号链接。
 - en: The files are walked in lexical order
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件以字典顺序遍历。
 - en: 'Let’s see an example:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子：
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'

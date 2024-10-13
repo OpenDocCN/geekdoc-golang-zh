@@ -1,66 +1,104 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:07:07'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:07:07
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Iterative Binary Search Tree in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的迭代二叉搜索树
 - en: 来源：[https://golangbyexample.com/iterative-binary-search-tree-go/](https://golangbyexample.com/iterative-binary-search-tree-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/iterative-binary-search-tree-go/](https://golangbyexample.com/iterative-binary-search-tree-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction](#Introduction "Introduction")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍](#Introduction "Introduction")'
 - en: '[Full Working Code](#Full_Working_Code "Full Working Code")*  *# **Introduction**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码](#Full_Working_Code "Full Working Code")*  *# **介绍**'
 - en: A binary search tree abbreviated as BST is a binary tree. For each node in a
     Binary Search Tree
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 二叉搜索树（BST）是二叉树的缩写。每个节点在二叉搜索树中
 - en: Value of each node in the left  subtree is less than the current node value
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 左子树中每个节点的值都小于当前节点的值。
 - en: Value of each node in the right subtree is greater than the current node value
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 右子树中每个节点的值都大于当前节点的值。
 - en: Both left and right subtree are themselves Binary Search Tree
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 左子树和右子树本身都是二叉搜索树。
 - en: '**Full Working Code**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**完整工作代码**'
 - en: '**insertRec()** function inserts into the bst in an iterative manner'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**insertRec()** 函数以迭代方式插入到二叉搜索树中。'
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[bst](https://golangbyexample.com/tag/bst/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [iterative](https://golangbyexample.com/tag/iterative/)*'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[bst](https://golangbyexample.com/tag/bst/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [iterative](https://golangbyexample.com/tag/iterative/)*'

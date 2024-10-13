@@ -1,102 +1,160 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:06:27'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:27
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Know Size and Range of int or uint in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 了解 Go（Golang）中的 int 或 uint 的大小和范围。
 - en: 来源：[https://golangbyexample.com/go-size-range-int-uint/](https://golangbyexample.com/go-size-range-int-uint/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-size-range-int-uint/](https://golangbyexample.com/go-size-range-int-uint/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Know Size and Range](#Know_Size_and_Range "Know Size and Range")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[了解大小和范围](#Know_Size_and_Range "Know Size and Range")*  *# **概述**'
 - en: int is a signed Integer data type
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: int 是带符号整数数据类型。
 - en: uint is an unsigned Integer data type
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: uint 是无符号整数数据类型。
 - en: Size and range of **int** and **uint** in go is platform-dependent meaning that
     the size and range depend whether the underlying platform is 32-bit or a 64-bit
     machine.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 中 **int** 和 **uint** 的大小和范围依赖于平台，意味着大小和范围取决于底层平台是 32 位还是 64 位机器。
 - en: '**Size Table**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**大小表**'
 - en: '| **Type** | **Size (32 bit machine)** | **Size (64 bit machine)** |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '| **类型** | **大小 (32 位机器)** | **大小 (64 位机器)** |'
 - en: '| int | 32 bits or 4 byte | 64 bits or 8 byte |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '| int | 32 位或 4 字节 | 64 位或 8 字节 |'
 - en: '| uint | 32 bits or 4 byte | 64 bits or 8 byte |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '| uint | 32 位或 4 字节 | 64 位或 8 字节 |'
 - en: '**Range Table**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**范围表**'
 - en: '| **Type** | **Size (32 bit machine)** | **Size (64 bit machine)** |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| **类型** | **大小 (32 位机器)** | **大小 (64 位机器)** |'
 - en: '| int | -2^(31) to 2^(31) -1 | -2^(63) to 2^(63) -1 |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| int | -2^(31) 到 2^(31) -1 | -2^(63) 到 2^(63) -1 |'
 - en: '| uint | 0 to 2^(32) -1 | 0 to 2^(64) -1 |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| uint | 0 到 2^(32) -1 | 0 到 2^(64) -1 |'
 - en: '**Know Size and Range**'
+  id: totrans-20
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**了解大小和范围**'
 - en: '**bits** package of golang can help know the size of an **int** or **uint**
     on your system. **bits.UintSize** is the const that stores this value. It is calculated
     as below'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: golang 的 **bits** 包可以帮助你了解系统中 **int** 或 **uint** 的大小。**bits.UintSize** 是存储此值的常量。计算方法如下：
 - en: '[PRE0]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**unsafe.Sizeof()** function can also be used to see the size of **int** or
     **unit** in bytes'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**unsafe.Sizeof()** 函数也可以用于查看 **int** 或 **uint** 的字节大小。'
 - en: Once the size is known, the range can be deduced based upon size. See the below
     code for printing size.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦知道大小，就可以根据大小推导出范围。请参见下面的代码以打印大小。
 - en: '[PRE1]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [int](https://golangbyexample.com/tag/int/)*   [range](https://golangbyexample.com/tag/range/)*   [uint](https://golangbyexample.com/tag/uint/)*'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [int](https://golangbyexample.com/tag/int/)*   [范围](https://golangbyexample.com/tag/range/)*   [uint](https://golangbyexample.com/tag/uint/)*'

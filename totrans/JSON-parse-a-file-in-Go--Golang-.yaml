@@ -1,129 +1,203 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:40:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:40:52
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: JSON parse a file in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go中解析JSON文件（Golang）
 - en: 来源：[https://golangbyexample.com/json-parse-file-golang/](https://golangbyexample.com/json-parse-file-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/json-parse-file-golang/](https://golangbyexample.com/json-parse-file-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[JSON parse a file into a struct](#JSON_parse_a_file_into_a_struct "JSON parse
     a file into a struct")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[将JSON文件解析为结构体](#JSON_parse_a_file_into_a_struct "将JSON文件解析为结构体")'
 - en: '[JSON parse a file into a map](#JSON_parse_a_file_into_a_map "JSON parse a
     file into a map")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[将JSON文件解析为映射](#JSON_parse_a_file_into_a_map "将JSON文件解析为映射")*  *# **概述**'
 - en: '**encoding/json** package provides an **Unmarshal** method that can be used
     to convert the file bytes into struct or map in golang.'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**encoding/json**包提供了一个**Unmarshal**方法，可以用于将文件字节转换为结构体或映射。'
 - en: '**json.Unmarshal** function can be used to convert from JSON to a struct or
     app. Below is the signature of the method'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**json.Unmarshal**函数可用于将JSON转换为结构体或应用程序。以下是该方法的签名：'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s see examples of
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看以下示例：
 - en: JSON parse a file into a struct
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将JSON文件解析为结构体
 - en: JSON parse a file into a map
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将JSON文件解析为映射
 - en: '**JSON parse a file into a struct**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**将JSON文件解析为结构体**'
 - en: Create a file **employee.json** with below contents
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建一个名为**employee.json**的文件，内容如下：
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Below is the code
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是代码
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In the above code, we created an employee struct.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述代码中，我们创建了一个员工结构体。
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The employee struct has some json meta tags which are used for converting json
     to a struct. See this link for more details – [https://golangbyexample.com/struct-field-meta-or-tags/](https://golangbyexample.com/struct-field-meta-or-tags/)
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 员工结构体包含一些用于将JSON转换为结构体的元数据标签。有关更多详细信息，请查看此链接 – [https://golangbyexample.com/struct-field-meta-or-tags/](https://golangbyexample.com/struct-field-meta-or-tags/)
 - en: This is how we unmarshalled the file bytes into the employee instance.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是我们如何将文件字节解析到员工实例中的。
 - en: '[PRE5]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**JSON parse a file into a map**'
+  id: totrans-28
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**将JSON文件解析为映射**'
 - en: A very important point to note though is that map allows integer values for
     keys while JSON doesn’t allow integer values for keys. JSON only allows string
     values for keys. So a map having an integer value for the key when converted to
     JSON will have a string value for the key.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 需要注意的一点是，映射允许整数作为键，而JSON不允许整数作为键。JSON仅允许字符串作为键。因此，具有整数值作为键的映射在转换为JSON时，键将变为字符串值。
 - en: Let’s say we have below json
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有以下JSON
 - en: '[PRE6]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Below is the program that will read from the above and then convert the above
     json to map
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是一个程序，将从上述内容读取并将上述JSON转换为映射：
 - en: '[PRE7]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

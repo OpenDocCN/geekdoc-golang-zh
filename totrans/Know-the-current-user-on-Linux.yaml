@@ -1,45 +1,73 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:52:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:52:52
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Know the current user on Linux
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 了解 Linux 上的当前用户
 - en: 来源：[https://golangbyexample.com/know-the-current-user-on-linux/](https://golangbyexample.com/know-the-current-user-on-linux/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/know-the-current-user-on-linux/](https://golangbyexample.com/know-the-current-user-on-linux/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")*  *# **Overview**'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")*  *# **概述**'
 - en: Linux command **‘whoami’** can be used to know the currently logged-in user.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: Linux 命令 **‘whoami’** 可用于获取当前登录的用户。
 - en: Let’s see this command in action. Go to the terminal and type in the command
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看这个命令的实际效果。打开终端并输入命令
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It will print the current user. Let’s say the current user is **john** then
     running the above command will simply print **john**
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将打印当前用户。假设当前用户是**john**，那么运行上述命令将简单地打印**john**。
 - en: '**Output**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]*'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE1]*'

@@ -1,115 +1,180 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:51:34'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:51:34
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Is Graph Bipartite Program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的图是否为二分图程序
 - en: 来源：[https://golangbyexample.com/graph-bipartite-golang/](https://golangbyexample.com/graph-bipartite-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/graph-bipartite-golang/](https://golangbyexample.com/graph-bipartite-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: An undirected graph is given. A  graph is said to be bipartite if the nodes
     of the graph can be partitioned into two subsets such that every edge connects
     one node in the first subset to some other node in the second subset.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个无向图。如果图的节点可以被分成两个子集，使得每条边连接第一个子集中的一个节点与第二个子集中的某个节点，则该图称为二分图。
 - en: The graph contains n nodes numbered from **0** to **n-1**. Input is a matrix
     named **graph** which is a 2D  matrix where graph[i] contains the node to which
     **ith** node is connected. For eg if
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 图包含n个节点，编号从**0**到**n-1**。输入是一个名为**graph**的矩阵，它是一个二维矩阵，其中graph[i]包含**第i**个节点连接的节点。例如，如果
 - en: '**graph[0] = [1,3]**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**graph[0] = [1,3]**'
 - en: this means **node 0** is connected to **node 1** and **node 3**
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这意味着**节点0**连接到**节点1**和**节点3**。
 - en: '**Example 1**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例1**'
 - en: '![](img/8b4e0e594249c6a7b6637fa47baf728d.png)'
+  id: totrans-14
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/8b4e0e594249c6a7b6637fa47baf728d.png)'
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Example 2**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例2**'
 - en: '![](img/77e0b7968865633eddb6ee990215089a.png)'
+  id: totrans-17
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/77e0b7968865633eddb6ee990215089a.png)'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Idea is to use DFS  here. We will try to assign either red or black color to
     each of the nodes. If a node is colored red then its neighbors must be colored
     black.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 思路是使用DFS。我们将尝试为每个节点分配红色或黑色。如果一个节点被涂成红色，则其邻居必须涂成黑色。
 - en: We are able to color  in this  way then the graph is bipartite
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果我们能够以这种方式上色，那么图就是二分图。
 - en: If while coloring we  find  that two nodes connected by  an edge have the same
     color then the graph is not bipartite
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果在上色时发现由边连接的两个节点具有相同的颜色，则图不是二分图。
 - en: Let’s see the program for the same
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看相应的程序
 - en: '**Program**'
+  id: totrans-23
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**[Output:](http://Output:)**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[输出：](http://Output:)**'
 - en: '[PRE3]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：**请查看我们的Golang高级教程。本系列的教程内容详尽，我们努力涵盖所有概念并提供示例。本教程适合那些希望获得Golang专业知识和扎实理解的人
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you - [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果您有兴趣了解所有设计模式如何在Golang中实现。如果是，那么这篇文章适合您 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Also, check out our system design tutorial series here - [System Design Tutorial
     Series](https://techbyexample.com/system-design-questions/)
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，请查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

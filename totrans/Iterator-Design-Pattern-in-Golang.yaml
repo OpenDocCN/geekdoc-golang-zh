@@ -1,173 +1,271 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:04:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:04:22
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Iterator Design Pattern in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中的迭代器设计模式
 - en: 来源：[https://golangbyexample.com/go-iterator-design-pattern/](https://golangbyexample.com/go-iterator-design-pattern/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-iterator-design-pattern/](https://golangbyexample.com/go-iterator-design-pattern/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：如有兴趣了解其他设计模式如何在GO中实现，请查看此完整参考 – [Go中的所有设计模式 (Golang)](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction:](#Introduction "Introduction:")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍：](#Introduction "Introduction:")'
 - en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML图：](#UML_Diagram "UML Diagram:")'
 - en: '[Mapping](#Mapping "Mapping")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射](#Mapping "Mapping")'
 - en: '[Example](#Example "Example")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction:**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "Full Working Code:")*  *# **介绍：**'
 - en: Iterator design pattern is a behavioral design pattern. In this pattern, the
     collection struct provides an iterator which lets it go through each element in
     the collection struct in sequence without exposing its underlying implementation.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 迭代器设计模式是一种行为设计模式。在此模式中，集合结构提供一个迭代器，让其能够顺序遍历集合结构中的每个元素，而不暴露其底层实现。
 - en: Below are basic components of the Iterator Design Pattern
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是迭代器设计模式的基本组件。
 - en: '**Iterator** **Interface** :  this interface provides basic operations such
     as **hasNext()**, **getNext()** etc. These operations as the name suggests lets
     you traverse a collection, restarting iteration, etc'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**迭代器** **接口**：该接口提供基本操作，如**hasNext()**、**getNext()**等。这些操作顾名思义可以让你遍历集合、重新开始迭代等。'
 - en: '**Collection interface**: this interface represents the collection that needs
     to be traversed. This interface defines a method **createIterator()** which returns
     **iterator** type'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**集合接口**：该接口表示需要遍历的集合。该接口定义了一个方法**createIterator()**，返回**迭代器**类型。'
 - en: '**Concrete Iterator:** the concrete implementation of iterator interface'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**具体迭代器**：迭代器接口的具体实现。'
 - en: '**Concrete Collection**: the concrete implementation of Collection interface'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**具体集合**：集合接口的具体实现。'
 - en: The main idea behind this pattern is to expose the iteration logic of a Collection
     struct into a different object (which implements the iterator interface). This
     iterator provides a generic method of iterating over a collection independent
     of its type.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 此模式的主要思想是将集合结构的迭代逻辑暴露到一个不同的对象中（该对象实现了迭代器接口）。此迭代器提供了一种独立于类型的遍历集合的通用方法。
 - en: '**UML Diagram:**'
+  id: totrans-20
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**UML图：**'
 - en: '![](img/6357865d875fdec82405c850734790aa.png)'
+  id: totrans-21
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/6357865d875fdec82405c850734790aa.png)'
 - en: '**Mapping**'
+  id: totrans-22
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**映射**'
 - en: The below table represents the mapping from the UML diagram actors to actual
     implementation actors in **“Example”** below
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下表格表示UML图中参与者到实际实现参与者的映射，位于**“示例”**中。
 - en: '| Collection | collection.go |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| 集合 | collection.go |'
 - en: '| Concrete Collection | userCollection.go |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| 具体集合 | userCollection.go |'
 - en: '| Iterator | mac.go |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| 迭代器 | mac.go |'
 - en: '| Concrete Iterator 1 | userIterator.go |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| 具体迭代器 1 | userIterator.go |'
 - en: '| Client | main.go |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| 客户端 | main.go |'
 - en: '**Example**'
+  id: totrans-29
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '**collection.go**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**collection.go**'
 - en: '[PRE0]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**userCollection.go**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**userCollection.go**'
 - en: '[PRE1]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**iterator.go**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**iterator.go**'
 - en: '[PRE2]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**userIterator.go**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**userIterator.go**'
 - en: '[PRE3]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**user.go**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**user.go**'
 - en: '[PRE4]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**main.go**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE5]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Full Working Code:**'
+  id: totrans-44
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE7]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output:**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE8]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [iterator](https://golangbyexample.com/tag/iterator/)*'
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [iterator](https://golangbyexample.com/tag/iterator/)*'

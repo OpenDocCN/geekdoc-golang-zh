@@ -1,70 +1,110 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '类别: 未分类'
 - en: 'date: 2024-10-13 06:12:08'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:12:08'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Join a string by delimiter or a separator in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中通过分隔符连接字符串
 - en: 来源：[https://golangbyexample.com/go-join-string-delimiter/](https://golangbyexample.com/go-join-string-delimiter/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-join-string-delimiter/](https://golangbyexample.com/go-join-string-delimiter/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码:](#Code "Code:")*  *# **概述**'
 - en: In GO string are UTF-8 encoded. **strings** package of GO provides a **Join**
     method that can be used to join a string based upon a delimiter.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 GO 中，字符串是 UTF-8 编码的。**strings** 包提供了一个 **Join** 方法，可以根据分隔符连接字符串。
 - en: Below is the signature of the function
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是该函数的签名
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: As you can notice this function takes a slice of string and a delimiter and
     it returns a combined string joined by a delimiter. The delimiter or separator
     is placed between elements of the input string slice. Please note
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如你所注意到的，这个函数接受一个字符串切片和一个分隔符，并返回一个由分隔符连接的合并字符串。分隔符或分隔符位于输入字符串切片的元素之间。请注意
 - en: It will return an empty string if the length of the input slice is zero
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果输入切片的长度为零，它将返回一个空字符串
 - en: It will output a string combined from the slice of strings if the input delimiter
     or separator is empty.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果输入的分隔符为空，它将输出一个由字符串切片组合而成的字符串。
 - en: Let’s look at the working code
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看工作代码
 - en: '**Code:**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码:**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出:**'
 - en: '[PRE2]*'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE2]*'

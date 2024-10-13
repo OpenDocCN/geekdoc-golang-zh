@@ -1,0 +1,370 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:31:13'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: About GOLANG
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/about-golang/](https://golangbyexample.com/about-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is chapter 1 of the golang comprehensive tutorial series. Refer to this
+    link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the table of contents for the current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[History](#History "History")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[What makes GO different](#What_makes_GO_different "What makes GO different")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Simple to Use Syntax](#Simple_to_Use_Syntax "Simple to Use Syntax")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Compiled Language with fast Compilation](#Compiled_Language_with_fast_Compilation
+    "Compiled Language with fast Compilation")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Static Type Language](#Static_Type_Language "Static Type Language")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Garbage Collected](#Garbage_Collected "Garbage Collected")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Built In Concurrency](#Built_In_Concurrency "Built In Concurrency")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Standard Library](#Standard_Library "Standard Library")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Tooling](#Tooling "Tooling")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Comparison with other programming languages](#Comparison_with_other_programming_languages
+    "Comparison with other programming languages")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Disadvantages of GO](#Disadvantages_of_GO "Disadvantages of GO")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[No inheritance in GO](#No_inheritance_in_GO "No inheritance in GO")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[No Generics in GO](#No_Generics_in_GO "No Generics in GO")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[No Compile Time Polymorphism or Function Overloading](#No_Compile_Time_Polymorphism_or_Function_Overloading
+    "No Compile Time Polymorphism or Function Overloading")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion:](#Conclusion "Conclusion:")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is the first tutorial that will give you an introduction to the GOLANG
+    language. Go is a statically typed, compiled programming language. It is an open-source
+    language and was developed at Google by
+  prefs: []
+  type: TYPE_NORMAL
+- en: Robert Griesemer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Rob Pike](https://en.wikipedia.org/wiki/Rob_Pike)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Ken Thompson](https://en.wikipedia.org/wiki/Ken_Thompson)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Since GO is an open-source programming language, it is hosted on Github and 
+    is open for contribution by anyone.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://github.com/golang/go](https://github.com/golang/go)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go has C style syntax but provides memory safety, garbage collection and inbuilt
+    concurrency.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**History**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: GO had its first stable release in 2011.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**What makes GO different**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see some of the things which makes go different from other programming
+    languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Simple to Use Syntax**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go is syntactically similar to C and has a really simple syntax. It is easy
+    to learn with little facets. It is not overwhelmed with features and thus it is
+    easier to write readable and maintainable code in GO. Also, GO has very few keywords
+    compared to other mainstream languages. The GO specification mentions 25 keywords.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/ref/spec#Keywords](https://golang.org/ref/spec#Keywords)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Compiled Language with fast Compilation**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go compiles into a native executable. Its compilation is really fast and it
+    is attributed due to a couple of reasons. You can check out this link for more
+    details related to why GO compiles fast. When you build a GO program the resulting
+    binary is what it is. There are no other dependencies. You can port this binary
+    to any platform which supports GO and it can be executed there. This is different
+    when you compare it with other programming languages such as JAVA, Python, where
+    to create a self-contained binary there are a bunch of dependencies that need
+    to be taken care of and packed along. There is no concept of Dynamic Link Library
+    in GO in fact it supports static linking. GO is statically linked with all the
+    libraries into a single standalone big fat binary.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Static Type Language**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Even though GO has a really neat syntax, it is a strong and static type language.
+    There is no implicit conversion allowed in the language. Since it is the static
+    type most of the errors related to mismatched type are caught during compile time
+    unlike languages like Python, Ruby. etc
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Garbage Collected**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go is a garbage-collected language. That means you don’t have to worry about
+    freeing up memory. So you don’t have to be bothered about malloc() and free()
+    statement like in C, C++
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Built In Concurrency**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: GO through its inbuilt concurrency tries to solve two major problems associated
+    with other languages
+  prefs: []
+  type: TYPE_NORMAL
+- en: The creation of threads is not memory efficient.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Communication between threads is difficult with problems such as thread locking,
+    deadlock, etc.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go approach to concurrency can be best described by
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: GO tries to achieve the above through its two concurrency primitives
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Goroutine** – lightweight independent execution to achieve concurrency/parallelism.
+    Its size starts at 8kb as compared to the JAVA thread whose size is around 1 MB.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Channels** – provides synchronization and communication between goroutines.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Standard Library**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: GO standard library is rich in features and support for almost everything which
+    is needed for building all types of applications. There are also tons of packages
+    which have been created by the GO community on top of GO standard library which
+    is ready for use and available on Github
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Tooling**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: GO support for tooling is strong and rich. It has tools for code formatting,
+    unit testing, race detector, linting, memory analysis tools, tools for generating
+    documentation  etc.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Comparison with other programming languages**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: With all the above advantages if you compare with other programming languages
+    you will notice
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**With Java**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: GO is as fast as JAVA but with its simpler syntax it is easier to learn, write
+    and maintain GO code as compared to JAVA
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**With C/C++**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: GO is a little less fast than C but again with its simpler syntax it is easier
+    to learn, write and maintain GO code as compared to C/C++
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: GO is also safer than C/C++ as it is a garbage collected language and also doesn’t
+    allow nasty pointer operations present in C/C++. Being a GC language you don’t
+    have to worry about malloc() and free() operations
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**With Python/Ruby/Java Script**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: GO is very fast as compared to the above programming languages
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The code readability part is easier in these languages but GO is a compiled
+    and static type language that helps catch some nasty bugs in the compilation phase
+    itself.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Disadvantages of GO**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see some of the disadvantages of go as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**No inheritance in GO**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go doesn’t have classes. It has structs. Even though the functionality of structs
+    of pretty similar to classes but GO favors composition over inheritance. GO also
+    doesn’t support type hierarchy. It doesn’t have keywords such as extends or implements
+    as in JAVA. So in that terms GO is not a pure OOP language. The missing of such
+    features might seem odd to coders who all well versed in coding in an OOP manner.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**No Generics in GO**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Due to the absence of generics in GO, it expects you to write a very explicit
+    code for what you want to do. Although there are talks of adding Generics support
+    to GO very soon.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**No Compile Time Polymorphism or Function Overloading**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Function Overloading is not possible in GO. See this faq for the reason [https://golang.org/doc/faq#overloading](https://golang.org/doc/faq#overloading)
+  prefs: []
+  type: TYPE_NORMAL
+- en: According to the above faq, things are simpler without it. Although there are
+    some workarounds to achieve the same. Can refer to this link
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golangbyexample.com/function-method-overloading-golang/](https://golangbyexample.com/function-method-overloading-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Conclusion:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: To summarize what we have discussed so far
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go is static typing with performance and runtime efficiency matching C/C++
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Really simple syntax and easy to write code as in Python, Ruby
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Inbuilt concurrency with a good standard library and rich tooling.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: GO is not a pure OOP language with a different style of error handling as compared
+    to other mainstream languages
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is the basic introduction to golang. Hope you have liked this article.
+    Please share feedback or improvements or mistakes in the comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '****Next Tutorial –**** [GO Installation](https://golangbyexample.com/golang-installation)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,61 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:08:18'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Convert time between different timezones in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/convert-time-timezones-go/](https://golangbyexample.com/convert-time-timezones-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Every **time.Time** object has an associated **location** value. When you change
+    the location of any **time.Time** object to any other location, then that instant
+    of time is not changed. Only the **location** value associated with that time
+    changes. The **location** associated with the time.Time object only has a presentation
+    or display logic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **In** function can be used to change the **location** associated with a
+    particular **time.Time** object. Whenever the **In** function is called on any
+    **time.Time** object (say t) then,
+  prefs: []
+  type: TYPE_NORMAL
+- en: A copy of **t** is created representing the same time instant.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**t’s** location is set to the location passed to In function for display purposes'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**t** is returned back'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see the below-working code which can be used to change the location value
+    associated with a particular time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[time package](https://golangbyexample.com/tag/time-package/)*   [time.Time](https://golangbyexample.com/tag/time-time/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

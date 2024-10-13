@@ -1,0 +1,1 @@
+["```\npackage main\nimport (\n    \"encoding/json\"\n    \"fmt\"\n)\nfunc main() {\n    a := make([]string, 2)\n    a[0] = \"John\"\n    a[1] = \"Sam\"\n    j, err := json.Marshal(a)\n    if err != nil {\n        fmt.Printf(\"Error: %s\", err.Error())\n    } else {\n        fmt.Println(string(j))\n    }\n}\n```", "```\n[\"John\",\"Sam\"]\n```"]

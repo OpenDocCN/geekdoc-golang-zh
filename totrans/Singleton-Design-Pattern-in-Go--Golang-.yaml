@@ -1,0 +1,168 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:03:30'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Singleton Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/singleton-design-pattern-go/](https://golangbyexample.com/singleton-design-pattern-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Introduction:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Singleton Design Pattern is a creational design pattern and also one of the
+    most commonly used design pattern. This pattern is used when only a single instance
+    of the struct should exist. This single instance is called a singleton object.
+    Some of the cases where the singleton object is applicable:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**DB instance** – we only want to create only one instance of DB object and
+    that instance will be used throughout the application.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Logger instance** – again only one instance of the logger should be created
+    and it should be used throughout the application.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The singleton instance is created when the struct is first initialized.  Usually,
+    there is getInstance() method defined on the struct for which only one instance
+    needs to be created. Once created then the same singleton instance is returned
+    every time by the **getInstance()**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In GO we have goroutines. Hence the singleton struct should return the same
+    instance whenever multiple goroutines are trying to access that instance. It is
+    very easy to get a singleton design pattern wrong. The below code illustrates
+    the right way to create a singleton object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above code ensures that only one instance of the single struct is created. Some
+    point worth noting.
+  prefs: []
+  type: TYPE_NORMAL
+- en: There is a check at the start for nil **singleInstance**. This is to prevent
+    the expensive lock operations every time **getinstance()** method is called. If
+    this check fails then it means that **singleInstance** is already created
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The **singleInstance** is created inside the lock.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: There is another check for nil **singleIinstance** after the lock is acquired.
+    This is to make sure that if more than one goroutine bypass the first check then
+    only one goroutine is able to create the singleton instance otherwise each of
+    the goroutine will create its own instance of the **single** struct.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Here is the full code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**single.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: There is one output of **"Creating Single Instance Now"** meaning only one goroutine
+    was able to create a single instance.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are a couple of outputs of **"Single Instance already created-1"** meaning
+    that some of the goroutines found the value of singleInstance as nil in the first
+    check and bypassed that.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are couple of output of **"Single Instance already created-2"** meaning
+    by the time they reached the single instance was already created and they could
+    not bypass the first if check
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Other methods of creating a singleton object in Go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**init() function**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We can create a single instance inside the init function. This is only applicable
+    if the early initialization of the object is ok. The init function is only called
+    once per file in a package,  so we can be sure that only a single instance will
+    be created.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**sync.Once**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The sync.Once will only perform the operation only once. See below code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**single.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: There is one output of **"Creating Single Instance Now"** meaning only one goroutine
+    was able to create the single instance
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are couple of output of **"Single Instance already created-2"** meaning
+    by the time they reached the single instance was already created and they could
+    not bypass the first if check
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[singleton](https://golangbyexample.com/tag/singleton/)*   [singleton design
+    pattern in golang](https://golangbyexample.com/tag/singleton-design-pattern-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

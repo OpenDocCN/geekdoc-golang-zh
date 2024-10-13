@@ -1,0 +1,268 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:15:17'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Log of number in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/log-of-number-go-golang/](https://golangbyexample.com/log-of-number-go-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Natural logarithm](#Natural_logarithm "Natural logarithm")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Binary Exponent Log (log e)](#Binary_Exponent_Log_log_e "Binary Exponent Log
+    (log e)")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code](#Code-2 "Code")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Binary Log (log 2)](#Binary_Log_log_2 "Binary Log (log 2)")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code](#Code-3 "Code")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Decimal Log (log 10)](#Decimal_Log_log_10 "Decimal Log (log 10)")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code](#Code-4 "Code")*  *# **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In this tutorial, we will see three types of logarithm possible
+  prefs: []
+  type: TYPE_NORMAL
+- en: Natural logarithm
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Binary Exponent Log (log e)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Binary Log (log 2)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Decimal Log (log 10)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Natural logarithm
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**math** package of GO provides a **Log** method that can be used to get the
+    natural logarithm of a number'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function. It takes input as a **float64** number
+    and returns a **float64**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also some special cases of **Logb** function are
+  prefs: []
+  type: TYPE_NORMAL
+- en: Log(±Inf) = +Inf
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Log(0) = -Inf
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Log(NaN) = NaN
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Log(x < 0) = NaN
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Binary Exponent Log (log e)**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**math** package of golang provides a **Logb** method that can be used to get
+    the binary exponent of a number'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function. It takes input as a **float64** number
+    and returns a **float64**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also some special cases of **Logb** function are
+  prefs: []
+  type: TYPE_NORMAL
+- en: Logb(±Inf) = +Inf
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Logb(0) = -Inf
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Logb(NaN) = NaN
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Binary Log (log 2)**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**math** package of golang provides a **Log2** method that can be used to get
+    the binary logarithm or log to base 2 of a number'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function. It takes input as a float64 number and
+    returns a float64\.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also some special cases of **Log2** function are
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Log2**(±Inf) = +Inf'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Log2**(0) = -Inf'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Log2**(NaN) = NaN'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Log2**(x < 0) = NaN'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Decimal Log (log 10)**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**math** package of go provides a **Log10** method that can be used to get
+    the decimal logarithm or log to base 10 of a number'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function. It takes input as a float64 number and
+    returns a float64\.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also some special cases of **Log10** function are
+  prefs: []
+  type: TYPE_NORMAL
+- en: Log10(±Inf) = +Inf
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Log10(0) = -Inf
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Log10(NaN) = NaN
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Log10(x < 0) = NaN
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [log](https://golangbyexample.com/tag/log/)*   [log
+    10](https://golangbyexample.com/tag/log-10/)*   [log 2](https://golangbyexample.com/tag/log-2/)*   [log
+    e](https://golangbyexample.com/tag/log-e/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

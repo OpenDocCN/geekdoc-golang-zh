@@ -1,0 +1,96 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:39:10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Return 202 (StatusAccepted) in HTTP response in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/202-status-http-response-go/](https://golangbyexample.com/202-status-http-response-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**net/http** package of golang provides the status code constants which could
+    be used to return different status codes- [https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The same can also be used to return the 202 (StatusAccepted) HTTP status code. 
+    The HTTP 202 status code is defined by the below constant.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this article, we will also see how to return a JSON body along with the 202(StatusAccepted)
+    Status Code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here we are using the **WriteHeader** function to specify the 202 http status
+    code and uses the **Write** function to also return the response body. The above
+    code returns the below JSON request body back in response
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Run the above program. It will start a server on 8080 port on your local machine.
+    Now make the below curl call to the server
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below will be the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can see from the output, it will correctly return the 202 status code
+    along with the body.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can also directly pass 202 to the WriteHeader function to send the 202 response.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: This also works correctly. Try it out.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,623 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:26:06'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Panic and Recover in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/panic-and-recover-golang/](https://golangbyexample.com/panic-and-recover-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 28 and also the last chapter of the golang comprehensive
+    tutorial series. This is Refer to this link for other chapters of the series – [Golang
+    Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Error -Part 2](https://golangbyexample.com/error-in-golang-advanced/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Runtime Error Panic](#Runtime_Error_Panic "Runtime Error Panic")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Calling the panic function explicitly](#Calling_the_panic_function_explicitly
+    "Calling the panic function explicitly")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Panic with defer](#Panic_with_defer "Panic with defer")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Recover in golang](#Recover_in_golang "Recover in golang")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Panic/Recover and Goroutine](#PanicRecover_and_Goroutine "Panic/Recover and
+    Goroutine")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Printing stack trace](#Printing_stack_trace "Printing stack trace")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Return value of the function when panic is recovered](#Return_value_of_the_function_when_panic_is_recovered
+    "Return value of the function when panic is recovered")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Panic in golang is similar to the exception. Panic is meant to exit from a program
+    in abnormal conditions. Panic can occur in a program in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Runtime error in the program
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: By calling the panic function explicitly. This can be called by the programmer
+    when the program cannot continue and it has to exit
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go provides a special function to create a panic. Below is the syntax of the
+    function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This function can be called explicitly by the programmer to create a panic.
+    It takes an empty interface as an argument.  When a panic happens in a  program
+    it outputs two things
+  prefs: []
+  type: TYPE_NORMAL
+- en: The error message that is passed to the panic function as an argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Stack trace of where the panic happened
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Runtime Error Panic**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Runtime error in the program can happen in below cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: Out of bounds array access
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Calling a function on a nil pointer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Sending on a closed channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Incorrect type assertion
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see an example of runtime error caused by out of bounds array access.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have a slice of length 2 and we are trying to access
+    slice at index 3 in the **print** function. Out of bound access is not allowed
+    and it will create panic as seen from the output. Notice that in the output there
+    are two things
+  prefs: []
+  type: TYPE_NORMAL
+- en: The error message
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Stack trace of where the panic happened
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are many more cases in which runtime error can happen in a program. We
+    are not going to mention all of them but you get the idea
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Calling the panic function explicitly**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'Some of the cases where panic function can be called explicitly by the programmer
+    are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The function expected a valid argument but instead, a nil argument was supplied.
+    In such a case, the program cannot continue and it will raise a panic for a nil
+    argument passed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Any other scenario in which the program cannot continue.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we again have a function **checkAndPrint** which accepts
+    a slice as an argument and an index. Then it checks whether the index passed is
+    greater than the length of slice minus 1\. If it is, then it is out of bounds
+    access for the slice so it panics. If not then it prints the value at that index.
+    Again notice that in the output there are two things
+  prefs: []
+  type: TYPE_NORMAL
+- en: The error message
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Stack trace of where the panic happened
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Panic with defer**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: When the panic is raised in a function then the execution of that function is
+    stopped and any deferred function will be executed. In fact deferred function
+    of all the function calls in the stack will also be executed until all the functions
+    have  returned .At that time the program will exit and it will print the panic
+    message
+  prefs: []
+  type: TYPE_NORMAL
+- en: So if a  defer function is present it then it will be executed and the control
+    will be  returned back to the caller function which will again execute its defer
+    function if present and the chain goes on until the program exists.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have a defer function first and then we manually create
+    the panic. As you can see from the output that defer function got executed as
+    below line is printed in the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s understand what happens when panic happens in a program. Imagine a function
+    call from **main** function to **f1** function to **f2** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**main**->**f1**->**f2**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s say that panic happens in function **f2** then below will be the sequence
+    of events that will be happening
+  prefs: []
+  type: TYPE_NORMAL
+- en: Execution of **f2** will stop. Defer functions in **f2** will be executed if
+    present. Control will return to the caller which is a function **f1**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**f1** function will behave in a similar way as if panic happened in that function
+    and after that call will return to the caller which is **main** function. Note
+    that if there are more functions in between then the process will continue up
+    the stack in a similar way'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**main** function will also behave as if panic happened in that function and
+    after that, the program will crash'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Once the program crashes, it will print the panic message along with this stack
+    trace
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a program for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, panic happened in the f2 function like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: the defer function in f2 is called after that and it prints the below message
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that as soon as the panic happens in the **f2** function, its execution
+    stops therefore below line if **f2** never gets executed
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Control returns to **f1** and it it has a defer function. The defer gets executed
+    and it prints the below message.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Control returns to main function after that and then the program crashes.The
+    output prints the panic message along with the entire stack trace from main to
+    f1 to f2.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Recover in golang**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Go provides a built-in function **recover** for recovering from a panic. Below
+    is the signature of this function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: We already learn above that **defer** function is the only function that is
+    called after the **panic**. So it makes sense to put the **recover** function
+    in the **defer** function only. If the **recover** function is not within the defer
+    function then it will not stop **panic**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example of recover
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have a function **checkAndPrint** which checks and prints
+    slice element at an index passed in the argument. If the index passed is greater
+    than the length of the array then the program panics.  We have added a defer function
+    named **handleOutIfBounds** as well at the start of the function **checkAndPrint**. 
+     This function  contains  the  call to recover function as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **recover** function will catch the panic and we can also print the message
+    from the panic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: After the recover function the program continues and the control returns to
+    the called function which is  **main** here. That is why we get output as
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: The recover function returns the value which was passed to the panic function.
+    Therefore it is a good practice to check the return value of the recover function.
+    If the return value is nil then panic did not happen and recover function was
+    not called with the panic. That is why we have below code in the  defer function
+    **handleOutofBounds**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here if **r** is nil then panic did not happened. So if there is no panic then
+    call to recover will return nil
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note that if the defer function and recover function is not called from the
+    panicking function then it that case also panic can be recovered in the called
+    function as well. Infact it is possible to recover from panic subsequently up
+    in the chain of call stack.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example of this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program is quite the same as the previous program other than we have
+    an additional function **checkAndPrintWithRecover** which contains the call to
+  prefs: []
+  type: TYPE_NORMAL
+- en: defer function with recover which is **handleOutOfBounds**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: calls **checkAndPrint** function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**So basically **checkAndPrint** function raises the panic but doesn’t have
+    the recover function instead call to recover lies in the **checkAndPrintWithRecover**
+    function. But still the program is able to recover from panic  as panic can also
+    be recovered in the called function also and subsequently in the chain as well**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**We mentioned above that if the recover function is not within defer function
+    then it will not stop the panic.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example program for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program the recover function  is not within defer function.  as
+    you can see from the output that it does not stop panic and hence  you see the
+    above output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Panic/Recover and Goroutine**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: An important point to note about be recover function is that it can only recover
+    the panic happening in the same goroutine.  If the panic is happening in different 
+    goroutine and recover is in a different goroutine then it won’t stop  panic. Lets
+    see a program for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have **checkAndPrint** in the goroutine and it raises **panic**
+    in that goroutine.  The **recover** function is in the calling goroutine. As you
+    can see from the output that it does not stop **panic** and hence  you see the
+    above output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Printing stack trace**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Debug package of golang also provide StackTrace function that can be used print
+    the stack trace of the panic in the recover function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we print the stack trace of the panic in the recover function
+    using the **StackTrace** function. It prints the correct  stack trace as seen
+    from the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Return value of the function when panic is recovered**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: When the panic is recovered then the return value of a panicking function will
+    be the default value of the return types of  the panicking function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program for it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have **checkAndGet** function which gets the value at
+    a particular index in int slice. If the index passed to this function is greater
+    than (length of slice-1), then it raises a panic. There is also a **handleOutOfBounds**
+    function which is used to recover from the panic.  So we pass index 2 to the **checkAndGet**
+    function and it raises the panic which is recovered in the **handleOutOfBounds**
+    function. That is why we first get this output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in main function that we recollect the return value from the **checkAndGet**
+    like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**checkAndGet** has two return values'
+  prefs: []
+  type: TYPE_NORMAL
+- en: int
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: error
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Since **checkAndGet** creates panic which is recovered in the handleOutOfBounds
+    function therefore the return value of the **checkAndGet** will be the default
+    value of its types.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Therefore
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: outputs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: because zero is the default value of **int** type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: And
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs: []
+  type: TYPE_PRE
+- en: outputs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: because nil is the default value of **error** type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you don’t want to return default zero value of types then named return value
+    can be used. Let’s see a program for that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE37]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE38]'
+  prefs: []
+  type: TYPE_PRE
+- en: This program is same as previous program, the only difference being that we
+    are using named return value in the **checkAndGet** function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE39]'
+  prefs: []
+  type: TYPE_PRE
+- en: We set the named return value to 10 in **checkAndGet** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE40]'
+  prefs: []
+  type: TYPE_PRE
+- en: That is why we get below output in this program as panic is created and it is
+    recovered
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE41]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also note that If panic would not have created in the program then it would
+    have output the correct value at index.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: That is all about panic and recover in golang. Hope you have liked the article.
+    please share feedback/improvements/mistakes in comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Error -Part 2](https://golangbyexample.com/error-in-golang-advanced/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)***'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

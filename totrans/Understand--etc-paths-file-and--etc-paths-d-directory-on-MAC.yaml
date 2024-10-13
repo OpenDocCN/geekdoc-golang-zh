@@ -1,0 +1,71 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:11:46'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understand /etc/paths file and /etc/paths.d directory on MAC
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/understand-etc-paths-pathsd-mac/](https://golangbyexample.com/understand-etc-paths-pathsd-mac/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: MAC OS uses **/etc/paths** file and **/etc/paths.d** directory for setting up
+    the value of **PATH** env varialb.e.  A utility **path_helper** is used to set
+    the **PATH** env variable based on the content of **/etc/paths** file and content
+    of files in **/etc/paths.d** directory. This is how you can run the path_helper
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see how these two play role in setting up the path
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**/etc/paths file**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This file contains the paths that need to be set in **PATH** env variable. If
+    I print the contents of this file on my MAC, it outputs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: All the above paths are added to the PATH variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**/etc/paths.d directory**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This directory contains the list of files. Each of the files contains the path
+    that needs to be added to the PATH variable. As a demonstration, If I install
+    GO on my MAC using the .pkg installer for GO available here – [https://golang.org/dl/](https://golang.org/dl/).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Then after installation, it will create a  file named  **‘go’** in the **‘/etc/paths.d’**
+    directory. Let’s output the contents of the file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: It outputs ‘/usr/local/go/bin’ and this path will be added to the PATH env variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Points to Note:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The primary reason that **‘/etc/paths.d’** directory is used because **‘/etc/paths’** will
+    be modified and/or replaced by system upgrades while contents of **‘/etc/paths.d’**
+    directory will never be affected by such changes.
+  prefs: []
+  type: TYPE_NORMAL

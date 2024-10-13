@@ -1,0 +1,43 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:10:22'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Change the modified/updated time and access time of a file in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/change-updated-time-file-go/](https://golangbyexample.com/change-updated-time-file-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**os.Chtimes()** function can be used to change the mtime(modified time) or
+    atime(access time) of a file in Golang. Below is the signature of the function.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[updated](https://golangbyexample.com/tag/updated/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

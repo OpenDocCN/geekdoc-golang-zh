@@ -1,0 +1,182 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:28:28'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Character constant in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/character-constant-golang/](https://golangbyexample.com/character-constant-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Typed character constant](#Typed_character_constant "Typed character constant")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Untyped named character constant](#Untyped_named_character_constant "Untyped
+    named character constant")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Untyped unnamed character constant](#Untyped_unnamed_character_constant "Untyped
+    unnamed character constant")*  *# **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In go character constant is represented as a value between single quotes. Refer
+    this article to understand character in golang better in general
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also to better understand character constant in golang it is important to understand
+    typed and untyped constant in go. Please refer to this article for that – [https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)/
+  prefs: []
+  type: TYPE_NORMAL
+- en: Once you have gone through the article you would have understood that constant
+    can be declared in three ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Typed  constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Untyped unnamed  constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Untyped named constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is the same case with character as well. Let’s see a program to understand
+    it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program illustrating a character constant.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a new type  **myChar**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also above program shows the example of
+  prefs: []
+  type: TYPE_NORMAL
+- en: Typed character constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Untyped unnamed character constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Untyped named character constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s understand each of them and their behaviour
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Typed character constant**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: It is defined as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in above that below line will cause a compilation error. This is because
+    variable **aa** is of type **int32**. So below line will cause compilation error
+    as it cannot be assigned to variable of type **myChar**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: But typed string constant can be assigned to a variable created with **var**
+    keyword like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Untyped named character constant**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: It is defined as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Untyped named string constant  can be assigned to variable of type **myChar**
+    as well variable created with **var** keyword because it is untyped so type of
+    the constant will be decided depending upon the type of variable they are being
+    assigned to.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Untyped unnamed character constant**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: It is like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Untyped unnamed string constant can be assigned to variable of type **myChar**
+    as well variable created with **var** keyword because it is untyped so type of
+    the constant will be decided depending upon the type of variable they are being
+    assigned to.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

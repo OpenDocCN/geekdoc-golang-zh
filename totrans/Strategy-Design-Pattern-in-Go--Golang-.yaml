@@ -1,0 +1,202 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:02:48'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Strategy Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/strategy-design-pattern-golang/](https://golangbyexample.com/strategy-design-pattern-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Definition: ](#Definition "Definition:  ")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[When to Use](#When_to_Use "When to Use")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[UML Diagram](#UML_Diagram "UML Diagram")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping](#Mapping "Mapping")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Practical Example](#Practical_Example "Practical Example ")*  *## **Definition: **'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Strategy design pattern is a behavioral design pattern. This design pattern
+    allows you to change the behavior of an object at run time without any change
+    in the class of that object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s understand the strategy pattern with an example. Suppose you are building
+    an In-Memory-Cache. Since it is an In-Memory-Cache it is of limited size. Whenever
+    it reaches its maximum size that some old entries from the cache need to be evicted.
+    This eviction can happen via several algorithms. Some of the popular algorithms
+    are
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**LRU** – Least Recently Used: Remove the entry which has been used least recently.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**FIFO** – First In First Out: Remove the entry, which was created first.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**LFU** – Least Frequently Used: Remove the entry which was least frequently
+    used.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Now the problem is how to decouple our Cache class with the algorithm such that
+    we should be able to change the algorithm at run time. Also Cache class should
+    not change when a new algorithm is being added. This is were Strategy Pattern
+    comes into the picture. The strategy pattern suggests creating a family of the
+    algorithm with each algorithm having its own class. Each of these classes follows
+    the same interface and this makes the algorithm interchangeable within the family.
+    Let’s say the common interface name is **evictionAlgo**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now our main **Cache** class will embed **evictionAlgo** interface. Instead
+    of implementing all types of eviction algorithms in itself, our Cache class will
+    delegate all it to the **evictionAlgo** interface. Since evictionAlgo is an interface,
+    we can run time change the algorithm to either be LRU, FIFO, LFU without any change
+    in Cache class.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**When to Use**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: When an object needs to support different behavior and you want to change the
+    behavior at run time.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When you want to avoid a lot of conditionals of choosing the runtime behavior.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When you have different algorithms that are similar and they only differ in
+    the way they execute some behavior.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**UML Diagram**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Notice below UML diagram, Context (Cache) embeds the strategy (evictionAlgo)
+    interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/aef4edd1723b8a558d2c0c0a423d93a0.png)'
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+- en: Below is the corresponding mapping UML diagram with the example given above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/5a6af0d3d709086edf4602accffa8979.png)'
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+- en: '**Mapping**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Context | cache.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Strategy | evictionAlgo.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Strategy Object 1 | lfu.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Strategy Object 2 | lru.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Strategy Object 3 | fifo.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Client | main.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Practical Example**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**evictionAlgo.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**fifo.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**lru.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**lfu.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**cache.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[design pattern](https://golangbyexample.com/tag/design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [strategy
+    design pattern](https://golangbyexample.com/tag/strategy-design-pattern/)*   [strategy
+    design pattern in golang](https://golangbyexample.com/tag/strategy-design-pattern-in-golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

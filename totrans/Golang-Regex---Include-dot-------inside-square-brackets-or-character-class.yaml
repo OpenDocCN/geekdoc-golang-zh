@@ -1,0 +1,87 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:35:17'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Golang Regex – Include dot – ‘.’ inside square brackets or character class
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/dot-square-bracket-regex-golang/](https://golangbyexample.com/dot-square-bracket-regex-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Dot or **‘.’** is treated as a literal character inside the square brackets
+    or character class. It doesn’t need to be escaped inside that. Let’s see a working
+    program for the same as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: We will be using **regexp** package in golang in our example that provides regular
+    expression searching capabilities
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/regexp/](https://golang.org/pkg/regexp/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: This regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: will match a single dot or **‘.’**
+  prefs: []
+  type: TYPE_NORMAL
+- en: We first compile the given regex using the MustCompile function. This function
+    panics if the given regex is not valid. After it is able to successfully compile
+    the given regex, it returns the instance of regexp struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can call the Match method on the regexp instance to match the given pattern
+    with the regex. It returns true if the regex matches with the input string otherwise
+    false. We need to pass in bytes of the input string to this method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

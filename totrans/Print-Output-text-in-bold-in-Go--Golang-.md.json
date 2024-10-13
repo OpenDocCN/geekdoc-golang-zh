@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport \"github.com/fatih/color\"\n\nfunc main() {\n    whilte := color.New(color.FgWhite)\n    boldWhite := whilte.Add(color.Bold)\n    boldWhite.Println(\"This will print text in bold white.\")\n}\n```"]

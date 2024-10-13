@@ -1,0 +1,573 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:05:57'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using Context Package in GO (Golang) – Complete Guide
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/using-context-in-golang-complete-guide/](https://golangbyexample.com/using-context-in-golang-complete-guide/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Introduction**:'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Definition:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Context is a package provided by GO. Let’s first understand some problems that
+    existed already, and which context package tries to solve.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Problem Statement:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s say that you started a function and you need to pass some common parameters
+    to the downstream functions. You cannot pass these common parameters each as an
+    argument to all the downstream functions.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You started a goroutine which in turn start more goroutines and so on. Suppose
+    the task that you were doing is no longer needed. Then how to inform all child
+    goroutines to gracefully exit so that resources can be freed up
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A task should be finished within a specified timeout of say 2 seconds. If not
+    it should gracefully exit or return.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A task should be finished within a deadline eg it should end before 5 pm . If
+    not finished then it should gracefully exit and return
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If you notice all the above problems are quite applicable to HTTP requests and
+    but none the less these problems are also applicable to many different areas too.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For a web HTTP request, it needs to be canceled when the client has disconnected,
+    or the request has to be finished within a specified timeout and also requests
+    scope values such as request_id needs to be available to all downstream functions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**When to Use (Some Use Cases):**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: To pass data to the downstream. Eg.  a HTTP request creates a **request_id,
+    request_user** which needs to be passed around to all downstream functions for
+    distributed tracing.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When you want to halt the operation in the midway – A HTTP request should be
+    stopped because the client disconnected
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When you want to halt the operation within a specified time from start i.e with
+    timeout – Eg- a HTTP request should be completed in 2 sec or else should be aborted.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When you want to halt an operation before a certain time – Eg. A cron is running
+    that needs to be aborted in 5 mins if not completed.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Context Interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The core of the understanding context is knowing the **Context** interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Creating New Context**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**context.Background():**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: context package function Background() returns a empty Context which implements
+    the **Context** interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: It has no values
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: It is never canceled
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: It has no deadline
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Then what is the use context.Background(). context.Background() serves as the
+    root of all context which will be derived from it. It will be more clear as we
+    go along
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**context.ToDo():**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: context package ToDo function returns an empty Context. This context is used
+    when the surrounding function has not been passed a context and one wants to use
+    the context as a placeholder in the current function and plans to add actual context
+    in the near future. One use of adding it as a placeholder is that it helps in
+    validation in the Static Code Analysis tool.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is also an empty Context same as context.Background()
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The above two methods describe a way of creating new contexts. More context
+    can be derived from these contexts. This is where context tree comes into the
+    picture
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Context Tree**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Before understanding Context Tree please make sure that it is implicitly created
+    in the background when using **context**. You will find no mention of in go context
+    package itself.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Whenever you use context, then the empty Context got from context.Background()
+    is the root of all context. context.ToDo() also acts like root context but as
+    mentioned above it is more like a context placeholder for future use. This empty
+    context has no functionality at all and we can add functionality by deriving a
+    new context from this. Basically a new context is created by wrapping an already
+    existing immutable context and adding additional information. Let's see some example
+    of a context tree which gets created
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Two level tree**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**rootCtx** is the empty Context with no functionality'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**childCtx** is derived from rootCtx and has the functionality of storing request-scoped
+    values. In above example it is storing key-value pair of  {"msgId" : "someMsgId"}'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Three level tree**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**rootCtx** is the empty Context with no functionality'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**childCtx** is derived from rootCtx and has the functionality of storing request-scoped
+    values. In above example it is storing key-value pair of  {"msgId" : "someMsgId"}'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**childOfChildCtx** is derived from childCtx . It has the functionality of
+    storing request-scoped values and also it has the functionality of triggering
+    cancellation signals. cancelFunc can be used to trigger cancellation signals'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Multi-level tree**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**rootCtx** is the empty Context with no functionality'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**childCtx1** is derived from **rootCtx** and has the functionality of storing
+    request-scoped values. In above example it is storing key-value pair of  {"msgId"
+    : "someMsgId"}'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**childCtx2** is derived from **childCtx1** . It has the functionality of triggering
+    cancellation signals. cancelFunc can be used to trigger cancellation signals'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**childCtx3** is derived from **rootCtx** . It has the functionality of storing
+    the current user'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Above three-level tree would look like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/5f51494c049ab64059c6f087ec5e4799.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: As since it is a tree, it is also possible to create more childs for a particular
+    node. For eg we can derive a new context **childCtx4** from **childCtx1**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Tree with above node added would like below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/3060e2e36d25c6a5579b4c7f756f3667.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: At this very moment, it might not be clear how WithValue() or WithCancel() function
+    is used. Right now just understand that whenever using context, a context tree
+    is created with root as the **emptyCtx** . These functions will get clear as we
+    move on
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Deriving From Context**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A derived context is can be created in 4 ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Passing request-scoped values  -  using **WithValue()** function of context
+    package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With cancellation signals - using **WithCancel()** function of context package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With deadlines - using **WithDeadine()** function of context package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With timeouts - using **WithTimeout()** function of context package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let's understand each of the above in details
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**context.WithValue()**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Used for passing request-scoped values. The complete signature of the function
+    is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: It takes in a parent context, key, value and returns a derived context  This
+    derived context has **key** associated with the **value**. Here the parent context
+    can be either context.Background() or any other context. Further, any context
+    which is derived from this context will have this value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Complete Working example of **withValue().** In the below example, we are injecting
+    a msgId for each incoming request. If you notice in below program
+  prefs: []
+  type: TYPE_NORMAL
+- en: inejctMsgID is a net HTTP middleware function that populates the **"msgID"**
+    field in context
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: HelloWorld is the handler function for api "localhost:8080/welcome" which gets
+    this msgID from context and sends it back as response headers
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Simply do a curl call to the above request after running the above program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here will be the response. Notice the **MsgId** that gets populated in the response
+    headers. The injectMsgId function acts as middleware and injects a unique msgId
+    to the request context.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**context.WithCancel()**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Used for cancellation signals. Below is the signature of **WithCancel()** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**context.WithCancel()** function returns two things'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Copy of the parentContext with the new done channel.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A cancel function which when called closes this done channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Only the creator of this context should call the cancel function. It is highly
+    not recommended to pass around the **cancel** function. Lets understand **withCancel**
+    with an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program
+  prefs: []
+  type: TYPE_NORMAL
+- en: task function will gracefully exit once the **cancelFunc** is called. Once the
+    cancelFunc is called, the error string is set to **"context cancelled"** by the
+    context package. That is why the output of **ctx.Err()** is **"context cancelled"**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**context.WithTimeout()**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Used for time-based cancellation. The signature of the function is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**context.WithTimeout()** function  will'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Will return a copy of the parentContext with the new done channel.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Accept a timeout duration after which this done channel will be closed and context
+    will be canceled
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A cancel function which can be called in case the context needs to be canceled
+    before timeout.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Lets see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program
+  prefs: []
+  type: TYPE_NORMAL
+- en: task function will gracefully exit once the timeout of 3 seconds is completed.
+    The error string is set to "context deadline exceeded" by the context package.
+    That is why the output of ctx.Err() is "context deadline exceeded"
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**context.WithDeadline()**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Used for deadline-based cancellation. The signature of the function is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**context.WithDeadline()** function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Will return a copy of the parentContext with the new done channel.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Accept a deadline after which this done channel will be closed and context will
+    be canceled
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A cancel function which can be called in case the context needs to be canceled
+    before the deadline is reached.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let's see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program
+  prefs: []
+  type: TYPE_NORMAL
+- en: task function will gracefully exit once the timeout of 5 seconds is completed
+    as we gave the deadline of Time.now() + 5 seconds. The error string is set to
+    "context deadline exceeded" by the context package. That is why the output of
+    ctx.Err() is "context deadline exceeded"
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**What We Learned**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**How to create the context**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using context.Backgroun()
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using context.Todo()
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Context Tree**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Deriving a new context**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: context.WithValue()
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: context.WithCancel()
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: context.WithTimeout()
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: contxt.WithDeadline()
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**BestPractices and Caveats**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Following is a list of best practices that you can follow while using a context.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do not store a context within a struct type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Context should flow through your program. For example, in case of an HTTP request,
+    a new context can be created for each incoming request which can be used to hold
+    a request_id or put some common information in the context like currently logged
+    in user which might be useful for that particular request.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Always pass context as the first argument to a function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Whenever you are not sure whether to use the context or not, it is better to
+    use the context.ToDo() as a placeholder.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Only the parent goroutine or function should the cancel context. Therefore do
+    not pass the **cancelFunc** to downstream goroutines or functions. Golang will
+    allow you to pass the **cancelFunc** around to child goroutines but it is not
+    a recommended practice
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[context in golang](https://golangbyexample.com/tag/context-in-golang/)*   [explained](https://golangbyexample.com/tag/explained/)*   [golang
+    context explained](https://golangbyexample.com/tag/golang-context-explained/)*   [sidetoc](https://golangbyexample.com/tag/sidetoc/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

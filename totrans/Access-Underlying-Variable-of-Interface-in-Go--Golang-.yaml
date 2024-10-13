@@ -1,0 +1,181 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:23:01'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Access Underlying Variable of Interface in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/access-underlying-type-interface-golang/](https://golangbyexample.com/access-underlying-type-interface-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Type Assertion](#Type_Assertion "Type Assertion")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Type Switch](#Type_Switch "Type Switch")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Like any other variable, an interface variable is represented by a type and
+    value. Interface value, in turn under the hood, consists of two tuple
+  prefs: []
+  type: TYPE_NORMAL
+- en: Underlying Type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Underlying Value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: See below diagram which illustrates what we mentioned above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/e09464771d53171817cfeecf9da6a93e.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The underlying variable of an interface can be accessed in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Type Assertion
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Type Switch
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Type Assertion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Type assertion provides a way to access the underlying variable inside the interface
+    value of the interface by asserting the correct type of underlying value. Below
+    is the syntax for that where i is an interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above statement is asserting that the type of underlying value in the interface
+    is of type {type}. If this is true then the underlying value is assigned to **val.**
+    If not then the above statement panics.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Assume we have an interface **animal** as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: We also have a **lion** struct implementing this **animal** interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is how we assert the variable **a** of type **animal** to have underlying
+    type as **lion**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below line will create a panic as underlying type is **lion** and not **dog**.
+    Uncomment the line to check it out
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Type assertion provides another way to get the underlying value and which also
+    prevents a panic. The syntax for that is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this case type assertion returns two values, first value is same as discussed
+    above , the other value is a boolean indicating weather the type assertion was
+    correct or not. This value is
+  prefs: []
+  type: TYPE_NORMAL
+- en: true if the type assertion is correct meaning the type asserted is same as underlying
+    type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: false if the type assertion fails.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So the second is a good way of doing type assertion since it prevents a panic.
+    Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s move on to type switch now.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Type Switch**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Type switch enables us to do above type assertion in series. See below code
+    example for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the code above, using the type switch we determine the type of value contained
+    in  interface variable **a** is **lion** or **dog** or some other type. It is
+    also ok to add more different types in case statement
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

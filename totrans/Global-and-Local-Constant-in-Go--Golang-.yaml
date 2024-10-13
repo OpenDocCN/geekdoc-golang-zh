@@ -1,0 +1,132 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:27:53'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Global and Local Constant in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/global-local-constant-golang/](https://golangbyexample.com/global-local-constant-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Like any other variable, a constant will be global within a package if it is
+    declared at the top of a file outside the scope of any function. For example,
+    in the below program **name** will be a global constant available throughout the
+    main package in any function. Do note that the const **name** will not be available
+    outside the main package. For it to be available outside the main package it has
+    to start with a capital letter. See the below code. It also shows the example
+    of a local constant within a package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see an example where we try to access the global constant from a different
+    package. Let’s say that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**main.go** is present at location **$GOPATH/src/github.com/learn**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**data.go** is present at location **$GOPATH/src/github.com/learn/data**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**data.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Go to the **learn** directory and run command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we are trying to access the constant PI which is defined
+    in data.go from the main package. The program works and successfully prints the
+    value as the const PI starts with a capital letter and hence it is visible outside
+    its package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you change the constant name from **PI** to **pi** then above program will
+    raise compilation error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a program for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**data.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Go to the **learn** directory and run command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

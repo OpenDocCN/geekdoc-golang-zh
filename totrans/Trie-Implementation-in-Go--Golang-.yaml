@@ -1,0 +1,82 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:06:33'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Trie Implementation in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/trie-implementation-in-go/](https://golangbyexample.com/trie-implementation-in-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Full Working Code](#Full_Working_Code "Full Working Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A trie is a data structure for efficient information retrieval. It is a special
+    kind of tree where a path starting from root to a particular node can define a
+    word that is stored in this tree. A trie can be built for entire ASCII_SIZE, ALPHABETS, 
+    NUMBERS depending upon the use case. For, eg below will be the properties of a
+    Trie data structure supporting small case alphabet letters
+  prefs: []
+  type: TYPE_NORMAL
+- en: Each node has ALBHABET_SIZE=26 children. Each child node is a trie node itself
+    and has ALBHABET_SIZE=26 children.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each node is at an index in its parent’ children node array and represents an
+    ASCII character. For eg for a particular node, the first non-nil children node
+    will mean the presence of char ‘a’,  second non-nil children node means the presence
+    of ‘b’ and so on. Absence of a child at an index means no value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each node also has a boolean field indicating whether the node is the end of
+    word or not
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The root node is the starting node and has ALBHABET_SIZE=26 children. root is
+    associated with an empty value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For eg for keywords [“sam”, “john”, “tim”, “jose”] below trie will be created
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/996d2fee7196f4b285d70dbdba9bc4d6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Full Working Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[data structure](https://golangbyexample.com/tag/data-structure/)*   [trie](https://golangbyexample.com/tag/trie/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

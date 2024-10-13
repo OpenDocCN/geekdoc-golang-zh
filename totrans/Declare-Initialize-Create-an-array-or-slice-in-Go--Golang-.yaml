@@ -1,0 +1,394 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:20:36'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declare/Initialize/Create an array or slice in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/declare-initialize-create-array-slice-golang/](https://golangbyexample.com/declare-initialize-create-array-slice-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Creating a slice](#Creating_a_slice "Creating a slice")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the []<type>{} format](#Using_the_format "Using the []<type>{} format")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creating a slice from another slice or array](#Creating_a_slice_from_another_slice_or_array
+    "Creating a slice from another slice or array")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Create a slice from Array](#Create_a_slice_from_Array "Create a slice from
+    Array")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Create a slice from slice](#Create_a_slice_from_slice "Create a slice from
+    slice")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the make function](#Using_the_make_function "Using the make function")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the new function](#Using_the_new_function "Using the new function")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Create an array](#Create_an_array "Create an array")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Similar to any other programming language, golang also has an array data structure.
+    But in go, arrays behave little differently than other languages and also we have
+    something called slice in golang which is like a reference to an array. Slice
+    is more powerful and convenient to use than an array.  Slice, in fact, is more
+    analogous to arrays in another programming language.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this article, we will learn how to
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a slice instance
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Create an array instance
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Creating a slice**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: There are four ways of creating a slice
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the []<type>{} format
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Creating a slice from another slice or array
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using make
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using new
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s look at each of above method one by one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using the []<type>{} format**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The most common way of declaring a slice is this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: It declares an empty of slice of 0 length and 0 capacity. We can also initialise
+    the slice during declaration
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: It declares a slice of integers of length 2 and also the capacity of 2\. The
+    capacity will be equal to the actual slice elements specified. We also have two
+    library functions provided by go which can be used to know the **length** and
+    **capacity** of a slice.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**len()** function – for  length of the slice'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**cap()** function – for capacity of the slice'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a small program which shows the above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: When the actual elements are not specified, then both length and capacity of
+    the slice is zero. When actual elements are specified , both  length and capacity
+    is equal to the number of actual elements specified.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creating a slice from another slice or array**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: A slice can be created by re-slicing an exiting slice or array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Create a slice from Array**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The format for creating a new slice by re-slicing an existing array is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above operation will return a new slice from the arraystarting from index
+    **start** to index **end-1\.** So the element at index **end** is not included
+    in the newly created slice. While re-slicing, both start, and the end index are
+    optional.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The default value of the start index is zero
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The default value of the end index is the length of the array
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in above example that
+  prefs: []
+  type: TYPE_NORMAL
+- en: length of newly created slice = (**end**–**start**)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: capacity of newly created slice = (**length_of_array**–**start**)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **num1** slice would look like
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/33586fc71a4b7b6f0294dc7dc24f41df.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The newly created slices still refer the original array. To check this change
+    element at any one of the index of the array and then reprint the slice
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here is the output:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: This proves that each of the new slice is still referring to the original array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Create a slice from slice**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Whatever we discussed about re-slicing from an array also applies here as well.
+    See below example which illustrates same thin
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here also the newly created slices refer to the same underlying array that was
+    being referred to by the original slice.  To check this change element at any
+    one of the index of the original slice and then reprint all the newly created
+    slices
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using the make function**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**make** is a builtin function provided by go that can also be used to create
+    a slice. Below is the signature of make function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Capacity is an optional parameter while creating slice using the make function.
+    When capacity is omitted, the capacity of the slice is equal length specified
+    for the slice. When using make function, behind the scenes go allocates an array
+    equal to the capacity. All the elements of the allocated array are initialized
+    with default zero value of the type. Let’s see a program illustrating this point.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using the new function**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**new** is a builtin function provided by go that can also be used to create
+    a slice. It is not a very popular way of creating a slice as **make** is much
+    more flexible in terms of functionalities . It is not generally used and also
+    using **new** function returns a pointer to nil slice. Let’s see an example. In
+    below example we are using the dereferencing operator **‘*’** as **new** function
+    returns a pointer to the nil slice'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Create an array**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Both number of elements and actual elements are optional in the array declaration.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In below example, we see 4 ways of creating of an array
+  prefs: []
+  type: TYPE_NORMAL
+- en: Specifying both the length of the array and actual elements. Eg.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Only length – In this case all the actual elements are filled up with default
+    value zero of that type. Eg
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: Only actual elements – In this case, the length of the array will be equal to
+    the number of actual elements. The symbol **‘…’** needs to be used within square
+    brackets like this […] when not specifying the length. The symbol is an instruction
+    to the compiler to calculate the length.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: Without length and actual elements – an empty array will be created in this
+    case. Similar to above the symbol **‘…’** also needs to be used in this case as
+    well.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a code example illustrating above points. Also please keep in mind
+    that the builtin function **len()** can be used to calculate the length of an
+    array. In below program we are using **len()** function to calculate the length
+    of the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in the above example that for **sample3** variable the actual elements
+    are filled up with the default value of int which is 0.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is also ok if the actual elements specified are less than the length of the
+    array. The rest of the elements are filled up with the default value of the type
+    specified. See the below example. The length of the array specified is 4 while
+    only 2 actual elements are declared. Hence the remaining two elements are assigned
+    value 0 which is the default zero value of an **int**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

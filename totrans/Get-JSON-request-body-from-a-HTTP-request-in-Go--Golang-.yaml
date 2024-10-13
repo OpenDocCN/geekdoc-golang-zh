@@ -1,0 +1,322 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:31:52'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Get JSON request body from a HTTP request in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/json-request-body-golang-http/](https://golangbyexample.com/json-request-body-golang-http/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**json/encoding** package contains methods that can be used to convert a  request
+    body of an incoming HTTP request into a golang struct. Before we start just a
+    word about the request body. The request body of an HTTP request is a sequence
+    of bytes. It is the content-type of the HTTP request which denotes the format
+    in which those bytes are represented and meant to be read back.  For a JSON request
+    body, the content-type is'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also two things about golang struct that you need to know
+  prefs: []
+  type: TYPE_NORMAL
+- en: Only exported fields of the struct are visible to the external library. Hence
+    only exported fields of the struct can be parsed into from an incoming HTTP request.
+    Also to note that capitalized fields of a struct are exported in go.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Struct fields have a meta section that contains additional information about
+    that field. These meta fields are used while parsing an incoming JSON request
+    body into a struct. For eg let’s say we have the below struct
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice meta tags associated with each of the fields annotated with name as ‘json’.
+    These meta fields are used to map keys in the JSON to the fields of the struct.
+    For eg if we have JSON as
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then **name** key of the above JSON will map to the **Name** field of the **employee**
+    struct and the **age** key in JSON will map to the **Age** field of the struct.
+    Let’s say we have below struct and JSON
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then **‘n’** key of the JSON will map to the **Name** field of the struct and
+    **‘ag’** key of the JSON will map to the **Age** field of the struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below two methods of the **json/encoding** package can be used to get the JSON
+    request body of an incoming request.
+  prefs: []
+  type: TYPE_NORMAL
+- en: json.Unmarshal([]bye)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: json.NewDecoder(io.Reader).Decode(interface{})
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The second method is a preferred way to get the json request body for two reasons.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The request body of an incoming HTTP request is an io stream. **json.Unmarshal**
+    will read the entire contents of the body first and then do an Unmarshal. It does
+    no validation on the request body as it comes along. As compared Decode method
+    will give an early parse error if the JSON is not valid. This comes in handy for
+    a large invalid body being sent by the client. Unmarshal will detect that when
+    the entire large body has been read while Decode will raise at the start only.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**json.Decode** contains the **DisallowUnknownFields** method which raises
+    an error if the incoming JSON contains keys which do not match any'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Exported and
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Non-ignored fields of the struct.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: There might be several issues that need to be taken care of when parsing the
+    incoming JSON request body.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The body might not be a valid JSON
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is a valid JSON but contains extra fields or none of the fields expected
+    in the struct.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The JSON request body is too large.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The field is expected but it contains a different type. For example for the
+    Name field above the incoming HTTP request JSON body has a number while the expectation
+    is a string.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The req body contains extra fields.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **Decode** method can capture all of those issues and can return appropriate
+    error messages as well except in one case when there is an unmarshaling error.
+    Let’s see the error returned by the decode method in all cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: Imaging the incoming JSON need to converted into the **employee** struct we
+    mentioned above
+  prefs: []
+  type: TYPE_NORMAL
+- en: Issues
+  prefs: []
+  type: TYPE_NORMAL
+- en: There is an extra field in the incoming JSON. For example, let’s say we have
+    an additional **Gender** field present.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The error returned by decode function will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: The body is not a valid JSON
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: The error returned by the decode function will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: The body is empty
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: The error returned by decode function will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: The type of one of the field is different than expected. For example, sending
+    a string value of age where int is expected
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: The error returned by decode function will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this case, the error returned by the decode function is returning internal
+    information which is not an appropriate error to be returned back to the client.
+    It is also possible to catch such type of error and return an appropriate error
+    to the client. And that is what we are doing in the below program as well. Just 
+    checking if it is an unmarshaling and returning custom error message after that
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also in the code below we are setting the disallow unknown fields option on
+    the **decoder** so that any extra fields in the incoming JSON body results in
+    an error.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is full program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Run the above file. It will trigger a server that will listen to port 8080\.
+    After the server is running, let’s make the API calls for some of the scenarios
+    we have discussed above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Correct Request**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**There is an extra field in the incoming JSON**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**The body is not a valid JSON**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**The body is empty**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**The type of one of the field is different than expected. For example, sending
+    a string value of age where int is expected**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Content-type is not provided or not application/json**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [http](https://golangbyexample.com/tag/http/)*   [json](https://golangbyexample.com/tag/json/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

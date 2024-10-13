@@ -1,0 +1,27 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:00:01'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Contact Us
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/contact-us/](https://golangbyexample.com/contact-us/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Hi There,
+  prefs: []
+  type: TYPE_NORMAL
+- en: We are looking forward to hearing from you. Please feel free to get in touch
+    via the form below, we will get back to you as soon as possible.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,345 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:32:23'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Base64 encoding/Decoding in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/base64-golang/](https://golangbyexample.com/base64-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[StdEncoding](#StdEncoding "StdEncoding")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[URLEncoding](#URLEncoding "URLEncoding")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[RawStdEncoding](#RawStdEncoding "RawStdEncoding")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[RawURLEncoding](#RawURLEncoding "RawURLEncoding")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Golang provides an **encoding/base64** package that can be used to encode strings
+    to base64 and decode the base64 encoded string back to the original string. [https://golang.org/pkg/encoding/base64/](https://golang.org/pkg/encoding/base64/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go supports base64 in 4 different ways.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**StdEncoding**– Standard 64 characters with padding. It encodes into below
+    characters'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**URLEncoding** –  Same as StdEncoding just that in this, the **‘+’** and **‘\’**
+    sign is replaced with **‘-‘** and **‘_’**. They are replaced to make them compatible
+    with filenames and URLs. Below is the character set for base64 URL encoding'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**RawStdEncoding** – This is the same as StdEncoding just that it omits padding
+    characters.  So it is unpadded base64  STD encoding.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**RawURLEncoding** – This is also the same as URL encoding just that it omits
+    padding characters. So it is unpadded base64 URL encoding.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each of the above encodings is represented by the Encoding struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/encoding/base64/#Encoding](https://golang.org/pkg/encoding/base64/#Encoding)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Encoding struct further defines two methods for encoding and decoding
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**EncodeToString** – Below is the signature of the method. It takes bytes as
+    an input and returns the base64 encoded string depending upon which one of the
+    above 4 encodings is used.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**DecodeString** – Below is the signature of the method. It takes the encoded
+    string as an input and returns the original string depending upon which one of
+    the above 4 encodings is used.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a detailed example of each
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**StdEncoding**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is the standard base64 encoding which is defined in RFC 4648\. It uses
+    the below 64 characters set along with padding character **‘=’.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see an example of this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that in the above example we are encoding the below string using base64
+    Std encoding
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we are decoding the base64 encoded string back to the original string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: It correctly outputs the original string back on decoding
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**URLEncoding**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In this, the **‘+’** and **‘\’** sign is replaced with **‘-‘** and **‘_’**.
+    They are replaced to make them compatible with filenames and URLs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**URL**: In URLs **‘+’** and **‘\’**  are further encoded into hexadecimal
+    sequences due to URL encoding thereby further increasing the length of the URL.
+    For eg **‘+’** will be converted to ‘%2B’ and **‘\’** will be encoded to ‘%2F’
+    in the URL encoding.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Filenames**:  **‘\’** is used in file paths in both Unix and Windows. Hence
+    it ‘\’ is replaced with **‘_’**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that in the above example we have taken the example of the below string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we are printing both the StdEncoding as well as URL Encoding of the above
+    string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice the difference in output
+  prefs: []
+  type: TYPE_NORMAL
+- en: For URL encoding it prints
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: while for STD encoding, it prints
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is because **‘+’** is present in STD encoding but in URL encoding **‘+’**
+    is replaced with **‘-‘**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**RawStdEncoding**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is the same as StdEncoding just that it omits padding characters.  So it
+    is unpadded STD base64 encoding. Let’s see an example. Before we see an example
+    of Raw STD encoding we want to explain why the raw version of std encoding exists
+    which omits padding characters.  That brings a very important topic related to
+    base64 encoding which is **‘Is padding necessary’.** The answer is that it depends
+  prefs: []
+  type: TYPE_NORMAL
+- en: Padding is not necessary when you are sending a single string.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Padding is important when you are concatenating base64 encodings of multiple
+    strings. If unpadded strings are concatenated then it will be impossible to get
+    the original string as information about the bytes added will be lost. As an illustration,
+    consider below
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '| **Actual String** | **Base64 Encoded with Padding** | **Base64 Encoded without
+    Padding** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| a | YQ== | YQ |'
+  prefs: []
+  type: TYPE_TB
+- en: '| bc | YmM= | YmM |'
+  prefs: []
+  type: TYPE_TB
+- en: '| def | ZGVm | ZGVm |'
+  prefs: []
+  type: TYPE_TB
+- en: Now let’s consider both cases.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**When the concatenation is sent without padding**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this case, the concatenated Base64 string will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try decoding it and you will get the final string as below which is incorrect
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**When the concatenation is sent with padding**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this case, the concatenated Base64 string will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try decoding it in groups of 4 characters and you will get the final string
+    as below which is correct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now again the question that comes to mind is why do you need to concatenate
+    multiple base64 encoded strings. The answer is that it is always good in cases
+    where there is streaming data and you want to send the base64 encoded data as
+    it comes. For example, buffering of video.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So that is why padding is encouraged though not absolutely not necessary in
+    all cases. Now let’s see an example of Raw Std Encoding
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above example we are printing both the result of both **StdEncoding**
+    as well as **RawStdEncoding**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice the difference in output
+  prefs: []
+  type: TYPE_NORMAL
+- en: For STD encoding it prints
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: while for Raw STD encoding, it prints
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can notice that RAW STD Encoding omits padding characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**RawURLEncoding**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is also the same as URL encoding just that it omits padding characters.
+    So it is unpadded STD base64 encoding.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above example, we are again printing the result of both URL encoding
+    and as well as RAW URL encoding and you can notice that padding character **‘=’**
+    is omitted in the Raw URL encoding.*
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,59 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:17:06'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Execute an OS/System Command in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/execute-os-system-command-golang/](https://golangbyexample.com/execute-os-system-command-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**os/exec** package can be used to trigger any OS or system command from Go.
+    It has two functions which can be used to achieve the same'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Command** – Used to create the cmd object'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Output** – It runs the command and returns the standard output'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[command](https://golangbyexample.com/tag/command/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [system](https://golangbyexample.com/tag/system/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

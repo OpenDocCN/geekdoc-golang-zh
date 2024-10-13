@@ -1,0 +1,43 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:02:16'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Golang: Redis cluster client example'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/golang-redis-cluster-client-example/](https://golangbyexample.com/golang-redis-cluster-client-example/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: First, we will write the Redis cluster layer that will have a function to initialize
+    the Redis cluster client. The Redis cluster client will only be created once and
+    used throughout. In the below code, initialize function will initialize the Redis.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**client.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE

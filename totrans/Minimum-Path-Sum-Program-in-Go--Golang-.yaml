@@ -1,0 +1,92 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:48:40'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Minimum Path Sum Program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/minimum-path-sum-golang/](https://golangbyexample.com/minimum-path-sum-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There is an m*n matrix that contains non-negative integers. The objective is
+    to find a minimum sum path moving from Top-Left to Bottom-Right. You can only
+    move right or down.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, let’s say we have below matrix
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/695599be49b8f5c57183e0e8a42623c8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Then minimum sum path is below the path. It has a sum of 1+1+2+2+1 = 7
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is a dynamic programming question as it has an optimal substructure. Let’s
+    say the name of the matrix is input
+  prefs: []
+  type: TYPE_NORMAL
+- en: minPath[0][0] = input[0][0]
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: minPath[i][j] = ming(minPath[i-1][j], minPath[i][j-1])) + input[i][j]
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: where minPath[i][j] represents the minimum sum from {0,0} to {i,j}
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

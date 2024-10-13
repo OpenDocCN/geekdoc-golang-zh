@@ -1,0 +1,423 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:32:52'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP client/server multipart form-data request body example in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/http-mutipart-form-body-golang/](https://golangbyexample.com/http-mutipart-form-body-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[HTTP Server Example](#HTTP_Server_Example "HTTP Server Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[HTTP Client Example](#HTTP_Client_Example "HTTP Client Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In HTTP context, the **multipart/form-data** content-type is used for submitting
+    HTML form. In the case of **multipart/form-data**, as the name suggests, the body
+    consists of different parts separated by a delimiter or boundary where each part
+    is described by its own headers. The delimiter or boundary is also sent as part
+    of the header only.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When you sending an HTML form through a browser in an HTTP call, the data contents
+    can be sent in as request body in the below two formats.
+  prefs: []
+  type: TYPE_NORMAL
+- en: application/x-www-form-urlencoded
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: multipart/form-data
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For most of the cases, **application/x-www-form-urlencoded** can be used. But
+    if you need to upload files then **application/x-www-form-urlencoded** is not
+    much efficient.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, let’s say that the below data needs to be sent.
+  prefs: []
+  type: TYPE_NORMAL
+- en: name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: age
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Then **application/x-www-form-urlencoded** can be used to send the above data.
+    But let’s say that you also need to send the profile photo of the user in the
+    request as well. So the data is now as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: age
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: photo
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In the above case, it will not be efficient to use **application/x-www-form-urlencoded**
+    content-type. **multipart/form-data** should be used in this case. So for sending
+    simple form data use **application/x-www-form-urlencoded** but if the form-data
+    also needs to send binary data then use **multipart/form-data.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s see an example of
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP Server for parsing multipart/form-data request
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: HTTP Client for sending multipart/form-data request
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**HTTP Server Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: For HTTP server an incoming request is represented by the **request** struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/src/net/http/request.go](https://golang.org/src/net/http/request.go)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To parse the **multipart/form-data** request body we need to first call the
+    below function on the **request** object
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: What above function will do is that it will parse the incoming request body
+    and the data will be loaded in the below fields of the **request** object
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**MultipartForm –** The entire **multipart/form-data** request body will be
+    loaded into this field. For example, in the above case, it will hold the **name**,
+    **age** field as well as **photo** field. It is represented in the below format'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: It has two parts. The Value holds all the non-files data. So it will hold the
+    **name** and **age** key data.  The **File** part holds all file data. So it will
+    hold the data for **photo** key.  Both the parts have their value part as an array
+    because for the same key there can be multiple values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Form** –  It holds combine data of query string and non-file fields of the
+    **multipart/form-data** request body. For example, for the above case, it will
+    only hold the name and age field. It has below format'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**PostForm –** It only holds the non-file fields of the **multipart/form-data**
+    request body. So for the above case, it will only hold the **name** and **age**
+    field'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It also has the same format as **Form**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Other than the above fields, the request object also provides the below utility
+    function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**FormFile** –  This function can be used to get the first file for the given
+    key. So this function will only return data for **photo** key and not for **name**
+    and **age** key'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**PostFormValue** – This function returns the first value for the given form
+    key.  This function will only return data for **name** and **age** key and not
+    for **photo** key'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see different ways in which **name**, **key**, and **photo** values can
+    be accessed
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Name Key**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: will return
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: It returns an array because for the same key there can be different values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: will return
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is not an array because as mentioned above this function returns the first
+    value associated with the key.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Age Key**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: will return
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: While
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: will return
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Photo Key**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: will return the  **FileHeader** for the image. Bytes of the image can be accessed
+    using that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: While
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: will return
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is not an array because as mentioned above this function returns the first
+    file associated with the key.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in the above program how are we printing the **name** key using all the
+    approaches
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: And similar for the **age** key
+  prefs: []
+  type: TYPE_NORMAL
+- en: Then we are saving the file present in the request body first using **FormFile**
+    method and then using **request.MultipartForm.File** map**.** Since we are saving
+    the same file using the two methods, we send a prefix argument to the **saveFile**
+    function so that it saves files with different names. This is done so that the
+    file saved by **FormFile** is not overwritten by the file saved by **request.MultipartForm.File.**
+    This is just for a demonstration that both methods can be used to extract file
+    data from the request. **FormFile** method uses the prefix **formfile** while
+    **request.MultipartForm.File** uses **mapaccess** prefix for saving the file
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let's make some curl calls. Create a file named **test.png** in the same
+    folder from which you will run the curl command
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sending **name**, **age** and **photo**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can notice from the output that it is printing exactly what we have discussed
+    earlier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will also save two files with the below names
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now let's see the second curl example
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sending **name**, **age,** and **photo** but in this example, the same key **'photo'**
+    is used for sending two files.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: This time three files will be saved with the below names. Since FormFile only
+    accesses the first file present with a given key therefore only **formfile-test1.png**
+    is saved by the **FormFile** method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let's see one more curl example
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sending two values for **name** key
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: rqeuest.**PostFormValue** returns
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: while all other options return both the values
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**HTTP Client Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the code for an example of an HTTP client for the same. It is sending
+    the **multipart/form-data** request body in an HTTP request to the server created
+    in the above example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, we have to create a multipart Writer [https://golang.org/pkg/mime/multipart/#Writer](https://golang.org/pkg/mime/multipart/#Writer)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: The multipart writer provides two methods
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**CreateFormField**  - Used to create a text field to be sent in the multipart
+    request body. We will create the **name** and **age** field using this method'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**CreateFormFile** - Used to create a file field to be sent in the multipart
+    request body. We will create the **photo** field using this method'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now let's see the program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: Run this program and see the output at your server end as the above client makes
+    a call to your server created in the first example. The server program will give
+    the below output similar to the curl calls.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also, the server will save two files with the below names similar to the curl
+    calls
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

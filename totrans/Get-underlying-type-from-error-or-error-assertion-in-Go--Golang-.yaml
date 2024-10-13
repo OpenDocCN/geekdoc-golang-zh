@@ -1,0 +1,149 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:25:00'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Get underlying type from error or error assertion in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/error-assertion-golang/](https://golangbyexample.com/error-assertion-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are two ways of getting the underlying type
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the .({type}) assert
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the assert succeeds then it will return the corresponding error otherwise
+    it will panic. Below is the syntax
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Better to use **ok** variable to prevent panic in case assertion fails.  Below
+    is the syntax for that. The **ok** variable will be set to true if  error underlying
+    type is correct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Using the **As** function of **errors** package-  [https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)
+    .Using **As** function is preferable to using the .({type}) assert because it
+    checks for match by unwrapping the first error sequentially and matches it with
+    target error at each step of unwrap. Below is the syntax of Is function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**As** function will find the first error in the first argument which can match
+    the target. Once a match is found it will set target to that error value.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have a function openFile in which we are trying to
+    open a non-existing type hence it will raise an error. Then we are asserting 
+    the error in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using .assert operator. The ok variable will be set to true if the error underlying
+    type is ***os.PathError** otherwise it will be set to false
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Using the **As** function of errors package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both the method correctly assert that the error is of type ***os.PathError**
+    as error returned by the **openFile** function is of type ***os.PathError**
+  prefs: []
+  type: TYPE_NORMAL
+- en: We mentioned above that using **As** the function is preferable to using the
+    .({type}) assert because it checks for a match by unwrapping the first error sequentially
+    and matches it with the target error at each step of unwrap. Let’s see an example
+    to understand that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program is almost same as the previous program just the difference
+    being that in the openFile function we are wrapping the error as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: The . assert outputs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: While As function outputs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is because the error returned by the **openFile** function wraps ***os.Patherror**
+    error which is not catched by the dot(‘.’) assert but is catched by **As** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

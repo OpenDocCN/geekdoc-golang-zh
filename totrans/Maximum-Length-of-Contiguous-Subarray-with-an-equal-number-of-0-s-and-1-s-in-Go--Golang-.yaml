@@ -1,0 +1,108 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:49:53'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Maximum Length of Contiguous Subarray with an equal number of 0’s and 1’s in
+    Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/max-length-array-zero-one-golang/](https://golangbyexample.com/max-length-array-zero-one-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An array is given that only has 0’s and 1’s. The objective is to find a maximum
+    length subarray with an equal number of 0’s and 1’s. Let’s understand it with
+    examples
+  prefs: []
+  type: TYPE_NORMAL
+- en: Example 1
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Example 2
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below is the approach we can take
+  prefs: []
+  type: TYPE_NORMAL
+- en: We will create an array **leftSum** where leftSum[i] will denote the sum of
+    numbers from index 0 to i. Treat 0 as -1 and 1 as 1 only.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now there are two cases. The subarray starts from index 0 or the subarray starts
+    from an index other than zero.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Scan the leftSum array from left to right. If the value at any index in the
+    **leftSum** is zero, then it means that subarray[0,i] contains an equal number
+    of 0’s and 1’s.  This will give the answer if the subarray starts from index 0
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the subarray doesn’t start from zero. So again scan the leftSum array and
+    find index **i** and **j** such that **leftSum[i] == leftSum[j].** To figure it
+    out we will use a map. If the length of j-i is greater than the maximum length,
+    then update the maximum length
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Return the maximum length in the end
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

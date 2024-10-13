@@ -1,0 +1,57 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:05:18'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Set implementation in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/set-implementation-in-golang/](https://golangbyexample.com/set-implementation-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: A set is a data structure that holds elements without any particular order.
+    An element only appears once in a set.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Set can be implemented in GO using a map. We will be using **map[string]struct{}**
+    for the set as **struct{}** occupies no memory hence more efficient in terms of
+    storage.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the simple example of set having operations
+  prefs: []
+  type: TYPE_NORMAL
+- en: Add
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Remove
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Exists
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[data structure](https://golangbyexample.com/tag/data-structure/)*   [set](https://golangbyexample.com/tag/set/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

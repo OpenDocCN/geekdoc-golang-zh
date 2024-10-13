@@ -1,0 +1,620 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:20:25'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Method in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/method-in-golang/](https://golangbyexample.com/method-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 20 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Interface](https://golangbyexample.com/interface-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Maps](https://golangbyexample.com/maps-in-golang)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Why Method](#Why_Method "Why Method")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Format of a Method](#Format_of_a_Method "Format of a Method")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Methods on Structs](#Methods_on_Structs "Methods on Structs")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Method on a Pointer Receiver](#Method_on_a_Pointer_Receiver "Method on a Pointer
+    Receiver")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[When to use pointer receiver](#When_to_use_pointer_receiver "When to use pointer
+    receiver")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Some More Points to note about methods](#Some_More_Points_to_note_about_methods
+    "Some More Points to note about methods")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Methods on Anonymous nested struct fields](#Methods_on_Anonymous_nested_struct_fields
+    "Methods on Anonymous nested struct fields")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Exported Method](#Exported_Method "Exported Method")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Method Chaining](#Method_Chaining "Method Chaining")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Methods on Non-Struct Types](#Methods_on_Non-Struct_Types "Methods on Non-Struct
+    Types")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A method in golang is nothing but a function with a receiver. A receiver is
+    an instance of some specific type such as struct, but it can be an instance of
+    any other custom type. So basically when you attach a function to a type, then
+    that function becomes a method for that type. The method will have access to the
+    properties of the receiver and can call the receiver’s other methods.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Why Method**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Since method lets you define a function on a type, it lets you write object-oriented
+    code in Golang. There are also some other benefits such as two different methods
+    can have the same name in the same package which is not possible with functions
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Format of a Method**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the format for a method
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The method receiver and receiver type appear between the **func** keyword and
+    the function name. The return_values come at the last.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, let’s understand more differences between a function and a method. There
+    are some important differences between them. Below is the signature of a function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Function:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: We have already seen the signature of a method
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Method:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: From the above signature, it is clear that the method has a receiver argument.
+    This is the only difference between function and method, but due to it they differ
+    in terms of functionality they offer
+  prefs: []
+  type: TYPE_NORMAL
+- en: A function can be used as first-order objects and can be passed around while
+    methods cannot.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Methods can be used for chaining on the receiver while function cannot be used
+    for the same.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There can exist different methods with the same name with a different receiver,
+    but there cannot exist two different functions with the same name in the same
+    package.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Methods on Structs**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Golang is not an object-oriented language. It doesn’t support type inheritance,
+    but it does allow us to define methods on any custom type including structs. Since
+    struct is a named collection of fields and methods can also be defined on it.
+    As such struct in golang can be compared to a class in Object-Oriented Languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example of method on struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that the receiver is available inside the method and fields of the receiver
+    can be accessed inside the method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Can field of the receiver also be changed inside the method?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: A method setNewName is defined on the employee struct in the above code. In
+    this method, we update the name of the employee like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: After setting the new name when we print the employee name again in the main
+    function, we see that the old name “Sam” is printed instead of “John”. This happens
+    because method is defined on a value receiver
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Since the method is defined on a value receiver when the method is called a
+    copy of the receiver is made and that copy of the receiver is available inside
+    the method. Since it is a copy, any changes made to the value receiver is not
+    visible to the caller. That is why it prints the old name “Sam” instead of “John”.
+    Now the question which comes to the mind whether there is any way to fix this.
+    And the answer is yes, and this is where pointer receivers come into the picture.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Method on a Pointer Receiver**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In the above example we saw a method on a value receiver. Any change made to
+    a value receiver is not visible to the caller. Methods can also be defined on
+    a pointer receiver. Any change made to the pointer receiver will be visible to
+    the caller. Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program, we defined the method **setNewName** on a pointer receiver
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we created an employee pointer and called the **setNewName** methodon it.
+    We see that the changes made to the employee pointer inside the **setNewName**
+    are visible to the caller and it prints the new name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Is it necessary to create the employee pointer to call a method with a pointer
+    receiver? No, it is not. The method can be called on the employee instance and
+    the language will take care of it to correctly pass it as a pointer to the method.
+    This flexibility is provided by the language.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: We see in the above program that even if a method is defined on a pointer receiver
+    but we are calling the method with a non-pointer employee instance
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: But the language passes the receiver as a pointer and therefore the changes
+    are visible to the caller.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Even this way of calling is valid
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now, how about the other way around. If a method is defined on a value receiver,
+    can the method be called with a pointer of the receiver?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Yes, even this is valid and the language takes care of passing the argument
+    correctly as value receiver irrespective of whether the method was called on a
+    pointer or normal struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Do note here since in all three cases, the **setNewName** method had a value
+    receiver hence changes are not visible to the caller as the value is passed as
+    a copy. It prints the old name in all three cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: To summarize what we learnt above
+  prefs: []
+  type: TYPE_NORMAL
+- en: If a method has a value receiver it supports calling of that method with both
+    value and pointer receiver
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If a method has a pointer receiver then also it supports calling of that method
+    with both value and pointer receiver
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is unlike function where if
+  prefs: []
+  type: TYPE_NORMAL
+- en: If a function has a pointer argument then it will only accept a pointer as an
+    argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If a function has a value argument then it will only accept a value as an argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**When to use pointer receiver**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: When the changes to the receiver made inside the method have to be visible to
+    the caller.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When the struct is big, then it is better to use a pointer receiver otherwise
+    a copy of the struct will be made every time a method is called which will be
+    expensive
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Some More Points to note about methods**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The receiver type has to be defined in the same package as the method definition.
+    On defining a method on a receiver that exists in a different package, below error
+    will be raised.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: Till now we have seen a method invocation using a dot operator. There is one
+    other way to call a method as well as shown in below example
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above example we see a different method for calling a method. There are two
+    cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the method has a value receiver then it can be called as below which is
+    struct name followed by method name. The first argument is the value receiver
+    itself.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: When the method has a pointer receiver then it can be called as below which
+    is a pointer to struct name followed by method name. The first argument is the
+    pointer receiver.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Also note that arguments of the method starts from the second argument as for
+    setName function above:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: You will rarely see this style being used and the dot notation style that we
+    discussed earlier is the recommended as well as the most common way.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Methods on Anonymous nested struct fields**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in above program that details method of address struct can be accessed
+    in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: So in case of an anonymous nested struct, methods of that struct can be directly
+    accessed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Exported Method**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Go doesn’t have any public,  private or protected keyword. The only mechanism
+    to control the visibility outside the package is using the capitalized and non-capitalized
+    formats
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Capitalized Identifiers** are exported. The capital letter indicates that
+    this is an exported identifier and is available outside the package.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Non-capitalized identifiers **are not exported. The lowercase indicates that
+    the identifier is not exported and will only be accessed from within the same
+    package.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So any struct which starts with a capital letter is exported to other packages. 
+    Similarly, any struct field which starts with capital is exported otherwise not.
+    And also similarly any struct method which starts with a capital letter is exported.
+    Let’s see an example that shows exporting and non-exporting of structs, struct
+    fields, and methods.  See **model.go** and **test.go** below. Both belong to the
+    **main** package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Structure
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Struct **Person** is exported
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Struct **company** is non-exported
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Structure’s Field
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Person** struct field **Name** is exported'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Person** struct field **age** is not exported but **Name** is exported'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Structure’s Method
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Person** Struct’s Method **GetAge()** is exported'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Person** Struct’s Method **getName()** is not exported'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**model.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s write a file **test.go** in same **main** package. See below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**test.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: On running this file, it is able to access all exported and un-exported fields
+    in **model.go** as both lies in the same package **main**. There is no compilation
+    error and it gives below output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: If we move the file **model.go** to a different package named **model.** Now
+    the output on running ‘go build’ will give compilation errors. All the compilation
+    errors are because **test.go** in **main** package to not able to refer to un-exported
+    fields of **model.go** in **model** package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The compilation error will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Method Chaining**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: For method chaining to be possible the methods in the chain should return the
+    receiver. Returning the receiver for the last method inn the chain is optional.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example of method chaining.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Methods on Non-Struct Types**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Methods can also be defined on a non-struct custom type. Non-struct custom types
+    can be created through type definition. Below is the format for creating a new
+    custom type
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: For example we can a named custom type **myFloat** of type **float64**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Methods can be defined on the named custom type. See below example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about using method in Go. Hope you have liked this article. Please
+    share feedback/mistakes/improvements in comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Interface](https://golangbyexample.com/interface-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Maps](https://golangbyexample.com/maps-in-golang)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[complete guide](https://golangbyexample.com/tag/complete-guide/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

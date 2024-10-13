@@ -1,0 +1,1 @@
+["```\nls -all | grep temp.txt\n-rw-r--r--    1 root  root      0 Aug  9 14:50 temp.txt\n```", "```\nchmod o+w temp.txt\nls -all | grep temp.txt\n-rw-r--rw-    1 root  root      0 Aug  9 14:50 temp.txt\n```", "```\nchmod o-w temp.txt\nls -all | grep temp.txt\n-rw-r--r--    1 root  root      0 Aug  9 14:50 temp.txt\n```"]

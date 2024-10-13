@@ -1,0 +1,68 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:33:51'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Set a timeout while making an HTTP request in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/set-timeout-http-golang/](https://golangbyexample.com/set-timeout-http-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**client** struct of HTTP package can be used to specify the timeout. While
+    creating the **HTTP** client we can specify the value of the Timeout. An important
+    thing to note about HTTP Client is that it is only created once and the same instance
+    is used for making multiple HTTP requests. Below is the structure of **http.Client**
+    struct'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can see there is an option to specify the timeout for the **http.Client**
+    which is the **Timeout** field
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s see a working example of this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In the below program we are setting a timeout of 1 nanosecond to showcase that
+    timeout is indeed happening while making the request.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

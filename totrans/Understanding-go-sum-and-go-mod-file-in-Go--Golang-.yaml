@@ -1,0 +1,252 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:30:03'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding go.sum and go.mod file in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-mod-sum-module/](https://golangbyexample.com/go-mod-sum-module/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Note:** If you are interested in learning Golang, then for that we have a
+    golang comprehensive tutorial series. Do check it out – [Golang Comprehensive
+    Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/).
+    Now let’s see the current tutorial. Below is the table of contents.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example of indirect dependency in go.mod file](#Example_of_indirect_dependency_in_gomod_file
+    "Example of indirect dependency in go.mod file")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Module is go support for dependency management. A module by definition is a
+    collection of related packages with **go.mod** at its root.  The **go.mod** file
+    defines the
+  prefs: []
+  type: TYPE_NORMAL
+- en: Module import path.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The version of go with which the module is created
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Dependency requirements of the module for a successful build. It defines both
+    project’s dependencies requirement and also locks them to their correct version.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**go.sum**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This file lists down the checksum of direct and indirect dependency required
+    along with the version. It is to be mentioned that the **go.mod** file is enough
+    for a successful build. They why **go.sum** file is needed?. The checksum present
+    in **go.sum** file is used to validate the checksum of each of direct and indirect
+    dependency to confirm that none of them has been modified.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We mentioned above that go.mod file lists down the dependency requirement of
+    the module. Now a dependency of a module can be of two kind
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Direct** -A direct dependency is a dependency which the module directly imports.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Indirect** – It is the dependency that is imported by the module’s direct
+    dependencies. Also, any dependency that is mentioned in the **go.mod** file but
+    not imported in any of the source files of the module is also treated as an indirect
+    dependency.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**go.mod** file only records the direct dependency. However, it may record
+    an indirect dependency in the below case'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Any indirect dependency which is not listed in the **go.mod** file of your direct
+    dependency or if direct dependency doesn’t have a go.mod file, then that dependency
+    will be added to the **go.mod** file with **//indirect** as the suffix. We will
+    see an example of this later in the article to know this better.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also please note that both **go.mod** as well as **go.sum** file should be checked
+    into the Version Control System (VCS) such as git
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an example to understand what ever we talked above about **go.mod**
+    and **go.sum** file. For that let’s first create a module
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command will create a **go.mod** file in the same directory. Let’s examine
+    the contents of this file. Do a cat **go.mod**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: When the module is first created using the init command, the **go.mod** file
+    will have two things only
+  prefs: []
+  type: TYPE_NORMAL
+- en: Import path of the module at the top
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Version of go with which the module was created
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Since it is an empty module it doesn’t have any direct dependency specified
+    yet. Let’s create a file named **uuid.go** in the same directory with below contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**uuid.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that we have imported the dependency in the uuid.go as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run the below command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command will download all the dependencies that are required in your source
+    files and update **go.mod** file with that dependency. After running this command
+    let’s now let’s again examine the contents of **go.mod** file . Do a cat **go.mod**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: It lists direct dependency which was specified in the uuid file along with exact
+    version of the dependency as well. Now let’s check the **go.sum** file as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do a cat **go.sum**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**go.sum** file lists down the checksum of direct and indirect dependency required
+    by the module.  **[github.com](http://github.com)/google/uuid** is internally
+    used by the **[github.com](http://github.com)/pborman/uuid** . It is an indirect
+    dependency of the module and hence it is recorded in the **go.sum** file.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can also run this file now and it will give the correct output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example of indirect dependency in go.mod file**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: We mentioned above that **go.mod** file might contain an indirect dependency
+    in the below case.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Any indirect dependency which is not listed in the **go.mod** file of your direct
+    dependency or if direct dependency doesn’t have a go.mod file , then that dependency
+    will be added to the **go.mod** file with **//indirect** as the suffix. We will
+    see an example of this later in the article to know this better.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s understand it with an example. For that let’s first create a module again
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now create a file **learn.go**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that we have specified the dependency in the **learn.go** as
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: So **github.com/gocolly/colly** is a direct dependency of the learn module as
+    it is directly imported in the module. Now let’s run the below command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: After running this command let’s now let’s again examine the contents of **go.mod**
+    file. Since colly version v1.2.0 doesn’t have a go.mod file , all dependencies
+    required by colly will be added to the **go.mod** file with //indirect as suffix
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do a **cat go.mod**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: All other dependencies are suffixed by **//indirect**. Also checksum of all
+    direct and indirect dependencies will be recorded in the go.sum file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,85 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:05:48'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Heap in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/heap-in-golang/](https://golangbyexample.com/heap-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction](#Introduction "Introduction")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Implementation of MinHeap](#Implementation_of_MinHeap "Implementation of MinHeap")*  *#
+    **Introduction**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'A Heap is a complete binary tree. A complete binary tree is a binary tree in
+    which all levels are full except the last level. Heap is of two types:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**MinHeap**: A MinHeap is a complete binary tree in which the value of the
+    parent node is lesser than or equal to the value of its left and right child.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**MaxHeap** : A MaxHeap is a complete binary tree in which the value of the
+    parent node is greater than or equal to the value of its left and right child.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is a representation of a minheap. Notice that the parent node is always
+    smaller than or equal to the child nodes
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/693dba4ca31661ce2f15e7001b645441.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Below is a representation of a maxheap.  Notice that the parent node is always
+    greater than or equal to the child nodes
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/32fb0e4c70c6a9b75511ddafc2106833.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Let’s look at the implementation of a minheap in GO in this post.
+  prefs: []
+  type: TYPE_NORMAL
+- en: MaxHeap implementation you can find at link – [https://golangbyexample.com/maxheap-in-golang/](https://golangbyexample.com/maxheap-in-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: MinHeap full description can be found at link –[https://golangbyexample.com/minheap-in-golang/](https://golangbyexample.com/minheap-in-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Implementation of MinHeap**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[heap](https://golangbyexample.com/tag/heap/)*   [heap in go](https://golangbyexample.com/tag/heap-in-go/)*   [maxheap](https://golangbyexample.com/tag/maxheap/)*   [minheap](https://golangbyexample.com/tag/minheap/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

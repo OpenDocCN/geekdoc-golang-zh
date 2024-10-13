@@ -1,0 +1,73 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:09:20'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create an empty file in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/create-empty-file-go/](https://golangbyexample.com/create-empty-file-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**os.Create()** can be used to create an empty file in go. The signature of
+    the function is'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Basically this function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a named file with mode 0666
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It truncates the file if it already exits
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In case of path issue, it returns a Path error
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It returns a file descriptor which can be used for both reading and write
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[empty](https://golangbyexample.com/tag/empty/)*   [file](https://golangbyexample.com/tag/file/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

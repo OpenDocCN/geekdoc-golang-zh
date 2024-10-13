@@ -1,0 +1,70 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:17:22'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a directory or folder in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/create-directory-folder-golang/](https://golangbyexample.com/create-directory-folder-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**os.Mkdir()** function can be used to create a directory or folder in go.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: It takes in two parameters
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first parameter is the named directory. If the named directory is a fully
+    qualified path it will create a directory at that path. If not it will create
+    a directory with respect to current working directory
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The second parameter specifies the permission bits. The folder or directory
+    is created with this permission bits
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[create](https://golangbyexample.com/tag/create/)*   [directory](https://golangbyexample.com/tag/directory/)*   [folder](https://golangbyexample.com/tag/folder/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

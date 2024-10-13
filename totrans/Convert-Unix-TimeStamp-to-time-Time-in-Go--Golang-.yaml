@@ -1,0 +1,47 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:08:31'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Convert Unix TimeStamp to time.Time in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/parse-unix-timestamp-time-go/](https://golangbyexample.com/parse-unix-timestamp-time-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Time can be represented in GO in both **time.Time** and **Unix Timestamp** format.
+    The Unix Timestamp also known as Epoch Time is the number of seconds elapsed since
+    00:00:00 UTC on 1 January 1970\. This time is also known as the Unix epoch. Below
+    code shows the conversion of
+  prefs: []
+  type: TYPE_NORMAL
+- en: time.Time to Unix Timestamp
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Unix Timestamp to time.Time
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[time.Time](https://golangbyexample.com/tag/time-time/)*   [unix](https://golangbyexample.com/tag/unix/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

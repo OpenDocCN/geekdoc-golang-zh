@@ -1,0 +1,404 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:25:41'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Defer keyword in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/defer-golang/](https://golangbyexample.com/defer-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 14 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Pointer](https://golangbyexample.com/pointer-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Switch](https://golangbyexample.com/switch-statement-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Custom Function in defer](#Custom_Function_in_defer "Custom Function in defer")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Inline Function in Defer](#Inline_Function_in_Defer "Inline Function in Defer")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[How does defer works](#How_does_defer_works "How does defer works")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Evaluation of defer arguments](#Evaluation_of_defer_arguments "Evaluation
+    of defer arguments")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Multiple defer functions in the same function](#Multiple_defer_functions_in_the_same_function
+    "Multiple defer functions in the same function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Defer function and Named Return Values](#Defer_function_and_Named_Return_Values
+    "Defer function and Named Return Values")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Defer and Methods](#Defer_and_Methods "Defer and Methods")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Defer and Panic](#Defer_and_Panic "Defer and Panic")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Defer as the name suggests is used to defer the cleanup activities in a function.
+    These cleanup activities will be performed at the end of the function. This cleanup
+    activities will be done in a different function called by defer.  This different
+    function is called at the end of the surrounding function before it returns. Below
+    is the syntax of defer function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Things to note about defer function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Execution of a deferred function is delayed to the moment the surrounding function
+    returns
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: deferred function will also be executed if the enclosing function terminates
+    abruptly. For example in case of a panic
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: One good example of understanding the **defer** function is to look at the use
+    case of writing to a file. A file that is opened for writing also must be closed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, in the **writeToTempFile** function, we are opening a
+    file and then trying to write some content to the file. After we have written
+    the contents of the file we close the file. It is possible that during the write
+    operation it might result into an error and function will return without closing
+    the file. **Defer** function helps to avoid these kinds of problems. **Defer** function
+    is always executed before the surrounding function returns. Let’s rewrite the
+    above program with a **defer** function here.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we do **defer file.Close()** after opening the file. This
+    will make sure that closing of the file is executed even if the write to the file
+    results into an error. Defer function makes sure that the file will be closed
+    regardless of number of return statements in the function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Custom Function in defer**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: We can also call a custom function in **defer**. Let’s see an example for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program there is a **defer** statement calling the custom function
+    named **test**. As seen from the output, the **test** function is called after
+    everything in the main is executed and before main returns. That is why
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: is printed before
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above function also shows that it is perfectly ok to use defer in the main
+    function as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Inline Function in Defer**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: It is also possible to have an inline function with defer. Let’s see an example
+    of that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above code we have **defer** with a inline function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is allowed in go. Also note that it is mandatory to add **“()”** after
+    the function otherwise compiler will raise error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: As seen from the output, that the inline function is called after everything
+    in the main is executed and before main returns. That is why
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: is printed before
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**How does defer works**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: When the the compiler encounter a defer statement in a function it pushes it
+    onto a list. This list internally implements a stack data structure.  All the
+    encountered defer statement in the same function are pushed onto this list. When
+    the surrounding function returns then all the functions in the stack starting
+    from top to bottom are executed before execution can begin in the calling function.
+    Now same thing will happen in the calling function as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s understand what happens when we have multiple defer functions in different
+    functions. Imagine a function call from **main** function to **f1** function to
+    **f2** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**main**->**f1**->**f2**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the sequence that will be happening after f2 returns
+  prefs: []
+  type: TYPE_NORMAL
+- en: Defer functions in **f2** will be executed if present. Control will return to
+    the caller which is a function **f1**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Defer functions in **f1** will be executed if present. Control will return to
+    the caller which is a function **main**. Note that if there are more functions
+    in between then the process will continue up the stack in a similar way
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: After main returns the defer  function if present in main will be executed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a program for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Evaluation of defer arguments**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: defer arguments are evaluated at the time defer statement is evaluated
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program when the defer statement was evaluated the value of the **sample**
+    variable was **“abc”**. In the defer function, we print the  sample variable.
+    After the defer statement we change the value of the **sample** variable to **“xyz”**. 
+    But the program outputs **“abc”** instead of **“xyz”** because when the defer
+    arguments were evaluated the value of the  sample variable was **“abc”**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Multiple defer functions in the same function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In case we have multiple defer functions within a particular function, then
+    all the  defer functions will be executed in last in first out order
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have three **defer** function each printing the value
+    of **i**. The variable **i** is incremented before each defer. The code outputs
+    3 first meaning that third defer function is executed first.  Then it outputs
+    2 meaning that second defer is executed after that and then it outputs 1 meaning
+    that first defer is executed last. This shows that when there are multiple defer
+    functions within a particular function then the follow the “Last in first out”
+    rule. And that is why program outputs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Defer function and Named Return Values**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In case of named return value in the function, the defer function can read as
+    well as modified those named return values. If the defer function modifies the
+    name return value then that modified value will  be returned
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have named return value **“size”**  in the the test
+    function. In the defer function we modify the name return value and we change
+    the value to 20.  We then set size to 30. In the main function we print the return
+    value of test function  and it outputs 20 instead of 30 because defer function
+    has modified the value of size variable in the test function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Defer and Methods**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**defer** statement is also applicable  for methods in a similar way it is
+    applicable to functions. In the first example we had already seen the **Close**
+    method which was called on the file instance. That shows that the  **defer** statement
+    is also applicable for methods as well'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Defer and Panic**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: defer function will also be executed even if panic happens in a program.  When
+    the panic is raised in a function then the execution of that function is stopped
+    and any deferred function will be executed. In fact deferred function of all the
+    function calls in the stack will also be executed until all the functions have returned
+    .At that time the program will exit and it will print the panic message
+  prefs: []
+  type: TYPE_NORMAL
+- en: So if a  defer function is present it then it will be executed and the control
+    will be  returned back to the caller function which will again execute its defer
+    function if present and the chain goes on until the program exists.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have a defer function first and then we manually create
+    the panic. As you can see from the output that defer function got executed as
+    below line is printed in the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: That is all about defer in golang. Hope you have liked the article. please share
+    feedback/improvements/mistakes in comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Pointer](https://golangbyexample.com/pointer-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Switch](https://golangbyexample.com/switch-statement-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,229 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:38:19'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Golang Regex: Match a floating-point number in Regular Expression'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/golang-regex-floating-point-number/](https://golangbyexample.com/golang-regex-floating-point-number/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A floating-point number could have below properties
+  prefs: []
+  type: TYPE_NORMAL
+- en: It could have a negative and positive sign
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The integer part could be optional when the decimal part is present
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The dot and decimal part could be optional if the integer part is present
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It could have an exponent or not
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So below are valid floating-point numbers
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below are invalid floating points
+  prefs: []
+  type: TYPE_NORMAL
+- en: An empty string
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: + or – sign only
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A single dot
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A prefix of multiple 0\. For eg 00.1 or 001
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Anything like +. or –
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A dot just before exponent.  Eg 1.e2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Any other char before or after the floating-point number. Eg a1.3 or a1.3b or
+    1.3b
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below are examples of invalid floats
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s first see a simple regex which only matches only the integer, dot, and
+    decimal parts.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: On a high level, the entire regex has two parts which are in OR relation
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**(?:0|[1-9]\d*)(?:\.\d*)? –** This captures the part where the integer part
+    is always present and the decimal part is optional'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\.\d+ –** This captures the part where the integer part is not present and
+    the decimal part is always present.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s dissect this regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/1b9cc3d5bb25add0bded2dae2b98f995.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Let’s make it more complex by having it accept a negative or a positive sign.
+    Note that negative or positive sign is optional
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: The regex is the same as the earlier regex. We just added the optional positive
+    negative sign in front
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**[+\-] –** Match either positive or negative sign.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**?** – Matching either positive or negative sign is optional'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s also add an exponent part to the regex. Again note that the exponent part
+    is optional. This regex is the same as the previous regex. We just added the exponent
+    part at the end
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s dissect the exponent part
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**(?: –** It means non-capturing group'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\d** – Match one digit. This is to prevent numbers like 1.e2'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**[eE]** – Match either lowercase e or uppercase E'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**[+\-] –** Match either positive or negative sign. The matching either positive
+    or negative sign is optional'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\d+ –** Match zero or more digits'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**)? –** Entire regex  expression is optional'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Now see an example of this regular expression in action
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: For all the valid inputs discussed above the program prints true
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: And for all the invalid inputs discussed above it gives false
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Please try it out and post in the comments if in any case, this regex doesn’t
+    work.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The above regex is used to validate if a given string is a number. If you want
+    to find if an input string contains a number as a substring then we need to remove
+    the anchor characters at the start and the end which is removing the **caret (^)**
+    at the start and the dollar **($)** character at the end
+  prefs: []
+  type: TYPE_NORMAL
+- en: So the regex will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is all about matching floating point numbers through regex in golang. Hope
+    you have liked this article. Please share feedback in the comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[floating](https://golangbyexample.com/tag/floating/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [number](https://golangbyexample.com/tag/number/)*   [point](https://golangbyexample.com/tag/point/)*   [regex](https://golangbyexample.com/tag/regex/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

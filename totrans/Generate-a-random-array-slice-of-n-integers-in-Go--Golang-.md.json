@@ -1,0 +1,1 @@
+["```\nfunc Perm(n int) []int\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"math/rand\"\n    \"time\"\n)\n\nfunc main() {\n    //Provide seed\n    rand.Seed(time.Now().Unix())\n\n    //Generate a random array of length n\n    fmt.Println(rand.Perm(10))\n    fmt.Println(rand.Perm(10))\n}\n```", "```\n[6 0 1 5 9 4 2 3 7 8]\n[9 8 5 0 3 4 6 7 2 1]\n```"]

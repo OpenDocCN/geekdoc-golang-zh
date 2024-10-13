@@ -1,0 +1,171 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:19:24'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pointer to a struct in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/pointer-to-struct-golang/](https://golangbyexample.com/pointer-to-struct-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'In golang struct is named collection of data fields. These fields can be of
+    different types. Struct acts as a container that has different heterogeneous data
+    types which together represents an entity. For example, different attributes are
+    used to represent an employee in an organization. Employee can have:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name of string type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Age of int type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: DOB of time.Time type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Salary of int type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A pointer in golang is a variable that holds a memory address of another variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now we have understood what struct and pointer is, let’s move unto how we can
+    define a pointer to the struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s say we have an employee struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Thereare two ways of creating a pointer to the struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the & operator
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using the new keyword
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s looks at each of above method one by one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using the & operator**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **&** operator can be used to get the pointer to a struct variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: struct pointer can also be directly created as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s look at a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using the new keyword**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Using the  new() keyword will:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create the struct
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Initialize all the field to the zero default value of their type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Return the pointer to the newly created struct
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This will return a pointer
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Pointer address can be print using the **%p** format modifier
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also to note that * operator can be used to dereference a pointer which means
+    getting the value at address stored in the pointer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will print
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: When not using the dereference pointer but using the format identifier**%+v,**
+    then ampersand will be appended before the struct indicating that is a pointer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will print
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see full program denoting above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: The pointer address printed will be different on your machine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

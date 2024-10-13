@@ -1,0 +1,195 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:32:18'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP Client/Server with Basic Auth in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/http-basic-auth-golang/](https://golangbyexample.com/http-basic-auth-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[HTTP Server Basic Auth Example](#HTTP_Server_Basic_Auth_Example "HTTP Server
+    Basic Auth Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[HTTP Client Basic Auth Example](#HTTP_Client_Basic_Auth_Example "HTTP Client
+    Basic Auth Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Basic auth is the simplest form of providing access controls for resources on
+    web server.  Basic Access Authentication is a way of providing user name and password
+    to the server while making an HTTP request.  The credentials are send in the headers
+    of the request. Below is the header and format in which credentials are send.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Header name is **“Authorization”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: credentials are send Base64 encoding of username and password joined by a colon(:).
+    Basically Base64 encoding of below string
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: credentials is prefixed with **Basic**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Basic Auth is specified in RFC 7617
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://tools.ietf.org/html/rfc7617](https://tools.ietf.org/html/rfc7617)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Basic auth doesn’t require any kind of sessions identifiers or cookies. Also
+    since the credentials is send as bas64 encoding only so there is no encryption
+    involved. Hence basic auth is used only with HTTPS for security reasons.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**HTTP Server Basic Auth Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s first see basic auth wrt to **HTTP** server. **net/http** package of golang
+    provides a method which is defined on the ***http.Request** struct which returns
+    the username and password which is present in the incoming request’s **Authorization**
+    Header. Below is the signature of the method
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: What this method does it that it checks the **Authorization** header and then
+    extracts the username and password from  Base64 encoded value and return it. If
+    there is any issue in parsing it will return **ok** variable as false. So while
+    using this function, we first need to check the value of **ok** variable. If the
+    **ok** variable is true then we can further match the username and password and
+    verify if it is correct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program for this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Server accepts the below username and password
+  prefs: []
+  type: TYPE_NORMAL
+- en: username is abc
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: password is 123
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For making the request we have to do Base64 encoding of  below string which
+    is a username and password joined by a single colon(:)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Base64 encoding of above string will be.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: You can check it here – [https://www.base64encode.org/](https://www.base64encode.org/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now make the below request
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: This request will get the status code as 200\. Also it will correctly print
+    the username and password in the logs as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now send the malformed **Base64** encoded value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will get the status code as 401\. It will also print below in the logs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**HTTP Client Basic Auth Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**net/http** package of golang also provides a method which is defined on the
+    ***http.Request** struct which can be used to set the basic auth header.  Below
+    is the signature of the method'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: What this method does it takes in **username** and **password** and sets Authorization
+    header with base64 encoded value of username and password joined by a single colon(:).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program for this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we are making a call to the server which we had set up
+    earlier. See how we set up the basic auth in the outgoing request
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: If you will run the above program you will get a 200 from the server which we
+    had set up above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Note:** We are printing  **username** and **password** above just for illustration
+    purposes. In real program they need to be kept encrypted in some secure manner. 
+    Also we are sending a http request below and not https for basic auth. Again this
+    was just for illustrated only and both client and server lie on the same machine.
+    This is not recommended and basic auth should be used only with **HTTPS**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

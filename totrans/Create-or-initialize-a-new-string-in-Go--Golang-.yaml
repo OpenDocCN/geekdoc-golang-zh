@@ -1,0 +1,82 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:52:39'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create or initialize a new string in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/create-string-golang/](https://golangbyexample.com/create-string-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is a simple way to initialize or create a string in Go. In the below program,
+    we have simply declared as well as defined a string named **sample**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Notice the syntax
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here is the full program
+  prefs: []
+  type: TYPE_NORMAL
+- en: Program
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: If we want to only declare a string variable then below is the way. A declared
+    string is initialized to an empty string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you –
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Note:** Check out our system design tutorial series [System Design Questions](https://techbyexample.com/system-design-questions/)*'
+  prefs: []
+  type: TYPE_NORMAL

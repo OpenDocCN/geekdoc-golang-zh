@@ -1,0 +1,94 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:17:11'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Rename file or folder in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/rename-file-folder-golang/](https://golangbyexample.com/rename-file-folder-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Renaming a file](#Renaming_a_file "Renaming a file")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Renaming a folder](#Renaming_a_folder "Renaming a folder")*  *# **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: os.Rename() function can be used to rename a file or folder. Below is the signature
+    of the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**old** and **new** can be fully qualified as well. If the **old** and **new**
+    path doesn’t lie in the same directory then **os.Rename()** function behaves the
+    same as moving a file or folder.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Renaming a file**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is code for renaming a file
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, it will create a file named temp.txt in the current working directory.
+    Then it will rename it to newTemp.txt
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Renaming a folder**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is code for renaming a folder
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: First it will create a folder named temp in current working directory. Then
+    it will rename it to newTemp
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[file](https://golangbyexample.com/tag/file/)*   [folder](https://golangbyexample.com/tag/folder/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [rename](https://golangbyexample.com/tag/rename/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

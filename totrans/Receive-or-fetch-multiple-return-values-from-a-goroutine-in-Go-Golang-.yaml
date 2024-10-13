@@ -1,0 +1,73 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:23:12'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Receive or fetch multiple return values from a goroutine in Go(Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/receive-multiple-return-value-goroutine-golang/](https://golangbyexample.com/receive-multiple-return-value-goroutine-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Channels can be used to fetch return value from a goroutine. Channels provide
+    synchronization and communication between goroutines. You can send the return
+    value to a channel in the goroutine and then collect that value in the main function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To receive multiple values we can create a  custom struct type with fields for
+    both return values, then create a channel of that type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we created a struct named **result** which has two fields
+  prefs: []
+  type: TYPE_NORMAL
+- en: sumValue
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: multiplyValue
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We then created a variable **resultChan** which is a channel of length 1 holding
+    value of **result** struct type. We passed this channel to the **sumAndMultiply**
+    function. The **sumAndMultiply** function pushes the resultant struct to the **resultChan**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then in the main function we are waiting on the channel to collect the result
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: This line will wait until a value is pushed to the **resultChan** channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

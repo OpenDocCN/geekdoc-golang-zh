@@ -1,0 +1,70 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:24:23'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Send and receive on a nil channel in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/send-receive-nil-channel-go/](https://golangbyexample.com/send-receive-nil-channel-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The zero value of the channel is nil. Hence only declaring a channel creates
+    a nil channel as default zero value of the channel is nil. Below is the result
+    of send and receive operation on a nil channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sending to a  nil channel blocks forever
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Receiving from nil channel blocks forever
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a program for it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we are only declaring the channel hence a nil Channel
+    was created since the default 0 value of the channel is nil.  After that, we sent
+    to the channel in send function and received from the channel in the main function. 
+    It results in a deadlock as sending to and receiving from a nil channel block
+    forever.  That is why it  gives below output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

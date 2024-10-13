@@ -1,0 +1,144 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:01:47'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Abstract Factory Design Pattern in Go
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/abstract-factory-design-pattern-go/](https://golangbyexample.com/abstract-factory-design-pattern-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Definition:](#Definition "Definition:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")*  *## **Definition:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Abstract Factory Design Pattern is a creational design pattern that lets you
+    create a family of related objects. It is an abstraction over the factory pattern.
+    It is best explained with an example. Let’s say we have two factories
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**nike**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**adidas**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Imagine you need to buy a sports kit which has a **shoe** and **short**. Preferably
+    most of the time you would want to buy a full sports kit of a similar factory
+    i.e either **nike** or **adidas.** This is where the abstract factory comes into
+    the picture as concrete products that you want is **shoe** and a **short** and
+    these products will be created by the abstract factory of **nike** and **adidas.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Both these two factories – **nike** and **adidas** implement **iSportsFactory**
+    interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We have two product interfaces.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**iShoe** – this interface is implemented by **nikeShoe** and **adidasShoe**
+    concrete product.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**iShort** – this interface is implemented by **nikeShort** and **adidasShort**
+    concrete product.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now let’s look at code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**iSportsFactory.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**adidas.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**nike.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**iShoe.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**adidasShoe.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**nikeShoe.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**iShort.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**adidasShort.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**nikeShort.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]*'
+  prefs: []
+  type: TYPE_NORMAL

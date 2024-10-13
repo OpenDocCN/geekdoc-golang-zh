@@ -1,0 +1,298 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:06:41'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Default Zero Value of all Types in Go (Golang) With Examples
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-default-zero-value-all-types/](https://golangbyexample.com/go-default-zero-value-all-types/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Default Value Table**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Type** | **Default Value** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Integer | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Float | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Complex Number | 0 Real and 0 Imaginary Part |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Byte | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Rune | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| String | “” |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Bool | false |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Array | Every array value to its default |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Struct | Every field to its default |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Map | nil |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Channel | nil |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Interface | nil |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Slices | nil |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Pointer | nil |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Function | nil |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Examples:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an example of each. Use the menu on the side to navigate.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Integer**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Float**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Complex Number**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Byte**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Rune**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**String**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Bool**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Array**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Default value of an array is the default value of its values. For eg in the
+    below code, there is an array of two lengths of type bool. When we print the output
+    is **[false false]**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Struct**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Default value of a **struct** is the default value of its field. For eg in the
+    below code, there is a struct sample with two field. One is of int type and the
+    other is of the bool type. We create an instance of this struct and when we print
+    it, the output is **{0 false}**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Map**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Default value of a **map** is **nil.** That is why the output of **fmt.Println(a==nil)**
+    is true. When a map is passed to **fmt.Println** , it tries to print values in
+    the map. That is why the output is map[]
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Channel**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Default zero value of channel: <nil>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Interface**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Default zero value of interface: < nil>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Slice**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Default value of a slice is **nil.** That is why the output of **fmt.Println(a==nil)**
+    is true. When a slice is passed to **fmt.Println** , it tries to print values
+    in the slice. That is why the output is []
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Function**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Default Zero Value of a func: <nil>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Pointer**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Default Zero Value of a pointer: <nil>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[datatype](https://golangbyexample.com/tag/datatype/)*   [default](https://golangbyexample.com/tag/default/)*   [examples](https://golangbyexample.com/tag/examples/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [sidetoc](https://golangbyexample.com/tag/sidetoc/)*   [type](https://golangbyexample.com/tag/type/)*   [zero](https://golangbyexample.com/tag/zero/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

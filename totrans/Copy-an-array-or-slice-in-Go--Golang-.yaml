@@ -1,0 +1,126 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:18:50'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Copy an array or slice in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/copy-an-array-or-slice-golang/](https://golangbyexample.com/copy-an-array-or-slice-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Copy an array](#Copy_an_array "Copy an array")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Copy a slice](#Copy_a_slice "Copy a slice")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Array are value types in go while slice is a reference type. Hence there is
+    a difference in the way how an array or slice can be copied to another array or
+    slice respectively.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Copy an array**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: As mentioned above, an array is value types in go. So an array variable name
+    is not a pointer to the first element, in fact, it denotes the entire array. A
+    copy of the array will be automatically created when
+  prefs: []
+  type: TYPE_NORMAL
+- en: An array variable is assigned to another array variable.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An array variable is passed as an argument to a function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see above point with an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above example,
+  prefs: []
+  type: TYPE_NORMAL
+- en: we assigned the **sample1** to **sample2** and we then changed 0th index at
+    **sample2** to have a different value.  After that when we print **sample1**,
+    we see that it hasn’t changed. This is because when we assign **sample1** to **sample2**,
+    a copy is created and changing **sample2** doesn’t have any effect on **sample1**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We passed **sample1** to the test function and then again changed its value
+    in the test function at 0th index.  After that when we print **sample1**, we see
+    that it hasn’t changed. The reason is the same, when **sample1** is passed as
+    an argument to test function a copy of **sample1** is created.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Copy a slice**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: go **builtin** package provides a **copy** function that can be used to copy
+    a slice. Below is the signature of this function. It returns the number of elements
+    copied.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'There are two cases to be considered while using the copy function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the length of **src** is greater than length of **dst,** then number of elements
+    copied is length of **dst**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the length of **dst** is greater than length of **src,** then number of elements
+    copied is length of **src**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Basically the number of elements copied is minimum of length of **(src, dst). **
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also to note that once the copy is done then any change in **dst** will not
+    reflect in **src** and vice versa
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]*'
+  prefs: []
+  type: TYPE_NORMAL

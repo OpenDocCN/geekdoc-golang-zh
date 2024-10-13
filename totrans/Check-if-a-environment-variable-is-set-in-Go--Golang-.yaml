@@ -1,0 +1,38 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:09:47'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Check if a environment variable is set in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/check-environment-variable-set-go/](https://golangbyexample.com/check-environment-variable-set-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**os.LookupEnv** function can be used to check whether a particular environment
+    variable is set or not. It returns a bool which is true if the given env variable
+    set otherwise false. Let’s see a working code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[env](https://golangbyexample.com/tag/env/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,90 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:27:34'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create panic by calling panic function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/create-panic-golang/](https://golangbyexample.com/create-panic-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go provides a special function to create a panic. Below is the syntax of the
+    function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This function can be called explicitly by the programmer to create a panic.
+    It takes an empty interface as an argument.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Some of the cases where panic function can be called explicitly by the programmer
+    are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The function expected a valid argument but instead, a nil argument was supplied.
+    In such case, program cannot continue and it will raise a panic for a nil argument
+    passed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Any other scenario in which program cannot continue.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Example
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we again have a function **checkAndPrint** which accepts
+    a slice as an argument and an index. Then it checks whether the index passed is
+    greater than the length of slice minus 1\. If it is, then it is out of bounds
+    access for the slice so it panics. If not then it prints the value at that index.
+    Again notice that in the output there are two things
+  prefs: []
+  type: TYPE_NORMAL
+- en: The error message
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Stack trace of where the panic happened
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

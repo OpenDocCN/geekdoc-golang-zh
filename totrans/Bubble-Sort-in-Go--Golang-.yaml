@@ -1,0 +1,86 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:06:23'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Bubble Sort in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-bubble-sort/](https://golangbyexample.com/go-bubble-sort/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction](#Introduction "Introduction")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Time Complexity](#Time_Complexity "Time Complexity")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Space Complexity](#Space_Complexity "Space Complexity")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Implementation:](#Implementation "Implementation:")*  *# **Introduction**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'In bubble sort:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In each iteration i (starting with 0) , we start from first element and repeatedly
+    swap adjacent elements if in wrong order up till length (**len-i**) where **len**
+    is the length of the array.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: At the end of the iteration, either the largest or smallest element (depending
+    upon order is ascending or descending) is at position **(len-i)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Time Complexity**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: O(n*n)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Space Complexity**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Space Complexity of bubble sort is O(1)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Implementation:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[algorithms](https://golangbyexample.com/tag/algorithms/)*   [bubble sort in
+    golang](https://golangbyexample.com/tag/bubble-sort-in-golang/)*   [golang](https://golangbyexample.com/tag/golang/)*   [sort](https://golangbyexample.com/tag/sort/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

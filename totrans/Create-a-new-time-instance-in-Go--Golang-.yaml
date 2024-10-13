@@ -1,0 +1,96 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:08:49'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a new time instance in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/create-new-time-instance-go/](https://golangbyexample.com/create-new-time-instance-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: In Go **time.Time** struct is used to represent an instance of time or date.
+    Below are three ways of creating a new time instance
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Using time.Now()](#Using_timeNow "Using time.Now()")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Using time.Date()](#Using_timeDate "Using time.Date()")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using time.Parse()](#Using_timeParse "Using time.Parse()")*  *# **Using time.Now()**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**time.Now()** function can be used to get the current local timestamp. The
+    signature of the function is'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using time.Date()**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: time.Date() function takes in year, month, day, hour, min, sec, nanosecond and
+    location and returns a time which is  **yyyy-mm-dd hh:mm:ss + nsec** with the
+    appropriate timezone corresponding to the given location. The signature of the
+    function is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using time.Parse()**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: time.Parse() can be used to convert a string representation of time into a **time.Time**
+    instance. The signature of the function is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**time.Parse** function takes in two arguments –'
+  prefs: []
+  type: TYPE_NORMAL
+- en: First argument is the layout consisting of time format placeholder
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Second argument is the actual formatted string representing time.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is a working code example demonstrating all the three ways mentioned above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

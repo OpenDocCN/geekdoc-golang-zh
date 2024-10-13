@@ -1,0 +1,1 @@
+["```\nfunc Exit(code int)\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"os\"\n)\n\nfunc main() {\n    success := true\n    if success {\n        fmt.Println(\"Success\")\n        os.Exit(0)\n    } else {\n        fmt.Println(\"Failure\")\n        os.Exit(1)\n    }\n}\n```", "```\nSuccess\n$ echo $?\n0\n```"]

@@ -1,0 +1,158 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:24:54'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Comparing error or error equality in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/comparing-error-go/](https://golangbyexample.com/comparing-error-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: First of all, what is meant by equality of the error?  As you already know that
+    error is represented by the error interface in go. In go, two interfaces are equal
+    if
+  prefs: []
+  type: TYPE_NORMAL
+- en: Both refer to the same underlying type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The underlying value is equal (or both nil)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So the above two points apply for comparing the error as well. There are two
+    ways of checking if given errors are equal
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the equality operator (==)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using the Is function of errors package – [https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)
+    .  Using Is function is preferable to using the equality operator because it checks
+    for equality by unwrapping the first error sequentially and matches it with the
+    target error at each step of unwrap. We will see an example, later on, to fully
+    understand why it is preferable. Below is the syntax of Is function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created **errorOne** struct which defines the **Error**
+    method hence implement the **error** interface.  We created **err1**  variable
+    which is an instance of **errorOne** struct. We also created a **do()** function
+    which raises an error of type **errorOne** and that is captured in **err2** variable
+    in the main function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Then we are comparing two errors using
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using equality operator
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Using the **Is** function of errors package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both the method correctly output that the error is equal as both **err1** and
+    **err2**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Refer to same underlying type which is **errorOne**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Have the same underlying value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We mentioned above that using the **Is** function preferable to using the equality
+    operator because it checks for equality by unwrapping the first error sequentially
+    and matches it with the target error at each step of unwrap. Let’s see an example
+    of that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program is almost same as the previous program just the difference
+    being that in the **do()** function we are wrapping the error as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: The equality operator outputs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: While **Is** function outputs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is because the **err2** returned wraps an instance of  **errorOne** which
+    is not catched by the equality operator but is catched by **Is** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

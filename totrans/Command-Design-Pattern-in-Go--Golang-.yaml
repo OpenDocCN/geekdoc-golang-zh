@@ -1,0 +1,266 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:03:04'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Command Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/command-design-pattern-in-golang/](https://golangbyexample.com/command-design-pattern-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [https://golangbyexample.com/all-design-patterns-golang/](https://golangbyexample.com/all-design-patterns-golang/https://golangbyexample.com/all-design-patterns-golan)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction:](#Introduction "Introduction:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping ](#Mapping "Mapping ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Introduction:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Command Design Pattern is a behavioral design pattern. It suggests encapsulating
+    the request as a standalone object. The created object has all the information
+    about the request and thus can execute it independently.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The basic components that are used in the command design pattern are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Receiver** – It is the class which contains the business logic. The command
+    object only delays its requests to the receiver.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Command** – embeds receiver and binds a particular action of the receiver.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Invoker** – It embeds the command and envokes the command by calling the
+    command’s execute method.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Client** – It creates the command with the appropriate receiver bypassing
+    the receiver to the command’s constructor. After that, it also associates the
+    resulting command with an invoker.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s understand a situation after which it will be clear why the command pattern
+    is useful.  Imagine the case of a TV. A TV can be turned **ON** by either
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remote ON Button
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: On Button on the tv.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Both these trigger points do the same thing i.e. turn the TV on. In order to
+    ON the TV, we can implement the ON command object with the receiver as the TV.
+    When execute() method is called on this ON command object, it in turn call TV.on()
+    function. So in this case:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Receiver** is the **TV**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Command** is the **ON command object** which embeds **TV**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Invoker** is the **Remote ON Button** or the **ON Button on the TV**. Both
+    embed the **ON command object**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Notice here that we have wrapped the request of turning the **TV** on into an
+    **ON command object** which can be invoked by multiple invokers. This ON command
+    object embeds the receiver (TV here) and can be executed independently.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As another example, imagine the case of an **Adobe Photoshop** Application.
+    In Photoshop a Save operation can be triggered from 3 places
+  prefs: []
+  type: TYPE_NORMAL
+- en: From the menu.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: From the button on the upper bar.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Using shortcut Ctrl+S.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: All three trigger points do the same thing, i.e save the current image in the
+    application. This saves can be wrapped into a Save Command Object with a current
+    image open in the application as the receiver.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What’s the benefit of creating a separate command object in the above examples.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It decouples the UI logic from underlying business logic
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: No need to create different handlers for each of the invokers.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The command object contains all the information it needs to execute. Hence it
+    can also be used for delayed execution.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s look at the UML diagram now.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**UML Diagram:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Notice how Invoker embeds the command. The request is sent to the Invoker and
+    it passes the request to the encapsulated command object.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All the Concrete Command Object embed the receiver
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '![](img/5cdfb3ea5569210aaa3c225e0fba2611.png)'
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+- en: '**Mapping **'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in **“Practical Example”** below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Invoker | button.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Command Interface | command.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Command 1 | onCommand.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Command 2 | offCommand.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Receiver Interface | device.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Receiver | tv.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Client | main.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Practical Example:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**button.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**command.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**onCommand.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**offCommand.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**device.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**tv.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[command design pattern in go](https://golangbyexample.com/tag/command-design-pattern-in-go/)*   [design
+    pattern](https://golangbyexample.com/tag/design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,454 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:18:33'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Two Dimensional (2d) and Multi-Dimensional Array and Slice in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/two-dimensional-array-slice-golang/](https://golangbyexample.com/two-dimensional-array-slice-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: In go multi-dimension is possible for both array and slice. Let’s see both of
+    them in detail.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Multi-Dimensional Arrays](#Multi-Dimensional_Arrays "Multi-Dimensional
+    Arrays")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Overview](#Overview "Overview")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Accessing elements of a multi dimensional array](#Accessing_elements_of_a_multi_dimensional_array
+    "Accessing elements of a multi dimensional array")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Traversal of a multidimensional array](#Traversal_of_a_multidimensional_array
+    "Traversal of a multidimensional array")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[How multidimensional array is stored in memory](#How_multidimensional_array_is_stored_in_memory
+    "How multidimensional array is stored in memory")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Multi-dimensional Slices](#Multi-dimensional_Slices "Multi-dimensional Slices")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Overview](#Overview-2 "Overview")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Accessing Multi-Dimensional Slice elements](#Accessing_Multi-Dimensional_Slice_elements
+    "Accessing Multi-Dimensional Slice elements")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Traversal of a multi dimensional slice.](#Traversal_of_a_multi_dimensional_slice
+    "Traversal of a multi dimensional slice. ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[How multidimensional slice is stored in memory](#How_multidimensional_slice_is_stored_in_memory
+    "How multidimensional slice is stored in memory")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Multi-Dimensional Arrays**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Overview**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the format for declaring a multidimensional dimensional array
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: where
+  prefs: []
+  type: TYPE_NORMAL
+- en: len1 , len2 .. lenN are length of each of the dimensions
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: T is the data type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All the rules that apply to the one-dimensional array also apply to the multidimensional
+    array as well. It is also possible to specify the array elements during the declaration.
+    In case the array elements are not specified during declaration, then all the
+    array elements are allotted the default zero value of the **<data_type>**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format for declaring a two dimensional array with array elements
+    specified.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: where
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**len1** denotes the number of rows'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**len2** denotes the number of columns'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**aij** denotes an element present at i row and j column'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**T** is the data type'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Let’s see a small example illustrating above points:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in the above program how are we able to get the number of rows, column
+    and also the total number of elements in the array
+  prefs: []
+  type: TYPE_NORMAL
+- en: Number of rows = len(sample)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Number of columns = len(sample[0])
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Number of total elements = len(sample)*len(sample[0])
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The same idea can be extended to three dimensions, four dimensions, and so on.
+    Let’s see a small example of three dimensional array as well. In below program
+    we are creating a 2*2*3 dimensional array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Accessing elements of a multi dimensional array**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: An element of a multi-dimensional array can be accessed using the index of each
+    of the dimensions. For example, a two-dimensional array can be accessed by provided
+    its row index and column index. Once we are able to access them using the index
+    of each of the dimensions, then it is also possible to assign a new value to it
+    as well. Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Traversal of a multidimensional array**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'A multidimensional array can be traversed using:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: for-range loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: for loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a code example for traversal of a two dimensional array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Some points to note about above program
+  prefs: []
+  type: TYPE_NORMAL
+- en: We have to use a nested range for traversal using a for-range loop. The first
+    range traverses each of the rows. The second range traverses the individual array
+    present at that row
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The same goes for iterating using for loop.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: len(sample) gives the number of rows.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: len(sample[i]) gives the number of columns present at row i.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The same idea can be extended to three dimensional, four-dimensional array element
+    too.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**How multidimensional array is stored in memory**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Memory allocated for array is contiguous irrespective of weather an array is
+    one dimensional or two dimensional. For example in case of two dimension array
+    the second row starts in memory where the first row ends. Let's see a program
+    illustrating this point
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice all the address are contiguous. And the second row starts where the first
+    row ends.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Multi-dimensional Slices**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Overview**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: As the multidimensional array is an array of arrays, similarly multi-dimensional
+    slice is a slice of slices. To understand this, let's first look at the definition
+    of a slice. A slice points to an underlying array and is internally represented
+    by a slice header. A slice header is a struct which looks like  this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Data** field in slice header is pointer to the underlying array. For a one
+    dimensional slice, we have below declaration'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: To declare a two dimensional slice the declaration would be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above declaration means that we want to create a **slice** of 2 slices. Carefully
+    understand this point. But wait a second here, we haven't specified the second
+    dimension here, meaning what is the length of each of the inner 2 slices. In case
+    of slice, each of the inner slice has to be explicitly intialised like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: So using range on the original slice, we specify the length each of 2 slices
+    using make.  Below is one other way of doing the same but with slice elements
+    specified
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: Basically, with the above declaration, we create a slice of 2*3 dimensions which
+    is a two-dimensional slice. The same idea can be extended to two-dimension, three-dimension,
+    and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A complete working example of above two points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: We mentioned above that we are creating a two-dimensional slice of 2*3 dimensions. 
+    With that said the thought that might be coming to your mind is whether it is
+    possible to have different lengths for inner slices. Yes, it is possible. Unlike
+    arrays which have inner arrays of the same length, in case of slice since we initialize
+    each of the inner slices individually, it is possible to have different length
+    for inner slices
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let's see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let's see a small example of a three-dimensional slice as well. In the below
+    program, we are creating a slice of 2*2*3 dimensions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Accessing Multi-Dimensional Slice elements**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Accessing slice elements is the same as accessing elements of an array. Let's
+    see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Traversal of a multi dimensional slice.**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Traversing a multidimensional slice is the same as traversing a multi-dimensional
+    array. A multidimensional slice can be traversed using
+  prefs: []
+  type: TYPE_NORMAL
+- en: for-range loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: for loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Let''s see an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**How multidimensional slice is stored in memory**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Since in the case of the slice, each of the inner slices is initialized separately
+    hence it is possible that inner slice might not be contiguous in memory with respect
+    to each other. Although each of the elements within each of inner slice will be
+    at the contiguous location. Let's see a program illustrating this point.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Please Note:** There is a caveat in the above program. Since the second inner
+    slice is initialized just after the first inner slice, there is a possibility
+    that the address allotted to both of them is contiguous. It can happen but not
+    always. Uncomment the line for test variable and then both the inner slice will
+    not be allotted contiguous address. In the case of an array, all inner arrays
+    will be stored at contiguous locations always.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about multidimensional array and slice in golang. I hope you have
+    liked this article. Please share the feedback in the comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[2d](https://golangbyexample.com/tag/2d/)*   [3d](https://golangbyexample.com/tag/3d/)*   [array](https://golangbyexample.com/tag/array/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [slice](https://golangbyexample.com/tag/slice/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

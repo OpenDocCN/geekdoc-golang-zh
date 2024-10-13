@@ -1,0 +1,959 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:19:44'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Struct in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/struct-in-golang-complete-guide/](https://golangbyexample.com/struct-in-golang-complete-guide/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 16 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Array](https://golangbyexample.com/understanding-array-golang-complete-guid)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Pointer](https://golangbyexample.com/pointer-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Declaring a struct type](#Declaring_a_struct_type "Declaring a struct type")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creating a struct variable](#Creating_a_struct_variable "Creating a struct
+    variable")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Accessing and Setting Struct Fields](#Accessing_and_Setting_Struct_Fields
+    "Accessing and Setting Struct Fields")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Pointer to a struct](#Pointer_to_a_struct "Pointer to a struct")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the & operator](#Using_the_operator "Using the & operator")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the new keyword](#Using_the_new_keyword "Using the new keyword")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Print a Struct Variable](#Print_a_Struct_Variable "Print a Struct Variable")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the fmt package](#Using_the_fmt_package "Using the fmt package")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Printing the struct in JSON form](#Printing_the_struct_in_JSON_form "Printing
+    the struct in JSON form")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Struct Field Meta or Tags](#Struct_Field_Meta_or_Tags "Struct Field Meta or
+    Tags")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Anonymous Fields in a Struct](#Anonymous_Fields_in_a_Struct "Anonymous Fields
+    in a Struct")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Nested Struct](#Nested_Struct "Nested Struct")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Anonymous nested struct fields](#Anonymous_nested_struct_fields "Anonymous
+    nested struct fields")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Exported and UnExported fields of a struct](#Exported_and_UnExported_fields_of_a_struct
+    "Exported and UnExported fields of a struct")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Struct Equality](#Struct_Equality "Struct Equality")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Struct are value types](#Struct_are_value_types "Struct are value types")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: GO struct is named collection of data fields which can be of different types.
+    Struct acts as a container that has different heterogeneous data types which together
+    represents an entity. For example, different attributes are used to represent
+    an employee in an organization. Employee can have
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name of string type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Age of int type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: DOB of time.Time type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Salary of int type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: .. and so on. A struct can be used to represent an employee
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: A struct in golang can be compared to a class in Object Oriented Languages
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Declaring a struct type**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the format for declaring a struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above format, **struct_name** is the name of the struct. It has a field
+    named **field_name1** of type **field_type1** and a field named **field_name2**
+    of type **field_type2**. This declares a new named struct type which acts as a
+    blueprint. The type keyword is used to introduce a new type
+  prefs: []
+  type: TYPE_NORMAL
+- en: Example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above declaration declares a new struct named **point** which has two field
+    **x** and **y**. Both fields are of **float64** type.Once a new struct type is
+    declared we can define new concrete struct variable from it as we will see in
+    next section
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creating a struct variable**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Declaring a struct just declares a named struct type. Creating a struct variable
+    creates an instance of that struct with memory being initialized as well. We can
+    create a empty struct variable without given any value to any of the field
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this case, all the fields in the struct are initialized with a default zero
+    value of that field type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can also initialize the value for each struct field while creating a struct
+    variable. There are two variations
+  prefs: []
+  type: TYPE_NORMAL
+- en: Each field on the same line
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Each field on different lines
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is also ok to initialize only some of the fields with value. The field which
+    are not initialized with value will get the default zero value of their type
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above case salary will get default value of zero since it is not initialized
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s see a working code illustrating above points:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: For above program
+  prefs: []
+  type: TYPE_NORMAL
+- en: We first declare an **employee** struct.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: emp1’s fields are all initialized with default zero value of its type i.e name
+    with “”, age and salary with 0.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: emp2 has been initialized with all fields on the same line. Its fields are correctly
+    printed with their value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: emp3’s has been initialized with all fields on different lines. Its fields are
+    correctly printed with their value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: emp4’s salary field is initialized with default zero value of 0\. While other
+    other two fields are correctly printed with their value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is to be noted that in the initialization of a struct, every new line with
+    in curly braces has to end with a comma. So below initialization will raise error
+    as
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: doesn’t end with a comma.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: This will be fine
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Without field names**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: struct can also be initialized without specifying the field names. But in this
+    case, all values for each of the field has to be provided in sequence
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: A compiler error will be raised if all values are not provided when field name
+    is not used.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Uncomment the line
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: in the above program, and it will raise compiler error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Accessing and Setting Struct Fields**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Structs fields can be accessed using the dot operator. Below is the format for
+    getting the value
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Similarly a value can be assigned to a struct field too.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Pointer to a struct**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Thereare two ways of creating a pointer to the struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the & operator
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using the new keyword
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s looks at each of above method one by one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using the & operator**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The **&** operator can be used to get the pointer to a struct variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: struct pointer can also be directly created as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s look at a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using the new keyword**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Using the  new() keyword will:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create the struct
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Initialize all the field to the zero default value of their type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Return the pointer to the newly created struct
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This will return a pointer
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: Pointer address can be print using the **%p** format modifier
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: Deference operator ‘*’ can be used to print the value at the pointer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will print
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: When not using the dereference pointer but using the format identifier**%+v,**
+    then ampersand will be appended before the struct indicating that is a pointer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will print
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see full program denoting above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Print a Struct Variable**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Thereare two ways to print all struct variables including all its key and values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the **fmt** package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Printing the struct in JSON form using the **json/encoding** package. This also
+    allows pretty print of a struct as well.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see the two ways in which we can print the instance of the employee struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using the fmt package**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**fmt.Printf()** function can be used to print a struct.  Different format
+    identifiers can be used to print a struct in different ways. Let’s see how different
+    format identifiers can be used to print a struct in different formats.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s first create an instance of employee
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**%v** – It will print only values. Field name will not be printed. This is
+    the default way of printing a struct. Eg'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**%+v –** It will print both field and value. Eg'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**fmt.Println()** function can also be used to print a struct. Since %v is
+    the default for **fmt.Printlin()** function, hence output will be same as using
+    %v for **fmt.Printf()**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a working program too
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE37]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE38]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Printing the struct in JSON form**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Second method is to print the struct in the JSON format. **Marshal** and **MarshalIndent**
+    function of **encoding/json** package can be used to print a struct in JSON format.
+    Here is the difference
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Marshal** – Below is the signature of the **Marshal** function. This function
+    returns the JSON encoding of **v** by traversing the value recursively'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE39]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**MarshalIndent**– Below is the signature of the **MarshalIndent** function.
+    It is similar to **Marshal** function but applies Indent to format the output.
+    So it can be used to pretty print a struct'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE40]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is to be noted that both **Marshal** and **MarshalIndent** function can only
+    access the exported fields of a struct, which means that only the capitalized
+    fields can be accessed and encoded in JSON form.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE41]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE42]'
+  prefs: []
+  type: TYPE_PRE
+- en: The salary field is not printed in the output because it begins with a lowercase
+    letter and is not exported. The **Marshal** function output is not formatted while
+    the **MarshalIndent** function output is formatted.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**golang** also allows the JSON encoded struct key name to be different by
+    the use of struct meta fields as will see in the next section.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Struct Field Meta or Tags**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A struct in go also allows adding metadata to its fields. These meta fields
+    can be used to encode decode into different forms, doing some forms of validations
+    on struct fields, etc. So basically any meta information can be stored with fields
+    of a struct and can be used by any package or library for different purposes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format for attaching a meta-data. Meta-data is a string literal
+    i.e it is enclosed in backquotes
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE43]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now for our use case, we will add JSON tags to employee struct as below. Marshal
+    function will use the key name specified in the tags
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE44]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see full program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE45]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE46]'
+  prefs: []
+  type: TYPE_PRE
+- en: The key name in the output is same as specified in the json meta tags.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Anonymous Fields in a Struct**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Astruct can have anonymous fields as well, meaning a field having no name. The
+    type will become the field name. In below example, **string** will be the field
+    name as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE47]'
+  prefs: []
+  type: TYPE_PRE
+- en: The anonymous field can also be accessed and assigned a value
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE48]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE49]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Nested Struct**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A struct can have another struct nested in it. Let’s see an example of a nested
+    struct. In below **employee** struct has **address** struct nested it in.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE50]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE51]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice how nested struct fields are accessed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE52]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Anonymous nested struct fields**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The nested struct field can also be anonymous. Also, in this case, nested struct’s
+    fields are directly accessed. So below is valid
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE53]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is also to be noted that below is still valid in this case
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE54]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE55]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE56]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in above program that city field of address struct can be accessed in
+    two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE57]'
+  prefs: []
+  type: TYPE_PRE
+- en: Similar for the country field of the address struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Exported and UnExported fields of a struct**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Go doesn’t have any public,  private or protected keyword. The only mechanism
+    to control the visibility outside the package is using the capitalized and non-capitalized
+    formats
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Capitalized Identifiers** are exported. The capital letter indicates that
+    this is an exported identifier and is available outside the package.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Non-capitalized identifiers **are not exported. The lowercase indicates that
+    the identifier is not exported and will only be accessed from within the same
+    package.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So any struct which starts with a capital letter is exported to other packages. 
+    Similarly any struct field which starts with capital is exported otherwise not.
+    Let’s see an example that shows exporting and non-exporting of structs and struct
+    fields. See **model.go** and **test.go** below. Both belong to the **main** package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Structure
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Struct **Person** is exported
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Struct **company** is non-exported
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Structure’s Field
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Person** struct field **Name** is exported'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Person** struct field **age** is not exported but **Name** is exported'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**model.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE58]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s write a file **test.go** in same **main** package. See below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**test.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE59]'
+  prefs: []
+  type: TYPE_PRE
+- en: On running this file, it is able to access all exported and un-exported fields
+    in **model.go** as both lies in the same package **main**. There is no compilation
+    error and it gives below output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE60]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s move the above file **model.go** to a different package named **model.**
+    Now notice the output on running ‘go build’. It gives compilation errors. All
+    the compilation error are because **test.go** in **main** package to not able
+    to refer to un-exported fields of **model.go** in **model** package
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**model.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE61]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**test.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE62]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE63]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Struct Equality**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The first thing to know before considering struct equality is weather if all
+    struct fields types are comparable or not
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some of the comparable types as defined by go specification are
+  prefs: []
+  type: TYPE_NORMAL
+- en: boolean
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: numeric
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: string,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: pointer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: interface types
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: structs – if all it’s field type is comparable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: array – if the type of value of array element is comparable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Some of the types which are not comparable as per go specification and which
+    cannot be used as a key in a map are.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Slice
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Map
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So two struct will be equal if first all their field types are comparable and
+    all the corresponding field values are equal. Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE64]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE65]'
+  prefs: []
+  type: TYPE_PRE
+- en: If the struct field type are not comparable then there will be compilation error
+    on checking struct equality using the == operator.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE66]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above program will raise compilation error as **employee** struct contains a
+    field **deparments** which is a **slice** of **string**. **slice** is not a comparable
+    type and hence the compilation error.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE67]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Struct are value types**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A struct is value type in go. So a struct variable name is not a pointer to
+    the struct in fact it denotes the entire struct. A new copy of the struct will
+    be created when
+  prefs: []
+  type: TYPE_NORMAL
+- en: A struct variable is assigned to another struct variable.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A struct variable is passed as an argument to a function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see above point with another example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE68]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE69]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above example,
+  prefs: []
+  type: TYPE_NORMAL
+- en: we assigned the **emp1** to **emp2** and we then changed name  **emp2** to have
+    a different value.  After that when we print **emp1**, we see that it hasn’t changed.
+    This is because when we assign **emp1** to **emp2**, a copy is created and changing
+    **emp2** doesn’t have any effect on **emp1**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We passed **emp1** to the test function and then again changed its **name**
+    field in the test function.  After that when we print **emp1**, we see that it
+    hasn’t changed. The reason is same, when **emp1** is passed as an argument to
+    test function a copy of **emp1** is created.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about struct in golang. In this article, we learned different ways
+    of initializing a struct, pointer to struct, different ways of printing, about
+    anonymous fields, etc. I hope you have liked this article. Please share the feedback/improvements/mistakes
+    in the comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Array](https://golangbyexample.com/understanding-array-golang-complete-guid)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Pointer](https://golangbyexample.com/pointer-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[complete guide](https://golangbyexample.com/tag/complete-guide/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

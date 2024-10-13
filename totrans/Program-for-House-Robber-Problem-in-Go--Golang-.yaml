@@ -1,0 +1,148 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:49:29'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Program for House Robber Problem in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/house-robber-golang/](https://golangbyexample.com/house-robber-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are a couple of houses in the neighborhood. Each house has some money
+    in it. The houses are represented as an array which each entry in the array denotes
+    the amount of money in that house.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, if we have below array
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **First** house has **2** money
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **Second** house has **3** money
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **Third** house has **4** money
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **Fourth** house has **2** money
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The robber can rob any number of houses but he cannot rob in two consecutive
+    houses. For example, he can rob in below combinations for the above array
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1 and 3
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 1 and 4
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 2 and 4
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: None of the combinations above has houses that are adjacent. The problem is
+    to identify the combination which will yield maximum robbery to the robber.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, in the above case, the first combination (1 and 3) will give him
+    maximum robber which is 2+4 =6Hence the robber can rob in first and third house
+    which 2+4=6
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: The robber can rob in the first, third, and sixth houses which 1+8+4=13
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is a dynamic programming question as it has an optimal substructure. Let’s
+    say the name of the array is **money**
+  prefs: []
+  type: TYPE_NORMAL
+- en: dp[0] = money[0]
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: dp[1] = max(money[0], money[1])
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: dp[2] = max(money[0]+ money[1), money[2])
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: dp[i] = dp[i] + max(dp[i-1], dp[i-1]
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: where **dp[i]** represents the amount which a robber can rob if the ith house
+    is included. In the end, we return the maximum in the **dp** array
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

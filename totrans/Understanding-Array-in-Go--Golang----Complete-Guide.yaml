@@ -1,0 +1,376 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:18:28'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding Array in Go (Golang) – Complete Guide
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/understanding-array-golang-complete-guide/](https://golangbyexample.com/understanding-array-golang-complete-guide/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 17 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Slice](https://golangbyexample.com/slice-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Struct](https://golangbyexample.com/struct-in-golang-complete-guide/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Definition](#Definition "Definition")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Declaration of an array](#Declaration_of_an_array "Declaration of an array")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Accessing array elements](#Accessing_array_elements "Accessing array elements")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Arrays are value in go](#Arrays_are_value_in_go "Arrays are value in go")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Different ways of iterating an array](#Different_ways_of_iterating_an_array
+    "Different ways of iterating an array")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[MultiDimensional Arrays](#MultiDimensional_Arrays "MultiDimensional Arrays")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Similar to any other programming language, golang also has **array** data structure.
+    But in go, **arrays** behave little differently than other languages and also
+    we have something called slice in golang which is like a reference to an array.
+    In this article, we will study only array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Definition**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: An array is a contiguous collection of elements of the same type. It is an ordered
+    sequence of elements stored contiguously in memory
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here is the format for the declaration of an array
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: size_of_array – number of elements in the array
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: <type> is type of each element in the array
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: a1, a2 … an are the actual elements.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In golang, the size of the array is part of its type. So  This means that two
+    arrays that have a different number of elements are of two different types and
+    one cannot be assigned to another. Below error will be raised in case we try to
+    assign two arrays of different length
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The code is:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: For the same reason the length of array is fixed during create and cannot be
+    changed later.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Declaration of an array**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Both number of elements and actual elements are optional in the array declaration.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In below example, we see 4 ways of declaring of an array
+  prefs: []
+  type: TYPE_NORMAL
+- en: Specifying both the length of the array and actual elements. Eg.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Only length – In this case all the actual elements are filled up with default
+    value zero of that type. Eg
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Only actual elements – In this case, the length of array will be equal to the
+    number of actual elements. The symbol **‘…’** needs to be used within square brackets
+    like this **[…]** when not specifying the length. The symbol is an instruction
+    to the compiler to calculate the length.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Without length and actual elements – an empty array will be created in this
+    case. Similar to above the symbol **‘…’** also needs to be used in this case as
+    well.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a code example illustrating above points. Also please keep in mind
+    that the builtin function **len()** can be used to calculate the length of an
+    array. In below program we are using **len()** function to calculate the length
+    of the array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in the above example that for **sample3** variable the actual elements
+    are filled up with the default value of int which is 0.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is also ok if the actual elements specified are less than the length of the
+    array. The rest of the elements are filled up with the default value of the type
+    specified. See the below example. The length of the array specified is 4 while
+    only 2 actual elements are declared. Hence the remaining two elements are assigned
+    value 0 which is the default zero value of an **int**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Accessing array elements**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Since array element are stored in contiguous manner, we can access an array
+    element using an index. Similarly individual array elements can also be assigned
+    a value using index. Accessing out of bound index will cause a compilation error.
+    See below examples illustrating these points. The first index position will be
+    **zero** and last will **(length_of_array-1)**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: On uncommenting the below line
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: ', it will give compilation error'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Arrays are value in go**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Array are value type in go. So an array variable name is not a pointer to the
+    first element in fact it denotes the entire array. A copy of the array will be
+    created when
+  prefs: []
+  type: TYPE_NORMAL
+- en: An array variable is assigned to another array variable.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An array variable is passed as an argument to a function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see above point with another example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above example,
+  prefs: []
+  type: TYPE_NORMAL
+- en: we assigned the **sample1** to **sample2** and we then changed 0th index at
+    **sample2** to have a different value.  After that when we print **sample1**,
+    we see that it hasn’t changed. This is because when we assign **sample1** to **sample2**,
+    a copy is created and changing **sample2** doesn’t have any effect on **sample1**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We passed **sample1** to the test function and then again changed its value
+    in the test function at 0th index.  After that when we print **sample1**, we see
+    that it hasn’t changed. The reason is same, when **sample1** is passed as an argument
+    to test function a copy of **sample1** is created.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Different ways of iterating an array**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'An array can be iterated using:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using for loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using for-range loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a code example for both
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**MultiDimensional Arrays**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the format for declaring a two dimensional array
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: where
+  prefs: []
+  type: TYPE_NORMAL
+- en: x denotes the number of rows
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: y denotes the number of columns
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: aij denotes an element present at i row and j column
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The same idea can be extended to three dimensions, four dimensions, and so on.
+    All the rules we discussed above also apply to multidimensional arrays too.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let's see a code example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above example we access the element of two dimensional array using index
+    for both first and second dimension
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also notice how we are traversing the two dimensional array. We need to use
+    nested range . The first range traverses the arrays of array. The second range
+    traverses the individual array after that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about array in Golang. Hope you have liked this article. Please
+    share feedback/improvements/mistakes in comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Slice](https://golangbyexample.com/slice-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Struct](https://golangbyexample.com/struct-in-golang-complete-guide/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[array](https://golangbyexample.com/tag/array/)*   [complete guide](https://golangbyexample.com/tag/complete-guide/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

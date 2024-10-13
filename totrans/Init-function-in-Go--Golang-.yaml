@@ -1,0 +1,315 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:30:17'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Init function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/init-function-golang/](https://golangbyexample.com/init-function-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Init function in the main package](#Init_function_in_the_main_package "Init
+    function in the main package")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Multiple init() function in different source file of same package](#Multiple_init_function_in_different_source_file_of_same_package
+    "Multiple init() function in different source file of same package")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Multiple init() function in same source file](#Multiple_init_function_in_same_source_file
+    "Multiple init() function in same source file")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Order of execution of program](#Order_of_execution_of_program "Order of execution
+    of program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: init() function is a special function that is used to initialize global variables
+    of a package. These functions are executed when the package is initialized. Each
+    of the GO source files in a package can have its own init() function. Whenever
+    you import any package in the program, then on the execution of that program,
+    init functions(if present)  in the GO source files belonging to that imported
+    package are called first. Some points to note about init function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Init function is optional
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Init function does not take any argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Init function does not have any return value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Init function is called implicitly. Since it is called implicitly, init function
+    cannot reference it from anywhere.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There can be multiple init() functions within the same source file.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: init function is majorly used for the initialization of global variables that
+    cannot be initialized using an initialization expression. For example, it requires
+    a network call to intialize any DB client. Another example could be fetching secret
+    keys on startup. Init function is also used for running anything that only needs
+    to be executed once. Let’s see a simple use case of using an init function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Assume you are using redis cache in your application. You want redis client
+    to created during the application first launch. A good place to initialize a redis
+    client is in init() function. Let’s see an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a module named redisexample and put below files in that module.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**redis/redis.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above example, we have an init function in the **redis.go** file. In
+    the init function we initialize the redis global client which is in turn used
+    in the **main** function in main.go.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Init function in the main package**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**main** package can also contain the init function. The init function will
+    be triggered before the **main** function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have an init function and the main function. In the
+    init function, we initialize the global variable “sample”. Notice the order of
+    execution i.e init function is executed first and then the main function is executed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Multiple init() function in different source file of same package**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**init()** function is called in all the source files belonging to a package
+    if present. Let’s see an example for it.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**learn/math/add.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/subtract.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Multiple init() function in same source file**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: There can be multiple init function within same source file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program we have an init function and a main function. In init function
+    we initialize the global variable “sample”. Notice the order of execution i.e
+    init function is executed first and then the main function is executed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Order of execution of program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Now as we have seen above examples, let’s see the order of execution of a go
+    program.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The program starts with the main package.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All imported packages in the source files of the main package are initialized.
+    The same thing happens recursively for further imported packages.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Then global variables declaration in these packages is initialized. The initialization
+    dependency kicks in for initialization of these variables. [https://golang.org/ref/spec#Order_of_evaluation](https://golang.org/ref/spec#Order_of_evaluation)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: After this, init() function is run in these packages
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Global variables in the main package are initialized
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: init function in the main package is run if present
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: main function in main package is run.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Note here that package initialization is only done once even if it is imported
+    several times.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example if main package imports package **a** and in turn package **a**
+    imports package **b**, then below will be the order
+  prefs: []
+  type: TYPE_NORMAL
+- en: Global variables in package **b** will be initialized. init function in source
+    files of package b will be run
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Global variables in the package **a** will be initialized. init function in
+    source files of package **b** will be run
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Global variables in **main** package will be intialized. init function in source
+    files of **main** package will be run
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**main** function will start executing.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**sample/b/b1.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**sample/b/b2.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**sample/a/a1.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**sample/a/a2.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**sample/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in above example that init function in source files of package **b**
+    are run first. Then init function in source files of package **a** is run and
+    then init function in source file of main package is run. After that main function
+    is run
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

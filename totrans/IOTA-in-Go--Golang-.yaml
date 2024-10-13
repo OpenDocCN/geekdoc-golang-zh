@@ -1,0 +1,306 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:28:41'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: IOTA in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/iota-in-golang/](https://golangbyexample.com/iota-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 22 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Goroutines](https://golangbyexample.com/goroutines-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Interface](https://golangbyexample.com/interface-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[More about IOTA](#More_about_IOTA "More about IOTA")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Enum in Golang](#Enum_in_Golang "Enum in Golang")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Iota is an identifier which is used with constant and which can simplify constant
+    definitions that use auto increment numbers.  The **IOTA** keyword represent integer
+    constant starting from zero.  So essentially it can be used to create effective
+    constant in Go . They can also be used to create enum in Go as we will see later
+    in this tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Auto increment constant without IOTA
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Auto increment constant with IOTA
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both will set
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: So IOTA is
+  prefs: []
+  type: TYPE_NORMAL
+- en: A counter which starts with zero
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Increases by 1 after each line
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Is only used with constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: IOTA starts with zero and increases by 1 after each line but there are some
+    caveats as well. First, let’s see a simple example where iota starts with zero
+    increases by 1 after each line
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Iota sets the value of **a** to zero. Then on each new line and it increments
+    the value by one. Therefore the output is 0 followed by 1 followed by 2
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**More about IOTA**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see some other points related to iota
+  prefs: []
+  type: TYPE_NORMAL
+- en: Iota keyword can be used on each line as well. In that case, also iota will
+    start from zero and increment on each new line. It will be the same as the above
+    case
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: iota keyword can be skipped as well. In that case, also iota will start from
+    zero and increment on each new line. It is same as above two cases
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: There will be no increment if there is a empty line or a commented line
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Iota value will reset and again start with zero if the const keyword is used
+    again
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: iota increment can be skipped using a blank identifier
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: iota expressions – iota allows expressions which can be used to set any value
+    for the constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: The first-time iota value was zero, hence the output is zero.
+  prefs: []
+  type: TYPE_NORMAL
+- en: On the next line iota value is 1 hence the output is 1+4=5.
+  prefs: []
+  type: TYPE_NORMAL
+- en: On the next line, iota value is 2 hence output 2*4=8
+  prefs: []
+  type: TYPE_NORMAL
+- en: iota can also start from non-zero number- iota expressions can also be used
+    to start iota from any number
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Enum in Golang**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**IOTA** provides an automated way to create a enum in Golang. Let’s see an
+    example.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program we created a new type
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we declared some const of  type **Size**. The first constant **small**
+    is set to iota so it will be set to zero
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: That’s why
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: Without IOTA we had to explicitly set the values of each of the enum value
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can also define a method **toString** on Size type to print the exact value
+    of enum . See below program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: We have defined a **toString** method for the **Size** type. It can be used
+    to the print the string value of the constant of Size type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about IOTA and Enum in golang. Hope you have liked this article.
+    Please share feedback/improvements/mistakes in comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Goroutines](https://golangbyexample.com/goroutines-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Interface](https://golangbyexample.com/interface-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,118 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:39:17'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Return plain text body in HTTP response in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/plain-text-response-body-golang/](https://golangbyexample.com/plain-text-response-body-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Write** method of the ResponseWriter interface in **net/http** package can
+    be used to set the **text/plain** body in an HTTP response'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In GO a response is represented by the **ResponseWriter** Interface.  Here is
+    the link to the interface –[https://golang.org/pkg/net/http/#ResponseWriter](https://golang.org/pkg/net/http/#ResponseWriter)
+  prefs: []
+  type: TYPE_NORMAL
+- en: ResponseWriter interface is used by an HTTP handler to construct an HTTP response.
+    It provides three functions to set the response parameters
+  prefs: []
+  type: TYPE_NORMAL
+- en: Header – For writing response header
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Write([]byte) – For writing response body
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: WriteHeader(statusCode int) – For writing the http status code
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Write** function can be used to set the response body. It takes a slice of
+    bytes as input. Also, there is a **Header** function. This function can be used
+    to set the content type of the response body using the Content-Type header. For
+    eg in the case of the text/plain response body, we need to set the Content-Type
+    header as **“text/plain”.**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also, note that **WriteHeader** function can be used to set the HTTP status
+    code for the response
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s see an example of sending http status code and **text/plain** response
+    body
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: We use the **Write** function to return the text/plain response body. The above
+    code returns the below **text/plain** body back in response
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also, we are using the **WriteHeader** function to specify the **200** http
+    status code.  We are also setting the correct header
+  prefs: []
+  type: TYPE_NORMAL
+- en: Run the above program. It will start a server on 8080 port on your local machine.
+    Now make the below curl call to the server
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below will be the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can see from the output, it will correctly return the **200** status
+    code along with the **text/plain** body. Also, the **Content-Type** response header
+    is set to **text/plain**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

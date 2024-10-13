@@ -1,0 +1,77 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:15:42'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Min of two numbers in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/min-of-two-numbers-golang/](https://golangbyexample.com/min-of-two-numbers-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**math** package of GO provides a **Min** method that can be used to get the
+    minimum of two numbers. The'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function. It takes input two float numbers and
+    returns a float.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also some special cases of **Min** function are
+  prefs: []
+  type: TYPE_NORMAL
+- en: Min(x, +Inf) = Min(+Inf, x) = +Inf
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Min(x, NaN) = Min(NaN, x) = NaN
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Min(+0, ±0) = Min(±0, +0) = +0
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Min(-0, -0) = -0
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [math](https://golangbyexample.com/tag/math/)*   [min](https://golangbyexample.com/tag/min/)*   [minimum](https://golangbyexample.com/tag/minimum/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

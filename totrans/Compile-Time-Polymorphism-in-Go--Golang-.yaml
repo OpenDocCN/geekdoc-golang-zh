@@ -1,0 +1,86 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:01:24'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Compile Time Polymorphism in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/compile-time-polymorphism-go/](https://golangbyexample.com/compile-time-polymorphism-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: In compile-time polymorphism, the call is resolved during compile time by the
+    compiler. Some of the  forms for compile-time polymorphism are
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Method/Function Overloading**: more than one method/function exists with
+    the same name but with different signatures or possibly different return types'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Operator Overloading**: the Same operator is used for operating on different
+    data types'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go doesn’t support Method Overloading. For example, see below program demonstrating
+    that go doesn’t support method overloading.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Go also doesn’t support operator overloading. Reason for this is stated in faq
+    of go – [https://golang.org/doc/faq#overloading](https://golang.org/doc/faq#overloading)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Method dispatch is simplified if it doesn’t need to do type matching as well.
+    Experience with other languages told us that having a variety of methods with
+    the same name but different signatures was occasionally useful but that it could
+    also be confusing and fragile in practice. Matching only by name and requiring
+    consistency in the types was a major simplifying decision in Go’s type system.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Regarding operator overloading, it seems more a convenience than an absolute
+    requirement. Again, things are simpler without it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now the question is there any alternative to do method overloading in GO. This
+    is where **Variadic function** in go comes into the picture. See below program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go doesn’t directly support method/function/operator overloading but variadic
+    function provides a way of achieving the same with increased code complexity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[compile](https://golangbyexample.com/tag/compile/)*   [compile-polymorphism](https://golangbyexample.com/tag/compile-polymorphism/)*   [oop](https://golangbyexample.com/tag/oop/)*   [polymorphism](https://golangbyexample.com/tag/polymorphism/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

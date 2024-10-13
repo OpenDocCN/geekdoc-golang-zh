@@ -1,0 +1,121 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:30:35'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Package Name and Directory/Folder Name in Go (Golang)- Does they need to be
+    the same
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/package-folder-name-golang/](https://golangbyexample.com/package-folder-name-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Package name and the name of the directory containing that package don’t necessarily
+    have to be the same. Then what does the import path of a package specify? For
+    example in case we any package, then the import path might like as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above statement essentially means that import package present at directory **“sample”.**
+    It doesn’t mean import package **sample**. To validate that let’s see an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s first create a directory named **learn** and then create a module with
+    import path as **“sample.com/learn”.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s create a directory named **math** inside the **learn** directory. Create
+    a file **math.go** inside the **math** directory with below contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**learn/math/math.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice the package declaration above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: The package name is **mathematics** but the name of the directory containing
+    that package is **math**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s use the **mathematics** package in the **main.go** file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: In **main.go** above, see how we import the package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above statement essentially means that import package present at directory **“math”.**
+    It doesn’t mean import package **math.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: See how in the **main** function we are using the package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is what we meant when we said  import means to import package present at
+    that directory location.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you run this program, output will be correct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: This shows that name of the package doesn’t necessarily needs to be same as
+    the name of the directory containing the package. Another convenient way is to
+    use package aliasing in such case like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

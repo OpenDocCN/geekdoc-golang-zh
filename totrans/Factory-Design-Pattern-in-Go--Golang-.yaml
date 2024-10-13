@@ -1,0 +1,184 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:04:16'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Factory Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/golang-factory-design-pattern/](https://golangbyexample.com/golang-factory-design-pattern/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction: ](#Introduction "Introduction:  ")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping:](#Mapping "Mapping:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example: ](#Example "Example:  ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Introduction: **'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Factory design pattern is a creational design pattern and it is also one of
+    the most commonly used pattern. This pattern provides a way to hide the creation
+    logic of the instances being created.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The client only interacts with a factory struct and tells the kind of instances
+    that needs to be created. The factory class interacts with the corresponding concrete
+    structs and returns the correct instance back.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: We have **iGun** interface which defines all methods a gun should have
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There is **gun** struct that implements the **iGun** interface.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Two concrete guns **ak47** and **maverick**. Both embed **gun** struct and hence
+    also indirectly implement all methods of **iGun** and hence are of **iGun** type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We have a **gunFactory** struct which creates the gun of type **ak47** or **maverick**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **main.go** acts as a client and instead of directly interacting with **ak47**
+    or **maverick**, it relies on **gunFactory** to create instances of **ak47** and
+    **maverick**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**UML Diagram:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '![](img/4013239931e0f67fb503fefdcfbec4da.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Below is the corresponding mapping UML diagram with the example given above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/5466090257004d8166c3e8873def1d89.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Mapping:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in **“Example”** below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| ProductFactory | gunFactory.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| iProduct | iGun.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Product | gun.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete iProduct 1 | ak47go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete iProduct 1 | maverick.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Client | main.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Example: **'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**iGun.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**gun.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**ak47.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**maverick.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**gunFactory.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[factory](https://golangbyexample.com/tag/factory/)*   [go](https://golangbyexample.com/tag/go/)*   [pattern](https://golangbyexample.com/tag/pattern/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

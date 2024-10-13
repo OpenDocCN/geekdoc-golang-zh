@@ -1,0 +1,65 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:04:52'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Difference between method and function in GO
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/difference-between-method-function-go/](https://golangbyexample.com/difference-between-method-function-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: There are some important differences between method and function. Let’s see
+    the signature of both
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Function:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Method:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: From the above signature, it is clear that method has a receiver argument. A
+    receiver can be a struct or any other type. The method will have access to the
+    properties of the receiver and can call the receiver’s other methods.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is the only difference between function and method, but due to it they
+    differ in terms of functionality they offer
+  prefs: []
+  type: TYPE_NORMAL
+- en: A function can be used as first-order objects and can be passed around while
+    methods cannot.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Methods can be used for chaining on the receiver while function cannot be used
+    for the same.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There can exist different methods with the same name with a different receiver,
+    but there cannot exist two different functions with the same name in the same
+    package.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[function](https://golangbyexample.com/tag/function/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [method](https://golangbyexample.com/tag/method/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

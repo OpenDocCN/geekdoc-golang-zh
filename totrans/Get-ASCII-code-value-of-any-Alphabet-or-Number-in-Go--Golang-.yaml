@@ -1,0 +1,38 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:17:42'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Get ASCII code/value of any Alphabet or Number in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/get-ascii-value-alphabet-go/](https://golangbyexample.com/get-ascii-value-alphabet-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**range** over a string can give the **ASCII** of all the characters in the
+    string. In below code we are printing the ASCII value of a lowercase alphabets,
+    uppercase alphabets and numbers.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[alphabet](https://golangbyexample.com/tag/alphabet/)*   [ascii](https://golangbyexample.com/tag/ascii/)*   [code](https://golangbyexample.com/tag/code/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [lowercase](https://golangbyexample.com/tag/lowercase/)*   [number](https://golangbyexample.com/tag/number/)*   [uppercase](https://golangbyexample.com/tag/uppercase/)*   [value](https://golangbyexample.com/tag/value/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

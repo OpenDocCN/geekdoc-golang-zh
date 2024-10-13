@@ -1,0 +1,123 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:31:33'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Check if a particular header is present in a HTTP request in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/header-present-http-golang/](https://golangbyexample.com/header-present-http-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")*  *# **Overview**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format in which a Header is represented in go.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: So internally header is a key value map with
+  prefs: []
+  type: TYPE_NORMAL
+- en: key being represented in canonical form. Canonical form means that first character
+    and any character following a hyphen is in uppercase. All other characters is
+    in lowercase. Example of canonical forms are
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Value is represented as an array of string. Why array of strings? Because it
+    is perfectly okay to two headers with same key and different values in a request.
+    Both the values will be collected in the array.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For eg if there are below headers in an incoming request
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then at server then headers will look like
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: And since header is a map, we can use the property of a map to check if a particular
+    key is present or not. Below is the format to check if a key exist in the map
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: There are two cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the key exists **val **variable be the value of the key in the map and **ok **variable
+    will be true
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the key doesn’t exist **val** variable will be default zero value of value
+    type and **ok **variable will be false
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program we started a server which is listening on port 8080\. We also
+    defined a URL on that endpoint. Run this server and make the below API call.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: After running this API check the output in the terminal. It will output. You
+    can check the output. content-type header is present hence it outputs its value.
+    someKey header is not present hence it prints that is no present. Also note that
+    while accessing the header map we need to enter the key in the canonical form
+    only. For example even though the supplied header in the curl is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: but while accessing the header map in the code we do like below i.e using key
+    in canonical form **Content-Type**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: In case we only want to check if a key is present and val is not needed, then
+    blank identifier i.e “_” can be used in place of val.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

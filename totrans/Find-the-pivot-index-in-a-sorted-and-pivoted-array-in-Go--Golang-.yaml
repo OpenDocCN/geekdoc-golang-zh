@@ -1,0 +1,101 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:43:45'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Find the pivot index in a sorted and pivoted array in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/pivot-index-pivoted-array-go/](https://golangbyexample.com/pivot-index-pivoted-array-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")*  *## **Overview**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We have an input array that is sorted but is pivoted at a certain index. For
+    example, consider below array
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: It has been rotated and pivoted at index 3
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: The objective is to find the pivot index. So the answer for the above array
+    will be 3\. If the array is not pivoted then it should return -1\. For eg for
+    below input array, it should return -1
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Other examples
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: The expected time complexity to find the pivot index is **O(logn)**. So we have
+    to do a binary search with some modifications to find the pivot index.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This will be the strategy
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do a binary search. For every mid element check if **mid** or **mid+1** is the
+    pivot
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the value at **mid** is less than the value at the start of the input array
+    then search on the left side of **mid**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the value at mid is greater than the value at the start of the input array
+    then search on the right side of **mid**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,93 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:01:29'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Runtime Polymorphism in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/runtime-polymorphism-go/](https://golangbyexample.com/runtime-polymorphism-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: RunTime Polymorphism means that a call is resolved at runtime. It is achieved
+    in GO using interfaces.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s understand it with an example. Different countries have different ways
+    of calculating the tax. This can be represented by means of an interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now different countries can have their own struct and can implement the **calculateTax()**
+    method. For eg for **indianTax** struct can be represented as below. It can also
+    define a method calculateTax() which can do the actual calculation based on percentage.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Similarly, other country’s tax systems can also be represented by a struct and
+    they can also implement their own calculateTax() method to give their own value
+    of tax.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s see how we can use this **taxCalcuator **in****terface to calculate
+    tax of a person who is settled in different countries in different parts of the
+    year. See the below full program for reference.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now below is the line where run time polymorphism happens.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: The same **calculateTax** is used in different contexts to calculate tax. When
+    the compiler sees this call it delays which exact method to be called at run time.
+    This magic happens behind the scene. If you are interested in knowing how this
+    magic happens then refer to this link.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Extension to add more tax systems:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s extend the above program to also include the tax system for USA countries
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: We just have to change our main function to add USA tax system.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: If you notice in the above program **calculateTotalTax** function doesn’t need
+    to be changed to accommodate the USA tax system. That is the benefit of interfaces
+    and polymorphism.
+  prefs: []
+  type: TYPE_NORMAL

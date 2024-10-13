@@ -1,0 +1,79 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:16:25'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Shuffle a slice or array in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/shuffle-slice-or-array-go/](https://golangbyexample.com/shuffle-slice-or-array-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**math/rand** package of go provides a **Shuffle** method that can be used
+    shuffle an array or a slice. This method pseudo-randomizes the order of elements
+    using the default source. pseudo-randomizes means that for a fixed input seed
+    it will generate the same randomization. That is why in our program we will initialize
+    the rand package with a different seed every time.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This function takes in arguments
+  prefs: []
+  type: TYPE_NORMAL
+- en: First is the length of the array or slice.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The second is a swap function that will be called for different indexes **i**
+    and **j.** You need to provide your own swap function that will swap your elements
+    in the array.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also note that this function will panic if n<0\. Let’s look at the code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It can produce a different output on your machine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[array](https://golangbyexample.com/tag/array/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [shuffle](https://golangbyexample.com/tag/shuffle/)*   [slice](https://golangbyexample.com/tag/slice/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,188 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:22:06'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Embedding Interfaces in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/embedding-interfaces-go/](https://golangbyexample.com/embedding-interfaces-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: An interface can be embedded in another interface as well as it can be embedded
+    in a struct. Let’s look at each one by one
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Embedding interface in another interface](#Embedding_interface_in_another_interface
+    "Embedding interface in another interface")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Embedding interface in a struct](#Embedding_interface_in_a_struct "Embedding
+    interface in a struct")*  *# **Embedding interface in another interfa**ce'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An interface can embed any number of interfaces in it as well as it can be embedded
+    in any interface. All the methods of the embedded interface become part of the
+    embedding interface. It is a way of creating a new interface by merging some small
+    interfaces. Let’s understand it with an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: Assume we have an interface **animal** as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s say there is another interface named **human** which embeds the **animal**
+    interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: So if any type needs to implement the **human** interface, then it has to define
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**breathe()** and **walk()** method of animal interfaces animal is  embedded
+    in human'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**speak()** method of human interface'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: As another example, the ReaderWriter interface of the **io** package of golang
+    ([https://golang.org/pkg/io/#ReadWriter](https://golang.org/pkg/io/#ReadWriter))
+    embeds two other interfaces
+  prefs: []
+  type: TYPE_NORMAL
+- en: The reader interface  – [https://golang.org/pkg/io/#Reader](https://golang.org/pkg/io/#Reader)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The writer interface   – [https://golang.org/pkg/io/#Writer](https://golang.org/pkg/io/#Writer)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Embedding interface in a struct**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: An interface can be embedded in a struct as well.  All the methods of the embedded
+    interface can be called via that struct. How these methods will be called will
+    depend upon whether the embedded interface is a named field or an unnamed/anonymous
+    field.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the embedded interface is a named field, then interface methods have to be
+    called via the named interface name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the embedded interface is unnamed/anonymous field then interface methods
+    can be referred directly or via the interface name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a program illustrating above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: We declared two struct **pet1** and **pet2**.  **pet1** struct has named **animal**
+    interface in it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**pet2** has unnamed/anonymous **animal** interface embedded'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: For an instance of **pet1** struct we call the **breathe()** and **walk()**
+    method like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Directly calling these methods with raise compilation error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: For an instance of **pet2** struct we can call the **breathe()** and **walk()**
+    method like directly
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can directly access the methods of embedded interface if the embedded interface
+    is anonymous or unnamed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is also valid and another way fo called methods of unnamed/anonymous embedded
+    interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also note that while creating the instance of either the **pet1** or **pet2**
+    struct, the embedded interface i.e **animal** is initialised with a type implementing 
+    it i.e **dog** .
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: If we don’t initialise the embedded interface **animal**, then it will be intialised
+    with the zero value of the interface which is nil. Calling **breathe()** and **walk()**
+    method  on such an instance of pet1 or pet2 struct will create a panic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

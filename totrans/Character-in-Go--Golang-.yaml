@@ -1,0 +1,118 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:06:46'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Character in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/character-in-go/](https://golangbyexample.com/character-in-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code Example](#Code_Example "Code Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Caveats](#Caveats "Caveats")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Golang does not have any data type of ‘**char**‘. Therefore
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**byte** is used to represent the ASCII character. byte is an alias for uint8,
+    hence is of 8 bits or 1 byte and can represent all ASCII characters from 0 to
+    255'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**rune** is used to represent all UNICODE characters which include every character
+    that exists. rune is an alias for **int32** and can represent all UNICODE characters.
+    It is 4 bytes in size.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A **string** of one length can also be used to represent a character implicitly.
+    The size of one character string will depend upon the encoding of that character.
+    For utf-8 encoding, it will be between 1-4 bytes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: To declare either a **byte** or a **rune** we use single quotes. While declaring
+    **byte** we have to specify the type,  If we don’t specify the type, then the
+    default type is meant as a **rune.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: To declare a **string**, we use double quotes or backquotes. Double quotes string
+    honors escape character while back quotes string is a raw literal string and doesn’t
+    honor any kind of escaping.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: See the program below. It shows
+  prefs: []
+  type: TYPE_NORMAL
+- en: A byte representing the character ‘**a**‘
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A rune representing the pound sign ‘**£**‘
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A string having one character micro sign **‘µ’**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Caveats**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Declaring a  byte with a NON-ASCII character will raise a compiler error as
+    below. I tried with a character having a corresponding code as 285
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Only a single character can be declared inside a single quote while initializing
+    **byte** or a **rune**. On trying to add two character between single quote, below
+    compiler warning will be generated
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[char](https://golangbyexample.com/tag/char/)*   [character](https://golangbyexample.com/tag/character/)*   [golang](https://golangbyexample.com/tag/golang/)*   [rune](https://golangbyexample.com/tag/rune/)*   [string](https://golangbyexample.com/tag/string/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

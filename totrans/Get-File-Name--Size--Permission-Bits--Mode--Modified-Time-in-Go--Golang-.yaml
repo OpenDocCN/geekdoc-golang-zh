@@ -1,0 +1,75 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:17:16'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Get File Name, Size, Permission Bits, Mode, Modified Time in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/file-info-golang/](https://golangbyexample.com/file-info-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**os.Stat()** function can be used to the info of a file in go. This function
+    returns stats which can be used to get'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name of the file
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Size of the file in bytes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Modified Time of the file
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Permission Bits or Mode of the file
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is the signature of the function. It takes in the named file and return
+    **FileInfo** struct which defines utility method to get above information
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [mode](https://golangbyexample.com/tag/mode/)*   [modified
+    time](https://golangbyexample.com/tag/modified-time/)*   [permission bits](https://golangbyexample.com/tag/permission-bits/)*   [size](https://golangbyexample.com/tag/size/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

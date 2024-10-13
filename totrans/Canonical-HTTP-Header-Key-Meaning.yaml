@@ -1,0 +1,54 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:31:38'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Canonical HTTP Header Key Meaning
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/canonical-http-header-key/](https://golangbyexample.com/canonical-http-header-key/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Canonical form means that first character and after that any character following
+    a hyphen is in uppercase. All other characters will be in lowercase. Example of
+    canonical forms are
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: All the keys in the headers are represented in the canonical form only. For
+    eg if there are below headers in an incoming http request
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then at server most of the http library in different languages at server will
+    interpret it in the canonical form. For example the above headers will be as below
+    when we print headers at server end.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Note that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**content-type** is converted to canonical form **Content-Type**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**accept-encoding** is converted to canonical form **Accept-Encoding**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

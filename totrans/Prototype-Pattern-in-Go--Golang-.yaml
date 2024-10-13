@@ -1,0 +1,161 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:01:53'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Prototype Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/prototype-pattern-go/](https://golangbyexample.com/prototype-pattern-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Definition:](#Definition "Definition:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[When to Use](#When_to_Use "When to Use")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[UML Diagram](#UML_Diagram "UML Diagram")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping ](#Mapping "Mapping ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Practical Example:](#Practical_Example "Practical Example:")*  *## **Definition:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is a creational design pattern that lets you create copies of objects. In
+    this pattern, the responsibility of creating the clone objects is delegated to
+    the actual object to clone.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The object to be cloned exposes a clone method which returns a clone copy of
+    the object
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**When to Use**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We use prototype pattern when the object to be cloned creation process is complex
+    i.e the cloning may involve vases of handling deep copies, hierarchical copies,
+    etc. Moreover, there may be some private members too which cannot be directly
+    accessed.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A copy of the object is created instead of creating a new instance from scratch.
+    This prevents costly operations involved while creating a new object such as database
+    operation.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When you want to create a copy of a new object, but it is only available to
+    you as an interface. Hence you cannot directly create copies of that object.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**UML Diagram**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '![](img/f2d42664ac887048361cea1ff2937a38.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Mapping **'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| prototype interface | inode.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Prototype 1 | file.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Prototype 2 | folder.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| client | main.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Practical Example**:'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In the context of golang let’s try to understand it with an example of os file
+    system. The os file system has files and folders and folders itself contain files
+    and folders. Each **file** and **folder** can be represented by an **inode** interface.
+    **inode** interface also has the **clone**() function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**inode.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**file** struct is represented as'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**file.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**folder** struct is represented as'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**folder.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Since both **file** and **folder** struct implements the **print** and **clone**
+    functions, hence they are of type **inode**. Also, notice the **clone** function
+    in both file and folder. The **clone** function in both of them returns a copy
+    of the respective file or folder. While cloning we append the keyword “_clone”
+    for the name field. Let’s write the main function to test things out.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[design pattern](https://golangbyexample.com/tag/design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [prototype](https://golangbyexample.com/tag/prototype/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

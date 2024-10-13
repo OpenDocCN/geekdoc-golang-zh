@@ -1,0 +1,155 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:26:12'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Return value of the function when panic is recovered in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/return-value-function-panic-recover-go/](https://golangbyexample.com/return-value-function-panic-recover-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When the panic is recovered then the return value of a panicking function will
+    be the default value of the return types of  the panicking function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see a program for it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have **checkAndGet** function which gets the value at
+    a particular index in int slice. If the index passed to this function is greater
+    than (length of slice-1), then it raises a panic. There is also a **handleOutOfBounds**
+    function which is used to recover from the panic.  So we pass index 2 to the **checkAndGet**
+    function and it raises the panic which is recovered in the **handleOutOfBounds**
+    function. That is why we first get this output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in main function that we recollect the return value from the **checkAndGet**
+    like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**checkAndGet** has two return values'
+  prefs: []
+  type: TYPE_NORMAL
+- en: int
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: error
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Since **checkAndGet** creates panic which is recovered in the handleOutOfBounds
+    function therefore the return value of the **checkAndGet** will be the default
+    value of its types.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Therefore
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: outputs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: because zero is the default value of **int** type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: And
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: outputs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: because nil is the default value of **error** type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you don’t want to return default zero value of types then named return value
+    can be used. Let’s see a program for that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: This program is same as previous program, the only difference being that we
+    are using named return value in the **checkAndGet** function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: We set the named return value to 10 in **checkAndGet** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: That is why we get below output in this program as panic is created and it is
+    recovered
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also note that If panic would not have created in the program then it would
+    have output the correct value at index.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

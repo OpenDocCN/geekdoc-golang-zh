@@ -1,0 +1,52 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:07:29'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Append to an existing file in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/append-file-golang/](https://golangbyexample.com/append-file-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**os.OpenFile()** function of the os package can be used to open to a file
+    in an append mode and then write to it'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s see an example. In the below program:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, write to a file using **ioutil** package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Open the file again in Append mode and write the second line to it
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Read the file to verify the content.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[file](https://golangbyexample.com/tag/file/)*   [go](https://golangbyexample.com/tag/go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

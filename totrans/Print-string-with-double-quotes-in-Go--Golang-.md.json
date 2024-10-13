@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"\\\"test\\\"\")\n}\n```", "```\n\"test\"\n```", "```\npackage main\nimport \"fmt\"\nfunc main() {\n    fmt.Println(`\"test\"`)\n}\n```", "```\n\"test\"\n```"]

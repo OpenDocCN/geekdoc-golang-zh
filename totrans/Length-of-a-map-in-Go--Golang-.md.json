@@ -1,0 +1,1 @@
+["```\nlen(mapName)\n```", "```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    //Declare\n    employeeSalary := make(map[string]int)\n\n    //Adding a key value\n    employeeSalary[\"Tom\"] = 2000\n    employeeSalary[\"Sam\"] = 1200\n\n    lenOfMap := len(employeeSalary)\n    fmt.Println(lenOfMap)\n}\n```", "```\n2\n```"]

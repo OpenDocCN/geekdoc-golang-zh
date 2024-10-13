@@ -1,0 +1,90 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:04:47'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go Logger Rotation
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-logger-rotation/](https://golangbyexample.com/go-logger-rotation/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This article is about how we rotate log files from within the go app without
+    having to worry about the disk full alerts.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We are going to use [https://github.com/lestrrat/go-file-rotatelogs](https://github.com/lestrrat/go-file-rotatelogs)
+    for log rotation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example:** In the example below we are setting'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**MaxAge** to 10 seconds. It sets the max-age of a log file before it is purged
+    from the file system. Meaning the file will be deleted after 10 seconds. See'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**RotationTime** is 1 second**.** It sets the time when the file will be rotated.
+    So the file will be rotated every second. See'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Location** is /var/log/service/ . See'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Pattern** of the file is “old.UTC..2019-11-30.22:40:10” . See'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Link Path** is/var/log/service/current. This file would be a symlink for
+    the actual file. See'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Go to the location /var/log/service/. You will notice
+  prefs: []
+  type: TYPE_NORMAL
+- en: Files are rotated every second.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Max age of the file is 10 seconds. So every file will be deleted after 10 seconds.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [logger](https://golangbyexample.com/tag/logger/)*   [rotate](https://golangbyexample.com/tag/rotate/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

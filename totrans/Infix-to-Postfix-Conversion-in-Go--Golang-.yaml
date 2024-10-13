@@ -1,0 +1,211 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:43:34'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Infix to Postfix Conversion in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/infix-to-postfix-conversion-go/](https://golangbyexample.com/infix-to-postfix-conversion-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Infix to Postfix Conversion ](#Infix_to_Postfix_Conversion "Infix to
+    Postfix Conversion ")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Algorithm:](#Algorithm "Algorithm:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Implementation:](#Implementation "Implementation:")*  *## **Infix to Postfix
+    Conversion **'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In this tutorial, we will see what are the Infix and Postfix expression notations,
+    the advantages of Postfix notation over Infix, and how we can convert an Infix
+    expression to a Postfix expression. We will cover the evaluation of a Postfix
+    expression in another tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'These are some advantages of postfix expression over infix:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Postfix expression evaluation is easier than Infix expression evaluation.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Parenthesis is not required in postfix expression.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Postfix expression evaluation requires single scanning.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Faster evaluation than Infix notation.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Algorithm:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Scan infix expression from left to right.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the current scanned character is an operand, output it.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Else, If the precedence of the current scanned operator is greater than the
+    precedence of the operator in the stack (or the stack is empty or the stack contains
+    a ‘(‘ ), push it.  Else, Pop all the operators from the stack which are greater
+    than or equal to in precedence than that of the scanned operator. After doing
+    that Push the scanned operator to the stack. (If you encounter parenthesis while
+    popping then stop there and push the scanned operator in the stack.)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the scanned character is an ‘(‘, push it to the stack.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the scanned character is an ‘)’, pop the stack and output it until a ‘(‘
+    is encountered, and discard both the parenthesis.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Repeat steps 2-6 until infix expression is scanned.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Print the output
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Pop and output from the stack until it is not empty.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Below are the examples of the above algorithm:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Infix expression is a+b then postfix expression is ab+ :'
+  prefs: []
+  type: TYPE_NORMAL
+- en: a is operand (output it) //output=a
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: + is operator (push is in the stack)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: b is operand (output it) //output=ab
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: infix expression is scanned completely, now pop from the stack and add in output,
+    hence postfix becomes ab+
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Similarly
+  prefs: []
+  type: TYPE_NORMAL
+- en: Infix expression is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: then postfix expression is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: a is operand (output it) //output=a
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: + is operator (push it in stack) //stack=+
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: b is operand (output it) //ab
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '* is operator and having high precedence than +, (push it in stack) //stack=+*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: c is operand (output it) //output=abc
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: + is operator but it lower than operators in stack. pop all from stack and push
+    + //output=abc*+, stack=+
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: d is operand (output it) //output=abc*+d
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: pop from stack and add in output //output=abc*+d+
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Implementation:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Below is the implementation of Infix to Postfix Conversion in golang:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can check the status of the stack after every push and pop operation by uncommenting
+    **fmt.Println** line in Push and Pop function declaration.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

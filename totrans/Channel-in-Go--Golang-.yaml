@@ -1,0 +1,882 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:24:19'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Channel in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/channel-golang/](https://golangbyexample.com/channel-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 24 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Select Statement](https://golangbyexample.com/select-statement-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Goroutines](https://golangbyexample.com/goroutines-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Declaring Channels](#Declaring_Channels "Declaring Channels")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Operations on Channel](#Operations_on_Channel "Operations on Channel")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Send Operation](#Send_Operation "Send Operation")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Receive Operation](#Receive_Operation "Receive Operation")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Channel Direction](#Channel_Direction "Channel Direction")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Only Send Channel](#Only_Send_Channel "Only Send Channel")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Only Receive Channel](#Only_Receive_Channel "Only Receive Channel")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Capacity of a channel using cap() function](#Capacity_of_a_channel_using_cap_function
+    "Capacity of a channel using cap() function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Length of a channel using len() function](#Length_of_a_channel_using_len_function
+    "Length of a channel using len() function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Close operation on a channel](#Close_operation_on_a_channel "Close operation
+    on a channel")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[For range loop on a channel](#For_range_loop_on_a_channel "For range loop
+    on a channel")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Nil channel](#Nil_channel "Nil channel")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Summary table](#Summary_table "Summary table")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Channel is a data type in Go which provides synchrounization and communication
+    between goroutines. They can be thought of as pipes which is used by goroutines
+    to communicate. This communication between goroutines doesn’t require any explicit
+    locks. Locks are internally managed by channel themselves. Channel along with
+    goroutine makes the go programming language concurrent. So we can say that golang
+    has two  concurrency primitives:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Goroutine** – lightweight independent execution to achieve concurrency/parallelism.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Channels** – provides synchronization and communication between goroutines.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Declaring Channels**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Each channel variable can hold data only of a particular type. Go uses special
+    keyword **chan** while declaring a channel. Below is the format for declaring
+    a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This only declares a channel which can hold data of type **<type>** and it creates
+    a nil channel as default value of a channel is nil. Let’s see a program to confirm
+    this.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: To define the channel we can use the inbuilt function **make. **
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: On your machine it might give a different address as output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So what does make do here. A channel is internally represented by a **hchan**
+    struct whose main elements are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: When using **make**, an instance of **hchan** struct is created and all the
+    fields are initialized to their default values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Operations on Channel**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: There are two major operations which can be done on a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: Send
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Receive
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s look at each of it one by one
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Send Operation**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The send operation is used to send data to the channel. Below is the format
+    for sending to a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: where
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**ch** is the channel variable'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**val** is what being sent to the channel'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Note that data type of **val** and data type of channel should match.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Receive Operation**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The receive operation is used to read data from the channel. Below is the format
+    for receiving from  a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: where
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**ch** is the channel variable'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**val** is a variable in which the read data from the channel will be stored.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let's see an example of where we will send data from one goroutine and receive
+    that data in another goroutine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program, we created a channel named **ch** whose data type is **int**
+    which means that it can only transport date of type **int**. Function **send()**
+    and **receive()** are started as a goroutine. We are sending data to the channel
+    **ch** in send() goroutine and receiving data from **ch** in the receive() goroutine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A very important point to note about the receive operation is that a particular
+    value sent to the channel can only be received once in any of the goroutine. 
+    As you can see there are no locks used in the goroutine while sending as well
+    as receiving from the channel. Locks are internally managed by the channels and
+    no explicit lock has to be used in the code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: By default when we create channel with make, it creates a unbuffered channel
+    which essentially means that channel created cannot store any data. So any send
+    on a channel is blocked until there is  another goroutine to receive it. So in
+    the **send()** function, this line will block
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: until in **receive()** function the value is received
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also we have kept a timeout in the main function to allow both send and receive
+    function to complete. If we don't have a timeout in the end of main function,
+    then the program will exit and the two goroutine might not get scheduled.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To illustrate blocking on send lets add a log after we send the value to channel
+    **ch** in the **send()** function and a timeout in the **receive()** function
+    before we receive value from **ch**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: The log
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: will always be before
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try out with changing to different values of timeout in the receive function
+    . You will notice the above order always. This illustrates that send on an unbuffered
+    channel is block until a receive happens on that channel in some other goroutine.
+    The receive on a channel is also blocked unless there is another goroutine to
+    send to that channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To illustrate blocking on receive lets add a log after we receive the value
+    in the recieve() function and a timeout in the send() function before we send
+    value
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program we added a timeout before sending to the channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The log
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: will always be before
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try out with changing to different values of timeout in the send() function
+    . You will notice the above order always. This illustrates that receive on an
+    unbuffered channel is block until a send happens on that channel in some other
+    goroutine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can also receive the value in the main function itself.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: We have seen the example of an unbuffered channel till now. Unbuffered channel
+    does not have any storage hence for an unbuffered channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: Send on a channel is block unless there is other goroutine to receive.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Receive is block until there is other goroutine on the other side to send.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'In Go you can also create a buffered channel. A buffered channel has some capacity
+    to hold data hence for a buffered channel:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Send on a buffer channel only blocks if the buffer is full
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Receive is only block is channel is empty
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is the syntax for creating a buffered channel using the make function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: The second argument specifies the capacity of the channel. Unbuffered channel
+    is of zero capacity .That is why sending is block if there is no receiver and
+    receiving is block if there is no sender for unbuffered channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let's see a program for a buffered channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program we created a buffered channel of length 1 like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: We are sending a value and receiving the same in the main goroutine. This is
+    possible as send to a buffered channel is not blocked if the channel is not full.
+    So below line doesn’t block for a buffered channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: The channel is created with a capacity of one. Hence sending to the channel
+    is not blocked and the value is stored in the channel's buffer. So sending and
+    receiving in the same goroutine is only possible for a buffered channel. Let's
+    see two important points we mentioned above
+  prefs: []
+  type: TYPE_NORMAL
+- en: Send on a channel is blocked when the channel is full
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Receive on a channel is blocked when the channel is empty
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let's see a program for each
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Send on a channel is blocked when the channel is full**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we created a channel of capacity one.  After that, we send
+    one value to the channel and post that we send another value to the channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: The second sent to the channel is blocked the because buffer is full and hence
+    it results in a deadlock situation because the program cannot proceed and that
+    is why as you can see the output is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Receive on a channel is blocked when the channel is empty**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program as well we created a channel of capacity one, after that
+    we send one value to the channel and after that, we receive one value from the
+    channel.  Then we tried a second receive from the channel and it resulted in a
+    deadlock situation because the program cannot proceed as the channel is empty
+    and there is nothing to receive. That is why you can see the output is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: This illustrates that the received is blocked if the channel buffer is empty
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Channel Direction**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: So far we have seen bi-directional channels in which we can both send as well
+    as receive data. It is also possible to create uni-directional channels in golang.
+    A channel can be created to which we can only send data, as well as a channel,
+    can be created from which we can only receive data. This is determined by the
+    direction of the arrow of the channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A channel to which we can only send data.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is the syntax for  such a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: A channel from which we can only send data
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is the syntax for  such a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now the question is, why would you want to create a channel through to which
+    you can only send data or from which we can only receive data.  This comes in
+    handy while passing the channel to a function where we want to restrict the  function
+    too either  send the data or receiver rate
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are many ways in which a channel can be passed as a function argument.
+    The direction of arrow for a channel specifies the direction of flow of data
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**chan**  :bidirectional channel (Both read and write)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**chan <-**  :only writing to channel'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**<- chan**  :only reading from channel (input channel)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Only Send Channel**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Signature of the such a  channel to which only you can send,  will be like below
+    when passed to a function as an argument.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs: []
+  type: TYPE_PRE
+- en: When trying to receive data from such a channel will give below error.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try uncommenting below line in the code to see the above error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE37]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE38]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:** 2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Only Receive Channel**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Signature of the such a  channel from which you can only receive data, will
+    be like below  when passed to a function as an argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE39]'
+  prefs: []
+  type: TYPE_PRE
+- en: When trying to send data to such a channel will give below error.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE40]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try uncommenting below line in the code to see the above error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE41]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE42]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:** 2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Capacity of a channel using cap() function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The capacity of a buffered channel is the number of elements which that channel
+    can hold. Capacity refers to the size of the buffer of the channel. The capacity
+    of the channel can be specified during the creation of the channel while using
+    the make function. The second argument is the capacity
+  prefs: []
+  type: TYPE_NORMAL
+- en: Capacity of unbuffered channel is always zero
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE43]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE44]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we specified the capacity as 3 in the make function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE45]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Length of a channel using len() function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Builtin **len()** function can be used to get the length of a channel. The length
+    of a channel is the number of elements that are already there in the channel.
+    So length actually represents the number of elements queued in the buffer of the
+    channel. Length of a channel is always less than or equal to the capacity of the
+    channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Length of unbuffered channel is always zero
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE46]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE47]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above code, the first created a channel of capacity 3.  After that, we
+    keep sending some value to the channel. As you can notice from your output that
+    after each send operation to the length of channel increases by one as the length
+    denotes the number of items in the buffer of the channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Close operation on a channel**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Close is an inbuilt function that can be used to close a channel. Closing of
+    a channel means that no more data can we send to the channel.  Channel is generally
+    closed when all the data has been sent and there's no more data to be send. Let's
+    see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE48]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE49]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a channel.  Then we called the **sum** function
+    in a goroutine. In the main function, we send 3 values to the channel and after
+    that, we closed the channel indicating that no more values can be sent to the
+    channel. The **sum** function iterates over the channel using the for loop and
+    calculates the sum value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sending on a close channel will cause a panic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: See the program below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE50]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE51]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also closing a already closed channel will cause a panic
+  prefs: []
+  type: TYPE_NORMAL
+- en: While receiving from a  channel we can also use an additional variable to determine
+    if the channel has been closed.  Below is the syntax for the  same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE52]'
+  prefs: []
+  type: TYPE_PRE
+- en: The value of ok will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: True if the channel is not closed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: False if the channel is closed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE53]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE54]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program created a channel of capacity one.  Then we send one value
+    to the channel.  The **ok** variable in the first receive is true since the channel
+    is not closed. The ok variable in the second  receive is  false because the channel
+    is closed
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**For range loop on a channel**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: For range loop can be used to receive data from the channel until it is closed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE55]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE56]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program,  we created a channel.   In the main function the send
+    three values to the channel and after that, we closed the channel. Then we called
+    the sum function and we passed the channel to that function. In the sum function,
+    we did a for range loop over the channel.    After iterating over all the values
+    in the channel the for range loop will exit  since the channel is closed
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now the question which comes to the mind is that what happens if you don't close
+    a channel in the main function.  Try commenting the line in which they are closing
+    the channel. Now run the program.  It will also  output  deadlock because  for
+    range loop will never finish in the sum function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE57]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Nil channel**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The zero value of the channel is nil. Hence only declaring a channel creates
+    a nil channel as default zero value of the channel is nil. Let's see a program
+    to demonstrate that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE58]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE59]'
+  prefs: []
+  type: TYPE_PRE
+- en: Some points to note about nil channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sending to a  nil channel blocks forever
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Receiving from nil channel blocks forever
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Closing a nil channel results in panic
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Summary table**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: So far we have seen 5 operations on a channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Send
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Receive
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Close
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Length
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Capacity
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let's see a summary table which shows the result of each operation on the different
+    types of channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Command** | **Unbuffered Channel****(Not Closed and not nil)** | **Buffered
+    Channel****(Not Closed and not nil)** | **Closed Channel** | **Nil Channel** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Send | Block if there is is no corresponding receiver otherwise success |
+    Block if the channel is full otherwise success | Panic | Block forever |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Receive | Block if there is no corresponding sender otherwise success | Block
+    if the channel is empty otherwise success | Receives the default value of data
+    type from the channel if channel is empty else  receives the actual value | Block
+    forever |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Close | Success | Success | Panic | Panic |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Length | 0 | Number of elements queued in the buffer of the channel | -0
+    if unbuffered channel-Number of elements queued in the buffer if buffered channel
+    | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Capacity | 0 | Size of the buffer of the channel | -0 if unbuffered channel-Size
+    of the buffer if buffered channel | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about channels in golang .Hope you have liked the article. Please
+    share feedback/improvements/mistakes in comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Select Statement](https://golangbyexample.com/select-statement-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Goroutines](https://golangbyexample.com/goroutines-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

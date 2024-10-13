@@ -1,0 +1,88 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:47:08'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Range Sum Array Program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/range-sum-array-golang/](https://golangbyexample.com/range-sum-array-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There is an array of numbers that are given. The objective is to find the range
+    sum in that given array. What does it mean that a range will be given which will
+    have a left index and a right index. And we have to find the sum between the left
+    index and the right index in the given array of numbers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Seem simple right. Just iterate from the left index to the right index in the
+    given array and return the sum. But here is the catch. Allowed TC is O(1)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here is the approach we can follow so that we are able to return the answer
+    in O(1) time complexity
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pre compute another sum_array from the given array of numbers
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: sum_array[i] = sum of numbers from the 0 index to the ith  index.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For a given range with left index and right index  simply return sum_array[left-1]
+    – sum_array[right]. Of course, we need to validate that left-1 is greater than
+    or equal to zero.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

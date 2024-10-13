@@ -1,0 +1,1 @@
+["```\nfunc some_func_name(arguments) return_values\n```", "```\nfunc (receiver receiver_type) some_func_name(arguments) return_values\n```"]

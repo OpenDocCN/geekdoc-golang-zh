@@ -1,0 +1,133 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:18:55'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Print an array or slice elements in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/print-an-array-or-slice-elements-golang/](https://golangbyexample.com/print-an-array-or-slice-elements-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Print a Slice](#Print_a_Slice "Print a Slice")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Print a Array](#Print_a_Array "Print a Array")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The way we print an array or slice is same. Let’s look at both one by one
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Print a Slice**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Print slice elements together**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using
+  prefs: []
+  type: TYPE_NORMAL
+- en: fmt.Println and
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: fmt.Printf
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Print individual slice elements**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using
+  prefs: []
+  type: TYPE_NORMAL
+- en: for-range loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Print a Array**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Print array elements together**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using
+  prefs: []
+  type: TYPE_NORMAL
+- en: fmt.Println and
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: fmt.Printf
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Print individual array elements**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using
+  prefs: []
+  type: TYPE_NORMAL
+- en: for-range loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[array](https://golangbyexample.com/tag/array/)*   [slice](https://golangbyexample.com/tag/slice/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

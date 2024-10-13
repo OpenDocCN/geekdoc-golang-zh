@@ -1,0 +1,77 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:52:30'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Convert an IOTA or Enum to a string in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/convert-an-iota-or-enum-to-a-string-in-go-golang/](https://golangbyexample.com/convert-an-iota-or-enum-to-a-string-in-go-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# Overview'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Enum in Golang can be created by using IOTA. Please refer to this post to learn
+    more about IOTA
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[IOTA in Go (Golang)](https://golangbyexample.com/iota-in-golang/)'
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '[https://golangbyexample.com/iota-in-golang/embed/#?secret=0FEJ5OZNxf#?secret=4y3pVxudgT](https://golangbyexample.com/iota-in-golang/embed/#?secret=0FEJ5OZNxf#?secret=4y3pVxudgT)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this post, we will see how to convert an IOTA or enum to a string value.
+    By default when you will print an IOTA or enum value it will print the integer
+    part of it. See this example. Later we will see an example of we can define a
+    custom **toString** method to print the string value of IOTA or enum
+  prefs: []
+  type: TYPE_NORMAL
+- en: Example
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can also define a method **toString** on Size type to print the exact value
+    of enum . See below program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: We will now define a **toString** method for the **Size** type. It can be used
+    to the print the string value of the constant of Size type.*
+  prefs: []
+  type: TYPE_NORMAL

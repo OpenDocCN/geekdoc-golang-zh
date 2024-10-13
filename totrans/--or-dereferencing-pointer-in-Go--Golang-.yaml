@@ -1,0 +1,94 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:28:55'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: '* or dereferencing pointer in Go (Golang)'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/dereferencing-pointer-golang/](https://golangbyexample.com/dereferencing-pointer-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '***** operator can be used to:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Dereference a pointer which means getting the value at the address stored in
+    the pointer.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Change the value at that pointer location as well
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both **a** and ***b** refer to the same variable internally.  Hence the changing
+    the value of one reflects in another. Also, ***** and **&** can be used together
+    as well. But they will cancel out each other.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Hence below two are equivalent and will print 2
+  prefs: []
+  type: TYPE_NORMAL
+- en: a
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*&a'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also below three are equivalent and will print the address of variable a which
+    is stored in b variable
+  prefs: []
+  type: TYPE_NORMAL
+- en: b
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*&b'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '&*b'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Note:  *a is not a valid operation as a is not a pointer
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

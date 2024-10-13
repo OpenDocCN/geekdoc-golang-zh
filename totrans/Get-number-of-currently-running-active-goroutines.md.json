@@ -1,0 +1,1 @@
+["```\nfunc NumGoroutine() int\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"runtime\"\n    \"time\"\n)\n\nfunc main() {\n    for i := 0; i < 20; i++ {\n        go execute()\n    }\n    fmt.Println(runtime.NumGoroutine())\n}\n\nfunc execute() {\n    time.Sleep(time.Second * 10)\n}\n```", "```\n21\n```"]

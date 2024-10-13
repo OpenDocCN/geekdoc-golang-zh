@@ -1,0 +1,115 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:51:34'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Is Graph Bipartite Program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/graph-bipartite-golang/](https://golangbyexample.com/graph-bipartite-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An undirected graph is given. A  graph is said to be bipartite if the nodes
+    of the graph can be partitioned into two subsets such that every edge connects
+    one node in the first subset to some other node in the second subset.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The graph contains n nodes numbered from **0** to **n-1**. Input is a matrix
+    named **graph** which is a 2D  matrix where graph[i] contains the node to which
+    **ith** node is connected. For eg if
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**graph[0] = [1,3]**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: this means **node 0** is connected to **node 1** and **node 3**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example 1**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/8b4e0e594249c6a7b6637fa47baf728d.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example 2**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/77e0b7968865633eddb6ee990215089a.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Idea is to use DFS  here. We will try to assign either red or black color to
+    each of the nodes. If a node is colored red then its neighbors must be colored
+    black.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We are able to color  in this  way then the graph is bipartite
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If while coloring we  find  that two nodes connected by  an edge have the same
+    color then the graph is not bipartite
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**[Output:](http://Output:)**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you - [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our system design tutorial series here - [System Design Tutorial
+    Series](https://techbyexample.com/system-design-questions/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,44 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:13:32'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reverse a string in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/reverse-a-string-in-golang/](https://golangbyexample.com/reverse-a-string-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: In Golang string is a sequence of bytes. A string literal actually represents
+    a UTF-8 sequence of bytes. In UTF-8, ASCII characters are single-byte corresponding
+    to the first 128 Unicode characters. All other characters are between 1 -4 bytes.
+    Due to this, it is not possible to index a character in a string.  In GO, rune
+    data type represents a Unicode point.  Once a string is converted to an array
+    of rune then it is possible to index a character in that array of **rune**. You
+    can learn more about rune here – [https://golangbyexample.com/understanding-rune-in-golang](https://golangbyexample.com/understanding-rune-in-golang)
+  prefs: []
+  type: TYPE_NORMAL
+- en: For this reason in the below program for reverse a string,  we are first converting
+    a string into a rune array so that we can index the rune array to get the individual
+    characters. Once we have the individual characters, we can keep appending it to
+    a new string starting from the end to start.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE

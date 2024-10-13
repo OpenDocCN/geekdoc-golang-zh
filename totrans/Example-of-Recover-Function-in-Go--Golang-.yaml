@@ -1,0 +1,136 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:26:37'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Example of Recover Function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/recover-example-go/](https://golangbyexample.com/recover-example-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go provides a built-in function **recover** for recovering from a panic. Below
+    is the signature of this function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**defer** function is the only function that is called after the **panic**.
+    So it makes sense to put the **recover** function in the **defer** function only.
+    If the **recover** function is not within the defer function then it will not
+    stop **panic**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an example of recover
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have a function **checkAndPrint** which checks and prints
+    slice element at an index passed in the argument. If the index passed is greater
+    than the length of the array then the program panics.  We have added a defer function
+    named **handleOutIfBounds** as well at the start of the function **checkAndPrint**. 
+     This function  contains  the  call to recover function as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **recover** function will catch the panic and we can also print the message
+    from the panic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: After the recover function the program continues and the control returns to
+    the called function which is  **main** here. That is why we get output as
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: The recover function  returns the value which was passed to the panic function.
+    Therefore it is a good practice to check the return value of the recover function.
+    If the return value is non nil then panic did not happen and recover function
+    was not called with the panic. That is why we have below code in the  defer function
+    **handleOutofBounds**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here if **r** is nil then panic did not happened. So if there is no panic then
+    call to recover will return nil
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note that if the defer function and recover function is not called from the
+    panicking function then it that case also panic can be recovered in the called
+    function as well. Infact it is possible to recover from panic subsequently up
+    in the chain of call stack.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example of this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above program is quite same as previous program other than we have a additional
+    function **checkAndPrintWithRecover** which contains the call to
+  prefs: []
+  type: TYPE_NORMAL
+- en: defer function with recover which is **handleOutOfBounds**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: calls **checkAndPrint** function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**So basically **checkAndPrint** function raises the panic but doesn’t have
+    the recover function instead call to recover lies in the **checkAndPrintWithRecover**
+    function. But still the program is able to recover from panic  as panic can also
+    be recovered in the called function also and subsequently in the chain as well**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)***'
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,1 @@
+["```\ngo mod init learn\n```", "```\npackage main\n\nimport (\n\t\"fmt\"\n\t\"learn/math\"\n)\n\nfunc main() {\n\tfmt.Println(math.Add(1, 2))\n}\n```", "```\npackage math\n\nfunc Add(a, b int) int {\n    return a + b\n}\n```", "```\n\"learn/math\"\n```"]

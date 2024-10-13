@@ -1,0 +1,316 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:18:07'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understand If Else Statement in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/understand-if-else-statement-golang/](https://golangbyexample.com/understand-if-else-statement-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 12 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Switch](https://golangbyexample.com/switch-statement-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [For Range loop](https://golangbyexample.com/understand-for-range-loop-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Overview**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Go has if-else statement similar to any other programming language to perform
+    the basic conditional logic. Below is the format for if-else statement in golang
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Before we move further let’s talk about the **condition** first. Only a statement
+    or a combination of statements that result in a boolean are allowed for a condition
+    in if. false boolean is treated as false in a condition in go and true boolean
+    is treated as true. As mentioned above, the condition can be composed of multiple
+    statements combined by operators in Go such as &&, ||, >, <, >=, <=, ! etc.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s look into the if-else statement in detail to understand the small
+    things. Go supports below formats for the if-else statement
+  prefs: []
+  type: TYPE_NORMAL
+- en: Only if
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If Else
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If Else Ladder
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Nested if-else
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If with a short statement
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**If statement**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: if statement alone has below format
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: If the condition is true then the statement inside the braces is executed. 
+    Some points to note about if statement
+  prefs: []
+  type: TYPE_NORMAL
+- en: Brackets can be omitted around the condition.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Opening and closing braces after condition are mandatory
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a working example. Below program checks if a number is greater than
+    5.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see another example of multiple statement in a if condition. Below is
+    a program to check if a number lies in a particular range. Notice that multiple
+    statement in the condition are joined by the && operator.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**If Else Statement**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: If Else statement has below format
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: If the condition is true then the statement inside the if block is executed
+    otherwise the statement inside the else block is executed. Some points to note
+    about if-else statement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The else keyword should be on the same line as the closing brace for it. If
+    not there will be below compiler error.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let's see a small example of if else statement. In below program we use if else
+    statement to figure out the max number of 2 numbers
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**If Else Ladder**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: If Else ladder has the below format
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Some points to note about this if else ladder
+  prefs: []
+  type: TYPE_NORMAL
+- en: Any number of else if statement can be added in the middle
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: else if should lie on the same line as the previous closing brace
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is a working code example. The code given an age is using a if else ladder
+    to find out weather a person is "Kid", "Young" or "Old".
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Nested If Else**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below are some one of the possible format for nested if else.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Only nested if
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Nested if else
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below combination is also possible for nested if else
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let's see a working example of nested if else. In below program we print the
+    max of three numbers using nested if else.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**If with short statement**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: If statement also supports a statement before the condition. This statement
+    will be executed before the condition. There can also be new initialized variable
+    in the statement. Below is the format for that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: The initialization if present in the statement will be a short declaration.
+    Notice that var keyword is not supported in the statement. Let's see a working
+    example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: The variable that is initialized in if statement is available inside all the
+    branches. As in below example variable **a** is also available in the else block.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**If Conditions**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: We mentioned at the start that only boolean values or statement that result
+    in boolean value are allowed in the if condition. Let's see a working code of
+    the error that comes in case of using any else than boolean
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:** Below compiler error is raised'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Ternary Operator**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: There is no ternary operator in Go, hence you need to use if else statements
+    in place of that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: That is all about if else statement in go. Hope you have liked this article.
+    Please share feedback/improvements/mistakes in comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Switch](https://golangbyexample.com/switch-statement-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [For Range loop](https://golangbyexample.com/understand-for-range-loop-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[complete](https://golangbyexample.com/tag/complete/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [guide](https://golangbyexample.com/tag/guide/)*   [understand](https://golangbyexample.com/tag/understand/)*   [using](https://golangbyexample.com/tag/using/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

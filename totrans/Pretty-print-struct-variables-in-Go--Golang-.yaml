@@ -1,0 +1,225 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:19:29'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pretty print struct variables in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/print-struct-variables-golang/](https://golangbyexample.com/print-struct-variables-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Note:** If you are interested in learning Golang, then for that we have a
+    golang comprehensive tutorial series. Do check it out – [Golang Comprehensive
+    Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/).
+    Now let’s see the current tutorial. Below is the table of contents.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Using the fmt package](#Using_the_fmt_package "Using the fmt package")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Printing the struct in JSON form](#Printing_the_struct_in_JSON_form "Printing
+    the struct in JSON form")*  *# Overview'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Thereare two ways to print all struct variables including all its key and values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the **fmt** package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Printing the struct in JSON form using the **json/encoding** package. This also
+    allows pretty print of a struct as well.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Let’s say we have an employee struct as below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see the two ways in which we can print the instance of the employee struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using the fmt package**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**fmt.Printf()** function can be used to print a struct.  Different format
+    identifiers can be used to print a struct in different ways. Let’s see how different
+    format identifiers can be used to print a struct in different formats.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s first create an instance of employee
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**%v** – It will print only values. Field name will not be printed. This is
+    the default way of printing a struct. Eg'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**%+v –** It will print both field and value. Eg'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '%#v – It will print the struct name, also both field and value. Eg'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**fmt.Println()** function can also be used to print a struct. Since %v is
+    the default for **fmt.Printlin()** function, hence output will be same as using
+    %v for **fmt.Printf()**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a working program too
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Printing the struct in JSON form**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Second method is to print the struct in the JSON format. **Marshal** and **MarshalIndent**
+    function of **encoding/json** package can be used to print a struct in JSON format.
+    Here is the difference
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Marshal** – Below is the signature of the **Marshal** function. This function
+    returns the JSON encoding of **v** by traversing the value recursively'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**MarshalIndent**– Below is the signature of the **MarshalIndent** function.
+    It is similar to **Marshal** function but applies Indent to format the output.
+    So it can be used to pretty print a struct'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is to be noted that both **Marshal** and **MarshalIndent** function can only
+    access the exported fields of a struct, which means that only the capitalized
+    fields can be accessed and encoded in JSON form.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: The salary field is not printed in the output because it begins with a lowercase
+    letter and is not exported. The **Marshal** function output is not formatted while
+    the **MarshalIndent** function output is formatted.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**golang** also allows the JSON encoded struct key name to be different by
+    the use of struct meta fields. Let’s first understand what is struct meta fields.
+    A struct in go also allows adding metadata to its fields. These meta fields can
+    be used to encode decode into different forms, doing some forms of validations
+    on struct fields, etc. So basically any meta information can be stored with fields
+    of a struct and can be used by any package or library for different purposes.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format for attaching a meta-data. Meta-data is a string literal
+    i.e it is enclosed in backquotes
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now for our use case, we will add JSON tags to employee struct as below. Marshal
+    function will use the key name specified in the tags
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see full program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: The key name in the output is the same as specified in the JSON meta tags.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Printing nested struct**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Even if the struct contains another struct , same method as discussed above
+    can be used to print the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is all about printing a struct. I hope you have liked this article. Please
+    share the feedback in the comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [pretty](https://golangbyexample.com/tag/pretty/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

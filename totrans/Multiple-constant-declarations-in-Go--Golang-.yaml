@@ -1,0 +1,139 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:28:14'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Multiple constant declarations in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/multiple-constant-declarations-go/](https://golangbyexample.com/multiple-constant-declarations-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Declaring multiple const together with different value and type](#Declaring_multiple_const_together_with_different_value_and_type
+    "Declaring multiple const together with different value and type")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Declaring multiple const together with same value and type](#Declaring_multiple_const_together_with_same_value_and_type
+    "Declaring multiple const together with same value and type")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Combining above two](#Combining_above_two "Combining above two")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Multiple declaration in single line](#Multiple_declaration_in_single_line
+    "Multiple declaration in single line")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below are some of the ways of declaring multiple constant together
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Declaring multiple const together with different value and type**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The declaration can be typed or untyped. Refer to this article to understand
+    the difference between typed and untyped constant – [https://golangbyexample.com/typed-untyped-constant-golang/](https://golangbyexample.com/typed-untyped-constant-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: a is a untyped declaration. It will be of **string** type with value **“circle”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: b is also a untyped declaration. It will be of **int** type with value **1**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: c is a typed declaration. It will be of **float64** type with value as 4.65
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Declaring multiple const together with same value and type**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: When constant type and value is not provided, then it gets its type and value
+    from previous declaration
+  prefs: []
+  type: TYPE_NORMAL
+- en: a will be of **string** type with value **“circle”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: b will be of type **string** and value will be **“circle”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Combining above two**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: a will be of **string** type with value **“circle”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: b will be of type **string** and value will be **“circle”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: c will be of **int** type with value **1**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Multiple declaration in single line**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Declaration again can be typed or untyped
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**a** will be of **int** type with value **1**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**b** will be of **int** type with value **2**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**c** will be of **int** type with value **3**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**d** will be of **int** type with value **4**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

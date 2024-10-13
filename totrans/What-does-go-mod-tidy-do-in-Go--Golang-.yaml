@@ -1,0 +1,143 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:29:36'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: What does go mod tidy do in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-mod-tidy/](https://golangbyexample.com/go-mod-tidy/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This command will basically match the **go.mod** file with the dependencies
+    required in the source files.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Download all the dependencies that are required in your source files and update
+    **go.mod** file with that dependency.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Remove all dependencies from the go.mod file which are not required in the source
+    files.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is the usage format for the command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: With **-v** flag, go mod tidy will print information of all the unused modules
+    removed from **go.mod** file if any
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an an example. Create a module with import path as “**learn**“
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command will create a **go.mod** file in the same directory. Since it is
+    an empty module it doesn’t have any direct dependency specified yet. Let’s create
+    a file named **uuid.go** in the same directory with the below contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**uuid.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that we have imported the dependency in the uuid.go as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run the below command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command will download all the dependencies that are required in your source
+    files and update **go.mod** file with that dependency. After running this command
+    let’s now let’s again examine the contents of **go.mod** file
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do a cat **go.mod**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: It lists direct dependency which was specified in the uuid file along with exact
+    version of the dependency as well. Now let’s check the **go.sum** file as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do a **cat go.sum**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now let’s see one more example where **go mod tidy** will remove the dependency
+    from **go.mod** file if it is not required in the source files. To illustrate
+    this let’s remove the **uuid.go** file that we created above. Now run the command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will give below output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now examine the contents of **go.mod** file. It will be as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: The
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: line will be removed as it is not required in any of the source files. Also
+    all entries of **[github.com](http://github.com)/pborman/uuid** and its depedencies
+    will be removed from the **go.sum** file as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

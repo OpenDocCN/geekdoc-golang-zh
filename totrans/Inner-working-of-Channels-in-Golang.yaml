@@ -1,0 +1,287 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:05:13'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inner working of Channels in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/inner-working-of-channels-in-golang/](https://golangbyexample.com/inner-working-of-channels-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Introduction**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'The purpose of this article is to give an idea of the inner working of channels.
+    Golang has two  concurrency primitives:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Goroutine** – lightweight independent execution to achieve concurrency/parallelism.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Channels** – provides synchronization and communication between goroutines.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Channels are goroutine safe and manage communication between goroutine in a
+    FIFO way. A goroutine can block on a channel while doing send or receive of some
+    data and it is the responsibility of the channel to wake up blocked goroutine
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Types of Channels**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Buffered Channel**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Send on a buffer channel only blocks if the buffer is full.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Receive is blocked if the channel is empty.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Unbuffered Channel**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Send on a channel is block unless there is another goroutine to receive.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Receive is block until there is another goroutine on the other side to send.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**HCHAN struct**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'Let’s understand what happens internally when you make channels. A channel
+    is internally represented by a **hchan** struct whose main elements are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The struct **sudog** main elements are represented as below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s understand what happens during send and receive of a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Send on a channel**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**No receiver/receivers waitin**g: Unbuffered Channel or the Buffer is Full
+    in case of Buffered Channel.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Receiver/receivers waiting**: Unbuffered Channel or the Buffer is empty in
+    case of Buffered Channel'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Buffer empty**: In case of buffered channel'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Channel closed**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**1\. No Receiver/Receivers Waiting:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: For below two scenarios the behavior will be the same when there are no receivers
+    waiting.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Buffered Channel: Buffer is Full'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Unbuffered Channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The goroutine **G1** which is trying to send to the channel, its execution is
+    paused and is resumed only after a receive. Let’s see how that happens.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It creates a **sudog** object with **g** i.e, goroutine as itself and **elem**
+    pointing to the data it wants to put into the buffer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It then adds that sudog struct to the sending queue sendq .
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The goroutine calls “GOPARK” to the Go RunTime. In response, the Go RunTime
+    changes the status of that G1 to WAITING.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**2\. Receivers waiting**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: For below two scenarios the behavior will be the same when there are receivers
+    waiting
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Buffered Channel: Buffer is Empty'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Unbuffered Channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see how that happens.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The goroutine G1 dequeues from the **receq** and then pass the data directly
+    to the receiver goroutine.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Set the status of the receiver goroutine to **RUNNABLE**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**3\. Buffer not full:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Only applicable for buffered channels: Buffer has at least one empty space'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Writes the data to the buffer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**4\. Channel closed:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Panics
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Receive From a channel**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**No sender/senders waiting:** Unbuffered Channel or buffer is empty in case
+    of Buffered Channel'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Sender/senders waiting:** Unbuffered Channel or the Buffer is empty in case
+    of Buffered Channel.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Non-empty Buffer:** In case of buffered channel. Channel has at least 1 item.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Channel closed**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**1\. No sender/senders waiting:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: For below two scenarios, the behavior will be the same when there are no receivers
+    waiting.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Buffered Channel: Buffer is Empty'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Unbuffered Channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The goroutine G1 which is trying to receive, its execution is paused and is
+    resumed only after a send. Let’s see how that happens.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The goroutine creates a **sudog** object with goroutine as itself and element
+    being empty
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It then adds that **sudog** struct to the waiting sending queue recvq **.**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The gorutine calls “GOPARK” to the Go RunTime. In response, the Go RunTime changes
+    the status of that Goroutine to **WAITING**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**2\. Sender/Senders waiting:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: It dequeues the element from the buffer and copies to it to itself
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Dequeues from the **sendq** and then copy the data directly to the buffer.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Set the status of the sender goroutine to **RUNNABLE**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**3\. Non-Empty Buffer:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Only applicable for buffered channels:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The goroutine reads the data from the buffer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**4\. Channel closed:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Receives the default value of data type from the channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[sidetoc](https://golangbyexample.com/tag/sidetoc/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

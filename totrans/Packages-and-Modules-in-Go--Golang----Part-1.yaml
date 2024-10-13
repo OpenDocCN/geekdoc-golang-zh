@@ -1,0 +1,1535 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:30:26'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Packages and Modules in Go (Golang) – Part 1
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/packages-modules-go-first/](https://golangbyexample.com/packages-modules-go-first/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the chapter 4 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Packages and Modules – Part 2](https://golangbyexample.com/packages-modules-go-second/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Set up GO Workspace and Hello World Program](https://golangbyexample.com/workspace-hello-world-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    the current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Modules](#Modules "Modules")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Before Modules World](#Before_Modules_World "Before Modules World")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Pre Go version 1.11](#Pre_Go_version_111 "Pre Go version 1.11")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[In Go version 1.11](#In_Go_version_111 "In Go version 1.11")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[After Go Version 1.13](#After_Go_Version_113 "After Go Version 1.13")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Understanding Package and Also Creating a module](#Understanding_Package_and_Also_Creating_a_module
+    "Understanding Package and Also Creating a module")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creating an application before Module](#Creating_an_application_before_Module
+    "Creating an application before Module")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Exported vs Unexported Names](#Exported_vs_Unexported_Names "Exported vs Unexported
+    Names")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Nested Packages](#Nested_Packages "Nested Packages")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Aliasing in importing packages](#Aliasing_in_importing_packages "Aliasing
+    in importing packages")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Init Functions](#Init_Functions "Init Functions")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Order of execution of a Go program](#Order_of_execution_of_a_Go_program "Order
+    of execution of a Go program")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Blank Identifier in import](#Blank_Identifier_in_import "Blank Identifier
+    in import")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Package Naming Convention](#Package_Naming_Convention "Package Naming Convention")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Package is a way of code reusability in GO. As the name suggests, it is a way
+    of grouping related code. Go modules is a way of dealing with dependencies in
+    golang.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Every GO source file (.go file) in a GO application file belongs to a package.
+    That is why every **.go** file starts with.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above is called **Package Declaration**. Please note this term as this will
+    be used throughout this tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: All .go files present in the same directory will belong to the same package.
+    A great misconception around packages is that package is the name of the directory
+    which contains .go files. That is not correct. A directory is just a directory
+    and the name of the package is what is present in **Package Declaration**. Then
+    what is the importance of the directory name? It will be explained in the tutorial
+    as we go along.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Package can be of two types.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Executable package** – Only **main** is the executable package in GoLang.
+    A .go file might belong to the main package present within a specific directory.
+    We will see later how the directory name or the **.go** file name matters.  The
+    main package will contain a main function that denotes the start of a program.
+    On installing the main package it will create an executable in the **$GOBIN**
+    directory.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Utility package**– Any package other than the main package is a utility package.
+    It is not self-executable. It just contains the utility function and other utility
+    things that can be utilized by an executable package.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Modules**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Module is go support for dependency management. A module by definition is a
+    collection of related packages with **go.mod** at its root.  The **go.mod** file
+    defines the
+  prefs: []
+  type: TYPE_NORMAL
+- en: Module import path.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Dependency requirements of the module for a successful build. It defines both
+    project’s dependencies requirement and also locks them to their correct version
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Consider a module as a directory containing a collection of packages. The packages
+    can be nested as well. Modules provide
+  prefs: []
+  type: TYPE_NORMAL
+- en: Dependency Management
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With modules go project doesn’t necessarily have to lie in the **$GOPATH/sr**c
+    folder.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also in addition to **go.mod** file go also keeps a **go.sum** file which contains
+    the cryptographic hash of bits of all project’s dependent modules. This to make
+    validate that your project’s dependent modules are not changed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Before Modules World**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Modules were introduced in go in version 1.11\. Let’s see version wise changes
+    to fully understand what was the limitations earlier and what has changed since
+    modules
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pre Go version 1.11 – Modules did not exist at all
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go Version 1.11 – Modules was introduced but not finalized
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go Version 1.13 – Modules was introduced
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Pre Go version 1.11**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Before modules go only had packages. $GOPATH location would have three directories
+  prefs: []
+  type: TYPE_NORMAL
+- en: src
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: pkg
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: bin
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: These were the problems which existed before the modules era
+  prefs: []
+  type: TYPE_NORMAL
+- en: All Go project in **$GOPATH/src** directory
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: No native dependency management support
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All the dependency will be downloaded in the **$GOPATH/src**  directory without
+    versioning
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Let’s look at each problem one by one:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Any GO project has to be inside the **$GOPATH/src** directory
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This was a big limitation in terms of that it restricted where you can keep
+    your project.
+  prefs: []
+  type: TYPE_NORMAL
+- en: No native dependency management support
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also, one issue before modules was that there was no way to specify a dependency
+    in a project. Alternate solutions such as dep, glide were available but a native
+    solution was missing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: All the dependency will be downloaded in the $GOPATH/src  directory without
+    versioning
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When we do a go get it will download the required package in the $GOPATH/src
+    directory.  So before go version 1.11, below go get command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will download the package at the location
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice one thing about the go get command above that no version was specified.
+    Hence it downloads the latest version present. Also, notice the downloaded package.
+    Even it doesn’t list down any versioning info. Now, this is a problem. What if
+    there is an update in the  **[github.com](http://github.com)/pborman/uuid** package
+    and you want to get that update. Since there is no versioning the updated package
+    will get downloaded at the same location replacing the older one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**In Go version 1.11**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In Go 1.11\. modules were introduced but not finalized. So if you still using
+    it then better to switch to the latest version
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**After Go Version 1.13**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We already discussed all the problems which existed before the pre-modules era.
+    Now let’s see how each of these problems got resolved with the introduction of
+    modules.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first problem was
+  prefs: []
+  type: TYPE_NORMAL
+- en: All Go project in **$GOPATH/src** directory
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With modules, this is no longer a requirement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: No native dependency management support
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Modules introduced native dependency management within go. With modules, it
+    provides two new files which are
+  prefs: []
+  type: TYPE_NORMAL
+- en: go.mod
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: go.sum
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: With **go.mod** and **go.sum** files we are able to install a precise version
+    of a dependency without breaking anything. We already gave a brief introduction
+    to these files at the beginning of this tutorial. Later in the tutorial, we will
+    look at it in detail
+  prefs: []
+  type: TYPE_NORMAL
+- en: All the dependency will be downloaded in the **$GOPATH/pkg/mod**  directory
+    with versioning
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So if you download a different version of the same library then both will be
+    downloaded in a different directory inside **$GOPATH/pkg/mod** without overriding
+    each other.  **$GOPATH/pkg/mod**  will have two things inside it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**cache** – This is the folder where all dependencies will get downloaded along
+    with the zipped code'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Zipped code of all downloaded dependencies will get copied over from the cache
+    directory.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Also, there is a new env introduced named **GO111MODULE**
+  prefs: []
+  type: TYPE_NORMAL
+- en: When **GO111MODULE=off**, then go get will behave in the old way where it will
+    download the dependency in the $GOPATH/src folder.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When **GO111MODULE=on**, then go get will behave in a new way and all the modules
+    will get downloaded in the **$GOPATH/pkg/mod/cache** folder with versioning.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When **GO111MODULE=auto**, then
+  prefs: []
+  type: TYPE_NORMAL
+- en: When running go get outside the $GOPATH/src folder, then will behave as if it
+    is GO111MODULE=on
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When running go get inside the $GOPATH/src folder, then will behave as if it
+    is GO111MODULE=off
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s now create a module. Whatever we discussed will be more clear then
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Understanding Package and Also Creating a module**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The below command can be used to create a module.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see **go.mod** and **go.sum** file again that we had discussed earlier
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is the module dependency file. It will have three things
+  prefs: []
+  type: TYPE_NORMAL
+- en: Import path of the module at the top
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The version of go with which the module is created
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Direct dependencies of the module.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**go.sum**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This file lists down the checksum of direct and indirect dependency required
+    along with the version. It is to be mentioned that **go.mo**d file is enough for
+    a successful build. The checksum present in **go.sum** file is used to validate
+    the checksum of each direct and indirect dependency.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now the question is what is **import_path**.  **import_path** is the prefix
+    path that will be used by any other module to import your module. We will learn
+    more about the import path in the second part of the tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go to any directory outside $GOPATH/src folder. Let’s say the directory name
+    is **learn**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s say the module import path is **sample.com/learn**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command will create a **go.mod** file in the same directory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s examine the contents of this file. Do a cat **go.mod**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: When the module is first created using the init command, go.mod file will have
+    two things only
+  prefs: []
+  type: TYPE_NORMAL
+- en: Import path of the module at the top
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Version of go with which the module was created
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Since it is an empty module it doesn’t have any direct dependency specified
+    yet. Let’s create a file named **main.go** in the same directory with below contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice the package declaration in above file
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: This means that above source file belongs to the **main** package. Also Notice
+    that we have imported the dependency in the **main.go** as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Since **main.go** file belongs to main package, hence we can create an executable.
+    The executable is always built with the last name in the import path of the module
+    which contains the main package. while running the go install command. In our
+    case the import path of the module is sample.com/learn and the last name in the
+    import path is learn. Hence executable will be created with name learn when running
+    go install.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Any of three command can be used to create the executable
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**‘go install learn’**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**‘go install’**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**‘go install .’**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The name of the directory would not matter here. The name of the executable
+    will always be the same as the name of the module.  All the above commands will
+    create an executable name **learn** in the **$GOBIN** directory. If the **$GOBIN**
+    directory is in your path then you can directory run the executable
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also go install command will download all the dependencies that are required
+    in your source files and update **go.mod** file with that dependency.
+  prefs: []
+  type: TYPE_NORMAL
+- en: After running this command let’s now let’s again examine the contents of **go.mod**
+    file
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do a cat **go.mod**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: It lists direct dependency which was specified in the **main.go** file along
+    with exact version of the dependency as well. Now let’s check the **go.sum** file
+    as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do a cat **go.sum**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**go.sum** file lists down the checksum of direct and indirect dependency required
+    by the module.  [github.com](http://github.com)/google/uuid is internally used
+    by the [github.com](http://github.com)/pborman/uuid . It is an indirect dependency
+    of the module and hence it is recorded in the **go.sum** file. Both the direct
+    dependency as well as the indirect dependency will be downloaded in the $GOAPTH/pkg/mod/cache
+    folder with versioning.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can also run the executable directly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Note: **$GOBIN** directly needs to be in your path for above command to run.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above way we added a dependency in the source file and when we run go install
+    it downloaded that dependency and added it in the go.mod file.  Also the executable
+    got created in the **$GOBIN** directory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now couple of points to notice
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name of the directory is **learn**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Name of the directory which contains the **go.mod** file doesn’t matter. You
+    can try changing name to anything. It will always create the executable with the
+    same name as last part in module import path.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Import path of the module is **sample.com/learn**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The executable is always created with the name of the last part in the module
+    import path which is **learn** here. How does import path matter we will learn
+    in the second part of the tutorial. For now, just understand that the module import
+    path is used to import that module into another module. Also if the module import
+    path is just one name then executable will be created with that name only. For
+    example, it is possible that the module import path would only have been just
+    **learn.** In this case, too executable would have been created with name learn
+    only. So for the below module import paths executable name would be **learn**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Name of file is **main.go**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The name of the file won’t matter here when running ‘go install’. You can try
+    changing the file from main.go to test.go. After doing that run the above commands
+    again. It will create an executable with the module name which is **learn** and
+    nothing changes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name of package in learn module is **main**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The name of the package does matter. If go install sees a main package in the
+    directory, it will create an executable in the **$GOBIN** directory. The name
+    of the executable will be the same as the last name in the module import path.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'What we learnt so far:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Only **main** package is executable.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The name of the directory containing the module doesn’t play any role in the
+    name of the executable.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: On running **‘go install**‘ it creates the binary with the name as the last
+    part of the module import that contains the .go file belonging to the main package.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The name of the file doesn’t matter when running go install. You can have any
+    name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s also see the same example before modules to understand the benefits offered
+    with the introduction of the module.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creating an application before Module**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Before module all your code should lie in the **$GOPATH/src** folder. Let’s
+    create a directory **learn** inside **$GOPATH/src** directory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**$GOPATH/src/learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: Run
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: Before modules the executable is always build with the name of the directory
+    which contains the **main** package while running the go install command. In our
+    case the name of directory is **learn**
+  prefs: []
+  type: TYPE_NORMAL
+- en: All the above commands will create an executable name **learn** in the $GOBIN
+    directory. If the $GOBIN directory is in your path then you can directory run
+    the executable
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see the limitations before modules
+  prefs: []
+  type: TYPE_NORMAL
+- en: All code needs to reside in the **$GOPATH/src/** folder
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When you do a go install, it will download both direct and indirect dependency
+    in the **$GOPATH/src** folder without any versioning information.  You can check
+    your  **$GOPATH/src** folder. It would have downloaded the **“github.com/pborman/uuid”**
+    dependency without any versioning
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There is no way to define the dependency version within code. A simple go get
+    will download the latest version of the dependency and save it at location **$GOPATH/src**
+    overriding the previous version if already present.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Modules solve all this problem as we have seen in the first example. Now we
+    have understood the basics of packages and modules and what advantages do modules
+    provide. Let’s now focus only on understanding the package more in detail here
+    in this tutorial. We will focus more on modules in the second part of this tutorial-
+    modules. Here is the link for second part – [https://golangbyexample.com/packages-modules-go-second](https://golangbyexample.com/packages-modules-go-second)/
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s now add another file belonging to the main package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**learn/subtract.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try running the go install command again. It will create an executable with
+    name **learn** in the **$GOBIN** directory. Try running this executable ,It will
+    give below output. Also notice function **main** in **main.go** is able to call
+    the function **subtract** in **subtract.go**. It is possible because both **main**
+    and **subtract** belong to same package main.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: So basically
+  prefs: []
+  type: TYPE_NORMAL
+- en: Within the same package, all variables, functions, constants are accessible
+    between different .go files belonging to the package.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All **.go** files present in the same directory will belong to the same package.
+    This is true for all directory containing packages. It doesn’t matter whether
+    that directory contains the **go.mod** file or not.   Let’s validate that. Change
+    the package declaration to
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/subtract.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice the **Package Declaration.** It is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s try running the **go install** command. It will give error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above error means that directory **learn** contains two files **subtract.go**
+    and **main.go** belonging to two different packages named **subtract** and **main**
+    respectively.  GO source files belonging to different packages with in the same
+    directory is not allowed hence this error. Change the **Package Declaration**
+    in subtract.go to belong to **main** package and the error will go away
+  prefs: []
+  type: TYPE_NORMAL
+- en: As you might have noticed we are using two functions, **add** and **subtract.**
+    These two methods are arithmetic functions and it will be good if we can make
+    as part of some common code which can be used by other parts. This is where package
+    is useful . Idea is to create a new package **math** which will include these
+    two functions.  Through this way package provides a way of code reusability. Let’s
+    introduce a new package **math**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/math.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'If you run this program, output will be same:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: Couple of points to notice about above program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Importing of a package**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: main.go file imports the package using **“sample.com/learn/math”** and is able
+    to call Add and Subtract using math.Add(..) and math.Subtract(..)See how we have
+    imported the math package in the main.go file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here the import path is import path of module which is **learn** +  directory
+    containing the package which is **math.** Hence **“sample.com/learn/math”** .
+    Packages in nested directory can also be imported in the same way.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creation of a package**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We created new directory math and created new file math.go in it. The math.go
+    has Package Declaration as “package math”. It also has file **math.go** which
+    contains two functions **Add** and **Subtract**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s talk about the import statement first. There are two ways in which we
+    can import a package
+  prefs: []
+  type: TYPE_NORMAL
+- en: A short hand for import
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs: []
+  type: TYPE_PRE
+- en: and another form
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: You can import any number of packages in a program. GO tries to resolve in below
+    way
+  prefs: []
+  type: TYPE_NORMAL
+- en: Check at directory $GOROOT/src – “fmt” package lies at location **$GOROOT/src/fmt**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With modules, it resolves the path starting from the root of the module i.e,
+    the directory which contains the **go.mod** file.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE37]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above statement essentially means that import package present at location **“sample.com/learn/math”.**
+    It doesn’t mean import package **math**. To validate that let’s change the directory
+    name to **math2\. Package Declaration** is still same which is **“package math”**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE38]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math2/math.go –** Notice that directory name is **math2** here'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE39]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE40]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'If you run this program, output will still be same:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In **main.go** the import folder changes to **“sample.com/learn/math2”** but
+    it  **main** function in **main.go** still refers to **Add** and **Subtract**
+    as **math.Add()** and **math.Subtract()** . So basically GO imports **math** package
+    from **“math2”** directory. This is what we meant when we said  import means to
+    import package present at that directory location.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So we now know  the use of a package directory name
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use of the directory is for import statements in GO program. In import, we provide
+    the directory path and not the package name. GO then fetches all the files having
+    the same package name.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: What about filename. In above case filename is **math.go.** Filename doesn’t
+    matter. You can try changing filename from **math.go** to something else. Output
+    will still the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s move ahead. You might have noticed that both **Add** and **Subtract**
+    are capitalized. Why is that. What will happen if they are not capitalized. If
+    Add and Subtract were not capitalized, then **main.go** won’t be able to refer
+    them. This brings our next topic for discussion.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Exported vs Unexported Names**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Go doesn’t have any **public**,  **private** or **protected** keyword. The only
+    mechanism to control the visibility is using the capitalized and non-capitalized
+    formats
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Capitalized Identifiers** are exported. The capital letter indicates that
+    this is an exported identifier. It will be visible in other packages'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Non-capitalized identifiers** are not exported. The lowercase indicates that
+    the identifier is not exported and will only be accessed from within the same
+    package.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are five kinds of identifier which can be exported or non-exported
+  prefs: []
+  type: TYPE_NORMAL
+- en: Structure
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Structure’s Method
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Structure’s Field
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Function
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Variable
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s add a function named **multiply** which will be in lowercase. We will
+    add it to math package and see if it is accessible from **main.go**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE41]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/math.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE42]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE43]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run this program. It will give error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE44]'
+  prefs: []
+  type: TYPE_PRE
+- en: The error is because **main.go** cannot refer to unexported name **math.multiply**.
+    Make multiply as uppercase and it will work. It should give below output after
+    that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE45]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also as mentioned during the start of the tutorial, **multiply** function will
+    be available within the **math** package. To illustrate this let’s create a function
+    **Mul** in arithmetic.go which will call **multiply** function internally
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE46]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/math.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE47]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE48]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run this program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE49]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program works because within the same package you can refer to unexported
+    or non-capitalized names as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For now **math.go** contains both **Add** and **Subtract** function. Can we
+    distribute these two functions to different files with these function still belonging
+    to same package **math.** Yes we can do that. Let’s create **add.go** and **subtract.go**
+    file inside the **math** directory. add.go will contain the **Add** function and
+    subtract.go will contain the **Subtract** function. Notice that both **add.go**
+    and **subtract.go** have the same package declaration which is **package math**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE50]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/add.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE51]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/subtract.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE52]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE53]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run this program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE54]'
+  prefs: []
+  type: TYPE_PRE
+- en: It works because the import statement in **main.go** fetches all identifiers
+    from all files which belong to package **math** from import. path **“sample.com/learn/math”**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Nested Packages**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In GO it is possible to create nested packages. Let’s create a new directory
+    named **advanced** inside **math** directory.  “**.** This directory will contain
+    **square**.go file which will package declaration as **“package advanced”**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE55]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/math.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE56]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/advanced/advanced.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE57]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE58]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run this program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE59]'
+  prefs: []
+  type: TYPE_PRE
+- en: Points to note about above program
+  prefs: []
+  type: TYPE_NORMAL
+- en: We imported the **advanced** package in main.go with full qualified path i.e, 
+    **import “sample.com/learn/math/advanced”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Square** function is referred using **advanced** package i.e, **advanced.Square(2)**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: As mentioned earlier directory name can be other **advanced** just that it has
+    to be imported accordingly
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also filename can be anything other than **advanced.go**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Aliasing in importing packages**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Aliasing in importing packages means give a different name to the imported package.
+    Syntax for it is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE60]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above statement means that what ever package is present at directory <directory_path>
+    import that package with name <new_name>. Aliasing is useful for giving
+  prefs: []
+  type: TYPE_NORMAL
+- en: Giving more relevant name to the imported package in the current context.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When two different import path contains same package name then import one of
+    them as a different name to prevent conflict.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a folder **math2\.** Create a file **math2.go** with the below contents
+    having the **Subtract** function. Package Declaration in **math2.go** is “package
+    math” which means the package name is still **math**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**math** folder still contains **math.go** file with the only **Add** function'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Notice that package name (i.e **math**) is same in folder **math** as well in
+    folder **math2\.** So both folder **math2** and **math** contains the same package
+    which is **math**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE61]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math2/math2.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE62]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/math.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE63]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE64]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run this program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE65]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice the line. We alias **math** package present **“sample.com/learn/math2”**
+    to **math2\.** If we haven’t done that then GO will raise a compilation issue
+    as it cannot import package with same name from two different folders. This one
+    of the advantage of using alias.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE66]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Init Functions**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: init() function is a special function that is used to initialize global variables
+    of a package. These functions are executed when the package is initialized. Each
+    of the GO source files in a package can have its own init() function. Whenever
+    you import any package in the program, then on the execution of that program,
+    init functions(if present)  in the GO source files belonging to that imported
+    package are called first. Some points to note about init function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Init function is optional
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Init function does not take any argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Init function does not have any return value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Init function is called implicitly. Since it is called implicitly, init function
+    cannot reference it from anywhere.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There can be multiple init() functions within the same source file.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: init function is majorly used for the initialization of global variables that
+    cannot be initialized using an initialization expression. For example, it requires
+    a network call to intialize any DB client. Another example could be fetching secret
+    keys on startup. Init function is also used for running anything that only needs
+    to be executed once. Let’s see a simple use case of using an init function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example of using an init function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE67]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/add.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE68]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/subtract.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE69]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE70]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE71]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice from the output that
+  prefs: []
+  type: TYPE_NORMAL
+- en: init() function in the math/add.go file is executed and it prints – “In add
+    init”
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: init() function in the math/subtract.go file is executed next and it prints
+    – “In subtract init”
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: init() function in the main.go file is executed next and it prints – “In main
+    init”
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Although both the source files belong to the same package math but init function
+    in both the source files gets executed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Order of execution of a Go program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below the order of execution of a go program.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The program starts with the main package.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All imported packages in the source files of the main package are initialized.
+    The same thing happens recursively for further imported packages.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Then global variables declaration in these packages is initialized. The initialization
+    dependency kicks in for the initialization of these variables. [https://golang.org/ref/spec#Order_of_evaluation](https://golang.org/ref/spec#Order_of_evaluation)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: After this, init() function is run in these packages
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Global variables in the main package are initialized
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: init function in the main package is run if present
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: main function in main package is run.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Note here that package initialization is only done once even if it is imported
+    several times.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, if the main package imports package **a** and in turn package **a**
+    imports package **b**, then below will be the order
+  prefs: []
+  type: TYPE_NORMAL
+- en: Global variables in package **b** will be initialized. **init** function in
+    source files of package **b** will be run
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Global variables in the package **a** will be initialized. **init** function
+    in source files of package b will be run
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Global variables in the **main** package will be initialized. init function
+    in source files of the **main** package will be run
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **main** function will start executing.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE72]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/b/b1.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE73]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/b/b2.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE74]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/a/a1.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE75]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/a/a2.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE76]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE77]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE78]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in the above example that the **init** function in source files of package
+    **b** is run first. Then **init** function in source files of the package **a**
+    is run and then **init** function in the source file of the main package is run.
+    After that **main** function is run
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Blank Identifier in import**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Blank identifier in importing packages means specifying a blank import for the
+    imported package. The syntax for it is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE79]'
+  prefs: []
+  type: TYPE_PRE
+- en: What is this blank import and why it is used. For this, you have to understand
+    two things
+  prefs: []
+  type: TYPE_NORMAL
+- en: About **init** function
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: About blank identifier represented by an underscore (‘**_**‘)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**init()** function we already studied above.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s come to blank identifier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You are already aware that go doesn’t allow any unused variable. Any unused
+    variable can be replaced by a blank identifier (‘_’).
+  prefs: []
+  type: TYPE_NORMAL
+- en: So now a blank import of a package is used when
+  prefs: []
+  type: TYPE_NORMAL
+- en: The imported package is not being used in the current program
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: But we intend to import that package so that the **init** function in the GO
+    source files belonging to that package can be called and initialization of variables
+    in that package can be done properly
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'So basically a blank import is used when a package is solely imported for its
+    side effects. As an example MySQL package is used as a blank import for its side-effect
+    of registering the MySQL driver as a database driver in the **init()** function
+    of MySQL package, without importing any other functions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE80]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Package Naming Convention**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A good name is very important for the package as any access to the package’s
+    types, functions, constants, or variables is prefixed by the package name. So
+    the package name should be short and clear. It is recommended to avoid
+  prefs: []
+  type: TYPE_NORMAL
+- en: Underscore in the package name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Camel casing or any kind of mixed caps
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In this tutorial, we learned about packages and gave a small introduction to
+    modules. It is important to understand packages first before we can jump fully
+    to modules. In the second part of this tutorial, we will focus entirely on modules.
+    Hope you have liked this article. Please share feedback/mistakes/improvements
+    in the comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '****Next Tutorial** –** [Packages and Modules – Part 2](https://golangbyexample.com/packages-modules-go-second/)
+    ****Previous Tutorial** –** [Set up GO Workspace and Hello World Program](https://golangbyexample.com/workspace-hello-world-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

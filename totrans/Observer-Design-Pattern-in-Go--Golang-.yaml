@@ -1,0 +1,176 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:03:59'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Observer Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/observer-design-pattern-golang/](https://golangbyexample.com/observer-design-pattern-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction:](#Introduction "Introduction:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping:](#Mapping "Mapping:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Observer Design Pattern is a behavioral design pattern. This pattern allows
+    an instance **(called subject)** to publish events to other multiple instances
+    **(called observers).**  These **observers** subscribe to the **subject** and
+    hence get notified by events in case of any change happening in the **subject.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s take an example. In the E-Commerce website, many items go out of stock.
+    There can be customers, who are interested in a particular item that went out
+    of stock. There are three solutions to this problem
+  prefs: []
+  type: TYPE_NORMAL
+- en: The customer keeps checking the availability of the item at some frequency.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: E-Commerce bombard customers with all new items available which are in stock
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The customer subscribes only to the particular item he is interested in and
+    gets notified in the case that item is available. Also, multiple customers can
+    subscribe to the same product
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Option 3 is most viable, and this is what Observer Patter is all about. The
+    major components of the observer pattern are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Subject** – It is the instance to which publishes an event when anything
+    changes.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Observer** – It subscribes to the subject and gets notified by the events.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Generally, **Subject** and **Observer** are implemented as an interface. Concrete
+    implementation of both are used
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**UML Diagram:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '![](img/5087b754286321979495bdbe677f2030.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Mapping:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in **“Practical Example”** below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Subject | subject.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Subject | item.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| observer | observer.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Observer 1 | customer.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Client | main.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Practical Example:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**subject.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**item.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**observer.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**customer.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[design](https://golangbyexample.com/tag/design/)*   [golang](https://golangbyexample.com/tag/golang/)*   [observer](https://golangbyexample.com/tag/observer/)*   [observer
+    design pattern in go](https://golangbyexample.com/tag/observer-design-pattern-in-go/)*   [pattern](https://golangbyexample.com/tag/pattern/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,60 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:28:02'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declaring a constant in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/declaring-constant-go/](https://golangbyexample.com/declaring-constant-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: A constant is anything that doesn’t change its value. In Go const can be either
+    of type string, numeric, boolean, and characters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A constant can be declared using the **const** keyword. An important point to
+    be noted is that the value has to be assigned while declaring a constant. It is
+    unlike variables where value can be assigned later.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declaring a **const** along with specifying the type – It starts with a **const**
+    keyword, followed by the name and then the type. The value must also be assigned
+    right away as discussed above
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Declaring a const without specifying type – A const declared without type is
+    an untyped constant. We will learn more about typed and untyped constant later
+    on. For now, it’s important to know that const declared without type has a default
+    hidden type. The constant will be given a type once it is assigned to a variable
+    in any way (direct initialization, passing to a function, etc).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Declaring multiple const together
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

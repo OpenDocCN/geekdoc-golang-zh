@@ -1,0 +1,73 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:15:59'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Print/Output text in color in console
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/print-output-text-color-console/](https://golangbyexample.com/print-output-text-color-console/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Note:** If you are interested in learning Golang, then for that we have a
+    golang comprehensive tutorial series. Do check it out – [Golang Comprehensive
+    Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/).
+    Now let’s see the current tutorial. Below is the table of contents.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[ANSI escape codes](http://en.wikipedia.org/wiki/ANSI_escape_code) can be used
+    to output colored text in console. Please note that'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In MAC/Linux system terminal supports ANSI escape codes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Windows Command Prompt doesn’t support it. On windows you can install Cygwin.
+    ANSI escape codes work on that.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also to mention in the below code we have used colorReset after printing. If
+    we don’t use that then the color effect remains and it is not cleared. Remove
+    the colorReset from below code and it will show text “**next”** in cyan color
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is code in golang to do the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: On my mac machine
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/f203318bf03d0cff66708303f23161a4.png)*   [ansi](https://golangbyexample.com/tag/ansi/)*   [color](https://golangbyexample.com/tag/color/)*   [console](https://golangbyexample.com/tag/console/)*   [go](https://golangbyexample.com/tag/go/)*   [output](https://golangbyexample.com/tag/output/)*   [print](https://golangbyexample.com/tag/print/)*   [terminal](https://golangbyexample.com/tag/terminal/)*   [text](https://golangbyexample.com/tag/text/)*'
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,97 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:06:10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sort a Custom Struct in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/sort-custom-struct-collection-golang/](https://golangbyexample.com/sort-custom-struct-collection-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction](#Introduction "Introduction")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: GO has a **sort** package that provides utility primitives for the sorting of
+    slices and user-defined types. Any collection can be sorted by the **Sort** function
+    of **sort** package of GO it if implements the **sort.Interface**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below are the methods of sort.Interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/sort/#Interface](https://golang.org/pkg/sort/#Interface)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a working example to illustrate how we can use **sort.Interface**
+    to sort a user-defined struct. In below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: We created a custom struct called **employee** with **name** and **salary**
+    in dollars as fields
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We have a **employeeList** which hold the list of **employee**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**employeeList** implements the **Len(), Less(), Swap()** method hence it implements
+    the **sort.Interface**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We sort the employee from highest salary to lowest salary. To sort employeeList
+    we pass it to **sort.Sort()** function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: To sort from lowest salary to highest salary we need to change the **Less**
+    function with **‘>’** sign
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'After changing it when we run the program then output will be:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[array](https://golangbyexample.com/tag/array/)*   [custom](https://golangbyexample.com/tag/custom/)*   [go](https://golangbyexample.com/tag/go/)*   [structs](https://golangbyexample.com/tag/structs/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,132 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:24:28'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Close operation on a channel in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/close-operation-on-a-channel-in-go-golang/](https://golangbyexample.com/close-operation-on-a-channel-in-go-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Close is an inbuilt function that can be used to close a channel. Closing of
+    a channel means that no more data can we send to the channel.  Channel is generally
+    closed when all the data has been sent and there’s no more data to be send. Let’s
+    see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a channel.  Then we called the **sum** function
+    in a goroutine. In the main function, we send 3 values to the channel and after
+    that, we closed the channel indicating that no more values can be sent to the
+    channel. The **sum** function iterates over the channel using the for loop and
+    calculates the sum value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sending on a close channel will cause a panic.  See the program below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also closing a already closed channel will cause a panic
+  prefs: []
+  type: TYPE_NORMAL
+- en: While receiving from a  channel we can also use an additional variable to determine
+    if the channel has been closed.  Below is the syntax for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The value of ok will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: True if the channel is not closed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: False if the channel is closed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program created a channel of capacity one.  Then we send one value
+    to the channel.  The **ok** variable in the first receive is true since the channel
+    is not closed. The ok variable in the second  receive is  false because the channel
+    is closed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**For range loop on a channel**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For range loop can be used to receive data from the channel until it is closed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program,  we created a channel.   In the main function the send
+    three values to the channel and after that, we closed the channel. Then we called
+    the sum function and we passed the channel to that function. In the sum function,
+    we did a for range loop over the channel.    After iterating over all the values
+    in the channel the for range loop will exit  since the channel is closed
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now the question which comes to the mind is that what happens if you don't close
+    a channel in the main function.  Try commenting the line in which they are closing
+    the channel. Now run the program.  It will also  output  deadlock because  for
+    range loop will never finish in the sum function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let's see summary table which shows the result of close operation on the different
+    types of channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Command** | **Unbuffered Channel****(Not Closed and not nil)** | **Buffered
+    Channel****(Not Closed and not nil)** | **Closed Channel** | **Nil Channel** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Close | Success | Success | Panic | Panic |'
+  prefs: []
+  type: TYPE_TB

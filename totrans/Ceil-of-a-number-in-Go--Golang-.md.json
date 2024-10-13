@@ -1,0 +1,1 @@
+["```\nfunc Ceil(x float64) float64\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"math\"\n)\n\nfunc main() {\n    res := math.Ceil(1.6)\n    fmt.Println(res)\n\n    res = math.Ceil(-1.6)\n\tfmt.Println(res)\n\n    res = math.Ceil(1)\n    fmt.Println(res)\n}\n```", "```\n2\n-1\n1\n```"]

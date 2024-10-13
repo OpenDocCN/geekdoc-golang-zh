@@ -1,0 +1,48 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:06:59'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Check if a file or directory exists in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/check-if-file-or-directory-exists-go/](https://golangbyexample.com/check-if-file-or-directory-exists-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**os.Stat** and **os.IsNotExist()** can be used to check whether a particular
+    file or directory exist or not.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [File Exists   ](#File_Exists "File Exists    ")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Folder Exists](#Folder_Exists "Folder Exists")*  *# **File Exists   **'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Folder Exists**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[directory](https://golangbyexample.com/tag/directory/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

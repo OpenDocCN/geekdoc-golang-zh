@@ -1,0 +1,104 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:51:55'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Count unguarded cells program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/count-unguarded-cells-golang/](https://golangbyexample.com/count-unguarded-cells-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Two integers m and n are given which represent an m*n grid. Other than that
+    two 2D integer arrays are also given
+  prefs: []
+  type: TYPE_NORMAL
+- en: guards where guards[i] = [rowi , columni]. It represents the position of the
+    ith guard
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: walls where guards[j] = [rowi , columni]. It represents the position of the
+    ith wall
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A guard can see in all the directions
+  prefs: []
+  type: TYPE_NORMAL
+- en: North
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: South
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: East
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: West
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: unless obstructed by the wall. All the cells that the guard can see are counted
+    as guarded. The objective is to find the number of unguarded cells
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here is the leetcode link for the same – https://leetcode.com/problems/count-unguarded-cells-in-the-grid/
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you – [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our system design tutorial series here – [System Design Tutorial
+    Series](https://techbyexample.com/system-design-questions/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

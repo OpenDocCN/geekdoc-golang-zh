@@ -1,0 +1,59 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:07:16'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Iterate over all files and folders for a path in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/iterate-over-all-files-and-folders-go/](https://golangbyexample.com/iterate-over-all-files-and-folders-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**‘Walk’** function of ‘**filepath’** package can be used to recursively iterate
+    over all files/folder in a directory tree.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**‘Walk’** function will walk the entire tree rooted at the root path include
+    all subdirectories.  Below is the signature of the function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: The WalkFunc will be called for with the **path** of the file/folder and **fileInfo**
+    or the **error** if any error occurred while walking that file/folder.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some things to note about Walk function
+  prefs: []
+  type: TYPE_NORMAL
+- en: All errors are filtered. An error might arise while opening/visiting the file
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The function does not follow symbolic links
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The files are walked in lexical order
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Let’s see an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE

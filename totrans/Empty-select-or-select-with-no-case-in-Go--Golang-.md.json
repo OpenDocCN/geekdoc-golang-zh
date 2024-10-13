@@ -1,0 +1,1 @@
+["```\npackage main\n\nfunc main() {\n    select {}\n}\n```", "```\nfatal error: all goroutines are asleep - deadlock!\n```", "```\nfatal error: all goroutines are asleep - deadlock!\n```"]

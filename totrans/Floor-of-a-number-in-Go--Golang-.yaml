@@ -1,0 +1,74 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:14:27'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Floor of a number in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/floor-number-golang/](https://golangbyexample.com/floor-number-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**math** package of go provides a **Floor** method that can be used to get
+    the ceil of a number. Floor of a number is the greatest integer value less than
+    or equal to that number.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function. It takes input a float and also returns
+    a float.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Some special cases of floor function are
+  prefs: []
+  type: TYPE_NORMAL
+- en: Floor(±0) = ±0
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Floor(±Inf) = ±Inf
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Floor(NaN) = NaN
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [number](https://golangbyexample.com/tag/number/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

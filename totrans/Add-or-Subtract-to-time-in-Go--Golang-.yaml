@@ -1,0 +1,92 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:08:26'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Add or Subtract to time in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/add-or-subtract-to-time-go/](https://golangbyexample.com/add-or-subtract-to-time-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Add to time](#Add_to_time "Add to time ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Subtract to time](#Subtract_to_time "Subtract to time")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**time** package in golang defines two ways of adding or subtracting to a time.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Add** function – It is used to **add/subtract** a **duration** to **time**
+    t. Since **duration** can be represented in hours, minutes, seconds, milliseconds,
+    microseconds and nanoseconds, therefore **Add** function can be used to add/subtract
+    hours, minutes, seconds, milliseconds, microseconds and nanoseconds from a time.
+    Its signature is'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**AddDate** function – It is used to add/subtract years, months and days to
+    time t. Its signature is'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Note: Positive values are used to add to time and negative values are used
+    to subtract. Let’s see a working example of Add and Subtract to time.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Add to time**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below code can be used to add to time
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Subtract to time**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below code can be used to subtract to time
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]*'
+  prefs: []
+  type: TYPE_NORMAL

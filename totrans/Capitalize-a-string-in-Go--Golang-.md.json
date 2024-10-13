@@ -1,0 +1,1 @@
+["```\nfunc Title(s string) string\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"strings\"\n)\n\nfunc main() {\n    res := strings.Title(\"this is a test sentence\")\n    fmt.Println(res)\n}\n```", "```\nThis Is A Test Sentence\n```"]

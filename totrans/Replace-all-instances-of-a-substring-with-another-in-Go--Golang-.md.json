@@ -1,0 +1,1 @@
+["```\nfunc ReplaceAll(s, old, new string) string\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"strings\"\n)\n\nfunc main() {\n    res := strings.ReplaceAll(\"abcdabxyabr\", \"ab\", \"12\")\n    fmt.Println(res)\n\n    res = strings.ReplaceAll(\"abcdabxyabr\", \"\", \"12\")\n    fmt.Println(res)\n}\n```", "```\n12cd12xy12r\n12a12b12c12d12a12b12x12y12a12b12r12\n```"]

@@ -1,0 +1,178 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:21:07'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create/Initialize/Declare map in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/create-map-golang/](https://golangbyexample.com/create-map-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Declare a Map](#Declare_a_Map "Declare a Map")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creating a Map](#Creating_a_Map "Creating a Map")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the map[<key_type>]<value_type> format](#Using_the_map_format "Using
+    the map[<key_type>]<value_type> format")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using Make](#Using_Make "Using Make")*  *# **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Maps are golang builtin datatype similar to the hash table which maps a key
+    to a value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Below is the format for a map:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both **key_type** and **value_type** can be of different type or same type.
+    For below example the key type is **string** and value type is **int**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Declare a Map**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A map can also be declared with var keyword, but it creates a nil map as default
+    zero value of map is nil. Adding any key value pair to that map will cause a panic.
+    Let’s see an example for this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above program run into panic as the map is nil.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One use case of having a map declared with **var** keyword is when an already
+    existing map needs to be assigned to it or when we want to assign the result of
+    a function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creating a Map**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Two ways of creating a map
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the map[<key_type>]<value_type>{} format also called map literal
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using make
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s look at each of the above methods one by one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using the map[<key_type>]<value_type> format**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'One of the most common way of creating a map is using the map literal:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: An example of above where key type is string and value type is integer
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: A map can also be created with some key values initialized
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: A key-value pair can also be added to the map
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program we created a map literal intialized with some values. Then
+    we added another key value pair in it. Then we printed it using **fmt.Println**
+    which prints all the key value pairs in format map[key:value key:value]
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using Make**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: This is another way of creating the map. The builtin function **make** can be
+    used to create a map. It returns an initialized map. Hence key-value pairs can
+    be added to it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program we created a map using make function. Then we added a key value
+    pair in it. Then we printed it using **fmt.Println** which prints all the key
+    value pairs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

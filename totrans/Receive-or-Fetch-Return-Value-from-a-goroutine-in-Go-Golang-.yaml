@@ -1,0 +1,79 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:23:07'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Receive or Fetch Return Value from a goroutine in Go(Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/return-value-goroutine-go/](https://golangbyexample.com/return-value-goroutine-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Channels can be used to fetch return value from a goroutine. Channels provide
+    synchronization and communication between goroutines. You can send the return
+    value in a channel in the goroutine and then collect that value in the main function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we created a variable **result** which is a channel of
+    length 1 holding value of **int** type. We passed this channel to the **sum**
+    function. The **sum** function pushes the **sumValue** to the **result** channel
+    like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: The in the main function we are waiting on the **result** channel to collect
+    the result
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: This line will wait until a value is pushed to the **result** channel. As seen
+    above the **sumValue** will be pushed to **result** channel by the function **sum**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To illustrate that this line will actually wait let's put a timeout in the sum
+    function it actually pushes **sumValue** to the **result** channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: The program gives the same output which proves that the **main** function waits
+    for **sumValue** to be pushed to the **result** channel. Once it receives the
+    value from the **result** channel, it prints it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

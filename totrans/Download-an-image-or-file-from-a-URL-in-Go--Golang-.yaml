@@ -1,0 +1,63 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:09:16'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Download an image or file from a URL in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/download-image-file-url-golang/](https://golangbyexample.com/download-image-file-url-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# Overview'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below are the steps to download an image or a file from a URL
+  prefs: []
+  type: TYPE_NORMAL
+- en: use **http.Get(URL)** function to get the bytes of the file from the URL.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Create an empty file using **os.Create()** function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Use **io.Copy()** function to copy the downloaded bytes to the file created
+    in step 2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Code
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[golang](https://golangbyexample.com/tag/golang/)*   [pdf](https://golangbyexample.com/tag/pdf/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

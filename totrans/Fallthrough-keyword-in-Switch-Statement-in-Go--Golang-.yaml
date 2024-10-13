@@ -1,0 +1,106 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:21:12'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fallthrough keyword in Switch Statement in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/fallthrough-keyword-golang/](https://golangbyexample.com/fallthrough-keyword-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**fallthrough** keyword is used in switch statement in golang. This keyword
+    is used in switch case block. If the **fallthrough** keyword is present in the
+    case block, then it will transfer control to the next case even though the current
+    case might have matched.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: To more understand this let’s first look at an example without fallthrough keyword
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: By default the switch statement matches goes through all the case statement
+    from top to bottom and tries to find the first **case expression** that matches
+    the **switch expression**. Once the matching case is found, it exits  and does
+    not consider the other cases. This is what is happening in above example. Even
+    though i is less than 100 but that case is never executed because the second case
+    is matched and after that it exits
+  prefs: []
+  type: TYPE_NORMAL
+- en: fallthrough keyword allows way around this limitation. See below code for **fallthrough**
+    keyword example. In below example even though the second case matched it went
+    through the third case because of **fallthrough** keyword
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**fallthrough** needs to be final statement within the switch block. If it
+    is not then compiler raise error'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below program will raise the above error as we have **fmt.Println** after the
+    **fallthrough** statement
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Break statement**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the **break** statement example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**break** statement will terminate the execution of the switch and below line
+    below will never be executed'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is all about how fallthrough keyword in used in switch statement in golang
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[fallthrough](https://golangbyexample.com/tag/fallthrough/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

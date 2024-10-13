@@ -1,0 +1,66 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:15:37'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Check if a number is negative or positive in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/num-positive-negative-go/](https://golangbyexample.com/num-positive-negative-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**math** package of GO provides a **Signbit** method that can be used to check
+    whether a given number is negative or positive.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It returns true for a negative number
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It returns false for a positive number
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is the signature of the function. It takes input a float and returns a
+    bool
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [math](https://golangbyexample.com/tag/math/)*   [number](https://golangbyexample.com/tag/number/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

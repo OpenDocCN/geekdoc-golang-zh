@@ -1,0 +1,677 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:19:06'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Maps in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/maps-in-golang/](https://golangbyexample.com/maps-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 19 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Method](https://golangbyexample.com/method-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Slice](https://golangbyexample.com/slice-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Allowed Key types in a Map](#Allowed_Key_types_in_a_Map "Allowed Key types
+    in a Map")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Allowed Value types in a Map](#Allowed_Value_types_in_a_Map "Allowed Value
+    types in a Map")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creating a Map](#Creating_a_Map "Creating a Map")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the map[<key_type>]<value_type> format](#Using_the_map_format "Using
+    the map[<key_type>]<value_type> format")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using Make](#Using_Make "Using Make ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Map Operations](#Map_Operations "Map Operations")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Add a key value pair](#Add_a_key_value_pair "Add a key value pair")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Update a key-value pair](#Update_a_key-value_pair "Update a key-value pair")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Get the value corresponding to a key](#Get_the_value_corresponding_to_a_key
+    "Get the value corresponding to a key")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Delete a key value pair](#Delete_a_key_value_pair "Delete a key value pair")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Check if a key exists](#Check_if_a_key_exists "Check if a key exists")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Functions on Maps](#Functions_on_Maps "Functions on Maps")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Zero Value](#Zero_Value "Zero Value")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Maps are referenced data types](#Maps_are_referenced_data_types "Maps are
+    referenced data types")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Iterate over a map](#Iterate_over_a_map "Iterate over a map")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Maps are not safe for concurrent use](#Maps_are_not_safe_for_concurrent_use
+    "Maps are not safe for concurrent use")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Maps are golang builtin datatype similar to the hash table which maps a key
+    to a value. Map is an unordered collection where each key is unique while values
+    can be the same for two or more different keys. The advantages of using a map
+    are that it provides fast retrieval, search, insert, and delete operations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Maps are referenced data types. When you assign one map to another both refer
+    to the same underlying map. Below is the format for a map
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both **key_type** and **value_type** can be of different type or same type.
+    For below example the key type is **string** and value type is **int**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Allowed Key types in a Map**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The map key can be any type that is comparable. Some of the comparable types
+    as defined by go specification are
+  prefs: []
+  type: TYPE_NORMAL
+- en: boolean
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: numeric
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: string,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: pointer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: interface types
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: structs – if all it’s field type is comparable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: array – if the type of value of array element is comparable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Some of the types which are not comparable as per go specification and which
+    cannot be used as a key in a map are.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Slice
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Map
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Reference – [https://golang.org/ref/spec#Comparison_operators](https://golang.org/ref/spec#Comparison_operators)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Allowed Value types in a Map**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Value can be of any type in a map.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creating a Map**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Using the map[<key_type>]<value_type>{} format also called map literal
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using make
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s look at each of above method one by one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using the map[<key_type>]<value_type> format**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'One of the most common way of creating a map is using the map literal:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: An example of above where key type is string and value type is integer
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: A map can also be created with some key values initialized
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: A new key-value pair can also be added to the map
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a map literal intialized with some values.
+    Then we added another key-value pair in it. Then we printed it using fmt.Println
+    which prints all the key-value pairs in format **map[key:value key:value]**
+  prefs: []
+  type: TYPE_NORMAL
+- en: A map can also be declared with var keyword, but it creates a nil map as default
+    zero value of map is nil. Adding any key value pair to that map will cause a panic.
+    Let’s see an example for this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above program run into panic as the map is nil.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One use case of having a map declared with **var** keyword is when an already
+    existing map needs to be assigned to it or when we want to assign the result of
+    a function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using Make**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Thisis another way of creating the map. The builtin function **make** can be
+    used to create a map. It returns an initialized map. Hence key-value pairs can
+    be added to it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program we created a map using make function. Then we added a key value
+    pair in it. Then we printed it using **fmt.Println** which prints all the key
+    value pairs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Map Operations**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The below operations are applicable for map
+  prefs: []
+  type: TYPE_NORMAL
+- en: Add a key-value pair
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Update a key
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Get the value corresponding to a key
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Delete a key-value pair
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Check if a key exists
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Add a key value pair**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the format for adding a key value pair to a map
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also note that adding to a nil map will cause a panic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Update a key-value pair**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: When trying to add a key to the map which already exists, the new value will
+    override the old value. This is analogous to updating a key in the map. Let’s
+    see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program after writing the same key **“Tom”** with a new value of
+    **3000** it overwrites the existing value of **2000\.** When we print the map
+    again the value printed is 3000
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Get the value corresponding to a key**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the format for retrieving a value corresponding to a key
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Delete a key value pair**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the format for delete a value corresponding to a key
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program we delete the key and when we print the map again, the key
+    is not there.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Check if a key exists**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the format to check if a key exist in the map
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: There are two cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the key exists **val** variable be the value of the key in the map and **ok**
+    variable will be true
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the key doesn’t exist **val** variable will be default zero value of value
+    type and **ok** variable will be false
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program when key exists then val variable is set to the actual
+    value which is 2000 here and ok variable is true. When the **key** doesn’t exist,
+    the **val** variable is set to 0 which is the default zero value of int and **ok**
+    variable is false. This **ok** variable is the best way to check if the key exists
+    in a map or not
+  prefs: []
+  type: TYPE_NORMAL
+- en: In case we only want to check if a key is present and val is not needed, then
+    blank identifier i.e “_” can be used in place of val.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Functions on Maps**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the builtin function which can be used on a map
+  prefs: []
+  type: TYPE_NORMAL
+- en: len() function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**len() function**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **len()** function can be used to get the length of the map which is number
+    of key value pair present in the map. Below is the format for using this function
+    on map.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Zero Value**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: zero value of a map is nil. This is also proved when we declare a map using
+    the **var** keyword. See below program.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Maps are referenced data types**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Map are reference data types. So on assigning one map to a new variable, then
+    both variable refers to the same map. Any change in one of the map would reflect
+    in other and vice versa.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: In**the** above program, eS is a new map variable to which we assign the existing
+    **employeeSalary** map.
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, we add a new key in **employeeSalary** map. The change reflects both
+    in **employeeSalary** and **eS** map
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Second, we updated an existing key in **eS** map. The change again reflects
+    both in **employeeSalary** and **eS** map.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This shows that maps are referenced data type
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Iterate over a map**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Range operator can be used to iterate over a map in Go
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s define a map first
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Iterating over all keys and values**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Iterating over only keys**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Iterating over only values**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE37]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE38]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Get list of all keys**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE39]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE40]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Maps are not safe for concurrent use**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: go maps are not safe for concurrent use.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Buggy code:** Below is a buggy code. It might result in crash if concurrent
+    read and write of map happens.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE41]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Possible Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE42]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Correct Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can use a lock to allow concurrent access of the map
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE43]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE44]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about maps in golang. We learned how to create a map, operations
+    on the map, some of the functions defined on a map such as Glen(), how we can
+    iterate over the map, and last but not the least that maps are unsafe for concurrent
+    use. Hope you have liked this article. Please share the feedback/improvements/mistakes
+    in the comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Method](https://golangbyexample.com/method-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Slice](https://golangbyexample.com/slice-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [maps](https://golangbyexample.com/tag/maps/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

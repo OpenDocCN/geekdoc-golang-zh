@@ -1,0 +1,247 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:28:19'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Numeric/Integer/Float constant in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/integer-constant-golang/](https://golangbyexample.com/integer-constant-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Typed integer constant](#Typed_integer_constant "Typed integer constant")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Untyped named integer constant](#Untyped_named_integer_constant "Untyped named
+    integer constant")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Untyped unnamed integer constant](#Untyped_unnamed_integer_constant "Untyped
+    unnamed integer constant")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Numeric Expressions](#Numeric_Expressions "Numeric Expressions")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Numeric constant in go are further divided into three types
+  prefs: []
+  type: TYPE_NORMAL
+- en: Integer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Floats
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Complex Numbers
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: To better understand numeric constant in golang it is important to understand
+    typed and untyped constant in go. Please refer to this article for that –[https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)/
+  prefs: []
+  type: TYPE_NORMAL
+- en: Once you have gone through the article you would have understood that constant
+    can be declared in three ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Typed  constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Untyped unnamed  constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Untyped named constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is the same case with numeric as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A untyped integer constant (both named and unnamed) can be assigned to **int**
+    types, **float** types and **complex** . This is because an int value can be int
+    or float or complex. For eg int value **123** can be
+  prefs: []
+  type: TYPE_NORMAL
+- en: A **int** whose value is 123
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A **float** whose value is 123.0
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A **complex** whose imaginary part is 0
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: On the basis of similar logic a untyped **float** constant can be assigned to
+    all **floats** and **complex** types but not **integer** because for eg a float
+    5.3 cannot be an integer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: On the basis of similar logic a untyped **comple** constant can be assigned
+    to  **complex** types but not **integer** and **float** because for eg a float
+    5i+3 cannot be an **integer** or a **float**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program to understand it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: See below program illustrating the above point. In the program we have example
+    for
+  prefs: []
+  type: TYPE_NORMAL
+- en: Typed integer constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Untyped unnamed integer constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Untyped named integer constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now above program shows example of a
+  prefs: []
+  type: TYPE_NORMAL
+- en: Typed integer constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Untyped unnamed integer constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Untyped named integer constant
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s understand each of them and their behaviour
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Typed integer constant**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: It is defined as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Typed integer constant can be assigned to a variable created with **var** keyword
+    like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will raise compilation error when assigned to another **int** type. So below
+    raises compilation error as **aa** variable is already of type **int**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Untyped named integer constant**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: It is defined as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Untyped named integer constant can be assigned to any **int** type, any **float**
+    type and any **complex** number type and also to any variable created with **var**
+    keyword. So below works
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Untyped unnamed integer constant**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: It is as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Untyped named integer constant can be assigned to any **int** type, any **float**
+    type and any **complex** number type and also to any variable created with **var**
+    keyword. So below works
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Numeric Expressions**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Due to untyped nature of constant numeric constants, different numeric constant
+    type can be mixed and matched up to form a expression
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

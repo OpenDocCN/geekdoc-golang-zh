@@ -1,0 +1,45 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:52:52'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Know the current user on Linux
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/know-the-current-user-on-linux/](https://golangbyexample.com/know-the-current-user-on-linux/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")*  *# **Overview**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Linux command **‘whoami’** can be used to know the currently logged-in user.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see this command in action. Go to the terminal and type in the command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will print the current user. Let’s say the current user is **john** then
+    running the above command will simply print **john**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]*'
+  prefs: []
+  type: TYPE_NORMAL

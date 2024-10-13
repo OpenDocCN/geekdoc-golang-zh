@@ -1,0 +1,157 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:07:38'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding uintptr in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/understanding-uintptr-golang/](https://golangbyexample.com/understanding-uintptr-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Properties](#Properties "Properties")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Purpose](#Purpose "Purpose")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is an unsigned integer type which is large enough to hold any pointer address.
+    Therefore its size is platform dependent. It is just an integer representation
+    of an address.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Properties**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A **uintptr** can be converted to **unsafe.Pointer** and viceversa. Later we
+    will talk about where conversion of **uintptr** to **unsafe.Pointer** is useful.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Arithmetic can be performed on the **uintptr**. Do note here arithmetic cannot
+    be performed in a **pointer** in Go or **unsafe.Pointer** in Go.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**uintptr** even though it holds a pointer address, is just a value and does
+    not reference any object. Therefore'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Its value will not be updated if the corresponding object moves. Eg When goroutine
+    stack changes
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The corresponding object can be garbage collected. The GC does not consider
+    **uintptr** as live references and hence they can be garbage collected.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Purpose**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**uintptr** can be used for below purposes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: One purpose of uintptr is to be used along with unsafe.Pointer for unsafe memory
+    access. Arithmetic operations cannot be performed on unsafe.Pointer. To perform
+    such arithmetic
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: unsafe. Pointer is converted to uintptr
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: arithmetic is then performed on uintptr
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: uintptr is converted back to unsafe.Pointer  to access the object now pointed
+    by the address
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Be careful that the above steps should be atomic with respect to Garbage Collector,
+    otherwise it could lead to issues. For eg after the first step 1, the referenced
+    object is liable to be collection. If that happens then after step 3, the pointer
+    will be an invalid Go pointer and can crash the program. Look at the unsafe package
+    documentation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/unsafe/#Pointer](https://golang.org/pkg/unsafe/#Pointer)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It lists down when the above conversion can be safe. See the below code for
+    the scenario mentioned above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the below code we are doing arithmetic like below to get to address of field
+    **“b”** in struct sample and then printing the value at that address. This below
+    code is atomic with reference to the garbage collector.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Another purpose of uintptr is when you want to save the pointer address value
+    for printing it or storing it. Since the address is just stored and does not reference
+    anything, the corresponding object can be garbage collected.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: See below code where we are converting an unsafe.Pointer to uintptr and printing
+    it. Also, note as mentioned before too one the unsafe.Pointer is converted to
+    uinptr, the reference is lost and the reference variable can be garbage collected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The output will be dependent upon the machine as it is an address.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[data](https://golangbyexample.com/tag/data/)*   [uintptr](https://golangbyexample.com/tag/uintptr/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

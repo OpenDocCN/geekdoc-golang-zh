@@ -1,0 +1,105 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:30:12'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remove a dependency from a module in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/remove-dependency-golang/](https://golangbyexample.com/remove-dependency-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: To remove a module dependency we need to do below two things
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remove reference of that dependency from the source files of the module
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Run go mod tidy command. Remove all dependencies from the **go.mod** file which
+    are not required in the source files.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s say we have a module with import that as”learn” having below go.mod file
+    and learn.go file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that we have imported the dependency in the **learn.go** as well as this
+    dependency is added in the **go.mod** file
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now let’s see try to remove this dependency completely from above module. Command
+    **go mod tidy** will remove the dependency from **go.mod** file if it is not required
+    in the source files. To illustrate this let’s remove the **learn.go** file that
+    we created above. Now run the command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will give below output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now examine the contents of **go.mod** file.  It will be as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: The
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: line will be removed as it is not required in any of the source files. Also
+    all entries of **[github.com](http://github.com)/pborman/uuid** and its depedencies
+    will be removed from the **go.sum** file as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

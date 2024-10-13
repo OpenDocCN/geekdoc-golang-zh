@@ -1,0 +1,150 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:32:33'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP client or Send x-www-form-urlencoded request body in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/http-client-urlencoded-body-go/](https://golangbyexample.com/http-client-urlencoded-body-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **applcation/x-www-form-urlencoded** content-type request body is like a
+    giant query string. Similar to the query string in a URI it is a key-value pair
+    having the below format.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: where there are below key-value pairs
+  prefs: []
+  type: TYPE_NORMAL
+- en: key1, value1
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: key2 has two values i.e value21 and value22.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: key3, value3
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each key-value pair is separated by **&** in case of multiple values for the
+    same key there will be two entries of that key-value pair. Also, each key and
+    value is URLencoded similar to the query string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now the question that might be coming to the mind is if **x-www-form-urlencoded**
+    is just like query string then why does it exist. The reason is that the query
+    string is part of the URI and since there is a limit on the length of the URI,
+    you can send a limited number of key-value pairs in the query string.  While there
+    is no limit for the length of the **x-www-form-urlencoded** request body. However,
+    it is limited by the max request body size allowed by the server which is generally
+    10MB for most of the servers. Now let’s see how we can parse the **x-www-form-urlencoded**
+    in golang
+  prefs: []
+  type: TYPE_NORMAL
+- en: So basically since the x-www-form-urlencoded body is nothing but like query
+    string, it is represented in golang using **url.Values**. [https://golang.org/pkg/net/url/#Values](https://golang.org/pkg/net/url/#Values)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**url.Values** is nothing but a map whose'
+  prefs: []
+  type: TYPE_NORMAL
+- en: key is a string
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: value is a slice of string
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is represented like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program for the same. This is how we created the body in the program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Difference between Add and Set
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Add** will append an extra value to the key in **url.Values** map'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Set** will replace the existing key in **url.Values** map'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: After that, we need to encode the data. Then encoded data is passed to the **http.NewRequest**
+    function. Also don’t forget to set the content-type header to **application/x-www-form-urlencoded**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: The full program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: If you run a server that listens on :8080 port similar to the below link, then
+    you will see that the server will be able to correctly print the body of the incoming
+    request
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golangbyexample.com/url-encoded-body-golang](https://golangbyexample.com/url-encoded-body-golang)/'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also the output of
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: which is in the same format that we had discussed above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,100 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:51:02'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Longest Consecutive Sequence Program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/longest-consecutive-sequence-golang/](https://golangbyexample.com/longest-consecutive-sequence-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An integer array is given. Find the length of the longest consecutive sequence
+    in it. Let’s see an example to understand it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example 1**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example 2**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: The naive idea is to sort the array and return the longest consecutive sequence.
+    But we can do this in O(n) time. Idea is to use a hash here. Below is the idea
+  prefs: []
+  type: TYPE_NORMAL
+- en: Store each of the numbers in the hash.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Then starting with each number, find the length of the longest consecutive sequence
+    beginning at that number. So if a number let’s say is n. We try to find n+1, n+2…
+    in the hash and get the length of the longest consecutive sequence  starting from
+    that number
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the length find in step 2 is greater than the previous longest consecutive
+    sequence found, then update the longest consecutive sequence length
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you – [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our system design tutorial series here – [System Design Tutorial
+    Series](https://techbyexample.com/system-design-questions/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

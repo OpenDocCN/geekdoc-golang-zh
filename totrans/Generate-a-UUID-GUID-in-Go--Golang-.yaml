@@ -1,0 +1,77 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:09:07'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Generate a UUID/GUID in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/generate-uuid-guid-golang/](https://golangbyexample.com/generate-uuid-guid-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: UUID also known as GUID is a 16 byte or 128-bit number. It is meant to uniquely
+    identify something. Some of the properties of UUID are
+  prefs: []
+  type: TYPE_NORMAL
+- en: UUID is likely to be different from any other UUID generated. In fact, there
+    will be .00000006 chance that two UUID will be the same in case you were to generate
+    10 trillion UUID
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: UUID doesn’t depend upon any central server for their generation
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: UUID is represented as 32 hexadecimal digits(Base 16) displayed in 5 parts separated
+    by hyphens. The form is 8-4-4-4-12\. So there are a total of 36 characters which
+    include 32 hexadecimal and 4 hyphens. Below is one sample
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: There are different libraries available for generating the UUID. Let’s see two
+    libraries which can be used to generate UUID
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://github.com/google/uuid](https://github.com/google/uuid)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[https://github.com/pborman/uuid](https://github.com/pborman/uuid)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE

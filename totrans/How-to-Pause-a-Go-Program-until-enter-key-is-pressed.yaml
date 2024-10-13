@@ -1,0 +1,32 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:05:28'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to Pause a Go Program until enter key is pressed
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/how-to-pause-a-go-program-until-enter-key-is-pressed/](https://golangbyexample.com/how-to-pause-a-go-program-until-enter-key-is-pressed/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Sometimes there is a need to pause a go program until a key is pressed. Eg.
+    One would only want a go program to exit at the end only on the press of **Enter**
+    key.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below program will print the increasing and will stop as soon as you press the
+    key is pressed. Try it out.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE

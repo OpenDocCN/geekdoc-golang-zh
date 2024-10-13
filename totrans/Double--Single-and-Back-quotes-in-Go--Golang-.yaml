@@ -1,0 +1,135 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:06:50'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Double, Single and Back quotes in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/double-single-back-quotes-go/](https://golangbyexample.com/double-single-back-quotes-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Double quotes](#Double_quotes "Double quotes")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Back Quotes](#Back_Quotes "Back Quotes")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Single quotes](#Single_quotes "Single quotes")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example:](#Example "Example:")*  *# **Double quotes**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is used to define a string. A string defined within double quotes will honor
+    escaping characters. For, eg for when printing a string having \n there will be
+    a new line printed. Similarly, \t will have tab printed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Back Quotes**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: It is also used to define a string. A string encoded in back quotes is a raw
+    literal string and doesn’t honor any kind of escaping.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Single quotes**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: To declare either a **byte** or a **rune** we use single quotes. While declaring
+    **byte** we have to specify the type. If we don’t specify the type, then the default
+    type is meant as a **rune.** A single quote will allow only one character. On
+    declaring a byte or rune with two characters within a single quote, the compiler
+    will raise an error as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see an example of all things discussed above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Notice in below output that string enclosed in back quotes doesn’t honor \n
+    or \t
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Uncomment the below line to see the compiler error we discussed above.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Priting String in Double Quotes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'x is: tit'
+  prefs: []
+  type: TYPE_NORMAL
+- en: for tat
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Priting String in Back Quotes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'y is: tit\nfor\ttat'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Priting Byte:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Size: 1'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Type: uint8'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Character: a'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Priting Rune:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Size: 4'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Type: int32'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Unicode CodePoint: U+00A3'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Character: £'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`*   [golang](https://golangbyexample.com/tag/golang/)*   [quotes](https://golangbyexample.com/tag/quotes/)*   [single](https://golangbyexample.com/tag/single/)`*'
+  prefs: []
+  type: TYPE_NORMAL

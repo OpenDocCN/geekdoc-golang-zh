@@ -1,0 +1,306 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:04:34'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Visitor Design Pattern in Go(Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/visitor-design-pattern-go/](https://golangbyexample.com/visitor-design-pattern-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction:](#Introduction "Introduction:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping ](#Mapping "Mapping ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Visitor Design Pattern is a Behavioural design pattern that lets you add behaviour
+    to a struct without actually modifying the struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s understand the visitor pattern with an example. Let’s say you are the
+    maintainer of a lib which has different shape structs such as
+  prefs: []
+  type: TYPE_NORMAL
+- en: Square
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Circle
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Triangle
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Each of the above shape structs implements a common interface **shape.** There
+    are many teams in your company which are using your lib. Now let’s say one of
+    the team wants you to add one more behaviour (**getArea()**) to the Shape structs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are many options to solve this problem
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**First Option**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The first option that comes to the mind is to add **getArea()** method in the
+    **shape** interface and then each shape struct can implement the getArea() method.
+    This seems trivial but there are some problems:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As a maintainer of the library, you don’t want to alter a highly tested code
+    of your library by adding additional behaviours.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There might be more request by the teams using your library for more behaviours
+    such as **getNumSides()**, **getMiddleCoordinates()**. Then, in this case, you
+    don’t want to keep modifying your library. But you do want other teams to extend
+    your library without actual modification of the code much.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Second Option**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The second option is that the team requesting the feature can write the logic
+    for behaviour themselves. So based upon the shape struct type they like below
+    code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above code is also problematic as you are not able to take the full advantage
+    of interfaces and instead do an explicit type checking which is fragile. Second,
+    getting the type at run time may have a performance impact or maybe even not possible
+    in some languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Third Option**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The third option is to solve the above problem using the visitor pattern. We
+    define a visitor interface like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: The functions **visitforSquare(square), visitForCircle(circle), visitForTriangle**(**triangle**)
+    allows us to add functionality to Square, Circle and Triangle respectively.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now the question which comes to mind is why can’t we have a single method visit**(shape)**
+    in the visitor interface. The reason we don’t have it because GO and also some
+    other languages support method overloading. So a different method for each of
+    the struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We add an **accept** method to the shape interface with below signature and
+    each of the shape struct needs to define this method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: But wait for a second, we just mentioned that we don’t want to modify our existing
+    shape structs. But when using Visitor Pattern we do have to modify our shape structs
+    but this modification will only be done once. In case adding any additional behaviour
+    such as **getNumSides()**, **getMiddleCoordinates()** will use the same above
+    **accept(v visitor)** function without any further change to the shape structs.
+    Basically the shape structs just need to be modified once and all future request
+    of additional behaviours will be handled using the same accept function. Let’s
+    see how.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The square struct will implement an accept method like below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: and similarly, circle and triangle will also define an accept function as above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now the team requesting for the **getArea()** behaviour can simply define the
+    concrete implementation of visitor interface and write the area calculation logic
+    in that concrete implementation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**areaCalculator.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: To calculate the area of a square we first create an instance of the square
+    they can simply call.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Similarly, other team requesting for **getMiddleCoordinates()** behaviour can
+    define another concrete implementation of the visitor interface similar to above.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**middleCoordinates.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**UML Diagram:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '![](img/d728a8b95698322fae7c9e447f3d08a8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Below is the corresponding mapping UML diagram with the practical example of
+    shape struct and areaCalculator we gave above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/76c1c67ce396b6579fea7d6a93abd60b.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Mapping **'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in **“Example”** below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| element | shape.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Element A | square.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Element B | circle.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Element C | rectangle.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Visitor | visitor.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Visitor 1 | areaCalculator.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Visitor 2 | middleCoordinates.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Client | main.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**shape.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**square.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**circle.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**rectangle.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**visitor.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**areaCalculator.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**middleCoordinates.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[design](https://golangbyexample.com/tag/design/)*   [go](https://golangbyexample.com/tag/go/)*   [visitor](https://golangbyexample.com/tag/visitor/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

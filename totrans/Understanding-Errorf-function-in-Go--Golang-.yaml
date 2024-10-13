@@ -1,0 +1,282 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:35:52'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding Errorf function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/errorf-function-golang/](https://golangbyexample.com/errorf-function-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Formatting a string variable](#Formatting_a_string_variable "Formatting a
+    string variable")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Formatting an integer](#Formatting_an_integer "Formatting an integer")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Formatting a struct](#Formatting_a_struct "Formatting a struct")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Wrapping of error](#Wrapping_of_error "Wrapping of error")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Errorf** function is defined in the **fmt** package and is used to create
+    a custom error with a formatted message as per the format specifier provided.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/fmt/#Errorf](https://golang.org/pkg/fmt/#Errorf)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Its main use is to create a custom error in golang with a formatted message.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is also used to create a custom error which can wrap another error provided
+    to it. In golang, an error can wrap another error as well.  What does the wrapping
+    of error mean? It means to create a hierarchy of errors in which a  particular
+    instance of error wraps another error and that particular instance itself can
+    be wrapped inside another error. We will see about this in detail later in this
+    tutorial.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is the function prototype of **Errorf**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can see it returns an instance of the error.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Errorf** is also a variadic function meaning that it can have multiple arguments. There
+    are two important points about its argument list'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Notice that the first argument is a **format** or **template** string.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The next is a variable number of arguments. Each of the arguments in this list
+    could be string, int, struct, or anything. That is why it is an empty interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Errrof** formats the string using custom specifiers. The first argument that
+    is the **format** or **template** string contains the actual string that needs
+    to be formatted plus some formating verbs. These formating verbs tell how the
+    trailing arguments will be formatted in the final string.  So basically the format
+    string argument contains certain symbols which are replaced by trailing arguments.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Eg
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Formatting a string variable**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '**%s** symbol is used'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Example
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Formatting an integer**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '**%d** symbol is used'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Example
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Formatting a struct**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: For example, there are three format specifiers for printing a struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**%v** – It will print only values. The field name will not be printed. This
+    is the default way of printing a struct when using Println'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**%+v – **It will print both field and value.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**%#v – **It will print the struct, also both field name and value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: That is why
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: returns an error with below formatted message respectively
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here is the working program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that in below **Errorf**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**%s** is replaced by **sampleErr**.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**%d** is replaced by **port**.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So basically the symbols or verbs in the format string argument are replaced
+    by trailing arguments in order
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the number of format specifiers in the format string does not match the number
+    of next variable arguments then the format specifier will be printed as is. For
+    example, in the below code, we have two format specifier
+  prefs: []
+  type: TYPE_NORMAL
+- en: '%s'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '%d'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: While the next variable number of arguments is only one. Hence when we format
+    it then it returns the formatted error with second format specifier as is with
+    MISSING as a warning
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Wrapping of error**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the syntax for wrapping an error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**%w** directive Is used for wrapping the error.  The **fmt.Errorf **should
+    be called with only one %w directive. Let’s see an example.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a struct **errorOne** that has an **Error** method
+    hence it implements the **error** interface. Then we created an instance of the **errorOne** struct
+    named **e1**. Then we wrapped that instance **e1** into another error **e2** like
+    this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we wrapped **e2** into **e3** like below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: So so we created a hierarchy of errors in which **e3** wraps **e2** and **e2** wraps **e1**. 
+    Thus **e3** also wraps **e1** transitively. When we print **e2 ** it also prints
+    the error from **e1** and gives the output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: When we print **e3** it prints the error from **e2** as well as **e1** and gives
+    the output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: You can read about wrapping and unwrapping of error in detail here
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golangbyexample.com/wrapping-and-unwrapping-error-golang/](https://golangbyexample.com/wrapping-and-unwrapping-error-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is all about the Errorf function. Hope you have liked this article. Please
+    share feedback in the comments. Also, check out our Golang advance tutorial Series
+    – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[errorf](https://golangbyexample.com/tag/errorf/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

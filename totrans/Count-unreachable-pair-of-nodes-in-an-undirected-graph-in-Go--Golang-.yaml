@@ -1,0 +1,132 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:50:31'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Count unreachable pair of nodes in an undirected graph in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/count-unreachable-pair-nodes-golang/](https://golangbyexample.com/count-unreachable-pair-nodes-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An integer n is given. There are n  nodes numbered 0 to n-1.  A 2D integer array
+    **edges** is also given where **edges[i] = [ai, bi]** means that there is an undirected
+    node from ai to bi.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The  objective is  to  find the  number of pairs of nodes that are unreachable
+    from each other
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example 1**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Graph**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/8473545ae2c070f9173a090845f5e532.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We  have  two pairs that are not connected
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example 2**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Graph**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/649eee1225b6dbfbb0bd449cfb524479.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**26**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We  have  26 pairs that are not connected
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Idea is to do a DFS  from each of the nodes which are not visited to identify
+    the number of nodes in each connected graph within the disconnected graph. For
+    example, above, the number of nodes in each connected graph is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we simply find the number of pairs from each connected graph
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you - [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our system design tutorial series here - [System Design Tutorial
+    Series](https://techbyexample.com/system-design-questions/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

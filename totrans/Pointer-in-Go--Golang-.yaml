@@ -1,0 +1,367 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:28:47'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pointer in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/pointer-golang/](https://golangbyexample.com/pointer-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 15 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Struct](https://golangbyexample.com/struct-in-golang-complete-guide/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Defer keyword](https://golangbyexample.com/defer-golang)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Declaration of a Pointer](#Declaration_of_a_Pointer "Declaration of a Pointer")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Initialization of a Pointer](#Initialization_of_a_Pointer "Initialization
+    of a Pointer")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the new operator](#Using_the_new_operator "Using the new operator")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the ambersand ‘&’ operator](#Using_the_ambersand_operator "Using the
+    ambersand ‘&’ operator")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[About * or dereferencing pointer](#About_or_dereferencing_pointer "About *
+    or dereferencing pointer")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Pointer to a Pointer](#Pointer_to_a_Pointer "Pointer to a Pointer")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Pointer Arithmetic](#Pointer_Arithmetic "Pointer Arithmetic")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Default Zero Value of Pointer](#Default_Zero_Value_of_Pointer "Default Zero
+    Value of Pointer")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Pointer is a variable that holds a memory address of another variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Declaration of a Pointer**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In the below example, **ex** is the pointer of **T** type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In declaration the pointer value is set to its default zero value which is nil.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Initialization of a Pointer**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: There are two ways to initialize a pointer
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the **new** operator
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using the ambersand **‘&’** operator
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Using the new operator**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Pointers can  be initialized using **new** operator
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '***** operator can be used to dereference a pointer which means getting the
+    value at address stored in the pointer'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Using the ambersand **‘&’** operator
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**&** used to get the address of a variable'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '![](img/565d66437e9b9289852dee3b5af111b0.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Let’s see a working code covering all above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**About * or dereferencing pointer**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '***** operator can be used to:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Dereference a pointer which means getting the value at address stored in the
+    pointer.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Change the value at that pointer location as well
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both **a** and ***b** refer to same variable internally.  Hence changing value
+    of one reflects in another . Also ***** and **&** can be used together as well.
+    But they will  cancel out each other.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Hence below two are equivalent and will print 2
+  prefs: []
+  type: TYPE_NORMAL
+- en: a
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*&a'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also below three are equivalent and will print the address of variable a which
+    is stored in b variable
+  prefs: []
+  type: TYPE_NORMAL
+- en: b
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*&b'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '&*b'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Note:  *a is not a valid operation as a is not a pointer
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Pointer to a Pointer**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: It is also possible to create a pointer to a pointer in go
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**c** is a pointer to a pointer here. It stores the address of **b** which
+    in turn stores the address of **a**. Double dereferencing using the ***** operator
+    the can be used to print the value at pointer to pointer. Hence****c** will print
+    the value at which 2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below diagram depicits pointer to pointer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**b** contains the address of **a**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**c** contains the address of **b**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '![](img/648843d5f7bbd0caf2d036d24bddb2bd.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Let’s see. a program depicting pointer to pointer
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: From output is clear that
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below are equivalent and equal to value of variable a which is 2
+  prefs: []
+  type: TYPE_NORMAL
+- en: a
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*&a'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*b'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**c'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Below are equivalent and equal to value of variable b which is address of
+    a**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***   &a'
+  prefs: []
+  type: TYPE_NORMAL
+- en: b
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '&*b'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*&b'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*c'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '****Below are equivalent and equal to value of variable c which is address
+    of b****'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*****   b'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*c'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Pointer Arithmetic**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Pointer arithmetic is not possible in golang unlike C language. It raises compilation
+    error.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Above program raises compilation error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Default Zero Value of Pointer**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Default zero value of a pointer is nil.. Let’s see a program for it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about pointers in golang. Hope you have liked this article. Please
+    share feedback/improvements/mistakes in comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Struct](https://golangbyexample.com/struct-in-golang-complete-guide/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Defer keyword](https://golangbyexample.com/defer-golang)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*******'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

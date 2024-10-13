@@ -1,0 +1,193 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:44:58'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: LRU Cache Implementation in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/lru-cache-implementation-golang/](https://golangbyexample.com/lru-cache-implementation-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Implementation Details](#Implementation_Details "Implementation Details")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Set(key int, value int)](#Setkey_int_value_int "Set(key int, value int)")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Get(key int)](#Getkey_int "Get(key int) ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The objective is to implement a cache that will
+  prefs: []
+  type: TYPE_NORMAL
+- en: It should support **Set** and **Get** Operation
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: O(1) Time Complexity for both **Set** and **Get**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Assume the maximum capacity of the cache is 3\. Once the cache is full and there
+    is one more key to be inserted then one of the existing entries needs to be deleted
+    from the cache
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Deletion should be based on eviction algorithm – **LRU**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Implementation Details**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: We will use a **Map** and a **Doubly-linked List** for storing everything. Both
+    map and doubly-linked list are used so that **get** and **set** operations are
+    of  O(1) even with evictions
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **Map** will have the key of type string and the value of the type pointer
+    to a node in the **Doubly-linked List**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each node of the **Doubly Linked List** will contain the key as well as value.
+    Each node will also have a pointer to the previous node in the double linked list
+    and a pointer to the next node in the **doubly linked list**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see how Get and Set are going to work in O(1) time
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Set(key int, value int)**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: For any set operation, it will first create a doubly-linked list node with key
+    and value supplied. Then an entry will be made into the map with key as the input
+    key and value as the address of the node. Once the node is created, then there
+    are two cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: The cache is not full –  In this case, it will pass the control to the current
+    Eviction Algorithm which is LRU. The LRU algorithm is going to do insert that
+    node in a double-linked list at the end. The idea is that the front node in the
+    doubly linked list is the least recently used node. Every operation is O(1) here
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The cache is full – In this case, it will pass the control to the current eviction
+    Algorithm which is LRU. It will evict the least recently used node which is the
+    front node. Once that node is evicted it will insert the new node at the end.
+    Every operation is O(1) here
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Get(key int)**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: For any Get operation, it will first check the map if the given key exists.
+    If it exists then it will fetch the address of the node pointed to by key in the
+    map. It will then fetch the value from the node. Then it will pass the control
+    to the current Eviction Algorithm which is LRU. The LRU algorithm is going to
+    move the current node in the doubly-linked list at the end. Again the idea is
+    that the front node in the doubly linked list is the least recently used node
+    and to maintain that current node is moved to the end. Every operation is O(1)
+    here.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here is the full working code in go programming language if anyone is interested.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**doublylinklist.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**evictionAlgorithm.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**lru.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**fifo.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**cache.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: This is all about LRU cache implementation in Golang. Hope you have liked this
+    article. Please share feedback in the comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[lru](https://golangbyexample.com/tag/lru/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,68 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:24:03'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Execute multiple case in Select statement in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/execute-multiple-case-select-go/](https://golangbyexample.com/execute-multiple-case-select-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The select statement only executes one of the cases on which either send or
+    receive channel operation is ready.  It cannot execute multiple cases but there
+    is a workaround to it. We can have a for loop outside the set statement. This
+    for loop will call the select statement equal to the number of iterations in the
+    loop.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program  we put a for loop of length two across the select statement.
+    Hence  the select statement is executed twice and   prints the received value
+    from each of the case statement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This way we can execute multiple  case statement but do note that it is not
+    deterministic.  If there are multiple operations available on the same channel
+    for a particular case statement then that case can be executed every time in all
+    iterations of the for loop
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,244 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:29:23'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Selection of the version of library or dependency in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/versiono-module-selection-go/](https://golangbyexample.com/versiono-module-selection-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: To understand how does GO’s approach while selecting the version of the library
+    of which two versions are specified in the **go.mod** file, we have to first understand
+    Semantic Versioning
+  prefs: []
+  type: TYPE_NORMAL
+- en: Semantic Versioning is comprised of three parts separated by dots. Below is
+    the format for versioning.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: where
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**v** – it is just an indicator that it is a version'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**major_version** – It represents the incompatible API changes in the library.
+    So when there are changes in the library that is not backward compatible, in that
+    case, major_version is incremented'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**minor_version** – It represents the change in functionality of the library
+    in a backward-compatible manner. So when there are some functionality changes
+    in the library but those changes are backward compatible then, in that case, the
+    minor version is incremented'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**patch_version** – It represents the bug fixes in the library in a backward-compatible
+    manner. So when there are bug fixes to the existing functionality of the library,
+    then, in that case, patch_version is incremented.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now there can be two cases while selecting the version of the library
+  prefs: []
+  type: TYPE_NORMAL
+- en: Two versions of the same library are used which only differ in the minor and
+    patch version. Their major version is the same.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Two versions of the same library are used which differ in the major.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see what approach does go follows in the above two cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Differ in minor or patch version](#Differ_in_minor_or_patch_version "Differ
+    in minor or patch version")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Differ in major version](#Differ_in_major_version "Differ in major version")*  *#
+    **Differ in minor or patch version**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go follows the minimum version policy approach while selecting the version of
+    the library of which two versions are specified in the **go.mod** file which differ
+    only in their minor or patch version.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example in case you are using the two versions of same library which are
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: and
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: then go will choose 1.3.0 as it is the latest version.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Differ in major version**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Go treats the major version as a different module itself. Now, what does that
+    means? This essentially means that the import path will have a major version as
+    its suffix. Let’s take the example of any go library. Let’s latest semantic version
+    is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then the go.mod file will like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: It has major version in its import path. So any library which is using the go-redis
+    have to import it like
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: If in future **v9** version is released than it has to be imported in the application
+    like
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also the library will change its go.mod file to reflect the v9 major version
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: What it essentially allows is to use different major version of the same library
+    to be used within same go application.  We can also give meaningful names when
+    different major version of the same library is imported in the same application.
+    For eg
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is also known as **Semantic Import Versioning**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also note that
+  prefs: []
+  type: TYPE_NORMAL
+- en: For the first version, it is ok to not specify the version in the go.mod file.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also, be careful when importing a different major version of the same library.
+    Look out for the new functionality that might be available with new versions.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also for the same reason when you update a specific module using
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: then it will only upgrade to the latest minor version or patch version whichever
+    applicable. For example let’s say the current version used by an application is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also let’s say we have below versions available
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then when we run
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: then it will update to
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: The reason is because go get will only update the minor or patch version but
+    never the major version as go treats the major version of a module as a different
+    module entirely.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To upgrade the major version, specify that  upgraded dependency explicitly 
+    in the **go.mod** file or do a go get of that version.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, a couple of points to note about upgrading module
+  prefs: []
+  type: TYPE_NORMAL
+- en: To upgrade a dependency to its latest patch version only, use the below command
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: To upgrade a dependency to a specific version, use the below command
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: To upgrade a dependency to a specific commit, use the below command
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: To upgrade all dependency to their latest minor and patch version, use the below
+    command
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

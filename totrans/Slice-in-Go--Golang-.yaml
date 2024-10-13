@@ -1,0 +1,760 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:19:00'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Slice in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/slice-in-golang/](https://golangbyexample.com/slice-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 18 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Maps](https://golangbyexample.com/maps-in-golang)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Array](https://golangbyexample.com/understanding-array-golang-complete-guid)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Creating a slice](#Creating_a_slice "Creating a slice")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the []<type>{} format](#Using_the_format "Using the []<type>{} format")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creating a slice from another slice or array](#Creating_a_slice_from_another_slice_or_array
+    "Creating a slice from another slice or array")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Create a slice from Array](#Create_a_slice_from_Array "Create a slice from
+    Array")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Create a slice from slice](#Create_a_slice_from_slice "Create a slice from
+    slice")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the make function](#Using_the_make_function "Using the make function")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the new function](#Using_the_new_function "Using the new function")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Length vs Capacity](#Length_vs_Capacity "Length vs Capacity")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Accessing and Modifying Slice Elements](#Accessing_and_Modifying_Slice_Elements
+    "Accessing and Modifying Slice Elements")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Different ways of iterating a slice](#Different_ways_of_iterating_a_slice
+    "Different ways of iterating a slice")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Appending to a slice](#Appending_to_a_slice "Appending to a slice")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Copy a slice](#Copy_a_slice "Copy a slice")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Nil Slice](#Nil_Slice "Nil Slice")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Multidimensional Slices](#Multidimensional_Slices "Multidimensional Slices")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The size of the array being part of it limits the expressiveness and power of
+    array in go. This is where slice comes into the picture. Slice is more powerful
+    and convenient to use than an array.  Slice, in fact, is more analogous to arrays
+    in another programming language.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A slice points to an underlying array and is internally represented by a slice
+    header.  Unlike array, the size of a slice is flexible and can be changed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Internal representation of a slice**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Internally a slice is represented by three things.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pointer to the underlying array
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Current length of the underlying array
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Total Capacity which is the maximum capacity to which the underlying array can
+    expand.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Above internal representation is described by **SliceHeader** struct which
+    looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **Pointer** field in the slice header is a pointer to the underlying array. 
+    Len is the current length of the slice and Cap is the capacity of the slice. Similar
+    to array a slice index starts from **zero** till **length_of_slice-1**. So a slice
+    of 3 lengths and 5 capacity will look like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/956bef1f4ab635ef8ec4169ba8174882.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '****Creating** a slice**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: There are four ways of creating a slice
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the []<type>{} format
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Creating a slice from another slice or array
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using make
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using new
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s look at each of above method one by one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using the []<type>{} format**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The most common way of declaring a slice is this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: It declares an empty of slice of 0 length and 0 capacity. We can also initialise
+    the slice during declaration.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: It declares a slice of integers of length 2 and also the capacity of 2\. The
+    capacity will be equal to the actual slice elements specified. We also have two
+    library functions provided by go which can be used to know the **length** and
+    **capacity** of a slice.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**len()** function – for  length of the slice'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**cap()** function – for capacity of the slice'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a small program which shows the above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: When the actual elements are not specified, then both length and capacity of
+    the slice is zero. When actual elements are specified , both length and capacity
+    is equal to the number of actual elements specified.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creating a slice from another slice or array**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: A slice can be created by re-slicing an exiting slice or array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Create a slice from Array**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The format for creating a new slice by re-slicing an existing array is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above operation will return a new slice from the arraystarting from index
+    **start** to index **end-1\.** So the element at index **end** is not included
+    in the newly created slice. While re-slicing , both start and end index is optional.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The default value of the start index is zero
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The default value of the end index is the length of the array
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in above example that
+  prefs: []
+  type: TYPE_NORMAL
+- en: length of newly created slice = (**end**–**start**)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: capacity of newly created slice = (**length_of_array**–**start**)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **num1** slice would look like
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/33586fc71a4b7b6f0294dc7dc24f41df.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The newly created slices still refer the original array. To check this change
+    element at any one of the index of the array and then reprint the slice
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here is the output:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: This proves that each of the new slice is still referring to the original array.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Create a slice from slice**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Whatever we discussed about re-slicing from an array also applies here as well.
+    See below example which illustrates same thing
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here also the newly created slices refer to the same underlying array that was
+    being referred to by the original slice.  To check this change element at any
+    one of the index of the original slice and then reprint all the newly created
+    slices
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here is the output:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using the make function**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**make** is a builtin function provided by go that can also be used to create
+    a slice. Below is the signature of make function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Capacity is an optional parameter while creating slice using the make function.
+    When capacity is omitted, the capacity of the slice is equal length specified
+    for the slice. When using make function, behind the scenes go allocates an array
+    equal to the capacity. All the elements of the allocated array are initialized
+    with default zero value of the type. Let’s see a program illustrating this point.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using the new function**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**new** is a builtin function provided by go that can also be used to create
+    a slice. It is not a very popular way of creating a slice as **make** is much
+    more flexible in terms of functionalities . It is not generally used and also
+    using **new** function returns a pointer to nil slice. Let’s see an example. In
+    below example we are using the dereferencing operator **‘*’** as **new** function
+    returns a pointer to the nil slice.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Length vs Capacity**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Before moving further, let’s emphasis on understanding the caveats of length
+    and capacity. Let’s create a simple slice with capacity greater than length.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: Accessing the slice behind its length will result in a run time error “Index
+    out of range”. It doesn’t matter if the accessed index is within the capacity.
+    So the below line will cause the run time error.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: The length of the slice can be increased up to its capacity by re-slicing. So
+    below re-slice will increase the length from 3 to 5.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: The length of the slice can also be decreased using re-slicing. So below re-slice
+    will decrease the length from 3 to 2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: The advantage of having capacity is that array of size capacity can be pre-allocated
+    during the initialization.  This is a performance boost as if more elements are
+    needed to include in this array then space is already allocated for them.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see the program illustrating above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Accessing and Modifying Slice Elements**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A slice element can be accessed by specifying the index. Slice element can also
+    be allotted a new value using the index. Also, note that any changes in the underlying
+    array will reflect back in the slice as we have also seen above. Let’s see a small
+    example of accessing and modifying
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Different ways of iterating a slice**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'An array can be iterated using:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using for loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using for-range loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a code example for both
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Appending to a slice**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: go **builtin** package provides an **append** function that can be used to append
+    to a slice at the end. Below is the signature of this function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: The first argument is the slice itself. The second is the variable number of
+    arguments which is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**''...''** operator is the variadic syntax. So basically **...Type** means
+    It means that the append function can accept variable number of arguments of type
+    **Type**. Below is the way for using this function. In below code we are appending
+    4 to a slice which has two elements. It appends at the end and returns the original
+    slice. That is why we are collecting result again in **numbers** variable. It
+    is also ok to assign the result to some other variable.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is also ok to append many number of elements because the second argument
+    is the variadic argument.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: This function in the background increases the length and capacity of the slice.
+    There are two cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: When slice length is less than capacity.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In this case, on using the append function,  the length of the slice will be
+    increased  by one without any change in its capacity. Let's see a example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: Capacity in all cases doesn't changes and it is 5 while length increases by
+    1.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When slice length is greater than capacity.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In this case since there is no more capacity, so no new elements can be accommodated. 
+    So in this case under the hood an array of double the capacity will be allocated.
+    The current array pointed by the  slice will be copied to that new array. Now
+    the slice will starting pointing to this new array. Hence the capacity will be
+    doubled and length will be increased by 1\. Let's see a example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in above example that the capacity is doubled.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is also possible to append one slice to another slice. Below is the format
+    for that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE37]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice **'...'** after the second slice. **'...'** is the operator which means
+    that the argument is a variadic parameter. Meaning that during run time slice2 will
+    be expanded to its individual elements which are passed as multiple arguments
+    to the append function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE38]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE39]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Copy a slice**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: go **builtin** package provides **copy** function that can be used to copy a
+    slice. Below is the signature of this function. It takes in two slices **dst**
+    and **src**, and copies data from **src** to **dst**. It returns the number of
+    elements copied.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE40]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'There are two cases to be considered while using the copy function:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the length of **src** is greater than the length of dst, then the number
+    of elements copied is the length of **dst**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the length of **dst** is greater than the length of src, then the number
+    of elements copied is the length of **src**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Basically the number of elements copied is minimum of length of **(src, dst). **
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also to note then once the copy is done then any change in **dst** will not
+    reflect in **src** and vice versaLet's see an example of it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE41]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE42]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Nil Slice**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The default zero value of a slice is nil. The length and capacity both of a
+    nil slice is zero. Though it is possible to append to a nil slice as well. Let's
+    see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE43]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE44]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Multidimensional Slices**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: As the multi-dimensional array is an array of arrays, similarly multi-dimensional
+    slice is a slice of slices. To understand this, let's first look at the definition
+    of a slice.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Data** field in the slice header is a pointer to the underlying array. For
+    a one dimensional slice, we have below declaration'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE45]'
+  prefs: []
+  type: TYPE_PRE
+- en: To declare a two dimensional slice the declaration would be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE46]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above declaration means that we want to create a **slice** of 2 slices. Carefully
+    understand this point. But wait a second here, we haven't specified the second
+    dimension here, meaning what is the length of each of the inner 2 slices. In case
+    of slice, each of the inner slice has to be explicitly intialized like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE47]'
+  prefs: []
+  type: TYPE_PRE
+- en: So using range on the original slice, we specify the length each of 2 slices
+    using make.  Below is one other way of doing the same but with slice elements
+    specified
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE48]'
+  prefs: []
+  type: TYPE_PRE
+- en: Basically, with the above declaration, we create a slice of 2*3 dimensions which
+    is a two-dimensional slice. The same idea can be extended to two-dimension, three-dimension,
+    and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A complete working example of above two points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE49]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE50]'
+  prefs: []
+  type: TYPE_PRE
+- en: We mentioned above that we are creating a two-dimensional slice of 2*3 dimensions. 
+    With that said the thought that might be coming to your mind is whether it is
+    possible to have different lengths for inner slices. Yes, it is possible. Unlike
+    arrays which have inner arrays of the same length, in case of slice since we initialize
+    each of the inner slices individually, it is possible to have different length
+    for inner slices
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let's see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE51]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE52]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let's see a small example of a three-dimensional slice as well. In the below
+    program, we are creating a slice of 2*2*3 dimensions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE53]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE54]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about slice in golang. Hope you have liked this article. Please
+    share feedback/improvements/mistakes in comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Maps](https://golangbyexample.com/maps-in-golang)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Array](https://golangbyexample.com/understanding-array-golang-complete-guid)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[complete guide](https://golangbyexample.com/tag/complete-guide/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [slice](https://golangbyexample.com/tag/slice/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

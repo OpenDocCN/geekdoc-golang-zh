@@ -1,0 +1,63 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:11:02'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Return a function from a function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/return-func-from-func-go/](https://golangbyexample.com/return-func-from-func-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: In Golang function are first-order variables meaning that
+  prefs: []
+  type: TYPE_NORMAL
+- en: They can be assigned to a variable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Passed around as function argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Returned from a function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: While returning a function from another function, the exact signature of the
+    function has to be specified return list. As in below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: The return type of **getAreaFunc** function is **func(int, int) int**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**getAreaFunc** function hence it can return a function of type **func(int,
+    int) int**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE

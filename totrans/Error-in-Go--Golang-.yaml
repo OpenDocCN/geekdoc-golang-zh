@@ -1,0 +1,342 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:25:13'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Error in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/error-in-golang/](https://golangbyexample.com/error-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 26 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Error -Part 2](https://golangbyexample.com/error-in-golang-advanced/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Select Statement](https://golangbyexample.com/select-statement-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Using type which implements error interface](#Using_type_which_implements_error_interface
+    "Using type which implements error interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Advantages of using error as a type](#Advantages_of_using_error_as_a_type
+    "Advantages of using error as a type")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Different ways of creating an error](#Different_ways_of_creating_an_error
+    "Different ways of creating an error")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using errors.New(“some_error_message”)](#Using_errorsNewsome_error_message
+    "Using errors.New(“some_error_message”)")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using fmt.Errorf(“error is %s”, “some_error_message”).](#Using_fmtErrorferror_is_s_some_error_message
+    "Using fmt.Errorf(“error is %s”, “some_error_message”). ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creating Custom error](#Creating_Custom_error "Creating Custom error")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Ignoring errors](#Ignoring_errors "Ignoring errors")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In this tutorial, we will study how to do error handling in golang. As compared
+    to other conventional languages go doesn’t have exceptions and try-catch for handling
+    the error.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The error handling in golang can be done in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using type which implements **error** interface –   it is a conventional way
+    to represent an error and  also idiomatic
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using panic and recover
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We will only be discussing the first part in this article.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using type which implements error interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Go’s way of dealing with an error is to explicitly return the error as a separate
+    value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The crux to understanding error in golang is to understand the **error** interface.
+    This is how the **error** interface looks as defined in the **builtin** package
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/builtin/#error](https://golang.org/pkg/builtin/#error)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **error** interface is the conventional way to represent an error condition
+    in golang. If this is nil then it means no error. So in go error is treated as
+    a value. This value implements the **error** interface and which can be passed
+    around to a function, returned from a function, and which can be stored in variables.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So any type which defines the **Error** method is set to be implementing the
+    **error** interface.  As we mentioned earlier that go doesn’t have exceptions
+    and try-catch so an idiomatic way of handling error condition is to return the
+    error as the last return value. The value can then be checked for nil. If it is
+    nil then the  called function did not return the  error otherwise the called function
+    returned the error. So let’s see a program which demonstrates what we just talked.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we are calling the **os.Open** function to open a non-existing
+    file. Since the file does not exist it gives the above error message in the output.
+    But from where is this error message coming from. Let’s understand that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of **os.Open** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: It takes one argument as an input which is the file path to be opened. It has
+    two return values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The pointer to the file struct if the file is present
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If there is an error, then it returns the type ***PathError** which implements
+    the **error** interface.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Check out the **PathError** struct type here- [https://golang.org/src/os/error.go](https://golang.org/src/os/error.go)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The pointer to **PathError** struct defines the **Error()** method
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Since it defines the **Error** method hence ***PathError** implements the **error**
+    interface.   That is why **error** can be returned as the second return value
+    from the **os.Open** function.  Now notice how in the **main** function we check
+    for the presence of error by only comparing it with nil.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The reason we compare it with nil because the default zero value of interface
+    is nil and since **error** is also an interface its default zero value is also
+    nil.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also **fmt.Println** function internally checks if a type passed as an argument
+    to it implements the **error** interface. If yes then it calls the **Error** method
+    on that type. That is what this line
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: gives output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using any type as error**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Even though we have an error interface in go and we expect every error in go
+    to follow this interface as seen above, still it is not a mandatory requirement.
+    Any type can be treated as an error in go, but generally, it is not recommended
+    that as well as it is not an idiomatic way to code in go. We are mentioning here
+    for the sake of completion and as well as the discussion.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Advantages of using error as a type**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: It allows more control over handling the error. The error can be checked at
+    each step
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Prevents the ugly code of try-catch and exception handling
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Different ways of creating an error**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see now different methods of creating an **error**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using errors.New(“some_error_message”)**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using fmt.Errorf(“error is %s”, “some_error_message”).**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: This way creates error with formatting of error messages
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Creating Custom error**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The below example illustrates the use of custom error. In below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: inputError is a struct that has the Error() method hence it is of type error
+    interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can also add additional information to the custom error by extending its
+    fields or by adding new methods. inputError has an additional field named **missingFields**
+    and a function **getMissingFields** function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We can use type assertion to convert from **error** to **inputError**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Example:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Ignoring errors**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Underscore (‘_’) operator can be used to ignore the error returned from a function
+    call.  Before we see a program it’s important to note that error should never
+    be ignored. It is not a recommended way. Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we used the underscore operator to ignore the error while
+    opening a non-existing file. That is why the file instance returned by the function
+    is nil. Therefore it is better to check for an error before using any other argument
+    returned by the function as that can be nil and would result in unwanted issues
+    and also sometimes it might also result in a panic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about the error in golang. We will discuss advanced topics related
+    to the error in next chapter.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Hope you have liked this article. Please share feedback/improvements/mistakes
+    in comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Error -Part 2](https://golangbyexample.com/error-in-golang-advanced/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Select Statement](https://golangbyexample.com/select-statement-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,44 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:07:33'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Represent Date of Birth in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/dob-golang/](https://golangbyexample.com/dob-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**time.Date** function of **time** package can be used to create a particular
+    date that can represent a DOB.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: getDOB is the function that takes in a year, month and day and returns a date.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[date](https://golangbyexample.com/tag/date/)*   [dob](https://golangbyexample.com/tag/dob/)*   [package](https://golangbyexample.com/tag/package/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

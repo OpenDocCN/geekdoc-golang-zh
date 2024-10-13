@@ -1,0 +1,165 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:03:37'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Null Object Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/null-object-design-pattern-golang/](https://golangbyexample.com/null-object-design-pattern-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction:](#Introduction "Introduction:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Introduction:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Null Object Design Pattern is a behavioral design pattern. It is useful when
+    the client code relies upon some dependency which can be null. Using this design
+    pattern prevents clients from having to put null checks on the result of these
+    dependencies. With that said, it should also be noted that client behavior is
+    also fine with such null dependencies.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Main components of the Null Object Design Pattern are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Entity** – it is the interface which defines primitive operations that child
+    structs have to implement'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**ConcreteEntity** – it implements the entity interface'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**NullEntity** – it represents the null object. It also implements the entity
+    interface but has null properties'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Client** – the client gets the implementation of the entity interface and
+    uses it. It doesn’t really care if the implementation is of ConcreteEntity or
+    NullEntity. It treats both of them as same.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s consider an example. Assume we have a college with many departments with
+    each department having some number of professors.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**department** is represented by an interface'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: where as **college** is represented as
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now let’s say that there is an agency that wants to calculate the total number
+    of professors for a particular college for specific departments only.  We will
+    use the Null Object Design Pattern for this use case where a college will return
+    a nullDepartment object (see **nullDepartment.go**) if a department doesn’t exists
+    in college.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Notice the code in agency.go
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**agency.go** doesn’t even care whether a particular department exists in college
+    or not. **college** returns a null department object if that department doesn’t
+    exist in the college.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It treats nullDepartment and real Department as same so null checks are avoided.
+    It calls **getNumberOfProfessors()** on both the objects.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Above are two advantages that we get by using nullObject design pattern for
+    this case. See the below code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**agency.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**college.go –** represents the college'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**department.go –** It represents the department interface'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**computerscience.go –** Concrete implementation of department interface'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**mechanical.go –** Concrete implementation of department interface'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**nullDepartment.go** – nullObject implementation of the department interface'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[golang](https://golangbyexample.com/tag/golang/)*   [null object design pattern
+    in go](https://golangbyexample.com/tag/null-object-design-pattern-in-go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

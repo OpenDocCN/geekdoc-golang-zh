@@ -1,0 +1,105 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:50:36'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Rotting Oranges Program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/rotting-oranges-program-go/](https://golangbyexample.com/rotting-oranges-program-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An m*n matrix is given where each entry contains three values
+  prefs: []
+  type: TYPE_NORMAL
+- en: 0 – Denotes that entry is empty
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 1 – Denotes that entry contains fresh orange
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 2 – Denotes that the entry contains rotten orange
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A rotten orange will rot the neighboring orange in 1 day. For a given orange,
+    any orange which lies on top, bottom, left and right is a neighboring orange.
+    Diagonal oranges are not counted
+  prefs: []
+  type: TYPE_NORMAL
+- en: The objective is to find the number of days when all the oranges will be rotten.
+    Written -1 if all oranges cannot be rotten. This will happen if a fresh orange
+    is unreachable from a rotten orange
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example 1**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: There is one rotten orange at the top. It will rotten its neighboring two oranges.
+    Those rotten neighboring orange will further rotten their neighboring oranges.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example 2**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you - [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our system design tutorial series here - [System Design Tutorial
+    Series](https://techbyexample.com/system-design-questions/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

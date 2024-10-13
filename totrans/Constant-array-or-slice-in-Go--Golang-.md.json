@@ -1,0 +1,1 @@
+["```\npackage main\nfunc main() {\n\tconst e = [1]int{1}\n}\n```", "```\nconst initializer [1]int literal is not a constant\n```"]

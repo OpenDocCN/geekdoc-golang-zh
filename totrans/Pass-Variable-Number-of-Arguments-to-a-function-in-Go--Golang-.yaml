@@ -1,0 +1,133 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:11:06'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pass Variable Number of Arguments to a function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-variadic-function/](https://golangbyexample.com/go-variadic-function/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Different number of parameters but of the same type](#Different_number_of_parameters_but_of_the_same_type
+    "Different number of parameters but of the same type")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Different number of parameters and of different types](#Different_number_of_parameters_and_of_different_types
+    "Different number of parameters and of different types")*  *# Overview'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In Go, a function that can accept a dynamic number of arguments is called a
+    Variadic function. Below is the syntax for variadic function. Three dots are used
+    as a prefix before type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above function can be called with zero or more arguments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: The variadic param which is **numbers,** in this case, gets converted into a
+    slice inside the function which can be iterated using **range**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: If you already have a slice and you need to pass it as a variadic param then
+    that can be done by adding three dots (…) after the argument while calling the
+    function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In case there is a need to pass variadic as well as non-variadic arguments to
+    a function, then the non-variadic needs to be passed as initial arguments and
+    variadic argument need to be the last.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The best example of a variadic function used in GO library is the **fmt.Println()**
+    function. This is the signature of the function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: While using variadic functions there can be a couple of cases related to the
+    variadic argument.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Different number of parameters but of the same type**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The above case can easily be handled using variadic functions. Notice in below
+    code the parameter is of one type i.e. **int.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Different number of parameters and of different types**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This case can be handled using both variadic function and empty interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can also use a switch case to get the exact parameters and use them accordingly.
+    See the below example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Wherever the arg is not passed it is substituted as default.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]*'
+  prefs: []
+  type: TYPE_NORMAL

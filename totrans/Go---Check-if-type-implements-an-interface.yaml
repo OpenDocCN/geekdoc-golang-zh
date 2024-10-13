@@ -1,0 +1,63 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:05:08'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Go : Check if type implements an interface'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-check-if-type-implements-interface/](https://golangbyexample.com/go-check-if-type-implements-interface/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Sometimes there can be scenarios where it is needed to know if your type satisfies
+    an interface or not. This can be easily achieved using a blank identifier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have commented out the square’s **getArea()** function.
+    On “go build” above program gives the error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: On uncommenting the **getArea()** method the error goes away. To check if a
+    pointer of the type implements the interface then it can be done as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**OR**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: First one will give the error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: while the latter one will give error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [interface](https://golangbyexample.com/tag/interface/)*   [type](https://golangbyexample.com/tag/type/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

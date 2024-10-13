@@ -1,0 +1,233 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:32:08'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Get response headers for an outgoing HTTP request in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/get-response-headers-making-go/](https://golangbyexample.com/get-response-headers-making-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Related Post'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Get request headers from an incoming HTTP request in Golang – [https://golangbyexample.com/headers-http-request-golang/](https://golangbyexample.com/headers-http-request-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Set response headers for an incoming HTTP request in Golang – [https://golangbyexample.com/set-resposne-headers-http-go/](https://golangbyexample.com/set-resposne-headers-http-go/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Set request headers for an outgoing HTTP request in Golang- [https://golangbyexample.com/set-headers-http-request/](https://golangbyexample.com/set-headers-http-request/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now let’s look at how we can get headers while making an HTTP request
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Using Header.Values method](#Using_HeaderValues_method "Using Header.Values
+    method")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using Header.Get method](#Using_HeaderGet_method "Using Header.Get method")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Directly Accessing the Header Struct](#Directly_Accessing_the_Header_Struct
+    "Directly Accessing the Header Struct")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is the format in which a Header is represented in go.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: So the header is a key value pair with
+  prefs: []
+  type: TYPE_NORMAL
+- en: key being represented in canonical form. Canonical form means that the first
+    character and any character following a hyphen is in uppercase. All other characters
+    are in lowercase. Example of canonical forms are
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Value is represented as a slice of string. Why an array of strings? Because
+    it is perfectly okay to two headers with the same key and different values in
+    a request. Both the values will be collected in the slice.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Response in http request is represented by **http.Response** struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/src/net/http/response.go](https://golang.org/src/net/http/response.go)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: There is a **Header** field defined in the **http.Response** struct as below.
+    It contains the response headers associated with the response
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the below example let’s assume that variable **w** is of type **http.Response**.
+    Now let’s see different ways of getting a response header. Also, assume that we
+    have below response headers for now in an outgoing request
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using Header.Values method**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Used for accessing all values of a header given a key using the Values method.
+    Below is the format of the method
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that return type is a slice of string. It will return all the values
+    associated with a given header key. Also the given key is converted to the canonical
+    form first before fetching the values. It can be called as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: For eg  for
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**w.Header.Values(“content-type”)** will output **[“application/json” ]**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**w.Header.Values(“foo”)** will output **[“bar1”, “bar2”]**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Using Header.Get method**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Used for accessing the first value of a header given a key. It is most common
+    method used because generally only single value is associated with a header. Below
+    is the format of the method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that the return type is just a string. It will return the first value
+    associated with the given key. Also, the given key is converted to the canonical
+    form first before fetching the values. It can be called as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: For eg  for
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**w.Header.Get(“content-type”)** it will output **“application/json”**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**w.Header.Get(“foo”)** will output **“bar1”**. Only the first value will be
+    returned.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Directly Accessing the Header Struct**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Header map can also be directly accessed which is present within *http.Response
+  prefs: []
+  type: TYPE_NORMAL
+- en: For eg
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**w.Header** will output a map'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**w.Header[“Content-Type”]** will output'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**w.Header[“Foo”]** will output'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Please note that when accessing Header map directly, we need to supply the key
+    in canonical form only.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see a program illustrating all the above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: After running the above program,  check the output in the terminal. It is exactly
+    as we have discussed. Below will be the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: outputs an array
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]*'
+  prefs: []
+  type: TYPE_NORMAL

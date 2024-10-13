@@ -1,0 +1,166 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:38:13'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Golang Regex: Match number or numeric digits in Regular Expression'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/golang-regex-match-number/](https://golangbyexample.com/golang-regex-match-number/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Match a single digit](#Match_a_single_digit "Match a single digit")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Match Repetition of digit](#Match_Repetition_of_digit "Match Repetition of
+    digit")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\d** can be used to match digits in golang. In fact, **\d** can be used to
+    match the entire range.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The regular expression for matching any digit will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In case you want to match only a particular digit, let’s say 5 then the regular
+    expression will be that digit.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: If you want to match two digits then below will be the regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Match a single digit**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have examples of  two regexes
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**\d** – Match any digit'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**5**  – Match only five'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The first matches any single digit. That is why it matches
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: And it doesn’t match
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: The same is also evident from the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: The second regex matches only **“5”** and it doesn’t match **“6”** as is evident
+    from the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Match Repetition of digit**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Quantifiers can be used to match the repetition of digits. Example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**\d+** – Match one or more digits'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\d*** – Match zero or more digits'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\d{N}** – Match N number of digits'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have examples of  three regexes
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**\d+**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\d***'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\d{N}**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\d+** regex gives a match for **“12345”** but fails for an empty string'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**\d***  gives a match for **“12345”** as well as an empty string'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**\d{2}** matches a sequence of two digits. That is why it matches for **“12”**
+    for fails for **“1”**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  prefs: []
+  type: TYPE_NORMAL

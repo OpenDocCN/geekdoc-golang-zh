@@ -1,0 +1,98 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:42:24'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Check if a number is a palindrome or not in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/check-number-palindrome-golang/](https://golangbyexample.com/check-number-palindrome-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[First Solution – Reverse the Number](#First_Solution_-_Reverse_the_Number
+    "First Solution – Reverse the Number")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Second Solution – Use Recursion](#Second_Solution_-_Use_Recursion "Second
+    Solution – Use Recursion")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For eg below numbers are palindrome
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below numbers are not
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: We have two solutions to find out if a number is palindrome or not
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reverse the number. If the reversed number is equal to the original number,
+    then the number is a palindrome
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The other approach is to use recursion and pass in the pointer to the number.
+    While moving down the recursion tree divide the number by 10\. While moving up
+    the recursion tree divide the value at the pointer to the number by 10\. During
+    any step of the recursion tree when they meet the last digit in the original number
+    will be the first and the last digit in the number at the pointer will be the
+    first. We can compare these two to check if they are equal. This check is done
+    each time they meet.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**First Solution – Reverse the Number**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Second Solution – Use Recursion**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]*'
+  prefs: []
+  type: TYPE_NORMAL

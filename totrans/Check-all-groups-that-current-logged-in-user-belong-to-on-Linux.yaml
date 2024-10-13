@@ -1,0 +1,30 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:53:01'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Check all groups that current logged in user belong to on Linux
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/current-log-user-groups/](https://golangbyexample.com/current-log-user-groups/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**groups** command on linux can be used to know which all groups a user belongs
+    to'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Just type in groups on the terminal. Below is the output on my Mac machine
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE

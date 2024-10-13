@@ -1,0 +1,146 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:32:56'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP send/receive application octet-stream request body in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/octet-stream-http-golang/](https://golangbyexample.com/octet-stream-http-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[HTTP Client Example](#HTTP_Client_Example "HTTP Client Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[HTTP Server Example](#HTTP_Server_Example "HTTP Server Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**application/octet-stream** content-type is used to transfer binary data in
+    the HTTP request body. So **application/octet-stream** is used for sending files
+    over HTTP request. Let’s see an example of both HTTP client and server in golang
+    for sending and receiving **application/octet-stream** data.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s create two folders first.
+  prefs: []
+  type: TYPE_NORMAL
+- en: client
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: server
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also, create a file named **photo.png** in the **client** folder
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**HTTP Client Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**client/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we are sending the file **photo.png** as **application/octet-stream**
+    request body in the POST request. photo.png is first converted into bytes and
+    these bytes are sent as **application/octet-stream** body. For that, bytes of
+    the file are read first
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: After the file is converted into bytes, it is passed to the **http.NewRequest**
+    method as below for the third argument
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **bytes.NewReader** returns the **bytes.Reader** instance. **bytes.Reader**
+    implements both **io.Reader** and **io.Writer.** The **http.NewRequest** method
+    accepts the **io.Reader** for the body part. Therefore **bytes.Reader** instance
+    can be passed as the third argument to http.NewRequest
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also in the above program, we are making a call to the below API
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s create a server that will listen on port **8080** so that we can test
+    the above client as well. Also, the server will parse the application/octet-stream
+    body and save it as **photo.png**. Let’s see the program for the server now
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**HTTP Server Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**server/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have created an API that will listen on port 8080\.
+    The API signature will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: It reads the bytes from the POST body and saves them to a file **photo.png**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s run both the Server and the Client. Run the server first.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will start listening to port 8080\. After that run the client.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: After the API is successfully executed, check at the server end. A file named
+    **photo.png** will be created at the server end.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

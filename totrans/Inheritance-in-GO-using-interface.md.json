@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport \"fmt\"\n\ntype iBase interface {\n\tsay()\n}\n\ntype child struct {\n\tstyle string\n}\n\nfunc (b *child) say() {\n\tfmt.Println(b.style)\n}\n\nfunc check(b iBase) {\n\tb.say()\n}\n\nfunc main() {\n\tchild := &child{\n\t\tstyle: \"somestyle\",\n\t}\n\tchild.say()\n\tcheck(child)\n} \n```", "```\nsomestyle\nsomestyle\n```"]

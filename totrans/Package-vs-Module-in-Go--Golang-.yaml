@@ -1,0 +1,339 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:30:08'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Package vs Module in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/package-vs-module-golang/](https://golangbyexample.com/package-vs-module-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Before Modules World](#Before_Modules_World "Before Modules World")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Pre Go version 1.11](#Pre_Go_version_111 "Pre Go version 1.11")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[In Go version 1.11](#In_Go_version_111 "In Go version 1.11")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[After Go Version 1.13](#After_Go_Version_113 "After Go Version 1.13")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creating Modules](#Creating_Modules "Creating Modules")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: As per module definition, it is a directory containing a collection of nested
+    and related go packages **go.mod** at its root.  The **go.mod** file defines the
+  prefs: []
+  type: TYPE_NORMAL
+- en: Module import path.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Dependency requirements of the module for a successful build. It defines both
+    project’s dependencies requirement and also locks them to their correct version
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Modules provides
+  prefs: []
+  type: TYPE_NORMAL
+- en: Dependency Management
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With modules go project doesn’t necessarily have to lie the **$GOPATH/sr**c
+    folder.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also in addition to **go.mod** file go also keeps a **go.sum** file which contains
+    the cryptographic hash of bits of all project’s dependent modules. This to make
+    validate that your project’s dependent modules are not changed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The behaviour of packages inside a module is same as earlier. So whatever applied
+    for a package also applies now. There is no change in that. However a collection
+    of packages can be called as module when there is a requirement to version them
+    separately. Also when it is common piece of code and you want to share that code
+    across multiple projects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Before Modules World**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see version wise changes to fully understand what was the limitations
+    earlier and what has changed since modules
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pre Go version 1.11 – Modules did not exist at all
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go Version 1.11 – Modules was introduced but not finalized
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go Version 1.13 – Modules was introduced
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Pre Go version 1.11**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Before modules go only had packages. $GOPATH location would have three directories
+  prefs: []
+  type: TYPE_NORMAL
+- en: src
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: pkg
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: bin
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: These were the problems which existed before the modules era
+  prefs: []
+  type: TYPE_NORMAL
+- en: All Go project in $GOPATH/src directory
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: No native dependency management support
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All the dependency will be downloaded in the $GOPATH/src  directory without
+    versioning
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s look at each problem one by one
+  prefs: []
+  type: TYPE_NORMAL
+- en: Any GO project has to be inside the $GOPATH/src directory
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This was a big limitation in terms of that it restricted where you can keep
+    your project.
+  prefs: []
+  type: TYPE_NORMAL
+- en: No native dependency management support
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also, one issue before modules was that there was no way to specify a dependency
+    in a project. Alternate solutions such as dep, glide were available but a native
+    solution was missing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: All the dependency will be downloaded in the $GOPATH/src  directory without
+    versioning
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When we do a go get it will download the required package in the $GOPATH/src
+    directory.  Run the below go get command.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will download the package at location
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice one thing about the go get command above that no version was specified.
+    Hence it downloads the latest version present. Also notice the downloaded package.
+    Even it doesn’t list down any versioning info. Now this is a problem. What if
+    there is an update in the  **[github.com](http://github.com)/pborman/uuid** package
+    and you want to get that update. Since there is no versioning the updated package
+    will get downloaded at the same location replacing the older one.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**In Go version 1.11**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In Go 1.11\. modules was introduced but not finalized. So if you still using
+    it then better to switch to the latest version
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**After Go Version 1.13**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We already discussed all the problems which existed before the pre-modules era.
+    Now let’s see how each of these problems got resolved with the introduction of
+    modules.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first problem was
+  prefs: []
+  type: TYPE_NORMAL
+- en: All Go project in $GOPATH/src directory
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With modules this is no longer a requirement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: No native dependency management support
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Modules introduced native dependency management within go. With modules it provides
+    two new files that will lie
+  prefs: []
+  type: TYPE_NORMAL
+- en: go.mod
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: go.sum
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: With **go.mod** and **go.sum** files we are able to install precise version
+    of a dependency without breaking anything. We already gave a brief introduction
+    of these files in the beginning of this tutorial. Later in the tutorial we will
+    look at it in detail
+  prefs: []
+  type: TYPE_NORMAL
+- en: All the dependency will be downloaded in the **$GOPATH/pkg/mod**  directory
+    with versioning
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So if you download a different version of the same library then both will be
+    downloaded in a different directory inside **$GOPATH/pkg/mod** without overriding
+    each other.  . **$GOPATH/pkg/mod**  will have two things inside it
+  prefs: []
+  type: TYPE_NORMAL
+- en: cache – This is the folder where all dependencies will get downloaded along
+    with the zipped code
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Zipped code of all downloaded dependencies will get copied over from the cache
+    directory.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s now create a module. What ever we discussed will be more clear then
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creating Modules**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below command can be used to create a module.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s create a module
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command will create a **go.mod** file in the same directory. Now what is
+    **go.mod** file
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s examine the contents of this file. Do a cat **go.mod**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: It contains the module import path and version of the go with which module was
+    created.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since it is an empty module it doesn’t have any direct dependency specified
+    yet. Let’s create a file named **uuid.go** in the same directory with below contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**uuid.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that we have imported the dependency in the uuid.go as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run the below command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command will download all the dependencies that are required in your source
+    files and update **go.mod** file with that dependency. After running this command
+    let’s now let’s again examine the contents of **go.mod** file. Do a cat **go.mod**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: It lists direct dependency which was specified in the uuid file along with exact
+    version of the dependency as well. Now let’s check the **go.sum** file as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do a **cat go.sum**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**go.sum** file lists down the checksum of direct and indirect dependency required
+    by the module.  [github.com](http://github.com)/google/uuid is internally used
+    by the [github.com](http://github.com)/pborman/uuid . It is an indirect dependency
+    of the module and hence it is recorded in the **go.sum** file.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

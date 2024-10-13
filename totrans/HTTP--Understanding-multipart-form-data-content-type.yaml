@@ -1,0 +1,222 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:33:41'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP- Understanding multipart/form-data content-type
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/multipart-form-data-content-type-golang/](https://golangbyexample.com/multipart-form-data-content-type-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: In HTTP context, the **multipart/form-data** content-type is used for submitting
+    HTML form. In the case of **multipart/form-data**, as the name suggests the body
+    consists of different parts separated by a delimiter or boundary where each part
+    is described by its own headers. The delimiter or boundary is also sent as part
+    of the header only.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When you sending an HTML form through a browser in an HTTP call, the data contents
+    can be sent in as request body below two formats.
+  prefs: []
+  type: TYPE_NORMAL
+- en: application/x-www-form-urlencoded
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: multipart/form-data
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For most of the cases, **application/x-www-form-urlencoded** can be used. **application/x-www-form-urlencoded**
+    is not much efficient for
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sending Files or images
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Sending large quantities of binary data or text which contains non-ASCII characters
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For example, let’s say that the below data needs to be sent.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Age
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Then **application/x-www-form-urlencoded** can be used to send the above data.
+    But let’s say that you also need to send the profile photo of the user in the
+    request as well. So the data is now as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Age
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Photo
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In the above case, it will not be efficient to use **application/x-www-form-urlencoded**
+    content-type. **multipart/form-data** should be used in this case. So for sending
+    simple form data use **application/x-www-form-urlencoded** but if the form-data
+    also needs to send binary data then use **multipart/form-data**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why is that?.  We will answer this question once we have understood the format
+    of **application/x-www-form-urlencoded** and **multipart/form-data. **
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**application/x-www-form-urlencoded** encodes each non-ASCII byte to 3 bytes.
+    Basically **applcation/x-www-form-urlencoded** content-type request body is like
+    a giant query string. Similar to the query string in a URI it is a key-value pair
+    having the below format'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: While sending **application/x-www-form-urlencoded**, all the non-alphanumeric
+    characters are URL encoded. All the non-alphanumeric character(reserved only)
+    will be URL encoded in the below format
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Where **WW** is the ASCII code of the alphanumeric character represented in
+    hexadecimal format.  As all the non-alphanumeric characters in the binary data
+    are URL encoded where 1 byte is converted to 3 bytes. So size is increased three
+    folds.  So if you sending a file or image which is a lot of binary data then your
+    payload will be very big i.e almost thrice the size of the actual payload. Hence
+    it is inefficient for sending large binary files or large NON-ASCII data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To fully understand the format of **application/x-www-form-urlencoded** please
+    refer to this link
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s understand the format of **multipart/form-data.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: As we mentioned before as well **multipart/form-data** has different parts separated
+    by a delimiter or a boundary. Each part is described by its own header. The format
+    of multipart/form-data is as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can notice above that format starts with a delimiter or boundary and
+    ends with a delimiter or boundary. The above format is divided into two parts.
+    Also,
+  prefs: []
+  type: TYPE_NORMAL
+- en: Each part is separated by a delimiter or boundary.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each part contains its own headers to describe the type of data
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Content-Disposition header for each part will be **form-data.** Contains the
+    name field. This field contains the key name. If the part is a file  and it will
+    also a **filename** field
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each part will also contain its own data.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Content-Disposition header for each part will be **form-data.** If you are sending
+    binary data then
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s say we are sending the below data as part of **multipart/form-data** request
+  prefs: []
+  type: TYPE_NORMAL
+- en: name = John
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: age =23
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: photo = Some binary data
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: And let’s say the delimiter or boundary is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then the format will be as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: As **multipart/form-data** will send the binary data as it is, that is why it
+    is used for sending files and large binary data. Now the question is. Why not
+    use form-data all the time then?
+  prefs: []
+  type: TYPE_NORMAL
+- en: The reason is that for small data the additional requirement of boundary string
+    and headers will outweigh any optimizations. For example, let’s say we have the
+    below data to be sent
+  prefs: []
+  type: TYPE_NORMAL
+- en: name=John
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: age=23
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Then while using **application/x-www-form-urlencoded** the data will be sent
+    as
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: But while sending **multipart/form-data** the data will be sent as below which
+    is almost 10 times the data that is sent in **application/x-www-form-urlencoded**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is all about multipart/form-data. Hope you have liked this article. Please
+    share feedback in the comments
+  prefs: []
+  type: TYPE_NORMAL

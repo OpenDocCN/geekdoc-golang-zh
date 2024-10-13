@@ -1,0 +1,1 @@
+["```\npackage main\nimport (\n    \"fmt\"\n    \"os\"\n)\nfunc main() {\n    file, _ := os.Open(\"non-existing.txt\")\n    fmt.Println(file)\n}\n```", "```\n{nil}\n```"]

@@ -1,0 +1,53 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:10:31'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Wait for all Go routines to finish execution in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/wait-all-goroutines-go/](https://golangbyexample.com/wait-all-goroutines-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**sync** package of golang provides **WaitGroup** struct which can be used
+    to wait for collection of goroutines to finish execution. The WaitGroup provides:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Add** method to set the number of goroutines to wait for.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Done** method which is called by each of the goroutines when finished.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Wait** method which is used to block till all goroutines have finished and
+    have called the **Done** method'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a working code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [goroutines](https://golangbyexample.com/tag/goroutines/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

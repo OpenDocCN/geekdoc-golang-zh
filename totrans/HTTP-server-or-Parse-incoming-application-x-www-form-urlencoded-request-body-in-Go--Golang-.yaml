@@ -1,0 +1,277 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:32:28'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP server or Parse incoming application/x-www-form-urlencoded request body
+    in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/url-encoded-body-golang/](https://golangbyexample.com/url-encoded-body-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Note**: This post is parsing the **application/x-www-form-urlencoded** request
+    at the server end. If you using an HTTP client and trying to send the **application/x-www-form-urlencoded**
+    request then please see the below link'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golangbyexample.com/http-client-urlencoded-body-go](https://golangbyexample.com/http-client-urlencoded-body-go)/'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **applcation/x-www-form-urlencoded** content-type request body is like a
+    giant query string. Similar to the query string in a URI it is a key-value pair
+    having the below format
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: where there are below key-value pairs
+  prefs: []
+  type: TYPE_NORMAL
+- en: key1, value1
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: key2 has two values i.e value21 and value22.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: key3, value3
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each key-value pair is separated by **&** in case of multiple values for the
+    same key there will be two entries of that key-value pair. Also, each key and
+    value is URLencoded similar to the query string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now the question that might be coming to the mind is if **x-www-form-urlencoded**
+    is just like query string then why does it exist. The reason is that the query
+    string is part of the URI and since there is a limit on the length of the URI,
+    you can send a limited number of key-value pairs in the query string.  While there
+    is no limit for the length of the **x-www-form-urlencoded** request body. However,
+    it is limited by the max request body size allowed by the server which is generally
+    10MB for most of the servers. Now let’s see how we can parse the **x-www-form-urlencoded**
+    in golang
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Request object of net/http package has two fields which can hold the form-data.
+    [https://golang.org/src/net/http/request.go](https://golang.org/src/net/http/request.go)
+  prefs: []
+  type: TYPE_NORMAL
+- en: The two fields are
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Form** – It holds combine data of query string and **x-www-form-urlencoded**
+    request body'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**PostForm**– It holds only **x-www-form-urlencoded** request body'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: To get the **x-www-form-urlencoded** request body we need to first call the
+    below function on the request object
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: This function essentially does below things
+  prefs: []
+  type: TYPE_NORMAL
+- en: It parses the query string present in the URL and populates the **Form** field
+    of the request object
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: After that, if the request method is PUT, POST, or PATCH  and the request body
+    content-type is x-www-form-urlencoded, then it also parses the request body and
+    populates the above two fields of the request object
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**request.PostForm** will be initialized to a non-nil, empty value if the request
+    body content-type is not x-www-form-urlencoded or the request method is not PUT,
+    POST, or PATCH'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The body parameters will take precedence over URL query string values i.e if
+    there is a key that ispresent in both form body and in query param. Then the value
+    in the form body will take precedence
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also, note that this function is idempotent.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Both **Form** and **PostForm** field are of the below type
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is a map where
+  prefs: []
+  type: TYPE_NORMAL
+- en: The key is a string
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The value is an array of strings. It is an array of strings because there can
+    be multiple values
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So essentially to get the x-www-url-encoded request body we need to call the
+    **ParseForm** function first on the request object. This will populate both the
+    **Form** and **PostForm** field. Then we can access these fields to get the **x-www-form-urlencoded**
+    body. For example, let’s say we have the below **x-www-form-urlencoded** body.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then you can access the **name** field like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: both will return
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is an array because the key can have multiple values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, the request’s object defines one more function **FormValue** which can
+    be used to get the first value associated with the key. It just returns the first
+    value and not the array. For example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: will return
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a program for that as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we are running a server on port **8080**. Also notice
+    that we are first calling the **ParseForm** function and then accessing the **Form**
+    and **PostForm** fields of the request object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, see how we are accessing the value of the **name** field in **Form** as
+    well as **PostForm**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also, we are calling the **FormValue** function on the request object to access
+    the **hobbies** field as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Run the above program. It will start a server at port **8080**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s try some curl calls.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Passing only the x-www-form-urlencoded body. No query string.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Passing the x-www-form-urlencoded body. Passing an extra field **gender** in
+    the query string. Notice in the output that the gender field is not present in
+    **PostForm** but present in **Form**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: Passing the x-www-form-urlencoded body. Also passing the same key ie **age**
+    in the query string. **age=20** is passed in the query string and **age=18** is
+    passed in the post body.  The value **20** for **age** will not be present in
+    the **PostForm** field but present in the **Form** field. Since body parameters
+    take precedence therefore **age=18** is the first value in the array in the **Form**
+    field. If you run **r.FormValue(“age”)** then it will return 18 and not 20
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

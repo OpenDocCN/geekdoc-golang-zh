@@ -1,0 +1,102 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:06:27'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Know Size and Range of int or uint in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-size-range-int-uint/](https://golangbyexample.com/go-size-range-int-uint/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Know Size and Range](#Know_Size_and_Range "Know Size and Range")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: int is a signed Integer data type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: uint is an unsigned Integer data type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Size and range of **int** and **uint** in go is platform-dependent meaning that
+    the size and range depend whether the underlying platform is 32-bit or a 64-bit
+    machine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size Table**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Type** | **Size (32 bit machine)** | **Size (64 bit machine)** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| int | 32 bits or 4 byte | 64 bits or 8 byte |'
+  prefs: []
+  type: TYPE_TB
+- en: '| uint | 32 bits or 4 byte | 64 bits or 8 byte |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Range Table**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Type** | **Size (32 bit machine)** | **Size (64 bit machine)** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| int | -2^(31) to 2^(31) -1 | -2^(63) to 2^(63) -1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| uint | 0 to 2^(32) -1 | 0 to 2^(64) -1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Know Size and Range**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**bits** package of golang can help know the size of an **int** or **uint**
+    on your system. **bits.UintSize** is the const that stores this value. It is calculated
+    as below'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**unsafe.Sizeof()** function can also be used to see the size of **int** or
+    **unit** in bytes'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Once the size is known, the range can be deduced based upon size. See the below
+    code for printing size.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [int](https://golangbyexample.com/tag/int/)*   [range](https://golangbyexample.com/tag/range/)*   [uint](https://golangbyexample.com/tag/uint/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

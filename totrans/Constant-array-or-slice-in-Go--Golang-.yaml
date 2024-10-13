@@ -1,0 +1,71 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:28:10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Constant array or slice in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/constant-array-golang/](https://golangbyexample.com/constant-array-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go only supports four types of constant
+  prefs: []
+  type: TYPE_NORMAL
+- en: Numeric ( int, int64, float, float64, complex128 etc)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: String
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Character or rune
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Boolean
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go doesn’t support const array or slice. It is because in go constant value
+    is computed at compile time. Arrays or slices are always evaluated at run time.
+    So below program would raise a compilation error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

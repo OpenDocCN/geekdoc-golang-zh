@@ -1,0 +1,123 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:22:21'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pointer vs Value Receiver in methods while implementing an interface in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/pointer-vs-value-receiver-method-golang/](https://golangbyexample.com/pointer-vs-value-receiver-method-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: A method of a type can either have a pointer receiver or a value receiver. There
+    is a caveat while pointer vs value receiver for methods of a type when that type
+    implements an interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: If a type implements all methods of an interface using value receiver, then
+    both value and pointer of that type can be used while assigning to that interface
+    variable or while passing to a function which accept an argument as that interface.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If a type implements all methods of an interface using pointer receiver, then
+    the only pointer of that type can be used while assigning to that interface variable
+    or while passing to a function that accepts an argument as that interface.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Example to demonstrate the first point above
+  prefs: []
+  type: TYPE_NORMAL
+- en: Assume we have an interface **animal** as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: We also have a **lion** struct implementing this **animal** interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **lion** structs implement the **animal** interface using value receiver.
+    Hence it works for both variables of type **lion** as well as a pointer to variable
+    of type **lion**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This works
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: as well as this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Example to demonstrate the second point above. The **lion** structs implements
+    the **animal** interface using a pointer receiver. Hence it works only for the
+    pointer to a variable of type **lion**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So this works
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: but this raises compilation error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: See full working code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Uncomment the line
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: and it will raise compilation error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

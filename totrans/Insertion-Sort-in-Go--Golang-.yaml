@@ -1,0 +1,95 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:06:14'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Insertion Sort in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/insertion-sort-in-go/](https://golangbyexample.com/insertion-sort-in-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction](#Introduction "Introduction")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Time Complexity](#Time_Complexity "Time Complexity")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Space Complexity](#Space_Complexity "Space Complexity")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Implementation:](#Implementation "Implementation:")*  *# **Introduction**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Insertion Sort is one of the simplest sorting algorithms. In insertion sort,
+    the input array is broken down into two parts
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sorted
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Unsorted
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Initially sorted part only contains the first element of the array.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: At each step, we pick the next element from the Unsorted part and insert it
+    into the right position in the sorted part.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Time Complexity**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Worst Case- **O(n*n)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Best Case- **O(n)** – When the array is already sorted
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Space Complexity**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Space Complexity of insertion sort is **O(1)**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Implementation:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [insertion](https://golangbyexample.com/tag/insertion/)*   [sorting](https://golangbyexample.com/tag/sorting/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

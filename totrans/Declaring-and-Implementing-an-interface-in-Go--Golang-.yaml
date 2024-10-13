@@ -1,0 +1,135 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:22:26'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declaring and Implementing an interface in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/declaring-implementing-interface-golang/](https://golangbyexample.com/declaring-implementing-interface-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Declaring an Interface](#Declaring_an_Interface "Declaring an Interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Implementing an interface](#Implementing_an_interface "Implementing an interface")*  *#
+    **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Interface is a type in Go which is a collection of method signatures. These
+    collection of method signatures are meant to represent a behaviour. The interface
+    declares only the method set and any type which implements all methods of the
+    interface is of that interface type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Declaring an Interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s define an interface named **animal.** The **animal** interface has two
+    methods **breathe** and **walk**. It defines only the method signatures and nothing
+    else.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: A method signature would include
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name of the method
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Number of arguments and type of each argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Number of return values and type of each return value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With above declaration we created a new interface type i.e **animal .**
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is ok to define a variable of **animal** type. Let’s create a variable of
+    **animal** interface type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: As seen in above program it is ok to create a variable of interface type. It
+    prints nil as default zero value of an interface is nil.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Implementing an interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Any type which implements the breathe and walk method then it is said to implement
+    the **animal** interface. . So if we define a **lion** struct and implements the
+    breathe and walk method then it will implement the  animal interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: We declare a variable of animal interface type
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we assign an instance of lion struct to it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Assigning an instance of **lion** struct to a variable of **animal** interface
+    type works because **lion** struct implements both **breathe** and **walk** method
+    of **animal**. The type is not checked during this assignment, instead it is enough
+    to check that the type assigned does implement **breathe** and **walk** method. 
+    The concept is similar to duck typing,  a **lion** can **breathe** and **walk**
+    like an **animal** and hence it is an **animal**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: There is no explicit declaration that a type implements an interface. In fact,
+    in Go there doesn’t exist any **“implements”** keyword similar to Java.  A type
+    implements an interface if it implements all the methods of the interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

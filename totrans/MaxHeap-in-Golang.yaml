@@ -1,0 +1,118 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:05:42'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: MaxHeap in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/maxheap-in-golang/](https://golangbyexample.com/maxheap-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction](#Introduction "Introduction")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Operations on Maxheap](#Operations_on_Maxheap "Operations on Maxheap")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Implementation](#Implementation "Implementation")*  *# **Introduction**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A MaxHeap is a complete binary tree in which the value of the parent node is
+    greater than or equal to the value of its left and right child. A complete binary
+    tree is a binary tree in which all levels are full except the last level.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We use an array to represent a maxheap. The root element is arr[0]. For an index
+    i we have
+  prefs: []
+  type: TYPE_NORMAL
+- en: Left Child – 2*i + 1
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Right Child – 2*i + 2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is a representation of a maxheap
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/32fb0e4c70c6a9b75511ddafc2106833.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The corresponding array would be [8, 7, 6, 5, 3, 2]
+  prefs: []
+  type: TYPE_NORMAL
+- en: For 0 index we have
+  prefs: []
+  type: TYPE_NORMAL
+- en: Left Child – 2*0 + 1 = 1
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Right Child – 2*0 + 2 = 2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Thus arr[0] i.e 8 has left child as arr[1] i.e, 7 and right child as arr[2]
+    i.e 6
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since each node value is greater or equal to the value of its children, therefore,
+    value at the root is the largest value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Operations on Maxheap**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Insert an Element**– takes O(log n) time. If the inserted value is larger
+    than its parent, then we need to traverse up. This traversal continues up till
+    the inserted value is smaller than its parent or the inserted value becomes the
+    root itself. The second case will happen when the inserted value is the largest.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Remove Maximum Element** – takes O(log n) time. It saves the root value and
+    then replaces it with the last value in the array. It then maxheapifies the root
+    which takes O(log n) time as it traverses down until it is more than its parent.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Get Maximum** – takes O(1) times. Returns the root value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Implementation**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [maxheap](https://golangbyexample.com/tag/maxheap/)*   [maxheap
+    in go](https://golangbyexample.com/tag/maxheap-in-go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

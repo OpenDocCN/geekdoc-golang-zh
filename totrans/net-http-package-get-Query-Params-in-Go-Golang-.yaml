@@ -1,0 +1,175 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:02:36'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: net/http package get Query Params in Go(Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/net-http-package-get-query-params-golang/](https://golangbyexample.com/net-http-package-get-query-params-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Note:** If you are interested in learning Golang, then for that we have a
+    golang comprehensive tutorial series. Do check it out – [Golang Comprehensive
+    Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/).
+    Now let’s see current tutorial'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Often in the context of an HTTP request, it is required to fetch the query params
+    which are sent as part of the request. A particular query param key value can
+    have one or multiple values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In below example **filters** have one value which is [“color”]
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In below example **filters** have multiple value which is [“color”, “price”,
+    “brand”]. Notice how multiple values are defined
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s explore two methods of getting these query params
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1.**Using reqeust.URL.Query()**
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'The query params lie in the **URL** itself. We get Query params via r.URL.Query()
+    which returns **Values** which is of map[string][]string. There are two cases:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**1.1 When a particular key contains multiple values in a query params. For
+    example, see below request-**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**1.2 When a particular key contains a single value in query params. For example,
+    see below request**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: When we know that a particular key has only one value in the query params, then
+    r.URL.Query().Get(keyName) can also be used. Get function will get the first value
+    associated with the key. If you want to all values then the map has to be directly
+    accessed as we did in the above program. In the below program, we are using Get()
+    on the r.URL.Query() and it returns a single value
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**2.Using request.Form**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'The query params lie in the **URL** itself. We get Query params via r.URL.Query()
+    which returns **values** which is of map[string][]string. There are two cases:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**2.1** **When a particular key contains multiple values in a query params.
+    For example, see below request**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'An important point to be noted:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: While trying to get query param value via r.Form , be careful that in case of
+    POST and PUT request, body parameters will take precedence over URL query string
+    values i.e, if there is a key say **X** present in both form body (=”a”) and in
+    query param(=”b”).  Then on calling r.Form[“X”] it will return [“a”] and not [“b”]
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**2.2 When a particular key contains a single value in query params. For example,
+    see below request**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: When we know that a particular key has only one value in the query params, then
+    r.FormValue(keyName) can also be used. FormValue function will get the first value
+    associated with the key. If you want to all values then request. The form map
+    has to be directly accessed as we did in the above program. In the below program,
+    we are using FormValue() function and it returns a single value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'An important point to be noted:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: While trying to get query param value via r.FormValue() , be careful that in
+    case of POST and PUT request, body parameters will take precedence over URL query
+    string values i.e, if there is a key say **X** present in both form body (=”a”)
+    and in query param(=”b”).  Then on calling r.Form[“X”] it will return [“a”] and
+    not [“b”]
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [http](https://golangbyexample.com/tag/http/)*   [net
+    http](https://golangbyexample.com/tag/net-http/)*   [query params](https://golangbyexample.com/tag/query-params/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

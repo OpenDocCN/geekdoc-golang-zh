@@ -1,0 +1,337 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:24:41'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: All operations/function on a channel in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/all-operations-channel-golang/](https://golangbyexample.com/all-operations-channel-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Send Operation](#Send_Operation "Send Operation")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Receive Operation](#Receive_Operation "Receive Operation")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Close operation on a channel](#Close_operation_on_a_channel "Close operation
+    on a channel")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Length of a channel using len() function](#Length_of_a_channel_using_len_function
+    "Length of a channel using len() function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Capacity of a channel using cap() function](#Capacity_of_a_channel_using_cap_function
+    "Capacity of a channel using cap() function")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below operations/functions are applicable for channel in golang
+  prefs: []
+  type: TYPE_NORMAL
+- en: Send the data to the channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Receive the data from the  channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Close a channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Length of a channel using len() function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Capacity of a channel using cap()  function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s look at each operation/functions on a channel one by one
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Send Operation**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The send operation used to send data to the channel. Below is the format for
+    sending to a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: where
+  prefs: []
+  type: TYPE_NORMAL
+- en: ch is the channel variable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: data is what is being sent to the channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Note that type of data and type of channel should match.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Send operation can block for a buffered or unbuffered channel in the following
+    way
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Buffered Channel-** Send on a buffer channel only blocks if the buffer is
+    full'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Unbuffered Channel**- Send on a channel is block unless there is another
+    goroutine to receive.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let's look at the program for send operation after we have understood the receive
+    operation as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Receive Operation**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The receive operation used to read data from the channel Below is the format
+    for receiving from a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: where
+  prefs: []
+  type: TYPE_NORMAL
+- en: ch is the channel variable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: data is a variable on which the read data from the channel will be stored.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let's see an example of where we will send data from one goroutine and receive
+    that data in another goroutine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a channel that can only transport data of type
+    int. Function **send()** and **receive()** are started as a goroutine. We are
+    sending data to the channel in send() goroutine and receiving data in the receive()
+    goroutine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Receive operation can block for a buffered or unbuffered channel in the following
+    way
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Buffered Channel -** Receiving is only blocked is channel is empty'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Unbuffered Channel -** Receiving is blocked until there is another goroutine
+    on the other side to send.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Close operation on a channel**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Close is an inbuilt function that can be used to close a channel. Closing of
+    a channel means that no more data can we send to the channel.  Channel is generally
+    closed when all the data has been sent and there's no more data to be send. Let's
+    see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a channel.  Then we called the **sum** function
+    in a goroutine. In the main function, we send 3 values to the channel and after
+    that, we closed the channel indicating that no more values can be sent to the
+    channel. The **sum** function iterates over the channel using the for loop and
+    calculates the sum value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sending on a close channel will cause a panic.  See the program below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also closing a already closed channel will cause a panic
+  prefs: []
+  type: TYPE_NORMAL
+- en: While receiving from a  channel we can also use an additional variable  to determine
+    if the channel  has been closed.  Below is the syntax for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: The value of ok will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: True if the channel is not closed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: False every channel is closed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program created a channel of capacity one.  Then we send one value
+    to the channel.  The **ok** variable in the first receive is true since the channel
+    is not closed. The ok variable in the second  receive is  false because the channel
+    is closed
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Length of a channel using len() function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Builtin **len()** function can be used to get the length of a channel. The length
+    of a channel is the number of elements that are already there in the channel.
+    So length actually represents the number of elements queued in the buffer of the
+    channel. Length of a channel is always less than or equal to the capacity of the
+    channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Length of unbuffered channel is always zero
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above code, the first created a channel of capacity 3.  After that, we
+    keep sending some value to the channel. As you can notice from your output that
+    after each send operation to the length of channel increases by one as the length
+    denotes the number of item in the buffer of channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Capacity of a channel using cap() function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The capacity of a buffered channel is the number of elements that channel can
+    hold. Capacity refers to the size of the buffer of the channel. The capacity of
+    the channel can be specified during the creation of the channel while using the
+    make function. The second argument is the capacity
+  prefs: []
+  type: TYPE_NORMAL
+- en: The capacity of an unbuffered channel is always zero
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we specified the capacity as 3 in the make function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let's see summary table which shows the result of each operation on the different
+    types of channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Command** | **Unbuffered Channel****(Not Closed and not nil)** | **Buffered
+    Channel****(Not Closed and not nil)** | **Closed Channel** | **Nil Channel** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Send | Block if there is is no corresponding receiver otherwise success |
+    Block if the channel is full otherwise success | Panic | Block forever |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Receive | Block if there is no corresponding sender otherwise success | Block
+    if the channel is empty otherwise success | Receives the default value of data
+    type from the channel if channel is empty else  receives the actual value | Block
+    forever |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Close | Success | Success | Panic | Panic |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Length | 0 | Number of elements queued in the buffer of the channel | -0
+    if unbuffered channel-Number of elements queued in the buffer if buffered channel
+    | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Capacity | 0 | Size of the buffer of the channel | -0 if unbuffered channel-Size
+    of the buffer if buffered channel | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

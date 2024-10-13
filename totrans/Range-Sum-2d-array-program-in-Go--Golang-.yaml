@@ -1,0 +1,96 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:47:13'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Range Sum 2d array program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/range-sum-2d-array-go/](https://golangbyexample.com/range-sum-2d-array-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There is a 2d matrix of numbers that is given. The objective Calculate the **sum**
+    of the elements of matrix inside the rectangle defined by its **upper left corner**
+    (row1, col1) and **lower right corner** (row2, col2).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Seem simple right. Just iterate from the left corner to the right corner in
+    the given array and return the sum. But here is the catch. Allowed TC is O(1)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here is the approach we can follow so that we are able to return the answer
+    in O(1) time complexity
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pre compute another sum_array for that 2d matrix
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: sum_array[i][j] = sum of numbers from the **left corner** (0, 0) and **right
+    corner** (i, j).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For a given left corner (row1, col1) and right corner (row2, col2) compute
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then return
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

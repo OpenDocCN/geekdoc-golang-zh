@@ -1,0 +1,1 @@
+["```\nfunc Create(name string) (*File, error) \n```", "```\npackage main\n\nimport (\n    \"log\"\n    \"os\"\n)\n\nfunc main() {\n    file, err := os.Create(\"emptyFile.txt\")\n    if err != nil {\n        log.Fatal(err)\n    }\n    defer file.Close()\n}\n```", "```\nCheck the contents of the file. It will be empty\n```"]

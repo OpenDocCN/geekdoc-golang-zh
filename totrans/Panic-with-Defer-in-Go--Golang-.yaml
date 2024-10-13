@@ -1,0 +1,130 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:25:35'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Panic with Defer in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/panic-with-defer-golang/](https://golangbyexample.com/panic-with-defer-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using defer to recover from a panic](#Using_defer_to_recover_from_a_panic
+    "Using defer to recover from a panic")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**defer** function will be executed even if **panic** happens in a program. In
+    fact, **defer** function is the only function that is called after the **panic.**
+    When the **panic** is raised in a function then the execution of that function
+    is stopped and any deferred function will be executed. In fact deferred function
+    in all the function calls in the stack will also be executed until all the functions
+    have returned. At that time the program will exit and it will print the panic
+    message'
+  prefs: []
+  type: TYPE_NORMAL
+- en: So if a defer function is present then it will be executed and the control will be returned
+    back to the caller function which will again execute its defer function if present
+    and the chain goes on until the program exists.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have a **defer** function first and then we manually
+    create the panic. As you can see from the output that defer function got executed
+    as below line is printed in the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using defer to recover from a panic**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Go provides a built-in function **recover** for recovering from a panic. Below
+    is the signature of this function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**defer** function is the only function that is called after the **panic**.
+    So it makes sense to put the **recover** function in the **defer** function only.
+    If the **recover**  function is not within the defer function then it will not
+    stop **panic**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example of recover
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have a function **checkAndPrint** which checks and prints
+    slice element at an index passed in the argument. If the index passed is greater
+    than the length of the array then the program panics.  We have added a defer function
+    named **handleOutIfBounds** as well at the start of the function **checkAndPrint**. This
+    function contains the call to **recover** function as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **recover** function will catch the panic and we can also print the message
+    from the panic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: After the **recover** function the program continues and the control returns
+    to the called function which is  **main** here. That is why we get output as
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

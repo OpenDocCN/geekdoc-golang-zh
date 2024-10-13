@@ -1,0 +1,184 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:02:10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Adapter Design Pattern in Go (GoLang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/adapter-design-pattern-go/](https://golangbyexample.com/adapter-design-pattern-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction:](#Introduction "Introduction: ")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[When to Use](#When_to_Use "When to Use")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[UML Diagram](#UML_Diagram "UML Diagram")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping ](#Mapping "Mapping ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example:](#Example "Example:")*  *# **Introduction:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This design pattern is a Structural Design Pattern. The patter is best understood
+    with an example. Let’s say you have two laptops
+  prefs: []
+  type: TYPE_NORMAL
+- en: MacBook Pro
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Windows Laptop
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: MacBook Pro has a USB port that is **square** in shape and Windows have a USB
+    port that is **circular** in shape. You as a client have a USB cable that is square
+    in shape so it can only be inserted in the mac laptop. So you see the problem
+    here
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Problem:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We have a class (Client) that is expecting some features of an object (square
+    USB port here), but we have another object called adaptee (Windows Laptop here)
+    which offers the same functionality but through a different interface( circular
+    port)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is where Adapter Pattern comes into the picture. We create a class known
+    as Adapter that will
+  prefs: []
+  type: TYPE_NORMAL
+- en: Adhere to the same interface which client expects ( Square USB port here)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Translate the request from the client to the adaptee in the form that adaptee
+    expects. Basically, in our example act as an adapter that accepts USB in square
+    port and then inserts into circular port in windows laptop.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**When to Use**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Use this design pattern when the objects implement a different interface as
+    required by the client.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**UML Diagram**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '![](img/6632e3859f160ee0d25f02db10d4c996.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Below is the corresponding mapping UML diagram with the example given above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/d950f0f1c8f9c52eefd01e3dcb144658.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Mapping **'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Target | computer.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Prototype 1 | mac.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Prototype 2 (Adapter) | windowsAdapter.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| adaptee | windows.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| client | client.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Example**:'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**computer.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**mac.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**windowsAdapter.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**windows.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**client.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[adapter](https://golangbyexample.com/tag/adapter/)*   [adapter design pattern](https://golangbyexample.com/tag/adapter-design-pattern/)*   [design](https://golangbyexample.com/tag/design/)*   [design
+    pattern](https://golangbyexample.com/tag/design-pattern/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

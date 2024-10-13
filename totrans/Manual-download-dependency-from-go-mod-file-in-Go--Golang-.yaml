@@ -1,0 +1,95 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:29:18'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Manual download dependency from go.mod file in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/download-dependency-golang/](https://golangbyexample.com/download-dependency-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below command can be used to download the dependency that is present in the
+    **go.mod** file
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command is used to pre download all the dependency before the application
+    is run. **go build** as well as **go install** also will download the dependencies
+    and also build the binary. **go run** will also download and and run the binary
+    as well. **go mod download** command is used when you want to pre download the
+    dependencies without build or running it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s create a module first.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also let’s add direct dependency to the go.mod file too.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: With this dependency go.mod file will look like below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now we need to download the newly added dependency. Fo that we can use the below
+    command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The command will download the **github.com/pborman/uuid** module as well all
+    its dependencies. Also it will update the **go.sum** file with the checksum and
+    version of all direct and indirect dependencies. Now let’s check the **go.sum**
+    file as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do a cat **go.sum**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**go.sum** file lists down the checksum of direct and indirect dependency required
+    by the module.  [github.com](http://github.com)/google/uuid is internally used
+    by the [github.com](http://github.com)/pborman/uuid . It is an indirect dependency
+    of the module and hence it is recorded in the **go.sum** file.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

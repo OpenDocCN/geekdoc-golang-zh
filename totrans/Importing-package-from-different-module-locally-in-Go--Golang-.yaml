@@ -1,0 +1,113 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:29:27'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Importing package from different module locally in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/import-local-module-golang/](https://golangbyexample.com/import-local-module-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: There are cases when we want to import a module which is present locally. Let’s
+    understand how we can import such module. But first, we have to create a module
+    that can be used by others and then import it into the other module. For that
+    let’s create two modules
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**sample.com/math** module'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**school** module'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**school** module will be calling code of the **sample.com/math** module'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s first create the **sample.com/math** module which will be used by **school**
+    module
+  prefs: []
+  type: TYPE_NORMAL
+- en: Make a **math** directory
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Create a module with an import path as **sample.com/math**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Create a file **math.go** with the below contents  in the **math** directory
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Nowlet’s create the school module
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a **school** directory in the same path as the **math** directory side
+    by side
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Create a module name **school**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now let’s modify the **go.mod** file to import the math module in the school
+    module. To import a local module that is not pushed to VCS, we are going to use
+    the replace directory. The replace directory will replace the module path with
+    the path you specify.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Create file **school.go** which is going to use the **Add** function in **[sample.com](http://sample.com)/math**
+    module
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now do a go run
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is able to call the Add function of the **[sample.com](http://sample.com)/math**
+    module and correctly gives the output as 6.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, it will update the **go.mod** with version information of the **[sample.com](http://sample.com)/math**
+    module
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

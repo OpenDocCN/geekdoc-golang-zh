@@ -1,0 +1,92 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:01:59'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Go: Different ways of iterating over an Array and Slice'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-different-ways-iterating-array-slice/](https://golangbyexample.com/go-different-ways-iterating-array-slice/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Go provides many different ways of iterating over an array. All examples below
+    are also applicable to slice.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s define an array of **letters** first
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Using the range operator](#Using_the_range_operator "Using the range
+    operator")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Using Only For operator](#Using_Only_For_operator "Using Only For operator")*  *##
+    **Using the range operator**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With index and value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Only Value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Only index
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Without value and index. Just print array values
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using Only For operator**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Single initialization and post
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Multiple initialization and post statement
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[array](https://golangbyexample.com/tag/array/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [iterating](https://golangbyexample.com/tag/iterating/)*   [iteration](https://golangbyexample.com/tag/iteration/)*   [slice](https://golangbyexample.com/tag/slice/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

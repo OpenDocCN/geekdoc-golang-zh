@@ -1,0 +1,95 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:02:42'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Different ways of creating an error in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/different-ways-of-creating-an-error-in-go-golang/](https://golangbyexample.com/different-ways-of-creating-an-error-in-go-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Before learning about different ways of creating am an error in Golang lets
+    first understand about the error. Error is an interface type with below signature
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Any by definition of **interface** any type which implements the **Error()**
+    method becomes of type **error**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see now different methods of creating an **error**
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1\. **Using errors.New(“some_error_message”)**
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 2\. **Using fmt.Errorf(“error is %s”, “some_error_message”). This way creates
+    error with formatting of error messages**
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 3\. **Creating Custom error**
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The below example illustrates the use of custom error. In below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**inputError** is a struct that has the **Error()** method hence it is of type
+    **error**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can also add additional information to the custom error by extending its
+    fields or by adding new methods. **inputError** has an additional field named
+    **missingFields** and a function **getMissingFields** function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We can use type assertion to convert from **error** to **inputError**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Example:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE

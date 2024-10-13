@@ -1,0 +1,223 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:37:33'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Golang Regex: Backreferences'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/golang-regex-backreferences/](https://golangbyexample.com/golang-regex-backreferences/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[First Example](#First_Example "First Example")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Second Example](#Second_Example "Second Example")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Replace Matched String](#Replace_Matched_String "Replace Matched String")*  *##
+    **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Golang regex package [regexp](https://golang.org/pkg/regexp/) uses the [re2
+    engine](https://swtch.com/~rsc/regexp/regexp3.html) which doesn’t support backreferences.
+    You can check the same here
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It does mention that it doesn’t support backreferences.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**However, there is another golang package available that uses libpcre++, Perl
+    regexes, and it supports backreferences.**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: So let’s see examples of backreferences in golang using this **pcre** package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**First Example**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s say we want to match the repetition of a digit. Valid inputs are
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Regex to match for the same would be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s dissect this regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**(\d)** – Matches a single digit. The single-digit is enclosed in parentheses
+    so it acts as a capturing group.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\1** – Backreferences the first sub match by capturing group. So it will
+    reference the first digit'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**+** – One or more occurrences of the previous digit'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: As expected it gives a match for repetition of digits
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: And it does not match for below as it is not a repetition
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Second Example**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s say we want to match the repetition of a word separated by a colon. Valid
+    inputs are
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Regex to match for the same would be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s dissect this regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**(\w+)** – Matches a word having more than one character. It is enclosed in
+    parentheses so it acts as a capturing group.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**\1** – Backreferences the first sub match by capturing group. So it will
+    reference the matched word'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: As expected it gives a match for a string that contains a substring having a
+    repetition of a word
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: And it does not match for below as it does not contain a repetition of a word
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Replace Matched String**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The **pcre** package also provides functionality to replace the matched string.
+    Below is an example of the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above example, we have a regex with a backreference that matches a repetition
+    of a digit. We then redact this repetition of digit using the **ReplaceAll** method
+    of the **pcre** package
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: And as expected from the output, the repetition of the digit is correctly redacted
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: Hope you have liked this tutorial. Please share the feedback in the comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[backreference](https://golangbyexample.com/tag/backreference/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [regex](https://golangbyexample.com/tag/regex/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

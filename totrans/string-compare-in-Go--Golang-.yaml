@@ -1,0 +1,78 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:11:51'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: string compare in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/compare-two-strings-golang/](https://golangbyexample.com/compare-two-strings-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In Golang string are UTF-8 encoded. **strings** package of GO provides a **Compare**
+    method that can be used to compare two strings in Go. Note that this method compares
+    strings lexicographically.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can notice the return value of the Compare function is an int. This value
+    will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: 0 if a==b
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: -1 if a < b
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: +1 if a > b
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So if the return value is 0 then the two strings are equal. Let’s look at a
+    working program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[compare](https://golangbyexample.com/tag/compare/)*   [two strings](https://golangbyexample.com/tag/two-strings/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

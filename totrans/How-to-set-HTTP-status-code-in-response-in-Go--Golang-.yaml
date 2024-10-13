@@ -1,0 +1,153 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:38:57'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to set HTTP status code in response in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/set-http-status-code-golang/](https://golangbyexample.com/set-http-status-code-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**WriteHeader** method of the ResponseWriter interface in **net/http** package
+    can be used to return the status code from a golang server.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In GO a response is represented by the **ResponseWriter** Interface.  Here is
+    the link to the interface –
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/net/http/#ResponseWriter](https://golang.org/pkg/net/http/#ResponseWriter)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: ResponseWriter interface is used by an HTTP handler to construct an HTTP response.
+    It provides three functions to set the response parameters
+  prefs: []
+  type: TYPE_NORMAL
+- en: Header – For writing response header
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Write([]byte) – For writing response body
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: WriteHeader(statusCode int) – For writing the http status code
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: As you can see **WriteHeader** function takes statusCode as input and that status
+    code is sent in the HTTP response. While **Write** function can be used to set
+    the response body. It is to be noted that if **WriteHeader** is not called explicitly
+    then the call to **Write** function will call the **WriteHeader** function internally
+    with status code 200 which is StatusOk.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s see an example of sending http status code and body
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here we are using the **WriteHeader** function to specify the 201 http status
+    code. Similarly, we can send pass any of the status codes listed here to the **WriteHeader**
+    function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also it uses the **Write** function to return the response body. The above code
+    returns the below JSON request body back in response
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Run the above program. It will start a server on 8080 port on your local machine.
+    Now make the below curl call to the server
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below will be the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can see from the output, it will correctly return the **201** status
+    code along with the body.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can also directly pass 201 to the WriteHeader function to send the 201 response.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try it out, it will work.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We mentioned that we don't call WriteHeader explicitly then the call to **Write**
+    function will call the WriteHeader function internally with status code 200 which
+    is StatusOk. Let's see an example of that-
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: See the code above. We haven't called the **WriteHeader** function anywhere.
+    The program therefore should send the status code 200 by default.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Run the above program. It will start a server on 8080 port on your local machine.
+    Now make the below curl call to the server
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below will be the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can notice from the output that it returns the 200 status code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport \"fmt\"\nfunc main() {\n    sample := \"ab£d\"\n    r := []rune(sample)\n\n    fmt.Printf(\"Before %s\\n\", string(r))\n    r[2], r[3] = r[3], r[2]\n\n    fmt.Printf(\"After %s\\n\", string(r))\n}\n```", "```\nBefore: ab£d\nAfter: abd£\n```"]

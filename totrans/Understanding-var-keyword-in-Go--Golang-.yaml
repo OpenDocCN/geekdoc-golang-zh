@@ -1,0 +1,206 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:21:17'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding var keyword in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/understanding-var-keyword-go/](https://golangbyexample.com/understanding-var-keyword-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**var** keyword is a reserved keyword in golang which is used to declare variables
+    in go .variables are declared using the **var** keyword but there are other ways
+    of declaring a variable too such as using **:=** operator'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below are different ways of declaring a variable using the var keyword.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Single variable declaration without an initial value**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format of a single variable declaration without the initial value
+    being assigned. First is the var keyword, second is the variable name and third
+    is the variable type.  Also note when the value is not provided, then the variable
+    is initialized with the default value of that type which is also known as zero
+    value of that type. In Go default value or zero value of **int** is zero
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: See below example, it declares a var named **aaa** of type **int**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:** It will print the default value of int which is zero'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Single variable declaration with initial value**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format of a single variable declaration with initial value being
+    assigned. Everything is same as above, only thing additional is that we assign
+    value to the variable at the end
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: See below example, it declares a var named **aaa** of type **int** and gives
+    a value **8** to it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Multiple variable declaration without initial value**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format of a multiple variable declaration without initial value
+    being assigned. Please note only variables of same type can be declared together.
+    The type comes at the end
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:** It will print the default or zero value of **int** which is zero
+    for both **aaa** and **bbb**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Multiple variable declaration with initial value**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format of a multiple variable declaration with initial value being
+    assigned. Please note only variables of same type can be declared together. The
+    type comes at the end
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: See below code example. Variable **aaa** and **bbb** are given a value of 8
+    and 9 respectively in a single declaration
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Declare variables of different types**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format for declaring multiple variables with different types. Value
+    can or cannot be assigned to the variable at that time. Variables for which value
+    is not assigned will get default value of that type. In below example we see three
+    declarations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Variable Declaration with no type or Type Inference**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Variables can also be declared without specifying the type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The GO compiler based upon the value assigned to it will figure out the type.
+    So if the variable has an initial value, then type can be omitted.  This is also
+    called **Type Inference**. Below is the format for such declaration
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below is the type inference table for basic types **int**, **float**, **complex
+    numbers**, **string**, **boolean**, **characters**. It basically means that if
+    the value is an integer the type of the variable inferred will be **int**, if
+    the value is a float then type of the variable inferred will be **float64** and
+    so on based upon below table.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Integers | int |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Floats | float64 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Complex Numbers | complex128 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Strings | string |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Booleans | bool |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Characters | int32 or rune |'
+  prefs: []
+  type: TYPE_TB
+- en: For other types such as **Array**, **Pointer**, **Structure,** etc, type Inference
+    will happen based on the value. Let’s see a working example of the above point. 
+    Notice that type of t is correctly inferred as int as the value assigned to it
+    is 123 which is int. Similarly type of u is also correctly inferred as string
+    as the value assigned to it is a **string**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also notice that the type of variable **z** is inferred correctly as a struct
+    **a**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

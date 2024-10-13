@@ -1,0 +1,109 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:22:47'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inner Working or Internals of an Interface in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/inner-working-interface-golang/](https://golangbyexample.com/inner-working-interface-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Like any other variable, an interface variable is represented by a type and
+    value. Interface value, in turn under the hood consists of two tuple
+  prefs: []
+  type: TYPE_NORMAL
+- en: Underlying Type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Underlying Value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: See below diagram which illustrates what we mentioned above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/e09464771d53171817cfeecf9da6a93e.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Let’s see an example and then we can create a similar diagram as above for that
+    example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Assume we have an interface **animal** as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: We also have a **lion** struct implementing this **animal** interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: For the above case,  lion struct implementing the animal interface would be
+    like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/c9cc4eb8c2e7148fd7877e127d773ca6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Golang provides format identifiers to print the underlying type and underlying
+    value represented by the interface value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '%T can be used to print the concrete type of the interface value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '%v can be used to print the concrete value of the interface value.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,131 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:44:38'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sort an array of 0, 1, and 2 in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/sort-array-one-zero-two-golang/](https://golangbyexample.com/sort-array-one-zero-two-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[First Approach – Using count](#First_Approach_-_Using_count "First Approach
+    – Using count")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Second Approach - Using switch and shuffling](#Second_Approach_-_Using_switch_and_shuffling
+    "Second Approach - Using switch and shuffling")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The objective is to sort an array of 0,1 and 2 with all 0’s at the start, all
+    1’s in the middle, and all 2’s in the end. The Space Complexity of the solution
+    should be O(1) which means that you should not allocate any extra space in terms
+    of the input size of the given array
+  prefs: []
+  type: TYPE_NORMAL
+- en: Eg
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: There are two ways of solving this problem
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**First Approach:** We can iterate over the array and can keep the count of
+    0’s, 1’s, and 2’s. Once we have the count, iterate again over the array and assign
+    that number of 0’s at first then the number of 1’s, and then the number of 2’s.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Second approach:** In the second approach we can have three indexes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: low initialized to 0
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: mid initialized to 0
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: high initialized to length of input array minus one
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now iterate over the array for the mid position
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we encounter a 0 we move it to the left at position **low**. Increment **low**
+    and **mid**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If we encounter a 1 we simply do **mid++**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If we encounter a 2 we simply move it to right at position **high**. Decrement
+    **high**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Here are the programs for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**First Approach – Using count**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Second Approach - Using switch and shuffling**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

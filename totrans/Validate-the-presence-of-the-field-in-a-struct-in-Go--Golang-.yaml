@@ -1,0 +1,141 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:33:56'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Validate the presence of the field in a struct in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/struct-field-validate-presence-golang/](https://golangbyexample.com/struct-field-validate-presence-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[First Library (go-playground/validator)](#First_Library_go-playgroundvalidator
+    "First Library (go-playground/validator)")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Second Library (asaskevich/govalidator)](#Second_Library_asaskevichgovalidator
+    "Second Library (asaskevich/govalidator)")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In this tutorial, we will explore two libraries that can be used to validate
+    the field of a struct in Golang. The two libraries are
+  prefs: []
+  type: TYPE_NORMAL
+- en: gopkg.in/go-playground/validator.v9 – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[github.com](http://github.com)/asaskevich/govalidator – [https://github.com/asaskevich/govalidator](https://github.com/asaskevich/govalidator)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For this tutorial, we will use the below employee struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**First Library (go-playground/validator)**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s first see the playground validator library. Below is the code for the
+    same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: First, we need to declare the instance of Validate
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice here that we need to associate meta tags with fields of the struct to
+    let the validator know that you want to validate this field. In the above example,
+    we added the tag with the Name field. This tag is interpreted by the playground
+    validate library.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then call the Struct method to validate the struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: It raises the correct error as we have passed the **Name** field as nil
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Second Library (asaskevich/govalidator)**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Similar to the above example we associated tags with the Name field which govalidator
+    can interpret
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we call the **ValidateStruct** function and it raises the correct error
+    as we have passed the **Name** field as nil
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [validation](https://golangbyexample.com/tag/validation/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,91 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:24:46'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Read/receive all values from a channel in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/receive-all-values-channel-golang/](https://golangbyexample.com/receive-all-values-channel-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For range loop can be used to receive data from the channel until it is closed. Do
+    note that for- range loop will keep receiving from the channel the only way for
+    range look to exit is to close the channel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program to understand it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program,  we created a channel.  In the main function the send
+    three values to the channel and after that, we closed the channel. Then we called
+    the sum function and we passed the channel to that function. In the sum function,
+    we did a for range loop over the channel.    After iterating over all the values
+    in the channel the for range loop will exit  since the channel is closed
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now the question which comes to the mind is that what happens if you don't close
+    a channel in the main function.  Try commenting the line in which they are closing
+    the channel. Now run the program.  It will also output  deadlock because  for
+    range loop will never finish in the sum function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In case we need to receive fixed number of vales from a channel before the channel
+    is closed then we can also use a for loop. Let's see an example for it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have a  buffered channel of capacity 3\. We are sending
+    3 values to the channel in the main function. In the sum function, we have a for
+    loop in which we are iterating two times and receiving only two values from the
+    channel and adding it up. For loop is only useful in case we want to receive a
+    fixed number of values from the channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

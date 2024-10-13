@@ -1,0 +1,573 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:25:25'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Error in Go (Golang)- Advanced
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/error-in-golang-advanced/](https://golangbyexample.com/error-in-golang-advanced/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 27 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Panic and Recover](https://golangbyexample.com/panic-and-recover-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Error – Part 1](https://golangbyexample.com/error-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Wrapping of error](#Wrapping_of_error "Wrapping of error")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Unwrap an error](#Unwrap_an_error "Unwrap an error")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Check if two error are equal](#Check_if_two_error_are_equal "Check if two
+    error are equal")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the equality operator (==)](#Using_the_equality_operator "Using the
+    equality operator (==)")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the Is function of errors package](#Using_the_Is_function_of_errors_package
+    "Using the Is function of errors package")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Get the underlying error from an error represented by the error interface](#Get_the_underlying_error_from_an_error_represented_by_the_error_interface
+    "Get the underlying error from an error represented by the error interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the .({type}) assert](#Using_the_type_assert "Using the .({type}) assert")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using the As function of errors package](#Using_the_As_function_of_errors_package
+    "Using the As function of errors package")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In the article we will be covering the advanced topics related to error in go.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Wrapping and un-wrapping errors
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Error comparison
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Extract underlying type from error
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**As** and **Is** function of errors package'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Please refer to link below first which starts with basics of **error** in go.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golangbyexample.com/error-in-golang/](https://golangbyexample.com/error-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'That article will cover basic things about error such as:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Overview of error
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Error interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Different ways of creating an error.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Ignoring errors
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Wrapping of error**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In go, error can wrap another error as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What does wrapping of error mean? It means to create a hierarchy of errors in
+    which a  particular instance of error wraps another error and that particular
+    instance itself can be wrapped inside another error.  Below is the syntax for
+    wrapping an error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**%w** directive Is used for wrapping the error.  The **fmt.Errorf **should
+    be called with only one %w directive. Let’s see an example.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a struct **errorOne** that has an **Error**
+    method hence it implements the **error** interface. Then we created an instance
+    of the **errorOne** struct named **e1**. Then we wrapped that instance **e1**
+    into another error **e2** like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we wrapped **e2** into **e3** like below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: So so we created a hierarchy of errors in which **e3** wraps **e2** and **e2**
+    wraps **e1**.  Thus **e3** also wraps **e1** transitively. When we print **e2 **
+    it also prints the error from **e1** and gives the output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: When we print **e3** it prints the error from **e2** as well as **e1** and gives
+    the output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now the question which comes to the mind that whats the use case of wrapping
+    the errors. To understand it let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have a function **checkPostiveAndEven** that checks
+    whether a number is even and positive. In turns, it calls the **checkEven** function
+    to check if the number is even. And then it calls **checkPositive** function to
+    check if the number is positive. If a number is not even and positive it an error
+    is raised.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the above program it is impossible to tell stack trace of the error. We know
+    that this error came from **checkEven** function for the above output. But which
+    function called the **checkEven** function is not clear from the error. This is
+    where wrapping the error comes in the picture.  This becomes more useful when
+    the project is big and there are a lot of functions calling each other.  Let’s
+    rewrite the program by wrapping the error.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program is same as the previous program just that in the **checkPostiveAndEven**
+    function , we wrap the errors like below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: So the output is more clear and the error is more informative. The output clearly
+    mentions the sequence of calling as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Unwrap an error**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In the above section, we studied about wrapping the error. It is also possible
+    to unwrap the error. Unwrap function of errors package can be used to unwrap an
+    error. Below is the syntax of the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: If the **err** wraps another error, then the wrapped error will be returned
+    otherwise **Unwrap** function will return nil.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program to illustrate the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a struct **errorOne** that has an **Error**
+    method hence it implements the **error** interface. Then we created an instance
+    of the **errorOne** struct named **e1**. Then we wrapped that instance **e1**
+    into another error **e2** like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we wrapped **e2** into **e3** like below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Hence
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: will return wrapped error **e2** as **e3** wraps **e2** and output will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: While
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output nil as **e1** does not wraps any error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Check if two error are equal**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: First of all, what is meant by equality of the error?  As you already know that
+    error is represented by the error interface in go. In go, two interfaces are equal
+    if
+  prefs: []
+  type: TYPE_NORMAL
+- en: Both refer to the same underlying type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The underlying value is equal (or both nil)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So above two points apply for comparing the error as well. There are two ways
+    of checking if given errors are equal
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the equality operator (==)
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**==** operator ca be used to compare two error in golang'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the **Is** function of errors package
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/errors/](https://golang.org/pkg/errors/) .  Using **Is**
+    function is preferable to using the equality operator because it checks for equality
+    by unwrapping the first error sequentially and matches it with target error at
+    each step of unwrap. We will see an example later on to fully understand why it
+    is preferable. Below is the syntax of Is function.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created **errorOne** struct which defines the **Error**
+    method hence implement the **error** interface.  We created **err1**  variable
+    which is an instance of **errorOne** struct. We also created a **do()** function
+    which raises an error of type **errorOne** and that is captured in **err2** variable
+    in the main function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Then we are comparing two errors using
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the equality operator
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: Using the **Is** function of errors package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both the method correctly output that the error is equal as both **err1** and
+    **err2**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Refer to same underlying type which is **errorOne**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Have the same underlying value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We mentioned above that using the **Is** function preferable to using the equality
+    operator because it checks for equality by unwrapping the first error sequentially
+    and matches it with the target error at each step of unwrap. Let’s see an example
+    of that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program is almost same as the previous program just the difference
+    being that in the **do()** function we are wrapping the error as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: The equality operator outputs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: While **Is** function outputs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is because the **err2** returned wraps an instance of  **errorOne** which
+    is not catched by the equality operator but is catched by **Is** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Get the underlying error from an error represented by the error interfac**e'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: There are two ways of getting the underlying type
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using the .({type}) assert
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: If the assert succeeds then it will return the corresponding error otherwise
+    it will panic. Below is the syntax
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: Better to use **ok** variable to prevent panic in case assertion fails.  Below
+    is the syntax for that. The **ok** variable will be set to true if  error underlying
+    type is correct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using the As function of errors package**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/errors/](https://golang.org/pkg/errors/) . Using **As**
+    function is preferable to using the .({type}) assert because it checks for match
+    by unwrapping the first error sequentially and matches it with target error at
+    each step of unwrap. Below is the syntax of Is function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**As** function will find the first error in the first argument which can match
+    the target. Once a match is found it will set target to that error value.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have a function openFile in which we are trying to
+    open a non-existing type hence it will raise an error. Then we are asserting 
+    the error in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using . assert operator. The **ok** variable will be set to true if  error underlying
+    type is ***os.PathError** otherwise it will be set to false
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE37]'
+  prefs: []
+  type: TYPE_PRE
+- en: Using the **As** function of errors package
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE38]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both the method correctly assert that the error is of type ***os.PathError**
+    as error returned by the **openFile** function is of type ***os.PathError**
+  prefs: []
+  type: TYPE_NORMAL
+- en: We mentioned above that using **As** function is preferable to using the .({type})
+    assert because it checks for a match by unwrapping the first error sequentially
+    and matches it with the target error at each step of unwrap. Let’s see an example
+    to understand that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE39]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE40]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program is almost same as the previous program just the difference
+    being that in the **openFile** function we are wrapping the error as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE41]'
+  prefs: []
+  type: TYPE_PRE
+- en: The . assert outputs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE42]'
+  prefs: []
+  type: TYPE_PRE
+- en: While As function outputs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE43]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is because the error returned by the **openFile** function wraps ***os.Patherror**
+    error which is not catched by the dot(‘.’) assert but is catched by **As** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about advanced topic in error in golang. Hope you have liked this
+    article. Please share feedback/improvements/mistakes in comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Panic and Recover](https://golangbyexample.com/panic-and-recover-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Error – Part 1](https://golangbyexample.com/error-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

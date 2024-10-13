@@ -1,0 +1,72 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:01:20'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'OOP: Polymorphism in Go Complete Guide'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/oop-polymorphism-in-go-complete-guide/](https://golangbyexample.com/oop-polymorphism-in-go-complete-guide/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Before understanding, polymorphism lets first understand what polymorphism is.
+  prefs: []
+  type: TYPE_NORMAL
+- en: “Same name many forms”
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the programming context, we also come across several use cases in which behavior
+    is similar across different context. It is better for such behavior to be represented
+    by the same name. This is where polymorphism comes into the picture in the programming
+    context. From a programming perspective, there are two kinds of polymorphism possible-
+  prefs: []
+  type: TYPE_NORMAL
+- en: Compile Time Polymorphism – In this type of polymorphism, the compiler is able
+    to know which exact functions will be executed for a particular call. Some example
+    of compile-time polymorphism is.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function overloading – same function name having different arguments
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Operator overloading
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Run Time Polymorphism – In this type of polymorphism, the function to be called
+    is decided at run time.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s look at what type of Compile and Runtime Polymorphism is possible in GO
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**[Compile Time Polymorphism in Go](https://golangbyexample.com/compile-time-polymorphism-go)**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**[Run Time Polymorphism in Go](https://golangbyexample.com/runtime-polymorphism-go/)**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Conclusion: **'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you have read the above two articles then you will find out that compile-time
+    polymorphism is not possible in GoLang. It only has Run-Time Polymorphism. Run-Time
+    polymorphism is achieved in GO using interfaces.
+  prefs: []
+  type: TYPE_NORMAL

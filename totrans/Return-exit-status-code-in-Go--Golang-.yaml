@@ -1,0 +1,75 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:17:01'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Return exit status code in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/return-exit-status-code-go/](https://golangbyexample.com/return-exit-status-code-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**‘os’** package of golang provides an **Exit** function that can be used to
+    exit the current program with a status code.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Status code zero means success
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Non-zero status code means an error.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Once this function is called the program exits immediately. Even the deferred
+    functions are not called.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also to note that status code should be in the range [0, 125]
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a working code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Try setting success to false to see a different output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[code](https://golangbyexample.com/tag/code/)*   [exit](https://golangbyexample.com/tag/exit/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [os](https://golangbyexample.com/tag/os/)*   [status](https://golangbyexample.com/tag/status/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

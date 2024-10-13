@@ -1,0 +1,148 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:48:09'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unique Paths Program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/unique-paths-program-golang/](https://golangbyexample.com/unique-paths-program-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[First Variation](#First_Variation "First Variation")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Program](#Program-2 "Program")*  *## **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There is an m*n grid. There is a robot at the position (0,0). The robot can
+    only move in the right direction and down direction. What is the total number
+    of ways for a robot to reach the right-down corner i.e (m-1, n-1)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: There is another variation of this program where one of the items in the grid
+    could contain an obstacle. Let’s look at the first variation and later we will
+    look at the second variation
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**First Variation**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We will solve this question through dynamic programming
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a paths matrix of size m*n
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**paths[i][j]** represents the number of ways for robot to reach the (i,j)
+    index'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**paths[0][0]** = 0'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**paths[i][j]** = **paths[i-1][j]** + **paths[i][j-1]**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Here is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Second Variation**We will also solve this question through dynamic programming'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a paths matrix of size m*n
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**paths[i][j]** represents the number of ways for robot to reach the (i,j)
+    index'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**paths[0][0]** = 0'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If **paths[i][j]** is not an obstacle then **paths[i][j]** = **paths[i-1][j]**
+    + **paths[i][j-1]**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If **paths[i][j]** is an obstacle then **paths[i][j]** = 0
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

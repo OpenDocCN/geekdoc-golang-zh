@@ -1,0 +1,178 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:36:05'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding Fprint function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/fprint-golang/](https://golangbyexample.com/fprint-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '![](img/73f3f2483c5496743de2017b97b4b213.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Fprint** is defined in the **fmt** package and is used to format a string
+    using the default format specifier and write it to **io.Writer** instance passed
+    to it.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/fmt/#Fprint](https://golang.org/pkg/fmt/#Fprint)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the function prototype of **Fprint**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Fprint** is also a variadic function meaning that it can have multiple arguments. Here
+    are the details about its arguments'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first argument is the **io.Writer** instance to which it writes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The next is a variable number of arguments. Each of the arguments in this list
+    could be string, int, struct, or anything. That is why it is an empty interface.
+    Each of these arguments is formatted using the default specifier
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Fprint** formats the string using the default format specifier but does not
+    add a new line after the string. **Fprint** takes a variable number of arguments
+    after the first argument where each argument is an empty interface. Since the
+    argument type is an empty interface we can pass any data type to it. We can pass
+    a string, int, float, struct, or any other data type. Each of the arguments to
+    the **Fprint** function is formatted according to the default format specifier
+    of that argument type. For example, the struct will be formatted according to
+    the below specifier'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: This format specifier only prints the Value part in the struct. There is also
+    one more function provided by **fmt** package which appends a new line – **Fprintln**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s see an example for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Some important points to note about the **Fprint** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: In all the **Fprint** function above we pass it the instance of **os.Stdout**
+    to it which implements the **io.Writer** interface. Basically with **os.Stdout**,
+    **Fprint** writes to standard output. This is how **os.Stdout** is defined.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: It does not append a new line at the end. That is why need to use **“\n”** for
+    adding a new line.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It only adds space between two arguments if each of them is a non-string. That
+    is why
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: prints
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: while
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: prints
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: It also returns the number of characters printed and any error if happens
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: The number of **bytesPrinted** is 14 as 14 characters are outputted
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Fprint** can also be used to write to a file. Since the file instance in
+    golang implements the **io.Writer**, this is not a problem. Below is the program
+    for the same'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It will create file name temp.txt in the current directory with the below contents.
+    In this program we replaced **os.Stdou**t with the file created.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

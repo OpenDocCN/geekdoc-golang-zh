@@ -1,0 +1,498 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:08:00'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Time Conversion in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/time-conversion-in-golang/](https://golangbyexample.com/time-conversion-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Conversions](#Conversions "Conversions")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[time.Time To Others](#timeTime_To_Others "time.Time To Others")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix](#Time_Unix "Time Unix")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Millisecond](#Time_Unix_Millisecond "Time Unix Millisecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Microsecond](#Time_Unix_Microsecond "Time Unix Microsecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Nanosecond](#Time_Unix_Nanosecond "Time Unix Nanosecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code](#Full_Working_Code "Full Working Code")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[time Unix To Others](#time_Unix_To_Others "time Unix To Others")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[time.Time](#timeTime "time.Time")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Millisecond](#Time_Unix_Millisecond-2 "Time Unix Millisecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Microsecond](#Time_Unix_Microsecond-2 "Time Unix Microsecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Nanosecond](#Time_Unix_Nanosecond-2 "Time Unix Nanosecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code](#Full_Working_Code-2 "Full Working Code")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[time Unix MilliSecond To Others](#time_Unix_MilliSecond_To_Others "time Unix
+    MilliSecond To Others")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[time.Time](#timeTime-2 "time.Time")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix](#Time_Unix-2 "Time Unix ")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Microsecond](#Time_Unix_Microsecond-3 "Time Unix Microsecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Nanosecond](#Time_Unix_Nanosecond-3 "Time Unix Nanosecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code-3 "Full Working Code:")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[time Unix MicroSecond To Others](#time_Unix_MicroSecond_To_Others "time Unix
+    MicroSecond To Others")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[time.Time](#timeTime-3 "time.Time")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix](#Time_Unix-3 "Time Unix ")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Millisecond](#Time_Unix_Millisecond-3 "Time Unix Millisecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Nanosecond](#Time_Unix_Nanosecond-4 "Time Unix Nanosecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code-4 "Full Working Code:")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[time Unix NanoSecond To Others](#time_Unix_NanoSecond_To_Others "time Unix
+    NanoSecond To Others")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[time.Time](#timeTime-4 "time.Time")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix](#Time_Unix-4 "Time Unix ")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Millisecond](#Time_Unix_Millisecond-4 "Time Unix Millisecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Unix Microsecond](#Time_Unix_Microsecond-4 "Time Unix Microsecond")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code](#Full_Working_Code-5 "Full Working Code")*  *# **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Time can be represented in GO in below 5 formats:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**time.Time** object'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Unix Time (Also known as Epoch Time)** – It is the number of seconds elapsed
+    since 00:00:00 UTC on 1 January 1970\. This time is also known as the Unix epoch'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Unix Nano** –  It is the number of nanoseconds elapsed since 00:00:00 UTC on
+    1 January 1970'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Unix MilliSecond** – It is the number of milliseconds elapsed since 00:00:00
+    UTC on 1 January 1970'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Unix MicroSecond** – It is the number of microseconds elapsed since 00:00:00
+    UTC on 1 January 1970'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Conversions**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**time.Time To Others**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Let:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Millisecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Microsecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Nanosecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**time Unix To Others**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**time.Time**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Millisecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Microsecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Nanosecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**time Unix MilliSecond To Others**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**time.Time**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Microsecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Nanosecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**time Unix MicroSecond To Others**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**time.Time**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Millisecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Nanosecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**time Unix NanoSecond To Others**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**time.Time**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Millisecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Unix Microsecond**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[conversion](https://golangbyexample.com/tag/conversion/)*   [epcoh](https://golangbyexample.com/tag/epcoh/)*   [time.Time](https://golangbyexample.com/tag/time-time/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

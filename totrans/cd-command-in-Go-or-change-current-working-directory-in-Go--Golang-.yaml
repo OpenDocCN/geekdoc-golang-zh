@@ -1,0 +1,49 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:17:57'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: cd command in Go or change current working directory in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/change-current-working-directory-go/](https://golangbyexample.com/change-current-working-directory-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Overview**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**os.Chdir()** is used to change the current working directory to the named
+    directory in golang. It is similar to the cd command.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[cd command](https://golangbyexample.com/tag/cd-command/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

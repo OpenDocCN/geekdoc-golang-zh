@@ -1,0 +1,108 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:07:56'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Time/Date Formatting in Go
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/time-date-formatting-in-go/](https://golangbyexample.com/time-date-formatting-in-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: If you have worked with time/date formatting in other languages you might have
+    noticed that the other languages use special placeholders for time/date formatting.
+    For eg ruby language uses
+  prefs: []
+  type: TYPE_NORMAL
+- en: '%d for day'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '%Y for year'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: etc
+  prefs: []
+  type: TYPE_NORMAL
+- en: In Golang date and time format placeholders look like date and time only. Refer
+    to below placeholder table
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Type** | **Placeholder** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Day | **2** or **02** or **_2** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Day of Week | **Monday** or **Mon** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Month | **01** or **1** or **Jan** or **January** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Year | **2006** or **06** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Hour | **03** or **3** or **15** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Minutes | **04** or **4** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Seconds | **05** or **5** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| MilliSeconds  (ms) | **.000** //Trailing zero will be included or **.999**
+      //Trailing zero will be omitted |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Micro Seconds (μs) | **.000000** //Trailing zero will be included or **.999999** 
+          //Trailing zero will be omitted |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Nano Seconds (ns) | **.000000000** //Trailing zero will be included or **.999999999**
+    //Trailing zero will be omitted |'
+  prefs: []
+  type: TYPE_TB
+- en: '| am/pm | **PM** or **pm** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Timezone | **MST** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Timezone offset | **Z0700** or **Z070000** or **Z07** or **Z07:00** or **Z07:00:00** 
+    or **-0700** or  **-070000** or **-07** or **-07:00** or **-07:00:00** |'
+  prefs: []
+  type: TYPE_TB
+- en: It is easy to remember the above placeholders when represented in sequence.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Weekday-Month-Day-Hour-Min-Seconds-Year-Timezone** will be **Mon-01-02-03-04-05-06–07**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see some time format code examples
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[golang](https://golangbyexample.com/tag/golang/)*   [time package](https://golangbyexample.com/tag/time-package/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

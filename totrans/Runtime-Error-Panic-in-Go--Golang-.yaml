@@ -1,0 +1,88 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:25:46'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Runtime Error Panic in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/runtime-error-panic-golang/](https://golangbyexample.com/runtime-error-panic-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Runtime error in the program can happen in the below cases. All the below cases
+    will also create a **panic**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Out of bounds array access
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Calling a function on a nil pointer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Sending on a closed channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Incorrect type assertion
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an example of runtime error caused by out of bounds array access.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have a slice of length 2 and we are trying to access
+    slice at index 2 in the **print** function. Out of bound access is not allowed
+    and it will create panic as seen from the output. Notice that in the output there
+    are two things
+  prefs: []
+  type: TYPE_NORMAL
+- en: The error message
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Stack trace of where the panic happened
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are many more cases in which runtime error can happen in a program. We
+    are not going to mention all of them but you get the idea
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

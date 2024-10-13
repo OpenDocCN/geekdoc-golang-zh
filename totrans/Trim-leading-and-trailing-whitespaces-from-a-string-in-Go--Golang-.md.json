@@ -1,0 +1,1 @@
+["```\nfunc TrimSpace(s string) string\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"strings\"\n)\n\nfunc main() {\n    //This will output removed\n    res := strings.TrimSpace(\" test  \")\n    fmt.Println(res)\n\n    res = strings.TrimSpace(\" This is test  \")\n    fmt.Println(res)\n}\n```", "```\ntest\nThis is test\n```"]

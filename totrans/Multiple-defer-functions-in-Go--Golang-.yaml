@@ -1,0 +1,138 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:27:13'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Multiple defer functions in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/multiple-defer-functions-golang/](https://golangbyexample.com/multiple-defer-functions-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Multiple Defer function within a particular function](#Multiple_Defer_function_within_a_particular_function
+    "Multiple Defer function within a particular function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Multiple Defer function in different functions](#Multiple_Defer_function_in_different_functions
+    "Multiple Defer function in different functions")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There can be two cases of multiple defer functions
+  prefs: []
+  type: TYPE_NORMAL
+- en: Multiple Defer function within a particular function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Multiple Defer function in different functions
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Before we see an example for both let’s see how defer function works. When the
+    compiler encounters a defer statement in a function it pushes it onto a list.
+    This list internally implements a stack-like data structure.  All the encountered
+    defer statement in the same function are pushed onto this list. When the surrounding
+    function returns then all the functions in the stack starting from top to bottom
+    are executed before execution can begin in the calling function. Now the same
+    thing will happen in the calling function as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s see an example for both
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Multiple Defer function within a particular function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In case we have multiple defer functions within a particular function, then
+    all the  defer functions will be executed in last in first out order which is
+    similar to what we mentioned above
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have three **defer** function each printing the value
+    of **i**. The variable **i** is incremented before each defer. The code outputs
+    3 first meaning that third defer function is executed first.  Then it outputs
+    2 meaning that second defer is executed after that and then it outputs 1 meaning
+    that first defer is executed last. This shows that when there are multiple defer
+    functions within a particular function then the follow the “Last in first out”
+    rule. And that is why program outputs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Multiple Defer function in different functions**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s understand what happens when we have multiple defer functions in different
+    functions.. Imagine a function call from **main** function to **f1** function
+    to **f2** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**main**->**f1**->**f2**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the sequence that will be happening after f2 returns
+  prefs: []
+  type: TYPE_NORMAL
+- en: Defer functions in **f2** will be executed if present. Control will return to
+    the caller which is a function **f1**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Defer functions in **f1** will be executed if present. Control will return to
+    the caller which is a function **main**. Note that if there are more functions
+    in between then the process will continue up the stack in a similar way
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: After main returns the defer  function if present in main will be executed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a program for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

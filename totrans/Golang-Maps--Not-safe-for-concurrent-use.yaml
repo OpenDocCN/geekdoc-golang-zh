@@ -1,0 +1,45 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:00:11'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Golang Maps: Not safe for concurrent use'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-maps-concurrency/](https://golangbyexample.com/go-maps-concurrency/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: If you are a golang web application developer, then you often might encounter
+    a use case of storing some data in memory in a go map for frequent access. If
+    that is the case with you then you need to be careful because go maps are not
+    safe for concurrent use.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Buggy code:** Below is buggy code. It might result in a crash if concurrent
+    read and write of map happen.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Possible Output: fatal error: concurrent map read and map write'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Correct Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:** Some Data'
+  prefs: []
+  type: TYPE_NORMAL

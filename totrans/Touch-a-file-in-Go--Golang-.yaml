@@ -1,0 +1,45 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:07:25'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Touch a file in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/touch-file-golang/](https://golangbyexample.com/touch-file-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Touching a file means
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create an empty file if the file doesn’t already exist
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the file already exists then update the modified time of the file.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When running the first time it will create the file. After the first time, it
+    will update the modified time of the file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[empty](https://golangbyexample.com/tag/empty/)*   [file](https://golangbyexample.com/tag/file/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

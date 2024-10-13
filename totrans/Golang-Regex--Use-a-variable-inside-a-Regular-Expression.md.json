@@ -1,0 +1,1 @@
+["```\nregex := `b+`\nsampleRegexp := regexp.MustCompile(\"a\" + regex)\n```", "```\n\"a\" + regex\n```", "```\npackage main\n\nimport (\n\t\"fmt\"\n\t\"regexp\"\n)\n\nfunc main() {\n\tregex := `b+`\n\tsampleRegexp := regexp.MustCompile(\"a\" + regex)\n\n\tmatch := sampleRegexp.FindString(\"abb\")\n\tfmt.Println(match)\n\n}\n```", "```\nabb\n```"]

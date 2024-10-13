@@ -1,0 +1,206 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:20:31'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pointer Receiver for a method in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/pointer-receiver-method-golang/](https://golangbyexample.com/pointer-receiver-method-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: To better understand pointer receiver we first have to understand the value
+    receiver for a method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Methods on Value Receiver**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example of a value receiver
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that the receiver is available inside the method and fields of the receiver
+    can be accessed inside the method. Can field of the receiver also be changed inside
+    the method?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above code a method **setNewName** is defined on the **employee** struct.
+    In this method we update the name of the employee like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: After setting the new name when we print the employee name again in the main
+    function, we see that the old name “Sam” is printed instead of “John”. This happens
+    because method is defined on a value receiver
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Since the method is defined on a value receiver when the method is called a
+    copy of the receiver is made and that copy of the receiver is available inside
+    the method. Since it is a copy, any changes made to the value receiver is not
+    visible to the caller. That is why it prints the old name “Sam” instead of “John”.
+    Now the question which comes to the mind whether there is any way to fix this.
+    And the answer is yes, and this is where pointer receivers come into the picture.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Method on a Pointer Receiver**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the above example we saw a method on a value receiver. Any change made to
+    a value receiver is not visible to the caller. Methods can also be defined on
+    a pointer receiver. Any change made to the pointer receiver will be visible to
+    the caller. Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program, we defined the method **setNewName** on a pointer receiver
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we created an employee pointer and called the **setNewName** methodon it.
+    We see that the changes made to the employee pointer inside the **setNewName**
+    are visible to the caller and it prints the new name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Is it necessary to create the employee pointer to call a method with a pointer
+    receiver? No, it is not. The method can be called on the employee instance and
+    the language will take care of it to correctly pass the receiver as a pointer
+    to the method. This flexibility is provided by the language.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: We see in above program that even if a method is defined on a pointer receiver
+    but we are calling the method with a non-pointer employee instance
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: But the language passes the receiver as a pointer and therefore the changes
+    are visible to the caller.Even this way of calling is valid
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now, how about the other way around. If a method is defined on a value receiver,
+    can the method be called with a pointer of the receiver?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Yes, even this is valid and the language takes care of passing the argument
+    correctly as value receiver irrespective of whether the method was called on a
+    pointer or normal struct. Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Do note here since in all three cases, the **setNewName** method had a value
+    receiver hence changes are not visible to the caller as the value is passed as
+    a copy. It prints the old name in all three cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: To summarize what we learned above
+  prefs: []
+  type: TYPE_NORMAL
+- en: If a method has a value receiver it supports calling of that method with both
+    value and pointer receiver
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If a method has a pointer receiver then also it supports calling of that method
+    with both value and pointer receiver
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is unlike function where if
+  prefs: []
+  type: TYPE_NORMAL
+- en: If a function has a pointer argument then it will only accept a pointer as an
+    argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If a function has a value argument then it will only accept a value as an argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**When to use pointer receiver**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the changes to the receiver made inside the method have to be visible to
+    the caller.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When the struct is big, then it is better to use a pointer receiver otherwise
+    a copy of the struct will be made every time a method is called which will be
+    expensive
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

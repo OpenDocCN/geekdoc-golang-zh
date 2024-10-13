@@ -1,0 +1,164 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:40:47'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: All Data Structures in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/all-data-structures-golang/](https://golangbyexample.com/all-data-structures-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Data Structures in Golang**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[Queue](https://golangbyexample.com/queue-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Stack](https://golangbyexample.com/stack-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Set](https://golangbyexample.com/set-implementation-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Linked List](https://golangbyexample.com/singly-linked-list-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Doubly Linked List](https://golangbyexample.com/doubly-linked-list-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Binary Search Tree
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Recursive](https://golangbyexample.com/binary-search-tree-in-go)'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Iterative](https://golangbyexample.com/iterative-binary-search-tree-go/)'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Heap
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Minheap](https://golangbyexample.com/minheap-in-golang/)'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Maxheap](https://golangbyexample.com/maxheap-in-golang/)'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Trie](https://golangbyexample.com/trie-implementation-in-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Sorting Algorithms**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[Heap Sort](https://golangbyexample.com/heapsort-in-golang)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Insertion Sort](https://golangbyexample.com/insertion-sort-in-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Selection Sort](https://golangbyexample.com/go-selection-sort/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Bubble Sort](https://golangbyexample.com/go-bubble-sort/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Integers
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[Reverse a number or an integer in Go (Golang)](https://golangbyexample.com/reverse-number-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: String
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[Longest substring without repeating characters program in Golang](https://golangbyexample.com/longest-substring-without-repeating-characters-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Longest Palindromic Substring within a string in Go (Golang)](https://golangbyexample.com/longest-palindromic-substring-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Array
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[Find two numbers in an array that adds up to a target number in Go (Golang)](https://golangbyexample.com/target-sum-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Medium of two sorted arrays in Go (Golang)](https://golangbyexample.com/medium-two-sorted-arrays-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Linked List
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[Convert singly linked list into an array using Golang](https://golangbyexample.com/linked-list-array-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Convert singly linked list into a circular linked list using Golang](https://golangbyexample.com/single-linked-list-circular-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Check if a linked list is circular in Golang](https://golangbyexample.com/linked-list-is-circular-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Delete a kth node from the front in a Singly Linked List in Golang](https://golangbyexample.com/kth-node-front-linked-list-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Delete a kth node from back in a Singly Linked List in Go (Golang)](https://golangbyexample.com/delete-kth-node-back-linked-list-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Reverse Doubly Linked List in Go](https://golangbyexample.com/reverse-doubly-linked-list-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Add two numbers represented by linked list in Golang](https://golangbyexample.com/add-numbers-linked-list-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

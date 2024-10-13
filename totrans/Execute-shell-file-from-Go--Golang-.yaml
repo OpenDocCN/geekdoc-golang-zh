@@ -1,0 +1,72 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:09:25'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Execute shell file from Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/execute-shell-file-golang/](https://golangbyexample.com/execute-shell-file-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview:](#Overview "Overview:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")*  *# **Overview:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**os/exec** package can be used to trigger any OS command from Go. The same
+    can be used for triggering .sh file.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'First, create a sample.sh file in the same directory. Make sure it either starts
+    with #!/bin/sh or #!/bin/bash'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**sample.sh**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Make this sample.sh file executable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Create a below **main.go** file in the same directory
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[bash](https://golangbyexample.com/tag/bash/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

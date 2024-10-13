@@ -1,0 +1,88 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:06:18'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Selection Sort in Go(Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-selection-sort/](https://golangbyexample.com/go-selection-sort/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction](#Introduction "Introduction")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Time Complexity](#Time_Complexity "Time Complexity")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Space Complexity](#Space_Complexity "Space Complexity")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Implementation:](#Implementation "Implementation:")*  *# **Introduction**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In selection sort, we maintain two parts
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sorted Part
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Unsorted Part
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: In each iteration, the max or min element (depending upon order is asc or desc)
+    is picked from the unsorted part and then is put at the end of the sorted part.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Hence the length of the sorted part in each iteration increases by 1\. In the
+    end, the entire array is sorted.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Time Complexity**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: O(n*n)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Space Complexity**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Space Complexity of selection sort is O(1)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Implementation:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]*'
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,1 @@
+["```\nresp, err := http.Get(\"http://google.com/\")\nif err != nil {\n    //Handle the error here.\n    return\n}\ndefer resp.Body.Close()\n//Read and parse response body here\n```"]

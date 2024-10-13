@@ -1,0 +1,111 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:30:44'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Blank Identifier in import in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/blank-identifier-import-golang/](https://golangbyexample.com/blank-identifier-import-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Blank identifier in importing packages means specifying a blank import for the
+    imported package. The syntax for it is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: What is this blank import and why it is used. For this you have to understand
+    two things
+  prefs: []
+  type: TYPE_NORMAL
+- en: About **init** function
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: About blank identifier represented by an underscore (‘**_**‘)
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**init() function**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: init() function is a special function that is used to initialize the global
+    variables of a package. These functions are executed when the package is initialized.
+    Each of the GO source files in a package can have its own init() function. Whenever
+    you import any package in the program, then on the execution of that program,
+    init functions(if present)  in the GO source files belonging to that imported
+    package are called first. Some points to note about init function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Init function is optional
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Init function does not take any argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Init function does not have any return value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Init function is called implicitly. Since it is called implicitly, init function
+    cannot reference it from anywhere.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There can be multiple init() functions within the same source file.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**About blank identifier**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: go doesn’t allow any unused variable. Any unused variable can be replaced by
+    a blank identifier (‘_’) .
+  prefs: []
+  type: TYPE_NORMAL
+- en: So now a blank import of a package is used when
+  prefs: []
+  type: TYPE_NORMAL
+- en: Imported package is not being used in the current program
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: But we intend to import that package so that init function in the GO source
+    files belonging to that package can be called and initiazation of variables in
+    that package can be done properly
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So basically a blank import is used when a package is solely imported for its
+    side effects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'As an example mysql package is used as blank import for its side-effect of
+    registering the mysql driver as a database driver in the init()  function of mysql
+    package, without importing any other functions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: For using any of the mysql library such as gorm or xorm above blank import is
+    necessary
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

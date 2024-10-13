@@ -1,0 +1,104 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:21:40'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pass an Interface as an argument to a function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/pass-interface-as-argument-function-go/](https://golangbyexample.com/pass-interface-as-argument-function-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: A function can accept an argument of an interface type. That interface type
+    can be either
+  prefs: []
+  type: TYPE_NORMAL
+- en: Regular Interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Empty Interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see example for both of them one by one
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Regular Interface](#Regular_Interface "Regular Interface")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Empty Interface](#Empty_Interface "Empty Interface")*  *# **Regular Interface**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A function can accept an argument of an interface type. Any type which implements
+    that interface can be passed as an argument to that function.  Let’s understand
+    with an example. Let’s say we have an animal interface as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: We have two struct types implementing that interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: and
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In below code we have **callBreathe** and **callWalk** function which accept
+    an argument of **animal** interface type. Both **lion** and **dog** instance can
+    be passed to this function. We create an instance of both **lion** and **dog**
+    type and pass it to the function. During compilation no type is checked while
+    calling the function,  instead it is enough to check that the type passed to the
+    function does implement **breathe** and **walk** method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Empty Interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: An empty interface has no methods , hence by default all types implement the
+    empty interface. If you write a function that accepts an empty interface then
+    you can pass any type to that function. See working code below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

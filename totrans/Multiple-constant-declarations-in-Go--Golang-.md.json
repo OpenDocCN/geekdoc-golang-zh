@@ -1,0 +1,1 @@
+["```\nconst (\n  a = \"circle\"\n  b = 1\n  c float = 4.65\n)\n```", "```\nconst (\n  a string = \"circle\"\n  b\n)\n```", "```\nconst (\n  a string \"circle\"\n  b\n  c = 1\n)\n```", "```\nconst a, b = 1, 2\nconst c, d int = 3, 4\n```"]

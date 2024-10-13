@@ -1,0 +1,116 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:43:56'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Sort a string in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/sort-string-golang/](https://golangbyexample.com/sort-string-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")*  *## **Overview**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In Golang string is a sequence of bytes. A string literal actually represents
+    a UTF-8 sequence of bytes. In UTF-8, ASCII characters are single-byte corresponding
+    to the first 128 Unicode characters. All other characters are between 1 -4 bytes.
+    To understand it more consider the below string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above string
+  prefs: []
+  type: TYPE_NORMAL
+- en: ‘a’ takes one byte as per UTF-8
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: ‘£’ takes two bytes as per UTF-8
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: ‘b’ takes one byte as per UTF-8
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The above string has 1+2+1 = 4 bytes altogether. Therefore when we try to print
+    the length of the string using the standard **len()** function it will output
+    4 and not 3 as **len()** function returns the number of bytes in the string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Therefore to sort a string we need to convert it to a rune array and then sort
+    that using the **sort.Sort** function of go.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of **sort.Sort** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: where this is the definition of **Interface**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: So whatever we want to sort using the **sort.Sort** function then that needs
+    to implement above three functions
+  prefs: []
+  type: TYPE_NORMAL
+- en: Len() int
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Less(i, j int) bool
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Swap(i, j int)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In the below program, we did the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,315 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:34:28'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Difference between GRPC and Rest
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/grpc-vs-rest/](https://golangbyexample.com/grpc-vs-rest/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '![grpc vs rest](img/c28f96def0a2c19e95044c79b4fafe24.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Links](#Links "Links")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[GRPC](#GRPC "GRPC")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[REST](#REST "REST")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Protocol](#Protocol "Protocol")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Nature](#Nature "Nature")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mode of Data Transfer](#Mode_of_Data_Transfer "Mode of Data Transfer")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Model](#Model "Model")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Performance](#Performance "Performance")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code Generation](#Code_Generation "Code Generation")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Type Safety](#Type_Safety "Type Safety")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[SetUP](#SetUP "SetUP")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[When To Use](#When_To_Use "When To Use")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: REST is an architectural style built on top of HTTP/1\. GRPC is not a style
+    instead it is an RPC framework built on top of HTTP/2 and it uses protocol buffers
+    behind the scenes. So basically GRPC is an actual implementation or you can say
+    it is a library whereas REST is just a set of rules and principles.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although we are comparing a GRPC (implemented framework) with REST -( architectural
+    styles and principles), which might sound weird. Still, it is important to understand
+    the difference in terms of high-level architecture which you will get if you follow
+    one approach over the other
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here are the major differences between the two. Also to mention that this article
+    assumes that you already have some knowledge of GRPC, HTTP2, REST
+  prefs: []
+  type: TYPE_NORMAL
+- en: Links
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**GRPC**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Here is the link to GRPC for further reading [https://grpc.io/](https://grpc.io/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**REST**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Here is the link to REST for further reading – [https://en.wikipedia.org/wiki/Representational_state_transfer](https://en.wikipedia.org/wiki/Representational_state_transfer)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Protocol**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: GRPC is an RPC framework and is built on top of HTTP/2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: REST architectural style is specified on top of HTTP/1\. All the semantics of
+    HTTP/1.1 has been retained in HTTP/2\. So REST APIs should continue to work even
+    one using HTTP/2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Nature**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The way of thinking in GRPC is API-oriented or action-oriented.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: REST is resource-oriented.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Mode of Data Transfer**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: GRPC supports only Protocol Buffers to transfer data between server and client.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: REST supports JSON,  XML, and other data formats.  REST can also be made to
+    work with Protocol Buffers trivially.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Model**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: GRPC provides four different ways of communication between client and server.
+    The four different ways are unary, server streaming, client streaming, and bi-directional
+    streaming. So effectively in GRPC both client and server can talk to each other.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Unary – This is the simplest one. The clients send a request and the server
+    sends the response
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Client streaming – The client can send a stream of multiple messages while the
+    server is expected to return only a single response to all client requests.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Server Streaming- The client will send only one message while the server can
+    send a stream of messages back to it.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Bi-directional streaming – Both client and server can stream multiple messages.
+    The streaming will be in parallel and with no order. Also, it will be nonblocking.
+    Neither client nor server needs to wait for a response before sending the next
+    message.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: REST works on the Request-Response model. Basically, you send the request and
+    then you get the response. So REST only provides a unary way of communication.
+    In REST only the client talks to the server.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Performance**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Since GRPC inherently uses HTTP/2 so all the performance optimizations applied
+    to HTTP/2 automatically are available in GRPC. HTTP/2 has introduced several performance
+    optimizations over HTTP/1 such as
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Duplex Streaming
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Multiplexing
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Headers Compression
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: etc
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Plus GRPC uses protocol buffers internally and since protocol buffers are binary
+    data and have less size, they are transferred over a network fast. GRPC can utilize
+    each TCP connection very effectively.Due to these two reasons, GRPC is very fast.
+  prefs: []
+  type: TYPE_NORMAL
+- en: REST over HTTP/1 will be slower than GRPC. It uses JSON, XML which for representing
+    the same data take more size than protocol buffers.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code Generation**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Since GRPC is built on top of protocol buffers it provides automatic code generation.
+    In fact with protocol buffers code generation is a must thing to use GRPC.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: REST also provides code generation through Swagger, OPEN API but that is just
+    an extra thing provided and it is not as effective as code generation by protocol
+    buffers
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Type Safety**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Since protocol buffers are used for code generation in the case of GRPC.  So
+    that in a way provides type safety to GRPC. GRPC will not allow you to send int
+    for a field where a string is expected. The API contract is defined by the proto
+    file and is strict.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: REST doesn’t have any such restriction. The API contract is mostly just a document
+    using OPEN API or swagger and hence it is loose.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**SetUP**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: GRPC would require you to set up a client locally to be able to make a GRPC
+    call.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: REST call doesn’t need a client set up. You can make a call using a browser,
+    postman, curl, etc
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**When To Use**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: GRPC is mostly suitable for internal microservices where low latency and high
+    throughput might be needed. It will not be suitable to currently expose your service
+    as a GRPC as there are no APIs available for external services to integrate. It
+    could be possible in the near future when GRPC is fully evolved.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: REST is more suitable to expose your APIs to external services.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: These are some of the major differences between GRPC and REST. Hope you have
+    liked this article. Please share feedback in the comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Note: If you are interested in learning Golang, then for that we have a golang
+    comprehensive tutorial series. Do check it out – [Golang Comprehensive Tutorial
+    Series](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [grpc](https://golangbyexample.com/tag/grpc/)*   [rest](https://golangbyexample.com/tag/rest/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

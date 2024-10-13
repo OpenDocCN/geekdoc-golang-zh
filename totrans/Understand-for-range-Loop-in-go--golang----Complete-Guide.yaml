@@ -1,0 +1,290 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:18:22'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understand for-range Loop in go (golang) – Complete Guide
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/understand-for-range-loop-golang/](https://golangbyexample.com/understand-for-range-loop-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 11 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [If Else](https://golangbyexample.com/understand-if-else-statement-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [For Loop](https://golangbyexample.com/for-loop-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Overview**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'When it comes to loop, golang has:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: for loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: for-range loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We saw for loop in the last tutorial. In this tutorial, we will be learning
+    about the **for-range** loop only.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**for-range** loop is used to iterate over different collection data structures
+    in golang such as'
+  prefs: []
+  type: TYPE_NORMAL
+- en: array or slice
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: string
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: maps
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see some examples now
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Examples**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**for-range loop for array/slice**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here is the format of **for-range** when used with array/slice
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is how **for-range** loop works in case of array/slice. It iterates over
+    the given array/slice starting from index zero and the body of the for range loop
+    is executed for every value present at the index. Both index and value are optional
+    in for-range when using with array/slice.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The below example shows how to use a **for-range** loop for a slice
+  prefs: []
+  type: TYPE_NORMAL
+- en: With index and value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With value only
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With index only
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Without index and value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**for-range loop with a string**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In Golang string is a sequence of bytes. A string literal actually represents
+    a UTF-8 sequence of bytes. In UTF-8, ASCII characters are single-byte corresponding
+    to the first 128 Unicode characters. All other characters are between 1 -4 bytes.
+    To understand it more consider the below string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above string
+  prefs: []
+  type: TYPE_NORMAL
+- en: ‘a’ takes one byte as per UTF-8
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: ‘£’ takes two bytes as per UTF-8
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: ‘b’ takes one byte as per UTF-8
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The above string has 1+2+1 = 4 bytes altogether. Therefore when we try to print
+    the length of the string using the standard **len()** function it will output
+    4 and not 3 as **len()** function returns the number of bytes in the string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Hence **standalone for** loop cannot be used to iterate over all characters
+    of a string as it will iterate over bytes and not character. So below **for**
+    loop will instead iterate four times and the print value corresponding to the
+    byte present at that index.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will output below string which is not same as **"a£c"** string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above output is not what we want. This is where **for-range** loop comes
+    into picture for a string. It iterates over the Unicode points( also referred
+    to as rune in golang) in a string and will correctly output  a, £, b.  Here is
+    the format when using **for-range** with string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Some point to note before we move to a code example
+  prefs: []
+  type: TYPE_NORMAL
+- en: index is the starting point of the Unicode character in the string. For example
+    in string "a£c" character "a" starts at index 0 , character "£" starts at index
+    1 while character "b" starts at index 3.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: value is the Unicode point or basically each character in the string instead
+    of bytes. It is also called rune. A rune in golang represents a Unicode Code Point
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Both index and value are optional
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now let's see a code example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**for-range loop with a map**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In case of map **for-range** iterates over key and values of a map. Below is
+    the format for **for-range** when using with a map
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: A point to be noted that both key and value are optional to be used while using
+    **for-range** with maps. Let's see a simple code example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**for-range loop with a channel**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**for-range** loop works differently too for a channel. For a channel, an index
+    doesn''t make any sense as the channel is similar to a pipeline where values enter
+    from one and exit from the other end.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: So in case of channel, the **for-range** loop will iterate over values currently
+    present in the channel. After it has iterated over all the values currently present
+    (if any), the **for-range** loop will not exit but instead wait for next value
+    that might be pushed to the channel and it will exit only when the channel is
+    closed
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format when using **for-range** with channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let's see a code example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about **for-range** loop in golang. Hope you like it. Please share
+    feedback/improvements/mistakes in comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [If Else](https://golangbyexample.com/understand-if-else-statement-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [For Loop](https://golangbyexample.com/for-loop-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

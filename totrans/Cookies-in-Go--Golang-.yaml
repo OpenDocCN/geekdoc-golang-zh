@@ -1,0 +1,302 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:35:34'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Cookies in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/cookies-golang/](https://golangbyexample.com/cookies-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [What is cookie](#What_is_cookie "What is cookie")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Set a cookie in golang](#Set_a_cookie_in_golang "Set a cookie in golang")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Set a cookie while making a request. ](#Set_a_cookie_while_making_a_request
+    "Set a cookie while making a request. ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Set a cookie while responding to an incoming request](#Set_a_cookie_while_responding_to_an_incoming_request
+    "Set a cookie while responding to an incoming request")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Read a cookie in golang](#Read_a_cookie_in_golang "Read a cookie in golang")*  *##
+    **What is cookie**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Cookies are a way to store information at the client end. The client can be
+    a browser, a mobile application, or anything which makes an HTTP request. Cookies
+    are basically some files that are stored in the cache memory of your browser.
+    When you are browsing any website which supports cookies will drop some kind of
+    information related to your activities in the cookie. This information could be
+    anything. Cookies in short store historical information about the user activities.
+    This information is stored on the client’s computer. Since a cookie is stored
+    in a file,  hence this information is not lost even when the user closes a browser
+    window or restarts the computer. A cookie can also store the login information.
+    In fact, login information such as tokens is generally stored in cookies only.
+    Cookies are stored per domain. Cookies stored locally belonging to a particular
+    domain are sent in each request to that domain. They are sent in each request
+    as part of headers. So essentially cookie is nothing but a header.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can read about HTTP cookie in general here – [https://en.wikipedia.org/wiki/HTTP_cookie](https://en.wikipedia.org/wiki/HTTP_cookie)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Cookies can be send
+  prefs: []
+  type: TYPE_NORMAL
+- en: As a Cookie header by the HTTP client
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: As a Set-cookie header in the HTTP response by the HTTP server
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A cookie in golang is represented as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: See [https://tools.ietf.org/html/rfc6265](https://tools.ietf.org/html/rfc6265)
+    for details of each of the fields of the above cookie.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see two things in details related to cookies
+  prefs: []
+  type: TYPE_NORMAL
+- en: Set a cookie in golang
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Read a cookie
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Set a cookie in golang**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We already mentioned that a cookie is just a header.  So for setting a particular
+    cookie, we need to just set that header.
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are two cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: Set a cookie while making a request.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Set a cookie while responding to an incoming request
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see each of these in detail as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Set a cookie while making a request. **'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: This is the case where golang acts as an HTTP client. **AddCookie** method of
+    **net/http** package can be used add a cookie. If we call this method for two
+    different names and value,  then both that name and value will be added to the
+    resultant cookie
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, HTTP Client added two cookies. Both these cookies will
+    be sent in the call to google.com.
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP client in golang also lets you specify a **CookieJar** that manages storing
+    and sending of the cookies while making external HTTP requests. As the name suggests,
+    think of it as a jar that contains cookies.
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP client uses this jar in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Adding cookies in this Jar. You can explicitly add cookies to this jar. The
+    cookies will also be added to the jar if the server sends the Set-Cookies header
+    in the response headers. All the cookies specified in the Set-Cookie header will
+    be added
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For consulting this jar while making any external HTTP requests. It checks this
+    jar to know what all cookies it needs to send for a particular domain
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For more information about CookieJar in golang, you can refer to this link [https://golangbyexample.com/cookiejar-golang/](https://golangbyexample.com/cookiejar-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Set a cookie while responding to an incoming request**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: This is the case where golang acts as an HTTP server. **http.ResponseWriter**
+    struct provides a convenient method to set a cookie. Below is the signature of
+    the method
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: This method is used to set cookies on a ResponseWriter. It adds a Set-Cookie
+    header to the response headers.  This Set-Cookie header is used to send the cookie
+    that is to be set at the client end or browser end. This cookie then will be sent
+    back to the server when the client makes subsequent calls to the server.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Run the above program using
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: The server will start running  on port 8080
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now make the API call **localhost:8080/doc** from a browser. The server is sending
+    the below **Set-Cookie** in the response
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: The same is also visible in the response headers of the API call. See screenshot
+    below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/5743ff6b7299452f20052240e39f56a7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: For more details around the Set-Cookie header please refer to this [link](https://golangbyexample.com/set-cookie-response-header/).
+    This link contains all the details to understand the Set-Cookie header in golang.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Read a cookie** in golang'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: net/http Request struct provides a convenient method to read a particular cookie
+    given its name. Below is the signature of that method. [https://golang.org/pkg/net/http/#Request.Cookie](https://golang.org/pkg/net/http/#Request.Cookie)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: To print all cookies,  we can iterate over the **Cookies** method of **http.Request**
+    struct. We can use a range keyword for that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below is the program for the same to illustrate the **Cookie** and **Cookies**
+    method of the **http.Request** struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Run the program above and make the below curl call
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: The curl call is passing two cookie name-value pairs
+  prefs: []
+  type: TYPE_NORMAL
+- en: id=abcd
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: token=some_token
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It will give below output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is how we print a particular cookie with a given name **“token”**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: It prints as seen from the output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is how we print all the cookies
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: It outputs both the cookies name-value pairs that we had sent in the curl call
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: That was all about cookies in golang. Hope you have liked the tutorial. Please
+    share feedback in the comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

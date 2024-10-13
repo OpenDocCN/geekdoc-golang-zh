@@ -1,0 +1,1363 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:30:58'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: All basic data types in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/all-basic-data-types-golang/](https://golangbyexample.com/all-basic-data-types-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 7 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Functions](https://golangbyexample.com/function-golang-complete-guide/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** –[Variables](https://golangbyexample.com/variables-in-golang-complete-guide/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Basic Types](#Basic_Types "Basic Types")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Integers ](#Integers "Integers ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Signed Integers](#Signed_Integers "Signed Integers")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[UnSigned](#UnSigned "UnSigned")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Floats](#Floats "Floats")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Complex Numbers](#Complex_Numbers "Complex Numbers")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Byte](#Byte "Byte")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Rune](#Rune "Rune")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[String](#String "String")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Booleans](#Booleans "Booleans")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Golang is a statically typed programming language meaning that each variable
+    has a type. Go has several built-in types. Data types in Go can be categorized
+    into two types.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Basic Types
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Composite Types
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Basic Types
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Integers
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Signed
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: int
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: int8
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: int16
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: int32
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: int64
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Unsigned
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: uint
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: uint8
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: uint16
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: uint32
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: uint64
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: uintptr
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Floats
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: float32
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: float64
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Complex Numbers
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: complex64
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: complex128
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Byte
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Rune
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: String
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Boolean
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Composite Types
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Collection/Aggregation or Non-Reference Types
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Arrays
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Structs
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Reference Types
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Slices
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Maps
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Channels
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Pointers
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function/Methods
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Interface
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Special case of empty Interface
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Basic Types**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In this article we are going to discuss basic types only.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Integers**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Integers can be signed or unsigned.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Signed Integers**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Signed integers are of 5 types as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Type** | **Size** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| int | Platform Dependent |'
+  prefs: []
+  type: TYPE_TB
+- en: '| int8 | 8 bits/1 byte |'
+  prefs: []
+  type: TYPE_TB
+- en: '| int16 | 16 bits/2 byte |'
+  prefs: []
+  type: TYPE_TB
+- en: '| int32 | 32 bits/4 byte |'
+  prefs: []
+  type: TYPE_TB
+- en: '| int64 | 64 bits/8 byte |'
+  prefs: []
+  type: TYPE_TB
+- en: '**int**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** Platform Dependent.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: On 32 bit machines, the size of int will be 32 bits or 4 byte.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: On 64 bit machines, the size of int will be 64 bits or 8 byte
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Range**: Again Platform dependent'
+  prefs: []
+  type: TYPE_NORMAL
+- en: On 32 bit machines, the size of int will be 32 bits or 4 bytes.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: On 64 bit machines, the size of int will be 64 bits or 8 bytes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**When to Use:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is a good idea to use int whenever using signed Integer other than the cases
+    mentioned below
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When the machine is a 32 bit and the range needed is greater than -231 to 231 -1,
+    then use int64 instead of int. Note that in this case for int64,  2 32-bit memory
+    addresses to form a 64-bit number together.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When the range is less then use the appropriate integer type.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Properties:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declare a int
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: int is default type for **integer.** When you don’t specify a type the default
+    will be int
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**bits** package of golang can help know the size of an **int** on your system'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**unsafe.Sizeof()** function can also be used to see the size of int in bytes'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Full Working Code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the full working code of the above properties
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**int8**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** 8 bits or 1 byte'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: -2⁷ to 2⁷ -1.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**When to Use:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use int8 when there it is known that the int range will be between -2⁷ to 2⁷ -1. 
+    For temporary values such as loop invariants, it is still advisable to use int
+    even though it might take more space because it is likely to be promoted to int
+    in some operations or library calls.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For array values which lies between -27 to 27 -1, is a good use case for using
+    int8\. For eg if you are storing ASCII index for lowercase letters then int8 can
+    be used.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is a good idea to use int8 for data values.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**int16**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** 16 bits or 2 byte'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: -2^(15) to 2^(15) -1.**When to Use:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use int16 when there it is known that the int range will be between -2^(15) to
+    2^(15) -1.  For temporary values such as loop invariants, it is still advisable
+    to use int even though it might take more space because it is likely to be promoted
+    to int in some operations or library calls.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For array values which lie between -215 to 215 -1, is a good use case for using
+    int8\. For eg if you are storing ASCII index for lowercase letters then int16
+    can be used.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**int32**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** 32 bits or 4 byte'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: -2^(31) to 2^(31) -1.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**int64**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** 64 bits or 8 byte'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: -2^(63) to 2^(63) -1.**When to Use:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**int64** is used when range is higher. For eg **time.Duration** is of type
+    **int64**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**UnSigned**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: UnSigned integers are of 5 types as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Type** | **Size** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| uint | Platform Dependent |'
+  prefs: []
+  type: TYPE_TB
+- en: '| uint8 | 8 bits/1 byte |'
+  prefs: []
+  type: TYPE_TB
+- en: '| uint16 | 16 bits/2 byte |'
+  prefs: []
+  type: TYPE_TB
+- en: '| uint32 | 32 bits/4 byte |'
+  prefs: []
+  type: TYPE_TB
+- en: '| uint64 | 64 bits/8 byte |'
+  prefs: []
+  type: TYPE_TB
+- en: '**uint**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** Platform Dependent.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: On 32 bit machines the size of int will be 32 bits or 4 byte.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: On 64 bit machines the size of int will be 64 bits or 8 byte
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Range**: Again Platform dependent'
+  prefs: []
+  type: TYPE_NORMAL
+- en: On 32 bit machines the range of int will be -2^(31) to 2^(31) -1.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: On 64 bit machines the range of int will be -2^(63) to 2^(63) -1
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**When to Use:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is a good idea to use uint  whenever using signed Integer other than the
+    cases mention below
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When machine is a 32 bit and range needed is greater than -2^(31) to 2^(31) -1,
+    then use **int64** instead **int**. Note that in this case for int64,  2 32-bit
+    memory addresses to form a 64-bit number together.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When the range is less then use the appropriate int type
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Properties:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declare a uint
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**bits** package of golang can help know the size of an **uint** on your system'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**unsafe.Sizeof()** function can also be used to see the size of uint in bytes'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Full Working Code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the full working code of the above properties
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**uintptr**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is an unsigned integer type that is large enough to hold any pointer address.
+    Therefore is size and range are platform dependent.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** Platform Dependent'
+  prefs: []
+  type: TYPE_NORMAL
+- en: On 32 bit machines, the size of an int will be 32 bits or 4 bytes.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: On 64 bit machines, the size of an int will be 64 bits or 8 bytes.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Range**: Again Platform dependent'
+  prefs: []
+  type: TYPE_NORMAL
+- en: On 32 bit machines the range of int will be -2^(31) to 2^(31) -1.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: On 64 bit machines the range of int will be -2^(63) to 2^(63) -1
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Properties:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A uintptr can be converted to unsafe.Pointer and vice versa
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Arithmetic can be performed on the uintptr
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: uintptr even though it holds a pointer address, is just a value, and does not
+    reference any object. Therefore
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Its value will not be updated if the corresponding object moves. For Eg When
+    goroutine stack changes
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The corresponding object can be garbage collected.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '****When to Use:****'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***   Its purpose is to be used along with unsafe.Pointer mainly used for unsafe
+    memory access.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When you want to save the pointer address value for printing it or storing it.
+    Since the address is just stored and does not reference anything, the corresponding
+    object can be garbage collected.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Full Working Code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**uint8**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** 8 bits or 1 byte'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**:  0 to 255 or 0 to 2⁸ -1.**When to Use:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use uint8 when there it is known that the int range will be between 2⁸ -1. 
+    For temporary values such as loop invariants, it is still advisable to use int
+    even though it might take more space because it is likely to be promoted to int
+    in some operations or library calls.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For array values which lies between  2⁸ -1\. is a good use case for using uint8\.
+    For eg if you are storing ascii index in an array then **uint8** can be used.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**uint16**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** 16 bits or 2 byte'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: 0 to 2^(16) -1**When to Use:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use int16 when there it is known that the int range will be between 0 to 2^(16) -1. 
+    For temporary values such as loop invariants it is still advisable to use int
+    even though it might take more space, because it is likely to be promoted to int
+    in some operations or library calls.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For array values which lies between -0 to 2^(16) -1, is a good use case for
+    using int8.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**uint32**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** 32 bits or 4 byte'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: 0 to 2^(32) -1'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**uint64**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size:** 64 bits or 8 byte'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: 0 to 2^(64) -1**When to Use:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: uint64 is used when the range is higher.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Floats**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Floats are numbers with decimals. It is of two types
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Type** | **Size** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| float32 | 32 bits or 4 bytes |'
+  prefs: []
+  type: TYPE_TB
+- en: '| float64 | 64 bits or 8 bytes |'
+  prefs: []
+  type: TYPE_TB
+- en: '**float64** is the default float type. When you initialize a variable with
+    a decimal value and don’t specify the float type, the default type inferred will
+    be **float64**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**float32**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**float32** uses a single-precision floating-point format to store values.
+    Basically, it is the set of all IEEE-754 32-bit floating-point numbers. The 32
+    bits are divided into – 1 bit sign, 8 bits exponent, and 23 bits mantissa. float
+    32 take half much size as float 64 and are comparatively faster on some machine
+    architectures.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size**: 32 bits or 4 bytes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: 1.2E-38 to 3.4E+38'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**DefaultValue**: 0.0'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**When to Use:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If in your system memory is a bottleneck and range is less, then **float32**
+    can be used.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The below code example illustrates below points
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declare a float32
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Print size of float32 in bytes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**float64**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: float64 uses a double-precision floating-point format to store values. Basically
+    it is the set of all IEEE-754 64-bit floating-point numbers. The 64 bits are divided
+    into – 1-bit sign, 11 bits exponent, 52 bits mantissa. float64 takes twice as
+    much size compared to float32 but can represent numbers more accurately than float32.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size**: 32 bits or 4 bytes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: 1.2E-38 to 3.4E+38'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**DefaultValue**: 0.0'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**When to Use:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the precision needed is high
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The below code example illustrates below points
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declare a float64
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Print size of float64 in bytes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Default is float64 when you don’t specify a type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Complex Numbers**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Complex Numbers are of two types
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Type** | **Property** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| complex64 | Both real and imaginary part are float32 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| complex128 | Both real and imaginary part are float64 |'
+  prefs: []
+  type: TYPE_TB
+- en: The default complex type is complex128
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Initialization**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Complex Numbers can be initialized in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using complex function. It has below signature. Do make sure that both a and
+    b should be of same type , meaning either they both should be float32 or both
+    should be float64
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: Using the shorthand syntax. This is used when creating a complex number with
+    direct numbers. The complex type created using below method will be of type **complex128**
+    if type is not specified
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**complex64**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For complex 64 both real and imaginary part are float32
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size**: Both real and imaginary part are of same size as float32\. It is
+    of size 32 bits or 4 bytes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: Both real and imaginary part range is same as float32 i.e 1.2E-38
+    to 3.4E+38'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is a sample code that shows
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to create a complex64 number using the above two method
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Print size of a complex64 number. Size will be  8 bytes(4 +4) which is equivalent
+    to two float32 numbers
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Print type of a complex64 number
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: + operation on complex number
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**complex128**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For complex128 both **real** and **imaginary** part are **float64**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Size**: Both **real** and **imaginary** part are of same size as float64\.
+    It is of size 64 bits or 8 bytes'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Range**: Both **real** and **imaginary** part range is same as **float64**
+    i.e -1.7E+308 to +1.7E+308'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is a sample code that shows
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to create a complex128 number using above two method. It also shows when
+    type is not specified, the default type will be **complex128**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Print size of a complex128 number. Size will be  16 bytes(8 +8) which is equivalent
+    to two float64 numbers
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Print type of a complex128 number
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Different operations on complex number
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Byte**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: byte in Go is an alias for **uint8** meaning it is an integer value. This integer
+    value is of 8 bits and it represents one byte i.e number between 0-255). A single
+    byte therefore can represent ASCII characters. Golang does not have any data type
+    of ‘char’. Therefore
+  prefs: []
+  type: TYPE_NORMAL
+- en: byte is used to represent the ASCII character
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: rune is used to represent all UNICODE characters which include every character
+    that exists. We will study about rune later in this tutorial.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Define Byte**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: While declaring byte we have specify the type, as we have in the program above.
+    If we don’t specify the type, then the default type is meant as a **rune.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In below code example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to define a byte
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Print the byte type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Print size of byte
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Rune**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: rune in Go is  an alias for **int32** meaning it is an integer value. This integer
+    value is meant to represent a Unicode Code Point. To understand rune you have
+    to know what Unicode is. Below is short description but you can refer to famous
+    blog post about it – [The Absolute Minimum Every Software Developer Absolutely,
+    Positively Must Know About Unicode and Character Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**What is UniCode**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unicode is a superset of ASCII characters which assigns a unique number to every
+    character that exists. This unique number is called Unicode Code Point.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For eg
+  prefs: []
+  type: TYPE_NORMAL
+- en: Digit **0** is represented as Unicode Point **U+0030 (Decimal Value – 48)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Small Case **b** is represented as Unicode Point  **U+0062 (Decimal Value –
+    98)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A pound symbol **£ **is represented as Unicode Point **U+00A3 (Decimal Value
+    – 163)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Visit [https://en.wikipedia.org/wiki/List_of_Unicode_characters](https://en.wikipedia.org/wiki/List_of_Unicode_characters)
+    to know about Unicode Point of other characters. But Unicode doesn’t talk about
+    how these code points will be saved in memory. This is where **utf-8** comes into
+    picture
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**UTF-8**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: utf-8 saves every Unicode Point either using 1, 2, 3 or 4 bytes. ASCII points
+    are stored using 1 byte. That is why rune is an alias for int32 because a Unicode
+    Point can be of max 4 bytes in Go as in GO every string is encoded using utf-8.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Every rune is intended to refer to one Unicode Point.  For eg if you print a
+    string after typecasting it to a rune array then it will print the Unicode Point
+    for each of character. For for below string **“0b£”** output will be – **[U+0030
+    U+0062 U+00A3]**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Declare Rune**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A rune is declared using a character between single quotes like below declaring
+    a variable named **‘rPound’**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: After declaring Rune you can perform below things as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Print Type –** Output will be **int32**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Print Unicode Code Point –** Output will be **U+00A3**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Print Character –** Output will be **£**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**When to Use**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You should use a rune when you intend to save Unicode Code Point in the value.
+    A rune array should be used when all values in the array are meant to be a Unicode
+    Code Point.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the code illustrating each point we discussed
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**String**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: string is a read only slice of bytes in golang. String can be initialized in
+    two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: using double quotes “” eg “this”
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: string in double quotes honors the escape sequences. For eg if the string contains
+    a \n then while printing there will be a new line
+  prefs: []
+  type: TYPE_NORMAL
+- en: using back quotes ` eg  \`this`
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: String in back quotes is just a raw string and it does not honor any kind of
+    escape sequences.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Each character in a string will occupy some bytes depending upon encoding used.
+    For eg in utf-8 encoded string, each character will occupy between 1-4 bytes.
+    You can read about utf-8 in this must read famous blog-[The Absolute Minimum Every
+    Software Developer Absolutely, Positively Must Know About Unicode and Character
+    Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html).   In
+    utf-8 , the characters **a** or **b** are encoded using 1  byte while the character
+    pound sign **£** is encoded using two bytes . Therefore the string “ab£” will
+    output 4 bytes when you will convert the string to byte array and print it like
+    below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also when you try to print the length of the above string using **len(“ab£”),**
+    it will output 4 and not 3 because it contains 4 bytes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also note that **range** loops over sequences of byte which form each character,
+    therefore for the below range loop
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: Output will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: There are many operations that can be performed on a string. One such operation
+    is concatenation which combines two string. The sign ‘+’ is used for concatenation.
+    Let’s see full working  code for all above things that we discussed
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Booleans**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The data type is **bool** and has two possible values true or false.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Default Value: false'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Operations:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: AND – &&
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: OR  – ||
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Negation – !
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The below code example shows
+  prefs: []
+  type: TYPE_NORMAL
+- en: If not initialized the default value is **false**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All the above operations on the bool
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE37]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE38]'
+  prefs: []
+  type: TYPE_PRE
+- en: Conclusion
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about basic types in golang. Hope you have liked this article. Please
+    share feedback or improvement or mistakes in comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Functions](https://golangbyexample.com/function-golang-complete-guide/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** –[Variables](https://golangbyexample.com/variables-in-golang-complete-guide/)***'
+  prefs: []
+  type: TYPE_NORMAL

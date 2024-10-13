@@ -1,0 +1,178 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:45:41'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Tic Tac Toe Complete Working Program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/tic-tac-toe-program-golang/](https://golangbyexample.com/tic-tac-toe-program-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s first understand what is Tic Tac Toe with an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: There is an n*n board and each block in the board can be marked with either
+    a **cross** or a **circle** only if the block is empty
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Maxtwo players play the game at a time with each taking turn.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The first player marks a **cross** at any block in the board in its turn.  While
+    the second player marks a **circle** at any block in the board in its turn.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The objective is to have either an entire row or an entire column or an entire
+    diagonal with any of the one symbol either **cross** or **circle**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Both players will try to stop the other player from achieving this objective.
+    Whosoever achieves it first will win.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If all blocks in the board are full and none of the players have not been able
+    to mark the entire row, column, or diagonal with its symbol then the game results
+    in a draw.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: No more moves are allowed after one player wins the game.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s understand this game with an example. Assume a 3*3 grid. Dot (‘.’) represents
+    an empty block
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above game First Player Win because the third row is all occupied with
+    symbol cross – **‘*’**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here is the full working code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**symbol.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**iPlayer.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**humanPlayer.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**computerPlayer.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**gameStatus.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**board.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**game.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the above program, we have fixed the moves for both the player in the **humanPlayer.go**
+    file. Here is the output based upon those moves.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here is the full working code in one file
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the above program as well, we have fixed the moves for both the player in
+    the **humanPlayer class**. Here is the output based upon those moves.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

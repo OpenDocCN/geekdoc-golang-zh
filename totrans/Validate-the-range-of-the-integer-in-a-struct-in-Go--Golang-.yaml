@@ -1,0 +1,146 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:34:01'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Validate the range of the integer in a struct in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/range-int-struct-validate-golang/](https://golangbyexample.com/range-int-struct-validate-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The below library can be used to validate the range of an integer in a struct
+    in Golang
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**gopkg.in/go-playground/validator.v9** – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For this tutorial, we will use the below employee struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an example for the same. Below is the code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: First, we need to declare the instance of Validate
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice here that we need to associate meta tags with fields of the struct to
+    let the validator know that you want to validate this field. In the above example,
+    we added the tag with the Age field. This tag is interpreted by the playground
+    validate library. Notice we added three validations for the **Age** field
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**required** – validates that the field is present'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**gte** – validate that the field value is greater than equal to a particular
+    value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**lte** – validate that the field value is less than equal to a particular
+    value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then call the Struct method to validate the struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: For
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: it gives the output as below is **Age** field is empty
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: For
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: it gives the output as below as **Age** field value is 5 which is less than
+    10
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: For
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: it gives the output as below as **Age** field value is 25 which is greater than
+    20
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[golang](https://golangbyexample.com/tag/golang/)*   [gp](https://golangbyexample.com/tag/gp/)*   [range](https://golangbyexample.com/tag/range/)*   [validation](https://golangbyexample.com/tag/validation/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

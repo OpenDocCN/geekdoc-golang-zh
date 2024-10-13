@@ -1,0 +1,1 @@
+["```\nfunc Compare(a, b string) int\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"strings\"\n)\n\nfunc main() {\n    res := strings.Compare(\"abc\", \"abc\")\n    fmt.Println(res)\n\n    res = strings.Compare(\"abc\", \"xyz\")\n    fmt.Println(res)\n\n    res = strings.Compare(\"xyz\", \"abc\")\n    fmt.Println(res)\n}\n```", "```\n0\n-1\n1\n```"]

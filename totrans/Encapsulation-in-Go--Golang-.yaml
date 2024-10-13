@@ -1,0 +1,183 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:03:22'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Encapsulation in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/encapsulation-in-go/](https://golangbyexample.com/encapsulation-in-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Golang provides encapsulation at the package level. Go doesn’t have any public, 
+    private or protected keyword. The only mechanism to control the visibility is
+    using the capitalized and non-capitalized formats
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Capitalized Identifiers** are exported. The capital letter indicates that
+    this is an exported identifier.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Non-capitalized identifiers** are not exported. The lowercase indicates that
+    the identifier is not exported and will only be accessed from within the same
+    package.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are five kinds of identifier which can be exported or non-exported
+  prefs: []
+  type: TYPE_NORMAL
+- en: Structure
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Structure’s Method
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Structure’s Field
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Function
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Variable
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s see an example that shows exporting and non-exporting of all the above
+    identifiers. See **data.go** below. The package is **model**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Structure
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Struct **Person** is exported
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Struct **company** is non-exported
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Structure’s Method
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Person** Struct’s Method **GetAge()** is exported'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Person** Struct’s Method **getName()** is not exported'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Structure’s Field
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Person** struct field **Name** is exported'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Person** struct field **age** is not exported'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function **GetPerson()** is exported
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function **getCompanyName()** is not exported
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Variables
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Variable **CompanyName** is exported
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Variable **companyLocation** is not exported
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**data.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s write a file **test.go** in **model** package. See below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**test.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: On running this file, it is able to access all exported and unexported fields
+    in **data.go** as both lies in the same package model. There is no compilation
+    error and it gives below output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s move the above file **test.go** to a different package named **view.**
+    Now notice the output on running ‘go build’. It gives compilation errors. All
+    the compilation error are due to not able to refer to unexported fields
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**test.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[encapsulation](https://golangbyexample.com/tag/encapsulation/)*   [encapsulation
+    in golang](https://golangbyexample.com/tag/encapsulation-in-golang/)*   [object
+    oriented go](https://golangbyexample.com/tag/object-oriented-go/)*   [oop](https://golangbyexample.com/tag/oop/)*   [oop
+    in go](https://golangbyexample.com/tag/oop-in-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

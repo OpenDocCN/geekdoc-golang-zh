@@ -1,0 +1,117 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:05:37'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: MinHeap in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/minheap-in-golang/](https://golangbyexample.com/minheap-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction](#Introduction "Introduction")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Operations on Minheap](#Operations_on_Minheap "Operations on Minheap")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Implementation](#Implementation "Implementation")*  *# **Introduction**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A MinHeap is a complete binary tree in which the value of the parent node is
+    less than or equal to the value of its left and right child. A complete binary
+    tree is a binary tree in which all levels are full except the last level.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We use an array to represent a minheap. The root element is arr[0]. For an index
+    i we have
+  prefs: []
+  type: TYPE_NORMAL
+- en: Left Child – 2*i + 1
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Right Child – 2*i + 2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is a representation of a minheap
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/3a7852c4ca1f9283ebb010132a829a14.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The corresponding array would be [2, 3, 5, 7, 6, 8]
+  prefs: []
+  type: TYPE_NORMAL
+- en: For 0 index we have
+  prefs: []
+  type: TYPE_NORMAL
+- en: Left Child – 2*0 + 1 = 1
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Right Child – 2*0 + 2 = 2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Thus arr[0] i.e 2 has left child as arr[1] i.e, 3 and right child as arr[2]
+    i.e 5
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since each node value is less or equal to the value of its children, therefore,
+    value at the root is the smallest value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Operations on Minheap**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Insert an Element**– takes O(log n) time. If the inserted value is smaller
+    than its parent, then we need to traverse up to fix. This traversal continues
+    up till the inserted value is greater than its parent or the inserted value becomes
+    the root itself. The second case will happen when the inserted value is the smallest.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Remove Minimum Element** – takes O(log n) time. It saves the root value and
+    then replaces it with the last value in the array. It then minheapifies the root
+    which takes O(log n) time as it traverses down until it is less than its parent.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Get Minimum** – takes O(1) times. Returns the root value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Implementation**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [meanheap in go](https://golangbyexample.com/tag/meanheap-in-go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

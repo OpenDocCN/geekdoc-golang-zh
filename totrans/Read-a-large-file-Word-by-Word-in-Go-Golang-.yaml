@@ -1,0 +1,50 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:01:42'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Read a large file Word by Word in Go(Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/read-large-file-word-by-word-go/](https://golangbyexample.com/read-large-file-word-by-word-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: When it comes to reading large files, obviously we don’t want to load the entire
+    file in memory. bufio package in golang comes to the rescue when reading large
+    files in Golang. Let’s say we have a sample.txt file with below contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Word by Word scan**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Please note that in the above program we set **scanner.Split(bufio.ScanWords)**
+    which helps us to read the file word by word. Note however bufio.Scanner has max
+    buffer size 64*1024 bytes which means in case you file has any line greater than
+    the size of 64*1024, then it will give the error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE

@@ -1,0 +1,93 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:20:05'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Accessing and Setting Struct Fields in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/accessing-setting-struct-fields-golang/](https://golangbyexample.com/accessing-setting-struct-fields-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Overview**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: GO struct is named collection of data fields which can be of different types.
+    Struct acts as a container that has different heterogeneous data types which together
+    represents an entity. For example, different attributes are used to represent
+    an employee in an organization. Employee can have
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name of string type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Age of int type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: DOB of time.Time type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Salary of int type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: .. and so on. A struct can be used to represent an employee
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Accessing and Setting Struct Fields](#Accessing_and_Setting_Struct_Fields
+    "Accessing and Setting Struct Fields")*  *# **Accessing and Setting Struct Fields**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A struct variable can be created as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Once the struct variable is created, structs fields can be accessed using the
+    dot operator. Below is the format for getting the value
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Similarly a value can be assigned to a struct field too.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

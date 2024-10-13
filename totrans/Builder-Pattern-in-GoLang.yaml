@@ -1,0 +1,151 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:01:10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Builder Pattern in GoLang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/builder-pattern-golang/](https://golangbyexample.com/builder-pattern-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Definition:](#Definition "Definition:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[UML Diagram](#UML_Diagram "UML Diagram")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping (Also Refer 5th point – Example)](#Mapping_Also_Refer_5th_point_-_Example
+    "Mapping (Also Refer 5th point – Example)")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[When To Use](#When_To_Use "When To Use")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example:](#Example "Example:")*  *# **Definition:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Builder Pattern is a creational design pattern used for constructing complex
+    objects. Below is the UML diagram.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**UML Diagram**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '![](img/636a38ada58dfd0df19e87ad386b9afd.png)'
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+- en: '**Mapping (Also Refer 5th point – Example)**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '| Director | director.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Builder Interface | iBuilder.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Builder 1 | normalBuilder.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Builder 2 | iglooBuilder.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Product | house.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**When To Use**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Use Builder pattern when the object constructed is big and requires multiple
+    steps. It helps in less size of the constructor.  The construction of the house
+    becomes simple and it does not require a large constructor
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When a different version of the same product needs to be created. For example,
+    in the below code we see a different version of house ie. igloo and the normal
+    house being constructed by **iglooBuilder** and **normalBuilder**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When half constructed final object should not exist. Again referring to below
+    code the house created will either be created fully or not created at all. The
+    Concrete Builder struct holds the temporary state of house object being created
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Example:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**iBuilder.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**normalBuilder.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**iglooBuilder.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**house.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**director.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[builder](https://golangbyexample.com/tag/builder/)*   [creational](https://golangbyexample.com/tag/creational/)*   [design](https://golangbyexample.com/tag/design/)*   [design
+    pattern](https://golangbyexample.com/tag/design-pattern/)*   [designpatter](https://golangbyexample.com/tag/designpatter/)*   [golang](https://golangbyexample.com/tag/golang/)*   [pattern](https://golangbyexample.com/tag/pattern/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

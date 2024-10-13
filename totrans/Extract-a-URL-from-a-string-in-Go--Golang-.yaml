@@ -1,0 +1,107 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:40:26'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Extract a URL from a string in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/extract-url-golang/](https://golangbyexample.com/extract-url-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below go package can be used to extract URL from a given string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://github.com/mvdan/xurls](https://github.com/mvdan/xurls)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are two ways of using this package
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Strict** – In strict mode, it matches only URLs with a scheme'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Relaxed** – In relaxed mode, it matches any URL matched by strict plus any
+    URLs without a scheme'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can specify the scheme to filter on. There is a function for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**StrictMatchingScheme**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s first see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in the strict mode, it does not return the [golangbyexample.com](http://golangbyexample.com)
+    in the output as that is without a scheme.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see another program to extract multiple URLs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: If we want to restrict the output to a particular scheme then that also can
+    be done.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we provided the scheme as https which is why we have only
+    one output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

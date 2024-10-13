@@ -1,0 +1,127 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:30:49'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Import same package name or Aliasing while importing packages in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/import-same-package-name-golang/](https://golangbyexample.com/import-same-package-name-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Aliasing in importing packages means give a different name to the imported package.
+    Syntax for it is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Above statement means that whatever package is present at directory <directory_path>
+    import that package with name <new_name>. Aliasing is useful for giving
+  prefs: []
+  type: TYPE_NORMAL
+- en: Giving a more relevant name to the imported package in the current context.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When two different import path contains the same package name then import one
+    of them as a different name to prevent conflict.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Create a module with import path as [sample.com](http://sample.com)/learn
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In below example we created two directory math and math2.
+  prefs: []
+  type: TYPE_NORMAL
+- en: math directory contains file math.go with package declaration as
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: math2 directory contains file math2.go with package declaration as
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Notice that package name (i.e **math**) is same in folder **math** as well in
+    folder **math2\.** So both folder **math2** and **math** contains the same package
+    which is **math.** Since both directory have the same package name, aliasing is
+    the only way to use both the package in the same file. This is how we alias and
+    use both the package in main.go
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: We alias **math** package present **“sample.com/learn/math2”** to **math2\.**
+    If we haven’t done that then GO will raise a compilation issue as it cannot import
+    package with same name from two different folders. This one of the advantage of
+    using alias.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see full working code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math2/math2.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/math/math.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**learn/main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run this program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

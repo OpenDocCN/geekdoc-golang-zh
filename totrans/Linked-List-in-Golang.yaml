@@ -1,0 +1,70 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:05:32'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Linked List in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/singly-linked-list-in-golang/](https://golangbyexample.com/singly-linked-list-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Singly-linked list is a simple kind of linked list that allows traversal in
+    one direction i.e forward. Each node in the linked list contains the data part
+    and the pointer to the next node in the linked list.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The linked list implemented below supports the following operations
+  prefs: []
+  type: TYPE_NORMAL
+- en: AddFront
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: AddBack
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: RemoveFront
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: RemoveBack
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Traverse
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Front
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Size
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[data](https://golangbyexample.com/tag/data/)*   [go](https://golangbyexample.com/tag/go/)*   [linked](https://golangbyexample.com/tag/linked/)*   [single
+    linked list](https://golangbyexample.com/tag/single-linked-list/)*   [singly](https://golangbyexample.com/tag/singly/)*   [structure](https://golangbyexample.com/tag/structure/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,113 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:46:18'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Divide two integers without using multiplication or division operator in Go
+    (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/divide-two-int-golang/](https://golangbyexample.com/divide-two-int-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Two numbers are given. The objective is to divide those numbers and return the
+    quotient. Ignore the remainder in the solution. But division needs to be done
+    without using the multiplication or division operator.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first number is the dividend
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The second number is the divisor
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here is the idea of how to do it. The first thing to notice is that
+  prefs: []
+  type: TYPE_NORMAL
+- en: If dividend and divisor are either both positive or both negative then the quotient
+    is positive
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If either one of dividend and divisor is negative then the quotient is negative
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So there is an XOR relation between signs of dividend and divisor. We can follow
+    the below steps to write the program
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, determine the sign of the quotient as per the XOR logic above.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Then make both dividend and divisor positive.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now increase the divisor by itself until it is less than or equal to the dividend.
+    Also, keep a counter for each increment
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: counter*sign will be the answer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Here is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

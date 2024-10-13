@@ -1,0 +1,496 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:31:23'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Golang Advanced Tutorial
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/golang-comprehensive-tutorial/](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Golang Basic Tutorial](#Golang_Basic_Tutorial "Golang Basic Tutorial")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[About](#About "About")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Basics](#Basics "Basics")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Loops/Iterations/Flow Control](#LoopsIterationsFlow_Control "Loops/Iterations/Flow
+    Control")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[More Types](#More_Types "More Types")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Concurrency](#Concurrency "Concurrency")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Error Handling](#Error_Handling "Error Handling")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Golang Advanced Tutorial](#Golang_Advanced_Tutorial "Golang Advanced Tutorial")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[OOPS in Golang](#OOPS_in_Golang "OOPS in Golang")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Others](#Others "Others")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[All Design Patterns in Golang](#All_Design_Patterns_in_Golang "All Design
+    Patterns in Golang")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creational Design Patterns](#Creational_Design_Patterns "Creational Design
+    Patterns")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Behavioural Design Patterns](#Behavioural_Design_Patterns "Behavioural Design
+    Patterns")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Structural Design Patterns](#Structural_Design_Patterns "Structural Design
+    Patterns")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Data Structures in Golang](#Data_Structures_in_Golang "Data Structures in
+    Golang")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Welcome to the Golang advanced tutorial series. The tutorial in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang.
+    We are looking for feedback as well if you find any mistakes or any improvements
+    to be done.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here is the link to the golang official website for reference [https://golang.org/](https://golang.org/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: This tutorial is divided into four parts
+  prefs: []
+  type: TYPE_NORMAL
+- en: Golang Basic Topics
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Golang Advanced Topics
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All Design Patterns in Golang
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Data structures in Golang
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Golang Basic Tutorial**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s see some basic topics in go first
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**About**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Chapter 1   – [About Golang](https://golangbyexample.com/about-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 2   – [GO installation](https://golangbyexample.com/golang-installation/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 3   – [Set up Go Workspace and hello world program](https://golangbyexample.com/workspace-hello-world-golang)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Basics**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Chapter 4   – [Packages and Modules – Part 1](https://golangbyexample.com/packages-modules-go-first)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 5   – [Packages and Modules – Part 2](https://golangbyexample.com/packages-modules-go-second/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 6   – [Variables](https://golangbyexample.com/variables-in-golang-complete-guide/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 7   – [All basic data types](https://golangbyexample.com/all-basic-data-types-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 8   – [Functions](https://golangbyexample.com/function-golang-complete-guide/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 9   – [Constants](https://golangbyexample.com/constant-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Loops/Iterations/Flow Control**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Chapter 10 – [For Loop](https://golangbyexample.com/for-loop-in-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 11 – [For Range loop](https://golangbyexample.com/understand-for-range-loop-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 12 – [If Else](https://golangbyexample.com/understand-if-else-statement-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 13 – [Switch](https://golangbyexample.com/switch-statement-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 14 – [Defer keyword](https://golangbyexample.com/defer-golang)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**More Types**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Chapter 15 – [Pointer](https://golangbyexample.com/pointer-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 16 – [Struct](https://golangbyexample.com/struct-in-golang-complete-guide/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 17 – [Array](https://golangbyexample.com/understanding-array-golang-complete-guid)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 18 – [Slice](https://golangbyexample.com/slice-in-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 19 – [Maps](https://golangbyexample.com/maps-in-golang)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 20 – [Method](https://golangbyexample.com/method-in-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 21 – [Interface](https://golangbyexample.com/interface-in-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 22 – [Iota](https://golangbyexample.com/iota-in-golang)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Concurrency**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Chapter 23 – [Goroutines](https://golangbyexample.com/goroutines-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 24 – [Channel](https://golangbyexample.com/channel-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 25 – [Select Statement](https://golangbyexample.com/select-statement-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Error Handling**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Chapter 26 – [Error](https://golangbyexample.com/error-in-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 27 – [Error -Part 2](https://golangbyexample.com/error-in-golang-advanced/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Chapter 28- [Panic and Recover](https://golangbyexample.com/panic-and-recover-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Golang Advanced Tutorial**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s look at some advanced topics in go now.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**OOPS in Golang**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[OOP: Inheritance in GOLANG complete guide](https://golangbyexample.com/oop-inheritance-golang-complete/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Encapsulation in Golang](https://golangbyexample.com/encapsulation-in-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Runtime Polymorphism](https://golangbyexample.com/runtime-polymorphism-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Compile Time Polymorphism](https://golangbyexample.com/compile-time-polymorphism-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Others**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[Understanding time and date in Go](https://golangbyexample.com/all-about-time-and-date-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using Context Package in GO Complete Guide](https://golangbyexample.com/using-context-in-golang-complete-guide/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Goto statement in go](https://golangbyexample.com/goto-statement-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[More about uintptr](https://golangbyexample.com/understanding-uintptr-golang)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Basic HTTP server implementation](https://golangbyexample.com/basic-http-server-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**All Design Patterns in Golang**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the list of all design patterns in go
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creational Design Patterns**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[Abstract Factory](https://golangbyexample.com/abstract-factory-design-pattern-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Builder](https://golangbyexample.com/builder-pattern-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Factory](https://golangbyexample.com/golang-factory-design-pattern/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Object Pool](https://golangbyexample.com/golang-object-pool/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Prototype](https://golangbyexample.com/prototype-pattern-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Singleton](https://golangbyexample.com/singleton-design-pattern-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Behavioural Design Patterns**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[Chain of Responsiblity](https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Command](https://golangbyexample.com/command-design-pattern-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Iterator](https://golangbyexample.com/go-iterator-design-pattern/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mediator](https://golangbyexample.com/mediator-design-pattern-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Memento](https://golangbyexample.com/memento-design-pattern-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Null Object](https://golangbyexample.com/null-object-design-pattern-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Observer](https://golangbyexample.com/observer-design-pattern-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[State](https://golangbyexample.com/state-design-pattern-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Template Method](https://golangbyexample.com/template-method-design-pattern-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Visitor](https://golangbyexample.com/visitor-design-pattern-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Structural Design Patterns**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[Adapter](https://golangbyexample.com/adapter-design-pattern-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Bridge](https://golangbyexample.com/bridge-design-pattern-in-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Composite](https://golangbyexample.com/composite-design-pattern-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Decorator](https://golangbyexample.com/decorator-pattern-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Facade](https://golangbyexample.com/facade-design-pattern-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Flyweight](https://golangbyexample.com/flyweight-design-pattern-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Proxy](https://golangbyexample.com/proxy-design-pattern-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Data Structures in Golang**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[Queue](https://golangbyexample.com/queue-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Stack](https://golangbyexample.com/stack-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Set](https://golangbyexample.com/set-implementation-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Linked List](https://golangbyexample.com/singly-linked-list-in-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Doubly Linked List](https://golangbyexample.com/doubly-linked-list-golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Binary Search Tree
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Recursive](https://golangbyexample.com/binary-search-tree-in-go)'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Iterative](https://golangbyexample.com/iterative-binary-search-tree-go/)'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Heap
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Minheap](https://golangbyexample.com/minheap-in-golang/)'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Maxheap](https://golangbyexample.com/maxheap-in-golang/)'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Trie](https://golangbyexample.com/trie-implementation-in-go/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '***   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)***'
+  prefs: []
+  type: TYPE_NORMAL

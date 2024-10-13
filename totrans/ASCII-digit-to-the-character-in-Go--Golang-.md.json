@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n\tsampleASCIIDigits := []int{97, 98, 99}\n\tfor _, digit := range sampleASCIIDigits {\n\t\tfmt.Printf(\"Char %s\\n\", string(digit))\n\t}\n}\n```", "```\nChar a\nChar b\nChar c\n```"]

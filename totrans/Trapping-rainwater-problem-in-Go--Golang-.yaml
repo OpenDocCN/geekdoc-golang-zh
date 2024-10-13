@@ -1,0 +1,138 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:44:10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Trapping rainwater problem in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/trapping-rainwater-problem-golang/](https://golangbyexample.com/trapping-rainwater-problem-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There is a set of bars each of 1 unit width but different heights placed alongside.
+    The height of the bars is represented using an array
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The array represents that
+  prefs: []
+  type: TYPE_NORMAL
+- en: The total number of bars is 5
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The first bar is of height 2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The second bar is of height 0
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The third bar is of height 2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The fourth bar is of height 1
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The fifth bar is of height 3
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The sixth bar is of height 1
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The objective is to find the maximum amount of water that can be trapped within
+    these bars
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/1981aec303b4fff9c2cc006158b411c2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: As seen from the above graph
+  prefs: []
+  type: TYPE_NORMAL
+- en: 2 units of water can be trapped between bar 1 and bar 3
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 1 unit of water can be trapped between bar 3 and bar 6
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So total – 3 units of water can be trapped
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see the program for the same. The strategy will be to use a stack.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Traverse through the given array
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For the current element, keep popping from the stack until the stack is empty
+    or the height of the top element is greater than the height of the current element.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For each popped element calculate the water that can be trapped between the
+    popped element and the current element.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In the end, push the current element to the stack and the cycle repeats until
+    all element in the array has been traversed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

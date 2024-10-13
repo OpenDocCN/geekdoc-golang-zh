@@ -1,0 +1,1 @@
+["```\nfunc Hostname() (name string, err error)\n```", "```\npackage main\n\nimport (\n\t\"fmt\"\n\t\"os\"\n)\n\nfunc main() {\n\thostname, err := os.Hostname()\n\tif err != nil {\n\t\tfmt.Println(err)\n\t\tos.Exit(1)\n\t}\n\tfmt.Printf(\"Hostname: %s\", hostname)\n}\n```", "```\nHostname: <hostname of=\"\" your=\"\" machine=\"\"></hostname>\n```"]

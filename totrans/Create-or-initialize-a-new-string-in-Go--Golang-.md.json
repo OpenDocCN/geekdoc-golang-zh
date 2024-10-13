@@ -1,0 +1,1 @@
+["```\nsample := \"test\"\n```", "```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n\tsample := \"test\"\n\tfmt.Println(sample)\n}\n```", "```\ntest\n```", "```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    var sample string\n    fmt.Println(sample)\n}\n```"]

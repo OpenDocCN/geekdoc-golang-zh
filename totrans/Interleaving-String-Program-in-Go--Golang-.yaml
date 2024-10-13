@@ -1,0 +1,105 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:44:48'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Interleaving String Program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/interleaving-string-program-golang/](https://golangbyexample.com/interleaving-string-program-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Recursive Solution](#Recursive_Solution "Recursive Solution")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Dynamic Programming Solution](#Dynamic_Programming_Solution "Dynamic Programming
+    Solution")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Three strings are given **s1**, **s2**, **s3**. Find if string **s3** is interleaving
+    of string.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**s3** will be an interleaving of string **s1** and **s2** if the below condition
+    is satisfied'
+  prefs: []
+  type: TYPE_NORMAL
+- en: s3 contains all characters of **s1** and **s2** and the order of all characters
+    in individual strings is preserved.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Recursive Solution**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the recursive solution for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: If you will notice the above program many subproblems are computed again and
+    again hence the complexity of the above solution is exponential. Hence we can
+    also use Dynamic Programming here to reduce the overall time complexity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Dynamic Programming Solution**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

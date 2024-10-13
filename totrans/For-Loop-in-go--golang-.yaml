@@ -1,0 +1,268 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:18:17'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: For Loop in go (golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/for-loop-in-golang/](https://golangbyexample.com/for-loop-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 10 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** –  [For Range loop](https://golangbyexample.com/understand-for-range-loop-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Constants](https://golangbyexample.com/constant-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Overview**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'When it comes to loop, golang has:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: for loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: for-range loop
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In this tutorial, we will be learning about the for loop only. The while loop
+    is missing from go but a while loop can be implemented using a for loop as we
+    will see later in this tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**for** loop in GO basically has three parts as shown below in the format'
+  prefs: []
+  type: TYPE_NORMAL
+- en: init part
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: condition part
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: post part
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Here is the sequence of execution of the three parts:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **init part** is executed first before the first iteration
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **condition part** is executed before every iteration. If the condition
+    is false the loop will exit otherwise the loop will continue to iterate.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **post part** is executed after every iteration. After this the condition
+    is check, if it is true then the loop is continued otherwise loop exists.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Some points to note about for loop:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The parenthesis is not necessary around for loop but the curly braces around
+    the body is necessary.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **init** and **post** part is optional.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The **init** part can be any statement with a short declaration, function call
+    or assignment. If the **init** part has the variable declaration, then the scope
+    of that variable is limited to within the for loop.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The post part can be any statement but generally contains the increment logic.
+    The post part cannot contain initialization. Compiler will raise error in case
+    we add any initialization logic to the post part
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Examples**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Simple for loop**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**For loop with only condition**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**For Infinite loop**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:** Above program prints a infinite loop'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Break Statement in For loop**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**break** statement help exit out of the for loop. None of the statement after
+    break is executed inside the for loop.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Continue Statement in For loop**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**continue** statement help skip the current iteration of the for loop. None
+    of the statement after the continue is executed and the execution reaches the
+    start again with next iteration. The use case is when you want to only operate
+    on certain elements of the for loop.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let's see an exampleIn below program we only want to print non-multiples of
+    3.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Nested For Loop**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: for loop can also be nested as well. See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Function Call and Assignment in Init part**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The below code is an example that we can also have function call or assignment
+    in init part too.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Implementing while loop using for loop**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go doesn't have the **while** keyword. Instead it has the **for** keyword only.
+    However **for** keyword can be used to simulate the functionality same as **while**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**for** loop can be implemented to behave the same as **while** if **initialization_part**
+    and **increment_part** can be skipped. Here is an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about for loop in golang. Please share feedback/improvements/mistakes
+    in comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** –  [For Range loop](https://golangbyexample.com/understand-for-range-loop-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Constants](https://golangbyexample.com/constant-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

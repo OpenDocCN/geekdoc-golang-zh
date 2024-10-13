@@ -1,0 +1,283 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:33:31'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Conversion between struct and JSON in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/struct-json-golang/](https://golangbyexample.com/struct-json-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Struct to JSON](#Struct_to_JSON "Struct to JSON")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[JSON to struct](#JSON_to_struct "JSON to struct")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**encoding/json** package provides utilities that can be used to convert to
+    and from JSON. The same utility can be used to convert a golang struct to a JSON
+    string and vice versa.  Two functions which are used are'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Marshal – To convert a struct into JSON string
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Unmarshal- To convert a JSON string back to struct
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Before we see how to convert a struct to JSON and vice versa we need to know
+    two things about golang struct:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Only exported fields of the struct are visible to the external library. Hence
+    only exported fields of the struct will be present in the converted JSON string.
+    Also to note that capitalized fields of a struct are exported in go.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Struct fields have a meta section that contains additional information about
+    that field. These meta fields are used while converting a struct into JSON and
+    vice-versa. Also, note that these struct meta fields is that they are optional.
+    Let’s say we have the below struct
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice meta tags associated with each of the fields annotated with name as ‘json’.
+    These meta fields are used while converting a struct into JSON and vice versa.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So the above struct when converted to JSON will be as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then **name **key of the above JSON string will map to the **Name** field of
+    the **employee** struct and the **age** key in the JSON string will map to the **Age** field
+    of the struct. Also, when converting the above JSON string  to a struct, the value
+    in the **name** field of json will go to value in the **Name** field of the struct,
+    and value in the **age** field of json will go to value in the **Age** field of
+    struct .
+  prefs: []
+  type: TYPE_NORMAL
+- en: As another example, let’s say we have below struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then after conversion to JSON,  **‘n’** key of the JSON will map to the **Name** field
+    of the struct and **‘ag’ **key of the JSON will map to the **Age** field of the
+    struct. So it will produce below JSON
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also, when converting the above JSON string  to a struct, the value in the **‘n’**
+    field of JSON string will go to value in the **Name** field of the struct, and
+    value in the **‘a’** field of json will go to value in the **Age** field of struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the struct doesn’t contain any meta tags then the resulting key name in the
+    JSON will be the same as the struct field’s name and vice versa. For eg if we
+    have below struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice then none of the fields has the JSON meta tags. So after converting to
+    JSON it will be like
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Struct to JSON**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**json.Marshal** function can be used to convert a struct to **JSON**. Let’s
+    see an example of conversion from a struct to JSON. To illustrate all points above
+    we have created two structs'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**employee1** struct – It has meta tags'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**employee2** struct – It doesn’t have meta tags'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also, the salary field in both the struct is unexported
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that we are using **json.Marshal** function to convert from the struct
+    to JSON.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For the **employee1** struct to JSON conversion, the output is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is because
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**salary** field is not present in the output because it is not exported ie
+    the field is not capitalized'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Because of json tags associated with the **employee1** struct, the **‘Name’**
+    field of the **employee1** struct is mapped to **‘n’** field of the JSON, and
+    ‘**Age’** field is mapped to ‘**a’** field of the JSON
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For the **employee2** struct to JSON conversion, the output is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is because
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**salary** field is not present in the output because it is not exported ie
+    the field is not capitalized'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Since no json tags are associated with the **employee2** struct, the **‘Name’**
+    field of the **employee1** struct is mapped to **‘Name’** field of the JSON, and
+    ‘**Age’** field is mapped to **‘Age’** field of the JSON
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**JSON to struct**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**json.Unmarshal** function can be used to convert from JSON to a struct. Whatever
+    rules we discussed above also apply to conversion from JSON to a struct.  Let’s
+    see an example'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: This example uses the json string that was the output from the first example.
+    Here we are using the **json.Unmarsha**l function to convert from JSON string
+    to structThe first thing to note is that we need to pass the address of the struct
+    to the **json.Unmarshal** function as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: The first argument is the JSON bytes and the second is the address of the struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unmarshing of
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: into **employee1** struct outputs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Unmarshling of
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: into **employee2** struct outputs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also if you try unmarshalling
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: Nothing will get unmarshalled because there are no meta tags in the **employee2**
+    struct and key names in the **employee2** struct and key names in JSON is different.
+    Hence an empty **employee2** struct will be created with each of the fields in
+    the struct initialized with the default zero value of its type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What if the JSON string contains the **salary** field. Then the value for the
+    **salary** field in the JSON string will not reflect in the **salary** field of
+    the struct because the **salary** field is not exported in the struct. See this
+    example for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: Even though the **salary** field in the JSON string has a value of 1000 but
+    after converting it to the struct the **salary** field in the struct is 0.*
+  prefs: []
+  type: TYPE_NORMAL

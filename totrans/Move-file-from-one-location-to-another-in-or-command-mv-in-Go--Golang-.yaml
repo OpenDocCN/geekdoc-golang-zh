@@ -1,0 +1,33 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:09:38'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Move file from one location to another in or command mv in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/move-file-from-one-location-to-another-golang/](https://golangbyexample.com/move-file-from-one-location-to-another-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: os.Rename() function can be used to mv or move a file from one location to another.
+    It is equivalent to command **‘mv’** of Linux. Below is the signature of the function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE

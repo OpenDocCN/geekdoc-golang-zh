@@ -1,0 +1,130 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:10:53'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Function Closures in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/function-closures-golang/](https://golangbyexample.com/function-closures-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example 1](#Example_1 "Example 1")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example 2:](#Example_2 "Example 2:")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example 3:](#Example_3 "Example 3:")*  *# **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function closures are nothing but an anonymous function that can access variables
+    declared outside the function and also retain the current value of those variables
+    between different function calls. Anonymous functions are functions that are not
+    named.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A closure happens when a function is defined within a different function and
+    the inner function can access the variable of the outer function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can read more about closures here
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://en.wikipedia.org/wiki/Closure_(computer_programming)](https://en.wikipedia.org/wiki/Closure_(computer_programming))'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see an example. Three things to notice in Example 1
+  prefs: []
+  type: TYPE_NORMAL
+- en: The getModulus function returns a closure. It is assigned to a variable **modulus**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This closure function can access the **count** variable defined outside its
+    body.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The value of the **count** variable is retained between different function calls
+    of modulus function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Example 1**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example 2:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is also another example of a closure function. The function is able to
+    access the **valueOutside** variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example 3:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In the below example, the closure function is able to access the count variable,
+    as well as the value of the count variable, which is retained between different
+    function calls.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]*'
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,129 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:05:52'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Comparing floating point numbers in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/comparing-floating-point-numbers-go/](https://golangbyexample.com/comparing-floating-point-numbers-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction](#Introduction "Introduction")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Comparing Same Float Types](#Comparing_Same_Float_Types "Comparing Same Float
+    Types")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Comparing Different Float Types](#Comparing_Different_Float_Types "Comparing
+    Different Float Types")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Comparing Same Float Types With Tolerance](#Comparing_Same_Float_Types_With_Tolerance
+    "Comparing Same Float Types With Tolerance")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Comparing Using math.big package](#Comparing_Using_mathbig_package "Comparing
+    Using math.big package")*  *# Introduction'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go Lang has two types of floats
+  prefs: []
+  type: TYPE_NORMAL
+- en: float32
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: float64
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Comparing Same Float Types**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Two floating point numbers can be compared using  Go’s == operator assuming
+    they are the same float types. See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Comparing Different Float Types**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Comparison of float32 with float64 will give a compilation error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Comparing Same Float Types With Tolerance**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: If some kind of tolerance is acceptable while comparing float types, then below
+    approach can be used
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Comparing Using math.big package**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The big package supports big numbers and it supports Int, Rational Number and
+    Float. It has a compare method which can be used to compare two floats
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[compare](https://golangbyexample.com/tag/compare/)*   [float](https://golangbyexample.com/tag/float/)*   [floating
+    point numbers in go](https://golangbyexample.com/tag/floating-point-numbers-in-go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

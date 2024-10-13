@@ -1,0 +1,1 @@
+["```\nfunc print(f func(int, int) int, a, b int)\n```", "```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    print(area, 2, 4)\n    print(sum, 2, 4)\n}\n\nfunc print(f func(int, int) int, a, b int) {\n    fmt.Println(f(a, b))\n}\n\nfunc area(a, b int) int {\n    return a * b\n}\n\nfunc sum(a, b int) int {\n    return a + b\n}\n```", "```\n8\n6\n```"]

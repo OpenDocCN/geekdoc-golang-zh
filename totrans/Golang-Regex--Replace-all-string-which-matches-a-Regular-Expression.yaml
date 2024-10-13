@@ -1,0 +1,357 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:37:28'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Golang Regex: Replace all string which matches a Regular Expression'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/regex-replace-string-golang/](https://golangbyexample.com/regex-replace-string-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Replacement string as a literal string](#Replacement_string_as_a_literal_string
+    "Replacement string as a literal string")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[A string having capturing group unnamed sub matches](#A_string_having_capturing_group_unnamed_sub_matches
+    "A string having capturing group unnamed sub matches")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[A string having Capturing groups with named sub matches](#A_string_having_Capturing_groups_with_named_sub_matches
+    "A string having Capturing groups with named sub matches")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Golang **regexp** package provides a method which provides a method named **ReplaceAllString** which
+    given a string can be used to replace all substring within that string that matches
+    a regular expression.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/regexp/#Regexp.ReplaceAllString](https://golang.org/pkg/regexp/#Regexp.ReplaceAllString)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the method
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: It accepts two arguments
+  prefs: []
+  type: TYPE_NORMAL
+- en: First is the input string
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The second is the replacement string.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: ReplaceAll returns a copy of the **src** string, replacing matches of the Regexp
+    with the replacement string **repl**
+  prefs: []
+  type: TYPE_NORMAL
+- en: The replacement string can be
+  prefs: []
+  type: TYPE_NORMAL
+- en: A literal string
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A string having capturing group unnamed sub matches.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A string having Capturing groups named sub matches
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Sounds confusing? It will all be clear when we see examples of all. Let’s see
+    them
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Replacement string as a literal string**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The replacement string is a literal string in this case. Below is an example
+    of the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above example, we have below regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: It matches the name and age pair of the form
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we have below input string which has three **name:age** pairs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: We redacted all the **name:age** pair by replacing it with the redacted keyword.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that the replacement string is a literal string that is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**A string having capturing group unnamed sub matches**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: This is the case when we have capturing group in the regex. To know the details
+    about capturing group, please refer to this article
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the replacement string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**$1** or **${1}** represents the first sub match'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**$2** or **${2}** represents the second sub match'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: …and so on
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see the below example then it will be more clear
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above example, we have below regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: It matches the **name** and **age** pair same as above but it has two capturing
+    groups (enclosed with parentheses) where **$1** captures name and **$2** captures
+    age
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**$0** or **${0}** – entire match'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**$1** or **${1}** – first submatch'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**$2** -or **${2}** – second submatch'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we have below input string which has three **name:age** pairs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then in the replacement string, we swapped to have **age** first and then **name**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: That is why in the output we have **age** first and then **name**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: You can also replace only one of the sub-match. For example, if you want to
+    redact age only then that can be done as well. See below program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above code, the replacement string is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: So it replaces the entire **name:age** pair with the only name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can also use **$0**. It will represent the entire match
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above example, we added **‘-‘** before and after **$0**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: That is why the output is as above
+  prefs: []
+  type: TYPE_NORMAL
+- en: In case the replacement string contains literal dollar then we can use the method
+    **ReplaceAllLiteralString** method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/regexp/#Regexp.ReplaceAllLiteralString](https://golang.org/pkg/regexp/#Regexp.ReplaceAllLiteralString)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this the replacement string is substituted directly without any kind of analysis
+    on it i.e it is used literally. See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: As the output suggests above, it prints the literal dollar sign.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**A string having Capturing groups with named sub matches**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: This is the case when we have named capturing group in the regex. To know the
+    details about capturing group, please refer to this article
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program first in which we will see named capturing group. We will
+    dissect this program to understand more clearly after that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above example, we have below regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: It matches the name and age pair same as above but it has two name capturing
+    groups
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first capturing group name is **“Name”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: The second capturing group name is **“Age”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we have below input string which has three **name:age** pairs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then in the replacement string, we swapped to have **age** first and then **name**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: That is why in the output we have **age** first and then **name**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is all about replacing a string that matches a regular expression in golang.
+    Hope you have liked this article. Please share feedback in the comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  prefs: []
+  type: TYPE_NORMAL

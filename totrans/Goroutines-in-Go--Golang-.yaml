@@ -1,0 +1,487 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:23:18'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Goroutines in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/goroutines-golang/](https://golangbyexample.com/goroutines-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 23 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Channel](https://golangbyexample.com/channel-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Iota](https://golangbyexample.com/iota-in-golang)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Start a go routine](#Start_a_go_routine "Start a go routine")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Main goroutine](#Main_goroutine "Main goroutine")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creating Multiple Goroutines](#Creating_Multiple_Goroutines "Creating Multiple
+    Goroutines")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Scheduling of the goroutines](#Scheduling_of_the_goroutines "Scheduling of
+    the goroutines")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Local run queue](#Local_run_queue "Local run queue ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Global Run Queue](#Global_Run_Queue "Global Run Queue")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Golang scheduler is a Cooperative Scheduler](#Golang_scheduler_is_a_Cooperative_Scheduler
+    "Golang scheduler is a Cooperative Scheduler")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Advantages of goroutines over threads](#Advantages_of_goroutines_over_threads
+    "Advantages of goroutines over threads")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Anonymous Goroutines](#Anonymous_Goroutines "Anonymous Goroutines")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Goroutines can be thought of as a lightweight thread that has a separate independent
+    execution and which can execute concurrently with other goroutines. It is a function
+    or method that is executing concurrently with other goroutines. It is entirely
+    managed by the GO runtime. Golang is a concurrent language. Each goroutine is
+    an independent execution.  It is goroutine that helps achieve concurrency in golang
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Start a go routine**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Golang uses a special keyword **‘go’**  for starting a goroutine. To start one
+    just add **go** keyword before a function or method call. That function or method
+    will now be executed in the goroutine.  Note that it is not the function or method
+    which determines if it is a goroutine. If we call that method or function with
+    a go keyword then that function or method is said to be executing in a goroutine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s understand the difference between normal running a function and running
+    a function as a goroutine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Normal Running a function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the normal running of a function for the above scenario.
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, **statement1** will be executed
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Then **start()** function will be called
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Once the start() function finishes then **statement2** will be executed
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Running a function as a goroutine
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In running a function as a goroutine for the above scenario
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, statement1 will be executed
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Then function start() will be called as a goroutine which will execute asynchronously.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**statement2** will be executed immediately. It will not wait for **start()**
+    function to complete. The start function will be executed concurrently as a goroutine
+    while the rest of the program continues its execution.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: So basically when calling a function as a goroutine, call will return immediately
+    the execution will continue from the next line while the goroutine will be executed
+    concurrently in the background. Also note that any return value from the goroutine
+    will be ignored.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program to understand the above point
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In above program we use the ‘go’ keyword before a function call to start a goroutine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above line will start a goroutine which will run the **start()** function.
+    The program first prints “Started”. Notice that the line in which we print “Started”
+    is after the goroutine is started. This illustrates the point mentioned above
+    that after a goroutine is started the call is continued from the next line. We
+    then put a timeout. The timeout is there so that the goroutine gets scheduled
+    before the main goroutine has existed.  So now goroutine executes and it prints
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then it prints
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: What happens when we remove the timeout.  Let’s see a program.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: The program above never prints
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: That means that the goroutine never got executed . This is because the main
+    goroutine or the program exited before the goroutine can be scheduled. That brings
+    into discussion about the main goroutine
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Main goroutine**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The **main** function in the **main** package is the main goroutine. All  goroutines
+    are started from the main goroutine. These goroutines can then start multiple
+    other goroutine and so on.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The main goroutine represents the main program. Once it exits then it means
+    that the program has exited.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Goroutines don’t have parents or children. When you start a goroutine it just
+    executes alongside all other running goroutines. Each goroutine exits only when
+    its function returns. The only exception to that is that all goroutines exit when
+    the main goroutine (the one that runs function **main**) exits.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program to demonstrate that goroutines don’t have parents or children.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, the first goroutine starts the second goroutine. The first
+    goroutine then prints **“In Goroutine”** and then it exits. The second goroutine
+    then starts and prints **“In Goroutine2”**. It shows that goroutines don’t have
+    parents or children and they exist as an independent execution.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, please note that Timeout was just for illustration and should never be
+    used in a production environment.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creating Multiple Goroutines**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see below program to start multiple goroutines. This example will also
+    demonstrate that goroutines are executed concurrently
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program will spawn 10 goroutines in a loop. Every time you will run
+    the program it will give different outputs since the goroutines will be run concurrently
+    and it is not deterministic which will run first.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lets understand the working of go scheduler. Understanding goroutines will be
+    much easier after that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Scheduling of the goroutines**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Once the go program starts,  go runtime will launch OS threads equivalent to
+    the number of number of logical CPUs usable by the current process.  There is
+    one logical CPU per virtual core where virtual core means
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: where x=number of hardware threads per core
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **runtime.Numcpus** function can be used to get the the number of logical
+    processors available to the GO program. See below program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: On my machine it prints 16 . My machine has 8 physical cores with 2 hardware
+    thread per core. Hence 2*8 = 16.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The go program will launch OS threads equal to the number of logical CPUs available
+    to it or the output of runtime.NumCPU(). These threads will be managed by the
+    OS and scheduling of these threads onto CPU cores is the responsibility of OS
+    only.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The go runtime has its own scheduler that will multiplex the groutines on the
+    OS level threads in the go runtime. So essentially each goroutine is running on
+    an OS thread that is assigned to a logical CPU
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are two queues involved for managing the goroutines and assigning it to
+    the OS threads
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Local run queue**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Within go runtime each of this OS thread will have one queue associated with
+    it. It is called Local Run Queue. It contains all the goroutines that will be
+    executed in the context of that thread. The go runtime will be doing the scheduling
+    and context switching of the goroutines belonging to a particular LRQ to the corresponding
+    OS level thread which owns this LRQ
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Global Run Queue**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: It contains all the goroutines that haven't been moved to any LRQ of any OS
+    thread. The Go scheduler will assign a goroutine from this queue to the Local
+    Run Queue of any OS thread
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below diagram depicits how the scheduler works.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/ddadf96d5c501fe34af12075fcb1e18d.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Golang scheduler is a Cooperative Scheduler**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The go scheduler is a cooperative scheduler. Means that is non-preemptive one. 
+    There is no time based preemption that is happening which is the case with a preemptive
+    scheduler.  In a cooperative scheduler threads have to explicitly yield execution.
+    There are some specific check points where goroutine can yield its execution to
+    other goroutine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The runtime calls the scheduler on function calls to decide weather a new goroutine
+    needs to be scheduled . So basically when a goroutine makes any function call,
+    in that case scheduler will be called and context switch might happen meaning
+    a new goroutine might be scheduled . It is also possible that existing goroutine
+    also continues execution.  The scheduler also gets the opportunity for contexts
+    switch on below events too
+  prefs: []
+  type: TYPE_NORMAL
+- en: Functions Call
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Garbage Collection
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Network Calls
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Channel operations
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: On using go keyword
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Blocking on primitives such as mutex etc
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: It is to mention that scheduler runs during above events but it doesn't mean
+    that context switch will happen. It is just that the scheduler gets the opportunity.
+    It is up to the scheduler then weather to do a context switch or not.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Advantages of goroutines over threads**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Goroutines starts with 8kb in size and its size can grow or shrink based upon
+    runtime requirements.  Whereas OS threads are more than 1 mb in size. So goroutines
+    are extremely cheap to allocate. Hence a large number of goroutines can be launched
+    at once. The shrinking and growing of a goroutine is managed by the go runtime
+    internally. Since goroutines are cheap you can launch hundred thousands of go
+    routines while you can only launch few thousands threads.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Goroutine scheduling is by go runtime. As discussed above, the go runtime internally
+    launches os threads equivalent to the number of logical CPU.  Then it reschedules
+    the goroutines onto each of OS threads. So the scheduling of goroutines is done
+    by go runtime and hence it is quite faster. In case of threads the the scheduling
+    of threads is done by OS runtime. Hence the context switching time of goroutines
+    is much faster than context switching time of threads. So thousand of goroutines
+    are multiplexed on one or two OS threads. If you launch 1000 threads in JAVA then
+    it would consume lot of resources and these 1000 threads needs to be managed by
+    OS. Moreover each of these threads will be more than 1 MB in size
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Goroutines communicate through built in primivate channel which are built to
+    handle race conditions. Hence the communication between go routines is safe and
+    prevent explicit locking. So the data structure that is shared between goroutines
+    doesn't have to be locked. Threaded programming uses locks in order to access
+    a shared variable. These can to lead to deadlocks and race conditions which are
+    difficult to detect.  As compared goroutines uses channel for communication and
+    the entire synchronization is managed by go runtime. In this way deadlocks and
+    race conditons are avoided. Infact go believes in the mantra
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Anonymous Goroutines**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Anonymous functions in golang can also be called using goroutine. Refer to this
+    article for understanding more about anonymous functions - [https://golangbyexample.com/go-anonymous-function/](https://golangbyexample.com/go-anonymous-function/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the format for calling a anonymous function in a goroutine
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: There is no difference in behaviour though when calling a anonymous function
+    using goroutine or calling a normal function using goroutine
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let''s see an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This was all about goroutines in golang. Hope you have liked this tutorial.
+    Please share feedback/improvements/mistakes in comments
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Channel](https://golangbyexample.com/channel-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Iota](https://golangbyexample.com/iota-in-golang)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

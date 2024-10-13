@@ -1,0 +1,45 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:17:47'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Get current Username in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/get-current-username-golang/](https://golangbyexample.com/get-current-username-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Overview**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**‘os/user’** package can be used to get the current user name.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a working code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [username](https://golangbyexample.com/tag/username/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

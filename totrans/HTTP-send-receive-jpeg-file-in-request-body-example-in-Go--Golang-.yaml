@@ -1,0 +1,114 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:32:38'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP send/receive jpeg file in request body example in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/jpeg-post-http-go/](https://golangbyexample.com/jpeg-post-http-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[HTTP Server](#HTTP_Server "HTTP Server")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[HTTP Client](#HTTP_Client "HTTP Client")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**multipart/form-data** content-type can be used to send the jpeg files in
+    an HTTP POST call. The form-data will contain'
+  prefs: []
+  type: TYPE_NORMAL
+- en: jpeg filename- **test.jpeg** in the example that we will see in this tutorial
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: key that will contain the jpeg file content – **photo** in the example in the
+    tutorial
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see an example of both HTTP **client** and **server**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**HTTP Server**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let's understand the program also. The first thing we need to do is to call
+    **ParseMultipartForm** function on the **request** object
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will parse the form data request body. After that, we can call the **FormFile**
+    function on the request object passing the key as an argument. It will return
+    the **multipart.File** object for the given key which is **"photo"** here. This
+    object is an interface to access the file part of a multipart message for that
+    key. The program uses it to save the file to the disk.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: This was the HTTP server example. Run the server. It will listen on **8080**
+    port. Let's create an HTTP client to test the above server as well. Below is the
+    code for that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**HTTP Client**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below is the code for an example of an HTTP client for the same. It is sending
+    the **multipart/form-data** request body in an HTTP request to the server created
+    in the above example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: First, we have to create a multipart Writer [https://golang.org/pkg/mime/multipart/#Writer](https://golang.org/pkg/mime/multipart/#Writer)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The multipart writer provides the **CreateFormFile** method which can be used
+    to create a file field to be sent in the multipart request body. The **filename**
+    is **test.jpg** and the **key** name is **"photo".**Run the above file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It will send the **test.jpg** to the server created above. You can check at
+    the server end after the request finishes. The server will parse the form-data
+    request body and then save the file contents to a file with the same name.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

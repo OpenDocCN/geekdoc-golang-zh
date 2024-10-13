@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport (\n    \"fmt\"\n    \"time\"\n)\n\nfunc main() {\n    go counter()\n    fmt.Println(\"Press the Enter Key to stop anytime\")\n    fmt.Scanln()\n}\n\nfunc counter() {\n    i := 0\n    for {\n        fmt.Println(i)\n        time.Sleep(time.Second * 1)\n        i++\n    }\n}\n```"]

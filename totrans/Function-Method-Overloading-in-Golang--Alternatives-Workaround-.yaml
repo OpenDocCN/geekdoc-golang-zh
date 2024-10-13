@@ -1,0 +1,106 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:04:57'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Function/Method Overloading in Golang (Alternatives/Workaround)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/function-method-overloading-golang/](https://golangbyexample.com/function-method-overloading-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Function/Method Overloading means that that the same function/method name can
+    be used with a different number and types of parameters
+  prefs: []
+  type: TYPE_NORMAL
+- en: See this post for difference between function and method in Go – [https://golangbyexample.com/difference-between-method-function-go](https://golangbyexample.com/difference-between-method-function-go)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Eg.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Go doesn’t support method/function overloading. See this faq for the reason
+    [https://golang.org/doc/faq#overloading](https://golang.org/doc/faq#overloading)
+  prefs: []
+  type: TYPE_NORMAL
+- en: According to the above faq things are simpler without it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We can workaround Method/Function overloading in GO using
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Variadic Function** – A Variadic Function is a function that accepts a variable
+    number of arguments'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Empty Interface** – It is an interface without any methods.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are two cases for Method/Function Overloading
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1.**Different number of parameters but of the same type:**
+  prefs: []
+  type: TYPE_NORMAL
+- en: Above case can easily be handled using variadic functions. Notice in below code
+    the parameters are of one type i.e. **int.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 2.**Different number of parameters and of different types**
+  prefs: []
+  type: TYPE_NORMAL
+- en: This case can be handled using both variadic function and empty interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can also use a switch case to get the exact parameters and use them accordingly.
+    See the below example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Wherever the arg is not passed it is substituted as default.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[function](https://golangbyexample.com/tag/function/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [method](https://golangbyexample.com/tag/method/)*   [overloading](https://golangbyexample.com/tag/overloading/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

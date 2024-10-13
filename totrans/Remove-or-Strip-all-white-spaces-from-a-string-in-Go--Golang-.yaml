@@ -1,0 +1,52 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:10:04'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Remove or Strip all white spaces from a string in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/remove-all-white-spaces-string-golang/](https://golangbyexample.com/remove-all-white-spaces-string-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**strings.ReplaceAll** function can be used to trim all white spaces from a
+    string in Golang. Below is the signature of the function'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**s**(first argument) is the input string'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**old**(second argument) is the string that has to be replaced with **new**(third
+    argument) string'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Working Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[all](https://golangbyexample.com/tag/all/)*   [trim](https://golangbyexample.com/tag/trim/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

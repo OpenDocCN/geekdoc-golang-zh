@@ -1,0 +1,195 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:36:52'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Golang regex: Understanding caret and dollar character'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/golang-regex-understanding-caret-and-dollar-character/](https://golangbyexample.com/golang-regex-understanding-caret-and-dollar-character/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Caret character****‘^’** and **Dollar character****‘$’** are metacharacters
+    that are used in regex in golang. Metacharacters are characters that have special
+    meaning in regex. Below is a brief introduction of the caret character and dollar
+    character in golang.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Caret Character ‘^’ –** It is an anchor character that is used at the start
+    of the regex to make sure that the given input string is matched with the regex
+    from the start.  It matches the beginning of the input string'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Dollar Character ‘$’ –** It is also an anchor character that is used at the
+    end of the regex to make sure that the given input string is matched with the
+    regex at the end.  It matches the end of the input string'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Caret and Dollar Metacharacters are anchor characters that are used to match
+    the start and end of the string respectively. Not clear? Let’s understand it with
+    an example. Let’s say you have below regex having three simple characters
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This regex will match any string having **abc** as a substring. See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program gives a match for all the strings which contain **“abc”**
+    as a substring.  Therefore it gives matches for
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Basically, it will give a match for any input string which contains **“abc”**
+    as a substring.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we only want to match the complete string then we need to anchor the string
+    with the **caret** character at the start and the **dollar** character at the
+    end. This will enable us to do a full-string match. See the below example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program gives a match for
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: But doesn’t give a match for below as it only matches the full string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: This was the case when we wanted to match full string. What if we also want
+    to match the string which starts with **“abc”**. The trailing character doesn’t
+    matter. How do we do it? You guessed it right. In this case, we will only use
+    the **caret** character at the start of regex and not use the **dollar** character.
+    See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: It gives matches for all the string which start with **“abc”.** That is why
+    it gives a match for
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: and does not give a match for
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: If we want to match literal **caret** ^ then we need to escape it with a backslash.
+    See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: What if we also want to match the string which ends with **“abc”**. The starting
+    character doesn’t matter. How do we do it?  In this case, we will only use the
+    **dollar** character at the start of regex and not use the **caret** character
+    at the start. See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: It gives matches for all the string which end with **“abc”.** That is why it
+    gives a match for
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: and does not give a match for
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: If we want to match literal dollar $ then we need to escape it with a backslash.
+    See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  prefs: []
+  type: TYPE_NORMAL

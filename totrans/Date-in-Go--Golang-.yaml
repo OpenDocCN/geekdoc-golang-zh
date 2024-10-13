@@ -1,0 +1,89 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:08:35'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Date in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/date-in-golang/](https://golangbyexample.com/date-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Date in Go is represented using **time.Time** struct only. There is no separate
+    Date struct in Go. **time.Date** function can be used to construct a date. This
+    function returns the time which is **yyyy-mm-dd hh:mm:ss + nsec** nanoseconds
+    with the appropriate time zone corresponding to the given location. The signature
+    of the function is:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: As can be seen from the signature the arguments to the function are
+  prefs: []
+  type: TYPE_NORMAL
+- en: Year
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Month
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Day
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Hour
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Min
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Sec
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Millisecond
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Location
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Some points worth noting about **time.Date** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the location passed is nil, the Date function will panic
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The month, day, hour, min, sec, nsec values are normalized. So if we pass a
+    month 14 it will be converted to 2
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Let’s see a working example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE

@@ -1,0 +1,80 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:35:09'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Write to write or print backslash in a string in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/backslash-print-golang/](https://golangbyexample.com/backslash-print-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program for double quotes](#Program_for_double_quotes "Program for double
+    quotes")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Program for back quotes](#Program_for_back_quotes "Program for back quotes")*  *##
+    **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Backlash is an escaping character. To print a backslash we need to first escape
+    is with another backslash character when using double-quotes. However, a backslash
+    can also be printed using backquotes. It is also used to define a string. A string
+    encoded in backquotes is a raw literal string and doesn’t honor any kind of escaping.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program for double quotes**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: \test
+  prefs: []
+  type: TYPE_NORMAL
+- en: A string defined within double quotes will honour escaping characters. That
+    is why we need to escape backlash. Let’s see a program for back quotes
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program for back quotes**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: \test
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this case, we don’t need any escaping as with back quotes a string is a raw
+    literal string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

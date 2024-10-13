@@ -1,0 +1,249 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:02:59'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Facade Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/facade-design-pattern-in-golang/](https://golangbyexample.com/facade-design-pattern-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Definition: ](#Definition "Definition:  ")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Problem Statement:](#Problem_Statement "Problem Statement:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[When to Use:](#When_to_Use "When to Use:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping](#Mapping "Mapping")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Definition: **'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Facade Pattern is classified as a structural design pattern. This design pattern
+    is meant to hide the complexities of the underlying system and provide a simple
+    interface to the client. It provides a unified interface to underlying many interfaces
+    in the system so that from the client perspective it is easier to use. Basically
+    it provides a higher level abstraction over a complicated system.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The term **Facade** itself means
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**the principal front of a building, that faces on to a street or open space**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Only the front face of the building is shown all the underlying complexity is
+    hidden behind.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s understand the Facade Design Pattern with a simple example. In this era
+    of the digital wallet, when someone actually does a wallet debit/credit there
+    are a lot of things that are happening in the background which the client may
+    not be aware of. Below list illustrates some of the activities which happen during
+    the credit/debit process
+  prefs: []
+  type: TYPE_NORMAL
+- en: Check Account
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Check Security Pin
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Credit/Debit Balance
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Make Ledger Entry
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Send Notification
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: As can be noticed, there are a lot of things that happen for a single debit/credit
+    operation. This is where the Facade pattern comes into picture. As a client one
+    only needs to enter the Wallet Number, Security Pin, Amount and specify the type
+    of operation. The rest of the things are taken care of in the background. Here
+    we create a **WalletFacade** which provides a simple interface to the client and
+    which takes care of dealing with all underlying operations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/5d4fa18c9ba3a1acff4e4343f2ea2b9c.png)'
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+- en: '**Problem Statement:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In order to use the complex system, the client had to know the underlying details.
+    Need to provide a simple interface to the client so that they can use a complex
+    system without knowing any of its inner complex details.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**When to Use:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: When you want to expose a complex system in a simplified way.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: – Like in the above example of credit/debit wallet they need to know only one
+    interface and the rest of the things should be taken care of by that interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**UML Diagram:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '![](img/671ebcc0acd75f88f957f0c213d04e45.png)'
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+- en: Below is the corresponding mapping UML diagram with the practical example given
+    below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/9618eba2e7ebbf2b8e22bf3aea7c6b9d.png)'
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+- en: '**Mapping**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Wallet Facade | walletFacade.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| account | account.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| securityCode | securityCode.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| wallet | wallet.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| ledger | ledger.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| notification | notification.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Client | main.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Practical Example:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**walletFacade.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**account.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**securityCode.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**wallet.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**ledger.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**notification.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[design pattern in go](https://golangbyexample.com/tag/design-pattern-in-go/)*   [design
+    pattern in golang](https://golangbyexample.com/tag/design-pattern-in-golang/)*   [facade](https://golangbyexample.com/tag/facade/)*   [facade
+    design pattern](https://golangbyexample.com/tag/facade-design-pattern/)*   [facade
+    design pattern in go](https://golangbyexample.com/tag/facade-design-pattern-in-go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

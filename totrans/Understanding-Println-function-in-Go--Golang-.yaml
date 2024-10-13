@@ -1,0 +1,119 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:37:39'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding Println function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/println-golang/](https://golangbyexample.com/println-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '![println](img/5327d9a5221455aba6ab8a7076afdfd2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Println** is defined in the **fmt** package and is used to format a string
+    and write to standard output'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/fmt/#Println](https://golang.org/pkg/fmt/#Println)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the function prototype of **Println**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Println** formats the string using the default format specifier adds a new
+    line after the string. **Println** takes a variable number of arguments where
+    each argument is an empty interface. It returns the number of characters printed
+    and any error if happens. Since the argument type is an empty interface we can
+    pass any data type to it. We can pass a string, int, float, struct, or any other
+    data type. Each of the arguments to the **Println** function is formatted according
+    to the default format specifier of that argument type. For example, the struct
+    will be formatted according to the below specifier'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: This format specifier only prints the Value part in the struct. Let’s  see an
+    example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Some important points to note about the **Println** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: It appends a newline at the end. That is why each of the output is on a different
+    line
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each of the arguments will be separated by space in the output. That is why
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: prints
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Space is introduced automatically between the two arguments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It returns the number of characters printed or any error if happens
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: The number of **bytesPrinted** is 14 as 14 characters are outputted
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  prefs: []
+  type: TYPE_NORMAL

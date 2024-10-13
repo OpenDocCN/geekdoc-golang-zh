@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport (\n    \"fmt\"\n    \"regexp\"\n)\n\nfunc main() {\n    sampleRegex := regexp.MustCompile(\"[.]\")\n    match := sampleRegex.Match([]byte(\".\"))\n    fmt.Println(match)\n}\n```", "```\ntrue\n```", "```\n[.]\n```", "```\nsampleRegexp := regexp.MustCompile(\"[.]\")\n```", "```\nmatch := sampleRegexp.Match([]byte(\".\"))\n```"]

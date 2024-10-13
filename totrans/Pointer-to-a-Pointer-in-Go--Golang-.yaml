@@ -1,0 +1,132 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:28:51'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pointer to a Pointer in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/pointer-to-pointer-golang/](https://golangbyexample.com/pointer-to-pointer-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is also possible to create a pointer to a pointer in go
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**c** is a pointer to a pointer here. It stores the address of **b** which
+    in turn stores the address of **a**. Double dereferencing using the ***** operator
+    the can be used to print the value at pointer to pointer. Hence****c** will print
+    the value at which 2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below diagram depicits  pointer to pointer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**b** contains the address of **a**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**c** contains the address of **b**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '![](img/648843d5f7bbd0caf2d036d24bddb2bd.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see a program depicting pointer to pointer
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: From output is clear that
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below are equivalent and equal to value of variable **a** which is 2
+  prefs: []
+  type: TYPE_NORMAL
+- en: a
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*&a'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*b'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**c'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Below are equivalent and equal to value of variable **b** which is address
+    of **a****'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***   &a'
+  prefs: []
+  type: TYPE_NORMAL
+- en: b
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '&*b'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*&b'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '*c'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '****Below are equivalent and equal to value of variable **c** which is address
+    of **b******'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*****   b'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*c'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*******'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

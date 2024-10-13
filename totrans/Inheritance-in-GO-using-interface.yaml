@@ -1,0 +1,82 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:00:38'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Inheritance in GO using interface
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/inheritance-go-interface/](https://golangbyexample.com/inheritance-go-interface/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This post describes inheritance using interface. Do visit our Inheritance in
+    Go Complete Guide post for full reference
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[OOP: Inheritance in GOLANG complete guide](https://golangbyexample.com/oop-inheritance-golang-complete/)'
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '[https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=lwzs553n8n#?secret=ZXUMNIsae2](https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=lwzs553n8n#?secret=ZXUMNIsae2)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Go supports inheritance by embedding struct or using interface. There are different
+    ways of doing it and each having some limitations. The different ways are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: By using embedded struct – The parent struct is embedded in child struct. The
+    limitation is that subtyping is not possible with this approach. You cannot pass
+    the child struct to a function that expects base. Refer this link for more details
+    –**[Inheritance using struct](https://golangbyexample.com/inheritance-go-struct/)**
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**By using interfaces** – Subtyping is possible but the limitation is that
+    one has no way to refer to common properties. Current post describes this approach'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: By using interface + struct – This fixes the limitations of above two approach
+    but one limitation is that overriding methods is not possible. But there is a
+    workaround. Refer to this link for more details – **[Inheritance using interface
+    + struct](https://golangbyexample.com/inheritance-go-interface-struct/)**
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Details:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The child struct implements the methods of a common interface. This approach
+    also solves the problem of subtyping. See below code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Limitation:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This approach has a limitation that it is not possible to refer to common properties
+    as an interface can not have any properties. This problem is solved by the mixed
+    approach of using Struct + Interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [inheritance](https://golangbyexample.com/tag/inheritance/)*   [interface](https://golangbyexample.com/tag/interface/)*   [struct](https://golangbyexample.com/tag/struct/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

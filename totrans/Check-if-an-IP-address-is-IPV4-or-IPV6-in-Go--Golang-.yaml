@@ -1,0 +1,51 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:09:02'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Check if an IP address is IPV4 or IPV6 in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/](https://golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: IPV4 address is of 4 bytes string with each byte separated by dot (‘.’)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: IPV6 address is 8 groups of 4 hexagonal digits separated by colon (‘:’)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The below code
+  prefs: []
+  type: TYPE_NORMAL
+- en: Prints invalid if the given IP address is invalid
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Else it prints whether the IP address is ipV4 or ipV6
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE

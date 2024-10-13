@@ -1,0 +1,1 @@
+["```\nfunc Remove(name string) error\n```", "```\npackage main\n\nimport (\n    \"log\"\n    \"os\"\n)\n\nfunc main() {\n    err := os.Remove(\"sample\")\n    if err != nil {\n        log.Fatal(err)\n    }\n}\n```", "```\nDeletes sample folder from the current working directory\n```"]

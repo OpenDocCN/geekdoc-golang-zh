@@ -1,0 +1,228 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:02:30'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Flyweight Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/flyweight-design-pattern-golang/](https://golangbyexample.com/flyweight-design-pattern-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Definition: ](#Definition "Definition:  ")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[When to Use:](#When_to_Use "When to Use:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping:](#Mapping "Mapping:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Practical Example:](#Practical_Example "Practical Example:")*  *## **Definition: **'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is a structural design pattern. This pattern is used when a large number
+    of similar objects need to be created. These objects are called flyweight objects
+    and are immutable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s first see an example. Flyweight Pattern will be clear after this example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In a game of Counter-Strike, Terrorist and Counter-Terrorist have a different
+    type of dress. For simplicity, let’s assume that both Terrorist and Counter-Terrorists
+    have one dress type each. The dress object is embedded in the player object as
+    below
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the struct for a player, we can see the dress object is embedded in
+    player struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s say there are 5 Terrorists and 5 Counter-Terrorist, so a total of 10 players.
+    Now there are two options with respect to dress
+  prefs: []
+  type: TYPE_NORMAL
+- en: Each of the 10 player objects creates a different dress object and embed them.
+    Total 10 dress objects will be created
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: We create two dress object
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Single Terrorist Dress Object: This will be shared across 5 Terrorist'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Single Counter-Terrorist Dress Object: This will be shared across 5 Counter-Terrorist'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: As you can that in Approach 1, total of 10 dress objects are created while in
+    approach 2 only 2 dress objects are created. The second approach is what we follow
+    in the Flyweight design pattern. The two dress objects which we created are called
+    the flyweight objects. Flyweight pattern takes out the common parts and creates
+    flyweight objects. These flyweight objects (dress here)  can then be shared among
+    multiple objects (player here). This drastically reduces the number of dress objects
+    and the good part is that even if you create more players, still only two dress
+    objects will be sufficient.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the flyweight pattern, we store the flyweight objects in the map.  Whenever
+    the other objects which share the flyweight objects are created, then flyweight
+    objects are fetched from the map.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Intrinsic and Extrinsic States**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Intrinsic State –**Dress in the intrinsic state as it can be shared across
+    multiple Terrorist and Counter-Terrorist Objects'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Extrinsic State –** Player location and the player weapon is an extrinsic
+    state as it is different for every object.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**When to Use**:'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: When the objects have some intrinsic properties which can be shared.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: As in the above example, dress is the intrinsic property that was taken out
+    and shared.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Use flyweight when a large number of objects needs to be created which can cause
+    memory issue. In case figure out all the common or intrinsic state and create
+    flyweight objects for that.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**UML Diagram**:'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '![](img/c123e8abc3acbf071990c0197070735c.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Below is the corresponding mapping UML diagram with the example given above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/3eaedb80c8b94daa62eddd096fe3f8f7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Mapping:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Flyweight Factory | dressFactory.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Flyweight Interface | dress.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Flyweight Object 1 | terroristDress.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Flyweight Object 1 | counterTerroristDress.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Context | player.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Client | main.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Practical Example**:'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**dressFactory.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**dress.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**terroristDress.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**counterTerroristDress.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**player.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[design pattern](https://golangbyexample.com/tag/design-pattern/)*   [flyweight
+    design pattern](https://golangbyexample.com/tag/flyweight-design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

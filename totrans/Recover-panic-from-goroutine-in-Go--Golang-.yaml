@@ -1,0 +1,99 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:26:01'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Recover panic from goroutine in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/recover-panic-goroutine-go/](https://golangbyexample.com/recover-panic-goroutine-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Recover function in the same goroutine as panic](#Recover_function_in_the_same_goroutine_as_panic
+    "Recover function in the same goroutine as panic")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Recover function in a different goroutine as panic](#Recover_function_in_a_different_goroutine_as_panic
+    "Recover function in a different goroutine as panic")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are two cases for recovering from a panic in a goroutine
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**recover** function in the same goroutine as **panic**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**recover** function in a different goroutine as **panic**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: While in the first case it will recover from panic. But an important point to
+    note about recover function is that it can only recover the panic happening in
+    the same goroutine.  If the panic is happening in a different goroutine and recover is
+    in a different goroutine then it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example for both
+  prefs: []
+  type: TYPE_NORMAL
+- en: '****Recover function in the same goroutine as panic****'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program **recover** and **panic** lie in the same goroutine hence
+    it is able to recover from panic as seen from the output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Recover function in a different goroutine as panic**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: As mentioned in this case it is not possible to recover from panic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have **checkAndPrint** in the goroutine and it raises **panic**
+    in that goroutine.  The **recover** function is in the calling goroutine. As you
+    can see from the output that it does not stop **panic** and hence you see the
+    a
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

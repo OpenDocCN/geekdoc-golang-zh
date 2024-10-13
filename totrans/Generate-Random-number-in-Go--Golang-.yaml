@@ -1,0 +1,204 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:15:53'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Generate Random number in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/generate-random-number-golang/](https://golangbyexample.com/generate-random-number-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[What is a pseudo-random number](#What_is_a_pseudo-random_number "What is a
+    pseudo-random number ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Random Generator Functions in rand package](#Random_Generator_Functions_in_rand_package
+    "Random Generator Functions in rand package")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Pseudo-Random Number Generator Functions with range.](#Pseudo-Random_Number_Generator_Functions_with_range
+    "Pseudo-Random Number Generator Functions with range. ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Pseudo Random Number Generator Functions without range.](#Pseudo_Random_Number_Generator_Functions_without_range
+    "Pseudo Random Number Generator Functions without range. ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Pseudo Random Number Generator Functions with range for floats](#Pseudo_Random_Number_Generator_Functions_with_range_for_floats
+    "Pseudo Random Number Generator Functions with range for floats")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go provide a **‘math/rand’** package which has inbuilt support for generating
+    pseudo-random numbers. This package defines methods which can be used to generate
+  prefs: []
+  type: TYPE_NORMAL
+- en: A pseudo-random number within the range from 0 to n
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A pseudo-random number without range specified. The range will depend upon the
+    type of int i.e int64, int32, uint64, etc
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**What is a pseudo-random number**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Before proceeding let’s first understand what pseudo-random number means. Pseudo-random
+    number is not truly random as its value is completed determined by the initial
+    value known as seed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To understand the role of seed, let’s first look at the very basic function
+    which can generate a random number in range [0, n). The below function in the
+    **rand** package can be used to generate pseudo-random number in range [0, n).
+    Bracket at the end in [0,n) means that n is exclusive.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above function returns an int value between 0 to n. Let’s write a program
+    without seed value. We have passed 10, so below function will generate random
+    numbers in range [0,10)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try running above the program multiple times. It will give the same output every
+    time. On my system, it gives below output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now let’s try running the same program but first providing seed value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: We are giving seed value as number of seconds which has elapsed till January
+    1, 1970, UTC.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: It gives different output each time you execute this program as seed value is
+    different. That is what is meant when we say that go generates pseudo-random numbers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Random Generator Functions in rand package**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Now we have understood what pseudo-random number generation, let’s look at some
+    of the function provided by the rand package for generation of random numbers.
+    You can use any of these functions to generate a random number based on your requirements.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Pseudo-Random Number Generator Functions with range**.'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: All functions take n as an argument and will panic if n<=0.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Intn(n int) – It returns a non-negative pseudo-random number in [0,n)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Int31n(n int32) – It returns a non-negative pseudo-random number in [0,n) but
+    returns a int32
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Int63n(n int64) – It returns a non-negative pseudo-random number in [0,n) but
+    returns a int64
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Pseudo Random Number Generator Functions without range.**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Int() – returns a non-negative pseudo-random int
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Int31() – returns a non-negative pseudo-random 31-bit integer as an int32
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Int63() – returns a non-negative pseudo-random 63-bit integer as an int64
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Uint32() – returns a pseudo-random 32-bit value as a uint32
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Uint64() – returns a pseudo-random 64-bit value as a uint64
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Pseudo Random Number Generator Functions with range for floats**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Float64() – returns, as a float64, a pseudo-random number in [0.0,1.0)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Float32() – returns, as a float32, a pseudo-random number in [0.0,1.0)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[generate](https://golangbyexample.com/tag/generate/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [numbers](https://golangbyexample.com/tag/numbers/)*   [random](https://golangbyexample.com/tag/random/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

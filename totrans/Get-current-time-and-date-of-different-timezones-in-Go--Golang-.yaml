@@ -1,0 +1,74 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:08:13'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Get current time and date of different timezones in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/get-current-time-and-date-of-different-timezones-golang/](https://golangbyexample.com/get-current-time-and-date-of-different-timezones-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**time** package has a **LoadLocation(name string)** function which can be
+    used to load a location of anywhere. Once you have the location, then **In** function
+    can be used to change the location associated with a particular **time.Time**
+    object.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For **LoadLocation(locationName)** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the locationName is “” or “UTC” , it return UTC
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the locationName is local, it returns the local Location
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Else the location name has to be specified corresponding to IANA Time Zone Database
+    (Refer wiki- [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)).
+    Eg are
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Europe/Berlin
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: America/New_York
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Asia/Dubai
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Let’s see an example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[timezone](https://golangbyexample.com/tag/timezone/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

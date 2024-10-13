@@ -1,0 +1,142 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:44:04'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Wildcard matching or regex matching program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/wildcard-matching-golang/](https://golangbyexample.com/wildcard-matching-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Recursive Solution](#Recursive_Solution "Recursive Solution")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Dynamic Program Solution](#Dynamic_Program_Solution "Dynamic Program Solution")*  *##
+    **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We are given an input regex and an input string. Regex can have two special
+    characters
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Star Sign ‘*’ –** the star matches zero or more characters.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Question Mark ‘?’ –** It matches any character.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The objective is to find whether the given input string matches the regex or
+    not.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Eg
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below is the recursive solution for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Recursive Solution**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In the recursive solution
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we encounter a star * then we have two cases. We ignore the * character in
+    the pattern and move on to the next character in the pattern. The other case is
+    that we move one character in the input string assuming * matches at least one
+    character. Basically check for a match with **(inputIndex, patternIndex+1)** and
+    **(inputIndex+1, patternIndex)**. If either of them returns true then the input
+    string matches the regex.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If we encounter a question mark ? then we simple proceed with **(inputIndex+1,
+    patternIndex+1)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If we encounter a simple character then we simply proceed in the input string
+    as well as the patter  ie. we do proceed with **(inputIndex+1, patternIndex+1)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Here is the program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Dynamic Program Solution**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The above program is not an optimized solution as the subproblems are solved
+    again and again. This problem can also be solved with DP.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create a two-dimensional matrix named **isMatchingMatrix** where
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**isMatchingMatrix[i][j]** will be true if the first **i** character in the
+    input string matches the first **j** character in the pattern'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below is the program for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,123 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:33:08'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Conversion between map and JSON in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/map-json-golang/](https://golangbyexample.com/map-json-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Map to JSON](#Map_to_JSON "Map to JSON")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[JSON to map](#JSON_to_map "JSON to map")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**encoding/json** package provides utilities that can be used to convert to
+    and from JSON. The same utility can be used to convert a golang map to JSON string
+    and vice versa. A very important point to note though is that map allows integer
+    values for keys while JSON doesn’t allow integer values for keys. JSON only allows
+    string value for keys. So a map having an integer value for the key when converted
+    to JSON will have a string value for the key.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Map to JSON**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see a program for conversion of map to JSON
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above code, we are using **json.Marshal** function to convert the map
+    to JSON. The map has an integer value for the key
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: While after converting, the resultant JSON as a string value for the key
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see one more example where we convert a map to a **JSON** where we have
+    a struct for the value in the map. Below is the code for that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**JSON to map**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s try to convert from JSON to map. We will convert the resultant JSON from
+    the above example back to the map.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**json.Unmarshal** function can be used to convert a JSON back to the map'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**First case:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Second Case**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,316 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:38:08'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Golang Regex: Optional Operator or question mark (?) in regular expression'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/optional-operator-regex-golang/](https://golangbyexample.com/optional-operator-regex-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Question Mark Operator is non-lazy](#Question_Mark_Operator_is_non-lazy "Question
+    Mark Operator is non-lazy")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[About the double question mark operator](#About_the_double_question_mark_operator
+    "About the double question mark operator")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Question Mark after quantifiers](#Question_Mark_after_quantifiers "Question
+    Mark after quantifiers")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Question Mark is the optional operator in regex. This means that it optionally
+    matches the preceding character before the question mark
+  prefs: []
+  type: TYPE_NORMAL
+- en: Eg.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This will match both **“abc”** and **“abcd”**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s see an example for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Several characters can also be made optional by closing them with parentheses
+    and then putting the question mark behind them. Eg
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: It matches **“abc”**  and **“abcde”**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It also matched **“abcd”**. You must be wondering why it matched **“abcd”**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the given string or text contains the regex as a substring then also it gives
+    a match. That is why it gave a match as **“abcd”** contains **“abc”** as a substring
+    which is a match for regex. If we want to do full string matches then we need
+    to use the anchor characters at the start and end of the regex.  **Caret** anchor
+    character will be used at the start and **Dollar** anchor character will be used
+    at the end.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example for the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Question Mark Operator is non-lazy**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Question Mark Operator is non-lazy or greedy. This means that it will match
+    the optional pattern first.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the regular expression world, non-lazy(or sometimes also called greedy) 
+    means trying to match as much as possible. While lazy(or sometimes also called
+    non-greedy) means matching only as much as needed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example for the given regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: If you try to match the below input string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then there are two options
+  prefs: []
+  type: TYPE_NORMAL
+- en: Match **http**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Match **https**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Then it will always match **https** and never **http**. The reason is that it
+    is non-lazy.  Even when it matches **http** it doesn’t stop and tries to match
+    the optional character as well. If the optional character matches then it returns
+    **https** otherwise it returns **http**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have used the **Find** function which returns the actual
+    substring that matched with a regex. As you can notice in the output it matched
+    **“https”** and not **“http”** because the question mark operator is non-lazy
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**About the double question mark operator**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: It is lazy.  As soon it finds the first match, it does not try to match further.
+    So for the above text, it will always give result as **“http”** and never **“https”**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Question Mark after quantifiers**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The question mark ‘?’ after quantifiers is lazy or non-greedy. The quantifiers
+    could be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Plus ‘+’** – One or more'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Asterisk ‘*’**  – Zero or more'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: See below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have two cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: Question mark after a **plus** operator
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Qusetion mark after **asterisk** operator
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In both the case the input string is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the first case, we used a question mark after the plus operator in the regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: It gives below match as **“https”** instead of **“httpsss”** as question mark
+    when used after the **Plus** operator is non-greedy
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the second case, we used a question mark after the asterisk sign in the regex
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: It gives match as **“http”** instead of **“httpsss”** as the question mark when
+    used after the **Asterisk** operator is non-greedy
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see another example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, again we have two cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: A question mark after a plus operator
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A question mark after asterisk operator
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In the first case, we have regex with two capture groups
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: The first capture group gives a single match of **‘a’** while the second capture
+    group gives the rest. This show question mark operator used after the **Plus**
+    operator is non-greedy or lazy
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the second case, we have regex again with two capture groups
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: The first capture group gives a zero match of **‘a’** while the second capture
+    group gives the rest. This show question mark operator used after **Asterisk**
+    operator is non-greedy or lazy
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is all about the question mark operator in Go. Hope you have liked this
+    article. Please share feedback in the comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [optional](https://golangbyexample.com/tag/optional/)*   [question](https://golangbyexample.com/tag/question/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

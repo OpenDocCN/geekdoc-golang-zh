@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n\n\ta := []string{\"a\", \"b\"}\n\tprint(a, 2)\n}\n\nfunc print(a []string, index int) {\n\tfmt.Println(a[index])\n}\n```", "```\npanic: runtime error: index out of range [2] with length 2\n\ngoroutine 1 [running]:\nmain.checkAndPrint(...)\n        main.go:12\nmain.main()\n        /main.go:8 +0x1b\nexit status 2\n```"]

@@ -1,0 +1,173 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:04:22'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Iterator Design Pattern in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-iterator-design-pattern/](https://golangbyexample.com/go-iterator-design-pattern/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction:](#Introduction "Introduction:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping](#Mapping "Mapping")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Iterator design pattern is a behavioral design pattern. In this pattern, the
+    collection struct provides an iterator which lets it go through each element in
+    the collection struct in sequence without exposing its underlying implementation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below are basic components of the Iterator Design Pattern
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Iterator** **Interface** :  this interface provides basic operations such
+    as **hasNext()**, **getNext()** etc. These operations as the name suggests lets
+    you traverse a collection, restarting iteration, etc'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Collection interface**: this interface represents the collection that needs
+    to be traversed. This interface defines a method **createIterator()** which returns
+    **iterator** type'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Concrete Iterator:** the concrete implementation of iterator interface'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Concrete Collection**: the concrete implementation of Collection interface'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The main idea behind this pattern is to expose the iteration logic of a Collection
+    struct into a different object (which implements the iterator interface). This
+    iterator provides a generic method of iterating over a collection independent
+    of its type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**UML Diagram:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '![](img/6357865d875fdec82405c850734790aa.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Mapping**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in **“Example”** below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Collection | collection.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Collection | userCollection.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Iterator | mac.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Iterator 1 | userIterator.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Client | main.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**collection.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**userCollection.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**iterator.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**userIterator.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**user.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [iterator](https://golangbyexample.com/tag/iterator/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

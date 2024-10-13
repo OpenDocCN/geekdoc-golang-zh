@@ -1,0 +1,122 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:51:28'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Binary Tree Maximum Path Sum Program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/binary-tree-maximum-path-sum-golang/](https://golangbyexample.com/binary-tree-maximum-path-sum-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A  binary tree is given. The objective is to find the maximum Path Sum in that
+    binary tree.  A path in a binary tree is a sequence of nodes that are connected
+    to each other. Each node only appears once in the Maximum Path Sum
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example 1**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/9a9347838908483552b24df3dc54cd38.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Example 2**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/5d5d541966db0c009ee43d55823891a8.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: The idea is to track below four  values at every node
+  prefs: []
+  type: TYPE_NORMAL
+- en: a = root.Val
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: b = root.Val + leftSubTreeMaxSum
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: c  = root.Val + rightSubTreeMaxSum
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: d =  root.Val + leftSubTreeMaxSum+  rightSubTreeMaxSum
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Then
+  prefs: []
+  type: TYPE_NORMAL
+- en: Max sum at a given node is given max of **(a,b,c,d)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The return value in the recursive call would be a max of **(a,b,c)**.  Why?
+    This is because only the path of a or b or c represents a path that can be taken
+    into account at the parent node. d cannot be taken into account because it becomes
+    an invalid path. To understand this with an example consider the binary tree in
+    example two above. Path **5->3->6** cannot include parent node **-5** in its path
+    because it becomes an invalid path.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you – [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our system design tutorial series here – [System Design Tutorial
+    Series](https://techbyexample.com/system-design-questions/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

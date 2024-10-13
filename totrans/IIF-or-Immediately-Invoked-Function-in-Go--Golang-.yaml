@@ -1,0 +1,72 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:10:48'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: IIF or Immediately Invoked Function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/immediately-invoked-function-go/](https://golangbyexample.com/immediately-invoked-function-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview:](#Overview "Overview:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Use Case](#Use_Case "Use Case")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")*  *# **Overview:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**IIF or** Immediately Invoked Function are those function which can be defined
+    and executed at the same time. A function can be invoked immediately by appending
+    a **()** after the end brace of the function.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Use Case**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: One of the uses of the IIF function is when you don’t want to expose the logic
+    of the function either within or outside the package. For eg let’s say there is
+    a function which is setting some value. You can encapsulate all the logic of setting
+    in an IIF function. This function won’t be available for calling either outside
+    or within the package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see the working code. The function which computes the square of 2 is immediately
+    invoked by having () at the end and the returned value is assigned to the variable
+    **squareOf2**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[golang](https://golangbyexample.com/tag/golang/)*   [iif](https://golangbyexample.com/tag/iif/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

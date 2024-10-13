@@ -1,0 +1,220 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:02:54'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Chain of Responsibility Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/](https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Definition: ](#Definition "Definition:  ")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[When to Use:](#When_to_Use "When to Use:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping ](#Mapping "Mapping ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Definition: **'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Chain of Responsibility Design Pattern is a behavioral design pattern. It lets
+    you create a chain of request handlers. For every incoming request, it is passed
+    through the chain and each of the handler:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Processes the request or skips the processing.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Decides whether to pass the request to the next handler in the chain or not
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Chain of Responsibility Design pattern will be best understood with an example.
+    Let’s take the case of a hospital. A hospital has multiple departments such as:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reception
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Doctor
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Medicine Room
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Cashier
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Whenever any patient arrives he first goes to **Reception** then to **Doctor**
+    then to **Medicine Room** and then to **Cashier** and so on. In a way, a patient
+    is sent into a chain of departments which when done, sends the patient to further
+    departments. This is where the Chain of Responsibility pattern comes into the
+    picture.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**When to Use:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The pattern is applicable when there are multiple candidates to process the
+    same request.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When you don’t want the client to choose the receiver as multiple objects can
+    handle the request. Also, you want to decouple the client from receivers. The
+    Client only needs to know the first element in the chain.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: -As in the example of the hospital, a patient first goes to the reception and
+    then reception based upon a patient’s current status sends up to the next handler
+    in the chain.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**UML Diagram:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '![](img/591e0120dcb7c23d14ad9fcd3f64fcf2.png)'
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+- en: Below is the corresponding mapping UML diagram with the practical example given
+    below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/2703e8e31199ead7a67a5b7d80c3aade.png)'
+  prefs:
+  - PREF_UL
+  type: TYPE_IMG
+- en: '**Mapping **'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '| handler | department.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Handler 1 | account.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Handler 2 | doctor.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Handler 3 | medical.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete Handler 4 | cashier.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Client | main.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Practical Example:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**department.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**reception.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**doctor.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**medical.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**cashier.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**patient.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[chain of responsibility design pattern in golang](https://golangbyexample.com/tag/chain-of-responsibility-design-pattern-in-golang/)*   [chain
+    of responsiblity](https://golangbyexample.com/tag/chain-of-responsiblity/)*   [design
+    pattern in go](https://golangbyexample.com/tag/design-pattern-in-go/)*   [design
+    pattern in golang](https://golangbyexample.com/tag/design-pattern-in-golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

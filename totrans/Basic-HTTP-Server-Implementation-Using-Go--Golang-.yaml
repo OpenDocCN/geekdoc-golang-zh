@@ -1,0 +1,535 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:21:52'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Basic HTTP Server Implementation Using Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/basic-http-server-go/](https://golangbyexample.com/basic-http-server-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Request](#Request "Request")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Response](#Response "Response")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Pair of API signature and its handler](#Pair_of_API_signature_and_its_handler
+    "Pair of API signature and its handler")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mux](#Mux "Mux")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Listener](#Listener "Listener")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using server’s ListenAndServe function](#Using_servers_ListenAndServe_function
+    "Using server’s ListenAndServe function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using http''s ListenAndServe function](#Using_https_ListenAndServe_function
+    "Using http''s ListenAndServe function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: HTTP (Hypertext Transfer Protocol) is an application layer protocol and works
+    in client-server mode. HTTP server is basically a program running on a machine.
+    It listens and responds to HTTP requests on its IP address with a particular port.
+    As HTTP is the foundation of the World Wide Web and is used to load any web pages,
+    every software developer comes across the situation where it is required to implement
+    an HTTP Server to respond an HTTP request.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This article covers the HTTP server implementation in Go programming language.
+    There is a go package **net**, that contains the utility packages to handle networking
+    functions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**net** package contains http package that provides both HTTP client (to make
+    http requests) and HTTP server (listens to http requests) implementations. In
+    this article, we will learn about HTTP server. Below is the statement to import
+    the http package:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The crux to understanding the http server implementation is understanding below
+    things
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Request** – it defines the request parameters i.e, Method, Api Signature,
+    request headers, body, query params etc'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Response** – defines the response parameters i.e, Status code, response body,
+    headers'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Pair of API signature and its handler** – Each API signature corresponds
+    to a handler. You can think of handler as a function which is invoked when a request
+    is made for that particular API signature. The **mux** registers these pairs of
+    API signature and its handler'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Mux**– It acts as a router. Depending upon API signature of the request,
+    it routes the request to the registered handler for that API signature. The handler
+    will handle that incoming request and provide the response . For eg an API call
+    with **“/v2/teachers”** might be handled by a different function and  API call
+    with **“/v2/students”** might be handled by some other function. So basically
+    based upon API signature( and also request method sometimes) , it decides which
+    handler to invoke.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Listener** – It runs on the machine, which listens to a particular port.
+    Whenever it receives the request on that port it forwards the request to the **mux**.
+    It also handles other functionalities as well but we will not discuss those it
+    in this article.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There is more when it comes to HTTP, but for simplicity, we talked about only
+    the above five things. The diagram below shows the interaction for an API request
+    originating from the client.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example. Below two pairs of API Signature and handlers are registered
+    with the **mux.**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**“/v1/abc”**  and **handlerfunc_1**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**“/v1/xyz”** and **handlerfunc_2**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Client calling **“/v1/abc”** API. Listener forwards it to the **mux** and the
+    **mux** routes it to the appropriate handler **handlerfunc_1**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/5b69ea6521708789ec3500c4f7df7da2.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Client calling **“/v1/xyz”** API. Listener forwards it to the **mux** and the
+    **mux** routes it to the appropriate handler **handlerfunc_2**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/657a569f2d49c3504b4335c7e7d29648.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Now we have understood the above parts so let’s move on to see how each of the
+    above is implemented in GO and then in the end we will see a complete program
+    with the entire end to end flow
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Request**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In GO a request is represented by the **Request** Struct.  Here is the link
+    to the struct – [https://golang.org/pkg/net/http/#Request](https://golang.org/pkg/net/http/#Request)
+  prefs: []
+  type: TYPE_NORMAL
+- en: It contains the request method, Api Signature, request headers, body, query
+    params, etc.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Response**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In GO a response is represented by the **ResponseWriter** Interface.  Here is
+    the link to the interface – [https://golang.org/pkg/net/http/#ResponseWriter](https://golang.org/pkg/net/http/#ResponseWriter)ResponseWriter
+    interface is used by an HTTP handler to construct an HTTP response. It provides
+    three functions to set the response parameters
+  prefs: []
+  type: TYPE_NORMAL
+- en: Header – For writing response header
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Write([]byte) – For writing response body
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: WriteHeader(statusCode int) – For writing the http status code
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Pair of API signature and its handler**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: An API signature and its handler are paired. Then handler is called by the mux
+    when it receives an API call matching the API signature. A golang handler can
+    be either a **function** or a **type**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Function** – the function should have below signature'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Type** – the type should implement the the **Handler** interface'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s look at each one by one
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Function –** A handler can just be a simple function having below signature.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: It takes input has two arguments. The first one is ResponseWriter and the second
+    one is a pointer to the Request struct. We discussed both of these earlier as
+    well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If an API signature and a function having signature as above are registered
+    as a pair in the **mux**, then this function will be called when an API call is
+    made matching the API signature.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Type –** the type should implement the **Handler** Interface – [https://golang.org/pkg/net/http/#Handler](https://golang.org/pkg/net/http/#Handler)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **Handler** interface defines a **ServeHttp** function. If an API signature
+    and a type that implements the **Handler** interface are registered as a pair
+    in the mux, then the **ServeHTTP** method for this type will be invoked when an
+    API call is made matching the API signature.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you will notice the API signature of the **function** used as a handler and
+    **ListenAndServe** function is the same which is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: These functions will be called by mux depending upon the type of handler. Also
+    to note that two different API Signature can have the same handler
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Mux**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The job of mux or multiplexer is to route request to the registered handler
+    based upon API signature (and also request Method sometimes). If the signature
+    and its handler is not registered with the mux, it raises a 404
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go provides a default mux built in the language – [https://golang.org/pkg/net/http/#ServeMux](https://golang.org/pkg/net/http/#ServeMux).
+    There are also other mux available in the market for golang. Different web frameworks
+    such as gin provide there own mux
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is how we create a mux
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see how we register a pair of API Signature and its handler with the mux.
+    There are two cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the handler is a **function** . It registers the pattern which is API signature
+    and the function as a handler
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: When the handler is a **type** implementing the **Handler** interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Listener**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The listener listens to a port and the forwards the request to the **mux** and
+    then waits for response. Once it receives the response it sends it back to the
+    client. A listener in golang can be implemented using the server struct – [https://golang.org/pkg/net/http/#Server](https://golang.org/pkg/net/http/#Server)
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is how we create a server. There are also some other parameters that we
+    can specify while creating a server such as ReadTimeout, WriteTimeout etc., but
+    that is out of scope for this tutorial. All parameters which are not provided
+    take the default zero value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **Addr** attribute of type string is the address of the machine on which
+    the HTTP server will be launched.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This address is in the form of
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: If only :{port} is used as **addr** argument then that means HTTP server is
+    reachable from all the ip addresses (loopback, public ip, internal ip) of the
+    machine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One can also use **“:http”** as the **addr** argument value for address port **“:80”** and **“:https” **for
+    address port **“:443”**
+  prefs: []
+  type: TYPE_NORMAL
+- en: A very important thing to note here is that **ServerMux** which is default mux
+    built in the language also has a **ServeHttp** method  [https://golang.org/pkg/net/http/#ServeMux.ServeHTTP](https://golang.org/pkg/net/http/#ServeMux.ServeHTTP).
+    So **ServerMux** also implements the **Handler** interface since it defines the
+    **ServeHttp** method. While creating server as you might have noticed we have
+    to provide a handler which is of type **Handler** interface. This is where **ServerMux**
+    implementing the **Handler** interface comes in handy as we can pass the instance
+    of **ServerMux** while creating server. This is important to understand that **ServerMux**
+    is of type **Handler** interface apart from registering different pairs of API
+    signatures and their handlers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: After the server is created we call the **ListenAndServe** method of the **server**
+    . The server then starts listening to the provided port and upon receiving any
+    api call on that port it calls the **ServeHttp** of the **mux** which in turns
+    routes the request to the registered handlerHope above five things are clear now.
+    Let’s see a working program illustrating above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using server’s ListenAndServe function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s first understand the program before running it
+  prefs: []
+  type: TYPE_NORMAL
+- en: We defined a function named **teacherHandler** which has signature accepting
+    the **http.ResponseWriter** and pointer to **http.Request**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: We define a struct named **studentHandler** which defines the **ServeHTTP**
+    method. So **studentHandler** is a type which implements the **Handler** interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: We create an instance of **ServerMux**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: We registered the pair of API signature  “/v1/teachers” and its handler **teacherHandler**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: We registered the pair of API signature  “/v1/students” and its handler **studentHandler**
+    which is a type implementing **Handler** interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: We created the server and provided it the instance of **ServerMux** and the
+    port to listen to which is 8080\. Then the  **ListenAndServe** method on the server’s
+    instance was called.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run the server  now
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will start listening to port 8080\. This program never exits and process
+    remains locked until terminated forcefully, which is recommended as any HTTP server
+    should be up and running all the time. Now make api calls
+  prefs: []
+  type: TYPE_NORMAL
+- en: Calling **“v1/teachers”** api – It returns correct response – ‘**V1 of teacher’s
+    called’** along with correct status code of 200
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: Calling **"v1/students"** api - It returns correct response - '**V1 of student's
+    called'** along with correct status code of 200
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: You can also try these apis on the browser
+  prefs: []
+  type: TYPE_NORMAL
+- en: For api **"/v1/teachers"**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/17984f2c37684d92033949e76b60be87.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: For api **"/v1/students"**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/af4b2215673cf8b402db2c2937e89137.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Using http''s ListenAndServe function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: So we looked at a program where we built a **mux**, then we added pairs of API
+    signature and their handlers. Finally we created a server and started it. **net/http**
+    package also provides a function **ListenAndServe** which creates a default server
+    and uses the default **mux** to achieve the same what we discussed above. It is
+    a short way of doing starting a http server
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **ListenAndServe** function has an **addr** and **handler** as its input
+    arguments and it starts a HTTP server. It starts listening to incoming HTTP requests
+    and serve the requests when received any.Below is the signature of the **ListenAndServe**
+    function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below is way to call this function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: If you will notice above we called **ListenAndServe** function with nil value
+    for handler
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: In that situation a default instance of **ServeMux** ([https://golang.org/pkg/net/http/#ServeMux](https://golang.org/pkg/net/http/#ServeMux)
+    ) will be created
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: net/http package provides the **HandleFunc** and **Handle.** These function
+    works in the same way as mux's methods.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Run the server
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: The output will be same as we discussed above. This is all about basic HTTP
+    server implementation in golang.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: We learned that we can create a HTTP server in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using server.ListenAndServe - [https://golang.org/pkg/net/http/#Server.ListenAndServe](https://golang.org/pkg/net/http/#Server.ListenAndServe)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using http.ListenAndServe - [https://golang.org/pkg/net/http/#ListenAndServe](https://golang.org/pkg/net/http/#ListenAndServe)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Internally both of them are doing the same thing. The second one uses default
+    for everything while the first one lets you create mux and server instance explicitly
+    so that you can specify more options and hence first option is more flexible.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,139 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:18:46'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Append function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/append-function-in-golang/](https://golangbyexample.com/append-function-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: go **builtin** package provides an **append** function that can be used to append
+    to a slice at the end. Below is the signature of this function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The first argument is the slice itself. The second is the variable number of
+    arguments which is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**‘…’** operator is the variadic syntax. So basically **…Type** means that
+    the append function can accept a variable number of arguments of type **Type**.
+    Below is the way for using this function. In the below code, we are appending
+    4 to a slice which has two elements. It appends at the end and returns the original
+    slice. That is why we are collecting results again in **numbers** variable. It
+    is also ok to assign the result to some other variable.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is also ok to append many number of elements because the second argument
+    is the variadic argument.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: This function in background increases the length and capacity of the slice.
+    There are two cases
+  prefs: []
+  type: TYPE_NORMAL
+- en: When slice length is less than capacity
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In this case, on using the append function,  the length of the slice will be
+    increased  by one without any change in its capacity. Let’s see a example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Capacity in all cases doesn’t changes and it is 5 while length increases by
+    1.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When slice length is equal than capacity.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In this case since there is no more capacity, so no new elements can be accommodated. 
+    So in this case under the hood an array of double the capacity will be allocated.
+    The current array pointed by the  slice will be copied to that new array. Now
+    the slice will starting pointing to this new array. Hence the capacity will be
+    doubled and length will be increased by 1\. Let’s see a example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice in the above example that the capacity is doubled.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is also possible to append one slice to another slice. Below is the format
+    for that.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice **‘…’** after the second slice. **‘…’** is the operator which means that
+    the argument is a variadic parameter. Meaning that during run time slice2 will
+    be expanded to its individual elements which are passed as multiple arguments
+    to the append function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**append function for string**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A string in go is nothing but a sequence of bytes. Hence it is legal to append
+    a string to a slice of bytes. Below is the program for that. Notice the **‘…’**
+    at then end of the string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE

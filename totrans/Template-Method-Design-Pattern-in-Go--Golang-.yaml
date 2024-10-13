@@ -1,0 +1,159 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:04:28'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Template Method Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/template-method-design-pattern-golang/](https://golangbyexample.com/template-method-design-pattern-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction:](#Introduction "Introduction:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Template Method Design Pattern is a behavioral design pattern that lets you
+    define a template or algorithm for a particular operation.  Let’s understand the
+    template design pattern with an example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Consider the example of One Time Password or OTP. There are different types
+    of OTP that can be triggered for eg. OTP can be **SMS** OTP or **EMAIL** OTP. 
+    But irrespective it is an **SMS** OTP or **EMAIL** OTP,  the entire steps of the
+    OTP process are the same.  The steps are
+  prefs: []
+  type: TYPE_NORMAL
+- en: Generate a random n digit number.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Save this number in the cache for later verification.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Prepare the content
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Send the notification
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Publish the metrics
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Even in the future let’s say a push notification **OTP** is introduced but still
+    it will go through the above steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In such scenarios when the steps of a particular operation are the same but
+    the steps of the operations can be implemented in a different way by different
+    implementors , then that becomes a candidate for the Template Method Design Pattern.
+    We define a template or algorithm which comprises of a fixed number of methods.
+    The implementer of the operation overrides the methods of the template.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now check out the below code example.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**iOtp** represents an interface that defines the set of methods that any otp
+    type should implement'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**sms** and **email** are the implementors of **iOtp** interface'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**otp** is the struct which defines the template method **genAndSendOTP().
+    otp** embeds **iOtp** interface.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Important: The combination of iOtp interface and otp struct provides the capabilities
+    of Abstract Class in go. For reference see'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Abstract Class in GO: Complete Guide](https://golangbyexample.com/go-abstract-class/)'
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '[https://golangbyexample.com/go-abstract-class/embed/#?secret=IJrupn5jVu#?secret=fqHnV3R5rZ](https://golangbyexample.com/go-abstract-class/embed/#?secret=IJrupn5jVu#?secret=fqHnV3R5rZ)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**otp.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**sms.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**email.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[design](https://golangbyexample.com/tag/design/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [method](https://golangbyexample.com/tag/method/)*   [pattern](https://golangbyexample.com/tag/pattern/)*   [template](https://golangbyexample.com/tag/template/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

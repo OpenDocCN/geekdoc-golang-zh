@@ -1,0 +1,89 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:42:04'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Longest Palindromic Substring within a string in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/longest-palindromic-substring-go/](https://golangbyexample.com/longest-palindromic-substring-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The objective is to find the largest palindromic substring within a string.
+    For eg let’s say the input string is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The output should be **aba** which is the largest palindromic substring.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We will use Dynamic Programming to solve this problem. We will use two matrices.
+    Each matrix will be of the size **len*len** where **len** is the size of the input
+    string
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first matrix will store whether the substring between index **“i”** and
+    **“j”** is palindrome or not.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The second matrix will store the longest palindromic substring between **“i”**
+    and **“j”.**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is the optimal substructure
+  prefs: []
+  type: TYPE_NORMAL
+- en: If **string[i] == string[j]** and substring in **i+1** and **j-1** is a palidrome,
+    then
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: If **string[i] != string[j]** then
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]*'
+  prefs: []
+  type: TYPE_NORMAL

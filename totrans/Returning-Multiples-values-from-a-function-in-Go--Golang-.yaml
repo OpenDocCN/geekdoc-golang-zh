@@ -1,0 +1,170 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:11:24'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Returning Multiples values from a function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/go-return-multiples-values-function/](https://golangbyexample.com/go-return-multiples-values-function/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Signature of a function](#Signature_of_a_function "Signature of a function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Return Values](#Return_Values "Return Values ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Named Return Values](#Named_Return_Values "Named Return Values")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code:](#Code-2 "Code:")*  *# **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A function is a group of statements that perform a specific task.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Signature of a function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: A function in Golang can return multiple values. An example of a function. The
+    below function is
+  prefs: []
+  type: TYPE_NORMAL
+- en: Has the name **“f”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Accept two arguments of int type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Return a single value of type int
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Return Values**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'As mentioned above a function can have one or more return values. Assume there
+    is a function **sum_avg** that returns two values: Sum and Average. Note that
+    when returning multiple values the returning value type has to be enclosed within
+    parenthesis. Example of multiple return values.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: As a convention error is returned as the last argument in a function. Example
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Collecting multiple return values in the caller function. In below example
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Named Return Values**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A go function can have named return values. With named return values , the return
+    values did not need to be initialised in the function**.** The named variables
+    are specified in the signature itself. Without named values,  only return type
+    is specified. It is also ok to name some of the return values. For other return
+    values only type can be specified.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'See example below: **result** is the named return value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Multiple named return values
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: With named return values , type of the consecutive same types can be specified
+    only once
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: The named return values are initialized to the zero value of the type. Therefore
+    we don’t need to reinitialize it in the function. In the below example **sum**
+    and **avg** have not been initialized again with **:=** symbol.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]*'
+  prefs: []
+  type: TYPE_NORMAL

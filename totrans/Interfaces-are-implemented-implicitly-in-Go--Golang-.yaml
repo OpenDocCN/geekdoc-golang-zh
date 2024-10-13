@@ -1,0 +1,67 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:22:31'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Interfaces are implemented implicitly in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/interface-implit-implementation-golanng/](https://golangbyexample.com/interface-implit-implementation-golanng/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: There is no explicit declaration that a type implements an interface. Infact,
+    in Go there doesn’t exist any **“implements”** keyword similar to Java.  A type
+    implements an interface if it implements all the methods of the interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: There is no explicit declaration which says that **lion** struct implements
+    the **animal** interface. During compilation, go notices that **lion** struct
+    implements all methods of **animal** interface hence it is allowed.Any other type
+    which implements all methods of the **animal** interface becomes of that interface
+    type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This holds true even when the interface and the type which defines all methods
+    of an interface are in different packages
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a more complex example of another type implementing the animal interfaceIf
+    we define a **dog** struct and it implements the **breathe** and **walk** method
+    then it will also be an animal. Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both **lion** and **dog** implement the **breathe** and **walk** method hence
+    they are of **animal** type and can correctly be assigned to a variable of interface
+    type.
+  prefs: []
+  type: TYPE_NORMAL

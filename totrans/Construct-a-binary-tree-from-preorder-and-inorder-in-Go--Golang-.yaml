@@ -1,0 +1,144 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:45:14'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Construct a binary tree from preorder and inorder in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/tree-preorder-inorder-golang/](https://golangbyexample.com/tree-preorder-inorder-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Two arrays are given which represent the preorder and inorder traversal of a
+    binary tree. The objective is to construct a binary tree from them
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Consider below tree
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/9a9347838908483552b24df3dc54cd38.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Preorder traversal of the tree will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Inorder traversal of the tree will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Preorder and Inorder array will be given and we have to construct the tree again
+    from the inorder and preorder. Below will be the strategy
+  prefs: []
+  type: TYPE_NORMAL
+- en: We will use three indexes which is the start of the array, end of the array,
+    and current index
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The start index in the preorder will be the root.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We will find the index in an inorder array whose values match the value at the
+    start index in the preorder array. Let’s this index be called rootIndex
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All values in the left side of rootIndex in the inorder array will be in the
+    left subtree
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: All values on the right side of rootIndex in the inorder array will be in the
+    right subtree
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We can then recurse with the same strategy for the left subtree and then the
+    right subtree.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For eg
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first index in the preorder traversal is the root which is value **1**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The value **1** is at the **2nd** index in the inorder traversal. Hence rootIndex
+    is **2**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The left part of rootIndex in the inorder traversal is **[4,2]**  which is part
+    of the left subtree
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The right side of rootIndex in the inorder traversal  is **[5,3,6]** which is
+    part of the right subtree
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We can recurse for the left subtree and then the right subtree
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
+    are elaborative and we have tried to cover all concepts with examples. This tutorial
+    is for those who are looking to gain expertise and a solid understanding of golang
+    - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,1 @@
+["```\npackage main\nfunc main() {\n    const a int = 8\n    a = 9\n}\n```", "```\nmain.go:5:4: cannot assign to a\n```", "```\nconst a int = 8\n```"]

@@ -1,0 +1,1 @@
+["```\npackage main\nfunc main() {\n    a := 1\n    b := &a\n    b = b + 1\n}\n```", "```\ninvalid operation: b + 1 (mismatched types *int and int)\n```"]

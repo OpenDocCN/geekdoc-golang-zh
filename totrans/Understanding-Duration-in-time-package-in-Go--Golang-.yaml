@@ -1,0 +1,96 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:08:22'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding Duration in time package in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/understanding-duration-go/](https://golangbyexample.com/understanding-duration-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**duration** is the time that has elapsed between two instants of time. It
+    is represented as **int64nanosecond** count. So duration is nothing in Go but
+    just a number representing time in nanoseconds in Go. So if duration value is
+    equal to **1000000000** then it represents **1 sec** or **1000 milliseconds**
+    or **10000000000 nanoseconds**. Since duration is **int64,** the largest duration
+    that can be represented is 290 years apart. So duration is used to capture the
+    number of nanoseconds between two **time.Time** objects. As an example duration
+    between two time values 1 hour apart will be below value which is equal to the
+    number of nanoseconds in 1 hour.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is represented as below in the **time** package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below are some common duration which are defined in **time** package
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Some of the function defined on **time.Time** object that returns the **Duration**
+    are
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**func (t Time) Sub(u Time) Duration** – It returns the duration t-u'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**func Since(t Time) Duration –** It returns the duration which has elapsed
+    since t'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**func Until(t Time) Duration** – It returns the duration until t'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: type **Duration** also defines several utility function which can be used to
+    convert a duration value to-
+  prefs: []
+  type: TYPE_NORMAL
+- en: Hours
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Minutes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Seconds
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The print value of duration is represented as in the form “10h8m0.5s” where
+    **h** representing **hour**, **m** representing **minute** and **s** representing
+    **seconds** respectively
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a working code of what we have learned so far
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE

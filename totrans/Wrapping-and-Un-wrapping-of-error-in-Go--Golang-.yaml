@@ -1,0 +1,217 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:25:07'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Wrapping and Un-wrapping of error in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/wrapping-and-unwrapping-error-golang/](https://golangbyexample.com/wrapping-and-unwrapping-error-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Wrapping of error](#Wrapping_of_error "Wrapping of error")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Unwrap an error](#Unwrap_an_error "Unwrap an error")*  *# **Wrapping of error**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In go, error can wrap another error as well.  What does the wrapping of error
+    mean? It means to create a hierarchy of errors in which a  particular instance
+    of error wraps another error and that particular instance itself can be wrapped
+    inside another error.  Below is the syntax for wrapping an error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**%w** directive Is used for wrapping the error.  The **fmt.Errorf **should
+    be called with only one %w directive. Let’s see an example.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a struct **errorOne** that has an **Error**
+    method hence it implements the **error** interface. Then we created an instance
+    of the **errorOne** struct named **e1**. Then we wrapped that instance **e1**
+    into another error **e2** like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we wrapped **e2** into **e3** like below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: So so we created a hierarchy of errors in which **e3** wraps **e2** and **e2**
+    wraps **e1**.  Thus **e3** also wraps **e1** transitively. When we print **e2 **
+    it also prints the error from **e1** and gives the output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: When we print **e3** it prints the error from **e2** as well as **e1** and gives
+    the output.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now the question which comes to the mind that whats the use case of wrapping
+    the errors. To understand it let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have a function **checkPostiveAndEven** that checks
+    whether a number is even and positive. In turn, it calls the **checkEven** function
+    to check if the number is even. And then it calls **checkPositive** function to
+    check if the number is positive. If a number is not even and positive it an error
+    is raised.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the above program, it is impossible to tell stack trace of the error. We
+    know that this error came from **checkEven** function for the above output. But
+    which function called the **checkEven** function is not clear from the error.
+    This is where wrapping the error comes in the picture.  This becomes more useful
+    when the project is big and there are a lot of functions calling each other. 
+    Let’s rewrite the program by wrapping the error.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program is same as the previous program just that in the **checkPostiveAndEven**
+    function , we wrap the errors like below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: So the output is more clear and the error is more informative. The output clearly
+    mentions the sequence of calling as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Unwrap an error**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: In the above section, we studied about wrapping the error. It is also possible
+    to unwrap the error. **Unwrap** function of **errors** package can be used to
+    unwrap an error. Below is the syntax of the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: If the **err** wraps another error, then the wrapped error will be returned
+    otherwise **Unwrap** function will return nil.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program to illustrate the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we created a struct **errorOne** that has an **Error**
+    method hence it implements the **error** interface. Then we created an instance
+    of the **errorOne** struct named **e1**. Then we wrapped that instance **e1**
+    into another error **e2** like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we wrapped **e2** into **e3** like below.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Hence
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: will return wrapped error **e2,** as **e3** wraps **e2** and output will be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also,
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: will return wrapped error **e1** as **e2** further wraps **e1** and output will
+    be
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: While
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: will output nil as **e1** does not wraps any error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

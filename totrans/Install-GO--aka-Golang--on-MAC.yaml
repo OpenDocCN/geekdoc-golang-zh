@@ -1,0 +1,256 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:11:33'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Install GO (aka Golang) on MAC
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/golang-mac-installation/](https://golangbyexample.com/golang-mac-installation/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Using .pkg installer](#Using_pkg_installer "Using .pkg installer")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Install](#Install "Install")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Test Installation:](#Test_Installation "Test Installation:")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Uninstall](#Uninstall "Uninstall")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using archive](#Using_archive "Using archive")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Install](#Install-2 "Install")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Test Installation](#Test_Installation-2 "Test Installation")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Uninstall](#Uninstall-2 "Uninstall")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using brew](#Using_brew "Using brew")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Install](#Install-3 "Install")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Test Installation](#Test_Installation-3 "Test Installation")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Uninstall](#Uninstall-3 "Uninstall")*  *# **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: GO is available to be installed on Win, Mac, and Linux platforms. GO can be
+    installed on MAC in three ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using archive
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using brew
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using .pkg installer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s look at all the three ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using .pkg installer**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Install**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Download the MAC pkg installer from here – [https://golang.org/dl/](https://golang.org/dl/).
+    Double click the .pkg file and follow the onscreen instructions. Once finished
+    GO will be installed in the below directory.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The installer will also add ‘**/usr/local/go/bin’**  to your env PATH variable.
+    This is the directory where the GO binary resides. Relaunch terminal for changes
+    to take effect
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Test Installation:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Relaunch the terminal and type the command **‘which go’** in the terminal.It
+    will output **/usr/local/go/bin/go.** This is location of go binary.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Try running the **‘go version’** command. It will output the current GO Version
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Uninstall**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To uninstall do below two steps:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using archive**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Install**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Download the archive of latest version of GO from here  – [https://golang.org/dl/](https://golang.org/dl/).
+    After downloading untar it at the location **/usr/local.** You can run the below
+    command to untar
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: After the untar, the below path will contain the go binary **‘/usr/local/go/bin’**.
+    You have to add this location to your **.bashrc**. Open your **.bashrc** make
+    the below entry
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Test Installation**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Relaunch the terminal and type command **‘which go’** in the terminal. It will
+    output **/usr/local/go/bin/go.** This is the location of GO binary.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Try running the **‘go version’** command. It will output the current GO Version
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Try running **‘go’** command as well. It will output
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Uninstall**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: To uninstall do below two steps
+  prefs: []
+  type: TYPE_NORMAL
+- en: Run below command to remove the files. It will require sudo permission
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Remove the below entry from the **.bashrc** file
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using brew**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Install**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Simplest way to install GO on MAC is using the brew.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Test Installation**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Relaunch the terminal and type command **‘which go’** in the terminal.It will
+    output **/usr/local/go/bin/go.** This is the location of GO binary.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Try running the **‘go version’** command. It will output the current GO Version
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Uninstall**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: To uninstall simple run command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,258 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:01:16'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: State Design pattern in Go
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/state-design-pattern-go/](https://golangbyexample.com/state-design-pattern-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Definition:](#Definition "Definition:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[When To Use](#When_To_Use "When To Use")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[UML Diagram](#UML_Diagram "UML Diagram")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Mapping ](#Mapping "Mapping ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Explanation:](#Explanation "Explanation:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Practical Example:](#Practical_Example "Practical Example:")*  *## **Definition:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: State design pattern is a behavioral design pattern that is based on Finite
+    State Machine. We will explain the State Design Pattern in the context of an example
+    of a Vending Machine. For simplicity, let’s assume that vending machine only has
+    one type of item or product. Also for simplicity lets assume that a Vending Machine
+    can be in 4 different states
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**hasItem**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**noItem**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**itemRequested**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**hasMoney**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'A vending machine will also have different actions. Again for simplicity lets
+    assume that there are only four actions:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Select the item**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Add the item**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Insert Money**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**Dispense Item**'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '**When To Use**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**Use the State design pattern when the object can be in many different states. Depending
+    upon current request the object needs to change its current state**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In the above example, Vending Machine can be in many different states. A Vending
+    Machine will move from one state to another. Let’s say Vending Machine is in **itemRequested**
+    then it will move to **hasMoney** state once the action “Insert Money” is done
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Use when an object will have different responses to the same request depending
+    upon the current state. Using state design pattern here will prevent a lot of
+    conditional statements
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For example in the case of Vending Machine, if a user is want to purchase an
+    item then the machine will proceed if it is **hasItemState** or it will reject
+    if it is in **noItemState**. If you notice here that the Vending Machine on the
+    request of purchase of an item gives two different responses depending upon whether
+    it is in **hasItemState** or **noItemState.** Do notice the vendingMachine.go
+    file below, it doesn’t have any kind of conditional statement. All the logic is
+    being handled by concrete state implementations.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**UML Diagram**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '![](img/570687538b4c52fbb2a87baac84bc91c.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Mapping **'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The below table represents the mapping from the UML diagram actors to actual
+    implementation actors in code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Context | vendingMachine.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| State Interface | state.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete State 1 | noItemState.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete State 2 | hasItemState.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete State 3 | itemRequestedState.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Concrete State 4 | hasMoneyState.go |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Explanation:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We have an interface “State” which defines signatures of functions that represents
+    action in the context of Vending Machine. Below are the actions function signatures
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: addItem(int) error
+  prefs:
+  - PREF_IND
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: requestItem() error
+  prefs:
+  - PREF_IND
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: insertMoney(money int) error
+  prefs:
+  - PREF_IND
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: dispenseItem() error
+  prefs:
+  - PREF_IND
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Each of the concrete state implementations implements all 4 above function and
+    either move to another state on these actions or gives some response.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each of the concrete state also embeds a pointer to current Vending Machine
+    object so that state transition can happen on that object.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now lets look at code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Practical Example:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**vendingMachine.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**state.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**noItemState.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**hasItemState.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**itemRequestedState.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**hasMoneyState.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[design](https://golangbyexample.com/tag/design/)*   [designpattern](https://golangbyexample.com/tag/designpattern/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [patter](https://golangbyexample.com/tag/patter/)*   [state](https://golangbyexample.com/tag/state/)*   [state
+    design pattern](https://golangbyexample.com/tag/state-design-pattern/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

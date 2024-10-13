@@ -1,0 +1,134 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:37:18'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Golang Regex: Matching raw or literal string'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/golang-regex-literal-strin/](https://golangbyexample.com/golang-regex-literal-strin/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[MatchCompile Function](#MatchCompile_Function "MatchCompile Function")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Match Method](#Match_Method "Match Method")*  *## **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We will be using **regexp** package in golang in our example that provides regular
+    expression searching capabilities[https://golang.org/pkg/regexp/](https://golang.org/pkg/regexp/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Before looking into the regex itself, let’s look at some basic functions or
+    methods provided by Go to do a regex match.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**MatchCompile Function**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/regexp/#MustCompile](https://golang.org/pkg/regexp/#MustCompile)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: We first compile the given regex string using the **MustCompile** function.
+    This function panics if the given regex is not valid. After it is able to successfully
+    compile the given regex, it returns the instance of regexp struct.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Match Method**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/regexp/#Regexp.Match](https://golang.org/pkg/regexp/#Regexp.Match)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the method
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can call the **Match** method on the regexp instance to match the given pattern
+    with the regex. It returns true if the regex matches with the input string otherwise
+    false. We need to pass in bytes of the input string to this method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see a simple program for a basic regex having a literal or raw string
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we have a simple literal string regular expression
+  prefs: []
+  type: TYPE_NORMAL
+- en: We first call **MustCompile** to check if the given regular expression is valid.
+    After that, we match it with the below sample string or text
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**String “abc”** – It gives a match and prints true'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**String “1abc2”** – It gives a match and prints true. It matches as it contains
+    **“abc”** as a substring.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**String “xyz”** – It does not give a match and prints false'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: As we can notice in the above program that if the given string or text contains
+    the regex as a substring then also it gives a match. If we want to do full string
+    matches then we need to use the anchor characters at the start and end of the
+    regex.  **Caret** anchor character will be used at the start and **Dollar** anchor
+    character will be used at the end.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Please refer to this article for details around full string matches
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golangbyexample.com/golang-regex-match-full-string](https://golangbyexample.com/golang-regex-match-full-string/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  prefs: []
+  type: TYPE_NORMAL

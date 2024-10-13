@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n\ta := 2\n\tb := &a\n\tfmt.Println(a)\n\tfmt.Println(*b)\n\n\t*b = 3\n\tfmt.Println(a)\n\tfmt.Println(*b)\n\n\ta = 4\n\tfmt.Println(a)\n\tfmt.Println(*b)\n}\n```", "```\n2\n2\n3\n3\n4\n4\n```"]

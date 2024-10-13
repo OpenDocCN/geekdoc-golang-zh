@@ -1,0 +1,214 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:07:42'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding Rune in Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/understanding-rune-in-golang/](https://golangbyexample.com/understanding-rune-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[What is Unicode](#What_is_Unicode "What is Unicode")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[UTF-8](#UTF-8 "UTF-8")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[When to Use](#When_to_Use "When to Use")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code:](#Code "Code:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Rune array to string and vice versa](#Rune_array_to_string_and_vice_versa
+    "Rune array to string and vice versa")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Rune array to string](#Rune_array_to_string "Rune array to string")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[String to Rune Array](#String_to_Rune_Array "String to Rune Array")*  *# **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**rune** in Go is an alias for int32 meaning it is an integer value. This integer
+    value is meant to represent a Unicode Code Point. To understand rune you have
+    to know what Unicode is. Below is short description but you can refer to the famous
+    blog post about it –'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[The Absolute Minimum Every Software Developer Absolutely, Positively Must
+    Know About Unicode and Character Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**What is Unicode**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Unicode is a superset of ASCII characters which assigns a unique number to every
+    character that exists. This unique number is called Unicode Code Point.For eg
+  prefs: []
+  type: TYPE_NORMAL
+- en: Digit **0** is represented as Unicode Point **U+0030 (Decimal Value – 48)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Small Case **b** is represented as Unicode Point  **U+0062 (Decimal Value –
+    98)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A pound symbol **£ **is represented as Unicode Point **U+00A3 (Decimal Value
+    – 163)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Visit[https://en.wikipedia.org/wiki/List_of_Unicode_characters](https://en.wikipedia.org/wiki/List_of_Unicode_characters)
+    to know about Unicode Point of other characters. But Unicode doesn’t talk about
+    how these code points will be saved in memory. This is where **utf-8** comes into
+    picture
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**UTF-8**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: utf-8 saves every Unicode Point either using 1, 2, 3 or 4 bytes. ASCII points
+    are stored using 1 byte. That is why rune is an alias for int32 because a Unicode
+    Point can be of max 4 bytes in Go as source code in GO is encoded using utf-8,
+    hence every string is also encoded in utf-8
+  prefs: []
+  type: TYPE_NORMAL
+- en: Every rune is intended to refer to one Unicode Point. For eg if you print a
+    string after typecasting it to a rune array then it will print the Unicode Point
+    for each of character. For for below string **“0b£”** output will be – **[U+0030
+    U+0062 U+00A3]**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**When to Use**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: You should use a rune when you intend to save Unicode Code Point in the rune
+    value. A rune array should be used when all values in the array are meant to be
+    a Unicode Code Point.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Rune is also used to represent a character.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Declare Rune**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A rune is declared using a character between single quotes like below declaring
+    a variable named **‘rPound’**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: After declaring Rune you can perform below things as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Print Type –** Output will be **int32**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Print Unicode Code Point –** Output will be **U+00A3**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Print Character –** Output will be **£**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the code illustrating each point we discussed
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Rune array to string and vice versa**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Rune array to string**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**String to Rune Array**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [rune](https://golangbyexample.com/tag/rune/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,104 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:34:50'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pause Execution of a goroutine until an activity or event is completed in Go
+    (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/pause-goroutine/](https://golangbyexample.com/pause-goroutine/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Channels can be used to pause the execution of a goroutine until an activity
+    is completed. For a
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Unbuffered Channel**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Goroutine will block on send operation if there is no other goroutine to receive
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Goroutine will block on receive operation if there is no other goroutine to
+    send on the other side
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Buffered Channel**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Goroutine will block on send operation if the buffer is full.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Goroutine will block on receive operation if the buffer is empty
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If we want a goroutine to pause until an activity is complete, we can use any
+    of the above four ways. For simplicity in this tutorial, we are going to use an
+    unbuffered channel. The goroutine will do a receive operation on that channel
+    and it will pause. It will only resume if a send operation is done on that channel
+    in a different goroutine.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we create an unbuffered channel.  We start a goroutine
+    which waits for a receive operation on that channel. It will be blocked until
+    a send operation is done.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We then send the value in the main goroutine. Once the send is complete, then
+    the goroutine resumes execution. That is why
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: is always printed before
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also, check out our Golang comprehensive tutorial Series - [Golang Comprehensive
+    Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

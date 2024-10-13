@@ -1,0 +1,514 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:08:40'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding time and date in Go (Golang) – Complete Guide
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/all-about-time-and-date-golang/](https://golangbyexample.com/all-about-time-and-date-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**Note:** If you are interested in learning Golang, then for that we have a
+    golang comprehensive tutorial series. Do check it out – [Golang Comprehensive
+    Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/).
+    Now let’s see the current tutorial. Below is the table of contents.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Structure](#Structure "Structure")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Create a new time](#Create_a_new_time "Create a new time")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using time.Now()](#Using_timeNow "Using time.Now()")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using time.Date()](#Using_timeDate "Using time.Date()")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Understanding Duration](#Understanding_Duration "Understanding Duration")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Add or Subtract to a time](#Add_or_Subtract_to_a_time "Add or Subtract to
+    a time")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Add to time](#Add_to_time "Add to time ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Subtract to time](#Subtract_to_time "Subtract to time ")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Parsing/Formatting](#Time_ParsingFormatting "Time Parsing/Formatting")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Parse Example](#Time_Parse_Example "Time Parse Example")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Formatting Example](#Time_Formatting_Example "Time Formatting Example")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Diff](#Time_Diff "Time Diff")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Time Conversion](#Time_Conversion "Time Conversion ")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Convert time between different timezones](#Convert_time_between_different_timezones
+    "Convert time between different timezones")*  *# **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Time** or **Date** is represented in Go using **time.Time** struct. time
+    can be also be represented as a'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Unix Time (Also known as Epoch Time)** – It is the number of seconds elapsed
+    since 00:00:00 UTC on 1 January 1970\. This time is also known as the Unix epoch.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Structure**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**time.Time** object is used to represent a specific point in time. The **time.Time**
+    struct is as below'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can notice that every **time.Time** object has an associated **location**
+    value which is used to determine the minute, hour, month, day and year corresponding
+    to that time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Create a new time**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Using time.Now()**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: This function can be used to get the current local timestamp. The signature
+    of the function is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Using time.Date()**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'This function returns the time which is **yyyy-mm-dd hh:mm:ss + nsec** nanoseconds
+    with the appropriate time zone corresponding to the given location. The signature
+    of the function is:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Understanding Duration**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**duration** is the time that has elapsed between two instants of time. It
+    is represented as **int64nanosecond** count. So duration is nothing in Go but
+    just a number representing time in nanoseconds. So if duration value is  equal
+    to **1000000000** then it represents **1 sec** or **1000 milliseconds** or **10000000000
+    nanoseconds**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: As an example duration between two time values 1 hour apart will be below value
+    which is equal number of nanoseconds in 1 hour.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is represented as below in the **time** package.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below are some common duration which are defined in **time** package
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Some of the function defined on **time.Time** object that returns the **Duration**
+    are
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**func (t Time) Sub(u Time) Duration** – It returns the duration t-u'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**func Since(t Time) Duration –** It returns the duration which has elapsed
+    since t'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**func Until(t Time) Duration** – It returns the duration until t'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Add or Subtract to a time**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Now that you have understood what duration , let’s see how we can add or subtract
+    to a time instance
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**time** package in golang defines two ways of adding or subtracting to a time.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Add** function – It is used to add/subtract a duration to time t. Since duration
+    can be represented in hours, minutes, seconds, milliseconds, microseconds and
+    nanoseconds, therefore Add function can be used to add/subtract hours, minutes,
+    seconds, milliseconds, microseconds and nanoseconds from a time . Its signature
+    is'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**AddDate** function – It is used to add/subtract years, months and days to
+    time t. Its signature is'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Note: Positive values are used to add to time and negative values are used
+    to subtract. Let’s see a working example of Add and Subtract to time.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Add to time**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below code can be used to add to time
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Subtract to time**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below code can be used to subtract to time
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Parsing/Formatting**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: If you have worked with time/date formatting/parsing in other languages you
+    might have noticed that the other languages use special placeholders for time/date
+    formatting. For eg ruby language uses
+  prefs: []
+  type: TYPE_NORMAL
+- en: '%d for day'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '%Y for year'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: etc
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Golang, instead of using codes such as above, uses date and time format placeholders
+    that look like date and time only. Go uses standard time, which is:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: So if you notice go uses
+  prefs: []
+  type: TYPE_NORMAL
+- en: 01 for day of the month ,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 02 for the month
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 03 for hours ,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 04 for minutes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 05 for second
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: and so on
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below placeholder table describes the exact mapping. Go takes a more pragmatic
+    approach where you don’t need to remember or lookup for the traditional formatting
+    codes as in other languages
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| **Type** | **Placeholder** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Day | **2** or **02** or **_2** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Day of Week | **Monday** or **Mon** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Month | **01** or **1** or **Jan** or **January** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Year | **2006** or **06** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Hour | **03** or **3** or **15** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Minutes | **04** or **4** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Seconds | **05** or **5** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Milli Seconds  (ms) | **.000** //Trailing zero will be includedor **.999**
+      //Trailing zero will be omitted |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Micro Seconds (μs) | **.000000** //Trailing zero will be includedor **.999999** 
+          //Trailing zero will be omitted |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Nano Seconds (ns) | **.000000000** //Trailing zero will be includedor **.999999999**
+    //Trailing zero will be omitted |'
+  prefs: []
+  type: TYPE_TB
+- en: '| am/pm | **PM** or **pm** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Timezone | **MST** |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Timezone offset | **Z0700** or **Z070000** or **Z07** or **Z07:00** or **Z07:00:00** 
+    or **-0700** or  **-070000** or **-07** or **-07:00** or **-07:00:00** |'
+  prefs: []
+  type: TYPE_TB
+- en: '**Time Parse Example**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Now coming back to **time.Parse**. The signature of the function is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**time.Parse** function takes in two arguments'
+  prefs: []
+  type: TYPE_NORMAL
+- en: First argument is the layout consisting of time format placeholder
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Second argument is the actual formatted string representing a time.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The way you have to go about this is to make sure that the layout string (first
+    argument ) matches the string representation (second argument) of the time you
+    want to parse into time.Time. For parsing
+  prefs: []
+  type: TYPE_NORMAL
+- en: For parsing **2020-01-29**, layout string should be **06-01-02** or **2006-01-02**
+    or something which maps correctly based on above placeholder table.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Similarly for parsing **“2020-Jan-29 Wednesday 12:19:25”** the layout string
+    can be **“2006-Jan-02 Monday 03:04:05”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below are the working Code Examples of **time.Parse().**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Formatting Example**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**time.Format** function can be used to format time to a string representation.
+    The signature of the function is'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s see some time format code examples
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Diff**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**time** package has a method **Sub** which can be used to get the difference
+    between two different time values. The signature of the function is'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Time Conversion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below code shows conversion of
+  prefs: []
+  type: TYPE_NORMAL
+- en: time.Time to Unix Timestamp
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Unix Timestamp to time.Time
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Convert time between different timezones**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The **In** function can be used to change the **location** associated with a
+    particular **time.Time** object. Whenever the **In** function is called on any
+    **time.Time** object (say t)  then,
+  prefs: []
+  type: TYPE_NORMAL
+- en: A copy of **t** is created representing the same time instant.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: t’s location is set to the location passed to In function for display purposes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**t** is returned back'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see the below working code which can be used to change the location value
+    associated with a particular time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[complete guide](https://golangbyexample.com/tag/complete-guide/)*   [format](https://golangbyexample.com/tag/format/)*   [parse](https://golangbyexample.com/tag/parse/)*   [timezone](https://golangbyexample.com/tag/timezone/)*   [using](https://golangbyexample.com/tag/using/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

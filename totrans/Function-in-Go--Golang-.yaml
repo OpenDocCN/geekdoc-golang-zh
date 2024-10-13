@@ -1,0 +1,580 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:16:51'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Function in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/function-golang-complete-guide/](https://golangbyexample.com/function-golang-complete-guide/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 8 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Constants](https://golangbyexample.com/constant-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** –[All basic data types](https://golangbyexample.com/all-basic-data-types-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Signature of a function](#Signature_of_a_function "Signature of a function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Calling a function](#Calling_a_function "Calling a function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Function Parameters](#Function_Parameters "Function Parameters")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Return Values](#Return_Values "Return Values")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Named Return Values](#Named_Return_Values "Named Return Values")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Function Usages](#Function_Usages "Function Usages")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Generic Usage](#Generic_Usage "Generic Usage")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Function as  Type](#Function_as_Type "Function as  Type")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Function as User Defined Type](#Function_as_User_Defined_Type "Function as
+    User Defined Type")'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Function as values (or Anonymous functions)](#Function_as_values_or_Anonymous_functions
+    "Function as values (or Anonymous functions)")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Special Usages of Function](#Special_Usages_of_Function "Special Usages of
+    Function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Function Closures](#Function_Closures "Function Closures")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Higher Order Function](#Higher_Order_Function "Higher Order Function")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[IIF or Immediately Invoked Function](#IIF_or_Immediately_Invoked_Function
+    "IIF or Immediately Invoked Function")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Variadic Function](#Variadic_Function "Variadic Function")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Methods](#Methods "Methods")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A function is a group of statements that perform a specific task. In GO functions
+    are first-order variables. They can be passed around like any other variable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some point worth noting about a function name
+  prefs: []
+  type: TYPE_NORMAL
+- en: A function name cannot begin with a number
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The function name is case sensitive. Hence sum, Sum,  SUM are different functions.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A function whose name starts with a capital letter will be exported outside
+    its package and can be called from other packages. A function whose name starts
+    with lowercase letters will not be exported and it’s only visible within its package.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Signature of a function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: A function in golang
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declared using **func** keyword
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It has a name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Comma-separated zero or more input parameters
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Comma-separated zero or more return values
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function body
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Can return multiple values
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: An example of a function. The below function is
+  prefs: []
+  type: TYPE_NORMAL
+- en: Has the name **“sum”**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Accept two arguments of int type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Return a single value of type int
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Calling a function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A function in Go can be called in go as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Some points to note about calling a function
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the function of some other package is being called then it is necessary to
+    prefix the package name. Also please note that across packages only those function
+    can be called which are exported meaning whose name start with capital letter
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With in the same package the function can directly be called using its name
+    suffixed by ()
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Function Parameters**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: As mentioned above function can have zero or more arguments.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: type for the consecutive same types can be specified only once. For example
+    above sum function can also be written as
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: A copy of all the arguments is made while calling a function.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Return Values**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 'As mentioned above a function can have one or more return values. Assume there
+    is a function sum_avg that returns two values: Sum and Average. Example of multiple
+    return values'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: As a convention error is returned as the last argument in a function. Example
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Collecting multiple return values in the caller function. In below example
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Named Return Values**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: A go function can have named return values. With named return values , the return
+    values did not need to be initialised in the function**.** The named variables
+    are specified in the signature itself. Without named values,  only return type
+    is specified. It is also ok to name some of the return values. For other return
+    values only type can be specified.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'See example below: **result** is the named return value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: With named return values, type of the consecutive same types can be specified
+    only once
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Function Usages**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Generic usage
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function as Type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function as Values
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The difference between function as type and function as values is that in type
+    we only use the function signature whereas in function as value signature along
+    with the body is used.  Let’s see each of this in detail so it is more clear
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Generic Usage**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Below is an example of the general usage of a function. We have a function sum
+    in the below example which takes in two ints as input arguments and returns the
+    sum.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Function as  Type**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In go function is also a type. Two function will be of same type if
+  prefs: []
+  type: TYPE_NORMAL
+- en: They have the same number of arguments with each argument is of the same type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: They have same number of return values and each return value is of same type.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function type is useful in
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the case of higher-order functions as we have seen in the above example.
+    The argument and return type is specified using function type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In the case of defining interfaces in go as in the interface, only the function
+    type is specified. Whatever implements this interface has to define a function
+    of the same type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see an example of function type in the interface. Notice that the interface
+    **shape** only defines the type of function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Function as User Defined Type**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Function as user defined type can be declared using the type keyword
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Function as values (or Anonymous functions)**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: A function in Go is a first-order variable so it can be used as a value as well.
+    It is also called as anonymous functions because a function is not named and can
+    be assigned to a variable and passed around.
+  prefs: []
+  type: TYPE_NORMAL
+- en: They are generally created for short term use or for limited functionality.
+    See the below example. In this example variable **max** assigned a function. Since
+    **max** is created by a function that is not named, it is an anonymous function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Special Usages of Function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**Function Closures**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Function closures are nothing but anonymous function which can access variables
+    declared outside the function and also retain the current value between different
+    function calls. Let’s see an example. In below case the **count** value is retained
+    between different function calls of **modulus** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Higher Order Function**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Higher-order functions are those functions that either accept a function as
+    a type or return function. Since the function is the first-order variable in Golang
+    they can be passed around and also returned from some function and assigned to
+    a variable. In below example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**print** function takes a function of type **func(int, int) int** as an argument'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**getAreafunc** returns a function of type **func(int, int) int**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**IIF or Immediately Invoked Function**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**IIF or** Immediately Invoked Function are those function which can be defined
+    and executed at the same time.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Use Cases of IIF functions**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When you don't want to expose the logic of the function either within or outside
+    the package. For eg let's say there is a function which is setting some value.
+    You can encapsulate all the logic of setting in an IIF function. This function
+    won't be available for calling either outside or within the package.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Variadic Function**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In Go, a function that can accept a dynamic number of arguments is called a
+    Variadic function. Below is the syntax for variadic function. Three dots are used
+    as a prefix before type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Methods**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Method has a receiver argument. When you attach a function to a type, then that
+    function becomes a method for that type. A receiver can be a struct or any other
+    type. The method will have access to the properties of the receiver and can call
+    the receiver's other methods.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Function:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Method:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is the only difference between function and method, but due to it they
+    differ in terms of functionality they offer
+  prefs: []
+  type: TYPE_NORMAL
+- en: A function can be used as first-order objects and can be passed around while
+    methods cannot.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Methods can be used for chaining on the receiver while function cannot be used
+    for the same.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There can exist different methods with the same name with a different receiver,
+    but there cannot exist two different functions with the same name in the same
+    package.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about function in golang. Hope you have liked this article. Please
+    share feedback or mistakes/improvements in comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Constants](https://golangbyexample.com/constant-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** –[All basic data types](https://golangbyexample.com/all-basic-data-types-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[complete](https://golangbyexample.com/tag/complete/)*   [function](https://golangbyexample.com/tag/function/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [guide](https://golangbyexample.com/tag/guide/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

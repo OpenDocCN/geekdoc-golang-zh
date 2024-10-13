@@ -1,0 +1,102 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:41:56'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Longest substring without repeating characters program in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/longest-substring-without-repeating-characters-golang/](https://golangbyexample.com/longest-substring-without-repeating-characters-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A string is given and we have to find the longest substring in it without repeating
+    characters. For eg if the string is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then the answer would be **“abcd”** and the length should be 4.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We use a hash and three variables
+  prefs: []
+  type: TYPE_NORMAL
+- en: Hash keeps track of the last index position of any character
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: longestSubstringLength – this holds the longest substring length without repeating
+    character seen so far
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: currentSubstringLength – this holds the current substring length without repeating
+    character
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: start – this indicates the start of the current substring without repeating
+    character
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We iterate over the string and check this hash for the current character. We
+    simply increment the **currentSubstringLength** in the below two conditions
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the entry is not present for the current character then the current character
+    has not been seen before.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the entry is present and the current character has been seen before but it
+    is not part of the current length.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Otherwise
+  prefs: []
+  type: TYPE_NORMAL
+- en: We reset the **start** position and **currentSubstringLength** to include the
+    current character in the current length. Before resetting we check if **currentSubstringLength**
+    is greater than **longestSubstringLength**. If yes then we set **longestSubstringLength**
+    to **currentSubstringLength**.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]*'
+  prefs: []
+  type: TYPE_NORMAL

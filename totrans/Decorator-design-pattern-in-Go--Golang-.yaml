@@ -1,0 +1,218 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:31:46'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Decorator design pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/decorator-pattern-golang/](https://golangbyexample.com/decorator-pattern-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[UML Diagram](#UML_Diagram "UML Diagram")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Code](#Code "Code")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code](#Full_Working_Code "Full Working Code")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Decorator design pattern is a structural design pattern. It lets you provide
+    additional functionality or decorates an object without altering that object.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It is better understood with an example. Imagine you are opening a pizza chain.
+    You started with two kinds of pizzas
+  prefs: []
+  type: TYPE_NORMAL
+- en: Veggie Mania Pizza
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Peppy Tofu pizza
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each of the above pizza had its price. So you would create a pizza interface
+    as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: You need to also create two pizza struct with a **getPrice** function which
+    will return the price. These two pizza structs implement the pizza interface as
+    they define the getPrice() method
+  prefs: []
+  type: TYPE_NORMAL
+- en: Later on, you started to offer toppings along with the pizza with some additional
+    price for each of the topping. So the original base pizza now needs to be decorated
+    with a topping. Imaging you added below two toppings to the menu
+  prefs: []
+  type: TYPE_NORMAL
+- en: Tomato Topping
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Cheese Topping
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Also, remember that pizza along with the topping is also a pizza. Customer can
+    choose their pizza in different ways. For eg
+  prefs: []
+  type: TYPE_NORMAL
+- en: Veggie mania with tomato topping
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Veggie main with tomato and cheese topping
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Peppy Paneer pizza without any topping
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Peppy Paneer pizza with cheese topping
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: …
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So how would you design now given that you now have the toppings as well. Decorator
+    pattern will come into picture. It can help additional functionality without actually
+    modifying any of the existing structs.  Decorator pattern recommends in this case
+    to create separate structs for each of the topping available.  Each topping struct
+    will implement the pizza interface above and also have an embed and instance of
+    pizza.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We now have separate structs for different types of pizza and separate struct
+    for the types of topping available. Each of the pizza and topping has its own
+    price. And whenever you add any topping to a pizza then price of that topping
+    is added to the price of base pizza and that is how you get a resultant price.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So the decorator pattern let’s you decorate the original base pizza object without
+    altering that pizza object. The pizza object knows nothing about toppings. It
+    just knows its price and nothing else.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**UML Diagram**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is UML diagram for the decorator design pattern
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/64c0b97898f5ff5d009eb2ce6e7608c7.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: The concrete component (**Veggie Mania** and **Peppy Tofu** here) and concrete
+    decorator (**Toppings** here) implement the component  interface (**Pizza** here).
+    Also  concrete decorator  would embed an instance of component as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As in below example we have
+  prefs: []
+  type: TYPE_NORMAL
+- en: The component is represented by pizza interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The concrete component is represented by **veggieMania** and **peppyPanner**
+    **struct**. They both implement the pizza interface
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Concrete decorators are represented by cheeseTopping and tomatoTopping struct.
+    They both implement the pizza interface.  Also, they embed an instance of type
+    **pizza** as well
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**pizza.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**peppyPaneer.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**veggeMania.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**cheeseTopping.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**tomatoTopping.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[decorator](https://golangbyexample.com/tag/decorator/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

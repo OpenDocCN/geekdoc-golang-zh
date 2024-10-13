@@ -1,0 +1,165 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:24:33'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Channel Direction in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/channel-direction-go/](https://golangbyexample.com/channel-direction-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Only Send to Channel](#Only_Send_to_Channel "Only Send to Channel")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Only Receive from Channel](#Only_Receive_from_Channel "Only Receive from Channel")*  *#
+    **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is possible to create bidirectional as well as uni-directional channels in
+    golang. A channel can be created to which we can only send data, as well as a
+    channel, can be created from which we can only receive data. This is determined
+    by the direction of the arrow of the channel. The direction of the arrow for a
+    channel specifies the direction of flow of data
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**chan**  :bidirectional channel (Both read and write)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**chan <-**  :only writing to channel'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**<- chan**  :only reading from channel (input channel)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '** A channel to which we can only send data. **'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is the syntax for  such a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**A channel from which we can only send data**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is the syntax for such a channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now the question is, why would you want to create a channel through to which
+    you can only send data or from which we can only receive data.  This comes in
+    handy while passing the channel to a function where we want to restrict the  function
+    too either  send the data or receiver rate
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are many ways in which a channel can be passed as a function argument.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**chan**  :bidirectional channel (Both read and write)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**chan <-**  :only writing to channel'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**<- chan**  :only reading from channel (input channel)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Only Send to Channel**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Signature of the such a  channel to which only you can send,  will be like below
+    when passed to a function as an argument.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: When trying to receive data from such a channel will give below error.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try uncommenting below line in the code to see the above error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:** 2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Only Receive from Channel**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Signature of the such a  channel from which you can only receive data, will
+    be like below  when passed to a function as an argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: When trying to send data to such a channel will give below error.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Try uncommenting below line in the code to see the above error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:** 2'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

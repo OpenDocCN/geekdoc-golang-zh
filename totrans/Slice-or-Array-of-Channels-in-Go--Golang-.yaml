@@ -1,0 +1,137 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:39:56'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Slice or Array of Channels in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/slice-array-channel-golang/](https://golangbyexample.com/slice-array-channel-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Slice of Channels](#Slice_of_Channels "Slice of Channels")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Array of Channels](#Array_of_Channels "Array of Channels")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is possible to create a slice or array of channel data type in Golang as
+    well. In fact, a slice or array can be created of any data type in Go. This tutorial
+    contains simple examples to create a slice or array of channels in golang.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Just to add here that in golang array is of fixed size and slice can have variable
+    size.
+  prefs: []
+  type: TYPE_NORMAL
+- en: More details here
+  prefs: []
+  type: TYPE_NORMAL
+- en: Array – [https://golangbyexample.com/understanding-array-golang-complete-guide/](https://golangbyexample.com/understanding-array-golang-complete-guide/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Slice – [https://golangbyexample.com/slice-in-golang/](https://golangbyexample.com/slice-in-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Slice of Channels**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: The output will be different on your machine as it is an address.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the above program, we created three channels having data type int
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we have two ways of creating a slice of channels. The first way is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the second way, we use **make** command to create a slice of channel
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Either way works. This is how we can create a slice of channels
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Array of Channels**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: The output will be different on your machine as it is an address.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the above program, we created three channels having data type int
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we have two ways of creating an array. The first way is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: In second way we directly initialize the array with created channels
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Check out our Golang Advanced Tutorial. The tutorials in this series are elaborative
+    and we have tried to cover all concepts with examples. This tutorial is for those
+    who are looking to gain expertise and a solid understanding of golang – [Golang
+    Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also if you are interested in understanding how all design patterns can be implemented
+    in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

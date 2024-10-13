@@ -1,0 +1,49 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:09:42'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Get number of currently running/active goroutines
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/number-currently-running-active-goroutines/](https://golangbyexample.com/number-currently-running-active-goroutines/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: '**NumGoroutine** function of **runtime** package can be used to know the currently
+    running/active goroutines.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/runtime/#NumGoroutine](https://golang.org/pkg/runtime/#NumGoroutine)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the signature of the function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Working Code:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[golang](https://golangbyexample.com/tag/golang/)*   [goroutines](https://golangbyexample.com/tag/goroutines/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

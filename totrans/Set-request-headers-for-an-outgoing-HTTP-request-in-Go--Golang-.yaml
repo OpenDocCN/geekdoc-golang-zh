@@ -1,0 +1,184 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:32:02'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Set request headers for an outgoing HTTP request in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/set-headers-http-request/](https://golangbyexample.com/set-headers-http-request/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Related Post'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Get headers from an incoming HTTP request in Go – [https://golangbyexample.com/headers-http-request-golang/](https://golangbyexample.com/headers-http-request-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Set response headers for an incoming HTTP request in Go (Golang) – [https://golangbyexample.com/set-resposne-headers-http-go/](https://golangbyexample.com/set-resposne-headers-http-go/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Get response headers for an outgoing HTTP request in Golang- [https://golangbyexample.com/get-response-headers-making-go/](https://golangbyexample.com/get-response-headers-making-go/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now let’s look at how we can set headers while making a HTTP request
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Using r.Header.Add() method](#Using_rHeaderAdd_method "Using r.Header.Add()
+    method")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Using r.Header.Set method](#Using_rHeaderSet_method "Using r.Header.Set method")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below is the format in which a Header is represented in go.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: So the header is a key value pair with
+  prefs: []
+  type: TYPE_NORMAL
+- en: key being represented in canonical form. Canonical form means that first character
+    and any character following a hyphen is in uppercase. All other characters is
+    in lowercase. Example of canonical forms are
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Value is represented as a slice of string. Why array of strings? Because it
+    is perfectly okay to two headers with same key and different values in a request.
+    Both the values will be collected in the slice.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For eg if below headers are set in the outgoing request from a client then
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then at server the headers will look like
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Notice that:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**user-agent** is converted to canonical form **User-Agent**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**foo** header is converted to **Foo**. Also note that there will be two headers
+    that will be set in the request with the same key which is **foo**. The values
+    will be **bar1** and **bar2**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now we have seen how a header is represented in the request. Let’s see how we
+    can set the request headers values when making HTTP requests. Assume we have the
+    below key value pairs of headers which we have to set in the HTTP request
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Header** is present within the **http.Request** struct like as below.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the below example let’s assume that variable **r** of type ***http.Request**
+    type. Now let’s see different ways of setting a header
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using r.Header.Add() method**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the signature of the Add method
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: This method is used to add the key value pair to the request header. We have
+    already seen above that Header value can be array as well. So this method appends
+    to the existing values that might already have been associated with the key. 
+    Also the key will be converted to canonical form. For example if we add the foo
+    header two times with different values
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then **foo** header will be set to **[“bar1”, “bar2”].** Also **foo** will become
+    **Foo** before making the http call
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Using r.Header.Set method**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the signature of the function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: It can be used to set the header entries associated with the given key. Unlike
+    the **Add** method, this method will replace any existing values associated with
+    the key. Also the key will be converted to canonical form.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s see a program illustrating all the above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Note in the above example how we are setting the headers while making the HTTP
+    call
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,105 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:27:23'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Defer and Methods in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/defer-methods-golang/](https://golangbyexample.com/defer-methods-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example](#Example "Example")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**defer** statement is also applicable  for methods in a similar way it is
+    applicable to functions. Let’s see an example'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we do **defer file.Close()** after opening the file. **Close**
+    is the method which is defined on the **file** instance. This will make sure that
+    closing of the file is executed even if the write to the file results into an
+    error. Defer function makes sure that the file will be closed regardless of number
+    of return statements in the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see another example of a method called on a custom struct in a defer function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we have a custom struct **employee**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: struct employee has a **setName** function which sets the name. But this function
+    also raises an error is length of name passed is less than 3.  We have a defer
+    function in the **setName** which executes after **setName** finishes and checks
+    weather the name is empty. If it is empty then it sets a default name. This defer
+    function is actually a method **setDefaultName**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we create an instance of employee e1 and sets its name
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since length of "John" is greater than 3, the **setName** function doesn't raises
+    an error. But if you will notice the output,  the defer function **setDefaultName**
+    is still executed
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we create an instance of employee **e2** and sets its name
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Since length of "Ko" is less than 3, the **setName** function raises  an error.
+    defer function **setDefaultName** also gets executed in this case and it sets
+    the default name. That is why you see below output in this case
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"os\"\n\t\"time\"\n)\n\nfunc main() {\n\n\tclient := &http.Client{\n\t\tTimeout: time.Nanosecond * 1,\n\t}\n\n\t_, err := client.Get(\"https://google.com\")\n\n\tisTimeout := false\n\tif os.IsTimeout(err) {\n\t\tisTimeout = true\n\t}\n\n\tfmt.Println(\"isTimeout)\n}\n```"]

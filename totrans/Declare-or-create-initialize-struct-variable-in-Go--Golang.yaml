@@ -1,0 +1,240 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:19:50'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Declare or create/initialize struct variable in Go (Golang
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/declare-initialize-struct-variable-golang/](https://golangbyexample.com/declare-initialize-struct-variable-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Declaring a struct type](#Declaring_a_struct_type "Declaring a struct type")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Creating a struct variable](#Creating_a_struct_variable "Creating a struct
+    variable")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: GO struct is named collection of data fields which can be of different types.
+    Struct acts as a container that has different heterogeneous data types which together
+    represents an entity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, different attributes are used to represent an employee in an organization.
+    Employee can have
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name of string type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Age of int type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: DOB of time.Time type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Salary of int type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: .. and so on. A struct can be used to represent an employee
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: A struct in golang can be compared to a class in Object Oriented Languages
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Declaring a struct type**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below is the format for declaring a struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above format, **struct_name** is the name of the struct. It has a field
+    named **field_name1** of type **field_type1** and a field named **field_name2**
+    of type **field_type2**. This declares a new named struct type which acts as a
+    blueprint. The type keyword is used to introduce a new type
+  prefs: []
+  type: TYPE_NORMAL
+- en: Example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above declaration declares a new struct named **point** which has two field
+    **x** and **y**. Both fields are of **float64** type.Once a new struct type is
+    declared we can define new concrete struct variable from it as we will see in
+    next section
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Creating a struct variable**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Declaring a struct just declares a named struct type. Creating a struct variable,
+    creates an instance of that struct with memory being initialized as well. We can
+    create a empty struct variable without given any value to any of the field
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this case, all the fields in the struct are initialized with a default zero
+    value of that field type. We can also intialize value for each struct field while
+    creating a struct variable. There are two variations
+  prefs: []
+  type: TYPE_NORMAL
+- en: On the same line
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Each field on different lines
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: It is also ok to initialize only some of the fields with value. The field which
+    are not initialized with value will get the default zero value of their type
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above case, salary will get the default value of zero since it is not
+    initialized
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s see a working code illustrating above points:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: For above program
+  prefs: []
+  type: TYPE_NORMAL
+- en: We first declare an **employee** struct.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: emp1’s fields are all intialized with default zero value of its type i.e name
+    with “”, age and salary with 0.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: emp2 has been initialized with all field on the same line. Its fields are correctly
+    printed with their value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: emp3’s has been initialized with all fields on different lines. Its fields are
+    correctly printed with their value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: emp4’s salary field is initialized with a default zero value of 0\. While other
+    two fields are correctly printed with their value.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is to be noted that in the initialization of a struct, every new line with
+    in curly braces has to end with a comma. So below initialization will raise error
+    as
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: doesn’t end with a comma.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: The below will be fine as last brace is on the same line as last field
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Without field names**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: struct can also be initialized without specifying the field names. But in this
+    case, all values for each of the field has to be provided in sequence
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: A compiler error will be raised if all values are not provided when field name
+    is not used.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a program
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Uncomment the line
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: in the above program, and it will raise compiler error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

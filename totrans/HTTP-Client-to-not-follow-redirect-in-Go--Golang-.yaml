@@ -1,0 +1,149 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:34:11'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP Client to not follow redirect in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/http-no-redirect-client-golang/](https://golangbyexample.com/http-no-redirect-client-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[CheckDirect is nil](#CheckDirect_is_nil "CheckDirect is nil")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[CheckDirect is not-nil](#CheckDirect_is_not-nil "CheckDirect is not-nil")*  *#
+    **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**http.Client** struct is used to make HTTP requests in golang.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/src/net/http/client.go](https://golang.org/src/net/http/client.go)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**http.Client** lets you specify a policy of how redirects can be handled. 
+    Below is the structure of **http.Client** struct'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **CheckRedirect** field is a function actually which lets you specify a
+    way of how redirects can be handled. This function is called before following
+    any future redirects. So basically whenever the server responds with a redirect
+    the client will first call the **CheckRedirect** function to check if redirect
+    should be followed or not. Below is the signature of the **CheckRedirect** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: The first parameter **req** is the upcoming request
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The second parameter **via** is the requests already made. That is why it is
+    a slice. The first element is the oldest request.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: There are two cases to consider
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**CheckDirect is nil**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: You don’t specify the CheckRedirect field during the initialization of **http.Client**
+    struct. In this case, default behavior kicks in, and the HTTP client will follow
+    10 redirects, and then it will return an error.  Below is the **defaultCheckRedirect**
+    function which quits after 10 retries.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**CheckDirect is not-nil**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: You specify your own **CheckRedirect** function during the initialization of
+    the **http.Client** struct. When you specify this function, then this function
+    will be called before following any future redirect.  When you write your own
+    CheckRedirect function you need to know the below things in mind
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the **CheckRedirect** function returns an error, then the HTTP client will
+    return two things
+  prefs: []
+  type: TYPE_NORMAL
+- en: The previous response along with body closed
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The actual error (wrapped in a **url.Error)**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**There is also a special case when **CheckRedirect** function returns **ErrUseLastResponse**
+    error. In this case, the client will return**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '***   Most recent response along with body unclosed'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Non-nil error
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So basically when you don’t want HTTP Client to follow the redirect, then please
+    specify your own **CheckRedirect** function to control the behavior the way you
+    want.  For example below is one sample **CheckRedirect** function that will inform
+    HTTP client to not follow any redirect and also not return any error, just return
+    the last response along with body unclosed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here is the definition of **ErrUseLastResponse** in the http package
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Create **http.Client** as below specifying the **CheckRedirect** function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here is another sample **CheckRedirect** function which will only follow redirect
+    two times and then return the error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[redirect](https://golangbyexample.com/tag/redirect/)***'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,121 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:34:06'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Validate the range of the integer in an HTTP request body in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/validate-range-http-body-golang/](https://golangbyexample.com/validate-range-http-body-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The below library can be used to validate the range of an integer in an incoming
+    JSON HTTP request body
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**gopkg.in/go-playground/validator.v9** – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For this tutorial, we will try to parse the incoming JSON request body into
+    the below employee struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice here that we need to associate meta tags with fields of the struct to
+    let the validator know that you want to validate this field. In the above example,
+    we added the tag with the Age field. This tag is interpreted by the playground
+    validate library. Notice we added three validations for the **Age** field
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**required** – validates that the field is present'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**gte** – validate that the field value is greater than equal to a particular
+    value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**lte** – validate that the field value is less than equal to a particular
+    value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Run the program.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will start an HTTP server listening on port 8080\. Now make some curl API
+    calls
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below curl call
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: gives below response as 5 is less than the minimum which is 10
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below curl call
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: gives below response as 10 is greater than the maximum which is 20
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below curl call
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: gives response as success as 15 is greater than 10 and less than 20.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]*'
+  prefs: []
+  type: TYPE_NORMAL

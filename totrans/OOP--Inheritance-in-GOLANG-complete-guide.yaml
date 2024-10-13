@@ -1,0 +1,219 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:00:50'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'OOP: Inheritance in GOLANG complete guide'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/oop-inheritance-golang-complete/](https://golangbyexample.com/oop-inheritance-golang-complete/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: We will try to explain inheritance in GO using comparisons with inheritance
+    in JAVA. The first thing we want to mention here is that GOLANG doesn’t have keywords
+    such as **“Extends”** and **“Implements”** keyword as in JAVA. Go does provide
+    limited functionalities of “**Extends**” and “**Implements**” keyword in a different
+    way which each having its own limitations. Before we proceed to understand inheritance
+    in GO there are some points worth mentioning.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go prefers composition over inheritance. It allows embedding of struct into
+    other struct.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go does not support type inheritance.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We will start with the simplest of an example of inheritance in GO. Then we
+    will list down a limitation or missing feature. In further iterations, we will
+    fix limitation or keep adding missing features until we have written a program
+    which shows all properties of inheritance possible/impossible in Go. So let’s
+    start
+  prefs: []
+  type: TYPE_NORMAL
+- en: The very basic use case of inheritance is child type should be able to access
+    common data and methods of a parent type.  This is done in GO via embedding. The base
+    struct is embedded in child struct and base’s data and methods can directly be
+    accessed by child struct. See below code:  child struct is able to access the
+    data **“color”** directly and also call the function **“say()”** directly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program 1**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: One of the limitations of the above program is that you cannot pass the child
+    type to a function that expects the base type as GO does not allow type inheritance.
+    For example, the below code does not compile and gives an error – “**cannot use
+    child (type *child) as type base in argument to check”**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program 2**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above error tells basically that sub-typing is not possible in GO by just
+    using embedding. Let’s try to fix this error. This is where GO interfaces come
+    into the picture. See below version of the program which in addition to above
+    functionalities also fixes this sub-typing error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program 3**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, we:    (a) Created an interface **“iBase”** which has
+    **“say” **method    (b) We changed the **“check” **method to accept the argument
+    of type iBase
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since base struct implements the **“say”** method and in turn, child struct
+    embeds base. So the child method indirectly implements **“say”** method and becomes
+    a type of **“iBase”** and that is why we can pass the child to the check function
+    now. Great that we have fixed one limitation now using a combination of struct
+    and interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But there is one more limitation. Let’s say child and base both have one more
+    function **“clear” . **Now **“say”** method makes a call to **“clear”** method.
+    Then when **“say”** method is called using child struct, in turn, **“say”** method will
+    call **“clear”** method of base and not **“clear”** method of the child. See below
+    example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program 4**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: As you can see above **“clear”** function of the base is called instead of**“clear”**
+    method of the child. This is unlike Java where**“clear”** method of **“child”** would
+    have been called.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One way to fix the above problem is to make **“clear”** as a property which
+    is of type function in the base struct. This is possible in GO as functions are
+    first-class variables in GO. See below solution
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program 5**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s try to add one more feature to the above program which is –
+  prefs: []
+  type: TYPE_NORMAL
+- en: Multiple Inheritance – child struct should be able to access multiple properties
+    and methods from two base struct and also sub-typing should be possible. Here
+    is the code
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Program 6**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program, the child embeds both base1 and base2\. It can also be
+    passed as an instance of iBase1 and iBase2 interface to the check1 and check2
+    function respectively. This is how we achieve multiple inheritance.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now a big question is how do we implement **“Type Hierarchy”** in GO. As already
+    mentioned type inheritance is not allowed to go and hence it does not have type
+    hierarchy.GO intentionally doesn’t allow this feature** so** any change in the
+    behavior of an interface is only propagated to its immediate structures which
+    defines all methods of the interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although we can implement type hierarchy using interfaces and struct like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Program 7**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: See in above program how we are able to create a hierarchy (see below). This
+    is the idiomatic way of go to create type hierarchy and we are able to achieve
+    this by using embedding both on struct level and on the interface level. The point
+    to be noted here is that if you want distinction in your type hierarchy where
+    lets say a **“shark” ** should not be both **“iAquatic”** and **“iNonAquatic” ** ,
+    then there should be at least one method in the method sets of **“iAquatic”**
+    and **“iNonAquatic”** which is not present in the other. In our example **“swim” ** and
+    **“walk” ** are those methods.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go doesn’t have support for type inheritance but the same can be achieved using
+    embedding buts one needs to be careful while creating such kind of type hierarchy.
+    Also, go does not provide method overriding.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [inheritance](https://golangbyexample.com/tag/inheritance/)*   [oop](https://golangbyexample.com/tag/oop/)*   [oops](https://golangbyexample.com/tag/oops/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

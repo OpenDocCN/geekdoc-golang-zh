@@ -1,0 +1,123 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:04:10'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Object Pool Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/golang-object-pool/](https://golangbyexample.com/golang-object-pool/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction: ](#Introduction "Introduction:  ")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[When to Use:](#When_to_Use "When to Use:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example:](#Example "Example:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Introduction: **'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The Object Pool Design Pattern is a creational design pattern in which a pool
+    of objects is initialized and created beforehand and kept in a pool. As and when
+    needed, a client can request an object from the pool, use it, and return it to
+    the pool. The object in the pool is never destroyed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**When to Use:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: When the cost to create the object of the class is high and the number of such
+    objects that will be needed at a particular time is not much.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: -Let’s take the example of DB connections. Each of the connection object creation
+    is cost is high as there is network calls involved and also at a time not more
+    than a certain connection might be needed. The object pool design pattern is perfectly
+    suitable for such cases.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When the pool object is the immutable object
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: -Again take the example of DB connection again. A DB connection is an immutable
+    object. Almost none of its property needs to be changed
+  prefs: []
+  type: TYPE_NORMAL
+- en: For performance reasons. It will boost the application performance significantly
+    since the pool is already created
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Example:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '**iPoolObject.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**pool.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**connection.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]*'
+  prefs: []
+  type: TYPE_NORMAL

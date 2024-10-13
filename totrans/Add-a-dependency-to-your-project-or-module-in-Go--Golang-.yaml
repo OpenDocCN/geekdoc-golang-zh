@@ -1,0 +1,250 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:29:41'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Add a dependency to your project or module in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/add-dependency-module-golang/](https://golangbyexample.com/add-dependency-module-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Directly adding it to the go.mod file](#Directly_adding_it_to_the_gomod_file
+    "Directly adding it to the go.mod file")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Do a go get](#Do_a_go_get "Do a go get")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Add the dependency to your source code and do a go mod tidy](#Add_the_dependency_to_your_source_code_and_do_a_go_mod_tidy
+    "Add the dependency to your source code and do a go mod tidy")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Module is go support for dependency management. A module by definition is a
+    collection of related packages with **go.mod** at its root.  The **go.mod** file
+    defines the
+  prefs: []
+  type: TYPE_NORMAL
+- en: Module import path
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Dependency requirements of the module for a successful build. It defines both
+    module’s dependencies requirement and also locks them to their correct version.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A dependency of a module can be of two kinds
+  prefs: []
+  type: TYPE_NORMAL
+- en: Direct -A direct dependency is a dependency which the module directly imports.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Indirect – It is the dependency that is imported by the module’s direct dependencies.
+    Also, any dependency that is mentioned in the **go.mod** file but not imported
+    in any of the source files of the module is also treated as an indirect dependency.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s explore some ways of adding dependency to your project
+  prefs: []
+  type: TYPE_NORMAL
+- en: Directly adding it to the **go.mod** file
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Do a **go get**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Add the dependency to your source code and do a **go mod tidy**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Before looking at each of the ways, again let’s create a module first
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command will create a **go.mod** file in the same directory.  Since it
+    is an empty module it doesn’t have any direct dependency specified yet. Now let’s
+    explore different ways of adding a dependency
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Directly adding it to the go.mod file**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: We can  add direct dependency to the go.mod file too. Let’s do that. Add below
+    dependency to the **go.mod** file
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: With this dependency **go.mod** file will look like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now we need to download the newly added dependency as well. Fo that we can use
+    the below command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command will download the **github.com/pborman/uuid** module as well all
+    its dependencies. Also it will update the **go.sum** file with the checksum and
+    version of all direct and indirect dependencies. go build as well as go install
+    also will download the dependencies and also build the binary. go run will also
+    download and and run the binary as well. go mod download command is used when
+    you want to pre download the dependencies without build or running it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Do a go get**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Simply doing a go get will also the add the dependency in the go.mod file. Remove
+    the uuid dependency we added above from go.mod file and clean up go.sum file.
+    Now run below command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now check the contents of go.mod file. Do a **cat go.mod**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: The dependency will be marked as **//indirect** as it is not being used in any
+    of the source files. Once you do a go build after using this in the source files,
+    the **//indirec**t will be removed automatically by go. Also it will update the
+    **go.sum** file with the checksum and version of all direct and indirect dependencies.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Add the dependency to your source code and do a go mod tidy**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This method we already saw in the above example.  Basically, go mod tidy command
+    makes sure that your go.mod files reflect the dependencies that you have actually
+    used in your project. When we run go mod tidy command then it will do two things
+  prefs: []
+  type: TYPE_NORMAL
+- en: Add any dependency which is imported in the source files
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Remove any dependency which is mentioned in the **go.mod** file but not imported
+    in any of the source files.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see an example. Remove the dependency we added earlier in the go.mod file.
+    Your go.mod file should like below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also let’s create a file named **uuid.go** in the same directory with below
+    contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**uuid.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice that we have imported the dependency in the uuid.go as well
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s run the below command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: This command will download all the dependencies that are required in your source
+    files and update **go.mod** file with that dependency. After running this command
+    let’s now let’s again examine the contents of **go.mod** file
+  prefs: []
+  type: TYPE_NORMAL
+- en: Do a cat **go.mod**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: It lists direct dependency which was specified in the uuid file along with exact
+    version of the dependency as well. Now let’s check the **go.sum** file as well.
+    Do a cat **go.sum**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now let’s see one more example where **go mod tidy** will remove the dependency
+    from **go.mod** file if it is not required in the source files. To illustrate
+    this let’s remove the **uuid.go** file that we created above. Now run the command
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: It will give below output
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now examine the contents of **go.mod** file.  It will be as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: The
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: line will be removed as it is not required in any of the source files. Also
+    all entries of **[github.com](http://github.com)/pborman/uuid** and its depedencies
+    will be removed from the **go.sum** file as well.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

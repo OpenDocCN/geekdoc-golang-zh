@@ -1,0 +1,1 @@
+["```\npackage main\n\nimport (\n    \"fmt\"\n    \"strings\"\n)\n\nfunc main() {\n    res := strings.ToUpper(\"abc\")\n    fmt.Println(res)\n\n    res = strings.ToUpper(\"abc12$\")\n    fmt.Println(res)\n}\n```", "```\nABC\nABC12$\n```"]

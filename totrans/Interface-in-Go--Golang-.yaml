@@ -1,0 +1,956 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:22:01'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Interface in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/interface-in-golang/](https://golangbyexample.com/interface-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: This is the  chapter 21 of the golang comprehensive tutorial series. Refer to
+    this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Iota](https://golangbyexample.com/iota-in-golang)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Method](https://golangbyexample.com/method-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Now let’s check out the current tutorial. Below is the table of contents for
+    current tutorial.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Implementing an Interface](#Implementing_an_Interface "Implementing an Interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Interface are implemented implicitly](#Interface_are_implemented_implicitly
+    "Interface are implemented implicitly")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Interface types as argument to a function](#Interface_types_as_argument_to_a_function
+    "Interface types as argument to a function")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Why Interface](#Why_Interface "Why Interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Pointer Receiver  while implementing an interface](#Pointer_Receiver_while_implementing_an_interface
+    "Pointer Receiver  while implementing an interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Non-struct Custom Type Implementing an interface](#Non-struct_Custom_Type_Implementing_an_interface
+    "Non-struct Custom Type Implementing an interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Type Implementing multiple interfaces](#Type_Implementing_multiple_interfaces
+    "Type Implementing multiple interfaces")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Zero Value of Interface](#Zero_Value_of_Interface "Zero Value of Interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Inner Working of Interface](#Inner_Working_of_Interface "Inner Working of
+    Interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Embedding Interfaces](#Embedding_Interfaces "Embedding Interfaces")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Embedding interface in other interface](#Embedding_interface_in_other_interface
+    "Embedding interface in other interface")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Embedding interface in a struct](#Embedding_interface_in_a_struct "Embedding
+    interface in a struct")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Access Underlying Variable of Interface](#Access_Underlying_Variable_of_Interface
+    "Access Underlying Variable of Interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Type Assertion](#Type_Assertion "Type Assertion")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Type Switch](#Type_Switch "Type Switch")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Empty interface](#Empty_interface "Empty interface")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Interface is a type in Go which is a collection of method signatures. These
+    collections of method signatures are meant to represent certain behaviour. The
+    interface declares only the method set and any type which implements all methods
+    of the interface is of that interface type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Interface lets you use duck typing in golang. Now, what is duck typing?
+  prefs: []
+  type: TYPE_NORMAL
+- en: Duck typing is a way in computer programming which lets you do duck test where
+    we do not check type instead we check the only presence of some attributes or
+    methods. So what really matters is whether an object has certain attributes and
+    methods and not its type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Duck typing comes from the below phrase
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Coming back to interface again. So what is interface?  As mentioned before also
+    it is a collection of method signatures. It defines the exact set of methods that
+    a type might have. Below is the signature of an interface, it has only method
+    signatures
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s understand the concept with the help of an example. Things will be more
+    clear then. Let’s define an interface named **animal.** The **animal** interface
+    has two methods **breathe** and **walk**. It defines only the method signatures
+    and nothing else.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: A method signature would include
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name of the method
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Number of arguments and type of each argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Number of return values and type of each return value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: With the above declaration, we created a new interface type i.e **animal.**
+    It is ok to define a variable of **animal** type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s create a variable of **animal** interface type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: As seen in the above program it is ok to create a variable of interface type.
+    It prints nil as the default zero value of an interface is nil.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Implementing an Interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Any type which implements the breathe and walk method then it is said to implement
+    the **animal** interface. So if we define a **lion** struct and implements the
+    breathe and walk method then it will implement the animal interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: We declare a variable of animal interface type
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Then we assign an instance of lion struct to it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Assigning an instance of **lion** struct to a variable of **animal** interface
+    type works because **lion** struct implements both **breathe** and **walk** method
+    of the animal. The type is not checked during this assignment, instead, it is
+    enough to check that the type assigned does implement **breathe** and **walk**
+    method.  The concept is similar to duck typing,  a **lion** can **breathe** and
+    **walk** like an **animal** and hence it is an **animal**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you notice that there is no explicit declaration that the lion type implements
+    the animal interface. This brings a very important property related to interface
+    – ‘Interface are implemented implicitly
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Interface are implemented implicitly**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: There is no explicit declaration that a type implements an interface. In fact,
+    in Go there doesn’t exist any **“implements”** keyword similar to Java.  A type
+    implements an interface if it implements all the methods of the interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: As seen above, It is correct to define a variable of an interface type and we
+    can assign any concrete type value to this variable if the concrete type implements
+    all the methods of the interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: There is no explicit declaration that says that **lion** struct implements the
+    **animal** interface. During compilation, go notices that **lion** struct implements
+    all methods of **animal** interface hence it is allowed. Any other type which
+    implements all methods of the **animal** interface becomes of that interface type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s see a more complex example of another type implementing the animal interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If we define a **dog** struct and it implements the **breathe** and **walk**
+    method then it will also be an animal.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both **lion** and **dog** implement the breathe and walk method hence they are
+    of animal type and can correctly be assigned to a variable of interface type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The **animal** interface variable a was assigned a **lion** instance first and
+    then the same variable was assigned a **dog** instance. So the type which interface
+    variable refers to is dynamic.  It dynamically holds a reference to the underlying
+    type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Two important points to note:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The interface static check is done during compile time – means that if a type
+    doesn’t implement all the methods of an interface, then assigning the type instance
+    to a variable of that interface type will raise an error during compile time.
+    Eg. on deleting the walk method defined on lion struct, below error will be raised
+    during the assignment
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: The correct method based on the type of instance is called at run time – means
+    that the method of either lion or dog is called depending upon whether interface
+    variable refers to an instance of lion or dog. If it refers to an instance of
+    lion, then lion’s method is called and if it refers to an instance of dog, then
+    dog’s method is called. That is also proven from the output. This is a way to
+    achieve runtime polymorphism in Go.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It is also to be noted that the methods defined by the type,  should match the
+    entire signature of methods in the interface ie., it should match
+  prefs: []
+  type: TYPE_NORMAL
+- en: Name of the method
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Number of arguments and type of each argument
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Number of return values and type of each return value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Imagine that **animal** interface has another method **speed** which returns
+    the int value of speed of the animal
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: If the **lion** struct has **speed** method as below which does not return the
+    int value, then the **lion** struct will not implement **animal** interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below compilation error will be raised on assigning the lion instance to a variable
+    of type animal
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: So in essence, method signatures are important while implementing an interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Interface types as argument to a function**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A function can accept an argument of an interface type. Any type which implements
+    that interface can be passed as that argument to that function. For example, in
+    the below code, we have **callBreathe** and **callWalk** function which accept
+    an argument of **animal** interface type. Both **lion** and **dog** instance can
+    be passed to this function. We create an instance of both lion and dog type and
+    pass it to the function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It works similarly to the assignment we discussed above. During compilation
+    no type is checked while calling the function,  instead, it is enough to check
+    that the type passed to the function does implement **breathe** and **walk** method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above code, we have **callBreathe** and **callWalk** function which accept
+    an argument of **animal** interface type. Both **lion** and **dog** instance can
+    be passed to this function. We create an instance of both **lion** and **dog**
+    type and pass it to the function. During compilation no type is checked while
+    calling the function, instead, it is enough to check that the type passed to the
+    function does implement **breathe** and **walk** method.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Why Interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Below are some benefits of using interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Helps write more modular and decoupled code between different parts of codebase
+    – It can help reduce dependency between different parts of codebase and provide
+    loose coupling.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For eg imagine an application interacting with a database layer. If the application
+    interacts with the database using the interface, then it never gets to know about
+    what kind of database is being used in the background. You can change the type
+    of database in the background, let’s say from arango db to mongo db without any
+    change in the application layer as it interacts with the database layer via an
+    interface which both arango db and mongo db implement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Interface can be used to achieve run time polymorphism in golang. RunTime Polymorphism
+    means that a call is resolved at runtime. Let’s understand how interface can be
+    used to achieve runtime polymorphism with an example
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Different countries have different ways of calculating the tax. This can be
+    represented by means of an interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now different countries can have their own struct and can implement the **calculateTax()**
+    method. The same **calculateTax** method is used in different contexts to calculate
+    tax. When the compiler sees this call it delays which exact method to be called
+    at run time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now below is the line where run time polymorphism happens.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: The correct **calculateTax()** method is called based upon weather the instance
+    is of type **singaporeTax** struct tax or **indianTax** struct
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Pointer Receiver  while implementing an interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Amethod of a type can either have a pointer receiver or a value receiver. In
+    the above examples, we only worked with the value receiver. It is to be noted
+    that the pointer receiver can also be used to implement an interface. But there
+    is a caveat here
+  prefs: []
+  type: TYPE_NORMAL
+- en: If a type implements all methods of an interface using value receiver, then
+    both variable of that type as well pointer to the variable of that type can be
+    used while assigning to that interface or while passing to a function which accepts
+    an argument as that interface.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If a type implements all methods of an interface using pointer receiver, then
+    the only pointer to the variable of that type can be used while assigning to that
+    interface or while passing to a function that accepts an argument as that interface.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Example to demonstrate the first point above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE21]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE22]'
+  prefs: []
+  type: TYPE_PRE
+- en: The **lion** structs implements the **animal** interface using value receiver.
+    Hence it works for both variable of type **lion** as well as pointer to variable
+    of type **lion**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This works
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE23]'
+  prefs: []
+  type: TYPE_PRE
+- en: as well as this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE24]'
+  prefs: []
+  type: TYPE_PRE
+- en: Example to demonstrate the second point above. The **lion** structs implements
+    the **animal** interface using pointer receiver. Hence it  works for only for
+    pointer to variable of type **lion**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So this works
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE25]'
+  prefs: []
+  type: TYPE_PRE
+- en: but this raises compilation error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE26]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE27]'
+  prefs: []
+  type: TYPE_PRE
+- en: See full working code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE28]'
+  prefs: []
+  type: TYPE_PRE
+- en: Uncomment the line
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE29]'
+  prefs: []
+  type: TYPE_PRE
+- en: and it will raise compilation error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE30]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Non-struct Custom Type Implementing an interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: So far we have only seen examples of struct type implementing an interface. 
+    It is also perfectly ok for any non-struct custom type to implement an interface.
+    Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE31]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE32]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above program illustrates the concept that any custom type can also implement
+    an interface. The **cat** is of string type and it implements the **breathe**
+    and **walk** method hence it is correct to assign an instance of **cat** type
+    to a variable of **animal** type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Type Implementing multiple interfaces**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: A type implements an interface if it defines all methods of an interface. If
+    that defines all methods of another interface then it implements that interface.
+    In essence, a type can implement multiple interfaces.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In below program, we have a mammal interface that has a feed method. The lion
+    struct defines this method too hence it implements the mammal interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE33]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE34]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Zero Value of Interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Default or zero value of an interface is nil. Below program demonstrates that
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE35]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE36]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Inner Working of Interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Like any other variable, an interface variable is represented by a type and
+    value. Interface value, in turn under the hood, consists of two tuple
+  prefs: []
+  type: TYPE_NORMAL
+- en: Underlying Type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Underlying Value
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: See below diagram which illustrates what we mentioned above
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/e09464771d53171817cfeecf9da6a93e.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: For eg in case of lion struct implementing the animal interface would be like
+    below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/c9cc4eb8c2e7148fd7877e127d773ca6.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: Golang provides format identifiers to print the underlying type and underlying
+    value represented by the interface value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '%T can be used to print the concrete type of the interface value'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '%v can be used to print the concrete value of the interface value.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE37]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE38]'
+  prefs: []
+  type: TYPE_PRE
+- en: An interface can be embedded in other interface as well as it can be embedded
+    in a struct. Let’s look at each one by one
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Embedding Interfaces**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: An interface can be embedded in other interface as well as it can be embedded
+    in a struct. Let’s look at each one by one
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Embedding interface in other interface**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: An interface can embed any number of interfaces in it as well as it can be embedded
+    in any interface. All the methods of the embedded interface become part of the
+    embedding interface. It is a way of creating a new interface by merging some small
+    interfaces. Let’s understand it with an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: Assume we have an interface **animal** as below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE39]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s say there is another interface named **human** which embeds the **animal**
+    interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE40]'
+  prefs: []
+  type: TYPE_PRE
+- en: So if any type needs to implement the **human** interface, then it has to define
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**breathe()** and **walk()** method of animal interfaces animal is  embedded
+    in human'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**speak()** method of human interface'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE41]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE42]'
+  prefs: []
+  type: TYPE_PRE
+- en: As an other example, the ReaderWriter interface of the **io** package of golang
+    ([https://golang.org/pkg/io/#ReadWriter](https://golang.org/pkg/io/#ReadWriter))
+    embeds two other interfaces
+  prefs: []
+  type: TYPE_NORMAL
+- en: The reader interface  – [https://golang.org/pkg/io/#Reader](https://golang.org/pkg/io/#Reader)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The writer interface   – [https://golang.org/pkg/io/#Writer](https://golang.org/pkg/io/#Writer)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE43]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Embedding interface in a struct**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Aninterface can be embedded in a struct as well.  All the methods of the embedded
+    interface can be called via that struct. How these methods will be called will
+    depend upon whether the embedded interface is a named field or an unnamed/anonymous
+    field.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the embedded interface is a named field, then interface methods has to be
+    called via the named interface name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the embedded interface is unnamed/anonymous field then interface methods
+    can be referred directly or via the interface name
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s see a program illustrating above points
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE44]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE45]'
+  prefs: []
+  type: TYPE_PRE
+- en: We declared two struct **pet1** and **pet2**.  **pet1** struct has named **animal**
+    interface in it
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE46]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**pet2** has unnamed/anonymous **animal** interface embedded'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE47]'
+  prefs: []
+  type: TYPE_PRE
+- en: For an instance of **pet1** struct we call the **breathe()** and **walk()**
+    method like this
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE48]'
+  prefs: []
+  type: TYPE_PRE
+- en: Directly calling these methods with raise compilation error
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE49]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE50]'
+  prefs: []
+  type: TYPE_PRE
+- en: For an instance of **pet2** struct we can call the **breathe()** and **walk()**
+    method like directly
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE51]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can directly access the methods of embedded interface if the embedded interface
+    is anonymous or unnamed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is also valid and another way fo called methods of unnamed/anonymous embedded
+    interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE52]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also note that while creating the instance of either the **pet1** or **pet2**
+    struct, the embedded interface i.e **animal** is initialised with a type implementing 
+    it i.e **dog** .
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE53]'
+  prefs: []
+  type: TYPE_PRE
+- en: If we don’t initialise the embedded interface **animal**, then it will be intialised
+    with the zero value of the interface which is nil. Calling **breathe()** and **walk()**
+    method  on such an instance of **pet1** or **pet2** struct will create a panic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Access Underlying Variable of Interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The underlying variable can be accessed in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Type Assertion
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Type Switch
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Type Assertion**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Type assertion provides a way to access the underlying variable inside the interface
+    value of the interface by asserting the correct type of underlying value. Below
+    is the syntax for that where **i** is an interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE54]'
+  prefs: []
+  type: TYPE_PRE
+- en: The above statement is asserting that the type of underlying value in the interface
+    is of type {type}. If this is true then the underlying value is assigned to **val.**
+    If not then the above statement panics.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE55]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE56]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is how we assert the variable **a** of type **animal** to have underlying
+    type as **lion**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE57]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below line will create a panic as underlying type is **lion** and not **dog**.
+    Uncomment the line to check it out
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE58]'
+  prefs: []
+  type: TYPE_PRE
+- en: Type assertion provides another way to get the underlying value and which also
+    prevents a panic. The syntax for that is
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE59]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this case type assertion returns two values, the first value is the same
+    as discussed above, the other value is boolean indicating whether the type assertion
+    was correct or not. This value is
+  prefs: []
+  type: TYPE_NORMAL
+- en: true if the type assertion is correct meaning the type asserted is same as the
+    underlying type
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: false if the type assertion fails.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So the second is a good way of doing type assertion since it prevents a panic.
+    Let’s see an example
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE60]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE61]'
+  prefs: []
+  type: TYPE_PRE
+- en: Let’s move on to type switch now.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Type Switch**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Type switch enables us to do above type assertion in series. See below code
+    example for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE62]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE63]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the code above, using the type switch we determine the type of value contained
+    in interface variable x is **lion** or **dog** or some other type. It is also
+    ok to add more different types in case statement
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Empty interface**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: An empty interface has no methods , hence by default all concrete types implement
+    the empty interface. If you write a function that accepts an empty interface then
+    you can pass any type to that function. See working code below
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE64]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE65]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Conclusion**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: This is all about interface in go. Hope you have liked this article. Please
+    share feedback/improvemets/mistakes in comments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Next Tutorial** – [Iota](https://golangbyexample.com/iota-in-golang)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Previous Tutorial** – [Method](https://golangbyexample.com/method-in-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

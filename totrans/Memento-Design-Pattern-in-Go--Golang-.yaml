@@ -1,0 +1,124 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:04:05'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Memento Design Pattern in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/memento-design-pattern-go/](https://golangbyexample.com/memento-design-pattern-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Note: Interested in understanding how all other design patterns can be implemented
+    in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Introduction:](#Introduction "Introduction:")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction:**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Memento design pattern is a behavioral design pattern. It allows us to save
+    checkpoints for an object and thus allow an object to revert to its previous state.
+    Basically it helps in undo-redo operations on an object. Below are the design
+    components of the Memento Design Pattern.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Originator**: It is the actual object whose state is saved as a memento.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Memento**: This is the object which saves the state of the originator'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Caretaker**: This is the object that saves multiple mementos. Given an index,
+    it returns the corresponding memento.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The originator defines two methods. **savememento()** and **restorememento()**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**savememento()-** in this method the originator saves its internal state into
+    a memento object.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**restorememento()-** this method takes input as a memento object. The originator
+    restores itself to the pass memento.  Hence a previous state is restored.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Practical Example:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '**originator.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**memento.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**caretaker.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Notice that the caretaker contains the mementoArray which holds all the memento.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**main.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Full Working Code:**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[golang](https://golangbyexample.com/tag/golang/)*   [memento](https://golangbyexample.com/tag/memento/)*   [pattern](https://golangbyexample.com/tag/pattern/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

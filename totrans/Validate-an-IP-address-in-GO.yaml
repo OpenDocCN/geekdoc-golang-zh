@@ -1,0 +1,58 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:08:58'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Validate an IP address in GO
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/validate-an-ip-address-in-go/](https://golangbyexample.com/validate-an-ip-address-in-go/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: ParseIP function of the net package can be used to validate an IP address. The
+    same function can be used to validate both IPV4 and IPV6 addresses. Below is the
+    signature of the function
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[https://golang.org/pkg/net/#ParseIP](https://golang.org/pkg/net/#ParseIP)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The ParseIP function
+  prefs: []
+  type: TYPE_NORMAL
+- en: Returns nil if the given IP address is not valid
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Else it creates an instance of IP struct and returns that.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Let’s see a working code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[ipv6](https://golangbyexample.com/tag/ipv6/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,102 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:20:56'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Allowed key and value types for a map in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/allowed-key-and-value-types-golang/](https://golangbyexample.com/allowed-key-and-value-types-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Maps are golang builtin datatype similar to the hash table which maps a key
+    to a value. . Below is the format for a map:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both **key_type** and **value_type** can be of different type or same type.
+    For below example the key type is **string** and value type is **int**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Allowed Key types in a Map**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The map key can be any type that is comparable. Some of the comparable types
+    as defined by go specification are
+  prefs: []
+  type: TYPE_NORMAL
+- en: boolean
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: numeric
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: string,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: pointer
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: channel
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: interface types
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: structs – if all it’s field type is comparable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: array – if the type of value of array element is comparable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Some of the types which are not comparable as per go specification and which
+    cannot be used as a key in a map are.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Slice
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Map
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Function
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Reference – [https://golang.org/ref/spec#Comparison_operators](https://golang.org/ref/spec#Comparison_operators)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Allowed Value types in a Map**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Value can be of any type in a map.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

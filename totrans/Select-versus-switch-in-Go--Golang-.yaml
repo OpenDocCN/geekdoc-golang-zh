@@ -1,0 +1,152 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:23:48'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Select versus switch in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/select-versus-switch-in-golang/](https://golangbyexample.com/select-versus-switch-in-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Example of switch](#Example_of_switch "Example of switch")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Example of select](#Example_of_select "Example of select")*  *# **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Below are some of the differences between **switch** and **select** statement
+  prefs: []
+  type: TYPE_NORMAL
+- en: In switch each of the case statement is an expression while in select each of
+    the case statement is either send or receive operation on a channel.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Format of **switch**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Format of **select**
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is how switch works. Given a **switch expression**, it goes through all
+    cases and tries to find the first **case expression** that matches the **switch
+    expression** otherwise the default case is executed if present. The order of matching
+    is from top to bottom. While with a select statement ,it chooses  the case on
+    which send or receive operation on a channel  is not blocked and is ready to be
+    executed. If multiple cases are ready to be executed then one is choosen at random.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Switch statement is non-blocking.  It selects the matching case otherwise default
+    case is executed. Even if the default block is not present and none of the case
+    matches the switch block ends and the program proceeds. Select statement can block
+     as it is used with channels and channels can block on send or receive  operation.
+    A select statement  will block if send and receive operation is blocked in all
+    the case statements and default block is not present. Default block makes the
+    select non-blocking as default case will be executed if all the other cases are
+    blocked
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A switch will go in sequence to select the matching case. So switch is deterministic.
+    You can say lookig at switch statement ad expression, that which of the case is
+    going to match. Select will execute a case at random with no sequence. So select
+    is non-deterministic. It will randomly choose one of the ready case statements
+    to execute.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Switch allows a fallthrough keyword to select multiple matching cases. Select
+    doesn’t allow fallthrough keyword to select multiple cases. Only one case out
+    of ready cases will be chosen at random.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Switch has two forms: expression switches and type switches while select has
+    only one form.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Please refer to comprehensive tutorial for both
+  prefs: []
+  type: TYPE_NORMAL
+- en: Switch –[https://golangbyexample.com/switch-statement-golang/](https://golangbyexample.com/switch-statement-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Select – [https://golangbyexample.com/select-statement-golang/](https://golangbyexample.com/switch-statement-golang/)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Example of switch**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above example, the switch case goes in sequence and matches the switch
+    expression which is “b” here.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example of select**'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above program we created two channels which are passed to two different
+    goroutines. Then each of the  goroutine  is sending one value to the channel.
+    In the select  we have two case statement. Each of the two case statement is waiting
+    for a receive operation to complete on one of the channels. Once any receive operation
+    is complete on any of the channel it is executed and select exits. So as seen
+    from output, in the above program it  prints the received value from one of the
+    channel and exits.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So in the above program since it is not deterministic which of the send operation
+    will complete earlier that is why you will see different output if you run the
+    program different times.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

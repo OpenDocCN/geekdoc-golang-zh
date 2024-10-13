@@ -1,0 +1,88 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:38:03'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reverse Doubly Linked List in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/reverse-doubly-linked-list-golang/](https://golangbyexample.com/reverse-doubly-linked-list-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Program](#Program "Program")*  *## **Overview**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'A Doubly Linked List can be reversed by below two methods:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: By swapping previous and next pointers of nodes.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: By using stack
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In this tutorial, we will cover the first method i.e by swapping previous and
+    next pointers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s say we have below doubly linked list
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![dll_reverse1](img/370305dc6f9fcbe0b14eb0aec8026c81.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: 'After reversing, a doubly-linked list will be like below:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '![](img/fdb6f3f034a9dadb562eea9beb6a5886.png)'
+  prefs: []
+  type: TYPE_IMG
+- en: '**Program**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'In this approach we need to take care of the below points:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Swap head and tail of the doubly linked list
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Swap previous and next pointers of all nodes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Output**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

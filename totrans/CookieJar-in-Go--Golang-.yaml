@@ -1,0 +1,326 @@
+- en: <!--yml
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'category: 未分类'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'date: 2024-10-13 06:35:28'
+  prefs: []
+  type: TYPE_NORMAL
+- en: -->
+  prefs: []
+  type: TYPE_NORMAL
+- en: CookieJar in Go (Golang)
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 来源：[https://golangbyexample.com/cookiejar-golang/](https://golangbyexample.com/cookiejar-golang/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Table of Contents
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**   [Overview](#Overview "Overview")'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[First example](#First_example "First example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Server](#Server "Server")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Client](#Client "Client")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Second Example](#Second_Example "Second Example")'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Server](#Server-2 "Server")'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Client](#Client-2 "Client")*  *## **Overview**'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: HTTP client in golang lets you specify a **CookieJar** that manages storing
+    and sending of the cookies while making external HTTP requests. As the name suggests,
+    think of it as a jar that contains cookies.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/net/http/#Client](https://golang.org/pkg/net/http/#Client)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Below is the structure of the net/http **Client** struct. It contains an instance
+    variable named **Jar** of type **CookieJar** which is an interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Below is the **CookieJar** interface
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: net/http provides a default cookie jar implementation which implements the above
+    **CookieJar** interface. We will use it while initializing our net/http Client
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://golang.org/pkg/net/http/cookiejar/#Jar](https://golang.org/pkg/net/http/cookiejar/#Jar)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You can also provide your custom cookie jar during the initialization of net/http
+    Client struct which implements the above **CookieJar** interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP client uses this jar in two ways
+  prefs: []
+  type: TYPE_NORMAL
+- en: Adding cookies in this Jar. You can explicitly add cookies to this jar. The
+    cookies will also be added to the jar if the server sends the Set-Cookies header
+    in the response headers. All the cookies specified in the Set-Cookie header will
+    be added
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For consulting this jar while making any external HTTP requests. It checks this
+    jar to know what all cookies it needs to send for a particular domain
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s illustrate the cookie jar with a couple of examples.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the first example, the client will add a cookie while making HTTP requests.
+    This cookie will be sent in all subsequent requests to the same domain.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the second example, we will see that the server sends the **Set-Cookie**
+    header and that cookie will be set at the client end.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**First example**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In this example, we will see how the client can set the cookie in the cookie
+    jar. For that let’s first create a server Here is the program for the same
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Server**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The server listens to port 8080 and has two APIs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**localhost:8080/doc**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**localhost:8080/doc/id**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: In both the APIs we are printing the cookies which it receives in the incoming
+    header
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**server.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here is the client code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Client**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**client.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above client program, we are creating an HTTP client with a cookie Jar
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: we are adding a cookie to the Cookie Jar
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now run the server
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: and client
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice the output at the server end
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: The same cookie is being sent automatically in both the first and second call
+    which the client will make to the server. How does it work out of the box? This
+    is because **CookieJar** comes into the picture. The golang HTTP client checks
+    the Cookie Jar before making the HTTP call. It then sends this cookie.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Second Example**'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In the second example, we will see how cookie sent by the server in the Set-Cookie
+    header is saved in the **CookieJar**. And then it will be sent in the subsequent
+    calls.  To illustrate that let’s also create a server that will send the Set-Cookie
+    header. Here is the server code
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Server**'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: We will create a server Create two APIs
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**localhost:8080/doc** – In this API the server will set the **Set-Cookie**
+    header in the response. We are going to make this call from the golang program.
+    The golang http client is going to save this cookie at its end. The client will
+    then send the same cookie back to the server for any other request to localhost:8080'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**localhost:8080/doc/id** – This is the example API to demonstrate that golang
+    http client will actually use the **CookieJar** to send the same cookie in the
+    request that is received in response in the Set-Cookie header. Notice in the code
+    for the second API that we are all the cookies that it receives'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**server.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: We are setting the below cookie in **Set-Cookie** in response headers
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here is the client code
+  prefs: []
+  type: TYPE_NORMAL
+- en: Client
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '**go.mod**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**client.go**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: At the client end, we just created an HTTP client with a CookieJar specified.
+    Other than that we are just making two API calls.
+  prefs: []
+  type: TYPE_NORMAL
+- en: First [http://localhost:8080/doc](http://localhost:8080/doc)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Second [http://localhost:8080/doc/id](http://localhost:8080/doc/id)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Now run server first. It will start a local server listening on port 8080
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now run the client
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Notice the output at the server end for the second API. See that it is the same
+    cookie that was returned in the **Set-Cookie** response headers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is how it works out of the box
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the first API call, the golang http client saves all the cookie present in
+    **Set-Cookie** response header in the **CookieJar**
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Before making the second API call it checks the **CookieJar** to figure out
+    what all cookies need to be sent to the server. It then sends those cookies.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is all about cookie jar in golang. Hope you have liked this tutorial. Also,
+    check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

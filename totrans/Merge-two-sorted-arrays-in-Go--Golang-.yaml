@@ -1,107 +1,166 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:47:59'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:47:59
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Merge two sorted arrays in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go中合并两个已排序数组（Golang）
 - en: 来源：[https://golangbyexample.com/merge-two-sorted-arrays-golang/](https://golangbyexample.com/merge-two-sorted-arrays-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/merge-two-sorted-arrays-golang/](https://golangbyexample.com/merge-two-sorted-arrays-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: Two arrays are given. Both are sorted
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定两个数组。两个数组均已排序。
 - en: First array is of length m+n
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个数组的长度为m+n
 - en: Second array is of n
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个数组的长度为n
 - en: The objective is to merge these sorted arrays. The first array contains enough
     length so the first array should be modified only
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是合并这些已排序的数组。第一个数组的长度足够，因此只需修改第一个数组
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Here is the approach we can take
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是我们可以采取的方法
 - en: Move all elements in the first array to the end in sorted order. The first array
     will become
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将第一个数组中的所有元素按排序顺序移动到末尾。第一个数组将变为
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Now start from **mth** index element in the first array and **0th** index in
     the second array.
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在从第**m**个索引元素开始，第一个数组的**0**个索引在第二个数组中。
 - en: Compare the two and place the smaller at **0th** index in the first array. The
     first array will become
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 比较两个数组，并将较小的放置在第**0**个索引中。第一个数组将变为
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Repeat this process. The values at the end of the first array will be placed
     at the front before getting overridden as we have sufficient space
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重复此过程。第一个数组末尾的值将在覆盖之前放置在前面，因为我们有足够的空间
 - en: '**Program**'
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相应的程序。
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列教程详细阐述了所有概念，并附有示例。该教程适合希望获得专业知识和扎实理解Golang的学习者
+    – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果您有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为您准备的 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

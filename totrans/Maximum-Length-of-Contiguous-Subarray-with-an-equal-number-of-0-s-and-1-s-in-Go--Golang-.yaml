@@ -1,108 +1,167 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:49:53'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:49:53
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Maximum Length of Contiguous Subarray with an equal number of 0’s and 1’s in
     Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中，具有相等数量的 0 和 1 的连续子数组的最大长度
 - en: 来源：[https://golangbyexample.com/max-length-array-zero-one-golang/](https://golangbyexample.com/max-length-array-zero-one-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/max-length-array-zero-one-golang/](https://golangbyexample.com/max-length-array-zero-one-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: An array is given that only has 0’s and 1’s. The objective is to find a maximum
     length subarray with an equal number of 0’s and 1’s. Let’s understand it with
     examples
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个仅包含 0 和 1 的数组。目标是找到一个具有相等数量的 0 和 1 的最大长度子数组。让我们通过示例来理解它。
 - en: Example 1
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例 1
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Example 2
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例 2
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Below is the approach we can take
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是我们可以采取的方法
 - en: We will create an array **leftSum** where leftSum[i] will denote the sum of
     numbers from index 0 to i. Treat 0 as -1 and 1 as 1 only.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将创建一个数组 **leftSum**，其中 leftSum[i] 表示从索引 0 到 i 的数字之和。将 0 视为 -1，将 1 视为 1。
 - en: Now there are two cases. The subarray starts from index 0 or the subarray starts
     from an index other than zero.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 现在有两种情况。子数组从索引 0 开始，或者子数组从其他索引开始。
 - en: Scan the leftSum array from left to right. If the value at any index in the
     **leftSum** is zero, then it means that subarray[0,i] contains an equal number
     of 0’s and 1’s.  This will give the answer if the subarray starts from index 0
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从左到右扫描 leftSum 数组。如果 **leftSum** 中任何索引的值为零，则表示 subarray[0,i] 中包含相同数量的 0 和 1。这将给出如果子数组从索引
+    0 开始的答案。
 - en: If the subarray doesn’t start from zero. So again scan the leftSum array and
     find index **i** and **j** such that **leftSum[i] == leftSum[j].** To figure it
     out we will use a map. If the length of j-i is greater than the maximum length,
     then update the maximum length
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果子数组不从零开始。那么再次扫描 leftSum 数组，找到索引 **i** 和 **j**，使得 **leftSum[i] == leftSum[j]**。为了弄清楚这一点，我们将使用一个映射。如果
+    j-i 的长度大于最大长度，则更新最大长度。
 - en: Return the maximum length in the end
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 最后返回最大长度
 - en: '**Program**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是相应的程序。
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尝试用示例覆盖所有概念。本教程适合那些希望获得 Golang 专业知识和深入理解的人
+    – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是这样，那么这篇文章就是为你准备的 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

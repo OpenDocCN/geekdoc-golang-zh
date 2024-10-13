@@ -1,118 +1,182 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:05:42'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:42
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: MaxHeap in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang 中的最大堆
 - en: 来源：[https://golangbyexample.com/maxheap-in-golang/](https://golangbyexample.com/maxheap-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/maxheap-in-golang/](https://golangbyexample.com/maxheap-in-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction](#Introduction "Introduction")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍](#Introduction "Introduction")'
 - en: '[Operations on Maxheap](#Operations_on_Maxheap "Operations on Maxheap")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[对最大堆的操作](#Operations_on_Maxheap "Operations on Maxheap")'
 - en: '[Implementation](#Implementation "Implementation")*  *# **Introduction**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实现](#Implementation "Implementation")*  *# **介绍**'
 - en: A MaxHeap is a complete binary tree in which the value of the parent node is
     greater than or equal to the value of its left and right child. A complete binary
     tree is a binary tree in which all levels are full except the last level.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 最大堆是一个完整的二叉树，其中父节点的值大于或等于其左子节点和右子节点的值。完整的二叉树是一个除了最后一层外，所有层都是满的二叉树。
 - en: We use an array to represent a maxheap. The root element is arr[0]. For an index
     i we have
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们使用数组来表示最大堆。根元素是 arr[0]。对于索引 i，我们有
 - en: Left Child – 2*i + 1
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 左子节点 – 2*i + 1
 - en: Right Child – 2*i + 2
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 右子节点 – 2*i + 2
 - en: Below is a representation of a maxheap
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是最大堆的表示
 - en: '![](img/32fb0e4c70c6a9b75511ddafc2106833.png)'
+  id: totrans-15
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/32fb0e4c70c6a9b75511ddafc2106833.png)'
 - en: The corresponding array would be [8, 7, 6, 5, 3, 2]
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 相应的数组将是 [8, 7, 6, 5, 3, 2]
 - en: For 0 index we have
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于索引 0，我们有
 - en: Left Child – 2*0 + 1 = 1
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 左子节点 – 2*0 + 1 = 1
 - en: Right Child – 2*0 + 2 = 2
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 右子节点 – 2*0 + 2 = 2
 - en: Thus arr[0] i.e 8 has left child as arr[1] i.e, 7 and right child as arr[2]
     i.e 6
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，arr[0] 即 8 的左子节点是 arr[1] 即 7，右子节点是 arr[2] 即 6
 - en: Since each node value is greater or equal to the value of its children, therefore,
     value at the root is the largest value.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于每个节点的值大于或等于其子节点的值，因此，根节点的值是最大的值。
 - en: '**Operations on Maxheap**'
+  id: totrans-22
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**对最大堆的操作**'
 - en: '**Insert an Element**– takes O(log n) time. If the inserted value is larger
     than its parent, then we need to traverse up. This traversal continues up till
     the inserted value is smaller than its parent or the inserted value becomes the
     root itself. The second case will happen when the inserted value is the largest.'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**插入元素** – 需要 O(log n) 的时间。如果插入的值大于其父节点，则需要向上遍历。这个遍历会一直进行，直到插入的值小于其父节点或者插入的值成为根节点。第二种情况发生在插入的值是最大的。'
 - en: '**Remove Maximum Element** – takes O(log n) time. It saves the root value and
     then replaces it with the last value in the array. It then maxheapifies the root
     which takes O(log n) time as it traverses down until it is more than its parent.'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**移除最大元素** – 需要 O(log n) 的时间。它保存根值，然后用数组中的最后一个值替换根值。接着，它对根节点进行最大堆化，这需要 O(log
+    n) 的时间，因为它向下遍历，直到值大于其父节点。'
 - en: '**Get Maximum** – takes O(1) times. Returns the root value'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**获取最大值** – 需要 O(1) 的时间。返回根值'
 - en: '**Implementation**'
+  id: totrans-26
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**实现**'
 - en: '[PRE0]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [maxheap](https://golangbyexample.com/tag/maxheap/)*   [maxheap
     in go](https://golangbyexample.com/tag/maxheap-in-go/)*'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [最大堆](https://golangbyexample.com/tag/maxheap/)*   [Golang
+    中的最大堆](https://golangbyexample.com/tag/maxheap-in-go/)*'

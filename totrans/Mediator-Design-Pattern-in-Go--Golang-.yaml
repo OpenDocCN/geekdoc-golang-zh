@@ -1,126 +1,198 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:03:53'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:03:53
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Mediator Design Pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的中介设计模式
 - en: 来源：[https://golangbyexample.com/mediator-design-pattern-golang/](https://golangbyexample.com/mediator-design-pattern-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/mediator-design-pattern-golang/](https://golangbyexample.com/mediator-design-pattern-golang/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：有兴趣了解如何在GO中实现所有其他设计模式，请查看此完整参考 – [Go中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction:](#Introduction "Introduction:")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[介绍：](#Introduction "Introduction:")**'
 - en: '[Practical Example](#Practical_Example "Practical Example")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实用示例](#Practical_Example "Practical Example")'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Introduction:**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "Full Working Code:")*  *## **介绍：**'
 - en: Mediator design pattern is a behavioral design pattern. This pattern suggests
     creating a mediator object to prevent direct communication among objects so that
     direct dependencies between them is avoided.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 中介设计模式是一种行为设计模式。该模式建议创建一个中介对象，以防止对象之间的直接通信，从而避免它们之间的直接依赖。
 - en: One very good example of a mediator patter is the railway system platform. 
     Two trains never communicate between themselves for the availability of the platform.
     The **stationManager** acts as a mediator and makes the platform available to
     only one of the trains. The train connects with **stationManager** and acts accordingly.
     It maintains a queue of waiting trains. In case of any train leaving a platform,
     it notifies one of the train to arrive on the platform next.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 中介模式的一个很好的例子是铁路系统平台。两个火车之间不会直接通信以了解平台的可用性。**stationManager**充当中介，仅使平台对一列火车可用。火车与**stationManager**连接并相应地行动。它维护等待火车的队列。如果有任何火车离开平台，它会通知其中一列火车下次到达平台。
 - en: Notice how **stationManger** acts as a mediator between the **trains** and the
     **platform** in the code below.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意**stationManger**在下面代码中如何充当**火车**与**平台**之间的中介。
 - en: passengerTrain and goodsTrain implement the train interface.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: passengerTrain和goodsTrain实现了火车接口。
 - en: stationManger implements the mediator interface.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: stationManger实现了中介接口。
 - en: '**Practical Example**'
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**实用示例**'
 - en: '**train.go**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**train.go**'
 - en: '[PRE0]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**passengerTrain.go**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**passengerTrain.go**'
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**goodsTrain.go**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**goodsTrain.go**'
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**mediator.go**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**mediator.go**'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**stationManager.go**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**stationManager.go**'
 - en: '[PRE4]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**main.go**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE5]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Full Working Code:**'
+  id: totrans-31
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE7]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output:**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE8]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '[design pattern](https://golangbyexample.com/tag/design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*   [mediator](https://golangbyexample.com/tag/mediator/)*'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[设计模式](https://golangbyexample.com/tag/design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*   [中介](https://golangbyexample.com/tag/mediator/)*'

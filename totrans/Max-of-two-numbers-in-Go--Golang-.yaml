@@ -1,77 +1,121 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:15:48'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:15:48
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Max of two numbers in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中两个数字的最大值
 - en: 来源：[https://golangbyexample.com/max-of-two-numbers-go/](https://golangbyexample.com/max-of-two-numbers-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/max-of-two-numbers-go/](https://golangbyexample.com/max-of-two-numbers-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "代码：")*  *# **概述**'
 - en: '**math** package of GO provides a **Max** method that can be used to get the
     maximum of two numbers.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: GO的**math**包提供了一个**Max**方法，可以用来获取两个数字的最大值。
 - en: Below is the signature of the function. It takes input two float numbers and
     returns a float.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名。它接收两个浮点数作为输入，并返回一个浮点数。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Also some special cases of **Max** function are
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，**Max**函数的一些特殊情况是
 - en: Max(x, +Inf) = Max(+Inf, x) = +Inf
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Max(x, +Inf) = Max(+Inf, x) = +Inf
 - en: Max(x, NaN) = Max(NaN, x) = NaN
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Max(x, NaN) = Max(NaN, x) = NaN
 - en: Max(+0, ±0) = Max(±0, +0) = +0
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Max(+0, ±0) = Max(±0, +0) = +0
 - en: Max(-0, -0) = -0
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Max(-0, -0) = -0
 - en: '**Code:**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [math](https://golangbyexample.com/tag/math/)*   [max](https://golangbyexample.com/tag/max/)*   [maximum](https://golangbyexample.com/tag/maximum/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [math](https://golangbyexample.com/tag/math/)*   [max](https://golangbyexample.com/tag/max/)*   [maximum](https://golangbyexample.com/tag/maximum/)*'

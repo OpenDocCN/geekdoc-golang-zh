@@ -1,94 +1,150 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:42:00'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:42:00
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Medium of two sorted arrays in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中两个已排序数组的中位数
 - en: 来源：[https://golangbyexample.com/medium-two-sorted-arrays-golang/](https://golangbyexample.com/medium-two-sorted-arrays-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/medium-two-sorted-arrays-golang/](https://golangbyexample.com/medium-two-sorted-arrays-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: The objective is to return the medium of two sorted arrays. For example, if
     the input is
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是返回两个已排序数组的中位数。例如，如果输入是
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Then the median is 4 because if we sort both arrays then 4 is in the middle
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么中位数是4，因为如果我们对两个数组进行排序，4正好在中间。
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: What if there are an even number of total elements. That is if the total length
     of two arrays is even. In this case, the median would
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果总元素个数是偶数，也就是说两个数组的总长度是偶数。在这种情况下，中位数将会
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: where **n** is the total length of two arrays
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中**n**是两个数组的总长度。
 - en: For example, if the input is
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果输入是
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Then the median is **(2+3)/2=2.5** because if we sort both arrays then 2 and
     3 are in the middle
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么中位数是**(2+3)/2=2.5**，因为如果我们对两个数组进行排序，2和3正好在中间。
 - en: '[PRE4]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: So if the total length of two arrays is **n**, then there are two cases
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以如果两个数组的总长度为**n**，那么有两种情况。
 - en: If **n** is odd, then median is at the position **n/2+1**
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果**n**是奇数，那么中位数位于位置**n/2+1**。
 - en: If **n** is even, then median is at the position **(n/2 + (n/2 +1 ))/2**
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果**n**是偶数，那么中位数位于位置**(n/2 + (n/2 +1 ))/2**。
 - en: '**Program**'
+  id: totrans-23
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

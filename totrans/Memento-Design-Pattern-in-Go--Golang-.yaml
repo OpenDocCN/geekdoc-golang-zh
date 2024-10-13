@@ -1,124 +1,194 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:04:05'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:04:05
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Memento Design Pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的备忘录设计模式（Memento Design Pattern in Go (Golang)）
 - en: 来源：[https://golangbyexample.com/memento-design-pattern-go/](https://golangbyexample.com/memento-design-pattern-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/memento-design-pattern-go/](https://golangbyexample.com/memento-design-pattern-go/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：如有兴趣了解其他设计模式在Go中的实现，请查看此完整参考 – [Go语言中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction:](#Introduction "Introduction:")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[介绍：](#Introduction "Introduction:")'
 - en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实际例子：](#Practical_Example "Practical Example:")'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction:**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "Full Working Code:")*  *# **介绍：**'
 - en: Memento design pattern is a behavioral design pattern. It allows us to save
     checkpoints for an object and thus allow an object to revert to its previous state.
     Basically it helps in undo-redo operations on an object. Below are the design
     components of the Memento Design Pattern.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 备忘录设计模式是一种行为设计模式。它允许我们为对象保存检查点，从而使对象能够恢复到之前的状态。基本上，它有助于对象的撤销-重做操作。以下是备忘录设计模式的设计组件。
 - en: '**Originator**: It is the actual object whose state is saved as a memento.'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**发起者**：这是实际保存状态的对象，状态被保存为备忘录。'
 - en: '**Memento**: This is the object which saves the state of the originator'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**备忘录**：这是保存发起者状态的对象。'
 - en: '**Caretaker**: This is the object that saves multiple mementos. Given an index,
     it returns the corresponding memento.'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**照管者**：这是保存多个备忘录的对象。给定一个索引，它返回相应的备忘录。'
 - en: The originator defines two methods. **savememento()** and **restorememento()**
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 发起者定义了两个方法。**savememento()**和**restorememento()**
 - en: '**savememento()-** in this method the originator saves its internal state into
     a memento object.'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**savememento()-** 在此方法中，发起者将其内部状态保存到备忘录对象中。'
 - en: '**restorememento()-** this method takes input as a memento object. The originator
     restores itself to the pass memento.  Hence a previous state is restored.'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**restorememento()-** 此方法以备忘录对象为输入。发起者将自身恢复到过去的备忘录。因此，恢复了之前的状态。'
 - en: '**Practical Example:**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**实际例子：**'
 - en: '**originator.go**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**originator.go**'
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**memento.go**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**memento.go**'
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**caretaker.go**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**caretaker.go**'
 - en: Notice that the caretaker contains the mementoArray which holds all the memento.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，照管者包含了mementoArray，它保存了所有备忘录。
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**main.go**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE3]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Full Working Code:**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE5]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*   [memento](https://golangbyexample.com/tag/memento/)*   [pattern](https://golangbyexample.com/tag/pattern/)*'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*   [memento](https://golangbyexample.com/tag/memento/)*   [pattern](https://golangbyexample.com/tag/pattern/)*'

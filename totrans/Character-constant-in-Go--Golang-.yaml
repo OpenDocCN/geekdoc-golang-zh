@@ -1,182 +1,280 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:28:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:28:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Character constant in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的字符常量
 - en: 来源：[https://golangbyexample.com/character-constant-golang/](https://golangbyexample.com/character-constant-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/character-constant-golang/](https://golangbyexample.com/character-constant-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Example](#Example "Example")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "示例")'
 - en: '[Typed character constant](#Typed_character_constant "Typed character constant")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[类型字符常量](#Typed_character_constant "类型字符常量")'
 - en: '[Untyped named character constant](#Untyped_named_character_constant "Untyped
     named character constant")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[未类型命名字符常量](#Untyped_named_character_constant "未类型命名字符常量")'
 - en: '[Untyped unnamed character constant](#Untyped_unnamed_character_constant "Untyped
     unnamed character constant")*  *# **Overview**'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[未类型未命名字符常量](#Untyped_unnamed_character_constant "未类型未命名字符常量")*  *# **概述**'
 - en: In go character constant is represented as a value between single quotes. Refer
     this article to understand character in golang better in general
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go中，字符常量表示为单引号之间的值。请参考这篇文章以更好地理解Golang中的字符。
 - en: Also to better understand character constant in golang it is important to understand
     typed and untyped constant in go. Please refer to this article for that – [https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)/
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样，为了更好地理解Golang中的字符常量，理解Go中的类型和未类型常量是很重要的。请参考这篇文章了解更多 – [https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)/
 - en: Once you have gone through the article you would have understood that constant
     can be declared in three ways
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦你阅读完这篇文章，你将会明白常量可以用三种方式声明
 - en: Typed  constant
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类型常量
 - en: Untyped unnamed  constant
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型未命名常量
 - en: Untyped named constant
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型命名常量
 - en: It is the same case with character as well. Let’s see a program to understand
     it
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 字符的情况也是如此。让我们看一个程序来理解它
 - en: '**Example**'
+  id: totrans-19
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Below is the program illustrating a character constant.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是一个说明字符常量的程序。
 - en: '[PRE0]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, we created a new type  **myChar**
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了一个新类型**myChar**
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Also above program shows the example of
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序还展示了
 - en: Typed character constant
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类型字符常量
 - en: Untyped unnamed character constant
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型未命名字符常量
 - en: Untyped named character constant
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型命名字符常量
 - en: Let’s understand each of them and their behaviour
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们理解它们的每一个及其行为
 - en: '**Typed character constant**'
+  id: totrans-31
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**类型字符常量**'
 - en: It is defined as below
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 定义如下
 - en: '[PRE3]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Notice in above that below line will cause a compilation error. This is because
     variable **aa** is of type **int32**. So below line will cause compilation error
     as it cannot be assigned to variable of type **myChar**
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，上述代码中的以下行将导致编译错误。这是因为变量**aa**的类型为**int32**。因此，下面的行将导致编译错误，因为它无法赋值给类型为**myChar**的变量。
 - en: '[PRE4]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: But typed string constant can be assigned to a variable created with **var**
     keyword like below
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是类型字符串常量可以赋值给使用**var**关键字创建的变量，如下所示
 - en: '[PRE5]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Untyped named character constant**'
+  id: totrans-38
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**未类型命名字符常量**'
 - en: It is defined as below
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 定义如下
 - en: '[PRE6]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Untyped named string constant  can be assigned to variable of type **myChar**
     as well variable created with **var** keyword because it is untyped so type of
     the constant will be decided depending upon the type of variable they are being
     assigned to.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 未类型命名字符串常量可以赋值给类型为**myChar**的变量以及使用**var**关键字创建的变量，因为它是未类型的，所以常量的类型将根据赋值给它的变量类型决定。
 - en: '[PRE7]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Untyped unnamed character constant**'
+  id: totrans-43
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**未类型未命名字符常量**'
 - en: It is like below
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 它如下所示
 - en: '[PRE8]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Untyped unnamed string constant can be assigned to variable of type **myChar**
     as well variable created with **var** keyword because it is untyped so type of
     the constant will be decided depending upon the type of variable they are being
     assigned to.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 未类型未命名字符串常量可以赋值给类型为**myChar**的变量以及使用**var**关键字创建的变量，因为它是未类型的，所以常量的类型将根据赋值给它的变量类型决定。
 - en: '[PRE9]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*'

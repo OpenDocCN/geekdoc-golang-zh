@@ -1,60 +1,94 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:36:23'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:36:23
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Check if a linked list is circular in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中检查链表是否是循环链表
 - en: 来源：[https://golangbyexample.com/linked-list-is-circular-go/](https://golangbyexample.com/linked-list-is-circular-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/linked-list-is-circular-go/](https://golangbyexample.com/linked-list-is-circular-go/)
 - en: '![Linked List - Is circular image](img/fd1244a69df50e7bcb299f396b6f796a.png)'
+  id: totrans-6
   prefs: []
   type: TYPE_IMG
+  zh: '![链表 - 是否是循环链表图像](img/fd1244a69df50e7bcb299f396b6f796a.png)'
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: Check if a linked list is circular. A linked list is circular is all nodes are
     connected in the form of a cylce.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 检查链表是否是循环链表。如果所有节点以循环的形式连接，则链表是循环的。
 - en: '**Program**'
+  id: totrans-11
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: In the below program, we first create a linked list. We then check if it is
     circular. It will print false first. After that, we convert the linked list into
     a circular linked list. We then again check if it is circular. It prints true
     now
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的程序中，我们首先创建一个链表。然后检查它是否是循环链表。它会先打印false。之后，我们将链表转换为循环链表。然后再次检查它是否是循环链表。现在打印true。
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[circular](https://golangbyexample.com/tag/circular/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [single](https://golangbyexample.com/tag/single/)*'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[循环](https://golangbyexample.com/tag/circular/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [单链表](https://golangbyexample.com/tag/single/)*'

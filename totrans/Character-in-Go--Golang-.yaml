@@ -1,118 +1,178 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:06:46'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:46
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Character in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的字符（Golang）
 - en: 来源：[https://golangbyexample.com/character-in-go/](https://golangbyexample.com/character-in-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/character-in-go/](https://golangbyexample.com/character-in-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code Example](#Code_Example "Code Example")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码示例](#Code_Example "Code Example")'
 - en: '[Caveats](#Caveats "Caveats")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[注意事项](#Caveats "Caveats")*  *# **概述**'
 - en: Golang does not have any data type of ‘**char**‘. Therefore
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang没有任何‘**char**’数据类型。因此
 - en: '**byte** is used to represent the ASCII character. byte is an alias for uint8,
     hence is of 8 bits or 1 byte and can represent all ASCII characters from 0 to
     255'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**byte**用于表示ASCII字符。byte是uint8的别名，因此为8位或1字节，可以表示所有从0到255的ASCII字符'
 - en: '**rune** is used to represent all UNICODE characters which include every character
     that exists. rune is an alias for **int32** and can represent all UNICODE characters.
     It is 4 bytes in size.'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**rune**用于表示所有UNICODE字符，包括所有存在的字符。rune是**int32**的别名，能够表示所有UNICODE字符。其大小为4字节。'
 - en: A **string** of one length can also be used to represent a character implicitly.
     The size of one character string will depend upon the encoding of that character.
     For utf-8 encoding, it will be between 1-4 bytes
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个长度为一的**string**也可以隐式表示一个字符。一个字符字符串的大小将取决于该字符的编码。对于utf-8编码，它将在1-4字节之间
 - en: To declare either a **byte** or a **rune** we use single quotes. While declaring
     **byte** we have to specify the type,  If we don’t specify the type, then the
     default type is meant as a **rune.**
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 要声明**byte**或**rune**，我们使用单引号。在声明**byte**时，必须指定类型。如果不指定类型，则默认类型为**rune**。
 - en: To declare a **string**, we use double quotes or backquotes. Double quotes string
     honors escape character while back quotes string is a raw literal string and doesn’t
     honor any kind of escaping.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 要声明一个**string**，我们使用双引号或反引号。双引号字符串支持转义字符，而反引号字符串是原始字面字符串，不支持任何转义。
 - en: '**Code Example**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码示例**'
 - en: See the program below. It shows
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 请参见下面的程序。它显示
 - en: A byte representing the character ‘**a**‘
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 表示字符‘**a**‘的byte
 - en: A rune representing the pound sign ‘**£**‘
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 表示英镑符号‘**£**‘的rune
 - en: A string having one character micro sign **‘µ’**
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个字符微符号**‘µ’**的字符串
 - en: '[PRE0]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Caveats**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**注意事项**'
 - en: Declaring a  byte with a NON-ASCII character will raise a compiler error as
     below. I tried with a character having a corresponding code as 285
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 用非ASCII字符声明byte会导致编译器错误，如下所示。我尝试用一个对应代码为285的字符
 - en: '[PRE2]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Only a single character can be declared inside a single quote while initializing
     **byte** or a **rune**. On trying to add two character between single quote, below
     compiler warning will be generated
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在初始化**byte**或**rune**时，只能在单引号内声明一个字符。当尝试在单引号中添加两个字符时，将生成如下编译器警告
 - en: '[PRE3]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '[char](https://golangbyexample.com/tag/char/)*   [character](https://golangbyexample.com/tag/character/)*   [golang](https://golangbyexample.com/tag/golang/)*   [rune](https://golangbyexample.com/tag/rune/)*   [string](https://golangbyexample.com/tag/string/)*'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[char](https://golangbyexample.com/tag/char/)*   [character](https://golangbyexample.com/tag/character/)*   [golang](https://golangbyexample.com/tag/golang/)*   [rune](https://golangbyexample.com/tag/rune/)*   [string](https://golangbyexample.com/tag/string/)*'

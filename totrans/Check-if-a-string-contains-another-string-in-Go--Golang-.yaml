@@ -1,66 +1,104 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:11:55'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:11:55'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Check if a string contains another string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 检查字符串在Go (Golang)中是否包含另一个字符串
 - en: 来源：[https://golangbyexample.com/check-if-substring-golang/](https://golangbyexample.com/check-if-substring-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/check-if-substring-golang/](https://golangbyexample.com/check-if-substring-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")*  *# **概述**'
 - en: In Golang string are UTF-8 encoded. **strings** package of GO provides a **Contains**
     method that can be used to check if a particular string is a substring of another
     string.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中，字符串是UTF-8编码的。GO的**strings**包提供了一个**Contains**方法，可以用来检查特定字符串是否是另一个字符串的子字符串。
 - en: Below is the signature of the function
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: As you can notice the return value of the Compare function is an bool . This
     value will be
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，Compare函数的返回值是一个布尔值。这个值将是
 - en: true is **substr** is present in **s**
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: true是**substr**在**s**中存在
 - en: false is **substr** is not present in **s**
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: false是**substr**在**s**中不存在
 - en: '**Code:**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]*'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE2]*'

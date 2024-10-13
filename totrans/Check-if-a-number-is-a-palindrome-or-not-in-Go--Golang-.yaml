@@ -1,59 +1,91 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:42:24'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:42:24
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Check if a number is a palindrome or not in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中检查一个数字是否是回文。
 - en: 来源：[https://golangbyexample.com/check-number-palindrome-golang/](https://golangbyexample.com/check-number-palindrome-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/check-number-palindrome-golang/](https://golangbyexample.com/check-number-palindrome-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[First Solution – Reverse the Number](#First_Solution_-_Reverse_the_Number
     "First Solution – Reverse the Number")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[第一种解决方案 – 反转数字](#First_Solution_-_Reverse_the_Number "第一种解决方案 – 反转数字")'
 - en: '[Second Solution – Use Recursion](#Second_Solution_-_Use_Recursion "Second
     Solution – Use Recursion")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[第二种解决方案 – 使用递归](#Second_Solution_-_Use_Recursion "第二种解决方案 – 使用递归")*  *## **概述**'
 - en: For eg below numbers are palindrome
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，下面的数字是回文。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Below numbers are not
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的数字不是回文。
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: We have two solutions to find out if a number is palindrome or not
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们有两种解决方案来判断一个数字是否是回文。
 - en: Reverse the number. If the reversed number is equal to the original number,
     then the number is a palindrome
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 反转数字。如果反转后的数字等于原始数字，则该数字是回文。
 - en: The other approach is to use recursion and pass in the pointer to the number.
     While moving down the recursion tree divide the number by 10\. While moving up
     the recursion tree divide the value at the pointer to the number by 10\. During
@@ -61,38 +93,60 @@
     will be the first and the last digit in the number at the pointer will be the
     first. We can compare these two to check if they are equal. This check is done
     each time they meet.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 另一种方法是使用递归并传入数字的指针。在递归树向下移动时，将数字除以10。当向上移动递归树时，将指针处的值除以10。在递归树的任何步骤中，当它们相遇时，原始数字的最后一位将是第一位，指针处数字的第一位将是最后一位。我们可以比较这两者以检查它们是否相等。这个检查在每次相遇时都会进行。
 - en: '**First Solution – Reverse the Number**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**第一种解决方案 – 反转数字**'
 - en: Below is the program for the same
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的程序
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Second Solution – Use Recursion**'
+  id: totrans-22
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**第二种解决方案 – 使用递归**'
 - en: Below is the program for the same
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的程序
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]*'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE5]*'

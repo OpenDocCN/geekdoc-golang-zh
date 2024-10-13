@@ -1,48 +1,76 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:06:59'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:59
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Check if a file or directory exists in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中检查文件或目录是否存在
 - en: 来源：[https://golangbyexample.com/check-if-file-or-directory-exists-go/](https://golangbyexample.com/check-if-file-or-directory-exists-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/check-if-file-or-directory-exists-go/](https://golangbyexample.com/check-if-file-or-directory-exists-go/)
 - en: '**os.Stat** and **os.IsNotExist()** can be used to check whether a particular
     file or directory exist or not.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os.Stat** 和 **os.IsNotExist()** 可用于检查特定文件或目录是否存在。'
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [File Exists   ](#File_Exists "File Exists    ")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [文件存在   ](#File_Exists "File Exists    ")'
 - en: '[Folder Exists](#Folder_Exists "Folder Exists")*  *# **File Exists   **'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[文件夹存在](#Folder_Exists "Folder Exists")*  *# **文件存在   **'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Folder Exists**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**文件夹存在**'
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[directory](https://golangbyexample.com/tag/directory/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[目录](https://golangbyexample.com/tag/directory/)*   [golang](https://golangbyexample.com/tag/golang/)*'

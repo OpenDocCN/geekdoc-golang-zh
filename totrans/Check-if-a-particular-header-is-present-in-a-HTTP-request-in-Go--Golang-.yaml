@@ -1,123 +1,192 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:31:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:31:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Check if a particular header is present in a HTTP request in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 检查 Go (Golang) 中 HTTP 请求是否存在特定 header。
 - en: 来源：[https://golangbyexample.com/header-present-http-golang/](https://golangbyexample.com/header-present-http-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/header-present-http-golang/](https://golangbyexample.com/header-present-http-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")*  *# **Overview**'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")*  *# **概述**'
 - en: Below is the format in which a Header is represented in go.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是 header 在 Go 中表示的格式。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: So internally header is a key value map with
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以在内部，header 是一个键值映射。
 - en: key being represented in canonical form. Canonical form means that first character
     and any character following a hyphen is in uppercase. All other characters is
     in lowercase. Example of canonical forms are
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 键以规范形式表示。规范形式意味着第一个字符和连字符后面的任何字符都是大写字母。其余字符都是小写字母。规范形式的示例包括：
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Value is represented as an array of string. Why array of strings? Because it
     is perfectly okay to two headers with same key and different values in a request.
     Both the values will be collected in the array.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 值表示为字符串数组。为什么是字符串数组？因为在请求中使用相同键的两个 header 和不同值是完全可以的。两个值将被收集到数组中。
 - en: For eg if there are below headers in an incoming request
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果在传入请求中有以下 headers：
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Then at server then headers will look like
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后在服务器上，header 将如下所示：
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: And since header is a map, we can use the property of a map to check if a particular
     key is present or not. Below is the format to check if a key exist in the map
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于 header 是一个映射，我们可以利用映射的特性检查某个特定键是否存在。以下是检查映射中键是否存在的格式。
 - en: '[PRE4]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: There are two cases
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里有两种情况
 - en: If the key exists **val **variable be the value of the key in the map and **ok **variable
     will be true
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果键存在，**val** 变量将是映射中键的值，而 **ok** 变量将为 true。
 - en: If the key doesn’t exist **val** variable will be default zero value of value
     type and **ok **variable will be false
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果键不存在，**val** 变量将是值类型的默认零值，而 **ok** 变量将为 false。
 - en: Let’s see an example
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个例子。
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In above program we started a server which is listening on port 8080\. We also
     defined a URL on that endpoint. Run this server and make the below API call.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们启动了一个监听端口 8080 的服务器。我们还在该端点定义了一个 URL。运行此服务器并进行以下 API 调用。
 - en: '[PRE6]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: After running this API check the output in the terminal. It will output. You
     can check the output. content-type header is present hence it outputs its value.
     someKey header is not present hence it prints that is no present. Also note that
     while accessing the header map we need to enter the key in the canonical form
     only. For example even though the supplied header in the curl is
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行此 API 后，请检查终端中的输出。它将输出结果。你可以检查输出。content-type header 存在，因此输出其值。someKey header
+    不存在，因此打印未找到。此外，请注意，在访问 header 映射时，我们需要以规范形式输入键。例如，即使 curl 中提供的 header 是：
 - en: '[PRE7]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: but while accessing the header map in the code we do like below i.e using key
     in canonical form **Content-Type**
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是在代码中访问 header 映射时，我们使用的键是规范形式 **Content-Type**。
 - en: '[PRE8]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In case we only want to check if a key is present and val is not needed, then
     blank identifier i.e “_” can be used in place of val.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们只想检查一个键是否存在而不需要值，则可以用空标识符即“_”替代值。
 - en: '[PRE9]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[去](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*'

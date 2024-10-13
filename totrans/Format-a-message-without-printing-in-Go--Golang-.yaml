@@ -1,77 +1,121 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:26:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:26:22
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Format a message without printing in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中格式化消息而不打印。
 - en: 来源：[https://golangbyexample.com/format-message-no-print-golang/](https://golangbyexample.com/format-message-no-print-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/format-message-no-print-golang/](https://golangbyexample.com/format-message-no-print-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: '**Sprintf** function of **fmt** package can be used to format the string without
     printing it.  It is similar to **Printf** function with the only difference between
     the two being'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**fmt** 包的 **Sprintf** 函数可以用来格式化字符串而不打印。它与 **Printf** 函数类似，唯一的区别在于二者。'
 - en: '**Printf** formats and print the message'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Printf** 格式化并打印消息。'
 - en: '**Sprintf** only formats the message.'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Sprintf** 仅格式化消息。'
 - en: Below is the syntax of the **Sprintf** function
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是 **Sprintf** 函数的语法。
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The **Sprintf** function formats the string according to format specifier and
     returns the resultant string
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Sprintf** 函数根据格式说明符格式化字符串并返回结果字符串。'
 - en: '**Example**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see a program for this
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个程序。
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program **fmt.Sprintf** correctly formats the message while **fmt.Println**
     is used to print the formatted message
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，**fmt.Sprintf** 正确格式化消息，而 **fmt.Println** 用于打印格式化后的消息。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

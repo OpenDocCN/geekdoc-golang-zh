@@ -1,93 +1,139 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:02:30'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:02:30
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Flyweight Design Pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的享元设计模式
 - en: 来源：[https://golangbyexample.com/flyweight-design-pattern-golang/](https://golangbyexample.com/flyweight-design-pattern-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/flyweight-design-pattern-golang/](https://golangbyexample.com/flyweight-design-pattern-golang/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：如果您想了解如何在GO中实现所有其他设计模式，请查看此完整参考 – [Go中的所有设计模式（Golang）](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Definition: ](#Definition "Definition:  ")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [定义：](#Definition "定义：")'
 - en: '[When to Use:](#When_to_Use "When to Use:")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用时机：](#When_to_Use "使用时机：")'
 - en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML图：](#UML_Diagram "UML图：")'
 - en: '[Mapping:](#Mapping "Mapping:")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射：](#Mapping "映射：")'
 - en: '[Practical Example:](#Practical_Example "Practical Example:")*  *## **Definition: **'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实用示例：](#Practical_Example "实用示例：")*  *## **定义：**'
 - en: It is a structural design pattern. This pattern is used when a large number
     of similar objects need to be created. These objects are called flyweight objects
     and are immutable.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一种结构设计模式。当需要创建大量相似对象时，使用此模式。这些对象称为享元对象且是不可变的。
 - en: Let’s first see an example. Flyweight Pattern will be clear after this example.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们先看一个例子。享元模式将在此示例之后变得清晰。
 - en: In a game of Counter-Strike, Terrorist and Counter-Terrorist have a different
     type of dress. For simplicity, let’s assume that both Terrorist and Counter-Terrorists
     have one dress type each. The dress object is embedded in the player object as
     below
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在反恐精英游戏中，恐怖分子和反恐分子有不同类型的服装。为简化起见，我们假设恐怖分子和反恐分子各有一种服装类型。服装对象嵌入在玩家对象中，如下所示。
 - en: Below is the struct for a player, we can see the dress object is embedded in
     player struct
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是玩家的结构，我们可以看到服装对象嵌入在玩家结构中。
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s say there are 5 Terrorists and 5 Counter-Terrorist, so a total of 10 players.
     Now there are two options with respect to dress
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设有5个恐怖分子和5个反恐分子，总共10名玩家。现在有两个关于服装的选项。
 - en: Each of the 10 player objects creates a different dress object and embed them.
     Total 10 dress objects will be created
+  id: totrans-19
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 每个10个玩家对象都会创建不同的服装对象并嵌入它们。将创建总共10个服装对象。
 - en: We create two dress object
+  id: totrans-20
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 我们创建两个服装对象。
 - en: 'Single Terrorist Dress Object: This will be shared across 5 Terrorist'
+  id: totrans-21
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 单个恐怖分子服装对象：将共享给5个恐怖分子。
 - en: 'Single Counter-Terrorist Dress Object: This will be shared across 5 Counter-Terrorist'
+  id: totrans-22
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 单个反恐分子服装对象：将共享给5个反恐分子。
 - en: As you can that in Approach 1, total of 10 dress objects are created while in
     approach 2 only 2 dress objects are created. The second approach is what we follow
     in the Flyweight design pattern. The two dress objects which we created are called
@@ -96,133 +142,208 @@
     multiple objects (player here). This drastically reduces the number of dress objects
     and the good part is that even if you create more players, still only two dress
     objects will be sufficient.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 如您所见，在方法1中，总共创建了10个服装对象，而在方法2中仅创建了2个服装对象。第二种方法是我们在享元设计模式中遵循的方法。我们创建的两个服装对象称为享元对象。享元模式提取公共部分并创建享元对象。这些享元对象（这里是服装）可以在多个对象（这里是玩家）之间共享。这大大减少了服装对象的数量，并且即使您创建更多玩家，仍然只需两个服装对象即可。
 - en: In the flyweight pattern, we store the flyweight objects in the map.  Whenever
     the other objects which share the flyweight objects are created, then flyweight
     objects are fetched from the map.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在享元模式中，我们将享元对象存储在映射中。每当创建共享享元对象的其他对象时，享元对象将从映射中获取。
 - en: '**Intrinsic and Extrinsic States**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**内在和外在状态**'
 - en: '**Intrinsic State –**Dress in the intrinsic state as it can be shared across
     multiple Terrorist and Counter-Terrorist Objects'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**内在状态 –**服装是内在状态，因为它可以在多个恐怖分子和反恐分子对象之间共享。'
 - en: '**Extrinsic State –** Player location and the player weapon is an extrinsic
     state as it is different for every object.'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**外部状态 –** 玩家位置和玩家武器是外部状态，因为它对于每个对象都是不同的。'
 - en: '**When to Use**:'
+  id: totrans-28
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用时机**：'
 - en: When the objects have some intrinsic properties which can be shared.
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当对象具有可以共享的某些内在属性时。
 - en: As in the above example, dress is the intrinsic property that was taken out
     and shared.
+  id: totrans-30
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如上述示例，服装是被提取并共享的内在属性。
 - en: Use flyweight when a large number of objects needs to be created which can cause
     memory issue. In case figure out all the common or intrinsic state and create
     flyweight objects for that.
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当需要创建大量对象时使用享元，这可能会导致内存问题。要确定所有共同或内在状态，并为其创建享元对象。
 - en: '**UML Diagram**:'
+  id: totrans-32
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**UML图**:'
 - en: '![](img/c123e8abc3acbf071990c0197070735c.png)'
+  id: totrans-33
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/c123e8abc3acbf071990c0197070735c.png)'
 - en: Below is the corresponding mapping UML diagram with the example given above
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是与上面示例相对应的映射UML图
 - en: '![](img/3eaedb80c8b94daa62eddd096fe3f8f7.png)'
+  id: totrans-35
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/3eaedb80c8b94daa62eddd096fe3f8f7.png)'
 - en: '**Mapping:**'
+  id: totrans-36
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**映射:**'
 - en: The below table represents the mapping from the UML diagram actors to actual
     implementation actors in code.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 下表表示UML图中的参与者与代码中实际实现参与者之间的映射。
 - en: '| Flyweight Factory | dressFactory.go |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| 享元工厂 | dressFactory.go |'
 - en: '| Flyweight Interface | dress.go |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '| 享元接口 | dress.go |'
 - en: '| Concrete Flyweight Object 1 | terroristDress.go |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '| 具体享元对象 1 | terroristDress.go |'
 - en: '| Concrete Flyweight Object 1 | counterTerroristDress.go |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '| 具体享元对象 1 | counterTerroristDress.go |'
 - en: '| Context | player.go |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '| 上下文 | player.go |'
 - en: '| Client | main.go |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '| 客户端 | main.go |'
 - en: '**Practical Example**:'
+  id: totrans-44
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**实际示例**:'
 - en: '**dressFactory.go**'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**dressFactory.go**'
 - en: '[PRE1]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**dress.go**'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '**dress.go**'
 - en: '[PRE2]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**terroristDress.go**'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '**terroristDress.go**'
 - en: '[PRE3]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**counterTerroristDress.go**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**counterTerroristDress.go**'
 - en: '[PRE4]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**player.go**'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '**player.go**'
 - en: '[PRE5]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**main.go**'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE6]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出:**'
 - en: '[PRE7]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '[design pattern](https://golangbyexample.com/tag/design-pattern/)*   [flyweight
     design pattern](https://golangbyexample.com/tag/flyweight-design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[设计模式](https://golangbyexample.com/tag/design-pattern/) *   [享元设计模式](https://golangbyexample.com/tag/flyweight-design-pattern/)
+    *   [go](https://golangbyexample.com/tag/go/) *'

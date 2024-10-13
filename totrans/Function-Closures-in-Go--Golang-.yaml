@@ -1,130 +1,200 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:10:53'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:10:53'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Function Closures in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的函数闭包
 - en: 来源：[https://golangbyexample.com/function-closures-golang/](https://golangbyexample.com/function-closures-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/function-closures-golang/](https://golangbyexample.com/function-closures-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code:](#Code "Code:")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")'
 - en: '[Example 1](#Example_1 "Example 1")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例 1](#Example_1 "Example 1")'
 - en: '[Example 2:](#Example_2 "Example 2:")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例 2：](#Example_2 "Example 2:")'
 - en: '[Example 3:](#Example_3 "Example 3:")*  *# **Overview**'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例 3：](#Example_3 "Example 3:")*  *# **概述**'
 - en: Function closures are nothing but an anonymous function that can access variables
     declared outside the function and also retain the current value of those variables
     between different function calls. Anonymous functions are functions that are not
     named.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数闭包只是一个匿名函数，它可以访问在函数外部声明的变量，并且在不同的函数调用之间保留这些变量的当前值。匿名函数是没有名称的函数。
 - en: A closure happens when a function is defined within a different function and
     the inner function can access the variable of the outer function.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 当一个函数在另一个函数内定义时，闭包发生，内层函数可以访问外层函数的变量。
 - en: You can read more about closures here
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在这里阅读更多关于闭包的内容。
 - en: '[https://en.wikipedia.org/wiki/Closure_(computer_programming)](https://en.wikipedia.org/wiki/Closure_(computer_programming))'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://en.wikipedia.org/wiki/Closure_(computer_programming)](https://en.wikipedia.org/wiki/Closure_(computer_programming))'
 - en: '**Code:**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: Let’s see an example. Three things to notice in Example 1
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。在示例 1 中有三件事需要注意。
 - en: The getModulus function returns a closure. It is assigned to a variable **modulus**
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: getModulus 函数返回一个闭包。它被赋值给变量 **modulus**
 - en: This closure function can access the **count** variable defined outside its
     body.
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这个闭包函数可以访问在其主体外定义的 **count** 变量。
 - en: The value of the **count** variable is retained between different function calls
     of modulus function
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**count** 变量的值在 modulus 函数的不同调用之间得以保留。'
 - en: '**Example 1**'
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例 1**'
 - en: '[PRE0]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Example 2:**'
+  id: totrans-25
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例 2：**'
 - en: Below is also another example of a closure function. The function is able to
     access the **valueOutside** variable.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是另一个闭包函数的示例。该函数能够访问 **valueOutside** 变量。
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Example 3:**'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例 3：**'
 - en: In the below example, the closure function is able to access the count variable,
     as well as the value of the count variable, which is retained between different
     function calls.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的示例中，闭包函数能够访问 **count** 变量及其值，并且该值在不同的函数调用之间得以保留。
 - en: '[PRE4]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]*'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE5]*'

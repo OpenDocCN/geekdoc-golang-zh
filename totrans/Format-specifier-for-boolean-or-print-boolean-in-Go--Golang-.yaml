@@ -1,48 +1,76 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:21:02'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:21:02'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Format specifier for boolean or print boolean in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 用于布尔值的格式说明符或在Go（Golang）中打印布尔值。
 - en: 来源：[https://golangbyexample.com/format-specifier-for-bool-golang/](https://golangbyexample.com/format-specifier-for-bool-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/format-specifier-for-bool-golang/](https://golangbyexample.com/format-specifier-for-bool-golang/)
 - en: Different format specifiers can be used to print a boolean in either bool or
     string.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以使用不同的格式说明符以布尔或字符串形式打印布尔值。
 - en: '**%t** can be used to print in the boolean form'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%t** 可用于以布尔形式打印。'
 - en: '**%v** will print the default string. “true” for true and “false” for false'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%v** 将打印默认字符串。“true”代表真，“false”代表假。'
 - en: '**Code:**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[bool](https://golangbyexample.com/tag/bool/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[布尔值](https://golangbyexample.com/tag/bool/)*   [Go语言](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)'

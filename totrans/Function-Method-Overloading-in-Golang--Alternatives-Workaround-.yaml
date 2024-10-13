@@ -1,106 +1,170 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:04:57'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:04:57
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Function/Method Overloading in Golang (Alternatives/Workaround)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Golang中的函数/方法重载（替代方案/变通方法）
 - en: 来源：[https://golangbyexample.com/function-method-overloading-golang/](https://golangbyexample.com/function-method-overloading-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/function-method-overloading-golang/](https://golangbyexample.com/function-method-overloading-golang/)
 - en: Function/Method Overloading means that that the same function/method name can
     be used with a different number and types of parameters
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数/方法重载意味着可以使用相同的函数/方法名称，并具有不同数量和类型的参数
 - en: See this post for difference between function and method in Go – [https://golangbyexample.com/difference-between-method-function-go](https://golangbyexample.com/difference-between-method-function-go)
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 请参见此帖子了解Go中函数和方法之间的区别 – [https://golangbyexample.com/difference-between-method-function-go](https://golangbyexample.com/difference-between-method-function-go)
 - en: Eg.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Go doesn’t support method/function overloading. See this faq for the reason
     [https://golang.org/doc/faq#overloading](https://golang.org/doc/faq#overloading)
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: Go不支持方法/函数重载。请查看此常见问题以了解原因 [https://golang.org/doc/faq#overloading](https://golang.org/doc/faq#overloading)
 - en: According to the above faq things are simpler without it.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据上述常见问题，没有它一切都更简单。
 - en: We can workaround Method/Function overloading in GO using
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以通过使用变参函数来变通GO中的方法/函数重载
 - en: '**Variadic Function** – A Variadic Function is a function that accepts a variable
     number of arguments'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**变参函数** – 变参函数是接受可变数量参数的函数'
 - en: '**Empty Interface** – It is an interface without any methods.'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**空接口** – 这是一个没有任何方法的接口。'
 - en: There are two cases for Method/Function Overloading
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 方法/函数重载有两种情况
 - en: 1.**Different number of parameters but of the same type:**
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 1.**不同数量的参数，但类型相同：**
 - en: Above case can easily be handled using variadic functions. Notice in below code
     the parameters are of one type i.e. **int.**
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述情况可以通过变参函数轻松处理。请注意，以下代码中的参数都是同一类型，即**int。**
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 2.**Different number of parameters and of different types**
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 2.**不同数量的参数和不同类型**
 - en: This case can be handled using both variadic function and empty interface
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 该情况可以使用变参函数和空接口来处理
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: We can also use a switch case to get the exact parameters and use them accordingly.
     See the below example.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还可以使用switch语句来获取确切的参数并相应使用。请参见以下示例。
 - en: '[PRE5]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Note:** Wherever the arg is not passed it is substituted as default.'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 无论何时未传递参数，都会替代为默认值。'
 - en: '**Output:**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[function](https://golangbyexample.com/tag/function/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [method](https://golangbyexample.com/tag/method/)*   [overloading](https://golangbyexample.com/tag/overloading/)'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[函数](https://golangbyexample.com/tag/function/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [方法](https://golangbyexample.com/tag/method/)*   [重载](https://golangbyexample.com/tag/overloading/)'

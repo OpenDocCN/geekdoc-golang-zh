@@ -1,74 +1,116 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:14:27'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:14:27'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Floor of a number in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的数字下限
 - en: 来源：[https://golangbyexample.com/floor-number-golang/](https://golangbyexample.com/floor-number-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/floor-number-golang/](https://golangbyexample.com/floor-number-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "代码：")*  *# **概述**'
 - en: '**math** package of go provides a **Floor** method that can be used to get
     the ceil of a number. Floor of a number is the greatest integer value less than
     or equal to that number.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Go**的**math**包提供了一个**Floor**方法，可以用来获取一个数的下限。一个数的下限是小于或等于该数的最大整数值。'
 - en: Below is the signature of the function. It takes input a float and also returns
     a float.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是该函数的签名。它接受一个浮点数作为输入，并返回一个浮点数。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Some special cases of floor function are
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 下限函数的一些特殊情况是
 - en: Floor(±0) = ±0
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Floor(±0) = ±0
 - en: Floor(±Inf) = ±Inf
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Floor(±Inf) = ±Inf
 - en: Floor(NaN) = NaN
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Floor(NaN) = NaN
 - en: '**Code:**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [number](https://golangbyexample.com/tag/number/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [number](https://golangbyexample.com/tag/number/)*'

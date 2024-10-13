@@ -1,68 +1,106 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:16:40'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:16:40
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Generate a number in a given range in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中生成给定范围内的数字
 - en: 来源：[https://golangbyexample.com/random-number-range-golang/](https://golangbyexample.com/random-number-range-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/random-number-range-golang/](https://golangbyexample.com/random-number-range-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")**'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "代码")*  *# **概述**'
 - en: '**‘mat/rand’** package of golang contains a **Intn** function that can be used
     to generate a random number between [0,n). Bracket at the end means that n is
     exclusive.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**‘mat/rand’** 包含一个 **Intn** 函数，可以用来生成一个在[0,n)之间的随机数。末尾的括号表示n是排除的。'
 - en: To know more about what pseudo-random number means, checkout this post – [https://golangbyexample.com/generate-random-number-golang](https://golangbyexample.com/generate-random-number-golang)
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 要了解更多关于伪随机数的含义，请查看这篇文章 – [https://golangbyexample.com/generate-random-number-golang](https://golangbyexample.com/generate-random-number-golang)
 - en: Below is the signature of this method. It takes input a number n and will return
     a number x in range 0<=x<n.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是此方法的签名。它接受一个数字n并返回一个范围在0<=x<n的数字。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Above function can also be used to generate a random number in range a to b
     too. See below program. It is used to generate a number between range a to b.
     We are also providing a seed value to the **rand** so that it generates different
     output everytime.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述函数也可以用来生成范围在a到b之间的随机数。请看下面的程序。它用于生成一个在范围a到b之间的数字。我们还提供了一个种子值给**rand**，以便每次生成不同的输出。
 - en: '**Code**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [random](https://golangbyexample.com/tag/random/)*'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [随机](https://golangbyexample.com/tag/random/)*'

@@ -1,268 +1,417 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:18:17'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:18:17
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: For Loop in go (golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 中的 For 循环（Golang）
 - en: 来源：[https://golangbyexample.com/for-loop-in-golang/](https://golangbyexample.com/for-loop-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/for-loop-in-golang/](https://golangbyexample.com/for-loop-in-golang/)
 - en: This is the  chapter 10 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是 Golang 综合教程系列的第 10 章。请参阅此链接以获取该系列的其他章节 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** –  [For Range loop](https://golangbyexample.com/understand-for-range-loop-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** –  [For Range 循环](https://golangbyexample.com/understand-for-range-loop-golang/)'
 - en: '**Previous Tutorial** – [Constants](https://golangbyexample.com/constant-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**前一个教程** – [常量](https://golangbyexample.com/constant-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前教程。以下是当前教程的目录。
 - en: '**Overview**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**概述**'
 - en: 'When it comes to loop, golang has:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在循环方面，Golang 具有：
 - en: for loop
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: for 循环
 - en: for-range loop
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: for-range 循环
 - en: In this tutorial, we will be learning about the for loop only. The while loop
     is missing from go but a while loop can be implemented using a for loop as we
     will see later in this tutorial.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将只学习 for 循环。while 循环在 Go 中缺失，但可以使用 for 循环来实现 while 循环，稍后我们将在本教程中看到。
 - en: '**for** loop in GO basically has three parts as shown below in the format'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**for** 循环在 GO 中基本上有三个部分，如下格式所示'
 - en: init part
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 初始化部分
 - en: condition part
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 条件部分
 - en: post part
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 后置部分
 - en: '[PRE0]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'Here is the sequence of execution of the three parts:'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是三个部分的执行顺序：
 - en: The **init part** is executed first before the first iteration
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**初始化部分**在第一次迭代前首先执行。'
 - en: The **condition part** is executed before every iteration. If the condition
     is false the loop will exit otherwise the loop will continue to iterate.
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**条件部分**在每次迭代前执行。如果条件为假，循环将退出，否则循环将继续迭代。'
 - en: The **post part** is executed after every iteration. After this the condition
     is check, if it is true then the loop is continued otherwise loop exists.
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**后置部分**在每次迭代后执行。之后检查条件，如果为真，则循环继续，否则循环结束。'
 - en: 'Some points to note about for loop:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于 for 循环需要注意的一些要点：
 - en: The parenthesis is not necessary around for loop but the curly braces around
     the body is necessary.
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在 for 循环中，括号不是必需的，但主体周围的花括号是必要的。
 - en: The **init** and **post** part is optional.
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**初始化**和**后置**部分是可选的。'
 - en: The **init** part can be any statement with a short declaration, function call
     or assignment. If the **init** part has the variable declaration, then the scope
     of that variable is limited to within the for loop.
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**初始化**部分可以是任何带有短声明、函数调用或赋值的语句。如果**初始化**部分有变量声明，则该变量的作用域仅限于 for 循环内部。'
 - en: The post part can be any statement but generally contains the increment logic.
     The post part cannot contain initialization. Compiler will raise error in case
     we add any initialization logic to the post part
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 后置部分可以是任何语句，但通常包含增量逻辑。后置部分不能包含初始化。如果我们在后置部分添加任何初始化逻辑，编译器将会报错。
 - en: '**Examples**'
+  id: totrans-29
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: '**Simple for loop**'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**简单的 for 循环**'
 - en: '[PRE1]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**For loop with only condition**'
+  id: totrans-34
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**仅带条件的 for 循环**'
 - en: '[PRE3]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**For Infinite loop**'
+  id: totrans-38
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**无限循环**'
 - en: '[PRE5]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:** Above program prints a infinite loop'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 上述程序打印一个无限循环'
 - en: '[PRE6]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Break Statement in For loop**'
+  id: totrans-42
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**For 循环中的中断语句**'
 - en: '**break** statement help exit out of the for loop. None of the statement after
     break is executed inside the for loop.'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**break** 语句帮助退出 for 循环。循环内 break 后的语句不被执行。'
 - en: '[PRE7]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output:**'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE8]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Continue Statement in For loop**'
+  id: totrans-47
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**For 循环中的继续语句**'
 - en: '**continue** statement help skip the current iteration of the for loop. None
     of the statement after the continue is executed and the execution reaches the
     start again with next iteration. The use case is when you want to only operate
     on certain elements of the for loop.'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**continue** 语句帮助跳过 for 循环的当前迭代。continue 后的语句不被执行，执行将重新回到开始，并进行下一次迭代。使用场景是当你只想对
+    for 循环的某些元素进行操作时。'
 - en: Let's see an exampleIn below program we only want to print non-multiples of
     3.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看下面程序的例子，我们只想打印非 3 的倍数。
 - en: '[PRE9]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output:**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE10]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Nested For Loop**'
+  id: totrans-53
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**嵌套 For 循环**'
 - en: for loop can also be nested as well. See below example
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: for 循环也可以嵌套。请看下面的例子。
 - en: '[PRE11]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Output:**'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE12]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Function Call and Assignment in Init part**'
+  id: totrans-58
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**初始化部分中的函数调用和赋值**'
 - en: The below code is an example that we can also have function call or assignment
     in init part too.
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的代码是一个示例，我们也可以在初始化部分进行函数调用或赋值。
 - en: '[PRE13]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output**'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE14]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Implementing while loop using for loop**'
+  id: totrans-63
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用for循环实现while循环**'
 - en: Go doesn't have the **while** keyword. Instead it has the **for** keyword only.
     However **for** keyword can be used to simulate the functionality same as **while**.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: Go没有**while**关键字。相反，它只有**for**关键字。然而，**for**关键字可以用来模拟与**while**相同的功能。
 - en: '**for** loop can be implemented to behave the same as **while** if **initialization_part**
     and **increment_part** can be skipped. Here is an example:'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果可以跳过**初始化部分**和**增量部分**，则可以将**for**循环实现为与**while**相同的行为。以下是一个示例：
 - en: '[PRE15]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Output:**'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE16]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Conclusion**'
+  id: totrans-69
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about for loop in golang. Please share feedback/improvements/mistakes
     in comments
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 这都是关于golang中的for循环。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** –  [For Range loop](https://golangbyexample.com/understand-for-range-loop-golang/)'
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一教程** – [范围循环](https://golangbyexample.com/understand-for-range-loop-golang/)'
 - en: '**Previous Tutorial** – [Constants](https://golangbyexample.com/constant-golang/)'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一篇教程** – [常量](https://golangbyexample.com/constant-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-73
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)'

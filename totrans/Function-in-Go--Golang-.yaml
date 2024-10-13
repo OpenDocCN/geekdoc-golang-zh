@@ -1,580 +1,881 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:16:51'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:16:51
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的函数
 - en: 来源：[https://golangbyexample.com/function-golang-complete-guide/](https://golangbyexample.com/function-golang-complete-guide/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/function-golang-complete-guide/](https://golangbyexample.com/function-golang-complete-guide/)
 - en: This is the  chapter 8 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是Go语言综合教程系列的第8章。有关该系列其他章节，请参考此链接 – [Go语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Constants](https://golangbyexample.com/constant-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一教程** – [常量](https://golangbyexample.com/constant-golang/)'
 - en: '**Previous Tutorial** –[All basic data types](https://golangbyexample.com/all-basic-data-types-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一教程** – [所有基本数据类型](https://golangbyexample.com/all-basic-data-types-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们来查看当前的教程。以下是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Signature of a function](#Signature_of_a_function "Signature of a function")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[函数的签名](#Signature_of_a_function "Signature of a function")**'
 - en: '[Calling a function](#Calling_a_function "Calling a function")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[调用函数](#Calling_a_function "Calling a function")**'
 - en: '[Function Parameters](#Function_Parameters "Function Parameters")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[函数参数](#Function_Parameters "Function Parameters")**'
 - en: '[Return Values](#Return_Values "Return Values")'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[返回值](#Return_Values "Return Values")**'
 - en: '[Named Return Values](#Named_Return_Values "Named Return Values")'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[命名返回值](#Named_Return_Values "Named Return Values")**'
 - en: '[Function Usages](#Function_Usages "Function Usages")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[函数用法](#Function_Usages "Function Usages")**'
 - en: '[Generic Usage](#Generic_Usage "Generic Usage")'
+  id: totrans-18
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[泛型用法](#Generic_Usage "Generic Usage")**'
 - en: '[Function as  Type](#Function_as_Type "Function as  Type")'
+  id: totrans-19
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[函数作为类型](#Function_as_Type "Function as  Type")**'
 - en: '[Function as User Defined Type](#Function_as_User_Defined_Type "Function as
     User Defined Type")'
+  id: totrans-20
   prefs:
   - PREF_IND
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[函数作为用户定义类型](#Function_as_User_Defined_Type "Function as User Defined Type")**'
 - en: '[Function as values (or Anonymous functions)](#Function_as_values_or_Anonymous_functions
     "Function as values (or Anonymous functions)")'
+  id: totrans-21
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[函数作为值（或匿名函数）](#Function_as_values_or_Anonymous_functions "Function as values
+    (or Anonymous functions)")**'
 - en: '[Special Usages of Function](#Special_Usages_of_Function "Special Usages of
     Function")'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[函数的特殊用法](#Special_Usages_of_Function "Special Usages of Function")**'
 - en: '[Function Closures](#Function_Closures "Function Closures")'
+  id: totrans-23
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[函数闭包](#Function_Closures "Function Closures")**'
 - en: '[Higher Order Function](#Higher_Order_Function "Higher Order Function")'
+  id: totrans-24
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[高阶函数](#Higher_Order_Function "Higher Order Function")**'
 - en: '[IIF or Immediately Invoked Function](#IIF_or_Immediately_Invoked_Function
     "IIF or Immediately Invoked Function")'
+  id: totrans-25
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[IIF或立即调用函数](#IIF_or_Immediately_Invoked_Function "IIF or Immediately Invoked
+    Function")**'
 - en: '[Variadic Function](#Variadic_Function "Variadic Function")'
+  id: totrans-26
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[可变参数函数](#Variadic_Function "Variadic Function")**'
 - en: '[Methods](#Methods "Methods")'
+  id: totrans-27
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[方法](#Methods "Methods")**'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[结论](#Conclusion "Conclusion")** *# **概述**'
 - en: A function is a group of statements that perform a specific task. In GO functions
     are first-order variables. They can be passed around like any other variable.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数是一组执行特定任务的语句。在Go中，函数是一级变量，可以像其他变量一样传递。
 - en: Some point worth noting about a function name
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于函数名称的一些注意事项
 - en: A function name cannot begin with a number
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数名称不能以数字开头
 - en: The function name is case sensitive. Hence sum, Sum,  SUM are different functions.
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数名称是区分大小写的。因此，sum、Sum、SUM是不同的函数。
 - en: A function whose name starts with a capital letter will be exported outside
     its package and can be called from other packages. A function whose name starts
     with lowercase letters will not be exported and it’s only visible within its package.
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 名称以大写字母开头的函数将被导出到其包外，并可以从其他包调用。名称以小写字母开头的函数不会被导出，仅在其包内可见。
 - en: '**Signature of a function**'
+  id: totrans-34
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**函数的签名**'
 - en: '[PRE0]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: A function in golang
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: Go语言中的函数
 - en: Declared using **func** keyword
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用**func**关键字声明
 - en: It has a name
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它有一个名称
 - en: Comma-separated zero or more input parameters
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 逗号分隔的零个或多个输入参数
 - en: Comma-separated zero or more return values
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 逗号分隔的零个或多个返回值
 - en: Function body
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数体
 - en: Can return multiple values
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可以返回多个值
 - en: An example of a function. The below function is
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个函数的例子。下面的函数是
 - en: Has the name **“sum”**
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 名称为**“sum”**
 - en: Accept two arguments of int type
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接受两个int类型的参数
 - en: Return a single value of type int
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 返回一个int类型的单一值
 - en: '[PRE1]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Calling a function**'
+  id: totrans-48
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**调用函数**'
 - en: A function in Go can be called in go as below
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: Go中的函数可以如下调用
 - en: '[PRE2]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Some points to note about calling a function
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 调用函数时需要注意的一些要点
 - en: If the function of some other package is being called then it is necessary to
     prefix the package name. Also please note that across packages only those function
     can be called which are exported meaning whose name start with capital letter
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果调用的是其他包中的函数，则必须在前面加上包名。另外，请注意，在不同包之间只能调用那些被导出的函数，即名称以大写字母开头的函数。
 - en: With in the same package the function can directly be called using its name
     suffixed by ()
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在同一个包内，可以直接使用名称后缀 () 调用函数。
 - en: '**Function Parameters**'
+  id: totrans-54
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**函数参数**'
 - en: As mentioned above function can have zero or more arguments.
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如上所述，函数可以有零个或多个参数。
 - en: type for the consecutive same types can be specified only once. For example
     above sum function can also be written as
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 连续相同类型的类型可以只指定一次。例如，上面的求和函数也可以写成。
 - en: '[PRE3]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: A copy of all the arguments is made while calling a function.
+  id: totrans-58
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在调用函数时会创建所有参数的副本。
 - en: '**Return Values**'
+  id: totrans-59
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**返回值**'
 - en: 'As mentioned above a function can have one or more return values. Assume there
     is a function sum_avg that returns two values: Sum and Average. Example of multiple
     return values'
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如上所述，函数可以有一个或多个返回值。假设有一个函数 sum_avg 返回两个值：和与平均值。多个返回值的示例。
 - en: '[PRE4]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: As a convention error is returned as the last argument in a function. Example
+  id: totrans-62
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 按照约定，错误作为函数的最后一个参数返回。示例。
 - en: '[PRE5]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Collecting multiple return values in the caller function. In below example
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在调用函数中收集多个返回值。在下面的示例中。
 - en: '[PRE6]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Named Return Values**'
+  id: totrans-66
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**命名返回值**'
 - en: A go function can have named return values. With named return values , the return
     values did not need to be initialised in the function**.** The named variables
     are specified in the signature itself. Without named values,  only return type
     is specified. It is also ok to name some of the return values. For other return
     values only type can be specified.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 函数可以具有命名返回值。对于命名返回值，返回值在函数中不需要初始化。命名变量在签名中指定。没有命名值时，仅指定返回类型。对某些返回值命名也是可以的。对于其他返回值，只能指定类型。
 - en: 'See example below: **result** is the named return value'
+  id: totrans-68
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 见下面的示例：**result** 是命名返回值。
 - en: '[PRE7]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: With named return values, type of the consecutive same types can be specified
     only once
+  id: totrans-70
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于命名返回值，连续相同类型的类型只能指定一次。
 - en: '[PRE8]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Function Usages**'
+  id: totrans-72
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**函数用法**'
 - en: Generic usage
+  id: totrans-73
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 通用用法
 - en: Function as Type
+  id: totrans-74
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数作为类型
 - en: Function as Values
+  id: totrans-75
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数作为值
 - en: The difference between function as type and function as values is that in type
     we only use the function signature whereas in function as value signature along
     with the body is used.  Let’s see each of this in detail so it is more clear
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数作为类型与函数作为值之间的区别在于，在类型中我们只使用函数签名，而在函数作为值时则使用签名和主体。让我们详细了解每个内容，以便更清晰。
 - en: '**Generic Usage**'
+  id: totrans-77
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**通用用法**'
 - en: Below is an example of the general usage of a function. We have a function sum
     in the below example which takes in two ints as input arguments and returns the
     sum.
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数一般用法的示例。我们在下面的示例中有一个函数 sum，它接受两个整数作为输入参数并返回它们的和。
 - en: '[PRE9]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output:**'
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE10]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Function as  Type**'
+  id: totrans-82
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**函数作为类型**'
 - en: In go function is also a type. Two function will be of same type if
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，函数也是一种类型。如果两个函数是同一类型的。
 - en: They have the same number of arguments with each argument is of the same type
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它们有相同数量的参数，每个参数的类型相同。
 - en: They have same number of return values and each return value is of same type.
+  id: totrans-85
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它们有相同数量的返回值，并且每个返回值的类型相同。
 - en: Function type is useful in
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数类型在以下情况下非常有用。
 - en: In the case of higher-order functions as we have seen in the above example.
     The argument and return type is specified using function type
+  id: totrans-87
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在上述例子中，我们看到高阶函数的情况。参数和返回类型是通过函数类型来指定的。
 - en: In the case of defining interfaces in go as in the interface, only the function
     type is specified. Whatever implements this interface has to define a function
     of the same type
+  id: totrans-88
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在 Go 中定义接口的情况下，接口中仅指定函数类型。实现此接口的任何东西都必须定义相同类型的函数。
 - en: Let’s see an example of function type in the interface. Notice that the interface
     **shape** only defines the type of function
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个接口中函数类型的示例。注意接口 **shape** 只定义了函数的类型。
 - en: '[PRE11]'
+  id: totrans-90
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Code:**'
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE12]'
+  id: totrans-92
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output:**'
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE13]'
+  id: totrans-94
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Function as User Defined Type**'
+  id: totrans-95
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**作为用户定义类型的函数**'
 - en: Function as user defined type can be declared using the type keyword
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 自定义类型的函数可以使用 type 关键字声明。
 - en: '[PRE14]'
+  id: totrans-97
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Output:**'
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE15]'
+  id: totrans-99
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Function as values (or Anonymous functions)**'
+  id: totrans-100
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**作为值的函数（或匿名函数）**'
 - en: A function in Go is a first-order variable so it can be used as a value as well.
     It is also called as anonymous functions because a function is not named and can
     be assigned to a variable and passed around.
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 语言中的函数是一个一阶变量，因此也可以作为值使用。它也被称为匿名函数，因为函数没有名称，可以被赋值给一个变量并传递。
 - en: They are generally created for short term use or for limited functionality.
     See the below example. In this example variable **max** assigned a function. Since
     **max** is created by a function that is not named, it is an anonymous function.
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 它们通常用于短期使用或有限功能。请看下面的示例。在这个示例中，变量 **max** 被赋值为一个函数。由于 **max** 是由一个没有名称的函数创建的，所以它是一个匿名函数。
 - en: '[PRE16]'
+  id: totrans-103
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Output:**'
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE17]'
+  id: totrans-105
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Special Usages of Function**'
+  id: totrans-106
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**函数的特殊用法**'
 - en: '**Function Closures**'
+  id: totrans-107
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**函数闭包**'
 - en: Function closures are nothing but anonymous function which can access variables
     declared outside the function and also retain the current value between different
     function calls. Let’s see an example. In below case the **count** value is retained
     between different function calls of **modulus** function
+  id: totrans-108
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数闭包就是可以访问在函数外声明的变量，并且在不同函数调用之间保持当前值的匿名函数。我们来看一个例子。在下面的案例中，**modulus** 函数的不同调用之间
+    **count** 的值得以保留。
 - en: '[PRE18]'
+  id: totrans-109
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**Output:**'
+  id: totrans-110
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE19]'
+  id: totrans-111
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**Higher Order Function**'
+  id: totrans-112
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**高阶函数**'
 - en: Higher-order functions are those functions that either accept a function as
     a type or return function. Since the function is the first-order variable in Golang
     they can be passed around and also returned from some function and assigned to
     a variable. In below example
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: 高阶函数是那些接受函数作为参数或返回函数的函数。由于函数在 Go 语言中是一阶变量，它们可以被传递，也可以从某个函数返回并赋值给一个变量。在下面的示例中。
 - en: '**print** function takes a function of type **func(int, int) int** as an argument'
+  id: totrans-114
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**print** 函数接受一个类型为 **func(int, int) int** 的函数作为参数。'
 - en: '**getAreafunc** returns a function of type **func(int, int) int**'
+  id: totrans-115
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**getAreafunc** 返回一个类型为 **func(int, int) int** 的函数。'
 - en: '[PRE20]'
+  id: totrans-116
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Output:**'
+  id: totrans-117
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE21]'
+  id: totrans-118
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**IIF or Immediately Invoked Function**'
+  id: totrans-119
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**立即调用函数（IIF）**'
 - en: '**IIF or** Immediately Invoked Function are those function which can be defined
     and executed at the same time.'
+  id: totrans-120
   prefs: []
   type: TYPE_NORMAL
+  zh: '**立即调用函数（IIF）** 是那些可以同时定义和执行的函数。'
 - en: '[PRE22]'
+  id: totrans-121
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: '**Output:**'
+  id: totrans-122
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE23]'
+  id: totrans-123
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Use Cases of IIF functions**'
+  id: totrans-124
   prefs: []
   type: TYPE_NORMAL
+  zh: '**IIF 函数的使用案例**'
 - en: When you don't want to expose the logic of the function either within or outside
     the package. For eg let's say there is a function which is setting some value.
     You can encapsulate all the logic of setting in an IIF function. This function
     won't be available for calling either outside or within the package.
+  id: totrans-125
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你不想在包内或包外暴露函数的逻辑时。例如，假设有一个函数设置某个值。你可以将所有设置逻辑封装在一个 IIF 函数中。这个函数在包内外都不可调用。
 - en: '**Variadic Function**'
+  id: totrans-126
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**变参函数**'
 - en: In Go, a function that can accept a dynamic number of arguments is called a
     Variadic function. Below is the syntax for variadic function. Three dots are used
     as a prefix before type.
+  id: totrans-127
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 语言中，可以接受动态数量参数的函数称为变参函数。下面是变参函数的语法。在类型前使用三个点作为前缀。
 - en: '[PRE24]'
+  id: totrans-128
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Code:**'
+  id: totrans-129
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE25]'
+  id: totrans-130
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: '**Output:**'
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE26]'
+  id: totrans-132
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: '**Methods**'
+  id: totrans-133
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**方法**'
 - en: Method has a receiver argument. When you attach a function to a type, then that
     function becomes a method for that type. A receiver can be a struct or any other
     type. The method will have access to the properties of the receiver and can call
     the receiver's other methods.
+  id: totrans-134
   prefs: []
   type: TYPE_NORMAL
+  zh: 方法具有接收者参数。当你将一个函数附加到一个类型时，这个函数就成为该类型的方法。接收者可以是结构体或任何其他类型。方法将访问接收者的属性，并可以调用接收者的其他方法。
 - en: '**Function:**'
+  id: totrans-135
   prefs: []
   type: TYPE_NORMAL
+  zh: '**函数：**'
 - en: '[PRE27]'
+  id: totrans-136
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: '**Method:**'
+  id: totrans-137
   prefs: []
   type: TYPE_NORMAL
+  zh: '**方法：**'
 - en: '[PRE28]'
+  id: totrans-138
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: This is the only difference between function and method, but due to it they
     differ in terms of functionality they offer
+  id: totrans-139
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数与方法之间唯一的区别在于它们提供的功能不同。
 - en: A function can be used as first-order objects and can be passed around while
     methods cannot.
+  id: totrans-140
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数可以作为一阶对象使用并被传递，而方法则不能。
 - en: Methods can be used for chaining on the receiver while function cannot be used
     for the same.
+  id: totrans-141
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 方法可以在接收者上进行链式调用，而函数则不能用于相同的用途。
 - en: There can exist different methods with the same name with a different receiver,
     but there cannot exist two different functions with the same name in the same
     package.
+  id: totrans-142
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可以存在不同接收者的同名方法，但在同一个包中不能存在同名的两个不同函数。
 - en: '**Conclusion**'
+  id: totrans-143
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about function in golang. Hope you have liked this article. Please
     share feedback or mistakes/improvements in comments.
+  id: totrans-144
   prefs: []
   type: TYPE_NORMAL
+  zh: 这篇文章全部关于 Go 语言中的函数。希望你喜欢这篇文章。请在评论中分享反馈或错误/改进意见。
 - en: '**Next Tutorial** – [Constants](https://golangbyexample.com/constant-golang/)'
+  id: totrans-145
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [常量](https://golangbyexample.com/constant-golang/)'
 - en: '**Previous Tutorial** –[All basic data types](https://golangbyexample.com/all-basic-data-types-golang/)'
+  id: totrans-146
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [所有基本数据类型](https://golangbyexample.com/all-basic-data-types-golang/)'
 - en: '[complete](https://golangbyexample.com/tag/complete/)*   [function](https://golangbyexample.com/tag/function/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [guide](https://golangbyexample.com/tag/guide/)*'
+  id: totrans-147
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整](https://golangbyexample.com/tag/complete/) * [函数](https://golangbyexample.com/tag/function/)
+    * [Go](https://golangbyexample.com/tag/go/) * [Golang](https://golangbyexample.com/tag/golang/)
+    * [指南](https://golangbyexample.com/tag/guide/) *'

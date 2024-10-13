@@ -1,138 +1,212 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:44:10'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:44:10
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Trapping rainwater problem in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的雨水困境问题
 - en: 来源：[https://golangbyexample.com/trapping-rainwater-problem-golang/](https://golangbyexample.com/trapping-rainwater-problem-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/trapping-rainwater-problem-golang/](https://golangbyexample.com/trapping-rainwater-problem-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: There is a set of bars each of 1 unit width but different heights placed alongside.
     The height of the bars is represented using an array
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 有一组宽度为1单位但高度不同的柱子并排放置。柱子的高度用数组表示
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The array represents that
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组表示的是
 - en: The total number of bars is 5
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 总共有5根柱子
 - en: The first bar is of height 2
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一根柱子的高度为2
 - en: The second bar is of height 0
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二根柱子的高度为0
 - en: The third bar is of height 2
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第三根柱子的高度为2
 - en: The fourth bar is of height 1
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第四根柱子的高度为1
 - en: The fifth bar is of height 3
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第五根柱子的高度为3
 - en: The sixth bar is of height 1
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第六根柱子的高度为1
 - en: The objective is to find the maximum amount of water that can be trapped within
     these bars
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是找到这些柱子之间可以困住的最大水量。
 - en: '![](img/1981aec303b4fff9c2cc006158b411c2.png)'
+  id: totrans-20
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/1981aec303b4fff9c2cc006158b411c2.png)'
 - en: As seen from the above graph
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 从上面的图中可以看出
 - en: 2 units of water can be trapped between bar 1 and bar 3
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 1和3柱子之间可以困住2单位的水
 - en: 1 unit of water can be trapped between bar 3 and bar 6
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 3和6柱子之间可以困住1单位的水
 - en: So total – 3 units of water can be trapped
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，总共可以困住3单位的水
 - en: Let’s see the program for the same. The strategy will be to use a stack.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看相同的程序。策略是使用栈。
 - en: Traverse through the given array
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 遍历给定的数组
 - en: For the current element, keep popping from the stack until the stack is empty
     or the height of the top element is greater than the height of the current element.
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于当前元素，持续从栈中弹出，直到栈为空或栈顶元素的高度大于当前元素的高度。
 - en: For each popped element calculate the water that can be trapped between the
     popped element and the current element.
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于每个弹出的元素，计算可以在弹出元素与当前元素之间困住的水量。
 - en: In the end, push the current element to the stack and the cycle repeats until
     all element in the array has been traversed
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 最后，将当前元素推入栈中，循环重复直到数组中的所有元素都被遍历。
 - en: '**Program**'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE1]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。此系列教程详尽，我们尝试用示例覆盖所有概念。本教程适合那些希望获得Golang专业知识和扎实理解的人——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，那么这篇文章就是为你准备的——[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,97 +1,151 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:49:42'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:49:42
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Two furthest houses with different colors in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中颜色不同的最远房子
 - en: 来源：[https://golangbyexample.com/two-furthest-houses-different-color-golang/](https://golangbyexample.com/two-furthest-houses-different-color-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/two-furthest-houses-different-color-golang/](https://golangbyexample.com/two-furthest-houses-different-color-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "程序")*  *## **概述**'
 - en: An array is given which represents the color of houses. So array[i] represents
     the color of the house at index i. The objective is to find two furthest houses
     with different colors.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个数组，表示房子的颜色。所以array[i]表示索引i处房子的颜色。目标是找到两个颜色不同且距离最远的房子。
 - en: If no such indexes exist then return -1
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果不存在这样的索引，则返回-1。
 - en: Example 1
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例 1
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Example 2
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例 2
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Below is the approach we can take.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是我们可以采取的方法。
 - en: One of the houses will be either at the 0th index or n-1 index where n is the
     length of the array
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 其中一个房子将位于第0个索引或n-1索引处，其中n是数组的长度。
 - en: We can first assume that the house at the 0th index is in the solution and then
     compute
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们可以先假设第0个索引的房子在解决方案中，然后进行计算。
 - en: We can next assume that house at n-1 index is in the solution and then compute
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们可以接着假设n-1索引的房子在解决方案中，然后进行计算。
 - en: '**Program**'
+  id: totrans-19
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序。
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，我们尽力涵盖所有概念和示例。这个教程适合那些希望获得Golang专业知识和扎实理解的人——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章就是为你准备的——[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

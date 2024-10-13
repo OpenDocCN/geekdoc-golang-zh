@@ -1,74 +1,116 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:08:09'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:08:09
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Time Difference between two time value in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 中两个时间值之间的时间差
 - en: 来源：[https://golangbyexample.com/time-difference-between-two-time-value-golang/](https://golangbyexample.com/time-difference-between-two-time-value-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/time-difference-between-two-time-value-golang/](https://golangbyexample.com/time-difference-between-two-time-value-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")*  *# **概述**'
 - en: In **Go** time is represented by the time.Time struct. It struct has a method
     **Sub** which can be used to get the difference between two different time values.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 **Go** 中，时间由 time.Time 结构体表示。该结构体有一个 **Sub** 方法，可用于获取两个不同时间值之间的差值。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The **Sub** function returns diff which is of type **Duration.** It is represented
     as **int64** nanosecond count. type Duration also defines several utility functions
     which can be used to get difference in
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Sub** 函数返回的是类型为 **Duration** 的差值。它以 **int64** 纳秒计数表示。类型 Duration 还定义了多个实用函数，可以用来获取差值。'
 - en: Hours
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 小时
 - en: Minutes
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 分钟
 - en: Seconds
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 秒
 - en: Nanoseconds
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 纳秒
 - en: '**Code:**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: 'Let’s see a working example of it:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个实际的例子：
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]*'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE2]*'

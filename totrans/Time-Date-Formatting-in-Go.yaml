@@ -1,108 +1,173 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:07:56'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:07:56
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Time/Date Formatting in Go
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的时间/日期格式化
 - en: 来源：[https://golangbyexample.com/time-date-formatting-in-go/](https://golangbyexample.com/time-date-formatting-in-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/time-date-formatting-in-go/](https://golangbyexample.com/time-date-formatting-in-go/)
 - en: If you have worked with time/date formatting in other languages you might have
     noticed that the other languages use special placeholders for time/date formatting.
     For eg ruby language uses
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你在其他语言中处理过时间/日期格式化，你可能会注意到其他语言使用特殊占位符进行时间/日期格式化。例如，Ruby语言使用
 - en: '%d for day'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '%d 表示日期'
 - en: '%Y for year'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '%Y 表示年份'
 - en: etc
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 等等
 - en: In Golang date and time format placeholders look like date and time only. Refer
     to below placeholder table
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中，日期和时间格式占位符看起来像日期和时间。请参考以下占位符表
 - en: '| **Type** | **Placeholder** |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '| **类型** | **占位符** |'
 - en: '| Day | **2** or **02** or **_2** |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '| 日期 | **2** 或 **02** 或 **_2** |'
 - en: '| Day of Week | **Monday** or **Mon** |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '| 星期几 | **Monday** 或 **Mon** |'
 - en: '| Month | **01** or **1** or **Jan** or **January** |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '| 月 | **01** 或 **1** 或 **Jan** 或 **January** |'
 - en: '| Year | **2006** or **06** |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '| 年 | **2006** 或 **06** |'
 - en: '| Hour | **03** or **3** or **15** |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '| 小时 | **03** 或 **3** 或 **15** |'
 - en: '| Minutes | **04** or **4** |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| 分钟 | **04** 或 **4** |'
 - en: '| Seconds | **05** or **5** |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| 秒 | **05** 或 **5** |'
 - en: '| MilliSeconds  (ms) | **.000** //Trailing zero will be included or **.999**
       //Trailing zero will be omitted |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| 毫秒 (ms) | **.000** //尾随零将被包含或 **.999**   //尾随零将被省略 |'
 - en: '| Micro Seconds (μs) | **.000000** //Trailing zero will be included or **.999999** 
           //Trailing zero will be omitted |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '| 微秒 (μs) | **.000000** //尾随零将被包含或 **.999999**        //尾随零将被省略 |'
 - en: '| Nano Seconds (ns) | **.000000000** //Trailing zero will be included or **.999999999**
     //Trailing zero will be omitted |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '| 纳秒 (ns) | **.000000000** //尾随零将被包含或 **.999999999** //尾随零将被省略 |'
 - en: '| am/pm | **PM** or **pm** |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '| 上午/下午 | **PM** 或 **pm** |'
 - en: '| Timezone | **MST** |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '| 时区 | **MST** |'
 - en: '| Timezone offset | **Z0700** or **Z070000** or **Z07** or **Z07:00** or **Z07:00:00** 
     or **-0700** or  **-070000** or **-07** or **-07:00** or **-07:00:00** |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| 时区偏移 | **Z0700** 或 **Z070000** 或 **Z07** 或 **Z07:00** 或 **Z07:00:00** 或 **-0700**
+    或 **-070000** 或 **-07** 或 **-07:00** 或 **-07:00:00** |'
 - en: It is easy to remember the above placeholders when represented in sequence.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述占位符按顺序表示时容易记忆。
 - en: '**Weekday-Month-Day-Hour-Min-Seconds-Year-Timezone** will be **Mon-01-02-03-04-05-06–07**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**星期-月-日-小时-分钟-秒-年-时区** 将是 **Mon-01-02-03-04-05-06–07**'
 - en: Let’s see some time format code examples
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一些时间格式代码示例
 - en: '[PRE0]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*   [time package](https://golangbyexample.com/tag/time-package/)'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/) * [time package](https://golangbyexample.com/tag/time-package/)'

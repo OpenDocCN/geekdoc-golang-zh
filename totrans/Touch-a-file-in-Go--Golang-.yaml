@@ -1,45 +1,71 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类: 未分类'
 - en: 'date: 2024-10-13 06:07:25'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:07:25'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Touch a file in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中触摸文件
 - en: 来源：[https://golangbyexample.com/touch-file-golang/](https://golangbyexample.com/touch-file-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/touch-file-golang/](https://golangbyexample.com/touch-file-golang/)
 - en: Touching a file means
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 触摸一个文件意味着
 - en: Create an empty file if the file doesn’t already exist
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果文件不存在，则创建一个空文件
 - en: If the file already exists then update the modified time of the file.
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果文件已经存在，则更新文件的修改时间。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出:**'
 - en: When running the first time it will create the file. After the first time, it
     will update the modified time of the file.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一次运行时会创建文件。第一次之后，它会更新文件的修改时间。
 - en: '[empty](https://golangbyexample.com/tag/empty/)*   [file](https://golangbyexample.com/tag/file/)'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[空文件](https://golangbyexample.com/tag/empty/) * [文件](https://golangbyexample.com/tag/file/)'

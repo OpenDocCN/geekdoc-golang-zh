@@ -1,454 +1,688 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类: 未分类'
 - en: 'date: 2024-10-13 06:18:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:18:33'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Two Dimensional (2d) and Multi-Dimensional Array and Slice in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的二维（2d）和多维数组及切片
 - en: 来源：[https://golangbyexample.com/two-dimensional-array-slice-golang/](https://golangbyexample.com/two-dimensional-array-slice-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/two-dimensional-array-slice-golang/](https://golangbyexample.com/two-dimensional-array-slice-golang/)
 - en: In go multi-dimension is possible for both array and slice. Let’s see both of
     them in detail.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go语言中，多维数组和切片都是可以的。让我们详细了解它们。
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Multi-Dimensional Arrays](#Multi-Dimensional_Arrays "Multi-Dimensional
     Arrays")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [多维数组](#Multi-Dimensional_Arrays "多维数组")'
 - en: '[Overview](#Overview "Overview")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[概述](#Overview "概述")'
 - en: '[Accessing elements of a multi dimensional array](#Accessing_elements_of_a_multi_dimensional_array
     "Accessing elements of a multi dimensional array")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[访问多维数组的元素](#Accessing_elements_of_a_multi_dimensional_array "访问多维数组的元素")'
 - en: '[Traversal of a multidimensional array](#Traversal_of_a_multidimensional_array
     "Traversal of a multidimensional array")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[多维数组的遍历](#Traversal_of_a_multidimensional_array "多维数组的遍历")'
 - en: '[How multidimensional array is stored in memory](#How_multidimensional_array_is_stored_in_memory
     "How multidimensional array is stored in memory")'
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[多维数组在内存中是如何存储的](#How_multidimensional_array_is_stored_in_memory "多维数组在内存中是如何存储的")'
 - en: '[Multi-dimensional Slices](#Multi-dimensional_Slices "Multi-dimensional Slices")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[多维切片](#Multi-dimensional_Slices "多维切片")'
 - en: '[Overview](#Overview-2 "Overview")'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[概述](#Overview-2 "概述")'
 - en: '[Accessing Multi-Dimensional Slice elements](#Accessing_Multi-Dimensional_Slice_elements
     "Accessing Multi-Dimensional Slice elements")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[访问多维切片元素](#Accessing_Multi-Dimensional_Slice_elements "访问多维切片元素")'
 - en: '[Traversal of a multi dimensional slice.](#Traversal_of_a_multi_dimensional_slice
     "Traversal of a multi dimensional slice. ")'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[多维切片的遍历。](#Traversal_of_a_multi_dimensional_slice "多维切片的遍历。")'
 - en: '[How multidimensional slice is stored in memory](#How_multidimensional_slice_is_stored_in_memory
     "How multidimensional slice is stored in memory")'
+  id: totrans-17
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[多维切片在内存中是如何存储的](#How_multidimensional_slice_is_stored_in_memory "多维切片在内存中是如何存储的")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Multi-Dimensional Arrays**'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "结论")*  *# **多维数组**'
 - en: '**Overview**'
+  id: totrans-19
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**概述**'
 - en: Below is the format for declaring a multidimensional dimensional array
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是声明多维数组的格式
 - en: '[PRE0]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: where
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中
 - en: len1 , len2 .. lenN are length of each of the dimensions
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: len1、len2 .. lenN 是每个维度的长度
 - en: T is the data type
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: T 是数据类型
 - en: All the rules that apply to the one-dimensional array also apply to the multidimensional
     array as well. It is also possible to specify the array elements during the declaration.
     In case the array elements are not specified during declaration, then all the
     array elements are allotted the default zero value of the **<data_type>**
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有适用于一维数组的规则也适用于多维数组。声明时也可以指定数组元素。如果在声明时未指定数组元素，则所有数组元素都分配了**<data_type>** 的默认零值。
 - en: Below is the format for declaring a two dimensional array with array elements
     specified.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是声明一个指定数组元素的二维数组的格式。
 - en: '[PRE1]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: where
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中
 - en: '**len1** denotes the number of rows'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**len1** 表示行数'
 - en: '**len2** denotes the number of columns'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**len2** 表示列的数量'
 - en: '**aij** denotes an element present at i row and j column'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**aij** 表示位于第 i 行第 j 列的元素'
 - en: '**T** is the data type'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**T** 是数据类型'
 - en: 'Let’s see a small example illustrating above points:'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个小示例，说明上述要点：
 - en: '[PRE2]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Notice in the above program how are we able to get the number of rows, column
     and also the total number of elements in the array
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意在上面的程序中，我们是如何得到数组的行数、列数以及总元素数的
 - en: Number of rows = len(sample)
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 行数 = len(sample)
 - en: Number of columns = len(sample[0])
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 列数 = len(sample[0])
 - en: Number of total elements = len(sample)*len(sample[0])
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 总元素数 = len(sample) * len(sample[0])
 - en: The same idea can be extended to three dimensions, four dimensions, and so on.
     Let’s see a small example of three dimensional array as well. In below program
     we are creating a 2*2*3 dimensional array.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 相同的思路可以扩展到三维、四维等等。让我们看看一个小的三维数组示例。在下面的程序中，我们创建了一个 2*2*3 的三维数组。
 - en: '[PRE4]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Accessing elements of a multi dimensional array**'
+  id: totrans-45
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**访问多维数组的元素**'
 - en: An element of a multi-dimensional array can be accessed using the index of each
     of the dimensions. For example, a two-dimensional array can be accessed by provided
     its row index and column index. Once we are able to access them using the index
     of each of the dimensions, then it is also possible to assign a new value to it
     as well. Let’s see a program
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 多维数组的元素可以通过每个维度的索引进行访问。例如，二维数组可以通过提供其行索引和列索引进行访问。一旦我们能够使用每个维度的索引访问它们，那么也可以给它分配一个新值。让我们看看一个程序。
 - en: '[PRE6]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Traversal of a multidimensional array**'
+  id: totrans-50
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**遍历多维数组**'
 - en: 'A multidimensional array can be traversed using:'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 多维数组可以通过以下方式遍历：
 - en: for-range loop
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: for-range循环
 - en: for loop
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: for循环
 - en: Let’s see a code example for traversal of a two dimensional array.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个遍历二维数组的代码示例。
 - en: '[PRE8]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Some points to note about above program
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于上述程序的一些要点
 - en: We have to use a nested range for traversal using a for-range loop. The first
     range traverses each of the rows. The second range traverses the individual array
     present at that row
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们必须使用嵌套范围进行遍历，使用for-range循环。第一个范围遍历每一行。第二个范围遍历该行中的各个数组。
 - en: The same goes for iterating using for loop.
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 迭代使用for循环也是如此。
 - en: len(sample) gives the number of rows.
+  id: totrans-61
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: len(sample) 给出行数。
 - en: len(sample[i]) gives the number of columns present at row i.
+  id: totrans-62
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: len(sample[i]) 给出行i中列的数量。
 - en: The same idea can be extended to three dimensional, four-dimensional array element
     too.
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 同样的思想也可以扩展到三维、四维数组元素。
 - en: '**How multidimensional array is stored in memory**'
+  id: totrans-64
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**多维数组在内存中的存储方式**'
 - en: Memory allocated for array is contiguous irrespective of weather an array is
     one dimensional or two dimensional. For example in case of two dimension array
     the second row starts in memory where the first row ends. Let's see a program
     illustrating this point
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 为数组分配的内存是连续的，无论数组是一维还是二维。例如，在二维数组的情况下，第二行在内存中从第一行结束的地方开始。让我们看看一个说明这一点的程序。
 - en: '[PRE10]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Notice all the address are contiguous. And the second row starts where the first
     row ends.
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意所有地址是连续的。第二行从第一行结束的地方开始。
 - en: '**Multi-dimensional Slices**'
+  id: totrans-70
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**多维切片**'
 - en: '**Overview**'
+  id: totrans-71
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**概述**'
 - en: As the multidimensional array is an array of arrays, similarly multi-dimensional
     slice is a slice of slices. To understand this, let's first look at the definition
     of a slice. A slice points to an underlying array and is internally represented
     by a slice header. A slice header is a struct which looks like  this
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于多维数组是数组的数组，因此多维切片也是切片的切片。要理解这一点，我们先来看切片的定义。切片指向一个底层数组，并由切片头表示。切片头是一个结构体，样子如下。
 - en: '[PRE12]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Data** field in slice header is pointer to the underlying array. For a one
     dimensional slice, we have below declaration'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 切片头中的**数据**字段是指向底层数组的指针。对于一维切片，我们有如下声明。
 - en: '[PRE13]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: To declare a two dimensional slice the declaration would be
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 要声明一个二维切片，声明如下。
 - en: '[PRE14]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Above declaration means that we want to create a **slice** of 2 slices. Carefully
     understand this point. But wait a second here, we haven't specified the second
     dimension here, meaning what is the length of each of the inner 2 slices. In case
     of slice, each of the inner slice has to be explicitly intialised like below
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述声明意味着我们想要创建一个**切片**，包含2个切片。仔细理解这一点。但在这里等一下，我们还没有指定第二个维度，这意味着每个内层切片的长度。在切片的情况下，每个内层切片必须像下面这样明确初始化。
 - en: '[PRE15]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: So using range on the original slice, we specify the length each of 2 slices
     using make.  Below is one other way of doing the same but with slice elements
     specified
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以使用原始切片上的范围，我们使用make指定每个2个切片的长度。下面是另一种相同的方法，但指定了切片元素。
 - en: '[PRE16]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: Basically, with the above declaration, we create a slice of 2*3 dimensions which
     is a two-dimensional slice. The same idea can be extended to two-dimension, three-dimension,
     and so on.
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本上，通过上述声明，我们创建了一个2*3维的切片，这就是一个二维切片。同样的思想可以扩展到二维、三维，等等。
 - en: A complete working example of above two points
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述两点的完整工作示例
 - en: '[PRE17]'
+  id: totrans-84
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Output**'
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE18]'
+  id: totrans-86
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: We mentioned above that we are creating a two-dimensional slice of 2*3 dimensions. 
     With that said the thought that might be coming to your mind is whether it is
     possible to have different lengths for inner slices. Yes, it is possible. Unlike
     arrays which have inner arrays of the same length, in case of slice since we initialize
     each of the inner slices individually, it is possible to have different length
     for inner slices
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们上面提到，我们正在创建一个二维切片，维度为2*3。也就是说，您可能会想到的问题是，内层切片是否可以有不同的长度。是的，这是可能的。与具有相同长度内层数组的数组不同，在切片的情况下，由于我们分别初始化每个内层切片，因此内层切片可以具有不同的长度。
 - en: Let's see an example
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个示例。
 - en: '[PRE19]'
+  id: totrans-89
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**Output**'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE20]'
+  id: totrans-91
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: Let's see a small example of a three-dimensional slice as well. In the below
     program, we are creating a slice of 2*2*3 dimensions.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个三维切片的小示例。在下面的程序中，我们创建一个维度为2*2*3的切片。
 - en: '[PRE21]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Output**'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE22]'
+  id: totrans-95
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: '**Accessing Multi-Dimensional Slice elements**'
+  id: totrans-96
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**访问多维切片元素**'
 - en: Accessing slice elements is the same as accessing elements of an array. Let's
     see an example
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: 访问切片元素与访问数组元素是相同的。让我们来看一个示例。
 - en: '[PRE23]'
+  id: totrans-98
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Output**'
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE24]'
+  id: totrans-100
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Traversal of a multi dimensional slice.**'
+  id: totrans-101
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**多维切片的遍历。**'
 - en: Traversing a multidimensional slice is the same as traversing a multi-dimensional
     array. A multidimensional slice can be traversed using
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 遍历多维切片与遍历多维数组是相同的。可以使用以下方式遍历多维切片：
 - en: for-range loop
+  id: totrans-103
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: for-range 循环
 - en: for loop
+  id: totrans-104
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: for 循环
 - en: 'Let''s see an example:'
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个示例：
 - en: '[PRE25]'
+  id: totrans-106
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: '**Output**'
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '**How multidimensional slice is stored in memory**'
+  id: totrans-108
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**多维切片在内存中的存储方式**'
 - en: Since in the case of the slice, each of the inner slices is initialized separately
     hence it is possible that inner slice might not be contiguous in memory with respect
     to each other. Although each of the elements within each of inner slice will be
     at the contiguous location. Let's see a program illustrating this point.
+  id: totrans-109
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于在切片的情况下，每个内层切片是分别初始化的，因此内层切片在内存中可能不是彼此连续的。尽管每个内层切片内的每个元素将在连续的位置上。让我们看一个程序来说明这一点。
 - en: '[PRE26]'
+  id: totrans-110
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: '**Output**'
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE27]'
+  id: totrans-112
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: '**Please Note:** There is a caveat in the above program. Since the second inner
     slice is initialized just after the first inner slice, there is a possibility
     that the address allotted to both of them is contiguous. It can happen but not
     always. Uncomment the line for test variable and then both the inner slice will
     not be allotted contiguous address. In the case of an array, all inner arrays
     will be stored at contiguous locations always.'
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: '**请注意：** 在上面的程序中有一个警告。由于第二个内层切片是在第一个内层切片之后初始化的，因此它们被分配的地址有可能是连续的。这可能发生，但并不总是如此。取消注释测试变量的那一行，然后两个内层切片将不会被分配连续的地址。在数组的情况下，所有内层数组的存储位置总是连续的。'
 - en: '**Conclusion**'
+  id: totrans-114
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about multidimensional array and slice in golang. I hope you have
     liked this article. Please share the feedback in the comments.
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于Golang中的多维数组和切片的全部内容。希望您喜欢这篇文章。请在评论中分享您的反馈。
 - en: '[2d](https://golangbyexample.com/tag/2d/)*   [3d](https://golangbyexample.com/tag/3d/)*   [array](https://golangbyexample.com/tag/array/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [slice](https://golangbyexample.com/tag/slice/)*'
+  id: totrans-116
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[二维切片](https://golangbyexample.com/tag/2d/)*   [三维切片](https://golangbyexample.com/tag/3d/)*   [数组](https://golangbyexample.com/tag/array/)*   [Go语言](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [切片](https://golangbyexample.com/tag/slice/)*'

@@ -1,82 +1,126 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:06:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Trie Implementation in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的 Trie 实现
 - en: 来源：[https://golangbyexample.com/trie-implementation-in-go/](https://golangbyexample.com/trie-implementation-in-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/trie-implementation-in-go/](https://golangbyexample.com/trie-implementation-in-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Full Working Code](#Full_Working_Code "Full Working Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码](#Full_Working_Code "Full Working Code")*  *# **概述**'
 - en: A trie is a data structure for efficient information retrieval. It is a special
     kind of tree where a path starting from root to a particular node can define a
     word that is stored in this tree. A trie can be built for entire ASCII_SIZE, ALPHABETS, 
     NUMBERS depending upon the use case. For, eg below will be the properties of a
     Trie data structure supporting small case alphabet letters
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: Trie 是一种用于高效信息检索的数据结构。它是一种特殊类型的树，从根节点到特定节点的路径可以定义存储在此树中的单词。可以根据使用案例构建整个 ASCII_SIZE、字母和数字的
+    Trie。例如，下面将是支持小写字母的 Trie 数据结构的属性。
 - en: Each node has ALBHABET_SIZE=26 children. Each child node is a trie node itself
     and has ALBHABET_SIZE=26 children.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个节点都有 ALBHABET_SIZE=26 个子节点。每个子节点本身也是一个 trie 节点，并且有 ALBHABET_SIZE=26 个子节点。
 - en: Each node is at an index in its parent’ children node array and represents an
     ASCII character. For eg for a particular node, the first non-nil children node
     will mean the presence of char ‘a’,  second non-nil children node means the presence
     of ‘b’ and so on. Absence of a child at an index means no value
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个节点在其父节点的子节点数组中具有一个索引，并表示一个 ASCII 字符。例如，对于某个特定节点，第一个非空子节点表示字符 'a' 的存在，第二个非空子节点表示
+    'b' 的存在，依此类推。在某个索引上缺少子节点意味着没有值。
 - en: Each node also has a boolean field indicating whether the node is the end of
     word or not
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个节点还有一个布尔字段，指示该节点是否为单词的结束。
 - en: The root node is the starting node and has ALBHABET_SIZE=26 children. root is
     associated with an empty value
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 根节点是起始节点，有 ALBHABET_SIZE=26 个子节点。根节点与一个空值相关联。
 - en: For eg for keywords [“sam”, “john”, “tim”, “jose”] below trie will be created
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，对于关键字 [“sam”, “john”, “tim”, “jose”]，将创建以下 Trie。
 - en: '![](img/996d2fee7196f4b285d70dbdba9bc4d6.png)'
+  id: totrans-15
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/996d2fee7196f4b285d70dbdba9bc4d6.png)'
 - en: '**Full Working Code**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**完整工作代码**'
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[data structure](https://golangbyexample.com/tag/data-structure/)*   [trie](https://golangbyexample.com/tag/trie/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数据结构](https://golangbyexample.com/tag/data-structure/)*   [Trie](https://golangbyexample.com/tag/trie/)*'

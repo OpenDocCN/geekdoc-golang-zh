@@ -1,58 +1,92 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:12:35'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:12:35
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Trim prefix of a string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中修剪字符串的前缀
 - en: 来源：[https://golangbyexample.com/trim-prefix-string-go/](https://golangbyexample.com/trim-prefix-string-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/trim-prefix-string-go/](https://golangbyexample.com/trim-prefix-string-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: In GO string are UTF-8 encoded. **strings** package of GO provides a **TrimPrefix**
     method that can be used to remove a prefix string from the input string. If the
     input string doesn’t start with the given prefix, then the input string remains
     unchanged. Also, note that this function returns the copy of the string.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在GO中，字符串是UTF-8编码的。GO的**strings**包提供了一个**TrimPrefix**方法，可用于从输入字符串中移除前缀字符串。如果输入字符串不以给定前缀开头，则输入字符串保持不变。此外，请注意此函数返回字符串的副本。
 - en: Below is the signature of the function
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是该函数的签名
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s look at the working code
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一下工作代码
 - en: '**Code**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**：'
 - en: '[PRE2]*'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE2]*'

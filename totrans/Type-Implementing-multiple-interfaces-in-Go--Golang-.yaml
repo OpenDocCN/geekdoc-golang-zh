@@ -1,86 +1,138 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:22:36'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:22:36
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Type Implementing multiple interfaces in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 类型在Go中实现多个接口
 - en: 来源：[https://golangbyexample.com/type-implementing-multiple-interfaces-go/](https://golangbyexample.com/type-implementing-multiple-interfaces-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/type-implementing-multiple-interfaces-go/](https://golangbyexample.com/type-implementing-multiple-interfaces-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# Overview'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# 概述'
 - en: A type implements an interface if it defines all methods of an interface. If
     that type defines all methods of another interface then it implements that interface.
     In essence, a type can implement multiple interfaces.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个类型如果定义了接口的所有方法，则实现该接口。如果该类型定义了另一个接口的所有方法，则它也实现那个接口。本质上，一个类型可以实现多个接口。
 - en: Let’s see an example
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子
 - en: Assume we have an interface **animal** as below
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有一个接口**动物**如下
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Also let’s say we have a **mammal** interface too as below
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外假设我们也有一个**哺乳动物**接口如下
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: We also have a **lion** struct implementing this **animal** and **mammal** interface
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还有一个**狮子**结构体实现了这个**动物**和**哺乳动物**接口
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Code**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the above program, the lion struct defines all methods of animal interface.
     It also defines all methods of mammal interface. That is why this works
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，狮子结构体定义了动物接口的所有方法。它也定义了哺乳动物接口的所有方法。这就是为什么这样可行
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: as well as this works
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 这同样也是可行的
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

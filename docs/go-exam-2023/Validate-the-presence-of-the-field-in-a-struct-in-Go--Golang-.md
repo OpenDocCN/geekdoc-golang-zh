@@ -170,4 +170,4 @@ Name string `valid:"required"`
 
 然后我们调用**ValidateStruct**函数，当我们将**Name**字段传递为 nil 时，它会引发正确的错误。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [验证](https://golangbyexample.com/tag/validation/)*
+

@@ -119,4 +119,4 @@ Timeout: News feed finished
 
 在上面的程序中，我们创建了一个名为 **news** 的通道，用于存放字符串类型的数据。然后我们将这个通道传递给 **newsfeed** 函数，该函数将新闻推送到这个通道。在选择语句中，我们正在从 **news** 通道接收新闻。这条选择语句在一个无限的 for 循环中，因此选择语句将被多次执行，直到我们退出 for 循环。我们还在 case 语句中有 **time.After**，其持续时间为 1 秒。所以这个设置将在 1 秒内从 **news** 通道接收所有新闻，然后退出。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

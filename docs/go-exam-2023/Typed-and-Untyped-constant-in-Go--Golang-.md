@@ -227,4 +227,4 @@ Type: float64 Value: 3.141592653589793
 
 根据使用案例，无类型常量可以被赋值给低精度类型（float32）或高精度类型（float64）。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

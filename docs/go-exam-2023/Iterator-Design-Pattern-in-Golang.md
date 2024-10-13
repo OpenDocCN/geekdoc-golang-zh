@@ -245,4 +245,4 @@ User is &{name:a age:30}
 User is &{name:b age:20}
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [iterator](https://golangbyexample.com/tag/iterator/)*
+

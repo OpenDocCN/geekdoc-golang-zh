@@ -119,4 +119,4 @@ val, ok := headers["Content-Type"]
 _, ok = employeeSalary["Sam"]
 ```
 
-+   [去](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*
+

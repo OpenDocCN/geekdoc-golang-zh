@@ -164,4 +164,4 @@ emp.address.city
 
 地址结构体的国家字段也是类似的。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -193,4 +193,4 @@ color
 
 +   在通过 `r.FormValue()` 获取查询参数值时，要注意在 POST 和 PUT 请求的情况下，主体参数会优先于 URL 查询字符串中的值，也就是说，如果有一个键 **X** 同时出现在表单主体（=“a”）和查询参数（=“b”）中。那么在调用 `r.Form[“X”]` 时，它将返回 [“a”] 而不是 [“b”]。
 
-+   [go](https://golangbyexample.com/tag/go/) *   [http](https://golangbyexample.com/tag/http/) *   [net http](https://golangbyexample.com/tag/net-http/) *   [query params](https://golangbyexample.com/tag/query-params/) *
+

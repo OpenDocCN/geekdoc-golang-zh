@@ -168,4 +168,4 @@ From goOne goroutine
 
 因此，在上述程序中，由于无法确定哪个发送操作会先完成，所以如果你多次运行该程序，你将看到不同的输出。
 
-+   [go](https://golangbyexample.com/tag/go/)*
+

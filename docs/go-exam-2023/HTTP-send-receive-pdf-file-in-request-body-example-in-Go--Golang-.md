@@ -155,4 +155,4 @@ writer := multipart.NewWriter(body)
 
 运行上述文件。它将把**test.pdf**发送到上面创建的服务器。请求完成后，你可以在服务器端检查。服务器会解析表单数据请求体，然后将文件内容保存到同名文件中。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -684,4 +684,4 @@ Error:
 
 **上一个教程** – [错误 - 第二部分](https://golangbyexample.com/error-in-golang-advanced/)
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) ***
+

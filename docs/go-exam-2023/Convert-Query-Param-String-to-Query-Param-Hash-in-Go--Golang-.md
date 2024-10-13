@@ -65,4 +65,4 @@ func main() {
 map[a:b x:y]
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -174,4 +174,4 @@ p.age undefined (cannot refer to unexported field or method age)
 p.getName undefined (cannot refer to unexported field or method model.(*Person).getName)
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)
+

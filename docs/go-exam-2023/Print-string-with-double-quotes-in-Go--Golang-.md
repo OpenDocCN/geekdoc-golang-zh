@@ -56,4 +56,4 @@ func main() {
 "test"
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*
+

@@ -156,4 +156,4 @@ var yy mybool = true
 var zz = true
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) * [golang](https://golangbyexample.com/tag/golang/) *
+

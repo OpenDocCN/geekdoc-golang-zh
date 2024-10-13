@@ -69,4 +69,4 @@ somestyle
 
 这种方法的限制在于，无法引用公共属性，因为接口不能有任何属性。这个问题通过使用结构体 + 接口的混合方法得到解决。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [inheritance](https://golangbyexample.com/tag/inheritance/)*   [interface](https://golangbyexample.com/tag/interface/)*   [struct](https://golangbyexample.com/tag/struct/)
+

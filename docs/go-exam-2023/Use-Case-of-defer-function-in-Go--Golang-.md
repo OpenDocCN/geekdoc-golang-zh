@@ -97,4 +97,4 @@ func writeToTempFile(text string) error {
 
 在上述程序中，我们在打开文件后使用**defer file.Close()**。这将确保即使写入文件时出现错误，文件也会被关闭。Defer 函数确保无论函数中有多少个返回语句，文件都将被关闭。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

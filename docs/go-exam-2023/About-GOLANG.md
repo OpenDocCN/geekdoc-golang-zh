@@ -174,4 +174,4 @@ Go 没有类，只有结构体。尽管结构体的功能与类非常相似，�
 
 ****下一个教程 –**** [GO 安装](https://golangbyexample.com/golang-installation)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

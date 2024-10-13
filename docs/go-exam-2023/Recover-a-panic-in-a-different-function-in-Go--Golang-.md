@@ -79,4 +79,4 @@ if r := recover(); r != nil {
 
 **checkAndPrint**函数引发了 panic，但没有 recover 函数，相反，recover 的调用在**checkAndPrintWithRecover**函数中。我们将索引 2 传递给**checkAndPrint**函数，这个索引超出了边界。因此**checkAndPrint**引发了 panic，但程序仍然能够从 panic 中恢复，正如输出所示。这是因为 panic 可以在被调用的函数中恢复，并且在调用链中也可以恢复。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

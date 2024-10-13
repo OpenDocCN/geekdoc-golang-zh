@@ -75,4 +75,4 @@ errorString := fmt.Sprintf("Out of bounds access for slice. Index passed: %d", i
 panic: Out of bounds access for slice. Index passed: 2
 ```
 
-+   [去](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*
+

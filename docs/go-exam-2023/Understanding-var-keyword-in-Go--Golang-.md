@@ -220,4 +220,4 @@ Type: complex128 Value: (3+5i)
 Type: *main.a Value: &{test}
 ```
 
-+   [Go](https://golangbyexample.com/tag/go/) *   [Golang](https://golangbyexample.com/tag/golang/)
+

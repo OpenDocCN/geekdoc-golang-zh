@@ -39,4 +39,4 @@ func main() {
 invalid operation: b + 1 (mismatched types *int and int)
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

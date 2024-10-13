@@ -81,4 +81,4 @@ func baseEmployee() employee {
 {Unnamed 0}
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

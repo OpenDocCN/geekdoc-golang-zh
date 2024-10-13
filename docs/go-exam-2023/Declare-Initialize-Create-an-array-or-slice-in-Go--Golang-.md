@@ -446,4 +446,4 @@ func main() {
 Sample: Len: 4, [5 8 0 0]
 ```
 
-+   [Go](https://golangbyexample.com/tag/go/)*
+

@@ -173,4 +173,4 @@ curl -v -X POST http://localhost:8080/example
 
 同时，请查看我们的 Golang 高级教程系列 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-+   [去](https://golangbyexample.com/tag/go/)*   [戈 Lang](https://golangbyexample.com/tag/golang/)*
+

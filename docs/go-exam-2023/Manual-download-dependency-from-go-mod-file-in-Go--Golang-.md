@@ -69,4 +69,4 @@ github.com/pborman/uuid v1.2.1/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtP
 
 **go.sum** 文件列出了模块所需的直接和间接依赖项的校验和。[github.com](http://github.com)/google/uuid 被 [github.com](http://github.com)/pborman/uuid 内部使用。它是该模块的间接依赖，因此记录在 **go.sum** 文件中。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

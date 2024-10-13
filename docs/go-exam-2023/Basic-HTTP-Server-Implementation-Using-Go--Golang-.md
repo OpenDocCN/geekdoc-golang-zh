@@ -433,4 +433,4 @@ go run main.go
 
 从内部来看，它们执行的都是相同的操作。第二种使用默认设置，而第一种则明确允许你创建 mux 和服务器实例，从而可以指定更多选项，因此第一种选项更灵活。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

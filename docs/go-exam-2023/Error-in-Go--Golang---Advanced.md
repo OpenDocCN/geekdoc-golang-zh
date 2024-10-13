@@ -672,4 +672,4 @@ Using As function: Error e is of type path error. Error: open non-existing.txt: 
 
 **上一个教程** – [错误 – 第一部分](https://golangbyexample.com/error-in-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

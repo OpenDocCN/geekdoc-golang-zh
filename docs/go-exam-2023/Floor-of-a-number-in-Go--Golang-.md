@@ -64,4 +64,4 @@ func main() {
 1
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [number](https://golangbyexample.com/tag/number/)*
+

@@ -164,4 +164,4 @@ Error:
 
 还要注意，如果程序中没有引发恐慌，那么它将输出正确的索引值。
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

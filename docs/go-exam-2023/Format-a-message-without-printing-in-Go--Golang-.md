@@ -55,4 +55,4 @@ Name is: John. Age is: 21
 
 在上述程序中，**fmt.Sprintf** 正确格式化消息，而 **fmt.Println** 用于打印格式化后的消息。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

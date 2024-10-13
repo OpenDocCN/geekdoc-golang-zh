@@ -68,4 +68,4 @@ func main() {
 3.5
 ```
 
-+   [去](https://golangbyexample.com/tag/go/)*   [数学](https://golangbyexample.com/tag/math/)*   [数字](https://golangbyexample.com/tag/number/)*
+

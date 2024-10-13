@@ -69,4 +69,4 @@ exit status 2
 
 在程序中可能发生运行时错误的情况还有很多。我们不打算提到所有情况，但你能理解这个意思。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

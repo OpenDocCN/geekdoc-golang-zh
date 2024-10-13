@@ -930,4 +930,4 @@ var zz = 'a'
 
 **上一个教程** – [Functions](https://golangbyexample.com/function-golang-complete-guide/)
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

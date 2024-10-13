@@ -247,4 +247,4 @@ Name: Sam
 
 +   当结构体较大时，最好使用指针接收者，否则每次调用方法时都会创建结构体的副本，这将非常耗费资源。
 
-+   [go](https://golangbyexample.com/tag/go/) * [golang](https://golangbyexample.com/tag/golang/)
+

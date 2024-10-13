@@ -56,4 +56,4 @@ _ "github.com/go-sql-driver/mysql"
 
 要使用任何 mysql 库，例如 gorm 或 xorm，上述空导入是必要的。
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)。
+

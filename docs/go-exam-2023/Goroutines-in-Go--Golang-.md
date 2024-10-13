@@ -386,4 +386,4 @@ Finished
 
 **上一个教程** – [Iota](https://golangbyexample.com/iota-in-golang)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

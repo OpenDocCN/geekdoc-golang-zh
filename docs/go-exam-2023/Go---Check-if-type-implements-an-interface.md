@@ -71,4 +71,4 @@ main.go:25:6: cannot use &square literal (type *square) as type shape in assignm
         *square does not implement shape (missing getArea method)
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [interface](https://golangbyexample.com/tag/interface/)*   [type](https://golangbyexample.com/tag/type/)
+

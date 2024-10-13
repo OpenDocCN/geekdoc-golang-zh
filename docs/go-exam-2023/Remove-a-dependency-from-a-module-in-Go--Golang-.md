@@ -91,4 +91,4 @@ require github.com/pborman/uuid v1.2.1
 
 该行将被移除，因为在任何源文件中都不需要它。此外，**[github.com](http://github.com)/pborman/uuid**及其依赖项的所有条目也将从**go.sum**文件中移除。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

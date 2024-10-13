@@ -79,4 +79,4 @@ Size: 17
 Modification Time: 2020-04-16 22:26:47.080128602 +0530 IST
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [模式](https://golangbyexample.com/tag/mode/)*   [修改时间](https://golangbyexample.com/tag/modified-time/)*   [权限位](https://golangbyexample.com/tag/permission-bits/)*   [大小](https://golangbyexample.com/tag/size/)*
+

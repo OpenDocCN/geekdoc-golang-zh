@@ -236,4 +236,4 @@ func main() {
 NaN
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [log](https://golangbyexample.com/tag/log/)*   [log 10](https://golangbyexample.com/tag/log-10/)*   [log 2](https://golangbyexample.com/tag/log-2/)*   [log e](https://golangbyexample.com/tag/log-e/)*
+

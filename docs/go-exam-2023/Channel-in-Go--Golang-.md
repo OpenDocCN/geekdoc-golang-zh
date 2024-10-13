@@ -862,4 +862,4 @@ nil
 
 **上一篇教程** – [协程](https://golangbyexample.com/goroutines-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

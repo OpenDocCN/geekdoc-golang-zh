@@ -101,4 +101,4 @@ Success
 
 此外，请查看我们的 Golang 进阶教程系列 - [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

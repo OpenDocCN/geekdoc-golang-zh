@@ -205,4 +205,4 @@ require (
 
 所有其他依赖项都以**//indirect**结尾。所有直接和间接依赖项的校验和将记录在 go.sum 文件中。
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

@@ -83,4 +83,4 @@ func main() {
 8 bytes
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [int](https://golangbyexample.com/tag/int/)*   [范围](https://golangbyexample.com/tag/range/)*   [uint](https://golangbyexample.com/tag/uint/)*
+

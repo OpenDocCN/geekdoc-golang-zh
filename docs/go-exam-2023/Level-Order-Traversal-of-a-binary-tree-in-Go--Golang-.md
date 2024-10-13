@@ -119,4 +119,4 @@ func main() {
 
 如果你有兴趣了解所有设计模式在 Golang 中如何实现。如果是的话，这篇文章就是为你准备的 –[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
-+   [去](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*
+

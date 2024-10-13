@@ -75,4 +75,4 @@ Some value
 
 我们可以在上面的程序中看到，值在 ch1 通道上可用，这就是为什么执行了该案例而默认案例没有被执行。输出中也同样明显。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

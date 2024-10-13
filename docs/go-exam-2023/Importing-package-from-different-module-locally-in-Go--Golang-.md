@@ -93,4 +93,4 @@ replace sample.com/math => ../math
 require sample.com/math v0.0.0-00010101000000-000000000000
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+

@@ -88,4 +88,4 @@ module github.com/pborman/uuid
 
 然而，在创建模块时使用有意义的导入路径是一个好习惯。
 
-+   [go](https://golangbyexample.com/tag/go/) * [golang](https://golangbyexample.com/tag/golang/) *
+

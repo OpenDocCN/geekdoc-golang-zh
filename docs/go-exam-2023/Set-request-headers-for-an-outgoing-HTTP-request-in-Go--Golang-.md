@@ -160,4 +160,4 @@ req.Header.Add("foo", "bar1")
 req.Header.Add("foo", "bar2")
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -86,4 +86,4 @@ if r := recover(); r != nil
 
 在这里，如果**r**为 nil，则表示没有发生`panic`。因此，如果没有`panic`，则对`recover`的调用将返回 nil。
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

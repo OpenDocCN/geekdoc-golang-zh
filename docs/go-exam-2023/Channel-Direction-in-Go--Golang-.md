@@ -135,4 +135,4 @@ func process(ch <-chan int) {
 
 **输出：** 2
 
-+   [去](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

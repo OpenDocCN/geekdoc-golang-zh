@@ -45,4 +45,4 @@ map[Tom:3000]
 
 在上面的程序中，当用新值**“3000”**写入相同的键时，它会覆盖现有值**“2000”**。当我们再次打印映射时，打印的值为 3000。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)
+

@@ -171,4 +171,4 @@ go get <dependency_name>@commit_number</dependency_name>
 go get ./...
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

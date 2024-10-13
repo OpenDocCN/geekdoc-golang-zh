@@ -164,4 +164,4 @@ go run client/main.go
 
 API 成功执行后，请检查服务器端。服务器端将创建一个名为**photo.png**的文件。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

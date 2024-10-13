@@ -55,4 +55,4 @@ In Defer
 
 上述函数还显示在主函数中使用 defer 是完全可以的。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -91,4 +91,4 @@ func main() {
 class is {firstA [{Goerge 35 Newyork} {Goerge 25 London}]}
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

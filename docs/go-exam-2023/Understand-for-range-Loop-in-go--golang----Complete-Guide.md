@@ -336,4 +336,4 @@ c
 
 **上一个教程** – [For 循环](https://golangbyexample.com/for-loop-in-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/) * [golang](https://golangbyexample.com/tag/golang/)
+

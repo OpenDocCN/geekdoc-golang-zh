@@ -295,4 +295,4 @@ make(chan int, 3)
 | 长度 | 0 | 在通道缓冲区中排队的元素数量 | - 如果是无缓冲通道则为 0 - 如果是有缓冲通道则为缓冲区中的排队元素数量 | 0 |
 | 容量 | 0 | 通道缓冲区的大小 | - 如果是无缓冲通道则为 0 - 如果是有缓冲通道则为缓冲区大小 | 0 |
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

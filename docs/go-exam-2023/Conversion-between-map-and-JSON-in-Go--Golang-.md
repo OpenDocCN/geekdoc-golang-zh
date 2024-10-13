@@ -170,4 +170,4 @@ func main() {
 map[1:{John}]
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

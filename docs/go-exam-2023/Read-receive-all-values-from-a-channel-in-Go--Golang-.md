@@ -103,4 +103,4 @@ Sum: 4
 
 在上面的程序中，我们有一个容量为 3 的缓冲通道。在主函数中，我们向通道发送了 3 个值。在 sum 函数中，我们有一个 for 循环，迭代两次，只从通道中接收两个值并进行相加。只有在我们想从通道中接收固定数量的值时，for 循环才有用。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

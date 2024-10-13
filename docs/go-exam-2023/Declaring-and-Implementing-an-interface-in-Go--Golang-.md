@@ -129,4 +129,4 @@ a = lion{}
 
 没有明确声明一个类型实现了一个接口。实际上，在 Go 中并不存在类似 Java 的**“implements”**关键字。如果一个类型实现了接口的所有方法，则它实现了该接口。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -45,4 +45,4 @@ func main() {
 const initializer [1]int literal is not a constant
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

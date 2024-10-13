@@ -73,4 +73,4 @@ func main() {
 5.5072679252057455
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [math](https://golangbyexample.com/tag/math/)*   [平方根](https://golangbyexample.com/tag/square-root/)*
+

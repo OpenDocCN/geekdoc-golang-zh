@@ -159,4 +159,4 @@ map[Tom:2000]
 
 在上面的程序中，我们使用 make 函数创建了一个 map。然后我们在其中添加了一个键值对。接着我们使用**fmt.Println**打印它，打印出所有的键值对。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

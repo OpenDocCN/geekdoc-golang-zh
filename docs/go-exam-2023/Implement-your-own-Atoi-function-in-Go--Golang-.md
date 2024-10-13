@@ -89,4 +89,4 @@ func myAtoi(s string) int {
 0
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

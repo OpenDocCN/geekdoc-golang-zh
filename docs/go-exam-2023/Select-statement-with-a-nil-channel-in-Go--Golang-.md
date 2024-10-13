@@ -88,4 +88,4 @@ News: 2
 Timeout: News feed finished
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*
+

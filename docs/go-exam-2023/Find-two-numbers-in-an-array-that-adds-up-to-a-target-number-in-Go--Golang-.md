@@ -89,4 +89,4 @@ func twoTargetSums(nums []int, target int) []int {
 [2 3]
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

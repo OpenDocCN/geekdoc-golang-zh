@@ -288,4 +288,4 @@ func main() {
 
 **上一篇教程** – [选择语句](https://golangbyexample.com/select-statement-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

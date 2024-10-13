@@ -55,4 +55,4 @@ Sum: 6
 fatal error: all goroutines are asleep - deadlock!
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+

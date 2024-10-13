@@ -40,4 +40,4 @@ func main() {
 Default value of pointer: 
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

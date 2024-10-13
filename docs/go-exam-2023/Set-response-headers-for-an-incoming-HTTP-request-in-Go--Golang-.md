@@ -182,4 +182,4 @@ curl -v -X POST http://localhost:8085/example
 {"message":"success"}
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

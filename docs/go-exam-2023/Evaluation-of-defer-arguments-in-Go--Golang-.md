@@ -47,4 +47,4 @@ In defer sample is: abc
 
 在上面的程序中，当 defer 语句被评估时，**sample** 变量的值为 **“abc”**。在 defer 函数中，我们打印 sample 变量。在 defer 语句之后，我们将 **sample** 变量的值更改为 **“xyz”**。但是程序输出 **“abc”** 而不是 **“xyz”**，因为当 defer 参数被评估时，sample 变量的值为 **“abc”**。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -64,4 +64,4 @@ From goTwo goroutine
 
 通过这种方式，我们可以执行多个 case 语句，但请注意，这并不是确定性的。如果在某个特定 case 语句上有多个操作可用，则该 case 在 for 循环的所有迭代中每次都可能被执行。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -121,4 +121,4 @@ func main() {
 456
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [scope](https://golangbyexample.com/tag/scope/)*   [variable](https://golangbyexample.com/tag/variable/)
+

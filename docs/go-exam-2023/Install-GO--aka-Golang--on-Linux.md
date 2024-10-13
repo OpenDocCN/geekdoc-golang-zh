@@ -102,4 +102,4 @@ rm -rf /usr/local/go
 export PATH=$PATH:/usr/local/go/bin
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [install](https://golangbyexample.com/tag/install/)
+

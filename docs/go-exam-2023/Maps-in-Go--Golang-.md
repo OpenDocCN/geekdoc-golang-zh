@@ -697,4 +697,4 @@ Some data
 
 **上一篇教程** – [切片](https://golangbyexample.com/slice-in-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [maps](https://golangbyexample.com/tag/maps/)*
+

@@ -163,4 +163,4 @@ Emp Value: {name: age:0 salary:0}
 
 打印的指针地址在你的机器上会有所不同。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)
+

@@ -158,4 +158,4 @@ var yy myChar = 'a'
 var zz = 'a'
 ```
 
-+   [Go](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*
+

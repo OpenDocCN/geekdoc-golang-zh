@@ -113,4 +113,4 @@ a
 b
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [iterate](https://golangbyexample.com/tag/iterate/)*   [string](https://golangbyexample.com/tag/string/)
+

@@ -235,4 +235,4 @@ emp = employee{"Sam", 31}
 too few values in employee literal
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

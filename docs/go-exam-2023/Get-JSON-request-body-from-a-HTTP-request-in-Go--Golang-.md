@@ -290,4 +290,4 @@ Response Code: 415 Unsupported Media Type
 Response Body: {"message":"Content Type is not application/json"}
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [http](https://golangbyexample.com/tag/http/)*   [json](https://golangbyexample.com/tag/json/)*
+

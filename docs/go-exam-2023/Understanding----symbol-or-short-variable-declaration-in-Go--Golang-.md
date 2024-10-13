@@ -114,4 +114,4 @@ func main() {
 1, 3, 4
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+

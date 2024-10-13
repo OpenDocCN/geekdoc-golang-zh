@@ -40,4 +40,4 @@ func main() {
 
 上述程序的输出为 456，因为内层声明的常量具有该值
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

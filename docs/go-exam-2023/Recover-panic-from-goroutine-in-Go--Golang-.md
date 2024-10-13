@@ -116,4 +116,4 @@ exit status 2
 
 在上述程序中，我们在协程中有**checkAndPrint**，它在该协程中引发了**panic**。**recover**函数在调用协程中。正如您从输出中看到的，它并没有停止**panic**，因此您看到了一些信息。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

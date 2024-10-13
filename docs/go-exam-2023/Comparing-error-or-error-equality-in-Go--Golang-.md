@@ -156,4 +156,4 @@ Is function: Both errors are equal
 
 这是因为返回的**err2**包装了一个**errorOne**实例，而相等运算符无法捕获，但**Is**函数可以捕获。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

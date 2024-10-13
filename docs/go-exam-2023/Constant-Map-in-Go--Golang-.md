@@ -48,4 +48,4 @@ func main() {
 const initializer map[string]int literal is not a constant
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

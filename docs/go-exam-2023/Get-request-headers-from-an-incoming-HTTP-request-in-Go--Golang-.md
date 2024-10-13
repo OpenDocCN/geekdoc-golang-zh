@@ -220,4 +220,4 @@ r.Headers["Content-Type"]:: [application/json]
 r.Headers["Foo"]:: [bar1 bar2]
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) * [golang](https://golangbyexample.com/tag/golang/) *
+

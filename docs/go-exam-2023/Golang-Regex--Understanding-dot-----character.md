@@ -289,4 +289,4 @@ true
 Also, check out our Golang advance tutorial Series – Golang Advance Tutorial
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

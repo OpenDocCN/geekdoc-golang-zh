@@ -88,4 +88,4 @@ Recovering from panic: Out of bound access for slice
 
 我们使用**StackTrace**函数在 recover 函数中打印崩溃的堆栈跟踪。它打印出正确的堆栈跟踪，如输出所示。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

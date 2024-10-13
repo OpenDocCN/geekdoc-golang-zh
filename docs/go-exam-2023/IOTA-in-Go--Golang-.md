@@ -385,4 +385,4 @@ medium
 
 **上一篇教程** – [接口](https://golangbyexample.com/interface-in-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

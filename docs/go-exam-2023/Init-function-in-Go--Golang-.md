@@ -414,4 +414,4 @@ Main Function Executing
 
 请注意，在上述示例中，包**b**的源文件中的 init 函数先运行。然后包**a**的源文件中的 init 函数运行，最后是主包中的 init 函数。之后运行 main 函数。
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

@@ -230,4 +230,4 @@ E
 Err: Given number is greater than linked list length
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

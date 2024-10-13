@@ -72,4 +72,4 @@ func main() {
 
 输出中的键名与 JSON 元标签中指定的相同。
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+

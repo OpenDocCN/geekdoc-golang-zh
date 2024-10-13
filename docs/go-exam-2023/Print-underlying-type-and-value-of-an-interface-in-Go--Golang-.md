@@ -80,4 +80,4 @@ Concrete Type: main.lion
 Concrete Value: {10}
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

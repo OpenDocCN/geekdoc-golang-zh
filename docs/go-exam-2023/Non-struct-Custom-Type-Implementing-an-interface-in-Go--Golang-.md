@@ -69,4 +69,4 @@ Cat walk
 
 上述程序说明了任何自定义类型也可以实现接口的概念。**cat**是字符串类型，它实现了**breathe**和**walk**方法，因此将**cat**类型的实例赋值给**animal**类型的变量是正确的。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

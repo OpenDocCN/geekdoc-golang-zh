@@ -42,4 +42,4 @@ defer resp.Body.Close()
 
 以上是如何处理 HTTP 错误以及何时关闭响应体的简单示例。请注意在示例中我们使用 defer 函数关闭 resp.Body。并且只有在错误为 nil 时响应体才会被关闭。
 
-+   [go](https://golangbyexample.com/tag/go/) * [golang](https://golangbyexample.com/tag/golang/)
+

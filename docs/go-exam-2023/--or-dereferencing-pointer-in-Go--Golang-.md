@@ -76,4 +76,4 @@ func main() {
 
 注意： *a 不是有效的操作，因为 a 不是指针
 
-+   [去](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

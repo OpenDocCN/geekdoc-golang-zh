@@ -33,4 +33,4 @@ func main() {
 nil
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)
+

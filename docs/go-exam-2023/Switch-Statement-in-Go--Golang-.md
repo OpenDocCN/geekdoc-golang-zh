@@ -398,4 +398,4 @@ Type: int
 
 **上一个教程** – [If Else](https://golangbyexample.com/understand-if-else-statement-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [switch](https://golangbyexample.com/tag/switch/)
+

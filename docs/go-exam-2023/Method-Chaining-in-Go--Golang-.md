@@ -53,4 +53,4 @@ Age: 31
 Salary: 2000
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)
+

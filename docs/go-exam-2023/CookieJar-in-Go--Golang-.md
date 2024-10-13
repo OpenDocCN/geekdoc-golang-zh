@@ -428,4 +428,4 @@ id=abcd
 
 这就是关于 golang 中 cookie jar 的全部内容。希望你喜欢这个教程。另请查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -364,4 +364,4 @@ iAnimal
 
 Go 不支持类型继承，但可以通过嵌入实现相同的功能，不过在创建这种类型层次结构时需要谨慎。此外，Go 不提供方法重写。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [继承](https://golangbyexample.com/tag/inheritance/)*   [面向对象编程](https://golangbyexample.com/tag/oop/)*   [面向对象程序设计](https://golangbyexample.com/tag/oops/)
+

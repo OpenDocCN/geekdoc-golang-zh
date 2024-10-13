@@ -114,4 +114,4 @@ m = l
 m.feed()
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

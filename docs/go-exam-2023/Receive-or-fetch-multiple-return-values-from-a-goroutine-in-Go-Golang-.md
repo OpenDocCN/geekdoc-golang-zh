@@ -78,4 +78,4 @@ res := <-resultChan
 
 这行代码将等待，直到一个值被推送到**resultChan**通道。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)
+

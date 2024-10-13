@@ -101,4 +101,4 @@ func main() {
 invalid operation: emp1 == emp2 (struct containing []string cannot be compared)
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)
+

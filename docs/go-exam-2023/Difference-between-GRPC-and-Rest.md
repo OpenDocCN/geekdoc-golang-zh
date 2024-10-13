@@ -138,4 +138,4 @@ REST 是一种建立在 HTTP/1 上的架构风格。GRPC 不是一种风格，�
 
 注意：如果你有兴趣学习 Golang，我们有一个全面的 Golang 教程系列。请查看——[Golang 全面教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 
-+   [去](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [grpc](https://golangbyexample.com/tag/grpc/)*   [rest](https://golangbyexample.com/tag/rest/)*
+

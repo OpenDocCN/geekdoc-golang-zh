@@ -181,4 +181,4 @@ func main() {
 -0.5
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [math](https://golangbyexample.com/tag/math/)*   [mod](https://golangbyexample.com/tag/mod/)*   [模](https://golangbyexample.com/tag/modulus/)*
+

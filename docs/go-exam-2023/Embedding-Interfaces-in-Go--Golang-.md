@@ -243,4 +243,4 @@ p2 := pet2{name: "Oscar", animal: d}
 
 如果我们不初始化嵌入的接口**animal**，那么它将被初始化为接口的零值，即 nil。在这样的 pet1 或 pet2 结构实例上调用**breathe()**和**walk()**方法将导致恐慌。
 
-+   [go](https://golangbyexample.com/tag/go/)*
+

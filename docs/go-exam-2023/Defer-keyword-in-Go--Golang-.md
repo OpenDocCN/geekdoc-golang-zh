@@ -405,4 +405,4 @@ Defer in main
 
 **上一个教程** – [切换](https://golangbyexample.com/switch-statement-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

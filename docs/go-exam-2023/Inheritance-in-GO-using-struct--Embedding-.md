@@ -73,4 +73,4 @@ somevalue
 
 例如，在上述代码中，如果你取消注释**//check(child)**，将会出现编译错误：“无法将 child（类型*child）作为参数传递给 check，期望类型为 base”。要解决此问题，我们可以通过接口进行继承。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [inheritance](https://golangbyexample.com/tag/inheritance/)*   [interface](https://golangbyexample.com/tag/interface/)*   [struct](https://golangbyexample.com/tag/struct/)
+

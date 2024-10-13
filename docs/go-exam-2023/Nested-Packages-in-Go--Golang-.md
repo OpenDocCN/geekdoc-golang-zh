@@ -101,4 +101,4 @@ learn $ learn
 
 +   **Square** 函数是通过 **advanced** 包来调用的，即 **advanced.Square(2)**
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

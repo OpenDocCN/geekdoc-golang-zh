@@ -64,4 +64,4 @@ From goTwo goroutine
 
 这样我们可以执行多个案例语句，但请注意这并不是确定性的。如果对于特定的案例语句，在同一通道上有多个操作可用，那么该案例在所有迭代中都可以被执行。
 
-+   [go](https://golangbyexample.com/tag/go/)*
+

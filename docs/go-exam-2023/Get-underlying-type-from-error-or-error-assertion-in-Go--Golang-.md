@@ -163,4 +163,4 @@ Using As function: Error e is of type path error. Error: open non-existing.txt: 
 
 这是因为**openFile**函数返回的错误包装了***os.Patherror**错误，而点（‘.’）断言没有捕获到该错误，但**As**函数捕获到了。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

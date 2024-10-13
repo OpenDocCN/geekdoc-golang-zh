@@ -283,4 +283,4 @@ MarshalIndent function output
 
 这就是关于打印结构体的全部内容。希望你喜欢这篇文章。请在评论中分享反馈。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [pretty](https://golangbyexample.com/tag/pretty/)*
+

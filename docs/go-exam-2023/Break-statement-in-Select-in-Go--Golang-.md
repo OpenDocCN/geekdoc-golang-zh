@@ -54,4 +54,4 @@ Before break
 fmt.Println("After break")
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

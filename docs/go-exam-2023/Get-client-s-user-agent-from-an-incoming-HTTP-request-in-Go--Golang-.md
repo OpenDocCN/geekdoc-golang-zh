@@ -69,4 +69,4 @@ UserAgent:: Mozialla -1.0
 
 在上述程序中，我们在请求结构体对象上调用 **UserAgent()** 函数，然后打印出来。它正确地打印了用户代理。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

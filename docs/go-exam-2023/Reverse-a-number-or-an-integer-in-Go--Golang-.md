@@ -110,4 +110,4 @@ func reverse(x int) int {
 0
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

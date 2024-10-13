@@ -336,4 +336,4 @@ Default value of pointer:
 
 **上一篇教程** – [defer 关键字](https://golangbyexample.com/defer-golang)
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *******
+

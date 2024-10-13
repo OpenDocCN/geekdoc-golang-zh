@@ -199,4 +199,4 @@ req.SetBasicAuth(username, password)
 
 **注意：** 我们在上面打印**用户名**和**密码**仅用于示例目的。在实际程序中，它们需要以某种安全的方式加密存储。同时，我们在下面发送的是 http 请求而非 https 用于基本认证。这仅用于说明，客户端和服务器位于同一台机器上。这并不推荐，基本认证应仅在**HTTPS**下使用。
 
-+   [去](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

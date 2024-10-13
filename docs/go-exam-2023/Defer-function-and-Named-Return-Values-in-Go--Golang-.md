@@ -46,4 +46,4 @@ func test() (size int) {
 
 在上面的程序中，我们在测试函数中命名返回值为**“size”**。在 defer 函数中，我们修改了命名返回值，并将值更改为 20。然后我们将 size 设置为 30。在主函数中，我们打印测试函数的返回值，输出为 20 而不是 30，因为 defer 函数已修改测试函数中 size 变量的值。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

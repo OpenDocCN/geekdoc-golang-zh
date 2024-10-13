@@ -62,4 +62,4 @@ func main() {
 -2.1
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [math](https://golangbyexample.com/tag/math/)*   [max](https://golangbyexample.com/tag/max/)*   [maximum](https://golangbyexample.com/tag/maximum/)*
+

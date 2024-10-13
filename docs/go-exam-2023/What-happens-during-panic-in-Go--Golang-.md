@@ -97,4 +97,4 @@ Defer in f1
 
 之后控制返回到主函数，然后程序崩溃。输出打印恐慌消息以及从主函数到**f1**再到**f2**的整个堆栈跟踪。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

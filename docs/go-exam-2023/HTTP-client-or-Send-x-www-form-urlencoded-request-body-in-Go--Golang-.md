@@ -138,4 +138,4 @@ age=18&hobbies=sports&hobbies=music&name=John
 
 它与我们上面讨论的格式相同。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

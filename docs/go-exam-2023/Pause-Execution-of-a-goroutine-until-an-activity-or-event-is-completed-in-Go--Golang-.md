@@ -86,4 +86,4 @@ Received Value: true
 
 另外，请查看我们的 Golang 综合教程系列 - [Golang 综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

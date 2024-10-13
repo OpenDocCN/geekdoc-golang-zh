@@ -212,4 +212,4 @@ func main() {
 p: Type: float64 Value: 1.7333333333333334
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)*
+

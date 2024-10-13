@@ -143,4 +143,4 @@ func test(a interface{}) {
 (true, bool)
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -57,4 +57,4 @@ func Add(a, b int) int {
 
 这里的导入路径是模块的导入路径**learn**加上包含该包的目录**math**。因此是“learn/math”。嵌套目录中的包也可以以同样的方式导入。其工作原理是由于前缀是模块导入路径，因此 Go 会知道你试图从同一模块中导入。这样它会直接引用，而不是下载。
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+

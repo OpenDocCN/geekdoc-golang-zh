@@ -76,4 +76,4 @@ Integer: -2.000000\. Fraction: -0.500000
 Integer: 0.000000\. Fraction: 0.500000
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [integer](https://golangbyexample.com/tag/integer/)*   [math](https://golangbyexample.com/tag/math/)*
+

@@ -93,4 +93,4 @@ go run school.go
 
 +   **school**模块是一个可执行模块
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+

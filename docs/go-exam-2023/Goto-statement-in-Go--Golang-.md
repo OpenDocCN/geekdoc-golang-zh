@@ -128,4 +128,4 @@ START:
 
 不建议使用 Goto，因为可读性差，通常也是许多错误的来源。任何通过 goto 实现的功能都可以通过其他 go 结构来实现。
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

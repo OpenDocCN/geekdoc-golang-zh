@@ -225,4 +225,4 @@ c:\Go
 
 **前一个教程** – [关于 Golang](https://golangbyexample.com/about-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

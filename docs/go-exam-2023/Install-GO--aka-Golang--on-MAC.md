@@ -150,4 +150,4 @@ brew install go
 brew uninstall go
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

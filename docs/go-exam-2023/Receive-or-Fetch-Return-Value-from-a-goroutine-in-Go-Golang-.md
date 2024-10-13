@@ -92,4 +92,4 @@ Value: 5
 
 程序输出相同，这证明**main**函数等待**sumValue**被推送到**result**通道。一旦从**result**通道接收到值，它就会打印出来。
 
-+   [go](https://golangbyexample.com/tag/go/)  *   [golang](https://golangbyexample.com/tag/golang/)
+

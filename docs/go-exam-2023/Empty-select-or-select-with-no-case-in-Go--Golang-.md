@@ -44,4 +44,4 @@ fatal error: all goroutines are asleep - deadlock!
 fatal error: all goroutines are asleep - deadlock!
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

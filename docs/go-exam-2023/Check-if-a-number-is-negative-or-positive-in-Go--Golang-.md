@@ -68,4 +68,4 @@ false
 false
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [math](https://golangbyexample.com/tag/math/)*   [number](https://golangbyexample.com/tag/number/)*
+

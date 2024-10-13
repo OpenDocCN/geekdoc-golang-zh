@@ -282,4 +282,4 @@ Type: lion
 
 在上面的代码中，通过使用类型切换，我们确定接口变量**a**中包含的值的类型是**狮子**或**狗**或其他某种类型。如果需要，可以在案例语句中添加更多不同的类型。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

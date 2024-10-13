@@ -55,4 +55,4 @@ Supplied value 1234 is a number with value 1234
 Supplied value 123b is not a number
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)
+

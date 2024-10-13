@@ -106,4 +106,4 @@ https://test:abcd123@golangbyexample.com:8000/tutorials/intro?type=advance&compa
 
 它正确地输出所有信息，如输出所示
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

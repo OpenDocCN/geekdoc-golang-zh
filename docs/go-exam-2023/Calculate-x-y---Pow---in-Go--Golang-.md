@@ -61,4 +61,4 @@ func main() {
 1
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *   [power](https://golangbyexample.com/tag/power/) *
+

@@ -187,4 +187,4 @@ require github.com/pborman/uuid v1.2.1 // indirect
 
 请注意，该依赖记录为//indirect，因为它未在任何源文件中导入。
 
-+   [go](https://golangbyexample.com/tag/go/) * [golang](https://golangbyexample.com/tag/golang/) *
+

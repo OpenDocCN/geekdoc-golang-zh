@@ -85,4 +85,4 @@ go mod vendor
 go mod vendor -v
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

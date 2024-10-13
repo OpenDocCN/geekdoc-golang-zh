@@ -159,4 +159,4 @@ Finish main
 Defer in main
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

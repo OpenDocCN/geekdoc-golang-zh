@@ -1277,4 +1277,4 @@ func test(a interface{}) {
 
 **上一教程** – [方法](https://golangbyexample.com/method-in-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/)*
+

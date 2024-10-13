@@ -158,4 +158,4 @@ Default name is set
 Second employee name is: DefaultNam
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

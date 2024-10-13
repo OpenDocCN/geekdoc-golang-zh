@@ -42,4 +42,4 @@ func main() {
 
 在上述程序中，我们使用下划线运算符忽略了打开不存在文件时返回的错误。这就是为什么函数返回的文件实例为 nil。因此，在使用函数返回的任何其他参数之前，最好先检查错误，因为它可能为 nil，并导致不必要的问题，有时甚至可能导致恐慌。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

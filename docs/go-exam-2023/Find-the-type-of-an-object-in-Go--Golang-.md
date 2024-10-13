@@ -138,4 +138,4 @@ string
 string
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [object](https://golangbyexample.com/tag/object/)*   [type](https://golangbyexample.com/tag/type/)*
+

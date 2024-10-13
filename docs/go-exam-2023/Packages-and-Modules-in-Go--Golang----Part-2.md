@@ -659,4 +659,4 @@ require (
 
 ****下一个教程** – **[变量](https://golangbyexample.com/variables-in-golang-complete-guide/)****上一个教程** – **[包和模块 – 第一部分](https://golangbyexample.com/packages-modules-go-first)
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *
+

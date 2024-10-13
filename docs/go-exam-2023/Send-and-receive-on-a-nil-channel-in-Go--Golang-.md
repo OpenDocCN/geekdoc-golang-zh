@@ -62,4 +62,4 @@ goroutine 18 [chan send (nil chan)]:
 
 在上面的程序中，我们只是声明了通道，因此创建了一个空通道，因为通道的默认值是零，也就是 nil。之后，我们在发送函数中向通道发送数据，并在主函数中从通道接收。这导致了死锁，因为向空通道发送和接收会永远阻塞。因此，它给出的输出如下
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

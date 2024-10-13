@@ -92,4 +92,4 @@ const c, d int = 3, 4
 
 +   **d**将是**int**类型，值为**4**。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

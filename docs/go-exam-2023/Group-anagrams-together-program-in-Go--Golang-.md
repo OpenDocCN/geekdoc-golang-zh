@@ -164,4 +164,4 @@ func (t *trie) insert(input string, wordIndex int, anagramMap map[string][]int) 
 
 如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

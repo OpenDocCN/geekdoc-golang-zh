@@ -145,4 +145,4 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 2.5
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

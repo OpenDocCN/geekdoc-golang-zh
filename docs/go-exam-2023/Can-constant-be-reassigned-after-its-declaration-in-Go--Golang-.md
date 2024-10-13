@@ -46,4 +46,4 @@ const a int = 8
 
 然后我们尝试将新值 9 赋给常量**a**，因此会引发编译错误，因为常量一旦声明后无法重新赋值。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

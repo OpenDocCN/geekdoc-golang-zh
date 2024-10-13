@@ -56,4 +56,4 @@ map[string]int
 
 值可以是地图中的任何类型。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)
+

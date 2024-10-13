@@ -65,4 +65,4 @@ Number between 5<=x<=20
 Number between 100<=x<=200
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [随机](https://golangbyexample.com/tag/random/)*
+

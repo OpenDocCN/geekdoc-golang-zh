@@ -62,4 +62,4 @@ func main() {
 -3.3
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [math](https://golangbyexample.com/tag/math/)*   [min](https://golangbyexample.com/tag/min/)*   [minimum](https://golangbyexample.com/tag/minimum/)*
+

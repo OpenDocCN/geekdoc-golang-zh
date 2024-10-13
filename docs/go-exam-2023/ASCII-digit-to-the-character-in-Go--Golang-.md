@@ -43,4 +43,4 @@ Char b
 Char c
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

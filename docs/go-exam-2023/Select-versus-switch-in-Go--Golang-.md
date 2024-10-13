@@ -133,4 +133,4 @@ From goOne goroutine
 
 因此，在上述程序中，由于哪个发送操作会先完成是不可确定的，这就是为什么你在不同时间运行程序时会看到不同输出的原因。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

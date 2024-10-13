@@ -54,4 +54,4 @@ func main() {
 Hostname: <hostname of="" your="" machine=""></hostname>
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [主机名](https://golangbyexample.com/tag/hostname/)*   [os](https://golangbyexample.com/tag/os/)*
+

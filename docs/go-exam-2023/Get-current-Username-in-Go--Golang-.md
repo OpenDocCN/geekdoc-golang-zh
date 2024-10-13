@@ -46,4 +46,4 @@ func main() {
 Username: "someusername"
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [用户名](https://golangbyexample.com/tag/username/)
+

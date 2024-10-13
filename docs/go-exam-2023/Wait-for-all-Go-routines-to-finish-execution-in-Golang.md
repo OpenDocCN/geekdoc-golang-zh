@@ -55,4 +55,4 @@ Finished Execution
 All goroutines finished
 ```
 
-+   [go](https://golangbyexample.com/tag/go/) *   [goroutines](https://golangbyexample.com/tag/goroutines/)
+

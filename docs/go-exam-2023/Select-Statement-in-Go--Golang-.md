@@ -508,4 +508,4 @@ fmt.Println("After break")
 
 **上一教程** – [通道](https://golangbyexample.com/channel-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)*
+

@@ -164,4 +164,4 @@ cannot use lion literal (type lion) as type animal in assignment:
         lion does not implement animal (breathe method has pointer receiver)
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)
+

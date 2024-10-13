@@ -78,4 +78,4 @@
 
 +   [在 Go 语言中加两个由链表表示的数字](https://golangbyexample.com/add-numbers-linked-list-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+

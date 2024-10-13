@@ -50,4 +50,4 @@ func main() {
 abcabcabcabc
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*
+

@@ -66,4 +66,4 @@ Executed in main
 In inline Defer
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

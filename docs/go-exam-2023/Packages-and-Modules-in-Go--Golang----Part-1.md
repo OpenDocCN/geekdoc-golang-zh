@@ -1273,4 +1273,4 @@ _ "github.com/go-sql-driver/mysql"
 
 ****下一个教程** –** [包和模块 – 第二部分](https://golangbyexample.com/packages-modules-go-second/) ****上一个教程** –** [设置 GO 工作区和 Hello World 程序](https://golangbyexample.com/workspace-hello-world-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*
+

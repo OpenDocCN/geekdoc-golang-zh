@@ -317,4 +317,4 @@ func main() {
 
 **上一篇教程** – [常量](https://golangbyexample.com/constant-golang/)
 
-+   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+

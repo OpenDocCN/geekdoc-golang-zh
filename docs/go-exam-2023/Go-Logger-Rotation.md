@@ -90,4 +90,4 @@ func main() {
 
 +   文件的最大年龄是 10 秒。因此，每个文件将在 10 秒后被删除。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [logger](https://golangbyexample.com/tag/logger/)*   [rotate](https://golangbyexample.com/tag/rotate/)
+

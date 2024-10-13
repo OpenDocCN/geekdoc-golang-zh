@@ -1,72 +1,110 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:10:48'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:10:48
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: IIF or Immediately Invoked Function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: IIF 或在 Go (Golang) 中的立即调用函数
 - en: 来源：[https://golangbyexample.com/immediately-invoked-function-go/](https://golangbyexample.com/immediately-invoked-function-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/immediately-invoked-function-go/](https://golangbyexample.com/immediately-invoked-function-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview:](#Overview "Overview:")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述：](#Overview "Overview:")'
 - en: '[Use Case](#Use_Case "Use Case")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[用例](#Use_Case "Use Case")'
 - en: '[Code:](#Code "Code:")*  *# **Overview:**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")*  *# **概述：**'
 - en: '**IIF or** Immediately Invoked Function are those function which can be defined
     and executed at the same time. A function can be invoked immediately by appending
     a **()** after the end brace of the function.'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**IIF 或** 立即调用函数是指那些可以同时定义和执行的函数。通过在函数结束括号后添加 **()**，可以立即调用该函数。'
 - en: '**Use Case**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**用例**'
 - en: One of the uses of the IIF function is when you don’t want to expose the logic
     of the function either within or outside the package. For eg let’s say there is
     a function which is setting some value. You can encapsulate all the logic of setting
     in an IIF function. This function won’t be available for calling either outside
     or within the package.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: IIF 函数的一个用途是在你不想暴露函数逻辑时，无论是在包内还是包外。例如，假设有一个函数用于设置某个值。你可以将所有设置逻辑封装在一个 IIF 函数中。这个函数在包外或包内都无法被调用。
 - en: '**Code:**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: Let’s see the working code. The function which computes the square of 2 is immediately
     invoked by having () at the end and the returned value is assigned to the variable
     **squareOf2**.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看工作代码。计算 2 的平方的函数通过在末尾加上 () 立即被调用，返回的值被赋给变量 **squareOf2**。
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*   [iif](https://golangbyexample.com/tag/iif/)*'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*   [iif](https://golangbyexample.com/tag/iif/)*'

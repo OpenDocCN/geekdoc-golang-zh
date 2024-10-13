@@ -1,57 +1,91 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:42:17'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:42:17
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Implement your own Atoi function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中实现你自己的 Atoi 函数
 - en: 来源：[https://golangbyexample.com/implement-your-own-atoi-function-golang/](https://golangbyexample.com/implement-your-own-atoi-function-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/implement-your-own-atoi-function-golang/](https://golangbyexample.com/implement-your-own-atoi-function-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: '**Atoi** function converts a given string into its number representation. 
     For eg'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Atoi** 函数将给定字符串转换为其数字表示。例如'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Program**'
+  id: totrans-11
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的程序。
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

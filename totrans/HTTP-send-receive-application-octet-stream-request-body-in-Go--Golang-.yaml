@@ -1,146 +1,228 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:32:56'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:32:56
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: HTTP send/receive application octet-stream request body in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中发送/接收`application/octet-stream`请求主体。
 - en: 来源：[https://golangbyexample.com/octet-stream-http-golang/](https://golangbyexample.com/octet-stream-http-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/octet-stream-http-golang/](https://golangbyexample.com/octet-stream-http-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[HTTP Client Example](#HTTP_Client_Example "HTTP Client Example")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[HTTP 客户端示例](#HTTP_Client_Example "HTTP 客户端示例")'
 - en: '[HTTP Server Example](#HTTP_Server_Example "HTTP Server Example")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[HTTP 服务器示例](#HTTP_Server_Example "HTTP 服务器示例")*  *# **概述**'
 - en: '**application/octet-stream** content-type is used to transfer binary data in
     the HTTP request body. So **application/octet-stream** is used for sending files
     over HTTP request. Let’s see an example of both HTTP client and server in golang
     for sending and receiving **application/octet-stream** data.'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**application/octet-stream**内容类型用于在HTTP请求主体中传输二进制数据。因此，**application/octet-stream**用于通过HTTP请求发送文件。让我们看一个golang中HTTP客户端和服务器的示例，用于发送和接收**application/octet-stream**数据。'
 - en: Let’s create two folders first.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们首先创建两个文件夹。
 - en: client
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 客户端
 - en: server
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 服务器
 - en: Also, create a file named **photo.png** in the **client** folder
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 同时在**client**文件夹中创建一个名为**photo.png**的文件。
 - en: '**HTTP Client Example**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**HTTP 客户端示例**'
 - en: Below is the program for the same
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序。
 - en: '**client/main.go**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**client/main.go**'
 - en: '[PRE0]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In the above program, we are sending the file **photo.png** as **application/octet-stream**
     request body in the POST request. photo.png is first converted into bytes and
     these bytes are sent as **application/octet-stream** body. For that, bytes of
     the file are read first
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们将文件**photo.png**作为**application/octet-stream**请求主体发送在POST请求中。首先将photo.png转换为字节，这些字节作为**application/octet-stream**主体发送。为此，首先读取文件的字节。
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: After the file is converted into bytes, it is passed to the **http.NewRequest**
     method as below for the third argument
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 文件转换为字节后，它将作为第三个参数传递给**http.NewRequest**方法，如下所示。
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: The **bytes.NewReader** returns the **bytes.Reader** instance. **bytes.Reader**
     implements both **io.Reader** and **io.Writer.** The **http.NewRequest** method
     accepts the **io.Reader** for the body part. Therefore **bytes.Reader** instance
     can be passed as the third argument to http.NewRequest
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**bytes.NewReader**返回**bytes.Reader**实例。**bytes.Reader**实现了**io.Reader**和**io.Writer**。**http.NewRequest**方法接受`io.Reader`作为主体部分。因此，**bytes.Reader**实例可以作为第三个参数传递给http.NewRequest。'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Also in the above program, we are making a call to the below API
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们还调用了以下API。
 - en: '[PRE4]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Let’s create a server that will listen on port **8080** so that we can test
     the above client as well. Also, the server will parse the application/octet-stream
     body and save it as **photo.png**. Let’s see the program for the server now
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们创建一个在端口**8080**上监听的服务器，以便我们也可以测试上述客户端。此外，服务器将解析`application/octet-stream`主体并将其保存为**photo.png**。现在让我们看看服务器的程序。
 - en: '**HTTP Server Example**'
+  id: totrans-28
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**HTTP 服务器示例**'
 - en: Below is the program for the same.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序。
 - en: '**server/main.go**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**server/main.go**'
 - en: '[PRE5]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program, we have created an API that will listen on port 8080\.
     The API signature will be
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了一个将在端口8080上监听的API。API签名将是：
 - en: '[PRE6]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: It reads the bytes from the POST body and saves them to a file **photo.png**
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 它从POST主体读取字节并将其保存到文件**photo.png**中。
 - en: Let’s run both the Server and the Client. Run the server first.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行服务器和客户端。先运行服务器。
 - en: '[PRE7]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: It will start listening to port 8080\. After that run the client.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将开始监听端口8080。之后运行客户端。
 - en: '[PRE8]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: After the API is successfully executed, check at the server end. A file named
     **photo.png** will be created at the server end.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: API成功执行后，请检查服务器端。服务器端将创建一个名为**photo.png**的文件。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

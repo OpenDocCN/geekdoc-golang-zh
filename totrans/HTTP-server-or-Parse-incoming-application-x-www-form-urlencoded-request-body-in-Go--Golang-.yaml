@@ -1,70 +1,106 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:32:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:32:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: HTTP server or Parse incoming application/x-www-form-urlencoded request body
     in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: HTTP服务器或在Go（Golang）中解析传入的application/x-www-form-urlencoded请求主体。
 - en: 来源：[https://golangbyexample.com/url-encoded-body-golang/](https://golangbyexample.com/url-encoded-body-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/url-encoded-body-golang/](https://golangbyexample.com/url-encoded-body-golang/)
 - en: '**Note**: This post is parsing the **application/x-www-form-urlencoded** request
     at the server end. If you using an HTTP client and trying to send the **application/x-www-form-urlencoded**
     request then please see the below link'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意**：这篇文章在服务器端解析**application/x-www-form-urlencoded**请求。如果你使用HTTP客户端并尝试发送**application/x-www-form-urlencoded**请求，请查看以下链接。'
 - en: '[https://golangbyexample.com/http-client-urlencoded-body-go](https://golangbyexample.com/http-client-urlencoded-body-go)/'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golangbyexample.com/http-client-urlencoded-body-go](https://golangbyexample.com/http-client-urlencoded-body-go)/'
 - en: Table of Contents
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: The **applcation/x-www-form-urlencoded** content-type request body is like a
     giant query string. Similar to the query string in a URI it is a key-value pair
     having the below format
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**application/x-www-form-urlencoded**内容类型的请求主体就像一个巨大的查询字符串。类似于URI中的查询字符串，它是一个具有以下格式的键值对。'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: where there are below key-value pairs
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中有以下键值对。
 - en: key1, value1
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: key1, value1
 - en: key2 has two values i.e value21 and value22.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: key2有两个值，即value21和value22。
 - en: key3, value3
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: key3, value3
 - en: Each key-value pair is separated by **&** in case of multiple values for the
     same key there will be two entries of that key-value pair. Also, each key and
     value is URLencoded similar to the query string.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个键值对由**&**分隔，如果同一键有多个值，则会有两个该键值对的条目。此外，每个键和值都经过URL编码，类似于查询字符串。
 - en: Now the question that might be coming to the mind is if **x-www-form-urlencoded**
     is just like query string then why does it exist. The reason is that the query
     string is part of the URI and since there is a limit on the length of the URI,
@@ -73,205 +109,319 @@
     it is limited by the max request body size allowed by the server which is generally
     10MB for most of the servers. Now let’s see how we can parse the **x-www-form-urlencoded**
     in golang
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在可能会出现的问题是，如果**x-www-form-urlencoded**就像查询字符串，那么它为何存在。原因是查询字符串是URI的一部分，而URI的长度有限，因此你只能在查询字符串中发送有限数量的键值对。虽然**x-www-form-urlencoded**请求主体的长度没有限制，但它受到服务器允许的最大请求主体大小的限制，通常大多数服务器为10MB。现在，让我们看看如何在golang中解析**x-www-form-urlencoded**。
 - en: '**Example**'
+  id: totrans-19
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Request object of net/http package has two fields which can hold the form-data.
     [https://golang.org/src/net/http/request.go](https://golang.org/src/net/http/request.go)
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: net/http包的请求对象有两个字段可以保存表单数据。[https://golang.org/src/net/http/request.go](https://golang.org/src/net/http/request.go)
 - en: The two fields are
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 这两个字段是。
 - en: '**Form** – It holds combine data of query string and **x-www-form-urlencoded**
     request body'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Form** – 它包含查询字符串和**x-www-form-urlencoded**请求主体的组合数据。'
 - en: '**PostForm**– It holds only **x-www-form-urlencoded** request body'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**PostForm**– 它仅包含**x-www-form-urlencoded**请求主体。'
 - en: To get the **x-www-form-urlencoded** request body we need to first call the
     below function on the request object
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 要获取**x-www-form-urlencoded**请求主体，我们需要首先在请求对象上调用以下函数。
 - en: '[PRE1]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This function essentially does below things
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 此函数基本上执行以下操作。
 - en: It parses the query string present in the URL and populates the **Form** field
     of the request object
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它解析URL中存在的查询字符串，并填充请求对象的**Form**字段。
 - en: '[PRE2]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: After that, if the request method is PUT, POST, or PATCH  and the request body
     content-type is x-www-form-urlencoded, then it also parses the request body and
     populates the above two fields of the request object
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 之后，如果请求方法是PUT、POST或PATCH，且请求主体的内容类型是x-www-form-urlencoded，则它也会解析请求主体，并填充请求对象的上述两个字段。
 - en: '[PRE3]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**request.PostForm** will be initialized to a non-nil, empty value if the request
     body content-type is not x-www-form-urlencoded or the request method is not PUT,
     POST, or PATCH'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果请求主体的内容类型不是x-www-form-urlencoded，或者请求方法不是PUT、POST或PATCH，则**request.PostForm**将初始化为非空的空值。
 - en: The body parameters will take precedence over URL query string values i.e if
     there is a key that ispresent in both form body and in query param. Then the value
     in the form body will take precedence
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主体参数优先于URL查询字符串值，即如果在表单主体和查询参数中都有一个键，则表单主体中的值将优先。
 - en: Also, note that this function is idempotent.
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 此外，请注意这个函数是幂等的。
 - en: Both **Form** and **PostForm** field are of the below type
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Form** 和 **PostForm** 字段都是以下类型'
 - en: '[PRE4]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: It is a map where
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一个地图，其中
 - en: The key is a string
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 键是一个字符串
 - en: The value is an array of strings. It is an array of strings because there can
     be multiple values
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 值是一个字符串数组。它是字符串数组，因为可能有多个值。
 - en: So essentially to get the x-www-url-encoded request body we need to call the
     **ParseForm** function first on the request object. This will populate both the
     **Form** and **PostForm** field. Then we can access these fields to get the **x-www-form-urlencoded**
     body. For example, let’s say we have the below **x-www-form-urlencoded** body.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，基本上为了获取 x-www-url-encoded 请求体，我们需要先在请求对象上调用 **ParseForm** 函数。这将填充 **Form**
+    和 **PostForm** 字段。然后我们可以访问这些字段以获取 **x-www-form-urlencoded** 请求体。例如，假设我们有以下 **x-www-form-urlencoded**
+    请求体。
 - en: '[PRE5]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Then you can access the **name** field like below
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后你可以像下面这样访问 **name** 字段
 - en: '[PRE6]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: both will return
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 两者都会返回
 - en: '[PRE7]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: It is an array because the key can have multiple values.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 它是一个数组，因为键可以有多个值。
 - en: Also, the request’s object defines one more function **FormValue** which can
     be used to get the first value associated with the key. It just returns the first
     value and not the array. For example
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请求对象还定义了一个函数 **FormValue**，可用于获取与键关联的第一个值。它仅返回第一个值，而不是数组。例如
 - en: '[PRE8]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: will return
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 将返回
 - en: '[PRE9]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Let’s see a program for that as well
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序
 - en: '[PRE10]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: In the above program, we are running a server on port **8080**. Also notice
     that we are first calling the **ParseForm** function and then accessing the **Form**
     and **PostForm** fields of the request object.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们在端口 **8080** 上运行一个服务器。同时注意，我们首先调用了 **ParseForm** 函数，然后访问请求对象的 **Form**
+    和 **PostForm** 字段。
 - en: Also, see how we are accessing the value of the **name** field in **Form** as
     well as **PostForm**
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，看看我们如何在 **Form** 和 **PostForm** 中访问 **name** 字段的值。
 - en: '[PRE11]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Also, we are calling the **FormValue** function on the request object to access
     the **hobbies** field as below
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，我们还在请求对象上调用 **FormValue** 函数以访问 **hobbies** 字段，如下所示。
 - en: '[PRE12]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Run the above program. It will start a server at port **8080**
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上述程序。它将在端口 **8080** 启动一个服务器。
 - en: Now let’s try some curl calls.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们尝试一些 curl 调用。
 - en: Passing only the x-www-form-urlencoded body. No query string.
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅传递 x-www-form-urlencoded 请求体。没有查询字符串。
 - en: '[PRE13]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output**'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE14]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Passing the x-www-form-urlencoded body. Passing an extra field **gender** in
     the query string. Notice in the output that the gender field is not present in
     **PostForm** but present in **Form**
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 传递 x-www-form-urlencoded 请求体。在查询字符串中传递一个额外字段 **gender**。在输出中注意，性别字段不在 **PostForm**
+    中，但在 **Form** 中。
 - en: '[PRE15]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Output**'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE16]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: Passing the x-www-form-urlencoded body. Also passing the same key ie **age**
     in the query string. **age=20** is passed in the query string and **age=18** is
     passed in the post body.  The value **20** for **age** will not be present in
     the **PostForm** field but present in the **Form** field. Since body parameters
     take precedence therefore **age=18** is the first value in the array in the **Form**
     field. If you run **r.FormValue(“age”)** then it will return 18 and not 20
+  id: totrans-67
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 传递 x-www-form-urlencoded 请求体。同时在查询字符串中传递相同的键，即 **age**。在查询字符串中传递 **age=20**，在请求体中传递
+    **age=18**。**age** 的值 **20** 将不在 **PostForm** 字段中，但会在 **Form** 字段中。由于请求体参数优先，因此
+    **age=18** 是 **Form** 字段数组中的第一个值。如果你运行 **r.FormValue(“age”)**，则将返回 18 而不是 20。
 - en: '[PRE17]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Output**'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE18]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-71
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

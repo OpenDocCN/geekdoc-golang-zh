@@ -1,59 +1,92 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:25:20'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:25:20'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Ignoring errors in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中忽略错误
 - en: 来源：[https://golangbyexample.com/ignoring-errors-golang/](https://golangbyexample.com/ignoring-errors-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/ignoring-errors-golang/](https://golangbyexample.com/ignoring-errors-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: Underscore (‘_’) operator can be used to ignore the error returned from a function
     call.  Before we see a program it’s important to note that error should never
     be ignored. It is not a recommended way. Let’s see a program
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 下划线（‘_’）运算符可用于忽略函数调用返回的错误。在查看程序之前，需要注意的是，错误不应该被忽略。这不是推荐的做法。让我们来看一个程序。
 - en: '**Code**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, we used the underscore operator to ignore the error while
     opening a non-existing file. That is why the file instance returned by the function
     is nil. Therefore it is better to check for an error before using any other argument
     returned by the function as that can be nil and would result in unwanted issues
     and also sometimes it might also result in a panic.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们使用下划线运算符忽略了打开不存在文件时返回的错误。这就是为什么函数返回的文件实例为 nil。因此，在使用函数返回的任何其他参数之前，最好先检查错误，因为它可能为
+    nil，并导致不必要的问题，有时甚至可能导致恐慌。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

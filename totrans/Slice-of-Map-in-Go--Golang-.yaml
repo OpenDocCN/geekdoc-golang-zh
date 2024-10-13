@@ -1,77 +1,122 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:39:51'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:39:51
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Slice of Map in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的映射切片
 - en: 来源：[https://golangbyexample.com/slice-map-golang/](https://golangbyexample.com/slice-map-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/slice-map-golang/](https://golangbyexample.com/slice-map-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: It is possible to create a slice of map data type in Golang as well. In fact,
     a slice can be created of any data type in Go. Below is a simple example to create
     a slice of map
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中也可以创建映射数据类型的切片。事实上，Go中可以创建任何数据类型的切片。下面是创建映射切片的一个简单示例
 - en: '**Program**'
+  id: totrans-10
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, we created three maps of type **map[string]string**
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了三种类型为**map[string]string**的映射
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: We also created a slice of map data type like this
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们也像这样创建了一个映射数据类型的切片
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This is how we can create a slice of map
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是我们如何创建一个映射切片
 - en: Check out our Golang Advanced Tutorial. The tutorials in this series are elaborative
     and we have tried to cover all concepts with examples. This tutorial is for those
     who are looking to gain expertise and a solid understanding of golang – [Golang
     Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 查看我们的Golang高级教程。本系列教程内容详尽，我们试图通过示例覆盖所有概念。这个教程是为那些希望获得专业知识和对Golang有深入理解的人准备的
+    – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章适合你 –[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,137 +1,219 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:39:56'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:39:56
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Slice or Array of Channels in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的通道切片或数组
 - en: 来源：[https://golangbyexample.com/slice-array-channel-golang/](https://golangbyexample.com/slice-array-channel-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/slice-array-channel-golang/](https://golangbyexample.com/slice-array-channel-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Slice of Channels](#Slice_of_Channels "Slice of Channels")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[通道切片](#Slice_of_Channels "Slice of Channels")'
 - en: '[Array of Channels](#Array_of_Channels "Array of Channels")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[通道数组](#Array_of_Channels "Array of Channels")*  *## **概述**'
 - en: It is possible to create a slice or array of channel data type in Golang as
     well. In fact, a slice or array can be created of any data type in Go. This tutorial
     contains simple examples to create a slice or array of channels in golang.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中也可以创建通道数据类型的切片或数组。事实上，可以创建任何数据类型的切片或数组。本教程包含了创建Golang中通道切片或数组的简单示例。
 - en: Just to add here that in golang array is of fixed size and slice can have variable
     size.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在此补充，Golang中的数组是固定大小的，而切片可以是可变大小的。
 - en: More details here
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 更多细节见此处
 - en: Array – [https://golangbyexample.com/understanding-array-golang-complete-guide/](https://golangbyexample.com/understanding-array-golang-complete-guide/)
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组 – [https://golangbyexample.com/understanding-array-golang-complete-guide/](https://golangbyexample.com/understanding-array-golang-complete-guide/)
 - en: Slice – [https://golangbyexample.com/slice-in-golang/](https://golangbyexample.com/slice-in-golang/)
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 切片 – [https://golangbyexample.com/slice-in-golang/](https://golangbyexample.com/slice-in-golang/)
 - en: '**Slice of Channels**'
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**通道切片**'
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The output will be different on your machine as it is an address.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出在你的机器上会有所不同，因为这是一个地址。
 - en: In the above program, we created three channels having data type int
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了三个数据类型为int的通道。
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Then we have two ways of creating a slice of channels. The first way is
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们有两种创建通道切片的方法。第一种方式是
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In the second way, we use **make** command to create a slice of channel
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第二种方法中，我们使用**make**命令来创建通道切片。
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Either way works. This is how we can create a slice of channels
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 无论哪种方式都可以。这就是我们如何创建通道切片的方法。
 - en: '**Array of Channels**'
+  id: totrans-27
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**通道数组**'
 - en: '[PRE5]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: The output will be different on your machine as it is an address.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出在你的机器上会有所不同，因为这是一个地址。
 - en: In the above program, we created three channels having data type int
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了三个数据类型为int的通道。
 - en: '[PRE7]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Then we have two ways of creating an array. The first way is
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们有两种创建数组的方法。第一种方式是
 - en: '[PRE8]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In second way we directly initialize the array with created channels
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在第二种方法中，我们直接用创建的通道初始化数组。
 - en: '[PRE9]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Check out our Golang Advanced Tutorial. The tutorials in this series are elaborative
     and we have tried to cover all concepts with examples. This tutorial is for those
     who are looking to gain expertise and a solid understanding of golang – [Golang
     Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 查看我们的Golang高级教程。本系列教程详细而全面，我们努力覆盖所有概念并附有示例。本教程适合那些希望获得专业知识和深入理解Golang的人——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你对如何在Golang中实现所有设计模式感兴趣，如果是的话，那么这篇文章适合你——[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,59 +1,90 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:16:20'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:16:20
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Shuffle a string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go 中打乱字符串 (Golang)
 - en: 来源：[https://golangbyexample.com/shuffle-string-golang/](https://golangbyexample.com/shuffle-string-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/shuffle-string-golang/](https://golangbyexample.com/shuffle-string-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")*  *# **概述**'
 - en: '**math/rand** package of GO provides a **Shuffle** method that can be used
     to shuffle a string. This method pseudo-randomizes the order of elements using
     the default source. pseudo-randomizes means that for a fixed input seed it will
     generate the same randomization. That is why in our program we will initialize
     the rand package with a different seed every time.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**math/rand** 包提供了一个 **Shuffle** 方法，可以用来打乱字符串。该方法使用默认源对元素的顺序进行伪随机化。伪随机化意味着对于固定的输入种子，它将生成相同的随机化。因此，在我们的程序中，我们会每次用不同的种子初始化
+    rand 包。'
 - en: Below is the signature of the function.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This function takes in below arguments
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 此函数接受以下参数
 - en: First is the total number of characters in the given string.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 首先是给定字符串中的总字符数。
 - en: The second is a swap function that will be called for different indexes **i**
     and **j.** You need to provide your own swap function that will swap your elements
     in the string.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个是一个交换函数，将为不同的索引 **i** 和 **j** 被调用。你需要提供自己的交换函数来交换字符串中的元素。
 - en: Also note that this function will panic if n<0\. In Golang string is a sequence
     of bytes. A string literal actually represents a UTF-8 sequence of bytes. In UTF-8,
     ASCII characters are single-byte corresponding to the first 128 Unicode characters. All
@@ -61,33 +92,53 @@
     a character in a string.  In GO, rune data type represents a Unicode point.  Once
     a string is converted to an array of rune then it is possible to index a character
     in that array of rune.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 还要注意，如果 n<0，此函数将引发恐慌。在 Golang 中，字符串是字节序列。字符串字面量实际上表示一个 UTF-8 字节序列。在 UTF-8 中，ASCII
+    字符是单字节，对应前 128 个 Unicode 字符。所有其他字符的字节数在 1 到 4 之间。因此，无法在字符串中对字符进行索引。在 GO 中，rune
+    数据类型表示一个 Unicode 点。一旦字符串转换为符文数组，就可以在该数组中对字符进行索引。
 - en: You can learn more the above issue here – [https://golangbyexample.com/number-characters-string-golang/](https://golangbyexample.com/number-characters-string-golang/)
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在这里了解更多关于上述问题的信息 – [https://golangbyexample.com/number-characters-string-golang/](https://golangbyexample.com/number-characters-string-golang/)
 - en: For this reason in the below program for shuffling a given string , we are first
     converting a string into a rune array so that we can index into the rune array
     and use that index to swap characters in that string to shuffle the string.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，在下面的程序中，我们首先将字符串转换为符文数组，以便我们可以通过索引访问符文数组，并使用该索引交换字符串中的字符以打乱字符串。
 - en: '**Code:**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: It will produce a different output on your machine.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将在你的机器上产生不同的输出。
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [shuffle](https://golangbyexample.com/tag/shuffle/)*   [string](https://golangbyexample.com/tag/string/)*'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [shuffle](https://golangbyexample.com/tag/shuffle/)*   [string](https://golangbyexample.com/tag/string/)*'

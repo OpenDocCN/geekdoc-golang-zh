@@ -1,79 +1,124 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:16:25'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:16:25
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Shuffle a slice or array in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中洗牌一个切片或数组
 - en: 来源：[https://golangbyexample.com/shuffle-slice-or-array-go/](https://golangbyexample.com/shuffle-slice-or-array-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/shuffle-slice-or-array-go/](https://golangbyexample.com/shuffle-slice-or-array-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code：")*  *# **概述**'
 - en: '**math/rand** package of go provides a **Shuffle** method that can be used
     shuffle an array or a slice. This method pseudo-randomizes the order of elements
     using the default source. pseudo-randomizes means that for a fixed input seed
     it will generate the same randomization. That is why in our program we will initialize
     the rand package with a different seed every time.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 的 **math/rand** 包提供了一个 **Shuffle** 方法，可以用于洗牌数组或切片。该方法使用默认源伪随机化元素的顺序。伪随机化意味着对于固定的输入种子，它将生成相同的随机化。这就是为什么在我们的程序中，每次我们会使用不同的种子初始化
+    rand 包。
 - en: Below is the signature of the function.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This function takes in arguments
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 该函数接受参数
 - en: First is the length of the array or slice.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个是数组或切片的长度。
 - en: The second is a swap function that will be called for different indexes **i**
     and **j.** You need to provide your own swap function that will swap your elements
     in the array.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个是一个交换函数，它会被调用用于不同的索引 **i** 和 **j**。你需要提供自己的交换函数，用于交换数组中的元素。
 - en: Also note that this function will panic if n<0\. Let’s look at the code.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外请注意，如果 n<0，这个函数会引发恐慌。让我们来看一下代码。
 - en: '**Code:**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: It can produce a different output on your machine.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 它可能会在你的机器上产生不同的输出。
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[array](https://golangbyexample.com/tag/array/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [shuffle](https://golangbyexample.com/tag/shuffle/)*   [slice](https://golangbyexample.com/tag/slice/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数组](https://golangbyexample.com/tag/array/)*   [Go](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [洗牌](https://golangbyexample.com/tag/shuffle/)*   [切片](https://golangbyexample.com/tag/slice/)*'

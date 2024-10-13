@@ -1,71 +1,112 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:39:35'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:39:35
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: How to check if a map contains a key in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 如何检查 Go (Golang) 中的映射是否包含某个键
 - en: 来源：[https://golangbyexample.com/check-map-key-golang/](https://golangbyexample.com/check-map-key-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/check-map-key-golang/](https://golangbyexample.com/check-map-key-golang/)
 - en: Below is the format to check if a key exists in the map
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是检查映射中是否存在键的格式。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: There are two cases
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 有两种情况
 - en: If the key exists **val **variable be the value of the key in the map and **ok **variable
     will be true
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果键存在，**val** 变量将是映射中该键的值，而 **ok** 变量将为真。
 - en: If the key doesn’t exist **val** variable will be default zero value of value
     type and **ok **variable will be false
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果键不存在，**val** 变量将是值类型的默认零值，而 **ok** 变量将为假。
 - en: Let’s see an example
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个例子
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program when a key exists then **val** variable is set to the actual
     value which is 2000 here and ok variable is true. When the key doesn’t exist the val variable
     is set to 0 which is the default zero value of int and **ok** variable is false.
     This **ok** variable is the best way to check if the key exists in a map or not
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，当键存在时，**val** 变量被设置为实际值，这里是 2000，**ok** 变量为真。当键不存在时，**val** 变量被设置为 0，这也是
+    int 的默认零值，**ok** 变量为假。这个 **ok** 变量是检查键是否存在于映射中的最佳方式。
 - en: In case we only want to check if a key is present and val is not needed, then
     blank identifier i.e “_” can be used in place of val.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们只想检查一个键是否存在，而不需要 val，则可以用空标识符“_”代替 val。
 - en: '[PRE3]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，请查看我们的 Golang 进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'

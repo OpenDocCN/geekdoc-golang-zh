@@ -1,61 +1,93 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:32:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:32:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: HTTP client or Send x-www-form-urlencoded request body in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: HTTP 客户端或在 Go（Golang）中发送 x-www-form-urlencoded 请求主体
 - en: 来源：[https://golangbyexample.com/http-client-urlencoded-body-go/](https://golangbyexample.com/http-client-urlencoded-body-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/http-client-urlencoded-body-go/](https://golangbyexample.com/http-client-urlencoded-body-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: The **applcation/x-www-form-urlencoded** content-type request body is like a
     giant query string. Similar to the query string in a URI it is a key-value pair
     having the below format.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**application/x-www-form-urlencoded**内容类型的请求主体就像一个巨大的查询字符串。类似于 URI 中的查询字符串，它是一个键值对，具有以下格式。'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: where there are below key-value pairs
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是以下键值对
 - en: key1, value1
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: key1, value1
 - en: key2 has two values i.e value21 and value22.
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: key2 有两个值，即 value21 和 value22。
 - en: key3, value3
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: key3, value3
 - en: Each key-value pair is separated by **&** in case of multiple values for the
     same key there will be two entries of that key-value pair. Also, each key and
     value is URLencoded similar to the query string.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个键值对用 **&** 分隔，如果同一键有多个值，则会有两个条目。并且，每个键和值都经过 URL 编码，类似于查询字符串。
 - en: Now the question that might be coming to the mind is if **x-www-form-urlencoded**
     is just like query string then why does it exist. The reason is that the query
     string is part of the URI and since there is a limit on the length of the URI,
@@ -64,87 +96,139 @@
     it is limited by the max request body size allowed by the server which is generally
     10MB for most of the servers. Now let’s see how we can parse the **x-www-form-urlencoded**
     in golang
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在可能会有人问，如果**x-www-form-urlencoded**就像查询字符串，那它为什么存在。原因是查询字符串是 URI 的一部分，而 URI
+    的长度有限，因此你可以在查询字符串中发送有限数量的键值对。而**x-www-form-urlencoded**请求主体的长度没有限制。然而，它受到服务器允许的最大请求主体大小的限制，对于大多数服务器通常为10MB。现在让我们看看如何在
+    golang 中解析**x-www-form-urlencoded**
 - en: So basically since the x-www-form-urlencoded body is nothing but like query
     string, it is represented in golang using **url.Values**. [https://golang.org/pkg/net/url/#Values](https://golang.org/pkg/net/url/#Values)
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本上，由于 x-www-form-urlencoded 主体与查询字符串类似，因此在 golang 中使用**url.Values**表示。[https://golang.org/pkg/net/url/#Values](https://golang.org/pkg/net/url/#Values)
 - en: '**url.Values** is nothing but a map whose'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**url.Values** 只不过是一个映射'
 - en: key is a string
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: key 是一个字符串
 - en: value is a slice of string
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: value 是一个字符串切片
 - en: It is represented like below
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 它的表示如下
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Example**'
+  id: totrans-23
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Below is the program for the same. This is how we created the body in the program
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序。这就是我们在程序中创建主体的方式
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Difference between Add and Set
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 添加与设置的区别
 - en: '**Add** will append an extra value to the key in **url.Values** map'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**添加**将在**url.Values**映射中的键后追加一个额外值'
 - en: '**Set** will replace the existing key in **url.Values** map'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**设置**将替换 **url.Values** 映射中现有的键'
 - en: After that, we need to encode the data. Then encoded data is passed to the **http.NewRequest**
     function. Also don’t forget to set the content-type header to **application/x-www-form-urlencoded**
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 之后，我们需要对数据进行编码。然后编码后的数据传递给**http.NewRequest**函数。也不要忘记将内容类型头设置为**application/x-www-form-urlencoded**
 - en: '[PRE3]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The full program for the same.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 相应的完整程序。
 - en: '[PRE4]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: If you run a server that listens on :8080 port similar to the below link, then
     you will see that the server will be able to correctly print the body of the incoming
     request
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你运行一个监听在：8080 端口的服务器，类似于下面的链接，那么你会看到服务器能够正确打印传入请求的主体
 - en: '[https://golangbyexample.com/url-encoded-body-golang](https://golangbyexample.com/url-encoded-body-golang)/'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golangbyexample.com/url-encoded-body-golang](https://golangbyexample.com/url-encoded-body-golang)/'
 - en: Also the output of
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 也是
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: will be
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 将会是
 - en: '[PRE6]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: which is in the same format that we had discussed above.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 它与我们上面讨论的格式相同。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,153 +1,239 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '类别: 未分类'
 - en: 'date: 2024-10-13 06:38:57'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:38:57'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: How to set HTTP status code in response in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 如何在Go（Golang）中设置HTTP响应状态码
 - en: 来源：[https://golangbyexample.com/set-http-status-code-golang/](https://golangbyexample.com/set-http-status-code-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/set-http-status-code-golang/](https://golangbyexample.com/set-http-status-code-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Example](#Example "Example")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "示例")*  *## **概述**'
 - en: '**WriteHeader** method of the ResponseWriter interface in **net/http** package
     can be used to return the status code from a golang server.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**WriteHeader**方法在**net/http**包中的ResponseWriter接口可以用于从Golang服务器返回状态码。'
 - en: In GO a response is represented by the **ResponseWriter** Interface.  Here is
     the link to the interface –
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go中，响应由**ResponseWriter**接口表示。这里是接口的链接 –
 - en: '[https://golang.org/pkg/net/http/#ResponseWriter](https://golang.org/pkg/net/http/#ResponseWriter)'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/net/http/#ResponseWriter](https://golang.org/pkg/net/http/#ResponseWriter)'
 - en: ResponseWriter interface is used by an HTTP handler to construct an HTTP response.
     It provides three functions to set the response parameters
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: ResponseWriter接口由HTTP处理程序用于构建HTTP响应。它提供了三个函数来设置响应参数
 - en: Header – For writing response header
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Header – 用于写入响应头
 - en: Write([]byte) – For writing response body
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Write([]byte) – 用于写入响应正文
 - en: WriteHeader(statusCode int) – For writing the http status code
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: WriteHeader(statusCode int) – 用于写入HTTP状态码
 - en: As you can see **WriteHeader** function takes statusCode as input and that status
     code is sent in the HTTP response. While **Write** function can be used to set
     the response body. It is to be noted that if **WriteHeader** is not called explicitly
     then the call to **Write** function will call the **WriteHeader** function internally
     with status code 200 which is StatusOk.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以看到，**WriteHeader**函数以状态码作为输入，该状态码会在HTTP响应中发送。而**Write**函数则可以用于设置响应正文。需要注意的是，如果没有显式调用**WriteHeader**，则对**Write**函数的调用会内部调用**WriteHeader**函数，并返回状态码200，即StatusOk。
 - en: '**Example**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see an example of sending http status code and body
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看发送HTTP状态码和正文的示例
 - en: Below is the program for the same
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相同程序的内容
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Here we are using the **WriteHeader** function to specify the 201 http status
     code. Similarly, we can send pass any of the status codes listed here to the **WriteHeader**
     function
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，我们使用**WriteHeader**函数指定201 HTTP状态码。同样，我们可以将此处列出的任何状态码传递给**WriteHeader**函数
 - en: '[https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)'
 - en: Also it uses the **Write** function to return the response body. The above code
     returns the below JSON request body back in response
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 它还使用**Write**函数返回响应正文。上述代码将以下JSON请求正文作为响应返回
 - en: '[PRE1]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Run the above program. It will start a server on 8080 port on your local machine.
     Now make the below curl call to the server
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上述程序。这将在你本地机器的8080端口上启动一个服务器。现在可以向服务器发出以下curl调用
 - en: '[PRE2]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Below will be the output
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是输出结果
 - en: '[PRE3]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: As you can see from the output, it will correctly return the **201** status
     code along with the body.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中可以看到，它会正确返回**201**状态码及其正文。
 - en: You can also directly pass 201 to the WriteHeader function to send the 201 response.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 你也可以直接将201传递给WriteHeader函数，以发送201响应。
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Try it out, it will work.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 尝试一下，它会有效。
 - en: We mentioned that we don't call WriteHeader explicitly then the call to **Write**
     function will call the WriteHeader function internally with status code 200 which
     is StatusOk. Let's see an example of that-
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们提到过，我们并没有显式调用WriteHeader，因此对**Write**函数的调用将内部调用WriteHeader函数，并返回状态码200，即StatusOk。我们来看看一个例子-
 - en: '[PRE5]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: See the code above. We haven't called the **WriteHeader** function anywhere.
     The program therefore should send the status code 200 by default.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 查看上面的代码。我们没有在任何地方调用**WriteHeader**函数。因此，程序应该默认发送状态码200。
 - en: Run the above program. It will start a server on 8080 port on your local machine.
     Now make the below curl call to the server
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上述程序。这将在你本地机器的8080端口上启动一个服务器。现在可以向服务器发出以下curl调用
 - en: '[PRE6]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Below will be the output
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是输出结果
 - en: '[PRE7]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: As you can notice from the output that it returns the 200 status code.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中可以注意到，它返回了200状态码。
 - en: Also, check out our Golang advance tutorial Series - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 同时，请查看我们的Golang高级教程系列 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[去](https://golangbyexample.com/tag/go/)*   [戈Lang](https://golangbyexample.com/tag/golang/)*'

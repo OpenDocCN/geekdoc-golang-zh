@@ -1,195 +1,304 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:32:18'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:32:18
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: HTTP Client/Server with Basic Auth in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的带基本身份验证的 HTTP 客户端/服务器。
 - en: 来源：[https://golangbyexample.com/http-basic-auth-golang/](https://golangbyexample.com/http-basic-auth-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/http-basic-auth-golang/](https://golangbyexample.com/http-basic-auth-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[HTTP Server Basic Auth Example](#HTTP_Server_Basic_Auth_Example "HTTP Server
     Basic Auth Example")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[HTTP 服务器基本身份验证示例](#HTTP_Server_Basic_Auth_Example "HTTP Server Basic Auth
+    Example")'
 - en: '[HTTP Client Basic Auth Example](#HTTP_Client_Basic_Auth_Example "HTTP Client
     Basic Auth Example")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[HTTP 客户端基本身份验证示例](#HTTP_Client_Basic_Auth_Example "HTTP Client Basic Auth
+    Example") * * # **概述**'
 - en: Basic auth is the simplest form of providing access controls for resources on
     web server.  Basic Access Authentication is a way of providing user name and password
     to the server while making an HTTP request.  The credentials are send in the headers
     of the request. Below is the header and format in which credentials are send.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本身份验证是为网络服务器上的资源提供访问控制的最简单形式。基本访问认证是在进行 HTTP 请求时向服务器提供用户名和密码的一种方式。凭据在请求的头部发送。以下是发送凭据的头部和格式。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Header name is **“Authorization”**
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 头部名称是 **“Authorization”**
 - en: credentials are send Base64 encoding of username and password joined by a colon(:).
     Basically Base64 encoding of below string
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 凭据是通过冒号（:）连接的用户名和密码进行 Base64 编码发送的。基本上是对以下字符串的 Base64 编码。
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: credentials is prefixed with **Basic**
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 凭据以 **Basic** 开头。
 - en: Basic Auth is specified in RFC 7617
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本身份验证在 RFC 7617 中有说明。
 - en: '[https://tools.ietf.org/html/rfc7617](https://tools.ietf.org/html/rfc7617)'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://tools.ietf.org/html/rfc7617](https://tools.ietf.org/html/rfc7617)'
 - en: Basic auth doesn’t require any kind of sessions identifiers or cookies. Also
     since the credentials is send as bas64 encoding only so there is no encryption
     involved. Hence basic auth is used only with HTTPS for security reasons.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本身份验证不需要任何类型的会话标识符或 Cookies。此外，由于凭据仅作为 Base64 编码发送，因此没有加密涉及。因此，基本身份验证仅在 HTTPS
+    中使用以确保安全。
 - en: '**HTTP Server Basic Auth Example**'
+  id: totrans-19
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**HTTP 服务器基本身份验证示例**'
 - en: Let’s first see basic auth wrt to **HTTP** server. **net/http** package of golang
     provides a method which is defined on the ***http.Request** struct which returns
     the username and password which is present in the incoming request’s **Authorization**
     Header. Below is the signature of the method
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，让我们看看与 **HTTP** 服务器相关的基本身份验证。Golang 的 **net/http** 包提供了一种在 ***http.Request**
+    结构上定义的方法，可以返回传入请求的 **Authorization** 头中存在的用户名和密码。以下是该方法的签名。
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: What this method does it that it checks the **Authorization** header and then
     extracts the username and password from  Base64 encoded value and return it. If
     there is any issue in parsing it will return **ok** variable as false. So while
     using this function, we first need to check the value of **ok** variable. If the
     **ok** variable is true then we can further match the username and password and
     verify if it is correct.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个方法的作用是检查 **Authorization** 头，然后从 Base64 编码值中提取用户名和密码并返回。如果解析时出现任何问题，它将返回 **ok**
+    变量为 false。因此，在使用此函数时，我们首先需要检查 **ok** 变量的值。如果 **ok** 变量为 true，则可以进一步匹配用户名和密码并验证其是否正确。
 - en: Let’s see a program for this
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序。
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Server accepts the below username and password
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 服务器接受以下用户名和密码。
 - en: username is abc
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 用户名是 abc。
 - en: password is 123
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 密码是 123。
 - en: For making the request we have to do Base64 encoding of  below string which
     is a username and password joined by a single colon(:)
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了发出请求，我们必须对以下字符串进行 Base64 编码，该字符串是由一个冒号（:）连接的用户名和密码。
 - en: '[PRE4]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Base64 encoding of above string will be.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述字符串的 Base64 编码将是。
 - en: '[PRE5]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: You can check it here – [https://www.base64encode.org/](https://www.base64encode.org/)
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在这里查看 – [https://www.base64encode.org/](https://www.base64encode.org/)
 - en: Now make the below request
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在发出以下请求。
 - en: '[PRE6]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: This request will get the status code as 200\. Also it will correctly print
     the username and password in the logs as well.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 此请求将获得状态代码 200。同时，它还会在日志中正确打印用户名和密码。
 - en: '[PRE7]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Now send the malformed **Base64** encoded value.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在发送格式错误的 **Base64** 编码值。
 - en: '[PRE8]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: It will get the status code as 401\. It will also print below in the logs
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将获得状态代码 401。它还将在日志中打印以下内容。
 - en: '[PRE9]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**HTTP Client Basic Auth Example**'
+  id: totrans-41
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**HTTP 客户端基本身份验证示例**'
 - en: '**net/http** package of golang also provides a method which is defined on the
     ***http.Request** struct which can be used to set the basic auth header.  Below
     is the signature of the method'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang 的 **net/http** 包还提供了一种在 ***http.Request** 结构上定义的方法，可用于设置基本身份验证头。以下是该方法的签名。
 - en: '[PRE10]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: What this method does it takes in **username** and **password** and sets Authorization
     header with base64 encoded value of username and password joined by a single colon(:).
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 该方法的作用是接收**用户名**和**密码**，并使用以冒号（:）连接的用户名和密码的base64编码值设置Authorization头。
 - en: Let’s see a program for this
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序。
 - en: '[PRE11]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: In the above program we are making a call to the server which we had set up
     earlier. See how we set up the basic auth in the outgoing request
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们正在调用之前设置的服务器。看看我们如何在发出的请求中设置基本认证。
 - en: '[PRE12]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: If you will run the above program you will get a 200 from the server which we
     had set up above.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你运行上面的程序，你将从我们之前设置的服务器收到200的响应。
 - en: '**Note:** We are printing  **username** and **password** above just for illustration
     purposes. In real program they need to be kept encrypted in some secure manner. 
     Also we are sending a http request below and not https for basic auth. Again this
     was just for illustrated only and both client and server lie on the same machine.
     This is not recommended and basic auth should be used only with **HTTPS**'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 我们在上面打印**用户名**和**密码**仅用于示例目的。在实际程序中，它们需要以某种安全的方式加密存储。同时，我们在下面发送的是http请求而非https用于基本认证。这仅用于说明，客户端和服务器位于同一台机器上。这并不推荐，基本认证应仅在**HTTPS**下使用。'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[去](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

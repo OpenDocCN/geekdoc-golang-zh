@@ -1,170 +1,259 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:26:32'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:26:32
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: How to create panic in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 如何在Go (Golang)中创建恐慌
 - en: 来源：[https://golangbyexample.com/how-create-panic-golang/](https://golangbyexample.com/how-create-panic-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/how-create-panic-golang/](https://golangbyexample.com/how-create-panic-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Runtime Error Panic](#Runtime_Error_Panic "Runtime Error Panic")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[运行时错误恐慌](#Runtime_Error_Panic "Runtime Error Panic")'
 - en: '[Calling the panic function explicitly](#Calling_the_panic_function_explicitly
     "Calling the panic function explicitly")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[显式调用panic函数](#Calling_the_panic_function_explicitly "Calling the panic function
+    explicitly")*  *# **概述**'
 - en: Panic is similar to the exception in golang. Panic is meant to exit from a program
     in abnormal conditions. Panic can occur in a program in two ways
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 恐慌类似于golang中的异常。恐慌是为了在异常条件下退出程序。程序中可能以两种方式发生恐慌。
 - en: Runtime error in the program
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 程序中的运行时错误
 - en: By calling the panic function explicitly. This can be called by the programmer
     when the program cannot continue and it has to exit
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 通过显式调用panic函数。这可以由程序员在程序无法继续并必须退出时调用。
 - en: Go provides a special function to create a panic. Below is the syntax of the
     function
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: Go提供了一个特殊函数来创建恐慌。下面是该函数的语法。
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This function can be called explicitly by the programmer to create a panic.
     It takes an empty interface as an argument.  When a panic happens in a  program
     it outputs two things
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 该函数可以由程序员显式调用以创建恐慌。它接受一个空接口作为参数。当程序中发生恐慌时，它输出两件事。
 - en: The error message that is passed to the panic function as an argument
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 作为参数传递给panic函数的错误信息
 - en: Stack trace of where the panic happened
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 恐慌发生时的堆栈跟踪
 - en: '**Runtime Error Panic**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**运行时错误恐慌**'
 - en: Runtime error in the program can happen in below cases
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 程序中的运行时错误可能发生在以下情况
 - en: Out of bounds array access
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 超出边界的数组访问
 - en: Calling a function on a nil pointer
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在nil指针上调用函数
 - en: Sending on a closed channel
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在封闭通道上发送
 - en: Incorrect type assertion
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 错误的类型断言
 - en: Let’s see an example of runtime error caused by out of bounds array access.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个因超出边界的数组访问而导致的运行时错误的例子。
 - en: '[PRE1]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program we have a slice of length 2 and we are trying to access
     slice at index 3 in the **print** function. Out of bound access is not allowed
     and it will create panic as seen from the output. Notice that in the output there
     are two things
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们有一个长度为2的切片，而我们在**print**函数中尝试访问索引3。超出边界的访问是不允许的，这将导致恐慌，如输出所示。请注意，在输出中有两件事。
 - en: The error message
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 错误信息
 - en: Stack trace of where the panic happened
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 恐慌发生时的堆栈跟踪
 - en: There are many more cases in which runtime error can happen in a program. We
     are not going to mention all of them but you get the idea
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在程序中发生运行时错误的情况还有很多。我们不会列出所有情况，但你应该明白。
 - en: '**Calling the panic function explicitly**'
+  id: totrans-32
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**显式调用panic函数**'
 - en: 'Some of the cases where the panic function can be called explicitly by the
     programmer are:'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些情况下程序员可以显式调用panic函数：
 - en: The function expected a valid argument but instead, a nil argument was supplied.
     In such case, the program cannot continue and it will raise a panic for a nil
     argument passed
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 该函数期望一个有效的参数，但却提供了一个nil参数。在这种情况下，程序无法继续并会因为传递了nil参数而引发恐慌。
 - en: Any other scenario in which program cannot continue.
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 任何其他程序无法继续的场景。
 - en: Let’s see an example.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。
 - en: '[PRE3]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the above program, we again have a function **checkAndPrint** which accepts
     a slice as an argument and an index. Then it checks whether the index passed is
     greater than the length of slice minus 1\. If it is, then it is out of bounds
     access for the slice so it panics. If not then it prints the value at that index.
     Again notice that in the output there are two things
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们再次有一个函数**checkAndPrint**，它接受一个切片作为参数和一个索引。然后它检查传递的索引是否大于切片长度减1。如果是，那么它就是切片的超出边界访问，所以它会引发恐慌。如果不是，它将打印该索引处的值。再次请注意，在输出中有两件事。
 - en: The error message
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 错误信息
 - en: Stack trace of where the panic happened
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 恐慌发生时的堆栈跟踪
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

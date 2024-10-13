@@ -1,222 +1,336 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:33:41'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:33:41
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: HTTP- Understanding multipart/form-data content-type
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: HTTP - 理解multipart/form-data内容类型
 - en: 来源：[https://golangbyexample.com/multipart-form-data-content-type-golang/](https://golangbyexample.com/multipart-form-data-content-type-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/multipart-form-data-content-type-golang/](https://golangbyexample.com/multipart-form-data-content-type-golang/)
 - en: In HTTP context, the **multipart/form-data** content-type is used for submitting
     HTML form. In the case of **multipart/form-data**, as the name suggests the body
     consists of different parts separated by a delimiter or boundary where each part
     is described by its own headers. The delimiter or boundary is also sent as part
     of the header only.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在HTTP上下文中，**multipart/form-data**内容类型用于提交HTML表单。在**multipart/form-data**的情况下，正如其名称所示，主体由不同部分组成，部分之间用分隔符或边界分隔，每个部分都有自己的头部描述。分隔符或边界也作为头部的一部分发送。
 - en: When you sending an HTML form through a browser in an HTTP call, the data contents
     can be sent in as request body below two formats.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 当你通过浏览器在HTTP调用中发送HTML表单时，数据内容可以以下两种格式发送为请求体。
 - en: application/x-www-form-urlencoded
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: application/x-www-form-urlencoded
 - en: multipart/form-data
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: multipart/form-data
 - en: For most of the cases, **application/x-www-form-urlencoded** can be used. **application/x-www-form-urlencoded**
     is not much efficient for
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在大多数情况下，可以使用**application/x-www-form-urlencoded**。**application/x-www-form-urlencoded**的效率不高
 - en: Sending Files or images
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 发送文件或图像
 - en: Sending large quantities of binary data or text which contains non-ASCII characters
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 发送大量二进制数据或包含非ASCII字符的文本
 - en: For example, let’s say that the below data needs to be sent.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，假设以下数据需要发送。
 - en: Name
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 姓名
 - en: Age
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 年龄
 - en: Then **application/x-www-form-urlencoded** can be used to send the above data.
     But let’s say that you also need to send the profile photo of the user in the
     request as well. So the data is now as below
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后**application/x-www-form-urlencoded**可以用于发送上述数据。但假设你还需要在请求中发送用户的个人照片。那么数据现在如下
 - en: Name
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 姓名
 - en: Age
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 年龄
 - en: Photo
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 照片
 - en: In the above case, it will not be efficient to use **application/x-www-form-urlencoded**
     content-type. **multipart/form-data** should be used in this case. So for sending
     simple form data use **application/x-www-form-urlencoded** but if the form-data
     also needs to send binary data then use **multipart/form-data**
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述情况下，使用**application/x-www-form-urlencoded**内容类型效率不高。在这种情况下应使用**multipart/form-data**。因此，对于发送简单表单数据，请使用**application/x-www-form-urlencoded**，但如果表单数据还需要发送二进制数据，则请使用**multipart/form-data**
 - en: Why is that?.  We will answer this question once we have understood the format
     of **application/x-www-form-urlencoded** and **multipart/form-data. **
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 为什么会这样？在我们理解**application/x-www-form-urlencoded**和**multipart/form-data**的格式后，我们将回答这个问题。
 - en: '**application/x-www-form-urlencoded** encodes each non-ASCII byte to 3 bytes.
     Basically **applcation/x-www-form-urlencoded** content-type request body is like
     a giant query string. Similar to the query string in a URI it is a key-value pair
     having the below format'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**application/x-www-form-urlencoded**将每个非ASCII字节编码为3个字节。基本上，**application/x-www-form-urlencoded**内容类型请求体就像一个巨大的查询字符串。类似于URI中的查询字符串，它是一个具有以下格式的键值对'
 - en: '[PRE0]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: While sending **application/x-www-form-urlencoded**, all the non-alphanumeric
     characters are URL encoded. All the non-alphanumeric character(reserved only)
     will be URL encoded in the below format
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 发送**application/x-www-form-urlencoded**时，所有非字母数字字符都会被URL编码。所有非字母数字字符（仅限保留）将以以下格式进行URL编码
 - en: '[PRE1]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Where **WW** is the ASCII code of the alphanumeric character represented in
     hexadecimal format.  As all the non-alphanumeric characters in the binary data
     are URL encoded where 1 byte is converted to 3 bytes. So size is increased three
     folds.  So if you sending a file or image which is a lot of binary data then your
     payload will be very big i.e almost thrice the size of the actual payload. Hence
     it is inefficient for sending large binary files or large NON-ASCII data.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中**WW**是以十六进制格式表示的字母数字字符的ASCII码。由于二进制数据中的所有非字母数字字符都经过URL编码，1个字节转换为3个字节。因此，大小增加了三倍。因此，如果你发送的是一个文件或图像（这是一大堆二进制数据），那么你的负载将非常大，即几乎是实际负载的三倍。因此，发送大型二进制文件或大量非ASCII数据时效率不高。
 - en: To fully understand the format of **application/x-www-form-urlencoded** please
     refer to this link
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 要全面了解**application/x-www-form-urlencoded**的格式，请参考此链接
 - en: Now let’s understand the format of **multipart/form-data.**
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们理解**multipart/form-data**的格式。
 - en: As we mentioned before as well **multipart/form-data** has different parts separated
     by a delimiter or a boundary. Each part is described by its own header. The format
     of multipart/form-data is as below
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如我们之前提到的，**multipart/form-data** 有不同的部分由分隔符或边界分隔。每个部分都有自己的头部。multipart/form-data
+    的格式如下
 - en: '[PRE2]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: As you can notice above that format starts with a delimiter or boundary and
     ends with a delimiter or boundary. The above format is divided into two parts.
     Also,
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 如上所述，格式以分隔符或边界开始，并以分隔符或边界结束。上述格式分为两个部分。同时，
 - en: Each part is separated by a delimiter or boundary.
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个部分由分隔符或边界分隔。
 - en: Each part contains its own headers to describe the type of data
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个部分包含自己的头部以描述数据的类型
 - en: Content-Disposition header for each part will be **form-data.** Contains the
     name field. This field contains the key name. If the part is a file  and it will
     also a **filename** field
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个部分的 Content-Disposition 头部将是 **form-data.** 包含名称字段。该字段包含键名。如果该部分是文件，还会有一个
+    **filename** 字段
 - en: Each part will also contain its own data.
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个部分也将包含自己的数据。
 - en: Content-Disposition header for each part will be **form-data.** If you are sending
     binary data then
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个部分的 Content-Disposition 头部将是 **form-data.** 如果你发送的是二进制数据，那么
 - en: Let’s say we are sending the below data as part of **multipart/form-data** request
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们要将以下数据作为 **multipart/form-data** 请求的一部分发送
 - en: name = John
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: name = John
 - en: age =23
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: age = 23
 - en: photo = Some binary data
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: photo = 一些二进制数据
 - en: And let’s say the delimiter or boundary is
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设分隔符或边界是
 - en: '[PRE3]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Then the format will be as below
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么格式将如下
 - en: '[PRE4]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: As **multipart/form-data** will send the binary data as it is, that is why it
     is used for sending files and large binary data. Now the question is. Why not
     use form-data all the time then?
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于 **multipart/form-data** 将二进制数据按原样发送，这就是它用于发送文件和大二进制数据的原因。那么问题是，为什么不一直使用 form-data
+    呢？
 - en: The reason is that for small data the additional requirement of boundary string
     and headers will outweigh any optimizations. For example, let’s say we have the
     below data to be sent
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 原因是，对于小数据，额外的边界字符串和头部的要求会超过任何优化。例如，假设我们要发送以下数据
 - en: name=John
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: name=John
 - en: age=23
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: age=23
 - en: Then while using **application/x-www-form-urlencoded** the data will be sent
     as
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后在使用 **application/x-www-form-urlencoded** 时，数据将被发送为
 - en: '[PRE5]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: But while sending **multipart/form-data** the data will be sent as below which
     is almost 10 times the data that is sent in **application/x-www-form-urlencoded**
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 但是在发送 **multipart/form-data** 时，数据将如下发送，几乎是以 **application/x-www-form-urlencoded**
+    发送的数据的十倍。
 - en: '[PRE6]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Conclusion**'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about multipart/form-data. Hope you have liked this article. Please
     share feedback in the comments
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于 multipart/form-data 的所有内容。希望你喜欢这篇文章。请在评论中分享反馈

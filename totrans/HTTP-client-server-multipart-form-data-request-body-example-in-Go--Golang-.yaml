@@ -1,283 +1,435 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:32:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:32:52
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: HTTP client/server multipart form-data request body example in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的HTTP客户端/服务器multipart表单数据请求体示例
 - en: 来源：[https://golangbyexample.com/http-mutipart-form-body-golang/](https://golangbyexample.com/http-mutipart-form-body-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/http-mutipart-form-body-golang/](https://golangbyexample.com/http-mutipart-form-body-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概览](#Overview "Overview")'
 - en: '[HTTP Server Example](#HTTP_Server_Example "HTTP Server Example")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[HTTP 服务器示例](#HTTP_Server_Example "HTTP Server Example")'
 - en: '[HTTP Client Example](#HTTP_Client_Example "HTTP Client Example")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[HTTP 客户端示例](#HTTP_Client_Example "HTTP Client Example")*  *# **概览**'
 - en: In HTTP context, the **multipart/form-data** content-type is used for submitting
     HTML form. In the case of **multipart/form-data**, as the name suggests, the body
     consists of different parts separated by a delimiter or boundary where each part
     is described by its own headers. The delimiter or boundary is also sent as part
     of the header only.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在HTTP上下文中，**multipart/form-data**内容类型用于提交HTML表单。在**multipart/form-data**的情况下，正如名称所示，主体由不同部分组成，这些部分由分隔符或边界分开，每个部分都有自己的头部描述。分隔符或边界也作为头部的一部分发送。
 - en: When you sending an HTML form through a browser in an HTTP call, the data contents
     can be sent in as request body in the below two formats.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 当你通过浏览器在HTTP调用中发送HTML表单时，数据内容可以通过以下两种格式作为请求体发送。
 - en: application/x-www-form-urlencoded
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: application/x-www-form-urlencoded
 - en: multipart/form-data
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: multipart/form-data
 - en: For most of the cases, **application/x-www-form-urlencoded** can be used. But
     if you need to upload files then **application/x-www-form-urlencoded** is not
     much efficient.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在大多数情况下，可以使用**application/x-www-form-urlencoded**。但如果需要上传文件，则**application/x-www-form-urlencoded**就不太高效。
 - en: For example, let’s say that the below data needs to be sent.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，假设需要发送以下数据。
 - en: name
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 姓名
 - en: age
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 年龄
 - en: Then **application/x-www-form-urlencoded** can be used to send the above data.
     But let’s say that you also need to send the profile photo of the user in the
     request as well. So the data is now as below
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后可以使用**application/x-www-form-urlencoded**发送上述数据。但假设你还需要在请求中发送用户的头像。所以现在的数据如下
 - en: name
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 姓名
 - en: age
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 年龄
 - en: photo
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 照片
 - en: In the above case, it will not be efficient to use **application/x-www-form-urlencoded**
     content-type. **multipart/form-data** should be used in this case. So for sending
     simple form data use **application/x-www-form-urlencoded** but if the form-data
     also needs to send binary data then use **multipart/form-data.**
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述情况下，使用**application/x-www-form-urlencoded**内容类型将不高效。在这种情况下，应使用**multipart/form-data**。因此，发送简单表单数据时使用**application/x-www-form-urlencoded**，但如果表单数据还需要发送二进制数据，则使用**multipart/form-data**。
 - en: Now let’s see an example of
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看一个例子
 - en: HTTP Server for parsing multipart/form-data request
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 解析multipart/form-data请求的HTTP服务器
 - en: HTTP Client for sending multipart/form-data request
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 用于发送multipart/form-data请求的HTTP客户端
 - en: '**HTTP Server Example**'
+  id: totrans-26
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**HTTP 服务器示例**'
 - en: For HTTP server an incoming request is represented by the **request** struct
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于HTTP服务器，传入的请求由**请求**结构表示
 - en: '[https://golang.org/src/net/http/request.go](https://golang.org/src/net/http/request.go)'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/src/net/http/request.go](https://golang.org/src/net/http/request.go)'
 - en: To parse the **multipart/form-data** request body we need to first call the
     below function on the **request** object
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 要解析**multipart/form-data**请求体，我们需要先在**请求**对象上调用以下函数
 - en: '[PRE0]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: What above function will do is that it will parse the incoming request body
     and the data will be loaded in the below fields of the **request** object
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述函数的作用是解析传入的请求体，并将数据加载到**请求**对象的以下字段中
 - en: '**MultipartForm –** The entire **multipart/form-data** request body will be
     loaded into this field. For example, in the above case, it will hold the **name**,
     **age** field as well as **photo** field. It is represented in the below format'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**MultipartForm –** 整个**multipart/form-data**请求体将加载到此字段中。例如，在上述情况下，它将保存**姓名**、**年龄**字段以及**照片**字段。其表示格式如下'
 - en: '[PRE1]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: It has two parts. The Value holds all the non-files data. So it will hold the
     **name** and **age** key data.  The **File** part holds all file data. So it will
     hold the data for **photo** key.  Both the parts have their value part as an array
     because for the same key there can be multiple values.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 它有两个部分。Value保存所有非文件数据。因此，它将保存**姓名**和**年龄**的键数据。**文件**部分保存所有文件数据。因此，它将保存**照片**键的数据。这两个部分的值部分都是数组，因为对于同一个键可以有多个值。
 - en: '**Form** –  It holds combine data of query string and non-file fields of the
     **multipart/form-data** request body. For example, for the above case, it will
     only hold the name and age field. It has below format'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**表单** – 它包含**multipart/form-data**请求体的查询字符串和非文件字段的组合数据。例如，在上述情况下，它只会包含名称和年龄字段。它的格式如下：'
 - en: '[PRE2]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**PostForm –** It only holds the non-file fields of the **multipart/form-data**
     request body. So for the above case, it will only hold the **name** and **age**
     field'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**PostForm –** 它只包含**multipart/form-data**请求体的非文件字段。因此在上述情况下，它只会包含**名称**和**年龄**字段。'
 - en: It also has the same format as **Form**
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 它的格式也与**表单**相同。
 - en: '[PRE3]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Other than the above fields, the request object also provides the below utility
     function
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 除上述字段外，请求对象还提供以下实用函数。
 - en: '**FormFile** –  This function can be used to get the first file for the given
     key. So this function will only return data for **photo** key and not for **name**
     and **age** key'
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**FormFile** – 此函数可用于获取给定键的第一个文件。因此，该函数只会返回**照片**键的数据，而不返回**名称**和**年龄**键的数据。'
 - en: '**PostFormValue** – This function returns the first value for the given form
     key.  This function will only return data for **name** and **age** key and not
     for **photo** key'
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**PostFormValue** – 此函数返回给定表单键的第一个值。该函数只会返回**名称**和**年龄**键的数据，而不返回**照片**键的数据。'
 - en: Let’s see different ways in which **name**, **key**, and **photo** values can
     be accessed
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看可以以不同方式访问**名称**、**键**和**照片**值。
 - en: '**Name Key**'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**名称键**'
 - en: '[PRE4]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: will return
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 将返回
 - en: '[PRE5]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: It returns an array because for the same key there can be different values.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 它返回一个数组，因为对于同一个键可以有不同的值。
 - en: While
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 当
 - en: '[PRE6]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: will return
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 将返回
 - en: '[PRE7]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: It is not an array because as mentioned above this function returns the first
     value associated with the key.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 它不是一个数组，因为如上所述，此函数返回与键关联的第一个值。
 - en: '**Age Key**'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '**年龄键**'
 - en: '[PRE8]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: will return
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 将返回
 - en: '[PRE9]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: While
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 当
 - en: '[PRE10]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: will return
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 将返回
 - en: '[PRE11]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Photo Key**'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '**照片键**'
 - en: '[PRE12]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: will return the  **FileHeader** for the image. Bytes of the image can be accessed
     using that
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 将返回该图像的**FileHeader**。图像的字节可以通过它访问。
 - en: '[PRE13]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: While
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 当
 - en: '[PRE14]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: will return
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 将返回
 - en: '[PRE15]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: It is not an array because as mentioned above this function returns the first
     file associated with the key.
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 它不是一个数组，因为如上所述，此函数返回与键关联的第一个文件。
 - en: Now let’s see an example
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看一个示例。
 - en: '[PRE16]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: Notice in the above program how are we printing the **name** key using all the
     approaches
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意在上述程序中，我们是如何使用所有方法打印**名称**键的。
 - en: '[PRE17]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: And similar for the **age** key
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于**年龄**键也是类似的。
 - en: Then we are saving the file present in the request body first using **FormFile**
     method and then using **request.MultipartForm.File** map**.** Since we are saving
     the same file using the two methods, we send a prefix argument to the **saveFile**
@@ -286,138 +438,216 @@
     This is just for a demonstration that both methods can be used to extract file
     data from the request. **FormFile** method uses the prefix **formfile** while
     **request.MultipartForm.File** uses **mapaccess** prefix for saving the file
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们使用**FormFile**方法首先保存请求体中的文件，然后使用**request.MultipartForm.File**映射进行保存。由于我们使用这两种方法保存同一个文件，因此我们向**saveFile**函数发送一个前缀参数，以便它以不同的名称保存文件。这是为了确保**FormFile**保存的文件不会被**request.MultipartForm.File**保存的文件覆盖。这只是为了演示这两种方法都可以用于从请求中提取文件数据。**FormFile**方法使用前缀**formfile**，而**request.MultipartForm.File**使用**mapaccess**前缀来保存文件。
 - en: Now let's make some curl calls. Create a file named **test.png** in the same
     folder from which you will run the curl command
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们进行一些curl调用。在运行curl命令的同一文件夹中创建一个名为**test.png**的文件。
 - en: Sending **name**, **age** and **photo**
+  id: totrans-78
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 发送**名称**、**年龄**和**照片**。
 - en: '[PRE18]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**Output**'
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: You can notice from the output that it is printing exactly what we have discussed
     earlier.
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中可以注意到，它正好打印了我们之前讨论的内容。
 - en: '[PRE19]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: It will also save two files with the below names
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 它还会保存两个文件，文件名如下：
 - en: '[PRE20]'
+  id: totrans-84
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: Now let's see the second curl example
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看第二个curl示例。
 - en: Sending **name**, **age,** and **photo** but in this example, the same key **'photo'**
     is used for sending two files.
+  id: totrans-86
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 发送**名称**、**年龄**和**照片**，但在此示例中，同一个键**'照片'**用于发送两个文件。
 - en: '[PRE21]'
+  id: totrans-87
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Output**'
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE22]'
+  id: totrans-89
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: This time three files will be saved with the below names. Since FormFile only
     accesses the first file present with a given key therefore only **formfile-test1.png**
     is saved by the **FormFile** method.
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 这次将保存三个文件，文件名如下。由于**FormFile**只访问给定键下的第一个文件，因此只有**formfile-test1.png**会通过**FormFile**方法保存。
 - en: '[PRE23]'
+  id: totrans-91
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: Let's see one more curl example
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看另一个curl示例。
 - en: Sending two values for **name** key
+  id: totrans-93
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 发送两个 **name** 键的值
 - en: '[PRE24]'
+  id: totrans-94
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Output**'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE25]'
+  id: totrans-96
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: rqeuest.**PostFormValue** returns
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: rqeuest.**PostFormValue** 返回
 - en: '[PRE26]'
+  id: totrans-98
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: while all other options return both the values
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: 而所有其他选项则返回两个值
 - en: '[PRE27]'
+  id: totrans-100
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: '**HTTP Client Example**'
+  id: totrans-101
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**HTTP 客户端示例**'
 - en: Below is the code for an example of an HTTP client for the same. It is sending
     the **multipart/form-data** request body in an HTTP request to the server created
     in the above example.
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是一个 HTTP 客户端示例代码，它在 HTTP 请求中将 **multipart/form-data** 请求体发送到上面示例中创建的服务器。
 - en: First, we have to create a multipart Writer [https://golang.org/pkg/mime/multipart/#Writer](https://golang.org/pkg/mime/multipart/#Writer)
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，我们必须创建一个多部分写入器 [https://golang.org/pkg/mime/multipart/#Writer](https://golang.org/pkg/mime/multipart/#Writer)
 - en: '[PRE28]'
+  id: totrans-104
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: The multipart writer provides two methods
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 多部分写入器提供两种方法
 - en: '**CreateFormField**  - Used to create a text field to be sent in the multipart
     request body. We will create the **name** and **age** field using this method'
+  id: totrans-106
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**CreateFormField** - 用于创建要在多部分请求体中发送的文本字段。我们将使用此方法创建 **name** 和 **age** 字段。'
 - en: '**CreateFormFile** - Used to create a file field to be sent in the multipart
     request body. We will create the **photo** field using this method'
+  id: totrans-107
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**CreateFormFile** - 用于创建要在多部分请求体中发送的文件字段。我们将使用此方法创建 **photo** 字段。'
 - en: Now let's see the program
+  id: totrans-108
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看程序
 - en: '[PRE29]'
+  id: totrans-109
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: Run this program and see the output at your server end as the above client makes
     a call to your server created in the first example. The server program will give
     the below output similar to the curl calls.
+  id: totrans-110
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行这个程序，观察在服务器端的输出，因为上述客户端会调用你在第一个示例中创建的服务器。服务器程序将给出类似于 curl 调用的输出。
 - en: '[PRE30]'
+  id: totrans-111
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: Also, the server will save two files with the below names similar to the curl
     calls
+  id: totrans-112
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，服务器将保存两个文件，名称与 curl 调用类似
 - en: '[PRE31]'
+  id: totrans-113
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE31]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-114
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

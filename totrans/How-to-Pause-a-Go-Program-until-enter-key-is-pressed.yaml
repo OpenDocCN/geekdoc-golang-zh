@@ -1,32 +1,50 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:05:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: How to Pause a Go Program until enter key is pressed
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 如何在按下回车键之前暂停 Go 程序
 - en: 来源：[https://golangbyexample.com/how-to-pause-a-go-program-until-enter-key-is-pressed/](https://golangbyexample.com/how-to-pause-a-go-program-until-enter-key-is-pressed/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/how-to-pause-a-go-program-until-enter-key-is-pressed/](https://golangbyexample.com/how-to-pause-a-go-program-until-enter-key-is-pressed/)
 - en: Sometimes there is a need to pause a go program until a key is pressed. Eg.
     One would only want a go program to exit at the end only on the press of **Enter**
     key.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 有时需要暂停 Go 程序，直到按下某个键。例如，只有在按下**回车**键时，才希望 Go 程序退出。
 - en: Below program will print the increasing and will stop as soon as you press the
     key is pressed. Try it out.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的程序会打印递增的数字，并会在你按下键时立即停止。试试看。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'

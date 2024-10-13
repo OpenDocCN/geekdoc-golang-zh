@@ -1,80 +1,126 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:34:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:34:22
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: How to initialize a struct having an array or slice field in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 如何在Go（Golang）中初始化具有数组或切片字段的结构。
 - en: 来源：[https://golangbyexample.com/struct-slice-field-go/](https://golangbyexample.com/struct-slice-field-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/struct-slice-field-go/](https://golangbyexample.com/struct-slice-field-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: A struct can have a field which is a slice or array of another type. To initialize
     such a struct we can initialize the slice/array of another type first. After that,
     we can initialize the parent struct. In the below example **class** struct type
     has a slice of the **student** struct type.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个结构可以包含一个字段，该字段是另一种类型的切片或数组。要初始化这样的结构，我们可以首先初始化另一种类型的切片/数组。之后，我们可以初始化父结构。在下面的示例中，**class**结构类型有一个**student**结构类型的切片。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: To initialize such kind of struct we need to initialize the slice of nested
     struct first. That is first we will initialize the slice of **student** struct.
     For eg as below
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 要初始化这种类型的结构，我们需要首先初始化嵌套结构的切片。也就是说，我们将首先初始化**student**结构的切片。例如如下所示。
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Then we can initialize the **class** struct as below
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们可以如下初始化**class**结构。
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Another way is to directly initialize the slice of **student** struct during
     the initialization of **class** struct itself. Like as below
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一种方法是在初始化**class**结构时直接初始化**student**结构的切片。如下所示。
 - en: '[PRE3]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Program**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Let’s see a complete program for that.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一下完整的程序。
 - en: '[PRE4]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,100 +1,157 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:03:48'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:03:48
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Stack in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的栈
 - en: 来源：[https://golangbyexample.com/stack-in-golang/](https://golangbyexample.com/stack-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/stack-in-golang/](https://golangbyexample.com/stack-in-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction](#Introduction "Introduction")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍](#Introduction "介绍")'
 - en: '[List Implementation](#List_Implementation "List Implementation")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[列表实现](#List_Implementation "列表实现")'
 - en: '[Slice Implementation](#Slice_Implementation "Slice Implementation")*  *##
     **Introduction**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[切片实现](#Slice_Implementation "切片实现") *  *## **介绍**'
 - en: A simple stack can be implemented in GO using
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个简单的栈可以在Go中通过
 - en: container/list package
+  id: totrans-11
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: container/list包
 - en: slice
+  id: totrans-12
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 切片实现
 - en: 'A stack will have below operations:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 栈将有以下操作：
 - en: Push
+  id: totrans-14
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 推入
 - en: Pop
+  id: totrans-15
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 弹出
 - en: Front
+  id: totrans-16
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 前端
 - en: Size
+  id: totrans-17
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 大小
 - en: Empty
+  id: totrans-18
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 空
 - en: '**List Implementation**'
+  id: totrans-19
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**列表实现**'
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Slice Implementation**'
+  id: totrans-23
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**切片实现**'
 - en: '[PRE2]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '[data structure in go](https://golangbyexample.com/tag/data-structure-in-go/)*   [stack](https://golangbyexample.com/tag/stack/)*   [stack
     in go](https://golangbyexample.com/tag/stack-in-go/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go中的数据结构](https://golangbyexample.com/tag/data-structure-in-go/) *   [栈](https://golangbyexample.com/tag/stack/)
+    *   [Go中的栈](https://golangbyexample.com/tag/stack-in-go/) *'

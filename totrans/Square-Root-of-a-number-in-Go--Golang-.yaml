@@ -1,78 +1,122 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:15:11'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:15:11'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Square Root of a number in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang) 中的平方根
 - en: 来源：[https://golangbyexample.com/square-root-number-golang/](https://golangbyexample.com/square-root-number-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/square-root-number-golang/](https://golangbyexample.com/square-root-number-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "代码：")*  *# **概述**'
 - en: '**math** package of GO provides a **Sqrt** method that can be used to get the
     cube root of that number.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: GO的**math**包提供了一个**Sqrt**方法，可以用来获取该数字的立方根。
 - en: Below is the signature of the function. It takes input a float and also returns
     a float.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名。它接受一个浮点数输入，并返回一个浮点数。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Some special cases of Sqrt function are
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: Sqrt函数的一些特殊情况是
 - en: Sqrt(±0) = ±0
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Sqrt(±0) = ±0
 - en: Sqrt(±Inf) = ±Inf
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Sqrt(±Inf) = ±Inf
 - en: Sqrt(x < 0) = NaN
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Sqrt(x < 0) = NaN
 - en: Sqrt(NaN) = NaN
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Sqrt(NaN) = NaN
 - en: '**Code:**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [math](https://golangbyexample.com/tag/math/)*   [square
     root](https://golangbyexample.com/tag/square-root/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [math](https://golangbyexample.com/tag/math/)*   [平方根](https://golangbyexample.com/tag/square-root/)*'

@@ -1,77 +1,124 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:43:04'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:43:04
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Sort a part of the slice in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中排序部分切片
 - en: 来源：[https://golangbyexample.com/sort-part-slice-go/](https://golangbyexample.com/sort-part-slice-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/sort-part-slice-go/](https://golangbyexample.com/sort-part-slice-go/)
 - en: '**Overview**'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**概述**'
 - en: '**sort.Slice** package of golang can be used to sort a full slice or a part
     of the sliceFull slice sorting in asc order'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang的**sort.Slice**包可用于排序完整切片或部分切片，完整切片按升序排序
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Full slice sorting in desc order
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 完整切片按降序排序
 - en: '[PRE2]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Part slice sorting
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 部分切片排序
 - en: '[PRE4]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Notice that it has sorted the last two elements in the asc order.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，它已将最后两个元素按升序排列。
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，力求用实例覆盖所有概念。该教程适合希望获得专业知识和对Golang有扎实理解的学习者
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) * [golang](https://golangbyexample.com/tag/golang/)'

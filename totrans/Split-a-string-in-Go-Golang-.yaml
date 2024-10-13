@@ -1,77 +1,119 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:11:59'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:59
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Split a string in Go(Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go(Golang)中拆分字符串
 - en: 来源：[https://golangbyexample.com/split-a-string-golang/](https://golangbyexample.com/split-a-string-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/split-a-string-golang/](https://golangbyexample.com/split-a-string-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: In Golang string are UTF-8 encoded. **strings** package of GO provides a **Split**
     method that can be used to split a string by a separator.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中，字符串是UTF-8编码的。GO的**strings**包提供了一个可以根据分隔符拆分字符串的**Split**方法。
 - en: 'Below is the signature of the function:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名：
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: As you can notice the return value of the **Split** function is a slice of string.
     Let’s notice some points about this method
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如你所注意到的，**Split**函数的返回值是一个字符串切片。让我们注意一下这个方法的几点。
 - en: 'Case 1: The **Split** method slices the **s** into substrings which are separated
     by **sep**. It will return a slice of string'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 案例1：**Split**方法将**s**拆分成由**sep**分隔的子字符串。它将返回一个字符串切片。
 - en: 'Case 2: If **s** doesn’t contain **sep** then a slice of string of length 1
     is returned. The only element of this slice will be **s**.'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 案例2：如果**s**不包含**sep**，则返回一个长度为1的字符串切片。这个切片的唯一元素将是**s**。
 - en: 'Case 3: If **sep** is empty and then it will return a slice of string after
     splitting **s** into each UTF-8 sequence'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 案例3：如果**sep**为空，则会在将**s**拆分为每个UTF-8序列后返回一个字符串切片。
 - en: 'Case 4: If both **s** and **sep** are empty it will return an empty slice of
     string'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 案例4：如果**s**和**sep**都为空，它将返回一个空的字符串切片。
 - en: '**Code**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]*'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE2]*'

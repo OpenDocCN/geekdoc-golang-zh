@@ -1,131 +1,203 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:44:38'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:44:38
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Sort an array of 0, 1, and 2 in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go中对0、1和2的数组进行排序。
 - en: 来源：[https://golangbyexample.com/sort-array-one-zero-two-golang/](https://golangbyexample.com/sort-array-one-zero-two-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/sort-array-one-zero-two-golang/](https://golangbyexample.com/sort-array-one-zero-two-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[First Approach – Using count](#First_Approach_-_Using_count "First Approach
     – Using count")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[第一种方法 - 使用计数](#First_Approach_-_Using_count "第一种方法 - 使用计数")'
 - en: '[Second Approach - Using switch and shuffling](#Second_Approach_-_Using_switch_and_shuffling
     "Second Approach - Using switch and shuffling")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[第二种方法 - 使用交换和洗牌](#Second_Approach_-_Using_switch_and_shuffling "第二种方法 - 使用交换和洗牌")*  *##
+    **概述**'
 - en: The objective is to sort an array of 0,1 and 2 with all 0’s at the start, all
     1’s in the middle, and all 2’s in the end. The Space Complexity of the solution
     should be O(1) which means that you should not allocate any extra space in terms
     of the input size of the given array
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是对一个包含0、1和2的数组进行排序，使所有的0在开头，所有的1在中间，所有的2在最后。该解决方案的空间复杂度应为O(1)，这意味着不应在给定数组的输入大小上分配任何额外空间。
 - en: Eg
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: There are two ways of solving this problem
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 解决此问题有两种方法。
 - en: '**First Approach:** We can iterate over the array and can keep the count of
     0’s, 1’s, and 2’s. Once we have the count, iterate again over the array and assign
     that number of 0’s at first then the number of 1’s, and then the number of 2’s.'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**第一种方法：**我们可以遍历数组并记录0、1和2的数量。一旦我们有了计数，再次遍历数组并将该数量的0先放入，然后是1的数量，最后是2的数量。'
 - en: '**Second approach:** In the second approach we can have three indexes'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**第二种方法：**在第二种方法中，我们可以使用三个索引。'
 - en: low initialized to 0
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: low初始化为0。
 - en: mid initialized to 0
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: mid初始化为0。
 - en: high initialized to length of input array minus one
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: high初始化为输入数组长度减一。
 - en: Now iterate over the array for the mid position
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在遍历数组的mid位置。
 - en: If we encounter a 0 we move it to the left at position **low**. Increment **low**
     and **mid**
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果遇到0，我们将其移动到位置**low**的左侧。然后递增**low**和**mid**。
 - en: If we encounter a 1 we simply do **mid++**
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果遇到1，我们简单地执行**mid++**。
 - en: If we encounter a 2 we simply move it to right at position **high**. Decrement
     **high**
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果遇到2，我们将其简单地移动到位置**high**的右侧。然后递减**high**。
 - en: Here are the programs for the same
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是相同的程序。
 - en: '**First Approach – Using count**'
+  id: totrans-24
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**第一种方法 - 使用计数**'
 - en: '[PRE1]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Second Approach - Using switch and shuffling**'
+  id: totrans-28
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**第二种方法 - 使用交换和洗牌**'
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：**查看我们的Golang高级教程。本系列的教程内容详尽，我们尝试涵盖所有概念并配有示例。该教程适合那些希望获得专业知识并深入理解Golang的人
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

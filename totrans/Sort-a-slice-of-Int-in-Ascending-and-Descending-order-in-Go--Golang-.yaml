@@ -1,134 +1,215 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:52:20'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:52:20
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Sort a slice of Int in Ascending and Descending order in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中以升序和降序排序整型切片
 - en: 来源：[https://golangbyexample.com/sort-slice-asc-desc-golang/](https://golangbyexample.com/sort-slice-asc-desc-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/sort-slice-asc-desc-golang/](https://golangbyexample.com/sort-slice-asc-desc-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Sort a slice in Ascending order](#Sort_a_slice_in_Ascending_order "Sort
     a slice in Ascending order")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [以升序排序切片](#Sort_a_slice_in_Ascending_order "Sort a slice in Ascending
+    order")'
 - en: '[Sort a slice in Descending order](#Sort_a_slice_in_Descending_order "Sort
     a slice in Descending order")*  *# **Sort a slice in Ascending order**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[以降序排序切片](#Sort_a_slice_in_Descending_order "Sort a slice in Descending order")*  *#
+    **以升序排序切片**'
 - en: '**sort.Ints** package of going can be used to sort a full slice or a part of
     the slice. It is going to sort the string into Ascending order.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sort.Ints**包可以用来排序整个切片或切片的一部分。它将字符串排序为升序。'
 - en: Below is the signature of the method
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是该方法的签名。
 - en: '[https://pkg.go.dev/sort#Ints](https://pkg.go.dev/sort#Ints)'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://pkg.go.dev/sort#Ints](https://pkg.go.dev/sort#Ints)'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It takes a slice ‘x’ as an argument and sorts the slice ‘x’ in place.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将切片‘x’作为参数，并对切片‘x’进行就地排序。
 - en: Below is the program for the same
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相同程序的代码。
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Sort a slice in Descending order**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**以降序排序切片**'
 - en: To sort a slice in descending order we will use **Slice** method of **sort**
     pacakge
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了以降序对切片进行排序，我们将使用**sort**包的**Slice**方法。
 - en: '[https://pkg.go.dev/sort#Slice](https://pkg.go.dev/sort#Slice)'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://pkg.go.dev/sort#Slice](https://pkg.go.dev/sort#Slice)'
 - en: Below is the signature of the method
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是该方法的签名。
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: So this function takes two arguments
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个函数接受两个参数
 - en: '**x any** – any is nothing here but an empty interface [https://pkg.go.dev/builtin#any](https://pkg.go.dev/builtin#any)'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**x any** – 这里的any只是一个空接口 [https://pkg.go.dev/builtin#any](https://pkg.go.dev/builtin#any)'
 - en: '**less func(i, j int)** – This function is nothing but a comparator function'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**less func(i, j int)** – 这个函数实际上就是一个比较函数。'
 - en: We can use this comparator function to decide the descending order of the elements
     in the slice. Below is an example
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以使用这个比较函数来决定切片中元素的降序。下面是一个例子。
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: As a matter of fact, you can use **sort.Slice** method to also sort a slice
     in descending order. Below is an example
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 实际上，你也可以使用**sort.Slice**方法以降序排序切片。下面是一个例子。
 - en: '[PRE6]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的Golang高级教程。该系列教程内容详尽，我们尽力覆盖所有概念并提供示例。这个教程适合那些希望获得专业知识和扎实理解Golang的人
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为你准备的 -
 - en: '[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)'
 - en: '**Note:** Check out our system design tutorial series [System Design Questions](https://techbyexample.com/system-design-questions/)'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的系统设计教程系列 [系统设计问题](https://techbyexample.com/system-design-questions/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

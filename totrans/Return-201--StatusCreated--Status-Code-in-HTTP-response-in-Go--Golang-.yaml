@@ -1,96 +1,152 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:38:46'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:38:46
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Return 201 (StatusCreated) Status Code in HTTP response in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）HTTP响应中返回201（状态创建）状态码。
 - en: 来源：[https://golangbyexample.com/201-http-status-response-golang/](https://golangbyexample.com/201-http-status-response-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/201-http-status-response-golang/](https://golangbyexample.com/201-http-status-response-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: '**net/http** package of golang provides the status code constants which could
     be used to return different status codes- [https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**net/http**包提供了状态码常量，可用于返回不同的状态码 - [https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)'
 - en: The same can also be used to return the 201 (StatusCreated) HTTP status code. 
     The HTTP 201 status code is defined by the below constant
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样可以用于返回201（状态创建）HTTP状态码。HTTP 201状态码由以下常量定义。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In this article, we will also see how to return a JSON body along with the 201(StatusCreated)
     Status Code
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这篇文章中，我们还将看到如何返回JSON体以及201（状态创建）状态码。
 - en: '**Program**'
+  id: totrans-13
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相同的程序。
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Here we are using the **WriteHeader** function to specify the 201 http status
     code and uses the **Write** function to also return the response bodyThe above
     code returns the below JSON request body back in response
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，我们使用**WriteHeader**函数指定201 HTTP状态码，并使用**Write**函数返回响应体。上述代码返回以下JSON请求体作为响应。
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Run the above program. It will start a server on 8080 port on your local machine.
     Now make the below curl call to the server
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上述程序，它将在你的本地机器上启动一个8080端口的服务器。现在进行以下curl调用到服务器。
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Below will be the output
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下将是输出。
 - en: '[PRE4]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: As you can see from the output, it will correctly return the 201 status code
     along with the body.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，输出将正确返回201状态码以及主体。
 - en: You can also directly pass 201 to the WriteHeader function to send the 201 response.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 你也可以直接将201传递给WriteHeader函数以发送201响应。
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: This also works correctly. Try it out.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 这同样工作正常。试试看。
 - en: Also, check out our Golang advance tutorial Series - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，查看我们的Golang进阶教程系列 - [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 - en: '[201](https://golangbyexample.com/tag/201/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[201](https://golangbyexample.com/tag/201/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

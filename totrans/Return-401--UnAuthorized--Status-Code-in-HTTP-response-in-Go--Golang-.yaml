@@ -1,96 +1,152 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:38:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:38:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Return 401 (UnAuthorized) Status Code in HTTP response in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在HTTP响应中返回401（未授权）状态码的Go（Golang）实现。
 - en: 来源：[https://golangbyexample.com/401-http-status-response-go/](https://golangbyexample.com/401-http-status-response-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/401-http-status-response-go/](https://golangbyexample.com/401-http-status-response-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: '**net/http** package of golang provides the status code constants which could
     be used to return different status codes- [https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**net/http**包提供状态码常量，可用于返回不同的状态码 - [https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)'
 - en: The same can also be used to return the 401 (Unauthorized) HTTP status code. 
     The HTTP 401 status code is defined by the below constant
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样可以用于返回401（未授权）HTTP状态码。HTTP 401状态码由以下常量定义。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In this article, we will also see how to return a JSON body along with the 401
     (Unauthorized) Status Code
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本文中，我们还将看到如何在返回401（未授权）状态码的同时返回JSON主体。
 - en: '**Program**'
+  id: totrans-13
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的程序。
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Here we are using the **WriteHeader** function to specify the 401 http status
     code and uses the **Write** function to also return the response bodyThe above
     code returns the below JSON request body back in response
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，我们使用**WriteHeader**函数来指定401 HTTP状态码，并使用**Write**函数来返回响应主体。上述代码将返回以下JSON请求主体作为响应。
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Run the above program. It will start a server on 8080 port on your local machine.
     Now make the below curl call to the server
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上述程序。它将在本地机器的8080端口启动一个服务器。现在对服务器进行以下curl调用。
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Below will be the output
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下将是输出。
 - en: '[PRE4]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: As you can see from the output, it will correctly return the **401** status
     code along with the body.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，输出将正确返回**401**状态码及其主体。
 - en: You can also directly pass 401 to the WriteHeader function to send the 401 response.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 你也可以直接将401传递给WriteHeader函数以发送401响应。
 - en: '[PRE5]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: This also works correctly. Try it out.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 这也可以正常工作。试试看。
 - en: Also, check out our Golang advance tutorial Series - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 同时，查看我们的Golang高级教程系列 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[401](https://golangbyexample.com/tag/401/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[401](https://golangbyexample.com/tag/401/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

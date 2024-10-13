@@ -1,63 +1,99 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:11:02'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:02
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Return a function from a function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中从函数返回一个函数
 - en: 来源：[https://golangbyexample.com/return-func-from-func-go/](https://golangbyexample.com/return-func-from-func-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/return-func-from-func-go/](https://golangbyexample.com/return-func-from-func-go/)
 - en: In Golang function are first-order variables meaning that
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Golang 中，函数是一级变量，这意味着
 - en: They can be assigned to a variable
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它们可以被赋值给一个变量
 - en: Passed around as function argument
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 作为函数参数传递
 - en: Returned from a function
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从函数返回
 - en: While returning a function from another function, the exact signature of the
     function has to be specified return list. As in below example
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在从另一个函数返回一个函数时，必须在返回列表中指定函数的确切签名。如下例所示
 - en: The return type of **getAreaFunc** function is **func(int, int) int**
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**getAreaFunc** 函数的返回类型是 **func(int, int) int**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**getAreaFunc** function hence it can return a function of type **func(int,
     int) int**'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**getAreaFunc** 函数因此可以返回类型为 **func(int, int) int** 的函数'
 - en: '**Code:**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'

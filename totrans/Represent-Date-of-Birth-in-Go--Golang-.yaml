@@ -1,44 +1,70 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:07:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:07:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Represent Date of Birth in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中表示出生日期
 - en: 来源：[https://golangbyexample.com/dob-golang/](https://golangbyexample.com/dob-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/dob-golang/](https://golangbyexample.com/dob-golang/)
 - en: '**time.Date** function of **time** package can be used to create a particular
     date that can represent a DOB.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**time** 包的 **time.Date** 函数可用于创建一个特定日期，以表示出生日期。'
 - en: See below example
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 请参见以下示例
 - en: getDOB is the function that takes in a year, month and day and returns a date.
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`getDOB` 是一个接受年份、月份和日期并返回日期的函数。'
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '[date](https://golangbyexample.com/tag/date/)*   [dob](https://golangbyexample.com/tag/dob/)*   [package](https://golangbyexample.com/tag/package/)'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[日期](https://golangbyexample.com/tag/date/)*   [出生日期](https://golangbyexample.com/tag/dob/)*   [包](https://golangbyexample.com/tag/package/)'

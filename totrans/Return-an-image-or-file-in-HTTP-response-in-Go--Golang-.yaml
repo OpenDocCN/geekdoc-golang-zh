@@ -1,138 +1,215 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类。
 - en: 'date: 2024-10-13 06:39:25'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:39:25
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Return an image or file in HTTP response in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中以 HTTP 响应返回图像或文件。
 - en: 来源：[https://golangbyexample.com/image-http-response-golang/](https://golangbyexample.com/image-http-response-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/image-http-response-golang/](https://golangbyexample.com/image-http-response-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Example](#Example "Example")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *## **概述**'
 - en: '**Write** method of the **ResponseWriter** interface in **net/http** package
     can be used to send the **image** or **file** body in an HTTP response body. When
     we send a file or image as part of the HTTP response, then the Content-Type response
     header is'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**ResponseWriter** 接口的 **Write** 方法可以用于在 HTTP 响应体中发送 **image** 或 **file**。当我们将文件或图像作为
+    HTTP 响应的一部分发送时，Content-Type 响应头为'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In GO a response is represented by the **ResponseWriter** Interface.  Here is
     the link to the interface –
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，响应由 **ResponseWriter** 接口表示。这里是接口的链接 –
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: ResponseWriter interface is used by an HTTP handler to construct an HTTP response.
     It provides three functions to set the response parameters
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: ResponseWriter 接口由 HTTP 处理程序用于构造 HTTP 响应。它提供了三个函数来设置响应参数。
 - en: Header – For writing response header
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Header – 用于写入响应头。
 - en: Write([]byte) – For writing response body
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Write([]byte) – 用于写入响应体。
 - en: WriteHeader(statusCode int) – For writing the http status code
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: WriteHeader(statusCode int) – 用于写入 HTTP 状态码。
 - en: '**Write** function can be used to set the response body. It takes a slice of
     bytes as input. Hence we need to read the file or image into a slice of bytes
     before passing it as an argument to the **Write** function. For this we will use
     the **ReadFile** function provided by the **ioutil** package of golang. Also,
     there is a **Header** function. This function can be used to set the content type
     of the response body using the Content-Type header.'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Write** 函数可用于设置响应体。它接受一个字节切片作为输入。因此，我们需要先将文件或图像读取到字节切片中，然后再将其作为参数传递给 **Write**
+    函数。为此，我们将使用 **ioutil** 包提供的 **ReadFile** 函数。此外，还有一个 **Header** 函数。此函数可用于使用 Content-Type
+    头设置响应体的内容类型。'
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Also, note that **WriteHeader** function can be used to set the HTTP status
     code for the response.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请注意 **WriteHeader** 函数可用于设置响应的 HTTP 状态码。
 - en: '**Example**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see an example of sending a file or an image as part of an HTTP response.
     Below is the program for the same
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看如何将文件或图像作为 HTTP 响应的一部分发送的示例。下面是相应的程序。
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This is how we read the file or image into a variable in Go
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是我们如何在 Go 中将文件或图像读取到变量中的。
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: We then pass this variable to the **Write** function
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们将这个变量传递给 **Write** 函数。
 - en: '[PRE5]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Note that in the above program we are sending **test.png** which is present
     locally at my machine. You can replace it with any other file present on your
     machine. It could be png or any other file.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在上面的程序中，我们发送的是本地机器上存在的 **test.png**。您可以将其替换为您机器上存在的任何其他文件，可以是 png 或其他文件。
 - en: Also, we are using the **WriteHeader** function to specify the **200** http
     status code.  We are also setting the correct header
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，我们正在使用 **WriteHeader** 函数来指定 **200** HTTP 状态码。我们还设置了正确的头部。
 - en: '[PRE6]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Run the above program. It will start a server on 8080 port on your local machine.
     Now make the below curl call to the server. Notice in the curl call that we are
     saving the output to a local file as well
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行上面的程序。它将在您本地机器的 8080 端口启动一个服务器。现在向服务器发出下面的 curl 调用。请注意在 curl 调用中，我们还将输出保存到本地文件。
 - en: '[PRE7]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Output will be something like below
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出将类似于下面的内容。
 - en: '[PRE8]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Now check at the current directory in the terminal from which you made the curl
     call. A file named **test.png** will be present which is the same file that was
     sent by the server.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在检查您从中发出 curl 调用的当前目录。在该目录下会有一个名为 **test.png** 的文件，这就是服务器发送的相同文件。
 - en: Also, check out our Golang advance tutorial Series - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请查看我们的 Golang 高级教程系列 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

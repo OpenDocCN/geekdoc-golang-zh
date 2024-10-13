@@ -1,110 +1,171 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:19:39'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:19:39
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Check if two structs are equal or struct equality in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 检查两个结构体是否相等或在 Go (Golang) 中的结构体相等性。
 - en: 来源：[https://golangbyexample.com/struct-equality-golang/](https://golangbyexample.com/struct-equality-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/struct-equality-golang/](https://golangbyexample.com/struct-equality-golang/)
 - en: The first thing to know before considering struct equality is weather if all
     struct fields types are comparable or not
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在考虑结构体相等性之前，首先要知道所有结构体字段的类型是否可比较。
 - en: Some of the comparable types as defined by go specification are
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据 Go 规范定义的一些可比较类型包括：
 - en: boolean
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 布尔值
 - en: numeric
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 数值
 - en: string,
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 字符串，
 - en: pointer
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 指针
 - en: channel
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 渠道
 - en: interface types
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接口类型
 - en: structs – if all it’s field type is comparable
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体 – 如果它的所有字段类型都是可比较的。
 - en: array – if the type of value of array element is comparable
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 数组 – 如果数组元素的值类型是可比较的。
 - en: Some of the types which are not comparable as per go specification and which
     cannot be used as a key in a map are.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据 Go 规范，不可比较的类型以及不能用作映射键的类型包括：
 - en: Slice
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 切片
 - en: Map
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 映射
 - en: Function
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数
 - en: So two struct will be equal if first all their field types are comparable and
     all the corresponding field values are equal.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果两个结构体的所有字段类型可比较且所有对应字段值相等，则它们是相等的。
 - en: Let’s see an example
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。
 - en: '[PRE0]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: If the struct field type are not comparable then there will be compilation error
     on checking struct equality using the == operator.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果结构体字段类型不可比较，则在使用 == 运算符检查结构体相等性时会出现编译错误。
 - en: '[PRE2]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Above program will raise compilation error as **employee** struct contains a
     field **deparments** which is a **slice** of **string**. **slice** is not a comparable
     type and hence the compilation error.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序会引发编译错误，因为 **employee** 结构体包含一个字段 **departments**，这是一个 **slice** 类型的 **string**。**slice**
+    不是可比较类型，因此会出现编译错误。
 - en: '[PRE3]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'

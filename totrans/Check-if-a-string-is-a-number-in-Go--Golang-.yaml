@@ -1,50 +1,80 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:09:51'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:09:51
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Check if a string is a number in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中检查字符串是否为数字
 - en: 来源：[https://golangbyexample.com/check-if-string-is-number-golang/](https://golangbyexample.com/check-if-string-is-number-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/check-if-string-is-number-golang/](https://golangbyexample.com/check-if-string-is-number-golang/)
 - en: '**strconv.Atoi()** function can be used to check if the string is a number.
     If this function returns an error if the passed string is not a number. This function
     parses the number to base 10'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**strconv.Atoi()** 函数可用于检查字符串是否为数字。如果传入的字符串不是数字，此函数将返回错误。该函数将数字解析为基数 10。'
 - en: '[https://golang.org/pkg/strconv/#Atoi](https://golang.org/pkg/strconv/#Atoi)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/strconv/#Atoi](https://golang.org/pkg/strconv/#Atoi)'
 - en: Signature of the function is
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 函数的签名是
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Working Code:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**有效代码：**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'

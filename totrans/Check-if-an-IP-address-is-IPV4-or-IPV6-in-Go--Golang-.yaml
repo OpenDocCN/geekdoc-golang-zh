@@ -1,51 +1,81 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:09:02'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:09:02
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Check if an IP address is IPV4 or IPV6 in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中检查IP地址是IPV4还是IPV6
 - en: 来源：[https://golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/](https://golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/](https://golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/)
 - en: IPV4 address is of 4 bytes string with each byte separated by dot (‘.’)
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: IPV4地址是4字节字符串，每个字节用点（‘.’）分隔
 - en: IPV6 address is 8 groups of 4 hexagonal digits separated by colon (‘:’)
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: IPV6地址由8组4个十六进制数字组成，每组用冒号（‘：’）分隔
 - en: The below code
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下代码
 - en: Prints invalid if the given IP address is invalid
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果给定的IP地址无效，则打印无效
 - en: Else it prints whether the IP address is ipV4 or ipV6
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 否则打印该IP地址是ipV4还是ipV6
 - en: '**Code:**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'

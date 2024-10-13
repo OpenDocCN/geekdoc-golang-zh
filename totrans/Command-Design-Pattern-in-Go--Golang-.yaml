@@ -1,266 +1,410 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:03:04'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:03:04
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Command Design Pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的命令设计模式
 - en: 来源：[https://golangbyexample.com/command-design-pattern-in-golang/](https://golangbyexample.com/command-design-pattern-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/command-design-pattern-in-golang/](https://golangbyexample.com/command-design-pattern-in-golang/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [https://golangbyexample.com/all-design-patterns-golang/](https://golangbyexample.com/all-design-patterns-golang/https://golangbyexample.com/all-design-patterns-golan)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：如果你有兴趣了解如何在GO中实现所有其他设计模式，请查看这个完整的参考 – [https://golangbyexample.com/all-design-patterns-golang/](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction:](#Introduction "Introduction:")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[介绍：](#Introduction "Introduction:")'
 - en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML图：](#UML_Diagram "UML Diagram:")'
 - en: '[Mapping ](#Mapping "Mapping ")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射](#Mapping "Mapping")'
 - en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实际示例：](#Practical_Example "Practical Example:")'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Introduction:**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "Full Working Code:")**## **介绍：**'
 - en: Command Design Pattern is a behavioral design pattern. It suggests encapsulating
     the request as a standalone object. The created object has all the information
     about the request and thus can execute it independently.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 命令设计模式是一种行为设计模式。它建议将请求封装为一个独立的对象。创建的对象拥有关于请求的所有信息，因此可以独立执行。
 - en: 'The basic components that are used in the command design pattern are:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 命令设计模式中使用的基本组件有：
 - en: '**Receiver** – It is the class which contains the business logic. The command
     object only delays its requests to the receiver.'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**接收者** – 它是包含业务逻辑的类。命令对象仅将请求延迟到接收者。'
 - en: '**Command** – embeds receiver and binds a particular action of the receiver.'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**命令** – 嵌入接收者并绑定接收者的特定操作。'
 - en: '**Invoker** – It embeds the command and envokes the command by calling the
     command’s execute method.'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**调用者** – 它将命令嵌入并通过调用命令的执行方法来激活该命令。'
 - en: '**Client** – It creates the command with the appropriate receiver bypassing
     the receiver to the command’s constructor. After that, it also associates the
     resulting command with an invoker.'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**客户端** – 它创建命令，并通过将接收者传递给命令的构造函数来关联适当的接收者。之后，它还将结果命令与调用者关联起来。'
 - en: Let’s understand a situation after which it will be clear why the command pattern
     is useful.  Imagine the case of a TV. A TV can be turned **ON** by either
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们理解一个情况，之后会清楚为什么命令模式是有用的。想象一下电视的情况。电视可以通过以下方式打开**ON**：
 - en: Remote ON Button
+  id: totrans-20
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 遥控器的开启按钮
 - en: On Button on the tv.
+  id: totrans-21
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 电视上的开启按钮。
 - en: 'Both these trigger points do the same thing i.e. turn the TV on. In order to
     ON the TV, we can implement the ON command object with the receiver as the TV.
     When execute() method is called on this ON command object, it in turn call TV.on()
     function. So in this case:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这两个触发点的功能相同，即打开电视。为了打开电视，我们可以将接收者实现为电视的开启命令对象。当对这个开启命令对象调用execute()方法时，它会调用TV.on()函数。所以在这种情况下：
 - en: '**Receiver** is the **TV**'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**接收者**是**电视**'
 - en: '**Command** is the **ON command object** which embeds **TV**'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**命令**是嵌入**电视**的**开启命令对象**。'
 - en: '**Invoker** is the **Remote ON Button** or the **ON Button on the TV**. Both
     embed the **ON command object**'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**调用者**是**遥控器的开启按钮**或**电视上的开启按钮**。两者都嵌入**开启命令对象**。'
 - en: Notice here that we have wrapped the request of turning the **TV** on into an
     **ON command object** which can be invoked by multiple invokers. This ON command
     object embeds the receiver (TV here) and can be executed independently.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，我们将打开**电视**的请求封装成一个**开启命令对象**，可以由多个调用者调用。这个开启命令对象嵌入了接收者（这里是电视），并可以独立执行。
 - en: As another example, imagine the case of an **Adobe Photoshop** Application.
     In Photoshop a Save operation can be triggered from 3 places
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个例子，想象一下**Adobe Photoshop**应用程序的情况。在Photoshop中，可以从3个地方触发保存操作。
 - en: From the menu.
+  id: totrans-28
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 从菜单中。
 - en: From the button on the upper bar.
+  id: totrans-29
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 从上方工具栏上的按钮。
 - en: Using shortcut Ctrl+S.
+  id: totrans-30
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 使用快捷键Ctrl+S。
 - en: All three trigger points do the same thing, i.e save the current image in the
     application. This saves can be wrapped into a Save Command Object with a current
     image open in the application as the receiver.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 这三个触发点的功能相同，即保存当前应用中的图像。这个保存可以封装成一个带有当前打开图像的保存命令对象。
 - en: What’s the benefit of creating a separate command object in the above examples.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中创建一个单独的命令对象有什么好处？
 - en: It decouples the UI logic from underlying business logic
+  id: totrans-33
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 它将 UI 逻辑与底层业务逻辑解耦。
 - en: No need to create different handlers for each of the invokers.
+  id: totrans-34
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 不需要为每个调用者创建不同的处理程序。
 - en: The command object contains all the information it needs to execute. Hence it
     can also be used for delayed execution.
+  id: totrans-35
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 命令对象包含执行所需的所有信息。因此，它也可以用于延迟执行。
 - en: Let’s look at the UML diagram now.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们来看一下 UML 图。
 - en: '**UML Diagram:**'
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**UML 图：**'
 - en: Notice how Invoker embeds the command. The request is sent to the Invoker and
     it passes the request to the encapsulated command object.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 请注意，调用者嵌入了命令。请求发送给调用者，然后它将请求传递给封装的命令对象。
 - en: All the Concrete Command Object embed the receiver
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 所有具体命令对象都嵌入接收者。
 - en: '![](img/5cdfb3ea5569210aaa3c225e0fba2611.png)'
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_IMG
+  zh: '![](img/5cdfb3ea5569210aaa3c225e0fba2611.png)'
 - en: '**Mapping **'
+  id: totrans-41
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**映射**'
 - en: The below table represents the mapping from the UML diagram actors to actual
     implementation actors in **“Practical Example”** below
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 下表展示了 UML 图中参与者与 **“实际示例”** 中实际实现参与者之间的映射。
 - en: '| Invoker | button.go |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '| 调用者 | button.go |'
 - en: '| Command Interface | command.go |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '| 命令接口 | command.go |'
 - en: '| Concrete Command 1 | onCommand.go |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '| 具体命令 1 | onCommand.go |'
 - en: '| Concrete Command 2 | offCommand.go |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '| 具体命令 2 | offCommand.go |'
 - en: '| Receiver Interface | device.go |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '| 接收者接口 | device.go |'
 - en: '| Concrete Receiver | tv.go |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '| 具体接收者 | tv.go |'
 - en: '| Client | main.go |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '| 客户端 | main.go |'
 - en: '**Practical Example:**'
+  id: totrans-50
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**实际示例：**'
 - en: '**button.go**'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '**button.go**'
 - en: '[PRE0]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**command.go**'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '**command.go**'
 - en: '[PRE1]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**onCommand.go**'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '**onCommand.go**'
 - en: '[PRE2]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**offCommand.go**'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: '**offCommand.go**'
 - en: '[PRE3]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**device.go**'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: '**device.go**'
 - en: '[PRE4]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**tv.go**'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: '**tv.go**'
 - en: '[PRE5]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**main.go**'
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE6]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Full Working Code:**'
+  id: totrans-67
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE8]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '[command design pattern in go](https://golangbyexample.com/tag/command-design-pattern-in-go/)*   [design
     pattern](https://golangbyexample.com/tag/design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-71
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go 中的命令设计模式](https://golangbyexample.com/tag/command-design-pattern-in-go/)*   [设计模式](https://golangbyexample.com/tag/design-pattern/)*   [Go](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*'

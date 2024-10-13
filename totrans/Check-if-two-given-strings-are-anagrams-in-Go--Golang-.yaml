@@ -1,92 +1,144 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:46:23'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:46:23
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Check if two given strings are anagrams in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 检查两个给定字符串在 Go (Golang) 中是否为变位词
 - en: 来源：[https://golangbyexample.com/check-two-strings-anagram-go/](https://golangbyexample.com/check-two-strings-anagram-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/check-two-strings-anagram-go/](https://golangbyexample.com/check-two-strings-anagram-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: An **anagram** is a word or phrase formed by rearranging the letters of a different
     word or phrase, typically using all the original letters exactly once. For example,
     the word *anagram* itself can be rearranged into *nagaram*, also the word *binary* into *brainy*^, and
     the word *adobe* into the *abode*.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**变位词** 是通过重新排列另一个单词或短语的字母形成的单词或短语，通常使用所有原始字母且恰好一次。例如，单词 *anagram* 本身可以重新排列为
+    *nagaram*，而单词 *binary* 可以变为 *brainy*，单词 *adobe* 可以变为 *abode*。'
 - en: For example
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Here is the idea of how to do it. Create a map of string to int. Now
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是实现方法的思路。创建一个字符串到整数的映射。现在
 - en: Traverse the first string and increase the count of each character in the map
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 遍历第一个字符串并增加映射中每个字符的计数
 - en: Traverse the second string and decrease the count of each character in the map
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 遍历第二个字符串并减少映射中每个字符的计数
 - en: Traverse the first string again and if for any character the count is non-zero
     in the map then return false.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 再次遍历第一个字符串，如果在映射中某个字符的计数非零，则返回 false。
 - en: In the end return true
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 最后返回 true
 - en: '**Program**'
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是相应的程序。
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的 Golang 高级教程。本系列的教程内容详尽，努力涵盖所有概念及示例。本教程适合那些希望获得专业知识并深入理解 golang
+    的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

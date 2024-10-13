@@ -1,132 +1,206 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:24:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:24:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Close operation on a channel in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中通道的关闭操作。
 - en: 来源：[https://golangbyexample.com/close-operation-on-a-channel-in-go-golang/](https://golangbyexample.com/close-operation-on-a-channel-in-go-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/close-operation-on-a-channel-in-go-golang/](https://golangbyexample.com/close-operation-on-a-channel-in-go-golang/)
 - en: Close is an inbuilt function that can be used to close a channel. Closing of
     a channel means that no more data can we send to the channel.  Channel is generally
     closed when all the data has been sent and there’s no more data to be send. Let’s
     see a program
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 关闭是一个内置函数，可以用于关闭通道。关闭通道意味着不能再向通道发送更多数据。当所有数据都已发送且没有更多数据要发送时，通道通常会被关闭。让我们看看一个程序。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, we created a channel.  Then we called the **sum** function
     in a goroutine. In the main function, we send 3 values to the channel and after
     that, we closed the channel indicating that no more values can be sent to the
     channel. The **sum** function iterates over the channel using the for loop and
     calculates the sum value.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个通道。然后在一个 goroutine 中调用了**求和**函数。在主函数中，我们向通道发送了 3 个值，之后关闭了通道，表示不再向通道发送更多值。**求和**函数使用
+    for 循环遍历通道并计算和。
 - en: Sending on a close channel will cause a panic.  See the program below
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在一个关闭的通道上发送会导致恐慌。请查看下面的程序。
 - en: '[PRE2]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Also closing a already closed channel will cause a panic
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 关闭一个已经关闭的通道也会导致恐慌。
 - en: While receiving from a  channel we can also use an additional variable to determine
     if the channel has been closed.  Below is the syntax for the same
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在从通道接收时，我们还可以使用一个附加变量来确定通道是否已关闭。下面是相应的语法。
 - en: '[PRE4]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The value of ok will be
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: ok 的值将是
 - en: True if the channel is not closed
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果通道未关闭则为真。
 - en: False if the channel is closed
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果通道已关闭则为假。
 - en: '[PRE5]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: In the above program created a channel of capacity one.  Then we send one value
     to the channel.  The **ok** variable in the first receive is true since the channel
     is not closed. The ok variable in the second  receive is  false because the channel
     is closed.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中创建了一个容量为一的通道。然后我们向通道发送了一个值。第一个接收中的**ok**变量为真，因为通道未关闭。第二个接收中的**ok**变量为假，因为通道已关闭。
 - en: '**For range loop on a channel**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**通道上的范围循环**'
 - en: For range loop can be used to receive data from the channel until it is closed.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 范围循环可以用来从通道接收数据，直到它被关闭。
 - en: '[PRE7]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In the above program,  we created a channel.   In the main function the send
     three values to the channel and after that, we closed the channel. Then we called
     the sum function and we passed the channel to that function. In the sum function,
     we did a for range loop over the channel.    After iterating over all the values
     in the channel the for range loop will exit  since the channel is closed
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个通道。在主函数中，我们向通道发送了三个值，之后关闭了通道。然后调用了求和函数，并将通道传递给该函数。在求和函数中，我们对通道进行了范围循环。遍历完通道中的所有值后，范围循环将退出，因为通道已关闭。
 - en: Now the question which comes to the mind is that what happens if you don't close
     a channel in the main function.  Try commenting the line in which they are closing
     the channel. Now run the program.  It will also  output  deadlock because  for
     range loop will never finish in the sum function
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在浮现的问题是，如果在主函数中不关闭通道会发生什么。尝试注释掉关闭通道的那一行。现在运行程序。它也会输出死锁，因为范围循环在求和函数中将永远不会结束。
 - en: '[PRE9]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Let's see summary table which shows the result of close operation on the different
     types of channel
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看摘要表，展示不同类型通道关闭操作的结果。
 - en: '| **Command** | **Unbuffered Channel****(Not Closed and not nil)** | **Buffered
     Channel****(Not Closed and not nil)** | **Closed Channel** | **Nil Channel** |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| **命令** | **无缓冲通道**（未关闭且不为 nil） | **缓冲通道**（未关闭且不为 nil） | **已关闭通道** | **空通道**
+    |'
 - en: '| Close | Success | Success | Panic | Panic |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| 关闭 | 成功 | 成功 | 恐慌 | 恐慌 |'

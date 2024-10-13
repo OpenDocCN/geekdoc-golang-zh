@@ -1,104 +1,164 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:36:36'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:36:36
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Concatenation (AND) of regexes in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中正则表达式的串联（AND）
 - en: 来源：[https://golangbyexample.com/concatenation-regex-golang/](https://golangbyexample.com/concatenation-regex-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/concatenation-regex-golang/](https://golangbyexample.com/concatenation-regex-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: It is similar to **AND** operator. For example, if there are two regexes **r1**
     and **r2**, the concatenation of regexes will be represented as below.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 它类似于**AND**运算符。例如，如果有两个正则表达式**r1**和**r2**，它们的串联将表示如下。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It will match regex **r1** followed by **r2**. Both **r1** and **r2** should
     be valid regexes. Basically, if string **s** matches regex **r1** and string **t**
     matches regex **r2**, then string **st** will match **r1r2**.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将匹配正则表达式**r1**后跟**r2**。**r1**和**r2**都应为有效的正则表达式。基本上，如果字符串**s**匹配正则表达式**r1**，并且字符串**t**匹配正则表达式**r2**，那么字符串**st**将匹配**r1r2**。
 - en: '**Program**'
+  id: totrans-12
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the example program for the same
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相应的示例程序
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: It only matches
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 它只匹配
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: We first compile the given regex using the **[MustCompile](https://golang.org/pkg/regexp/#MustCompile)**
     function. This function panics if the given regex is not valid. After it is able
     to successfully compile the given regex, it returns the instance of **[regexp](https://golang.org/pkg/regexp/)**
     struct.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们首先使用**[MustCompile](https://golang.org/pkg/regexp/#MustCompile)**函数编译给定的正则表达式。如果给定的正则表达式无效，则该函数会引发恐慌。在成功编译给定的正则表达式后，它将返回**[regexp](https://golang.org/pkg/regexp/)**结构的实例。
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: We can call the **[Match](https://golang.org/pkg/regexp/#Match)** method on
     the regexp instance to match the given pattern with the regex. It returns true
     if the regex matches with the input string otherwise false. We need to pass in
     bytes of the input string to this method.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以在正则表达式实例上调用**[Match](https://golang.org/pkg/regexp/#Match)**方法，将给定模式与正则表达式进行匹配。如果正则表达式与输入字符串匹配，则返回true，否则返回false。我们需要将输入字符串的字节传递给此方法。
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Concatenation can also be done between more than three regexes. Below is an
     example for the same
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 串联也可以在三个以上的正则表达式之间进行。以下是一个示例
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: It only matches
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 它只匹配
 - en: '[PRE8]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*

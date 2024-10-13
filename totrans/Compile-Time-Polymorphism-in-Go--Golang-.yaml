@@ -1,86 +1,133 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:01:24'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:01:24
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Compile Time Polymorphism in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的编译时多态性
 - en: 来源：[https://golangbyexample.com/compile-time-polymorphism-go/](https://golangbyexample.com/compile-time-polymorphism-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/compile-time-polymorphism-go/](https://golangbyexample.com/compile-time-polymorphism-go/)
 - en: In compile-time polymorphism, the call is resolved during compile time by the
     compiler. Some of the  forms for compile-time polymorphism are
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在编译时多态中，调用在编译时由编译器解析。编译时多态的一些形式是
 - en: '**Method/Function Overloading**: more than one method/function exists with
     the same name but with different signatures or possibly different return types'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**方法/函数重载**：存在多个同名但具有不同签名或可能不同返回类型的方法/函数。'
 - en: '**Operator Overloading**: the Same operator is used for operating on different
     data types'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**运算符重载**：相同的运算符用于不同数据类型的操作。'
 - en: Go doesn’t support Method Overloading. For example, see below program demonstrating
     that go doesn’t support method overloading.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 不支持方法重载。例如，以下程序演示了 Go 不支持方法重载。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Go also doesn’t support operator overloading. Reason for this is stated in faq
     of go – [https://golang.org/doc/faq#overloading](https://golang.org/doc/faq#overloading)
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 也不支持运算符重载。原因在于 Go 的常见问题解答中说明了——[https://golang.org/doc/faq#overloading](https://golang.org/doc/faq#overloading)。
 - en: Method dispatch is simplified if it doesn’t need to do type matching as well.
     Experience with other languages told us that having a variety of methods with
     the same name but different signatures was occasionally useful but that it could
     also be confusing and fragile in practice. Matching only by name and requiring
     consistency in the types was a major simplifying decision in Go’s type system.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果方法分发不需要进行类型匹配，则会简化。与其他语言的经验告诉我们，拥有多个同名但具有不同签名的方法有时是有用的，但在实践中也可能令人困惑且脆弱。在 Go
+    的类型系统中，仅通过名称匹配并要求类型一致性是一个重要的简化决策。
 - en: Regarding operator overloading, it seems more a convenience than an absolute
     requirement. Again, things are simpler without it.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于运算符重载，它似乎更多是一种便利，而非绝对的要求。没有它，事情更简单。
 - en: Now the question is there any alternative to do method overloading in GO. This
     is where **Variadic function** in go comes into the picture. See below program
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在的问题是，Go 中是否有替代方法进行方法重载。这就是 Go 中的 **可变参数函数** 进入画面的地方。见以下程序。
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Conclusion**:'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**结论**：'
 - en: Go doesn’t directly support method/function/operator overloading but variadic
     function provides a way of achieving the same with increased code complexity.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 不直接支持方法/函数/运算符重载，但可变参数函数提供了一种实现相同功能的方法，尽管代码复杂性增加。
 - en: '[compile](https://golangbyexample.com/tag/compile/)*   [compile-polymorphism](https://golangbyexample.com/tag/compile-polymorphism/)*   [oop](https://golangbyexample.com/tag/oop/)*   [polymorphism](https://golangbyexample.com/tag/polymorphism/)'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[编译](https://golangbyexample.com/tag/compile/)*   [编译-多态](https://golangbyexample.com/tag/compile-polymorphism/)*   [面向对象编程](https://golangbyexample.com/tag/oop/)*   [多态性](https://golangbyexample.com/tag/polymorphism/)'

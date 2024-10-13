@@ -1,140 +1,215 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类: 未分类'
 - en: 'date: 2024-10-13 06:45:19'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:45:19'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Construct a binary tree from postorder and inorder in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中从后序和中序构建二叉树
 - en: 来源：[https://golangbyexample.com/binary-tree-postorder-inorder-golang/](https://golangbyexample.com/binary-tree-postorder-inorder-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/binary-tree-postorder-inorder-golang/](https://golangbyexample.com/binary-tree-postorder-inorder-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: Two arrays are given which represent the postorder and inorder traversal of
     a binary tree. The objective is to construct a binary tree from them
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定两个数组，表示二叉树的后序和中序遍历。目标是从中构建二叉树
 - en: 'Example:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '示例:'
 - en: Consider below tree
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 考虑下面的树
 - en: '![](img/9a9347838908483552b24df3dc54cd38.png)'
+  id: totrans-12
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/9a9347838908483552b24df3dc54cd38.png)'
 - en: Postorder traversal of the tree will be
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 树的后序遍历将是
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Inorder traversal of the tree will be
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 树的中序遍历将是
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Postorder and Inorder array will be given and we have to construct the tree
     again from the inorder and postorder. Below will be the strategy
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 将提供后序和中序数组，我们必须再次从中序和后序构建树。以下将是策略
 - en: We will use three indexes which is the start of the array, end of the array,
     and current index
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将使用三个索引，即数组的开始、结束和当前索引
 - en: The last index in the postorder will be the root.
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 后序中的最后一个索引将是根节点。
 - en: We will find the index in an inorder array whose values match the value at the
     last index in the postorder array. Let’s this index be called rootIndex
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将在中序数组中查找与后序数组最后一个索引的值匹配的索引。我们将此索引称为rootIndex
 - en: All values in the left side of rootIndex in the inorder array will be in the
     left subtree
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在中序数组中，rootIndex左侧的所有值将位于左子树中
 - en: All values on the right side of rootIndex in the inorder array will be in the
     right subtree
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在中序数组中，rootIndex右侧的所有值将位于右子树中
 - en: We can then recurse with the same strategy for the right subtree and then the
     left subtree.
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们可以使用相同的策略递归处理右子树，然后处理左子树。
 - en: For eg
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: The last index in the postorder traversal is the root which is value **1**
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 后序遍历中的最后一个索引是根节点，其值为 **1**
 - en: The value **1** is at the **2nd** index in the inorder traversal. Hence rootIndex
     is **2**
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 值 **1** 在中序遍历中的 **第2** 个索引。因此，rootIndex是 **2**
 - en: The left part of rootIndex in the inorder traversal is **[4,2]**  which is part
     of the left subtree
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在中序遍历中，rootIndex左侧的部分是 **[4,2]**，它是左子树的一部分
 - en: The right side of rootIndex in the inorder traversal  is **[5,3,6]** which is
     part of the right subtree
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在中序遍历中，rootIndex右侧是 **[5,3,6]**，它是右子树的一部分
 - en: We can recurse for the right subtree and then the left subtree
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们可以递归处理右子树，然后处理左子树
 - en: '**Program**'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的程序
 - en: '[PRE2]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的Golang高级教程。本系列的教程详细且我们已尝试用示例涵盖所有概念。这个教程适合那些希望获得专业知识和对golang有扎实理解的人
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)*
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)*

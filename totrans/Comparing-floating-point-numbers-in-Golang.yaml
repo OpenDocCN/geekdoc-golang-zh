@@ -1,129 +1,203 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:05:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:05:52
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Comparing floating point numbers in Golang
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Golang中比较浮点数
 - en: 来源：[https://golangbyexample.com/comparing-floating-point-numbers-go/](https://golangbyexample.com/comparing-floating-point-numbers-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/comparing-floating-point-numbers-go/](https://golangbyexample.com/comparing-floating-point-numbers-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction](#Introduction "Introduction")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [引言](#Introduction "Introduction")'
 - en: '[Comparing Same Float Types](#Comparing_Same_Float_Types "Comparing Same Float
     Types")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[比较相同浮点类型](#Comparing_Same_Float_Types "Comparing Same Float Types")'
 - en: '[Comparing Different Float Types](#Comparing_Different_Float_Types "Comparing
     Different Float Types")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[比较不同浮点类型](#Comparing_Different_Float_Types "Comparing Different Float Types")'
 - en: '[Comparing Same Float Types With Tolerance](#Comparing_Same_Float_Types_With_Tolerance
     "Comparing Same Float Types With Tolerance")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[比较相同浮点类型的容差](#Comparing_Same_Float_Types_With_Tolerance "Comparing Same Float
+    Types With Tolerance")'
 - en: '[Comparing Using math.big package](#Comparing_Using_mathbig_package "Comparing
     Using math.big package")*  *# Introduction'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用math.big包进行比较](#Comparing_Using_mathbig_package "Comparing Using math.big
+    package")*  *# 引言'
 - en: Go Lang has two types of floats
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: Go语言有两种浮点类型
 - en: float32
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: float32
 - en: float64
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: float64
 - en: '**Comparing Same Float Types**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**比较相同浮点类型**'
 - en: Two floating point numbers can be compared using  Go’s == operator assuming
     they are the same float types. See below example
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以使用Go的==运算符比较两个浮点数，前提是它们是相同的浮点类型。请看下面的例子
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Comparing Different Float Types**'
+  id: totrans-20
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**比较不同浮点类型**'
 - en: Comparison of float32 with float64 will give a compilation error
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 比较float32和float64将导致编译错误
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Comparing Same Float Types With Tolerance**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**比较相同浮点类型的容差**'
 - en: If some kind of tolerance is acceptable while comparing float types, then below
     approach can be used
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果在比较浮点类型时可接受某种容差，则可以使用以下方法
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Comparing Using math.big package**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用math.big包进行比较**'
 - en: The big package supports big numbers and it supports Int, Rational Number and
     Float. It has a compare method which can be used to compare two floats
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: big包支持大数，并支持整型、有理数和浮点数。它有一个比较方法，可以用来比较两个浮点数
 - en: '[PRE6]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '[compare](https://golangbyexample.com/tag/compare/)*   [float](https://golangbyexample.com/tag/float/)*   [floating
     point numbers in go](https://golangbyexample.com/tag/floating-point-numbers-in-go/)*'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[比较](https://golangbyexample.com/tag/compare/)*   [浮点](https://golangbyexample.com/tag/float/)*   [Go中的浮点数](https://golangbyexample.com/tag/floating-point-numbers-in-go/)*'

@@ -1,175 +1,267 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:02:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:02:22
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Composite Design Pattern in Go (GoLang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的组合设计模式（GoLang）
 - en: 来源：[https://golangbyexample.com/composite-design-pattern-golang/](https://golangbyexample.com/composite-design-pattern-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/composite-design-pattern-golang/](https://golangbyexample.com/composite-design-pattern-golang/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：对理解其他所有设计模式在GO中的实现感兴趣。请参阅这个完整参考 – [Go语言中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Definition: ](#Definition "Definition:  ")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [定义：](#Definition "定义：")'
 - en: '[When to Use](#When_to_Use " When to Use")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[何时使用](#When_to_Use "何时使用")'
 - en: '[UML Diagram](#UML_Diagram "UML Diagram")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML图](#UML_Diagram "UML图")'
 - en: '[Mapping ](#Mapping "Mapping ")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射](#Mapping "映射")'
 - en: '[Practical Example](#Practical_Example "Practical Example ")*  *## **Definition: **'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实际示例](#Practical_Example "实际示例")*  *## **定义：**'
 - en: This is a structural design pattern. Composition design pattern is used when
     we want a Group of objects called ‘composite’ is treated in a similar way as a
     single object. It comes under structural design pattern as it allows you to compose
     objects into a tree structure. Each of the individual objects in the tree structure
     can be treated in the same way irrespective of whether they are Complex or Primitive.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一种结构设计模式。当我们希望一组称为“组合”的对象以与单个对象相同的方式处理时，组合设计模式就会被使用。它属于结构设计模式，因为它允许您将对象组合成树结构。树结构中的每个个体对象可以以相同的方式处理，无论它们是复杂的还是原始的。
 - en: Let’s try to understand it with an example of a file system of OS. In the file
     system, there are two types of objects **File** and **Folder.** There are cases
     when File and Folder are treated to be the same way. It will be more clear as
     we go along.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们通过操作系统的文件系统示例来理解它。在文件系统中，有两种类型的对象**文件**和**文件夹**。在某些情况下，文件和文件夹被视为相同的方式。随着我们深入，情况会更加清晰。
 - en: '**When to Use**'
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**何时使用**'
 - en: Composite Design pattern makes sense to use in cases when the composite and
     individual object needs to be treated in the same way from a client perspective.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 组合设计模式在组合对象和个体对象需要从客户端角度以相同方式处理的情况下使用是有意义的。
 - en: – In our example above of the file system, let’s say search operation of a particular
     keyword needs to be executed. Now, this search operation applies to both **File**
     and **Folder.** For a **File,** it will just look into the contents of the file
     and for a **Folder,** it will go through all files in the hierarchy in that folder
     to find that keyword
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: – 在我们上面的文件系统示例中，假设需要执行特定关键字的搜索操作。现在，这个搜索操作适用于**文件**和**文件夹**。对于**文件，**它只会查看文件的内容；而对于**文件夹，**它会遍历该文件夹层次结构中的所有文件以找到该关键字。
 - en: Use this pattern when the composite and individual object form a tree-like structure
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当组合对象和个体对象形成树状结构时使用此模式
 - en: –  In our example, **File** and **Folder** do form a tree structure
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: – 在我们的示例中，**文件**和**文件夹**确实形成了一个树结构
 - en: '**UML Diagram**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**UML图**'
 - en: '**Component** – It is the interface which defines the common operations for
     both the **Composite** and **Leaf** objects'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**组件** – 它是定义**组合**和**叶子**对象的公共操作的接口'
 - en: '**Composite –** It implements **Component** interface and embeds an array of
     child **Components**'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**组合 –** 它实现了**组件**接口，并嵌入了一组子**组件**。'
 - en: '**Leaf –** it is the primitive object in the tree. It also implements the **Component**
     Interface'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**叶子 –** 它是树中的原始对象。它也实现了**组件**接口'
 - en: '![](img/a2112b0fd53adcf02fc6a03a4e0c5226.png)'
+  id: totrans-24
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/a2112b0fd53adcf02fc6a03a4e0c5226.png)'
 - en: Below is the corresponding mapping UML diagram with the example given above
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是与上述示例对应的映射UML图
 - en: '![](img/241bbd461e5145959cbcba02e11dca09.png)'
+  id: totrans-26
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/241bbd461e5145959cbcba02e11dca09.png)'
 - en: '**Mapping **'
+  id: totrans-27
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**映射**'
 - en: The below table represents the mapping from the UML diagram actors to actual
     implementation actors in code.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 下表表示从UML图中的参与者到代码中实际实现的参与者的映射。
 - en: '| Component interface | component.go |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| 组件接口 | component.go |'
 - en: '| Composite | folder.go |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| 组合 | folder.go |'
 - en: '| Leaf | file.go |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| 叶子 | file.go |'
 - en: '| client | main.go |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| 客户端 | main.go |'
 - en: '**Practical Example**'
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**实际示例**'
 - en: In theexample below **component** is the interface and **file** and **folder**
     implement this interface**.**
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的示例中，**组件**是接口，而**文件**和**文件夹**实现了这个接口**。**
 - en: '**component.go**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**component.go**'
 - en: '[PRE0]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**folder.go**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**folder.go**'
 - en: '[PRE1]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**file.go**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**file.go**'
 - en: '[PRE2]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**main.go**'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE3]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[composite design pattern](https://golangbyexample.com/tag/composite-design-pattern/)*   [composite
     design pattern in go](https://golangbyexample.com/tag/composite-design-pattern-in-go/)*   [composite
     design pattern in golang](https://golangbyexample.com/tag/composite-design-pattern-in-golang/)*   [design
     pattern](https://golangbyexample.com/tag/design-pattern/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[组合设计模式](https://golangbyexample.com/tag/composite-design-pattern/)*   [Go中的组合设计模式](https://golangbyexample.com/tag/composite-design-pattern-in-go/)*   [Golang中的组合设计模式](https://golangbyexample.com/tag/composite-design-pattern-in-golang/)*   [设计模式](https://golangbyexample.com/tag/design-pattern/)*   [Go](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*'

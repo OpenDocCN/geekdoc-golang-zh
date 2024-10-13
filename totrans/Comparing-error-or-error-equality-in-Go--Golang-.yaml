@@ -1,158 +1,243 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: '分类: 未分类'
 - en: 'date: 2024-10-13 06:24:54'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '日期: 2024-10-13 06:24:54'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Comparing error or error equality in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中比较错误或错误相等
 - en: 来源：[https://golangbyexample.com/comparing-error-go/](https://golangbyexample.com/comparing-error-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/comparing-error-go/](https://golangbyexample.com/comparing-error-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: First of all, what is meant by equality of the error?  As you already know that
     error is represented by the error interface in go. In go, two interfaces are equal
     if
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，什么是错误的相等性？正如您所知道的，错误在Go中由错误接口表示。在Go中，如果两个接口是相等的
 - en: Both refer to the same underlying type
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 两者指向相同的底层类型
 - en: The underlying value is equal (or both nil)
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 底层值相等（或两个都是nil）
 - en: So the above two points apply for comparing the error as well. There are two
     ways of checking if given errors are equal
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以上述两点也适用于比较错误。有两种方法可以检查给定的错误是否相等。
 - en: Using the equality operator (==)
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用相等运算符 (==)
 - en: Using the Is function of errors package – [https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)
     .  Using Is function is preferable to using the equality operator because it checks
     for equality by unwrapping the first error sequentially and matches it with the
     target error at each step of unwrap. We will see an example, later on, to fully
     understand why it is preferable. Below is the syntax of Is function.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用错误包的Is函数 – [https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)。
+    使用Is函数优于使用相等运算符，因为它通过逐步解包第一个错误来检查相等性，并在每一步解包时与目标错误匹配。稍后我们将看到一个例子，以充分理解为什么它更可取。下面是Is函数的语法。
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Code**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: Let’s see an example
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program, we created **errorOne** struct which defines the **Error**
     method hence implement the **error** interface.  We created **err1**  variable
     which is an instance of **errorOne** struct. We also created a **do()** function
     which raises an error of type **errorOne** and that is captured in **err2** variable
     in the main function
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了**errorOne**结构，它定义了**Error**方法，从而实现了**error**接口。我们创建了**err1**变量，它是**errorOne**结构的一个实例。我们还创建了一个**do()**函数，该函数引发**errorOne**类型的错误，并在主函数中捕获到**err2**变量中。
 - en: Then we are comparing two errors using
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们使用
 - en: Using equality operator
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用相等运算符
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Using the **Is** function of errors package
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用错误包的**Is**函数
 - en: '[PRE4]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Both the method correctly output that the error is equal as both **err1** and
     **err2**
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 这两种方法都正确输出错误是相等的，因为**err1**和**err2**都相同。
 - en: Refer to same underlying type which is **errorOne**
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 指向相同的底层类型，即**errorOne**
 - en: Have the same underlying value
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 具有相同的底层值
 - en: We mentioned above that using the **Is** function preferable to using the equality
     operator because it checks for equality by unwrapping the first error sequentially
     and matches it with the target error at each step of unwrap. Let’s see an example
     of that
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在上面提到，使用**Is**函数优于使用相等运算符，因为它通过逐步解包第一个错误来检查相等性，并在每一步解包时与目标错误匹配。让我们看一个例子。
 - en: '[PRE5]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: The above program is almost same as the previous program just the difference
     being that in the **do()** function we are wrapping the error as well
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 上面的程序几乎与前一个程序相同，唯一的区别在于在**do()**函数中我们也包装了错误。
 - en: '[PRE7]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: The equality operator outputs
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 相等运算符输出
 - en: '[PRE8]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: While **Is** function outputs
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当**Is**函数输出时
 - en: '[PRE9]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: This is because the **err2** returned wraps an instance of  **errorOne** which
     is not catched by the equality operator but is catched by **Is** function
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是因为返回的**err2**包装了一个**errorOne**实例，而相等运算符无法捕获，但**Is**函数可以捕获。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

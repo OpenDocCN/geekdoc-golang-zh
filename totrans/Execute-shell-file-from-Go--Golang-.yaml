@@ -1,72 +1,114 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:09:25'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:09:25
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Execute shell file from Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 从 Go (Golang) 执行 shell 文件
 - en: 来源：[https://golangbyexample.com/execute-shell-file-golang/](https://golangbyexample.com/execute-shell-file-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/execute-shell-file-golang/](https://golangbyexample.com/execute-shell-file-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview:](#Overview "Overview:")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述：](#Overview "概述：")'
 - en: '[Code:](#Code "Code:")*  *# **Overview:**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "代码：")*  *# **概述：**'
 - en: '**os/exec** package can be used to trigger any OS command from Go. The same
     can be used for triggering .sh file.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os/exec** 包可用于从 Go 中触发任何操作系统命令。也可以用于触发 .sh 文件。'
 - en: 'First, create a sample.sh file in the same directory. Make sure it either starts
     with #!/bin/sh or #!/bin/bash'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '首先，在同一目录下创建一个 sample.sh 文件。确保它以 #!/bin/sh 或 #!/bin/bash 开头。'
 - en: '**sample.sh**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample.sh**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Make this sample.sh file executable
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使此 sample.sh 文件可执行
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Code:**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: Create a below **main.go** file in the same directory
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在同一目录下创建一个 **main.go** 文件
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '[bash](https://golangbyexample.com/tag/bash/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[bash](https://golangbyexample.com/tag/bash/)*'

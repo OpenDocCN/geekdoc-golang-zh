@@ -1,106 +1,166 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:21:12'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:21:12'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Fallthrough keyword in Switch Statement in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的Switch语句中的Fallthrough关键字
 - en: 来源：[https://golangbyexample.com/fallthrough-keyword-golang/](https://golangbyexample.com/fallthrough-keyword-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/fallthrough-keyword-golang/](https://golangbyexample.com/fallthrough-keyword-golang/)
 - en: '**fallthrough** keyword is used in switch statement in golang. This keyword
     is used in switch case block. If the **fallthrough** keyword is present in the
     case block, then it will transfer control to the next case even though the current
     case might have matched.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**fallthrough**关键字在golang的switch语句中使用。该关键字用于switch case块。如果case块中存在**fallthrough**关键字，则即使当前case可能已匹配，它也会将控制权转移到下一个case。'
 - en: To more understand this let’s first look at an example without fallthrough keyword
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了更好地理解这一点，让我们先看一个没有fallthrough关键字的示例。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: By default the switch statement matches goes through all the case statement
     from top to bottom and tries to find the first **case expression** that matches
     the **switch expression**. Once the matching case is found, it exits  and does
     not consider the other cases. This is what is happening in above example. Even
     though i is less than 100 but that case is never executed because the second case
     is matched and after that it exits
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 默认情况下，switch语句从上到下匹配所有case语句，并尝试找到第一个与**switch表达式**匹配的**case表达式**。一旦找到匹配的case，它将退出，不考虑其他case。这就是上述示例中发生的情况。尽管i小于100，但该case永远不会被执行，因为匹配了第二个case，之后它退出。
 - en: fallthrough keyword allows way around this limitation. See below code for **fallthrough**
     keyword example. In below example even though the second case matched it went
     through the third case because of **fallthrough** keyword
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: fallthrough关键字提供了一种绕过此限制的方法。请参见下面的代码，了解**fallthrough**关键字的示例。在下面的示例中，尽管第二个case已匹配，但由于**fallthrough**关键字，它仍然经过了第三个case。
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**fallthrough** needs to be final statement within the switch block. If it
     is not then compiler raise error'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**fallthrough**必须是switch块内的最后一个语句。如果不是，编译器将引发错误。'
 - en: '[PRE4]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Below program will raise the above error as we have **fmt.Println** after the
     **fallthrough** statement
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下程序将引发上述错误，因为我们在**fmt.Println**语句之后有**fallthrough**语句。
 - en: '[PRE5]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Break statement**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Break 语句**'
 - en: Below is the **break** statement example.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是**break**语句的示例。
 - en: '[PRE6]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**break** statement will terminate the execution of the switch and below line
     below will never be executed'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**break**语句将终止switch的执行，下面的行将永远不会被执行。'
 - en: '[PRE8]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Conclusion**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about how fallthrough keyword in used in switch statement in golang
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于golang中switch语句中fallthrough关键字的所有内容。
 - en: '[fallthrough](https://golangbyexample.com/tag/fallthrough/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[fallthrough](https://golangbyexample.com/tag/fallthrough/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'

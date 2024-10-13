@@ -1,140 +1,210 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:19:34'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:19:34'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Exported and UnExported fields of a struct in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中结构体的导出与未导出字段
 - en: 来源：[https://golangbyexample.com/exported-unexported-fields-struct-go/](https://golangbyexample.com/exported-unexported-fields-struct-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/exported-unexported-fields-struct-go/](https://golangbyexample.com/exported-unexported-fields-struct-go/)
 - en: Go doesn’t have any public,  private or protected keyword. The only mechanism
     to control the visibility outside the package is using the capitalized and non-capitalized
     formats
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: Go没有任何公共、私有或受保护的关键字。控制包外可见性的唯一机制是使用大写和小写格式。
 - en: '**Capitalized Identifiers** are exported. The capital letter indicates that
     this is an exported identifier and is available outside the package.'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**大写标识符** 是导出的。大写字母表示这是一个导出的标识符，可以在包外使用。'
 - en: '**Non-capitalized identifiers **are not exported. The lowercase indicates that
     the identifier is not exported and will only be accessed from within the same
     package.'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**小写标识符** 是未导出的。小写字母表示该标识符未导出，只能在同一包内访问。'
 - en: So any struct which starts with a capital letter is exported to other packages. 
     Similarly, any struct field which starts with capital is exported otherwise not.
     And also similarly any struct method which starts with a capital letter is exported.
     Let’s see an example that shows exporting and non-exporting of structs, struct
     fields, and methods. See **model.go** and **test.go** below. Both belong to the
     **main** package.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，任何以大写字母开头的结构体都被导出到其他包。同样，任何以大写字母开头的结构体字段也是导出的，反之则不是。任何以大写字母开头的结构体方法也是导出的。让我们看一个示例，展示结构体、结构体字段和方法的导出与未导出。请见下面的 **model.go** 和 **test.go**，它们都属于 **main** 包。
 - en: Structure
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体
 - en: Struct **Person** is exported
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体 **Person** 是导出的
 - en: Struct **company** is non-exported
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体 **company** 是未导出的
 - en: Structure’s Field
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体的字段
 - en: '**Person** struct field **Name** is exported'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体字段 **Name** 是导出的'
 - en: '**Person** struct field **age** is not exported but **Name** is exported'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体字段 **age** 是未导出的，但 **Name** 是导出的'
 - en: Structure’s Method
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体的方法
 - en: '**Person** Struct’s Method **GetAge()** is exported'
+  id: totrans-17
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体的方法 **GetAge()** 是导出的'
 - en: '**Person** Struct’s Method **getName()** is not exported'
+  id: totrans-18
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体的方法 **getName()** 是未导出的'
 - en: '**model.go**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**model.go**'
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s write a file **test.go** in same **main** package. See below.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们在同一 **main** 包中编写一个文件 **test.go**。见下文。
 - en: '**test.go**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**test.go**'
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: On running this file, it is able to access all exported and un-exported fields
     in **model.go** as both lies in the same package **main**. There is no compilation
     error and it gives below output
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行此文件时，它能够访问 **model.go** 中的所有导出和未导出字段，因为它们都在同一包 **main** 中。没有编译错误，输出如下。
 - en: '**Output:**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出:**'
 - en: '[PRE2]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Let’s move the above file **model.go** to a different package named **model.**
     Now notice the output on running ‘go build’. It gives compilation errors. All
     the compilation error are because **test.go** in **main** package to not able
     to refer to un-exported fields of **model.go** in **model** package
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们将上述文件 **model.go** 移动到一个名为 **model** 的不同包中。现在注意运行‘go build’时的输出。它会给出编译错误。所有编译错误都是因为 **main** 包中的 **test.go** 无法引用 **model** 包中未导出的 **model.go** 字段。
 - en: '**model.go**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**model.go**'
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**test.go**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**test.go**'
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出:**'
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'

@@ -1,69 +1,105 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:23:53'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:23:53
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Fallthrough keyword in select statement in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的选择语句中的Fallthrough关键字
 - en: 来源：[https://golangbyexample.com/fallthrough-keyword-select-golang/](https://golangbyexample.com/fallthrough-keyword-select-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/fallthrough-keyword-select-golang/](https://golangbyexample.com/fallthrough-keyword-select-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: Select doesn’t allow **fallthrough** keyword to select multiple cases. **Fallthrough**
     keyword can only be used in  switch statement to select multiple cases Only one
     case out of ready cases will be chosen at random. It cannot execute multiple cases
     but there is a workaround to it. We can have a for loop outside the set statement.
     This for loop will call the select statement equal to the number of iterations
     in the loop.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 选择语句不允许**fallthrough**关键字选择多个案例。**Fallthrough**关键字只能在switch语句中用于选择多个案例。在准备好的案例中只会随机选择一个案例。它无法执行多个案例，但有一个解决方法。我们可以在set语句外部有一个for循环。这个for循环将根据循环的迭代次数调用选择语句。
 - en: Let see an example.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个例子。
 - en: '**Code**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program  we put a for loop of length two across the select statement.
     Hence  the select statement is executed twice and   prints the received value
     from each of the case statement.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们在选择语句中放置了一个长度为二的for循环。因此，选择语句执行了两次，并打印了每个case语句接收到的值。
 - en: This way we can execute multiple  case statement but do note that it is not
     deterministic.  If there are multiple operations available on the same channel
     for a particular case statement then that case can be executed every time in all
     iterations of the for loop
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过这种方式，我们可以执行多个case语句，但请注意，这并不是确定性的。如果在某个特定case语句上有多个操作可用，则该case在for循环的所有迭代中每次都可能被执行。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

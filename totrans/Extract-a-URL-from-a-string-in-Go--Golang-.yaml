@@ -1,107 +1,172 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:40:26'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:40:26
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Extract a URL from a string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中从字符串中提取 URL
 - en: 来源：[https://golangbyexample.com/extract-url-golang/](https://golangbyexample.com/extract-url-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/extract-url-golang/](https://golangbyexample.com/extract-url-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: Below go package can be used to extract URL from a given string
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下 Go 包可以用于从给定字符串中提取 URL
 - en: '[https://github.com/mvdan/xurls](https://github.com/mvdan/xurls)'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://github.com/mvdan/xurls](https://github.com/mvdan/xurls)'
 - en: There are two ways of using this package
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用此包有两种方法
 - en: '**Strict** – In strict mode, it matches only URLs with a scheme'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**严格** – 在严格模式下，它只匹配带有方案的 URL'
 - en: '**Relaxed** – In relaxed mode, it matches any URL matched by strict plus any
     URLs without a scheme'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**宽松** – 在宽松模式下，它匹配严格模式下的任何 URL，以及没有方案的任何 URL'
 - en: You can specify the scheme to filter on. There is a function for that
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以指定要过滤的方案。对此有一个函数
 - en: '**StrictMatchingScheme**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**StrictMatchingScheme**'
 - en: '**Program**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Let’s first see a program
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们首先看一个程序
 - en: '[PRE0]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Notice in the strict mode, it does not return the [golangbyexample.com](http://golangbyexample.com)
     in the output as that is without a scheme.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意在严格模式下，它不会将 [golangbyexample.com](http://golangbyexample.com) 返回到输出中，因为该 URL
+    没有方案。
 - en: Let’s see another program to extract multiple URLs
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看另一个提取多个 URL 的程序
 - en: '[PRE2]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: If we want to restrict the output to a particular scheme then that also can
     be done.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们想将输出限制为特定方案，也可以做到。
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program, we provided the scheme as https which is why we have only
     one output
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们提供了 https 作为方案，这就是为什么我们只有一个输出
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

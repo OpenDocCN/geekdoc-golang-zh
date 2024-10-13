@@ -1,249 +1,386 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:02:59'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:02:59
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Facade Design Pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的外观设计模式
 - en: 来源：[https://golangbyexample.com/facade-design-pattern-in-golang/](https://golangbyexample.com/facade-design-pattern-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/facade-design-pattern-in-golang/](https://golangbyexample.com/facade-design-pattern-in-golang/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：如果想了解如何在 GO 中实现其他设计模式，请参阅此完整参考 – [Go (Golang) 中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Definition: ](#Definition "Definition:  ")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [定义：](#Definition "Definition:  ")'
 - en: '[Problem Statement:](#Problem_Statement "Problem Statement:")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[问题陈述：](#Problem_Statement "Problem Statement:")'
 - en: '[When to Use:](#When_to_Use "When to Use:")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用时机：](#When_to_Use "When to Use:")'
 - en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML 图：](#UML_Diagram "UML Diagram:")'
 - en: '[Mapping](#Mapping "Mapping")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射](#Mapping "Mapping")'
 - en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实践示例：](#Practical_Example "Practical Example:")'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Definition: **'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "Full Working Code:")*  *## **定义：**'
 - en: Facade Pattern is classified as a structural design pattern. This design pattern
     is meant to hide the complexities of the underlying system and provide a simple
     interface to the client. It provides a unified interface to underlying many interfaces
     in the system so that from the client perspective it is easier to use. Basically
     it provides a higher level abstraction over a complicated system.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 外观模式被归类为结构设计模式。该设计模式旨在隐藏底层系统的复杂性，并为客户端提供一个简单的接口。它为系统中许多接口提供统一的接口，从客户端的角度来看，使用起来更为简单。基本上，它为复杂系统提供了更高级别的抽象。
 - en: The term **Facade** itself means
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**外观**一词本身的意思是'
 - en: '**the principal front of a building, that faces on to a street or open space**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**建筑物的主要正面，面向街道或开放空间**'
 - en: Only the front face of the building is shown all the underlying complexity is
     hidden behind.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 仅显示建筑物的正面，所有潜在的复杂性隐藏在后面。
 - en: Let’s understand the Facade Design Pattern with a simple example. In this era
     of the digital wallet, when someone actually does a wallet debit/credit there
     are a lot of things that are happening in the background which the client may
     not be aware of. Below list illustrates some of the activities which happen during
     the credit/debit process
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们通过一个简单的示例理解外观设计模式。在这个数字钱包的时代，当有人实际进行钱包借记/贷记时，后台发生了很多事情，客户端可能并不知情。以下列表展示了一些在贷记/借记过程中发生的活动。
 - en: Check Account
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 检查账户
 - en: Check Security Pin
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 检查安全密码
 - en: Credit/Debit Balance
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 贷方/借方余额
 - en: Make Ledger Entry
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 记录分类账条目
 - en: Send Notification
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 发送通知
 - en: As can be noticed, there are a lot of things that happen for a single debit/credit
     operation. This is where the Facade pattern comes into picture. As a client one
     only needs to enter the Wallet Number, Security Pin, Amount and specify the type
     of operation. The rest of the things are taken care of in the background. Here
     we create a **WalletFacade** which provides a simple interface to the client and
     which takes care of dealing with all underlying operations.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 如可以注意到，单个借方/贷方操作涉及许多事情。这就是外观模式发挥作用的地方。作为客户端，只需输入钱包号码、安全密码、金额并指定操作类型。其余的事情都在后台处理。在这里，我们创建一个**WalletFacade**，它为客户端提供了一个简单的接口，并负责处理所有潜在的操作。
 - en: '![](img/5d4fa18c9ba3a1acff4e4343f2ea2b9c.png)'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_IMG
+  zh: '![](img/5d4fa18c9ba3a1acff4e4343f2ea2b9c.png)'
 - en: '**Problem Statement:**'
+  id: totrans-27
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**问题陈述：**'
 - en: In order to use the complex system, the client had to know the underlying details.
     Need to provide a simple interface to the client so that they can use a complex
     system without knowing any of its inner complex details.
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 为了使用复杂系统，客户端必须了解潜在的细节。需要向客户端提供一个简单的接口，使其能够在不知道任何内部复杂细节的情况下使用复杂系统。
 - en: '**When to Use:**'
+  id: totrans-29
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用时机：**'
 - en: When you want to expose a complex system in a simplified way.
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你想以简化的方式展示一个复杂系统时。
 - en: – Like in the above example of credit/debit wallet they need to know only one
     interface and the rest of the things should be taken care of by that interface.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: – 就像在上面的贷记/借记钱包示例中，他们只需要知道一个接口，其他事情应由该接口处理。
 - en: '**UML Diagram:**'
+  id: totrans-32
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**UML 图：**'
 - en: '![](img/671ebcc0acd75f88f957f0c213d04e45.png)'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_IMG
+  zh: '![](img/671ebcc0acd75f88f957f0c213d04e45.png)'
 - en: Below is the corresponding mapping UML diagram with the practical example given
     below
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是与下面给出的实践示例相对应的映射 UML 图
 - en: '![](img/9618eba2e7ebbf2b8e22bf3aea7c6b9d.png)'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_IMG
+  zh: '![](img/9618eba2e7ebbf2b8e22bf3aea7c6b9d.png)'
 - en: '**Mapping**'
+  id: totrans-36
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**映射**'
 - en: The below table represents the mapping from the UML diagram actors to actual
     implementation actors in code.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 下表表示UML图中演员与代码中实际实现演员之间的映射。
 - en: '| Wallet Facade | walletFacade.go |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| 钱包外观 | walletFacade.go |'
 - en: '| account | account.go |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '| 账户 | account.go |'
 - en: '| securityCode | securityCode.go |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '| securityCode | securityCode.go |'
 - en: '| wallet | wallet.go |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '| 钱包 | wallet.go |'
 - en: '| ledger | ledger.go |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '| 账本 | ledger.go |'
 - en: '| notification | notification.go |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '| 通知 | notification.go |'
 - en: '| Client | main.go |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '| 客户 | main.go |'
 - en: '**Practical Example:**'
+  id: totrans-45
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**实际示例：**'
 - en: '**walletFacade.go**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**walletFacade.go**'
 - en: '[PRE0]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**account.go**'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**account.go**'
 - en: '[PRE1]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**securityCode.go**'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '**securityCode.go**'
 - en: '[PRE2]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**wallet.go**'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '**wallet.go**'
 - en: '[PRE3]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**ledger.go**'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '**ledger.go**'
 - en: '[PRE4]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**notification.go**'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: '**notification.go**'
 - en: '[PRE5]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**main.go**'
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE6]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Full Working Code:**'
+  id: totrans-62
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE8]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '[design pattern in go](https://golangbyexample.com/tag/design-pattern-in-go/)*   [design
     pattern in golang](https://golangbyexample.com/tag/design-pattern-in-golang/)*   [facade](https://golangbyexample.com/tag/facade/)*   [facade
     design pattern](https://golangbyexample.com/tag/facade-design-pattern/)*   [facade
     design pattern in go](https://golangbyexample.com/tag/facade-design-pattern-in-go/)*'
+  id: totrans-66
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Go中的设计模式](https://golangbyexample.com/tag/design-pattern-in-go/) *   [Golang中的设计模式](https://golangbyexample.com/tag/design-pattern-in-golang/)
+    *   [外观](https://golangbyexample.com/tag/facade/) *   [外观设计模式](https://golangbyexample.com/tag/facade-design-pattern/)
+    *   [Go中的外观设计模式](https://golangbyexample.com/tag/facade-design-pattern-in-go/)
+    *'

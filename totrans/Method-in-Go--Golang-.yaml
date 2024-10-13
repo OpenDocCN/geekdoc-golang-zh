@@ -1,620 +1,944 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:20:25'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:20:25
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Method in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的方法
 - en: 来源：[https://golangbyexample.com/method-in-golang/](https://golangbyexample.com/method-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/method-in-golang/](https://golangbyexample.com/method-in-golang/)
 - en: This is the  chapter 20 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是Golang综合教程系列的第20章。有关该系列其他章节的信息，请参考这个链接 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Interface](https://golangbyexample.com/interface-in-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [接口](https://golangbyexample.com/interface-in-golang/)'
 - en: '**Previous Tutorial** – [Maps](https://golangbyexample.com/maps-in-golang)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [地图](https://golangbyexample.com/maps-in-golang)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前教程。以下是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "概述")'
 - en: '[Why Method](#Why_Method "Why Method")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[为什么使用方法](#Why_Method "为什么使用方法")'
 - en: '[Format of a Method](#Format_of_a_Method "Format of a Method")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[方法的格式](#Format_of_a_Method "方法的格式")'
 - en: '[Methods on Structs](#Methods_on_Structs "Methods on Structs")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结构体上的方法](#Methods_on_Structs "结构体上的方法")'
 - en: '[Method on a Pointer Receiver](#Method_on_a_Pointer_Receiver "Method on a Pointer
     Receiver")'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[指针接收者上的方法](#Method_on_a_Pointer_Receiver "指针接收者上的方法")'
 - en: '[When to use pointer receiver](#When_to_use_pointer_receiver "When to use pointer
     receiver")'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[何时使用指针接收者](#When_to_use_pointer_receiver "何时使用指针接收者")'
 - en: '[Some More Points to note about methods](#Some_More_Points_to_note_about_methods
     "Some More Points to note about methods")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[关于方法的更多注意事项](#Some_More_Points_to_note_about_methods "关于方法的更多注意事项")'
 - en: '[Methods on Anonymous nested struct fields](#Methods_on_Anonymous_nested_struct_fields
     "Methods on Anonymous nested struct fields")'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[匿名嵌套结构字段上的方法](#Methods_on_Anonymous_nested_struct_fields "匿名嵌套结构字段上的方法")'
 - en: '[Exported Method](#Exported_Method "Exported Method")'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[导出方法](#Exported_Method "导出方法")'
 - en: '[Method Chaining](#Method_Chaining "Method Chaining")'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[方法链](#Method_Chaining "方法链")'
 - en: '[Methods on Non-Struct Types](#Methods_on_Non-Struct_Types "Methods on Non-Struct
     Types")'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[非结构类型的方法](#Methods_on_Non-Struct_Types "非结构类型的方法")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "结论") *  *# **概述**'
 - en: A method in golang is nothing but a function with a receiver. A receiver is
     an instance of some specific type such as struct, but it can be an instance of
     any other custom type. So basically when you attach a function to a type, then
     that function becomes a method for that type. The method will have access to the
     properties of the receiver and can call the receiver’s other methods.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Golang中，方法实际上就是一个带接收者的函数。接收者是某种特定类型的实例，如结构体，但它可以是任何其他自定义类型的实例。因此，当你将一个函数附加到一个类型时，这个函数就成为该类型的方法。方法将可以访问接收者的属性，并可以调用接收者的其他方法。
 - en: '**Why Method**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**为什么使用方法**'
 - en: Since method lets you define a function on a type, it lets you write object-oriented
     code in Golang. There are also some other benefits such as two different methods
     can have the same name in the same package which is not possible with functions
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于方法允许你在类型上定义函数，因此它使你能够在Golang中编写面向对象的代码。此外，还有一些其他好处，比如在同一个包中两个不同的方法可以拥有相同的名称，而这在函数中是不可能的。
 - en: '**Format of a Method**'
+  id: totrans-26
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**方法的格式**'
 - en: Below is the format for a method
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是方法的格式
 - en: '[PRE0]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The method receiver and receiver type appear between the **func** keyword and
     the function name. The return_values come at the last.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 方法接收者和接收者类型出现在**func**关键字和函数名称之间。返回值出现在最后。
 - en: Also, let’s understand more differences between a function and a method. There
     are some important differences between them. Below is the signature of a function
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，让我们了解函数和方法之间的更多区别。它们之间有一些重要的区别。以下是函数的签名
 - en: '**Function:**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**函数：**'
 - en: '[PRE1]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: We have already seen the signature of a method
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们已经看到了方法的签名
 - en: '**Method:**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**方法：**'
 - en: '[PRE2]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: From the above signature, it is clear that the method has a receiver argument.
     This is the only difference between function and method, but due to it they differ
     in terms of functionality they offer
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 从上述签名中可以看出，方法有一个接收者参数。这是函数和方法之间唯一的区别，但由于这个区别，它们在功能上有所不同。
 - en: A function can be used as first-order objects and can be passed around while
     methods cannot.
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数可以作为一等对象使用并可以传递，而方法则不能。
 - en: Methods can be used for chaining on the receiver while function cannot be used
     for the same.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 方法可以用于接收器上的链式调用，而函数不能以相同的方式使用。
 - en: There can exist different methods with the same name with a different receiver,
     but there cannot exist two different functions with the same name in the same
     package.
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可以存在不同接收器下同名的方法，但同一包内不能存在两个不同名称的函数。
 - en: '**Methods on Structs**'
+  id: totrans-40
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结构体上的方法**'
 - en: Golang is not an object-oriented language. It doesn’t support type inheritance,
     but it does allow us to define methods on any custom type including structs. Since
     struct is a named collection of fields and methods can also be defined on it.
     As such struct in golang can be compared to a class in Object-Oriented Languages.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang 不是一种面向对象的语言。它不支持类型继承，但它允许我们在任何自定义类型（包括结构体）上定义方法。由于结构体是字段的命名集合，方法也可以在其上定义。因此，Golang
+    中的结构体可以与面向对象语言中的类进行比较。
 - en: Let’s see an example of method on struct
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个结构体上方法的例子。
 - en: '[PRE3]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Notice that the receiver is available inside the method and fields of the receiver
     can be accessed inside the method.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，接收器在方法内部是可用的，接收器的字段可以在方法内部访问。
 - en: Can field of the receiver also be changed inside the method?
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 接收器的字段也可以在方法内部更改吗？
 - en: Let’s see that
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看看。
 - en: '[PRE5]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: A method setNewName is defined on the employee struct in the above code. In
     this method, we update the name of the employee like this
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的代码中，定义了一个方法**setNewName**在员工结构体上。在这个方法中，我们这样更新员工的名字。
 - en: '[PRE7]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: After setting the new name when we print the employee name again in the main
     function, we see that the old name “Sam” is printed instead of “John”. This happens
     because method is defined on a value receiver
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 在设置新名字后，当我们在主函数中再次打印员工的名字时，我们看到打印的是旧名字“Sam”，而不是“John”。这是因为方法是在值接收器上定义的。
 - en: '[PRE8]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Since the method is defined on a value receiver when the method is called a
     copy of the receiver is made and that copy of the receiver is available inside
     the method. Since it is a copy, any changes made to the value receiver is not
     visible to the caller. That is why it prints the old name “Sam” instead of “John”.
     Now the question which comes to the mind whether there is any way to fix this.
     And the answer is yes, and this is where pointer receivers come into the picture.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于该方法是在值接收器上定义的，因此当调用该方法时，会创建接收器的副本，并且该副本在方法内部可用。由于它是一个副本，对值接收器所做的任何更改对调用者都是不可见的。这就是为什么它打印旧名字“Sam”，而不是“John”。现在，心中浮现出一个问题，是否有任何方法可以解决这个问题。答案是肯定的，这就是指针接收器的作用所在。
 - en: '**Method on a Pointer Receiver**'
+  id: totrans-57
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**指针接收器上的方法**'
 - en: In the above example we saw a method on a value receiver. Any change made to
     a value receiver is not visible to the caller. Methods can also be defined on
     a pointer receiver. Any change made to the pointer receiver will be visible to
     the caller. Let’s see an example
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的例子中，我们看到了一种关于值接收器的方法。对值接收器所做的任何更改对调用者都是不可见的。方法也可以在指针接收器上定义。对指针接收器所做的任何更改将对调用者可见。让我们看一个例子。
 - en: '[PRE9]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: In above program, we defined the method **setNewName** on a pointer receiver
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们在指针接收器上定义了方法**setNewName**。
 - en: '[PRE11]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Then we created an employee pointer and called the **setNewName** methodon it.
     We see that the changes made to the employee pointer inside the **setNewName**
     are visible to the caller and it prints the new name.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们创建了一个员工指针并在其上调用了**setNewName**方法。我们看到在**setNewName**内部对员工指针所做的更改对调用者是可见的，并且打印出新的名字。
 - en: Is it necessary to create the employee pointer to call a method with a pointer
     receiver? No, it is not. The method can be called on the employee instance and
     the language will take care of it to correctly pass it as a pointer to the method.
     This flexibility is provided by the language.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 调用一个具有指针接收器的方法是否有必要创建员工指针？不，没必要。可以在员工实例上调用该方法，语言会处理正确将其作为指针传递给方法。这种灵活性是语言提供的。
 - en: Let’s see an example
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。
 - en: '[PRE12]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output**'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE13]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: We see in the above program that even if a method is defined on a pointer receiver
     but we are calling the method with a non-pointer employee instance
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在上面的程序中看到，即使方法是在指针接收器上定义的，但我们用非指针的员工实例来调用这个方法。
 - en: '[PRE14]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: But the language passes the receiver as a pointer and therefore the changes
     are visible to the caller.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 但语言将接收器作为指针传递，因此更改对调用者是可见的。
 - en: Even this way of calling is valid
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种调用方式也是有效的。
 - en: '[PRE15]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: Now, how about the other way around. If a method is defined on a value receiver,
     can the method be called with a pointer of the receiver?
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，另一种情况。如果在值接收者上定义了一个方法，可以用接收者的指针调用该方法吗？
 - en: Yes, even this is valid and the language takes care of passing the argument
     correctly as value receiver irrespective of whether the method was called on a
     pointer or normal struct.
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 是的，即使这样也是有效的，语言会确保正确地将参数作为值接收者传递，无论该方法是在指针或普通结构上调用的。
 - en: Let’s see an example
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个示例。
 - en: '[PRE16]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Output**'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE17]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Do note here since in all three cases, the **setNewName** method had a value
     receiver hence changes are not visible to the caller as the value is passed as
     a copy. It prints the old name in all three cases
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在这三种情况下，**setNewName**方法有一个值接收者，因此更改对调用者不可见，因为值作为副本传递。它在所有三种情况下都打印旧名称。
 - en: To summarize what we learnt above
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 总结一下我们上面学到的内容。
 - en: If a method has a value receiver it supports calling of that method with both
     value and pointer receiver
+  id: totrans-83
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果方法有一个值接收者，它支持用值接收者和指针接收者调用该方法。
 - en: If a method has a pointer receiver then also it supports calling of that method
     with both value and pointer receiver
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果方法有一个指针接收者，则也支持用值接收者和指针接收者调用该方法。
 - en: This is unlike function where if
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 这与函数不同，如果
 - en: If a function has a pointer argument then it will only accept a pointer as an
     argument
+  id: totrans-86
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果函数有一个指针参数，则它只会接受一个指针作为参数。
 - en: If a function has a value argument then it will only accept a value as an argument
+  id: totrans-87
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果函数有一个值参数，则它只会接受一个值作为参数。
 - en: '**When to use pointer receiver**'
+  id: totrans-88
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**何时使用指针接收者**'
 - en: When the changes to the receiver made inside the method have to be visible to
     the caller.
+  id: totrans-89
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当方法内部对接收者的更改需要对调用者可见时。
 - en: When the struct is big, then it is better to use a pointer receiver otherwise
     a copy of the struct will be made every time a method is called which will be
     expensive
+  id: totrans-90
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当结构体很大时，最好使用指针接收者，否则每次调用方法时都会生成结构体的副本，这样开销很大。
 - en: '**Some More Points to note about methods**'
+  id: totrans-91
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**关于方法的更多注意事项**'
 - en: The receiver type has to be defined in the same package as the method definition.
     On defining a method on a receiver that exists in a different package, below error
     will be raised.
+  id: totrans-92
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接收者类型必须在与方法定义相同的包中定义。在定义一个存在于不同包中的接收者上的方法时，将会引发以下错误。
 - en: '[PRE18]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: Till now we have seen a method invocation using a dot operator. There is one
     other way to call a method as well as shown in below example
+  id: totrans-94
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 到目前为止，我们已经看到使用点操作符进行方法调用的方法。还有另一种调用方法的方式，如下面的示例所示。
 - en: '[PRE19]'
+  id: totrans-95
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**Output**'
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE20]'
+  id: totrans-97
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: In above example we see a different method for calling a method. There are two
     cases
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们看到了一种不同的方法来调用方法。有两种情况。
 - en: When the method has a value receiver then it can be called as below which is
     struct name followed by method name. The first argument is the value receiver
     itself.
+  id: totrans-99
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当方法有一个值接收者时，可以如下调用，即结构体名称后跟方法名称。第一个参数是值接收者本身。
 - en: '[PRE21]'
+  id: totrans-100
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: When the method has a pointer receiver then it can be called as below which
     is a pointer to struct name followed by method name. The first argument is the
     pointer receiver.
+  id: totrans-101
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当方法有一个指针接收者时，可以如下调用，即指向结构体名称的指针后跟方法名称。第一个参数是指针接收者。
 - en: '[PRE22]'
+  id: totrans-102
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: 'Also note that arguments of the method starts from the second argument as for
     setName function above:'
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: 还需注意，方法的参数从第二个参数开始，正如上面setName函数所示：
 - en: '[PRE23]'
+  id: totrans-104
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: You will rarely see this style being used and the dot notation style that we
     discussed earlier is the recommended as well as the most common way.
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种风格很少被使用，而我们之前讨论的点表示法是推荐的，也是最常见的方式。
 - en: '**Methods on Anonymous nested struct fields**'
+  id: totrans-106
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**匿名嵌套结构字段上的方法**'
 - en: Let’s see a program
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个程序。
 - en: '[PRE24]'
+  id: totrans-108
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Output**'
+  id: totrans-109
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE25]'
+  id: totrans-110
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: Notice in above program that details method of address struct can be accessed
     in two ways
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在上面的程序中，地址结构的details方法可以通过两种方式访问。
 - en: '[PRE26]'
+  id: totrans-112
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: So in case of an anonymous nested struct, methods of that struct can be directly
     accessed.
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，在匿名嵌套结构的情况下，可以直接访问该结构的方法。
 - en: '**Exported Method**'
+  id: totrans-114
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**导出方法**'
 - en: Go doesn’t have any public,  private or protected keyword. The only mechanism
     to control the visibility outside the package is using the capitalized and non-capitalized
     formats
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
+  zh: Go没有任何公共、私有或保护关键字。控制包外可见性的唯一机制是使用大写和小写格式。
 - en: '**Capitalized Identifiers** are exported. The capital letter indicates that
     this is an exported identifier and is available outside the package.'
+  id: totrans-116
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**大写标识符**是导出的。大写字母表示这是一个导出标识符，可以在包外使用。'
 - en: '**Non-capitalized identifiers **are not exported. The lowercase indicates that
     the identifier is not exported and will only be accessed from within the same
     package.'
+  id: totrans-117
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**非首字母大写的标识符** 是非导出的。小写字母表示该标识符是非导出的，只能从同一包内访问。'
 - en: So any struct which starts with a capital letter is exported to other packages. 
     Similarly, any struct field which starts with capital is exported otherwise not.
     And also similarly any struct method which starts with a capital letter is exported.
     Let’s see an example that shows exporting and non-exporting of structs, struct
     fields, and methods.  See **model.go** and **test.go** below. Both belong to the
     **main** package.
+  id: totrans-118
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，任何以大写字母开头的结构体都是导出的。同样，任何以大写字母开头的结构体字段也是导出的，反之亦然。任何以大写字母开头的结构体方法也是导出的。让我们看一个示例，展示结构体、结构体字段和方法的导出与非导出。见下面的
+    **model.go** 和 **test.go**。它们都属于 **main** 包。
 - en: Structure
+  id: totrans-119
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构
 - en: Struct **Person** is exported
+  id: totrans-120
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体 **Person** 是导出的
 - en: Struct **company** is non-exported
+  id: totrans-121
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体 **company** 是非导出的
 - en: Structure’s Field
+  id: totrans-122
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构的字段
 - en: '**Person** struct field **Name** is exported'
+  id: totrans-123
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体字段 **Name** 是导出的'
 - en: '**Person** struct field **age** is not exported but **Name** is exported'
+  id: totrans-124
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体字段 **age** 是非导出的，但 **Name** 是导出的'
 - en: Structure’s Method
+  id: totrans-125
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构的方法
 - en: '**Person** Struct’s Method **GetAge()** is exported'
+  id: totrans-126
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体的方法 **GetAge()** 是导出的'
 - en: '**Person** Struct’s Method **getName()** is not exported'
+  id: totrans-127
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体的方法 **getName()** 是非导出的'
 - en: '**model.go**'
+  id: totrans-128
   prefs: []
   type: TYPE_NORMAL
+  zh: '**model.go**'
 - en: '[PRE27]'
+  id: totrans-129
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: Let’s write a file **test.go** in same **main** package. See below.
+  id: totrans-130
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们在同一个 **main** 包中编写一个文件 **test.go**。见下文。
 - en: '**test.go**'
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: '**test.go**'
 - en: '[PRE28]'
+  id: totrans-132
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: On running this file, it is able to access all exported and un-exported fields
     in **model.go** as both lies in the same package **main**. There is no compilation
     error and it gives below output
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行此文件时，它能够访问 **model.go** 中所有导出和非导出的字段，因为它们都在同一个 **main** 包中。没有编译错误，输出如下
 - en: '**Output**'
+  id: totrans-134
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE29]'
+  id: totrans-135
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: If we move the file **model.go** to a different package named **model.** Now
     the output on running ‘go build’ will give compilation errors. All the compilation
     errors are because **test.go** in **main** package to not able to refer to un-exported
     fields of **model.go** in **model** package.
+  id: totrans-136
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们将文件 **model.go** 移动到一个名为 **model** 的不同包中，那么在运行 ‘go build’ 时会出现编译错误。所有编译错误都是因为
+    **test.go** 在 **main** 包中无法引用 **model.go** 中的非导出字段。
 - en: The compilation error will be
+  id: totrans-137
   prefs: []
   type: TYPE_NORMAL
+  zh: 编译错误将是
 - en: '[PRE30]'
+  id: totrans-138
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: '**Method Chaining**'
+  id: totrans-139
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**方法链**'
 - en: For method chaining to be possible the methods in the chain should return the
     receiver. Returning the receiver for the last method inn the chain is optional.
+  id: totrans-140
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了使方法链成为可能，链中的方法应返回接收者。链中最后一个方法返回接收者是可选的。
 - en: Let’s see an example of method chaining.
+  id: totrans-141
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看方法链的一个例子。
 - en: '[PRE31]'
+  id: totrans-142
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE31]'
 - en: '**Output**'
+  id: totrans-143
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE32]'
+  id: totrans-144
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE32]'
 - en: '**Methods on Non-Struct Types**'
+  id: totrans-145
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**非结构类型的方法**'
 - en: Methods can also be defined on a non-struct custom type. Non-struct custom types
     can be created through type definition. Below is the format for creating a new
     custom type
+  id: totrans-146
   prefs: []
   type: TYPE_NORMAL
+  zh: 方法也可以在非结构自定义类型上定义。非结构自定义类型可以通过类型定义创建。以下是创建新自定义类型的格式
 - en: '[PRE33]'
+  id: totrans-147
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE33]'
 - en: For example we can a named custom type **myFloat** of type **float64**
+  id: totrans-148
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，我们可以创建一个名为 **myFloat** 的自定义类型，其类型为 **float64**
 - en: '[PRE34]'
+  id: totrans-149
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE34]'
 - en: 'Methods can be defined on the named custom type. See below example:'
+  id: totrans-150
   prefs: []
   type: TYPE_NORMAL
+  zh: 方法可以在命名的自定义类型上定义。请参见下面的示例：
 - en: '**Code**'
+  id: totrans-151
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE35]'
+  id: totrans-152
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE35]'
 - en: '**Output**'
+  id: totrans-153
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE36]'
+  id: totrans-154
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE36]'
 - en: '**Conclusion**'
+  id: totrans-155
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about using method in Go. Hope you have liked this article. Please
     share feedback/mistakes/improvements in comments
+  id: totrans-156
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于在 Go 中使用方法的全部内容。希望你喜欢这篇文章。请在评论中分享反馈/错误/改进建议
 - en: '**Next Tutorial** – [Interface](https://golangbyexample.com/interface-in-golang/)'
+  id: totrans-157
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [接口](https://golangbyexample.com/interface-in-golang/)'
 - en: '**Previous Tutorial** – [Maps](https://golangbyexample.com/maps-in-golang)'
+  id: totrans-158
   prefs: []
   type: TYPE_NORMAL
+  zh: '**前一个教程** – [地图](https://golangbyexample.com/maps-in-golang)'
 - en: '[complete guide](https://golangbyexample.com/tag/complete-guide/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-159
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整指南](https://golangbyexample.com/tag/complete-guide/) * [go](https://golangbyexample.com/tag/go/)
+    * [golang](https://golangbyexample.com/tag/golang/) *'

@@ -1,53 +1,85 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:20:15'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:20:15
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Method on a non-struct type in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中对非结构体类型的方法
 - en: 来源：[https://golangbyexample.com/method-non-struct-type-golang/](https://golangbyexample.com/method-non-struct-type-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/method-non-struct-type-golang/](https://golangbyexample.com/method-non-struct-type-golang/)
 - en: Methods can also be defined on a non-struct custom type. Non-struct custom types
     can be created through type definition. Below is the format for creating a new
     custom type
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 方法也可以在非结构体自定义类型上定义。非结构体自定义类型可以通过类型定义创建。以下是创建新自定义类型的格式
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: For example we can a named custom type **myFloat** of type **float64**
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，我们可以定义一个名为**myFloat**的自定义类型，其类型为**float64**。
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'Methods can be defined on the named custom type. See below example:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以在命名的自定义类型上定义方法。请看下面的示例：
 - en: '**Code**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE2]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [method](https://golangbyexample.com/tag/method/)'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [method](https://golangbyexample.com/tag/method/)'

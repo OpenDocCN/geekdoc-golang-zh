@@ -1,139 +1,215 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:28:14'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:28:14
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Multiple constant declarations in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的多个常量声明
 - en: 来源：[https://golangbyexample.com/multiple-constant-declarations-go/](https://golangbyexample.com/multiple-constant-declarations-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/multiple-constant-declarations-go/](https://golangbyexample.com/multiple-constant-declarations-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Declaring multiple const together with different value and type](#Declaring_multiple_const_together_with_different_value_and_type
     "Declaring multiple const together with different value and type")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[同时声明多个常量，具有不同的值和类型](#Declaring_multiple_const_together_with_different_value_and_type
+    "同时声明多个常量，具有不同的值和类型")'
 - en: '[Declaring multiple const together with same value and type](#Declaring_multiple_const_together_with_same_value_and_type
     "Declaring multiple const together with same value and type")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[同时声明多个常量，具有相同的值和类型](#Declaring_multiple_const_together_with_same_value_and_type
+    "同时声明多个常量，具有相同的值和类型")'
 - en: '[Combining above two](#Combining_above_two "Combining above two")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[组合上述两个](#Combining_above_two "组合上述两个")'
 - en: '[Multiple declaration in single line](#Multiple_declaration_in_single_line
     "Multiple declaration in single line")*  *# **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[单行多个声明](#Multiple_declaration_in_single_line "单行多个声明")*  *# **概述**'
 - en: Below are some of the ways of declaring multiple constant together
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是一些同时声明多个常量的方法。
 - en: '**Declaring multiple const together with different value and type**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**同时声明多个常量，具有不同的值和类型**'
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The declaration can be typed or untyped. Refer to this article to understand
     the difference between typed and untyped constant – [https://golangbyexample.com/typed-untyped-constant-golang/](https://golangbyexample.com/typed-untyped-constant-golang/)
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 声明可以是有类型的或无类型的。请参阅本文了解有类型常量和无类型常量之间的区别 – [https://golangbyexample.com/typed-untyped-constant-golang/](https://golangbyexample.com/typed-untyped-constant-golang/)
 - en: a is a untyped declaration. It will be of **string** type with value **“circle”**
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: a 是一个无类型声明。它将是**string**类型，值为**“circle”**。
 - en: b is also a untyped declaration. It will be of **int** type with value **1**
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: b 也是一个未类型声明。它将是**int**类型，值为**1**。
 - en: c is a typed declaration. It will be of **float64** type with value as 4.65
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: c 是一个有类型的声明。它将是**float64**类型，值为4.65。
 - en: '**Declaring multiple const together with same value and type**'
+  id: totrans-19
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**同时声明多个常量，具有相同的值和类型**'
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: When constant type and value is not provided, then it gets its type and value
     from previous declaration
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 当常量的类型和值未提供时，它将从之前的声明中获取其类型和值。
 - en: a will be of **string** type with value **“circle”**
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: a 将是**string**类型，值为**“circle”**。
 - en: b will be of type **string** and value will be **“circle”**
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: b 将是**string**类型，值为**“circle”**。
 - en: '**Combining above two**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**组合上述两个**'
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: a will be of **string** type with value **“circle”**
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: a 将是**string**类型，值为**“circle”**。
 - en: b will be of type **string** and value will be **“circle”**
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: b 将是**string**类型，值为**“circle”**。
 - en: c will be of **int** type with value **1**
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: c 将是**int**类型，值为**1**。
 - en: '**Multiple declaration in single line**'
+  id: totrans-29
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**单行多个声明**'
 - en: '[PRE3]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Declaration again can be typed or untyped
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 声明再次可以是有类型的或无类型的。
 - en: '**a** will be of **int** type with value **1**'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**a**将是**int**类型，值为**1**。'
 - en: '**b** will be of **int** type with value **2**'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**b**将是**int**类型，值为**2**。'
 - en: '**c** will be of **int** type with value **3**'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**c**将是**int**类型，值为**3**。'
 - en: '**d** will be of **int** type with value **4**'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**d**将是**int**类型，值为**4**。'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

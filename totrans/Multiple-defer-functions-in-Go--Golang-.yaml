@@ -1,50 +1,78 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:27:13'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:27:13
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Multiple defer functions in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的多个延迟函数
 - en: 来源：[https://golangbyexample.com/multiple-defer-functions-golang/](https://golangbyexample.com/multiple-defer-functions-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/multiple-defer-functions-golang/](https://golangbyexample.com/multiple-defer-functions-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Multiple Defer function within a particular function](#Multiple_Defer_function_within_a_particular_function
     "Multiple Defer function within a particular function")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在特定函数中的多个延迟函数](#Multiple_Defer_function_within_a_particular_function "Multiple
+    Defer function within a particular function")'
 - en: '[Multiple Defer function in different functions](#Multiple_Defer_function_in_different_functions
     "Multiple Defer function in different functions")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在不同函数中的多个延迟函数](#Multiple_Defer_function_in_different_functions "Multiple Defer
+    function in different functions")*  *# **概述**'
 - en: There can be two cases of multiple defer functions
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 多个延迟函数有两种情况。
 - en: Multiple Defer function within a particular function
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在特定函数中的多个延迟函数
 - en: Multiple Defer function in different functions
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在不同函数中的多个延迟函数
 - en: Before we see an example for both let’s see how defer function works. When the
     compiler encounters a defer statement in a function it pushes it onto a list.
     This list internally implements a stack-like data structure.  All the encountered
@@ -52,32 +80,48 @@
     function returns then all the functions in the stack starting from top to bottom
     are executed before execution can begin in the calling function. Now the same
     thing will happen in the calling function as well.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们看到这两者的示例之前，让我们先看看延迟函数是如何工作的。当编译器在一个函数中遇到延迟语句时，它会将其推入一个列表中。这个列表内部实现了一个类似栈的数据结构。所有在同一个函数中遇到的延迟语句都将被推入这个列表。当外部函数返回时，栈中的所有函数（从上到下）将在调用函数的执行开始之前被执行。现在，调用函数中也会发生同样的事情。
 - en: Now let’s see an example for both
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看一下这两者的示例。
 - en: '**Multiple Defer function within a particular function**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**在特定函数中的多个延迟函数**'
 - en: In case we have multiple defer functions within a particular function, then
     all the  defer functions will be executed in last in first out order which is
     similar to what we mentioned above
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们在某个特定函数中有多个延迟函数，那么所有的延迟函数将按照后进先出（last in first out）的顺序执行，这与我们上面提到的类似。
 - en: Let’s see a program for that
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一下相关的程序。
 - en: '[PRE0]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program we have three **defer** function each printing the value
     of **i**. The variable **i** is incremented before each defer. The code outputs
     3 first meaning that third defer function is executed first.  Then it outputs
@@ -85,54 +129,82 @@
     that first defer is executed last. This shows that when there are multiple defer
     functions within a particular function then the follow the “Last in first out”
     rule. And that is why program outputs
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有三个**延迟（defer）**函数，每个函数打印变量**i**的值。变量**i**在每个延迟函数之前递增。代码首先输出3，这意味着第三个延迟函数是第一个执行的。然后输出2，意味着第二个延迟函数在此之后执行，最后输出1，意味着第一个延迟函数是最后执行的。这表明，当一个特定函数中有多个延迟函数时，它们遵循“后进先出”规则。因此程序输出：
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Multiple Defer function in different functions**'
+  id: totrans-23
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**在不同函数中的多个延迟函数**'
 - en: Let’s understand what happens when we have multiple defer functions in different
     functions.. Imagine a function call from **main** function to **f1** function
     to **f2** function
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们理解当我们在不同的函数中有多个延迟（defer）函数时会发生什么……想象从**主**函数调用**f1**函数，再到**f2**函数的场景。
 - en: '**main**->**f1**->**f2**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**主**->**f1**->**f2**'
 - en: Below is the sequence that will be happening after f2 returns
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是**f2**返回后将发生的顺序。
 - en: Defer functions in **f2** will be executed if present. Control will return to
     the caller which is a function **f1**.
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果存在，**f2**中的延迟函数将会被执行。控制将返回给调用者，即**f1**函数。
 - en: Defer functions in **f1** will be executed if present. Control will return to
     the caller which is a function **main**. Note that if there are more functions
     in between then the process will continue up the stack in a similar way
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果存在，**f1**中的延迟函数将会被执行。控制将返回给调用者，即**主**函数。请注意，如果中间有更多的函数，过程将以类似的方式继续向上执行栈。
 - en: After main returns the defer  function if present in main will be executed
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当主函数返回时，主函数中的延迟函数（如果存在）将被执行。
 - en: Let’s see a program for that
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一下相关的程序。
 - en: '[PRE3]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

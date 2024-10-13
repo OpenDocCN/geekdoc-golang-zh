@@ -1,48 +1,74 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:21:27'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:21:27'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Naming conventions for variables and constant in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 语言中的变量和常量命名规范
 - en: 来源：[https://golangbyexample.com/naming-conventions-variable-constant-go/](https://golangbyexample.com/naming-conventions-variable-constant-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/naming-conventions-variable-constant-go/](https://golangbyexample.com/naming-conventions-variable-constant-go/)
 - en: Below are naming conventions for variables and constant in golang
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是 Go 语言中变量和常量的命名规范
 - en: A variable or constant name can only start with a letter or an underscore.
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量或常量的名称只能以字母或下划线开头。
 - en: It can be followed by any number of letters, numbers or underscores after that
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在其后可以跟任意数量的字母、数字或下划线
 - en: Go is case sensitive so uppercase and lowercase letters are treated differently.
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Go 语言区分大小写，因此大写字母和小写字母被视为不同。
 - en: The variable or constant name cannot be any keyword name in Go
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量或常量的名称不能是 Go 中的任何关键字
 - en: There is no limit on the length of variable or constant name. But is advisable
     to have the variable name of optimum length.
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 变量或常量名称的长度没有限制，但建议选择最佳长度的变量名称。
 - en: '[convention](https://golangbyexample.com/tag/convention/)*   [go](https://golangbyexample.com/tag/go/)*   [naming](https://golangbyexample.com/tag/naming/)*   [variable](https://golangbyexample.com/tag/variable/)'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[约定](https://golangbyexample.com/tag/convention/)*   [go](https://golangbyexample.com/tag/go/)*   [命名](https://golangbyexample.com/tag/naming/)*   [变量](https://golangbyexample.com/tag/variable/)'

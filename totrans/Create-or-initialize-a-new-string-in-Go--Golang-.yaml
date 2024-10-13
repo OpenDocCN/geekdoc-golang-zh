@@ -1,82 +1,131 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:52:39'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:52:39
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Create or initialize a new string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中创建或初始化一个新字符串
 - en: 来源：[https://golangbyexample.com/create-string-golang/](https://golangbyexample.com/create-string-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/create-string-golang/](https://golangbyexample.com/create-string-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概览](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概览**'
 - en: Below is a simple way to initialize or create a string in Go. In the below program,
     we have simply declared as well as defined a string named **sample**
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是一种简单的方法来初始化或创建一个Go中的字符串。在下面的程序中，我们简单地声明并定义了一个名为**sample**的字符串。
 - en: Notice the syntax
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意语法
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Here is the full program
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是完整的程序
 - en: Program
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 程序
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: If we want to only declare a string variable then below is the way. A declared
     string is initialized to an empty string
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们只想声明一个字符串变量，下面就是方法。声明的字符串会初始化为空字符串。
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尝试覆盖所有概念及示例。此教程适合希望获得专业知识和扎实理解Golang的人士
+    – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是，那么这篇文章就是为你准备的 –
 - en: '[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)'
 - en: '**Note:** Check out our system design tutorial series [System Design Questions](https://techbyexample.com/system-design-questions/)*'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的系统设计教程系列 [系统设计问题](https://techbyexample.com/system-design-questions/)*'

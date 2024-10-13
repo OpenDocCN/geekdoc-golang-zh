@@ -1,73 +1,115 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:09:20'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:09:20'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Create an empty file in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中创建一个空文件。
 - en: 来源：[https://golangbyexample.com/create-empty-file-go/](https://golangbyexample.com/create-empty-file-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/create-empty-file-go/](https://golangbyexample.com/create-empty-file-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "代码：")*  *# **概述**'
 - en: '**os.Create()** can be used to create an empty file in go. The signature of
     the function is'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os.Create()** 可用于在 Go 中创建一个空文件。该函数的签名为'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Basically this function
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本上这个函数
 - en: Create a named file with mode 0666
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个模式为 0666 的命名文件。
 - en: It truncates the file if it already exits
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果文件已经存在，它将截断该文件。
 - en: In case of path issue, it returns a Path error
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果路径有问题，它将返回一个路径错误。
 - en: It returns a file descriptor which can be used for both reading and write
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它返回一个文件描述符，可用于读取和写入。
 - en: '**Code:**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**：'
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[empty](https://golangbyexample.com/tag/empty/)*   [file](https://golangbyexample.com/tag/file/)*'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[空文件](https://golangbyexample.com/tag/empty/)*   [文件](https://golangbyexample.com/tag/file/)*'

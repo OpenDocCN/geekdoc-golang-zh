@@ -1,96 +1,150 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:08:49'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:08:49
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Create a new time instance in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中创建一个新时间实例
 - en: 来源：[https://golangbyexample.com/create-new-time-instance-go/](https://golangbyexample.com/create-new-time-instance-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/create-new-time-instance-go/](https://golangbyexample.com/create-new-time-instance-go/)
 - en: In Go **time.Time** struct is used to represent an instance of time or date.
     Below are three ways of creating a new time instance
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，**time.Time** 结构用于表示时间或日期的实例。下面是创建新时间实例的三种方法
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Using time.Now()](#Using_timeNow "Using time.Now()")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [使用 time.Now()](#Using_timeNow "使用 time.Now()")'
 - en: '[Using time.Date()](#Using_timeDate "Using time.Date()")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 time.Date()](#Using_timeDate "使用 time.Date()")'
 - en: '[Using time.Parse()](#Using_timeParse "Using time.Parse()")*  *# **Using time.Now()**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 time.Parse()](#Using_timeParse "使用 time.Parse()")*  *# **使用 time.Now()**'
 - en: '**time.Now()** function can be used to get the current local timestamp. The
     signature of the function is'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**time.Now()** 函数可用于获取当前本地时间戳。该函数的签名是'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Using time.Date()**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 time.Date()**'
 - en: time.Date() function takes in year, month, day, hour, min, sec, nanosecond and
     location and returns a time which is  **yyyy-mm-dd hh:mm:ss + nsec** with the
     appropriate timezone corresponding to the given location. The signature of the
     function is
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: time.Date() 函数接受年份、月份、日期、小时、分钟、秒、纳秒和位置，并返回一个时间格式为 **yyyy-mm-dd hh:mm:ss + nsec**，具有与给定位置相对应的适当时区。该函数的签名是
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Using time.Parse()**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**使用 time.Parse()**'
 - en: time.Parse() can be used to convert a string representation of time into a **time.Time**
     instance. The signature of the function is
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: time.Parse() 可用于将时间的字符串表示转换为 **time.Time** 实例。该函数的签名是
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**time.Parse** function takes in two arguments –'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**time.Parse** 函数接受两个参数 –'
 - en: First argument is the layout consisting of time format placeholder
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个参数是包含时间格式占位符的布局
 - en: Second argument is the actual formatted string representing time.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个参数是表示时间的实际格式化字符串。
 - en: Below is a working code example demonstrating all the three ways mentioned above
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是一个演示上述三种方法的工作代码示例
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[golang](https://golangbyexample.com/tag/golang/)*'

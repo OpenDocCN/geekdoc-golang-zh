@@ -1,178 +1,279 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:21:07'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:21:07'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Create/Initialize/Declare map in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中创建/初始化/声明map
 - en: 来源：[https://golangbyexample.com/create-map-golang/](https://golangbyexample.com/create-map-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/create-map-golang/](https://golangbyexample.com/create-map-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Declare a Map](#Declare_a_Map "Declare a Map")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[声明一个Map](#Declare_a_Map "声明一个Map")'
 - en: '[Creating a Map](#Creating_a_Map "Creating a Map")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[创建一个Map](#Creating_a_Map "创建一个Map")'
 - en: '[Using the map[<key_type>]<value_type> format](#Using_the_map_format "Using
     the map[<key_type>]<value_type> format")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用map[<key_type>]<value_type>格式](#Using_the_map_format "Using the map[<key_type>]<value_type>格式")'
 - en: '[Using Make](#Using_Make "Using Make")*  *# **Overview**'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用Make](#Using_Make "使用Make")*  *# **概述**'
 - en: Maps are golang builtin datatype similar to the hash table which maps a key
     to a value.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: map是Golang内置的数据类型，类似于哈希表，它将键映射到值。
 - en: 'Below is the format for a map:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是map的格式：
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Both **key_type** and **value_type** can be of different type or same type.
     For below example the key type is **string** and value type is **int**
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**key_type**和**value_type**可以是不同类型或相同类型。在下面的例子中，键类型是**string**，值类型是**int**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Declare a Map**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**声明一个Map**'
 - en: A map can also be declared with var keyword, but it creates a nil map as default
     zero value of map is nil. Adding any key value pair to that map will cause a panic.
     Let’s see an example for this
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: map也可以使用var关键字声明，但它会创建一个nil map，因为map的默认零值是nil。向该map添加任何键值对将导致恐慌。让我们看看这个例子
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Above program run into panic as the map is nil.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 上面的程序因map为nil而导致恐慌。
 - en: One use case of having a map declared with **var** keyword is when an already
     existing map needs to be assigned to it or when we want to assign the result of
     a function.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**var**关键字声明map的一个用例是当需要将一个已存在的map赋值给它或当我们想要赋值函数的结果时。
 - en: '**Creating a Map**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**创建一个Map**'
 - en: Two ways of creating a map
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建map的两种方式
 - en: Using the map[<key_type>]<value_type>{} format also called map literal
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用map[<key_type>]<value_type>{}格式也称为map字面量
 - en: Using make
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用make
 - en: Let’s look at each of the above methods one by one.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐一看看上述每种方法。
 - en: '**Using the map[<key_type>]<value_type> format**'
+  id: totrans-29
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用map[<key_type>]<value_type>格式**'
 - en: 'One of the most common way of creating a map is using the map literal:'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建map的最常见方式之一是使用map字面量：
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: An example of above where key type is string and value type is integer
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述例子的键类型是字符串，值类型是整数
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: A map can also be created with some key values initialized
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: map也可以创建并初始化一些键值
 - en: '[PRE6]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: A key-value pair can also be added to the map
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 也可以向map中添加键值对
 - en: '[PRE7]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Let’s see a program
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序
 - en: '[PRE8]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: In above program we created a map literal intialized with some values. Then
     we added another key value pair in it. Then we printed it using **fmt.Println**
     which prints all the key value pairs in format map[key:value key:value]
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个初始化为某些值的map字面量。然后我们在其中添加了另一个键值对。接着我们使用**fmt.Println**打印它，以格式map[key:value
+    key:value]打印所有的键值对。
 - en: '**Using Make**'
+  id: totrans-43
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用Make**'
 - en: This is another way of creating the map. The builtin function **make** can be
     used to create a map. It returns an initialized map. Hence key-value pairs can
     be added to it.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是创建map的另一种方式。内置函数**make**可用于创建map。它返回一个初始化的map。因此可以向其中添加键值对。
 - en: '[PRE10]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: In above program we created a map using make function. Then we added a key value
     pair in it. Then we printed it using **fmt.Println** which prints all the key
     value pairs.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们使用make函数创建了一个map。然后我们在其中添加了一个键值对。接着我们使用**fmt.Println**打印它，打印出所有的键值对。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,60 +1,96 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:14:01'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:14:01
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Create count/repeating copies of a string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中创建字符串的重复副本
 - en: 来源：[https://golangbyexample.com/create-count-repeating-copies-string-golang/](https://golangbyexample.com/create-count-repeating-copies-string-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/create-count-repeating-copies-string-golang/](https://golangbyexample.com/create-count-repeating-copies-string-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")**'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")*  *# **概述**'
 - en: '**strings** package of GO provides a **Repeat** method that can be used to
     create repeating copies of a given string. It takes input as the number of counts.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: GO的**strings**包提供了一个**Repeat**方法，可用于创建给定字符串的重复副本。它的输入为重复次数。
 - en: Below is the signature of the function. It returns a copy of the string
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名。它返回字符串的副本。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s look at the working code
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看有效的代码
 - en: '**Code:**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

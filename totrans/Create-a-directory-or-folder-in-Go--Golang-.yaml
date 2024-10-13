@@ -1,70 +1,110 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:17:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:17:22
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Create a directory or folder in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中创建目录或文件夹
 - en: 来源：[https://golangbyexample.com/create-directory-folder-golang/](https://golangbyexample.com/create-directory-folder-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/create-directory-folder-golang/](https://golangbyexample.com/create-directory-folder-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: '**os.Mkdir()** function can be used to create a directory or folder in go.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**os.Mkdir()** 函数可以用于在 Go 中创建目录或文件夹。'
 - en: Below is the signature of the function.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It takes in two parameters
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 它接受两个参数。
 - en: The first parameter is the named directory. If the named directory is a fully
     qualified path it will create a directory at that path. If not it will create
     a directory with respect to current working directory
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个参数是命名目录。如果命名目录是一个完全合格的路径，它将在该路径下创建一个目录。如果不是，它将相对于当前工作目录创建一个目录。
 - en: The second parameter specifies the permission bits. The folder or directory
     is created with this permission bits
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第二个参数指定权限位。文件夹或目录是使用此权限位创建的。
 - en: '**Code**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[create](https://golangbyexample.com/tag/create/)*   [directory](https://golangbyexample.com/tag/directory/)*   [folder](https://golangbyexample.com/tag/folder/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[创建](https://golangbyexample.com/tag/create/)*   [目录](https://golangbyexample.com/tag/directory/)*   [文件夹](https://golangbyexample.com/tag/folder/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

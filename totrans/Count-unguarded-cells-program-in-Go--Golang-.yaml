@@ -1,104 +1,161 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:51:55'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:51:55
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Count unguarded cells program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中计数无防守单元格的程序
 - en: 来源：[https://golangbyexample.com/count-unguarded-cells-golang/](https://golangbyexample.com/count-unguarded-cells-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/count-unguarded-cells-golang/](https://golangbyexample.com/count-unguarded-cells-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: Two integers m and n are given which represent an m*n grid. Other than that
     two 2D integer arrays are also given
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定两个整数 m 和 n，表示一个 m*n 网格。除此之外，还给定两个 2D 整数数组
 - en: guards where guards[i] = [rowi , columni]. It represents the position of the
     ith guard
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 守卫的位置为 guards[i] = [rowi , columni]。它表示第 i 个守卫的位置
 - en: walls where guards[j] = [rowi , columni]. It represents the position of the
     ith wall
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 墙壁的位置为 guards[j] = [rowi , columni]。它表示第 i 个墙壁的位置
 - en: A guard can see in all the directions
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 守卫可以向所有方向看
 - en: North
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 北
 - en: South
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 南
 - en: East
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 东
 - en: West
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 西
 - en: unless obstructed by the wall. All the cells that the guard can see are counted
     as guarded. The objective is to find the number of unguarded cells
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 除非被墙壁阻挡。守卫能看到的所有单元格都算作已防守。目标是找出无防守单元格的数量
 - en: Here is the leetcode link for the same – https://leetcode.com/problems/count-unguarded-cells-in-the-grid/
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是相同的 leetcode 链接 – https://leetcode.com/problems/count-unguarded-cells-in-the-grid/
 - en: '**Program**'
+  id: totrans-19
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相同的程序
 - en: '[PRE0]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：**查看我们的 Golang 高级教程。本系列教程内容详尽，我们尝试覆盖所有概念并附有示例。本教程适合那些希望获得专业知识和对 golang
+    有深入理解的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you – [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式在 Golang 中如何实现。如果是，那么这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Also, check out our system design tutorial series here – [System Design Tutorial
     Series](https://techbyexample.com/system-design-questions/)
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，查看我们的系统设计教程系列 – [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

@@ -1,71 +1,115 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:11:46'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:11:46
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understand /etc/paths file and /etc/paths.d directory on MAC
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解 MAC 上的 /etc/paths 文件和 /etc/paths.d 目录
 - en: 来源：[https://golangbyexample.com/understand-etc-paths-pathsd-mac/](https://golangbyexample.com/understand-etc-paths-pathsd-mac/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/understand-etc-paths-pathsd-mac/](https://golangbyexample.com/understand-etc-paths-pathsd-mac/)
 - en: MAC OS uses **/etc/paths** file and **/etc/paths.d** directory for setting up
     the value of **PATH** env varialb.e.  A utility **path_helper** is used to set
     the **PATH** env variable based on the content of **/etc/paths** file and content
     of files in **/etc/paths.d** directory. This is how you can run the path_helper
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: MAC OS 使用 **/etc/paths** 文件和 **/etc/paths.d** 目录来设置 **PATH** 环境变量的值。一个工具 **path_helper**
+    用于根据 **/etc/paths** 文件的内容和 **/etc/paths.d** 目录中文件的内容来设置 **PATH** 环境变量。这就是如何运行
+    path_helper。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Let’s see how these two play role in setting up the path
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看这两者在设置路径时的作用。
 - en: '**/etc/paths file**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**/etc/paths 文件**'
 - en: This file contains the paths that need to be set in **PATH** env variable. If
     I print the contents of this file on my MAC, it outputs
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 该文件包含需要设置在 **PATH** 环境变量中的路径。如果我在 MAC 上打印该文件的内容，它输出
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: All the above paths are added to the PATH variable.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述所有路径都被添加到 PATH 变量中。
 - en: '**/etc/paths.d directory**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**/etc/paths.d 目录**'
 - en: This directory contains the list of files. Each of the files contains the path
     that needs to be added to the PATH variable. As a demonstration, If I install
     GO on my MAC using the .pkg installer for GO available here – [https://golang.org/dl/](https://golang.org/dl/).
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 此目录包含文件列表。每个文件包含需要添加到 PATH 变量的路径。作为演示，如果我使用这里提供的 GO 的 .pkg 安装程序在我的 MAC 上安装 GO
+    – [https://golang.org/dl/](https://golang.org/dl/)。
 - en: Then after installation, it will create a  file named  **‘go’** in the **‘/etc/paths.d’**
     directory. Let’s output the contents of the file.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 安装后，它将在 **‘/etc/paths.d’** 目录中创建一个名为 **‘go’** 的文件。让我们输出该文件的内容。
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: It outputs ‘/usr/local/go/bin’ and this path will be added to the PATH env variable.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 它输出‘/usr/local/go/bin’，该路径将被添加到 PATH 环境变量中。
 - en: '**Points to Note:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意事项：**'
 - en: The primary reason that **‘/etc/paths.d’** directory is used because **‘/etc/paths’** will
     be modified and/or replaced by system upgrades while contents of **‘/etc/paths.d’**
     directory will never be affected by such changes.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 **‘/etc/paths.d’** 目录的主要原因是 **‘/etc/paths’** 会在系统升级时被修改和/或替换，而 **‘/etc/paths.d’**
+    目录的内容不会受到这种变化的影响。

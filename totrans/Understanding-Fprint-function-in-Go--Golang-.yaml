@@ -1,64 +1,98 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:36:05'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:36:05
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding Fprint function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解Go中的Fprint函数（Golang）
 - en: 来源：[https://golangbyexample.com/fprint-golang/](https://golangbyexample.com/fprint-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/fprint-golang/](https://golangbyexample.com/fprint-golang/)
 - en: '![](img/73f3f2483c5496743de2017b97b4b213.png)'
+  id: totrans-6
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/73f3f2483c5496743de2017b97b4b213.png)'
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: '**Fprint** is defined in the **fmt** package and is used to format a string
     using the default format specifier and write it to **io.Writer** instance passed
     to it.'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Fprint**在**fmt**包中定义，用于使用默认格式说明符格式化字符串，并将其写入传递给它的**io.Writer**实例。'
 - en: '[https://golang.org/pkg/fmt/#Fprint](https://golang.org/pkg/fmt/#Fprint)'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/fmt/#Fprint](https://golang.org/pkg/fmt/#Fprint)'
 - en: Below is the function prototype of **Fprint**
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是**Fprint**的函数原型
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Fprint** is also a variadic function meaning that it can have multiple arguments. Here
     are the details about its arguments'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Fprint**也是一个可变参数函数，这意味着它可以有多个参数。以下是有关其参数的详细信息'
 - en: The first argument is the **io.Writer** instance to which it writes
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 第一个参数是写入的**io.Writer**实例
 - en: The next is a variable number of arguments. Each of the arguments in this list
     could be string, int, struct, or anything. That is why it is an empty interface.
     Each of these arguments is formatted using the default specifier
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接下来的参数是可变数量的参数。此列表中的每个参数可以是字符串、整数、结构体或其他任何东西。这就是为什么它是一个空接口。每个参数都使用默认说明符进行格式化
 - en: '**Fprint** formats the string using the default format specifier but does not
     add a new line after the string. **Fprint** takes a variable number of arguments
     after the first argument where each argument is an empty interface. Since the
@@ -67,112 +101,176 @@
     the **Fprint** function is formatted according to the default format specifier
     of that argument type. For example, the struct will be formatted according to
     the below specifier'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Fprint**使用默认格式说明符格式化字符串，但在字符串后不添加新行。**Fprint**在第一个参数后接受可变数量的参数，其中每个参数都是一个空接口。由于参数类型是空接口，我们可以将任何数据类型传递给它。我们可以传递字符串、整数、浮点数、结构体或任何其他数据类型。传递给**Fprint**函数的每个参数都根据该参数类型的默认格式说明符进行格式化。例如，结构体将根据以下说明符进行格式化'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This format specifier only prints the Value part in the struct. There is also
     one more function provided by **fmt** package which appends a new line – **Fprintln**.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个格式说明符只打印结构中的值部分。**fmt**包中还有一个函数可以添加新行 – **Fprintln**。
 - en: '**Program**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Let’s see an example for the same
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个例子
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Some important points to note about the **Fprint** function
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于**Fprint**函数的一些重要点
 - en: In all the **Fprint** function above we pass it the instance of **os.Stdout**
     to it which implements the **io.Writer** interface. Basically with **os.Stdout**,
     **Fprint** writes to standard output. This is how **os.Stdout** is defined.
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在上面的所有**Fprint**函数中，我们将**os.Stdout**的实例传递给它，该实例实现了**io.Writer**接口。基本上，使用**os.Stdout**，**Fprint**写入标准输出。这就是**os.Stdout**的定义。
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: It does not append a new line at the end. That is why need to use **“\n”** for
     adding a new line.
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它不会在末尾添加新行。这就是为什么需要使用**“\n”**来添加新行的原因。
 - en: It only adds space between two arguments if each of them is a non-string. That
     is why
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 只有当两个参数都是非字符串时，它才会在这两个参数之间添加空格。这就是为什么
 - en: '[PRE5]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: prints
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印
 - en: '[PRE6]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: while
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: while
 - en: '[PRE7]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: prints
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 打印
 - en: '[PRE8]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: It also returns the number of characters printed and any error if happens
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它还返回打印的字符数以及发生的任何错误
 - en: '[PRE9]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: will output below
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 将输出以下内容
 - en: '[PRE10]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: The number of **bytesPrinted** is 14 as 14 characters are outputted
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**bytesPrinted**的数量为14，因为输出了14个字符'
 - en: '**Fprint** can also be used to write to a file. Since the file instance in
     golang implements the **io.Writer**, this is not a problem. Below is the program
     for the same'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Fprint**也可以用于写入文件。由于在golang中的文件实例实现了**io.Writer**，这不是问题。下面是相应的程序'
 - en: '[PRE11]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Output**'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: It will create file name temp.txt in the current directory with the below contents.
     In this program we replaced **os.Stdou**t with the file created.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将在当前目录中创建文件名temp.txt，内容如下。在这个程序中，我们用创建的文件替换了**os.Stdout**。
 - en: '[PRE12]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Also, check out our Golang advance tutorial Series – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，请查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

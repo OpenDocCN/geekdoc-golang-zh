@@ -1,23 +1,35 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:08:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:08:22
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding Duration in time package in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解 Go（Golang）中的时间包中的持续时间
 - en: 来源：[https://golangbyexample.com/understanding-duration-go/](https://golangbyexample.com/understanding-duration-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/understanding-duration-go/](https://golangbyexample.com/understanding-duration-go/)
 - en: '**duration** is the time that has elapsed between two instants of time. It
     is represented as **int64nanosecond** count. So duration is nothing in Go but
     just a number representing time in nanoseconds in Go. So if duration value is
@@ -27,70 +39,110 @@
     number of nanoseconds between two **time.Time** objects. As an example duration
     between two time values 1 hour apart will be below value which is equal to the
     number of nanoseconds in 1 hour.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**duration** 是两个时刻之间经过的时间。它表示为 **int64纳秒** 计数。因此，持续时间在 Go 中只是一个表示纳秒的数字。如果持续时间值等于
+    **1000000000**，则表示 **1 秒** 或 **1000 毫秒** 或 **10000000000 纳秒**。由于持续时间是 **int64，**
+    因此可以表示的最长持续时间为290年。因此，持续时间用于捕获两个 **time.Time** 对象之间的纳秒数。例如，两个时间值相隔1小时的持续时间将是以下值，相当于1小时中的纳秒数。'
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It is represented as below in the **time** package.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 **time** 包中表示如下。
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Below are some common duration which are defined in **time** package
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是 **time** 包中定义的一些常见持续时间
 - en: '[PRE2]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Some of the function defined on **time.Time** object that returns the **Duration**
     are
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些在 **time.Time** 对象上定义的返回 **Duration** 的函数是
 - en: '**func (t Time) Sub(u Time) Duration** – It returns the duration t-u'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**func (t Time) Sub(u Time) Duration** – 它返回持续时间 t-u。'
 - en: '**func Since(t Time) Duration –** It returns the duration which has elapsed
     since t'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**func Since(t Time) Duration –** 它返回自 t 以来经过的持续时间。'
 - en: '**func Until(t Time) Duration** – It returns the duration until t'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**func Until(t Time) Duration** – 它返回到 t 的持续时间。'
 - en: type **Duration** also defines several utility function which can be used to
     convert a duration value to-
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 类型 **Duration** 还定义了几个实用函数，可用于将持续时间值转换为-
 - en: Hours
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 小时
 - en: Minutes
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 分钟
 - en: Seconds
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 秒
 - en: The print value of duration is represented as in the form “10h8m0.5s” where
     **h** representing **hour**, **m** representing **minute** and **s** representing
     **seconds** respectively
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 持续时间的打印值表示为“10h8m0.5s”的形式，其中 **h** 代表 **小时**，**m** 代表 **分钟**，**s** 代表 **秒**。
 - en: Let’s see a working code of what we have learned so far
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看到目前为止我们所学内容的示例代码。
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'

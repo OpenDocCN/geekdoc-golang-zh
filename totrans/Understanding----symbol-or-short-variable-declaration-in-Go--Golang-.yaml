@@ -1,108 +1,163 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:21:31'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:21:31
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding := symbol or short variable declaration in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解 Go (Golang) 中的 := 符号或短变量声明。
 - en: 来源：[https://golangbyexample.com/short-variable-declaration-go/](https://golangbyexample.com/short-variable-declaration-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/short-variable-declaration-go/](https://golangbyexample.com/short-variable-declaration-go/)
 - en: Go provides another way of declaring variables which is using the **:=** operator.
     When **:=** operator is used both **var** keyword and type info can be omitted.
     Below is the format for such declaration
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 提供了另一种声明变量的方法，即使用 **:=** 操作符。当使用 **:=** 操作符时，可以省略 **var** 关键字和类型信息。以下是这种声明的格式。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Type inference will happen based upon the type of value. Also please refer to
     this article for details on type inference. Let’s see a working example. In below
     code
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 类型推断将根据值的类型进行。同时，请参阅此文章以获取有关类型推断的详细信息。让我们看看一个工作示例。在下面的代码中。
 - en: Type of **m2** is correctly inferred as **int** as value assigned to it is 123
     which is **int**.
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**m2** 的类型被正确推断为 **int**，因为赋给它的值是 123，而 123 是 **int** 类型。'
 - en: Similarly, type of n2 is also correctly inferred as string as the value assigned
     to it is **“circle”** which is a **string** and so on.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 同样，n2 的类型也被正确推断为字符串，因为赋给它的值是 **“circle”**，它是一个 **string**，依此类推。
 - en: Also notice that the type of variable **t2** is inferred correctly as a struct
     **main.sample**
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 另外，请注意变量 **t2** 的类型被正确推断为结构体 **main.sample**。
 - en: Type of **u2** is also correctly inferred as **[]string** as this is type returned
     by the **get()** function call.
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**u2**的类型被正确推断为**[]string**，因为这是**get()**函数调用返回的类型。'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Some points to be noted about the := operator
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于 := 操作符需要注意的一些要点。
 - en: := operator is only available within a function. It is not allowed outside the
     function.
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: := 操作符仅在函数内部可用，函数外部不允许使用。
 - en: A variable once declared using := cannot be redeclared using the := operator.
     So the below statement will raise a compiler error  “**no new variables in the
     left side of :=”.**
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 := 声明的变量一旦被声明，就不能再次使用 := 操作符进行重新声明。因此，下面的语句将引发编译器错误“**左侧没有新变量在 :=**”。
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: := operator can also be used to declare multiple variables in a single line.
     See below example
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: := 操作符还可以用于在一行中声明多个变量。请参见下面的示例。
 - en: '[PRE4]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the case of multiple declarations, := can also be used again for a particular
     variable if at least one of the variables on the left-hand side is new. See the
     below example. Notice that b is again declared using := This is only possible
     if at least one of the variables is new which is variable **c** here. In this
     case it acts as a assignment for variable **b**
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在多个声明的情况下，如果左侧至少有一个变量是新的，则可以再次使用 := 来声明特定变量。请参见下面的示例。注意，b 再次使用 := 被声明。这只有在至少有一个变量是新的（这里是变量
+    **c**）的情况下才可能。在这种情况下，它作为变量 **b** 的赋值。
 - en: '[PRE5]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)'

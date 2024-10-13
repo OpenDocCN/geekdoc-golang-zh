@@ -1,39 +1,59 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:27:57'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:27:57
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Typed and Untyped constant in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的已命名与未命名常量
 - en: 来源：[https://golangbyexample.com/typed-untyped-constant-golang/](https://golangbyexample.com/typed-untyped-constant-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/typed-untyped-constant-golang/](https://golangbyexample.com/typed-untyped-constant-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Typed and Untyped Constants](#Typed_and_Untyped_Constants "Typed and
     Untyped Constants")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [已命名与未命名常量](#Typed_and_Untyped_Constants "已命名与未命名常量")'
 - en: '[Typed Constant](#Typed_Constant "Typed Constant")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[已命名常量](#Typed_Constant "已命名常量")'
 - en: '[Untyped Constant](#Untyped_Constant "Untyped Constant")*  *# **Typed and Untyped
     Constants**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[未命名常量](#Untyped_Constant "未命名常量")*  *# **已命名与未命名常量**'
 - en: In go constant are treated in a different way than any other language. GO has
     a very strong type system that doesn’t allow implicit conversion between any of
     the types. Even with the same numeric types no operation is allowed without explicit
@@ -41,160 +61,250 @@
     either **int32** has to be explicitly converted to **int64** or vice versa. However
     untyped constant have the flexibility of temporary escape from the GO’s type system
     as we will see in this article
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go中，常量的处理方式与其他语言不同。Go具有非常强的类型系统，不允许类型之间的隐式转换。即使是相同的数值类型，也不允许在没有显式转换的情况下进行任何操作。例如，你不能将**int32**和**int64**的值相加。要相加，必须将**int32**显式转换为**int64**，或反之亦然。然而，未命名常量可以暂时摆脱Go的类型系统的限制，正如我们在本文中将看到的。
 - en: '**Typed Constant**'
+  id: totrans-11
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**已命名常量**'
 - en: A const declared specifying the type in the declaration is a typed constant.
     For example below we are declaring a const of type int32
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在声明中指定类型的常量是已命名常量。例如，下面我们声明一个类型为int32的常量。
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This const a can only be assigned to a variable of type int32\. If you assign
     it to a variable of any other type it will raise an error . For the illustration
     see below program.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个常量a只能赋值给类型为int32的变量。如果将其赋值给其他类型的变量，则会引发错误。有关说明，请参见下面的程序。
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Untyped Constant**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**未命名常量**'
 - en: An untyped constant is a constant whose type has not been specified. A untyped
     constant in GO can be either named or unnamed. In both cases it doesn’t have any
     type associated with it.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 未命名常量是未指定类型的常量。在Go中，未命名常量可以是已命名的或未命名的。在这两种情况下，它都没有与之关联的类型。
 - en: Examples of unnamed untyped constant.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 未命名未指定常量的示例。
 - en: '[PRE3]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Examples of named untyped constant
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 已命名未命名常量的示例。
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Untyped constant  does have a default hidden type. For example below table illustrates
     hidden default types for numerics, strings, characters and boolean
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 未命名常量确实有一个默认的隐式类型。以下表格说明了数值、字符串、字符和布尔值的隐式默认类型。
 - en: Default Hidden type for Constants
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 常量的默认隐式类型
 - en: '| Integers | int |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| 整数 | int |'
 - en: '| Floats | float64 |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| 浮点数 | float64 |'
 - en: '| Complex Numbers | complex128 |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| 复数 | complex128 |'
 - en: '| Strings | string |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| 字符串 | string |'
 - en: '| Booleans | bool |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| 布尔值 | bool |'
 - en: '| Characters | int32 or rune |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| 字符 | int32或rune |'
 - en: When you print any untyped constant using **fmt.Printf** it will print the default
     hidden type. See below program and output for both unnamed and named  untyped
     constant.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 当你使用**fmt.Printf**打印任何未命名常量时，它将打印默认的隐式类型。请参见下面的程序及未命名和已命名的未命名常量的输出。
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: The above program prints **int32** instead of rune as rune is an alias for **int32**
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序输出**int32**而不是rune，因为rune是**int32**的别名。
 - en: The default type of a named or unnamed constant type will become the type of
     variable they are assigned to. For example, in the below code variable a will
     get its type from the default type of unnamed constant **123** which is **int**.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 已命名或未命名常量的默认类型将成为其赋值变量的类型。例如，在下面的代码中，变量a将获得来自未命名常量**123**的默认类型**int**。
 - en: '[PRE7]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Let’s see a program illustrating above points for all unnamed type constant
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个程序，说明上述所有未命名类型常量的要点。
 - en: '[PRE8]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output:**'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE9]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Now the question which comes to the mind is what is the use of untyped constant. 
     The use of untyped constant is that the type of the constant will be decided depending
     upon the type of variable they are being assigned to.  Sounds confusing? Let’s
     see with an example.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在，脑海中浮现的问题是未命名常量的用途是什么。未命名常量的用途在于常量的类型将根据其被赋值的变量的类型来决定。听起来令人困惑吗？让我们通过一个示例来看。
 - en: '**Pi** constant value in math package is declared as below.'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 数学包中的**π**常量值如下所示。
 - en: '[PRE10]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Notice that the type is not specified it only has a hidden default type (which
     is **float64** here).  Let’s see a code
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，类型未指定，它仅具有一个隐式默认类型（在此为**float64**）。让我们来看一段代码。
 - en: '[PRE11]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Output:**'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE12]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Notice above program.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意上面的程序。
 - en: Due to untyped nature of **math.Pi** constant it can be assigned to a variable
     of type **float32** as well as **float64**. This is otherwise not possible in
     GO after type is fixed.
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 由于**math.Pi**常量的无类型特性，它可以被赋值给**float32**和**float64**类型的变量。在GO中，类型固定后这是不可能的。
 - en: When we print the type of **math.Pi** , it prints the default type which is
     **float64**
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当我们打印**math.Pi**的类型时，它打印出默认类型，即**float64**。
 - en: Depending upon use case an untyped constant can be assigned to a low precision
     type (float32) or a high precision type(float64)
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据使用案例，无类型常量可以被赋值给低精度类型（float32）或高精度类型（float64）。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

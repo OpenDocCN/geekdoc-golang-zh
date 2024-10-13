@@ -1,376 +1,584 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:18:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:18:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding Array in Go (Golang) – Complete Guide
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解Go中的数组（Golang）– 完整指南
 - en: 来源：[https://golangbyexample.com/understanding-array-golang-complete-guide/](https://golangbyexample.com/understanding-array-golang-complete-guide/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/understanding-array-golang-complete-guide/](https://golangbyexample.com/understanding-array-golang-complete-guide/)
 - en: This is the  chapter 17 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是golang综合教程系列的第17章。有关该系列其他章节，请参考此链接 – **[Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)**
 - en: '**Next Tutorial** – [Slice](https://golangbyexample.com/slice-in-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – **[切片](https://golangbyexample.com/slice-in-golang/)**'
 - en: '**Previous Tutorial** – [Struct](https://golangbyexample.com/struct-in-golang-complete-guide/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**前一个教程** – [结构体](https://golangbyexample.com/struct-in-golang-complete-guide/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前的教程。以下是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Definition](#Definition "Definition")'
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[定义](#Definition "Definition")**'
 - en: '[Declaration of an array](#Declaration_of_an_array "Declaration of an array")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[数组声明](#Declaration_of_an_array "Declaration of an array")**'
 - en: '[Accessing array elements](#Accessing_array_elements "Accessing array elements")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[访问数组元素](#Accessing_array_elements "Accessing array elements")**'
 - en: '[Arrays are value in go](#Arrays_are_value_in_go "Arrays are value in go")'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[数组在go中是值](#Arrays_are_value_in_go "Arrays are value in go")**'
 - en: '[Different ways of iterating an array](#Different_ways_of_iterating_an_array
     "Different ways of iterating an array")'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[迭代数组的不同方法](#Different_ways_of_iterating_an_array "Different ways of iterating
+    an array")**'
 - en: '[MultiDimensional Arrays](#MultiDimensional_Arrays "MultiDimensional Arrays")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[多维数组](#MultiDimensional_Arrays "MultiDimensional Arrays")**'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[结论](#Conclusion "Conclusion")** # **概述**'
 - en: Similar to any other programming language, golang also has **array** data structure.
     But in go, **arrays** behave little differently than other languages and also
     we have something called slice in golang which is like a reference to an array.
     In this article, we will study only array.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 类似于其他编程语言，golang也有**数组**数据结构。但在go中，**数组**的行为与其他语言略有不同，我们还有一种称为切片的东西，它类似于数组的引用。在本文中，我们将仅研究数组。
 - en: '**Definition**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**定义**'
 - en: An array is a contiguous collection of elements of the same type. It is an ordered
     sequence of elements stored contiguously in memory
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组是同一类型元素的连续集合。它是存储在内存中连续的元素有序序列。
 - en: Here is the format for the declaration of an array
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是数组声明的格式。
 - en: '[PRE0]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: size_of_array – number of elements in the array
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: size_of_array – 数组中的元素数量
 - en: <type> is type of each element in the array
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: <type>是数组中每个元素的类型。
 - en: a1, a2 … an are the actual elements.
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: a1, a2 … an是实际元素。
 - en: In golang, the size of the array is part of its type. So  This means that two
     arrays that have a different number of elements are of two different types and
     one cannot be assigned to another. Below error will be raised in case we try to
     assign two arrays of different length
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 在golang中，数组的大小是其类型的一部分。这意味着两个具有不同元素数量的数组是两种不同的类型，不能相互赋值。如果尝试赋值两个不同长度的数组，将会引发下面的错误。
 - en: '[PRE1]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'The code is:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 代码如下：
 - en: '[PRE2]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: For the same reason the length of array is fixed during create and cannot be
     changed later.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于同样的原因，数组的长度在创建时是固定的，不能在后续更改。
 - en: '**Declaration of an array**'
+  id: totrans-32
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**数组声明**'
 - en: Both number of elements and actual elements are optional in the array declaration.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组声明中元素的数量和实际元素都是可选的。
 - en: In below example, we see 4 ways of declaring of an array
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下面的例子中，我们看到声明数组的4种方式。
 - en: Specifying both the length of the array and actual elements. Eg.
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 同时指定数组的长度和实际元素。例如：
 - en: '[PRE3]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Only length – In this case all the actual elements are filled up with default
     value zero of that type. Eg
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅长度 – 在这种情况下，所有实际元素都填充为该类型的默认值零。例如：
 - en: '[PRE4]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Only actual elements – In this case, the length of array will be equal to the
     number of actual elements. The symbol **‘…’** needs to be used within square brackets
     like this **[…]** when not specifying the length. The symbol is an instruction
     to the compiler to calculate the length.
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅实际元素 – 在这种情况下，数组的长度将等于实际元素的数量。当不指定长度时，符号**‘…’**需要在方括号内使用，格式为**[…]**。该符号是对编译器的指令，以计算长度。
 - en: '[PRE5]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Without length and actual elements – an empty array will be created in this
     case. Similar to above the symbol **‘…’** also needs to be used in this case as
     well.
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果没有长度和实际元素——在这种情况下，将创建一个空数组。与上面类似，符号 **‘…’** 在这种情况下也需要使用。
 - en: '[PRE6]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Let’s see a code example illustrating above points. Also please keep in mind
     that the builtin function **len()** can be used to calculate the length of an
     array. In below program we are using **len()** function to calculate the length
     of the array.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个代码示例来说明上述要点。还请记住，内置函数 **len()** 可以用来计算数组的长度。在下面的程序中，我们使用 **len()** 函数来计算数组的长度。
 - en: '[PRE7]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Notice in the above example that for **sample3** variable the actual elements
     are filled up with the default value of int which is 0.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意在上面的示例中，对于 **sample3** 变量，实际元素填充了 int 的默认值，即 0。
 - en: It is also ok if the actual elements specified are less than the length of the
     array. The rest of the elements are filled up with the default value of the type
     specified. See the below example. The length of the array specified is 4 while
     only 2 actual elements are declared. Hence the remaining two elements are assigned
     value 0 which is the default zero value of an **int**.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果实际指定的元素少于数组的长度，也是可以的。其余元素将用指定类型的默认值填充。请参见下面的示例。指定的数组长度为 4，而只声明了 2 个实际元素。因此，其余两个元素被赋值为
+    0，这是 **int** 的默认零值。
 - en: '[PRE9]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output**'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE10]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Accessing array elements**'
+  id: totrans-52
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**访问数组元素**'
 - en: Since array element are stored in contiguous manner, we can access an array
     element using an index. Similarly individual array elements can also be assigned
     a value using index. Accessing out of bound index will cause a compilation error.
     See below examples illustrating these points. The first index position will be
     **zero** and last will **(length_of_array-1)**
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于数组元素是以连续方式存储的，我们可以使用索引访问数组元素。同样，单个数组元素也可以使用索引赋值。访问越界索引将导致编译错误。请参见下面的示例以说明这些要点。第一个索引位置将是
+    **零**，最后一个索引将是 **(length_of_array-1)**
 - en: '[PRE11]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Output**'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE12]'
+  id: totrans-56
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: On uncommenting the below line
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 取消注释下面的行
 - en: '[PRE13]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: ', it will give compilation error'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: ', 这将导致编译错误'
 - en: '[PRE14]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**Arrays are value in go**'
+  id: totrans-61
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**数组在 Go 中是值**'
 - en: Array are value type in go. So an array variable name is not a pointer to the
     first element in fact it denotes the entire array. A copy of the array will be
     created when
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，数组是值类型。因此，数组变量名称并不是指向第一个元素的指针，而是表示整个数组。当
 - en: An array variable is assigned to another array variable.
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个数组变量被赋值给另一个数组变量。
 - en: An array variable is passed as an argument to a function.
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个数组变量作为参数传递给一个函数。
 - en: Let’s see above point with another example
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们用另一个示例来看上述要点
 - en: '[PRE15]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Output**'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE16]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: In above example,
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述示例中，
 - en: we assigned the **sample1** to **sample2** and we then changed 0th index at
     **sample2** to have a different value.  After that when we print **sample1**,
     we see that it hasn’t changed. This is because when we assign **sample1** to **sample2**,
     a copy is created and changing **sample2** doesn’t have any effect on **sample1**
+  id: totrans-70
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将 **sample1** 赋值给 **sample2**，然后将 **sample2** 的 0 索引位置更改为不同的值。之后，当我们打印 **sample1**
+    时，会发现它没有改变。这是因为当我们将 **sample1** 赋值给 **sample2** 时，创建了一个副本，改变 **sample2** 对 **sample1**
+    没有任何影响。
 - en: We passed **sample1** to the test function and then again changed its value
     in the test function at 0th index.  After that when we print **sample1**, we see
     that it hasn’t changed. The reason is same, when **sample1** is passed as an argument
     to test function a copy of **sample1** is created.
+  id: totrans-71
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将 **sample1** 传递给测试函数，然后在测试函数中将其在 0 索引位置的值更改。之后，当我们打印 **sample1** 时，会发现它没有改变。原因是，当
+    **sample1** 作为参数传递给测试函数时，会创建 **sample1** 的一个副本。
 - en: '**Different ways of iterating an array**'
+  id: totrans-72
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**迭代数组的不同方法**'
 - en: 'An array can be iterated using:'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 数组可以使用以下方式迭代：
 - en: Using for loop
+  id: totrans-74
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 for 循环
 - en: Using for-range loop
+  id: totrans-75
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 for-range 循环
 - en: Let’s see a code example for both
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个两者的代码示例
 - en: '[PRE17]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**Output**'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE18]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**MultiDimensional Arrays**'
+  id: totrans-80
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**多维数组**'
 - en: Below is the format for declaring a two dimensional array
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是声明二维数组的格式
 - en: '[PRE19]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: where
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中
 - en: x denotes the number of rows
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: x 表示行数
 - en: y denotes the number of columns
+  id: totrans-85
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: y 表示列数
 - en: aij denotes an element present at i row and j column
+  id: totrans-86
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: aij 表示位于第 i 行和第 j 列的元素
 - en: The same idea can be extended to three dimensions, four dimensions, and so on.
     All the rules we discussed above also apply to multidimensional arrays too.
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样的思路可以扩展到三维、四维等更多维度。我们上面讨论的所有规则也适用于多维数组。
 - en: Let's see a code example
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个代码示例
 - en: '[PRE20]'
+  id: totrans-89
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Output**'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE21]'
+  id: totrans-91
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: In above example we access the element of two dimensional array using index
     for both first and second dimension
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，我们使用索引访问二维数组的元素，适用于第一维和第二维。
 - en: '[PRE22]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: Also notice how we are traversing the two dimensional array. We need to use
     nested range . The first range traverses the arrays of array. The second range
     traverses the individual array after that.
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 还要注意我们是如何遍历二维数组的。我们需要使用嵌套的 range。第一个 range 遍历数组中的数组，第二个 range 在此之后遍历单个数组。
 - en: '**Conclusion**'
+  id: totrans-95
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about array in Golang. Hope you have liked this article. Please
     share feedback/improvements/mistakes in comments.
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 这篇文章全部讲的是 Golang 中的数组。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Slice](https://golangbyexample.com/slice-in-golang/)'
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一篇教程** – [切片](https://golangbyexample.com/slice-in-golang/)'
 - en: '**Previous Tutorial** – [Struct](https://golangbyexample.com/struct-in-golang-complete-guide/)'
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一篇教程** – [结构体](https://golangbyexample.com/struct-in-golang-complete-guide/)'
 - en: '[array](https://golangbyexample.com/tag/array/)*   [complete guide](https://golangbyexample.com/tag/complete-guide/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-99
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数组](https://golangbyexample.com/tag/array/) * [完整指南](https://golangbyexample.com/tag/complete-guide/)
+    * [Go](https://golangbyexample.com/tag/go/) * [Golang](https://golangbyexample.com/tag/golang/)
+    *'

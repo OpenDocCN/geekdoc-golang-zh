@@ -1,316 +1,494 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:18:07'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:18:07
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understand If Else Statement in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解Go中的如果-否则语句（Golang）
 - en: 来源：[https://golangbyexample.com/understand-if-else-statement-golang/](https://golangbyexample.com/understand-if-else-statement-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/understand-if-else-statement-golang/](https://golangbyexample.com/understand-if-else-statement-golang/)
 - en: This is the  chapter 12 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是golang综合教程系列的第12章。有关该系列其他章节，请参考此链接——[Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Switch](https://golangbyexample.com/switch-statement-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程**——[开关](https://golangbyexample.com/switch-statement-golang/)'
 - en: '**Previous Tutorial** – [For Range loop](https://golangbyexample.com/understand-for-range-loop-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程**——[范围循环](https://golangbyexample.com/understand-for-range-loop-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前教程。以下是当前教程的目录。
 - en: '**Overview**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**概述**'
 - en: Go has if-else statement similar to any other programming language to perform
     the basic conditional logic. Below is the format for if-else statement in golang
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: Go有类似于其他编程语言的if-else语句，以执行基本的条件逻辑。以下是golang中if-else语句的格式。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Before we move further let’s talk about the **condition** first. Only a statement
     or a combination of statements that result in a boolean are allowed for a condition
     in if. false boolean is treated as false in a condition in go and true boolean
     is treated as true. As mentioned above, the condition can be composed of multiple
     statements combined by operators in Go such as &&, ||, >, <, >=, <=, ! etc.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们进一步讨论之前，先谈谈**条件**。条件中只允许语句或结果为布尔值的语句组合。在Go中，false布尔值在条件中被视为假，true布尔值被视为真。如上所述，条件可以由多个语句通过运算符组合而成，例如&&、||、>、<、>=、<=、!等。
 - en: Now let’s look into the if-else statement in detail to understand the small
     things. Go supports below formats for the if-else statement
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们详细看看if-else语句，以理解其中的小细节。Go支持以下格式的if-else语句。
 - en: Only if
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅仅if
 - en: If Else
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果-否则
 - en: If Else Ladder
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果-否则阶梯
 - en: Nested if-else
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 嵌套if-else
 - en: If with a short statement
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果与简短语句
 - en: '**If statement**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**如果语句**'
 - en: if statement alone has below format
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: if语句单独具有以下格式。
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: If the condition is true then the statement inside the braces is executed. 
     Some points to note about if statement
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果条件为真，则执行括号内的语句。关于if语句需要注意的一些要点。
 - en: Brackets can be omitted around the condition.
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可以省略条件周围的括号。
 - en: Opening and closing braces after condition are mandatory
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 条件后的开闭括号是强制的。
 - en: Let’s see a working example. Below program checks if a number is greater than
     5.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个工作示例。以下程序检查一个数字是否大于5。
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Let’s see another example of multiple statement in a if condition. Below is
     a program to check if a number lies in a particular range. Notice that multiple
     statement in the condition are joined by the && operator.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看另一个if条件中的多个语句的示例。以下是一个程序，用于检查一个数字是否在特定范围内。注意条件中的多个语句由&&运算符连接。
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**If Else Statement**'
+  id: totrans-34
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**如果-否则语句**'
 - en: If Else statement has below format
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果-否则语句具有以下格式。
 - en: '[PRE6]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: If the condition is true then the statement inside the if block is executed
     otherwise the statement inside the else block is executed. Some points to note
     about if-else statement.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果条件为真，则执行if块中的语句，否则执行else块中的语句。关于if-else语句需要注意一些要点。
 - en: The else keyword should be on the same line as the closing brace for it. If
     not there will be below compiler error.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: else关键字应该与其闭合括号在同一行。如果不在同一行，将会出现以下编译器错误。
 - en: '[PRE7]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Let's see a small example of if else statement. In below program we use if else
     statement to figure out the max number of 2 numbers
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个小的if-else语句示例。在下面的程序中，我们使用if-else语句找出两个数字中的最大值。
 - en: '[PRE8]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**If Else Ladder**'
+  id: totrans-44
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**如果-否则阶梯**'
 - en: If Else ladder has the below format
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果-否则阶梯具有以下格式。
 - en: '[PRE10]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Some points to note about this if else ladder
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于这个if-else阶梯需要注意的一些要点。
 - en: Any number of else if statement can be added in the middle
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可以在中间添加任意数量的else if语句。
 - en: else if should lie on the same line as the previous closing brace
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: else if应位于前一个闭合括号的同一行。
 - en: Below is a working code example. The code given an age is using a if else ladder
     to find out weather a person is "Kid", "Young" or "Old".
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是一个可工作的代码示例。该代码根据年龄使用if-else阶梯来判断一个人是“孩子”、“年轻”还是“老年”。
 - en: '[PRE11]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Output:**'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE12]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Nested If Else**'
+  id: totrans-54
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**嵌套如果否则**'
 - en: Below are some one of the possible format for nested if else.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是嵌套 if else 的一些可能格式。
 - en: Only nested if
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 仅嵌套 if
 - en: '[PRE13]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Nested if else
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 嵌套 if else
 - en: '[PRE14]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Below combination is also possible for nested if else
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面的组合也可以用于嵌套的 if else。
 - en: '[PRE15]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: Let's see a working example of nested if else. In below program we print the
     max of three numbers using nested if else.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个嵌套 if else 的工作示例。在下面的程序中，我们使用嵌套 if else 打印三个数字中的最大值。
 - en: '[PRE16]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '**Output:**'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE17]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '**If with short statement**'
+  id: totrans-66
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**带短语句的 if**'
 - en: If statement also supports a statement before the condition. This statement
     will be executed before the condition. There can also be new initialized variable
     in the statement. Below is the format for that.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: If 语句也支持在条件前添加语句。这个语句将在条件之前执行。语句中还可以有新的初始化变量。下面是该格式。
 - en: '[PRE18]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: The initialization if present in the statement will be a short declaration.
     Notice that var keyword is not supported in the statement. Let's see a working
     example
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果语句中存在初始化，它将是一个短声明。注意，在语句中不支持 var 关键字。让我们看一个工作示例。
 - en: '[PRE19]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '**Output**'
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE20]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: The variable that is initialized in if statement is available inside all the
     branches. As in below example variable **a** is also available in the else block.
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 if 语句中初始化的变量在所有分支中都可用。如下面示例中，变量 **a** 在 else 块中也可用。
 - en: '[PRE21]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Output:**'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE22]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: '**If Conditions**'
+  id: totrans-77
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**if 条件**'
 - en: We mentioned at the start that only boolean values or statement that result
     in boolean value are allowed in the if condition. Let's see a working code of
     the error that comes in case of using any else than boolean
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在开头提到过，if 条件中只允许布尔值或结果为布尔值的语句。让我们看看使用非布尔值时出现的错误的工作代码。
 - en: '[PRE23]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Output:** Below compiler error is raised'
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：** 下面的编译器错误被抛出'
 - en: '[PRE24]'
+  id: totrans-81
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**Ternary Operator**'
+  id: totrans-82
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**三元运算符**'
 - en: There is no ternary operator in Go, hence you need to use if else statements
     in place of that.
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 中没有三元运算符，因此你需要使用 if else 语句来替代它。
 - en: '**Conclusion**'
+  id: totrans-84
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: That is all about if else statement in go. Hope you have liked this article.
     Please share feedback/improvements/mistakes in comments
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是 Go 语言中 if else 语句的全部内容。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Switch](https://golangbyexample.com/switch-statement-golang/)'
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [Switch](https://golangbyexample.com/switch-statement-golang/)'
 - en: '**Previous Tutorial** – [For Range loop](https://golangbyexample.com/understand-for-range-loop-golang/)'
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [范围循环](https://golangbyexample.com/understand-for-range-loop-golang/)'
 - en: '[complete](https://golangbyexample.com/tag/complete/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [guide](https://golangbyexample.com/tag/guide/)*   [understand](https://golangbyexample.com/tag/understand/)*   [using](https://golangbyexample.com/tag/using/)'
+  id: totrans-88
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整](https://golangbyexample.com/tag/complete/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [指南](https://golangbyexample.com/tag/guide/)*   [理解](https://golangbyexample.com/tag/understand/)*   [使用](https://golangbyexample.com/tag/using/)'

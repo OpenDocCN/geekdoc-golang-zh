@@ -1,282 +1,432 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:35:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:35:52
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Understanding Errorf function in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 理解Go中的Errorf函数
 - en: 来源：[https://golangbyexample.com/errorf-function-golang/](https://golangbyexample.com/errorf-function-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/errorf-function-golang/](https://golangbyexample.com/errorf-function-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Formatting a string variable](#Formatting_a_string_variable "Formatting a
     string variable")'
+  id: totrans-8
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[格式化字符串变量](#Formatting_a_string_variable "Formatting a string variable")'
 - en: '[Formatting an integer](#Formatting_an_integer "Formatting an integer")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[格式化一个整数](#Formatting_an_integer "Formatting an integer")'
 - en: '[Formatting a struct](#Formatting_a_struct "Formatting a struct")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[格式化结构体](#Formatting_a_struct "Formatting a struct")'
 - en: '[Wrapping of error](#Wrapping_of_error "Wrapping of error")*  *## **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[错误的封装](#Wrapping_of_error "Wrapping of error")*  *## **概述**'
 - en: '**Errorf** function is defined in the **fmt** package and is used to create
     a custom error with a formatted message as per the format specifier provided.'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Errorf**函数在**fmt**包中定义，用于根据提供的格式说明符创建带有格式化消息的自定义错误。'
 - en: '[https://golang.org/pkg/fmt/#Errorf](https://golang.org/pkg/fmt/#Errorf)'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/fmt/#Errorf](https://golang.org/pkg/fmt/#Errorf)'
 - en: Its main use is to create a custom error in golang with a formatted message.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它的主要用途是用格式化消息在Golang中创建自定义错误。
 - en: It is also used to create a custom error which can wrap another error provided
     to it. In golang, an error can wrap another error as well.  What does the wrapping
     of error mean? It means to create a hierarchy of errors in which a  particular
     instance of error wraps another error and that particular instance itself can
     be wrapped inside another error. We will see about this in detail later in this
     tutorial.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它还用于创建可以封装另一个提供给它的错误的自定义错误。在Golang中，一个错误可以封装另一个错误。错误的封装是什么意思？这意味着创建一个错误的层次结构，其中特定的错误实例封装另一个错误，而该特定实例本身也可以被封装在另一个错误中。我们将在本教程后面详细讨论。
 - en: Below is the function prototype of **Errorf**
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是**Errorf**的函数原型
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: As you can see it returns an instance of the error.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，它返回一个错误的实例。
 - en: '**Errorf** is also a variadic function meaning that it can have multiple arguments. There
     are two important points about its argument list'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Errorf**也是一个可变参数函数，这意味着它可以有多个参数。关于其参数列表有两个重要点'
 - en: Notice that the first argument is a **format** or **template** string.
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 请注意第一个参数是一个**格式**或**模板**字符串。
 - en: The next is a variable number of arguments. Each of the arguments in this list
     could be string, int, struct, or anything. That is why it is an empty interface
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 下一个是可变数量的参数。此列表中的每个参数可以是字符串、整数、结构体或其他类型。这就是它是一个空接口的原因。
 - en: '**Errrof** formats the string using custom specifiers. The first argument that
     is the **format** or **template** string contains the actual string that needs
     to be formatted plus some formating verbs. These formating verbs tell how the
     trailing arguments will be formatted in the final string.  So basically the format
     string argument contains certain symbols which are replaced by trailing arguments.'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Errrof**使用自定义说明符格式化字符串。第一个参数是**格式**或**模板**字符串，包含需要格式化的实际字符串以及一些格式化动词。这些格式化动词告诉后续参数在最终字符串中如何格式化。因此，基本上格式字符串参数包含某些符号，这些符号由后续参数替换。'
 - en: Eg
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '**Formatting a string variable**'
+  id: totrans-24
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**格式化字符串变量**'
 - en: '**%s** symbol is used'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%s**符号被使用'
 - en: Example
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE1]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Formatting an integer**'
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**格式化一个整数**'
 - en: '**%d** symbol is used'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%d**符号被使用'
 - en: Example
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 示例
 - en: '[PRE2]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Formatting a struct**'
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**格式化结构体**'
 - en: For example, there are three format specifiers for printing a struct.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，有三种格式说明符用于打印结构体。
 - en: '**%v** – It will print only values. The field name will not be printed. This
     is the default way of printing a struct when using Println'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%v** – 只打印值，字段名不会被打印。这是使用Println打印结构体的默认方式'
 - en: '**%+v – **It will print both field and value.'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%+v – **它将打印字段和对应的值。'
 - en: '**%#v – **It will print the struct, also both field name and value'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%#v – **它将打印结构体，同时显示字段名和值'
 - en: That is why
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是为什么
 - en: '[PRE3]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: returns an error with below formatted message respectively
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 返回的错误信息如下格式化消息
 - en: Here is the working program for the same
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是相同功能的工作程序
 - en: '[PRE4]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Notice that in below **Errorf**
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意下面的**Errorf**
 - en: '[PRE6]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**%s** is replaced by **sampleErr**.'
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%s**被**sampleErr**替换。'
 - en: '**%d** is replaced by **port**.'
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**%d**被**port**替换。'
 - en: So basically the symbols or verbs in the format string argument are replaced
     by trailing arguments in order
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以基本上格式字符串参数中的符号或动词按顺序被后续参数替换
 - en: If the number of format specifiers in the format string does not match the number
     of next variable arguments then the format specifier will be printed as is. For
     example, in the below code, we have two format specifier
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果格式字符串中的格式说明符数量与后续的变量参数数量不匹配，则格式说明符将原样打印。例如，在下面的代码中，我们有两个格式说明符。
 - en: '%s'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '%s'
 - en: '%d'
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '%d'
 - en: While the next variable number of arguments is only one. Hence when we format
     it then it returns the formatted error with second format specifier as is with
     MISSING as a warning
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 而下一个变量参数的数量仅为一个。因此，当我们格式化它时，它返回带有第二个格式说明符的格式化错误，原样显示MISSING作为警告。
 - en: '[PRE7]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Wrapping of error**'
+  id: totrans-56
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**错误的封装**'
 - en: Below is the syntax for wrapping an error
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是封装错误的语法。
 - en: '[PRE9]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**%w** directive Is used for wrapping the error.  The **fmt.Errorf **should
     be called with only one %w directive. Let’s see an example.'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: '**%w**指令用于封装错误。**fmt.Errorf**应该仅使用一个%w指令调用。让我们看一个例子。'
 - en: '[PRE10]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: In the above program, we created a struct **errorOne** that has an **Error** method
     hence it implements the **error** interface. Then we created an instance of the **errorOne** struct
     named **e1**. Then we wrapped that instance **e1** into another error **e2** like
     this
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个名为**errorOne**的结构体，它具有一个**Error**方法，因此它实现了**error**接口。然后我们创建了一个名为**e1**的**errorOne**结构体实例。接着我们将该实例**e1**封装到另一个错误**e2**中，如下所示。
 - en: '[PRE12]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Then we wrapped **e2** into **e3** like below.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们将**e2**封装到**e3**中，如下所示。
 - en: '[PRE13]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: So so we created a hierarchy of errors in which **e3** wraps **e2** and **e2** wraps **e1**. 
     Thus **e3** also wraps **e1** transitively. When we print **e2 ** it also prints
     the error from **e1** and gives the output.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此我们创建了一个错误层次结构，其中**e3**封装了**e2**，而**e2**封装了**e1**。因此，**e3**也以传递方式封装了**e1**。当我们打印**e2**时，它也会打印来自**e1**的错误并给出输出。
 - en: '[PRE14]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: When we print **e3** it prints the error from **e2** as well as **e1** and gives
     the output.
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们打印**e3**时，它打印来自**e2**以及**e1**的错误并给出输出。
 - en: '[PRE15]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: You can read about wrapping and unwrapping of error in detail here
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在这里详细了解错误的封装和解封装。
 - en: '[https://golangbyexample.com/wrapping-and-unwrapping-error-golang/](https://golangbyexample.com/wrapping-and-unwrapping-error-golang/)'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golangbyexample.com/wrapping-and-unwrapping-error-golang/](https://golangbyexample.com/wrapping-and-unwrapping-error-golang/)'
 - en: This is all about the Errorf function. Hope you have liked this article. Please
     share feedback in the comments. Also, check out our Golang advance tutorial Series
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于Errorf函数的所有内容。希望你喜欢这篇文章。请在评论中分享反馈。同时，查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '[errorf](https://golangbyexample.com/tag/errorf/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-74
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[errorf](https://golangbyexample.com/tag/errorf/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

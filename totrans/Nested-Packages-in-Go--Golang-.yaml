@@ -1,112 +1,178 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:30:40'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:30:40
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Nested Packages in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的嵌套包
 - en: 来源：[https://golangbyexample.com/nested-packages-golang/](https://golangbyexample.com/nested-packages-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/nested-packages-golang/](https://golangbyexample.com/nested-packages-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: In GO it is possible to create nested packages.  Nested packages are those packages
     that lie within another package. Let’s see an example
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，可以创建嵌套包。嵌套包是指位于另一个包内部的那些包。让我们来看一个例子
 - en: '**Example**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Create a directory named **learn**. Let’s create a module with import path as
     **“sample.com/learn”** in the learn directory.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建一个名为 **learn** 的目录。我们将在 learn 目录中创建一个导入路径为 **“sample.com/learn”** 的模块。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It will create a go.mod file
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将创建一个 go.mod 文件
 - en: '**go.mod**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s create below files and directories
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们创建以下文件和目录
 - en: learn/main.go
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: learn/main.go
 - en: learn/math/math.go
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: learn/math/math.go
 - en: learn/math/advanced/advanced.go
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: learn/math/advanced/advanced.go
 - en: You can see that **advanced** is a nested package inside the **math** package.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以看到 **advanced** 是 **math** 包内的嵌套包。
 - en: '**learn/math/math.go**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/math.go**'
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**learn/math/advanced/advanced.go**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/advanced/advanced.go**'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**learn/main.go**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE4]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Let’s run this program
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行这个程序
 - en: '[PRE5]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Points to note about above program
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于上述程序的注意事项
 - en: We imported the **advanced** package in main.go with full qualified path i.e, 
     **import “sample.com/learn/math/advanced”**
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们在 main.go 中使用完整的合格路径导入了 **advanced** 包，即 **import “sample.com/learn/math/advanced”**
 - en: '**Square** function is referred to using **advanced** package i.e, **advanced.Square(2)**'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Square** 函数是通过 **advanced** 包来调用的，即 **advanced.Square(2)**'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

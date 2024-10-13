@@ -1,165 +1,254 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:03:37'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:03:37
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Null Object Design Pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的空对象设计模式（Golang）。
 - en: 来源：[https://golangbyexample.com/null-object-design-pattern-golang/](https://golangbyexample.com/null-object-design-pattern-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/null-object-design-pattern-golang/](https://golangbyexample.com/null-object-design-pattern-golang/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：想了解其他所有设计模式如何在GO中实现，请查看这个完整参考 – [Go中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction:](#Introduction "Introduction:")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [简介：](#Introduction "Introduction:")'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *## **Introduction:**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "Full Working Code:")*  *## **简介：**'
 - en: Null Object Design Pattern is a behavioral design pattern. It is useful when
     the client code relies upon some dependency which can be null. Using this design
     pattern prevents clients from having to put null checks on the result of these
     dependencies. With that said, it should also be noted that client behavior is
     also fine with such null dependencies.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 空对象设计模式是一种行为设计模式。当客户端代码依赖于某些可能为null的依赖项时，它非常有用。使用此设计模式可以防止客户端在这些依赖项的结果上进行null检查。值得注意的是，客户端的行为对于这些null依赖项也是可以接受的。
 - en: 'Main components of the Null Object Design Pattern are:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 空对象设计模式的主要组件是：
 - en: '**Entity** – it is the interface which defines primitive operations that child
     structs have to implement'
+  id: totrans-12
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**实体** – 它是定义子结构体必须实现的原始操作的接口。'
 - en: '**ConcreteEntity** – it implements the entity interface'
+  id: totrans-13
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**ConcreteEntity** – 它实现了实体接口。'
 - en: '**NullEntity** – it represents the null object. It also implements the entity
     interface but has null properties'
+  id: totrans-14
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**NullEntity** – 它表示null对象。它也实现了实体接口，但具有null属性。'
 - en: '**Client** – the client gets the implementation of the entity interface and
     uses it. It doesn’t really care if the implementation is of ConcreteEntity or
     NullEntity. It treats both of them as same.'
+  id: totrans-15
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**客户端** – 客户端获取实体接口的实现并使用它。它并不关心实现是ConcreteEntity还是NullEntity。它将两者视为相同。'
 - en: Let’s consider an example. Assume we have a college with many departments with
     each department having some number of professors.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们考虑一个例子。假设我们有一个学院，里面有多个部门，每个部门有一些教授。
 - en: '**department** is represented by an interface'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**department** 由一个接口表示。'
 - en: '[PRE0]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: where as **college** is represented as
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中**college**表示为
 - en: '[PRE1]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Now let’s say that there is an agency that wants to calculate the total number
     of professors for a particular college for specific departments only.  We will
     use the Null Object Design Pattern for this use case where a college will return
     a nullDepartment object (see **nullDepartment.go**) if a department doesn’t exists
     in college.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在假设有一个机构想要计算特定学院特定部门的教授总数。我们将使用空对象设计模式处理这种情况，如果一个部门在学院中不存在，学院将返回一个nullDepartment对象（见**nullDepartment.go**）。
 - en: Notice the code in agency.go
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意agency.go中的代码。
 - en: '**agency.go** doesn’t even care whether a particular department exists in college
     or not. **college** returns a null department object if that department doesn’t
     exist in the college.'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**agency.go** 根本不关心特定部门是否存在于学院中。如果该部门在学院中不存在，**college** 会返回一个null部门对象。'
 - en: It treats nullDepartment and real Department as same so null checks are avoided.
     It calls **getNumberOfProfessors()** on both the objects.
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它将nullDepartment和真实部门视为相同，因此避免了null检查。它在两个对象上调用**getNumberOfProfessors()**。
 - en: Above are two advantages that we get by using nullObject design pattern for
     this case. See the below code
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 以上是我们通过使用null对象设计模式在这种情况下获得的两个优点。请参见下面的代码。
 - en: '**agency.go**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**agency.go**'
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**college.go –** represents the college'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**college.go –** 表示学院。'
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**department.go –** It represents the department interface'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**department.go –** 它表示部门接口。'
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**computerscience.go –** Concrete implementation of department interface'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**computerscience.go –** 部门接口的具体实现。'
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**mechanical.go –** Concrete implementation of department interface'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**mechanical.go –** 部门接口的具体实现。'
 - en: '[PRE6]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**nullDepartment.go** – nullObject implementation of the department interface'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**nullDepartment.go** – 部门接口的null对象实现。'
 - en: '[PRE7]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output:**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE8]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Full Working Code:**'
+  id: totrans-40
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE9]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output:**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE10]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '[golang](https://golangbyexample.com/tag/golang/)*   [null object design pattern
     in go](https://golangbyexample.com/tag/null-object-design-pattern-in-go/)*'
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL

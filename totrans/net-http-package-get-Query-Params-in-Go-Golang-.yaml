@@ -1,175 +1,273 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:02:36'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:02:36
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: net/http package get Query Params in Go(Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: net/http 包获取 Go (Golang) 中的查询参数
 - en: 来源：[https://golangbyexample.com/net-http-package-get-query-params-golang/](https://golangbyexample.com/net-http-package-get-query-params-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/net-http-package-get-query-params-golang/](https://golangbyexample.com/net-http-package-get-query-params-golang/)
 - en: '**Note:** If you are interested in learning Golang, then for that we have a
     golang comprehensive tutorial series. Do check it out – [Golang Comprehensive
     Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/).
     Now let’s see current tutorial'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 如果你对学习 Golang 感兴趣，我们有一个全面的 Golang 教程系列。请务必查看一下 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。现在让我们来看当前的教程。'
 - en: Often in the context of an HTTP request, it is required to fetch the query params
     which are sent as part of the request. A particular query param key value can
     have one or multiple values.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 HTTP 请求的上下文中，通常需要获取作为请求一部分发送的查询参数。一个特定的查询参数键值可以有一个或多个值。
 - en: In below example **filters** have one value which is [“color”]
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在下面的示例中，**filters** 有一个值，即 [“color”]。
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In below example **filters** have multiple value which is [“color”, “price”,
     “brand”]. Notice how multiple values are defined
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在下面的示例中，**filters** 有多个值，即 [“color”, “price”, “brand”]。注意如何定义多个值。
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s explore two methods of getting these query params
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们探索获取这些查询参数的两种方法。
 - en: 1.**Using reqeust.URL.Query()**
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 1.**使用 reqeust.URL.Query()**
 - en: 'The query params lie in the **URL** itself. We get Query params via r.URL.Query()
     which returns **Values** which is of map[string][]string. There are two cases:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 查询参数位于 **URL** 本身。我们通过 r.URL.Query() 获取查询参数，该函数返回 **Values**，它是 map[string][]string。存在两种情况：
 - en: '**1.1 When a particular key contains multiple values in a query params. For
     example, see below request-**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**1.1 当特定键在查询参数中包含多个值时。例如，请参见下面的请求**'
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Code:**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**1.2 When a particular key contains a single value in query params. For example,
     see below request**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**1.2 当特定键在查询参数中包含单个值时。例如，请参见下面的请求**'
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: When we know that a particular key has only one value in the query params, then
     r.URL.Query().Get(keyName) can also be used. Get function will get the first value
     associated with the key. If you want to all values then the map has to be directly
     accessed as we did in the above program. In the below program, we are using Get()
     on the r.URL.Query() and it returns a single value
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们知道特定键在查询参数中只有一个值时，可以使用 r.URL.Query().Get(keyName)。Get 函数将获取与该键关联的第一个值。如果你想获取所有值，则必须直接访问映射，如我们在上面的程序中所做的。在下面的程序中，我们在
+    r.URL.Query() 上使用 Get()，并且它返回一个单一值。
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**2.Using request.Form**'
+  id: totrans-27
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**2.使用 request.Form**'
 - en: 'The query params lie in the **URL** itself. We get Query params via r.URL.Query()
     which returns **values** which is of map[string][]string. There are two cases:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 查询参数位于 **URL** 本身。我们通过 r.URL.Query() 获取查询参数，该函数返回 **values**，它是 map[string][]string。存在两种情况：
 - en: '**2.1** **When a particular key contains multiple values in a query params.
     For example, see below request**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**2.1** **当特定键在查询参数中包含多个值时。例如，请参见下面的请求**'
 - en: '[PRE8]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Code:**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE9]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output:**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE10]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: 'An important point to be noted:'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 需要注意的一个重要点：
 - en: While trying to get query param value via r.Form , be careful that in case of
     POST and PUT request, body parameters will take precedence over URL query string
     values i.e, if there is a key say **X** present in both form body (=”a”) and in
     query param(=”b”).  Then on calling r.Form[“X”] it will return [“a”] and not [“b”]
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在尝试通过 r.Form 获取查询参数值时，要小心在 POST 和 PUT 请求中，主体参数会优先于 URL 查询字符串值。即，如果有一个键 **X**
+    同时出现在表单主体（=“a”）和查询参数（=“b”）中。那么调用 r.Form[“X”] 时，它将返回 [“a”] 而不是 [“b”]。
 - en: '**2.2 When a particular key contains a single value in query params. For example,
     see below request**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**2.2 当特定键在查询参数中包含单个值时。例如，请参见下面的请求**'
 - en: '[PRE11]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: When we know that a particular key has only one value in the query params, then
     r.FormValue(keyName) can also be used. FormValue function will get the first value
     associated with the key. If you want to all values then request. The form map
     has to be directly accessed as we did in the above program. In the below program,
     we are using FormValue() function and it returns a single value.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们知道特定键在查询参数中只有一个值时，可以使用 r.FormValue(keyName)。FormValue 函数将获取与该键关联的第一个值。如果你想获取所有值，则必须直接访问请求的表单映射，正如我们在上面的程序中所做的。在下面的程序中，我们使用
+    FormValue() 函数，并且它返回一个单一值。
 - en: '[PRE12]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output:**'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE13]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: 'An important point to be noted:'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 需要注意的一个重要点：
 - en: While trying to get query param value via r.FormValue() , be careful that in
     case of POST and PUT request, body parameters will take precedence over URL query
     string values i.e, if there is a key say **X** present in both form body (=”a”)
     and in query param(=”b”).  Then on calling r.Form[“X”] it will return [“a”] and
     not [“b”]
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在通过 `r.FormValue()` 获取查询参数值时，要注意在 POST 和 PUT 请求的情况下，主体参数会优先于 URL 查询字符串中的值，也就是说，如果有一个键
+    **X** 同时出现在表单主体（=“a”）和查询参数（=“b”）中。那么在调用 `r.Form[“X”]` 时，它将返回 [“a”] 而不是 [“b”]。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [http](https://golangbyexample.com/tag/http/)*   [net
     http](https://golangbyexample.com/tag/net-http/)*   [query params](https://golangbyexample.com/tag/query-params/)'
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [http](https://golangbyexample.com/tag/http/)
+    *   [net http](https://golangbyexample.com/tag/net-http/) *   [query params](https://golangbyexample.com/tag/query-params/)
+    *'

@@ -1,63 +1,99 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:22:52'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:22:52
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Non-struct Custom Type Implementing an interface in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 非结构体自定义类型在Go（Golang）中实现接口
 - en: 来源：[https://golangbyexample.com/non-struct-type-implementing-interface-go/](https://golangbyexample.com/non-struct-type-implementing-interface-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/non-struct-type-implementing-interface-go/](https://golangbyexample.com/non-struct-type-implementing-interface-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: It is also perfectly ok for any non-struct custom type to implement an interface.
     Let’s see an example
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 任何非结构体自定义类型实现接口也是完全可以的。让我们来看一个例子。
 - en: Assume we have an interface **animal** as below
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有一个接口**animal**如下
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Code**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: The above program illustrates the concept that any custom type can also implement
     an interface. The **cat** is of string type and it implements the **breathe**
     and **walk** method hence it is correct to assign an instance of **cat** type
     to a variable of **animal** type.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序说明了任何自定义类型也可以实现接口的概念。**cat**是字符串类型，它实现了**breathe**和**walk**方法，因此将**cat**类型的实例赋值给**animal**类型的变量是正确的。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

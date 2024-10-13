@@ -1,61 +1,96 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:00:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:00:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: New Relic Example in GoLang with Deep Instrumentation
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: GoLang中使用深度监控的New Relic示例
 - en: 来源：[https://golangbyexample.com/go-new-relic-example-in-golang-with-deep-instrumentation/](https://golangbyexample.com/go-new-relic-example-in-golang-with-deep-instrumentation/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-new-relic-example-in-golang-with-deep-instrumentation/](https://golangbyexample.com/go-new-relic-example-in-golang-with-deep-instrumentation/)
 - en: It is easy to integrate newrelic in GoLang. We just need one of the middleware
     to use the newrelic. Application. For eg in GIN framework of GO we can do something
     like this
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在GoLang中集成newrelic很简单。我们只需要其中一个中间件来使用newrelic.Application。例如，在GO的GIN框架中，我们可以这样做。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: With this change, you will able to see your application in new relic something
     like this
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过这个更改，你将能够在New Relic中看到你的应用程序像这样。
 - en: '![](img/4f5038db14d03848095a716e1ee21aa3.png)'
+  id: totrans-9
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/4f5038db14d03848095a716e1ee21aa3.png)'
 - en: But you will not be able to see the breakdown of api in “Transaction” because
     Go is a compiled language. Hence unlike JAVA to see the breakup of the API you
     have to do explicit deep instrumentation in golang. Below is a simple example
     of how to use newrelic in the GIN web framework of go with deep instrumentation
     and using context.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 但你将无法在“Transaction”中看到API的拆解，因为Go是一种编译语言。因此，与JAVA不同，要查看API的细分，你必须在golang中进行显式的深度监控。以下是如何在Go的GIN
+    web框架中使用newrelic进行深度监控的简单示例。
 - en: '**main.go**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**routes.go**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**routes.go**'
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: This is how the breakdown is visible in NewRelic. See it is showing how much
     average time is spent in “callGoogle” and “doSomeThing” function.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是在NewRelic中如何显示拆解的方式。可以看到它显示了在“callGoogle”和“doSomeThing”函数中花费的平均时间。
 - en: '![](img/a9f1c59342bddde8e47f4441b4866c15.png)*   [context](https://golangbyexample.com/tag/context/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [intrumentation](https://golangbyexample.com/tag/intrumentation/)*   [newrelic](https://golangbyexample.com/tag/newrelic/)'
+  id: totrans-16
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/a9f1c59342bddde8e47f4441b4866c15.png)*   [context](https://golangbyexample.com/tag/context/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [intrumentation](https://golangbyexample.com/tag/intrumentation/)*   [newrelic](https://golangbyexample.com/tag/newrelic/)'

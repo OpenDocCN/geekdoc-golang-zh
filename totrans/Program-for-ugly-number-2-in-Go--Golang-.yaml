@@ -1,89 +1,141 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:51:44'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:51:44
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Program for ugly number 2 in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的丑陋数字2的程序
 - en: 来源：[https://golangbyexample.com/program-for-ugly-number-2-in-go-golang/](https://golangbyexample.com/program-for-ugly-number-2-in-go-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/program-for-ugly-number-2-in-go-golang/](https://golangbyexample.com/program-for-ugly-number-2-in-go-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: An ugly number is a number whose prime factors are limited to 2,3 and 5\. We
     have already seen a program where given a number n returns true if it is an ugly
     number otherwise returns false. Below is the link to that program [https://golangbyexample.com/ugly-number-golang/](https://golangbyexample.com/ugly-number-golang/)
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 丑陋数字是其质因数限于2、3和5的数字。我们已经见过一个程序，它给定一个数字n，返回true如果它是丑陋数字，否则返回false。下面是那个程序的链接
+    [https://golangbyexample.com/ugly-number-golang/](https://golangbyexample.com/ugly-number-golang/)
 - en: In this tutorial, we will write a program where given a number n, find the nth
     ugly number
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将编写一个程序，给定一个数字n，找到第n个丑陋数字。
 - en: '**Example 1**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 1**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Example 2**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 2**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The idea is to use dynamic programming here. We will keep track of multiple
     of 2, 3, and 5\. The next ugly number will always be the minimum of these three.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个想法是使用动态编程。我们将跟踪2、3和5的倍数。下一个丑陋数字将始终是这三个中的最小值。
 - en: '**Program**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相同的程序
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，试图覆盖所有概念和示例。本教程适合那些希望获得Golang专业知识和扎实理解的人
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you - [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。那么这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Also, check out our system design tutorial series here - [System Design Tutorial
     Series](https://techbyexample.com/system-design-questions/)
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，请查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

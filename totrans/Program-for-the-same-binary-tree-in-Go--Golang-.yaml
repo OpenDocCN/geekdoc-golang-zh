@@ -1,76 +1,121 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:48:34'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:48:34
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Program for the same binary tree in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的相同二叉树程序
 - en: 来源：[https://golangbyexample.com/same-binary-tree-golang/](https://golangbyexample.com/same-binary-tree-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/same-binary-tree-golang/](https://golangbyexample.com/same-binary-tree-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: The objective is to find if two given binary trees are the same or notExampleBelow
     trees are the same
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是检查给定的两棵二叉树是否相同。以下树是相同的
 - en: '**Tree 1**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**树 1**'
 - en: '![](img/9a9347838908483552b24df3dc54cd38.png)'
+  id: totrans-11
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/9a9347838908483552b24df3dc54cd38.png)'
 - en: '**Tree 2**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**树 2**'
 - en: '![](img/9a9347838908483552b24df3dc54cd38.png)'
+  id: totrans-13
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/9a9347838908483552b24df3dc54cd38.png)'
 - en: '**Program**'
+  id: totrans-14
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是相同的程序。
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的Golang高级教程。本系列教程详尽，我们尽力覆盖所有概念并提供示例。本教程适合希望获得专业知识和扎实理解Golang的读者
+    – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章适合你 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

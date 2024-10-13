@@ -1,200 +1,300 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:01:02'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:01:02
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: 'Protocol Buffers and Go: Getting started'
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 协议缓冲与 Go：入门指南
 - en: 来源：[https://golangbyexample.com/protocol-buffers-go/](https://golangbyexample.com/protocol-buffers-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/protocol-buffers-go/](https://golangbyexample.com/protocol-buffers-go/)
 - en: In this tutorial, we will see how protocol buffers can be used in the context
     of GO Language.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将看到协议缓冲如何在 GO 语言中使用。
 - en: '**What is Protocol Buffer**'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**什么是协议缓冲**'
 - en: Protocol Buffers are data format which stores data in a structured format. Data
     in the protocol buffer format can be serialized and deserialized by multiple languages.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 协议缓冲是一种以结构化格式存储数据的数据格式。协议缓冲格式中的数据可以被多种语言序列化和反序列化。
 - en: Sounds Confusing. You can think it on lines of JSON, XML but it has loads of
     advantages to offer. Still confusing? then don’t worry as we go along the tutorial
     we will understand why even a new data format is even needed.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 听起来很混乱。你可以把它理解为 JSON、XML，但它提供了许多优势。仍然感到困惑吗？那么不用担心，随着教程的进行，我们将理解为什么甚至需要一个新的数据格式。
 - en: Let’s see first with an example of the simplest protocol buffer file.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们先看看最简单的协议缓冲文件的例子。
 - en: '**person.proto**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**person.proto**'
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: A couple of points to note about the above file.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于上述文件，有几点需要注意。
 - en: This file is just a blueprint of how our Protocol Buffer structure is. There
     is no data associated yet. This is different from JSON/XML , in which file also
     represents the actual data.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这个文件只是我们协议缓冲结构的蓝图。尚未关联任何数据。这与 JSON/XML 不同，后者的文件也表示实际数据。
 - en: In the above file there is a **person** message with a field **name** of type
     **string.  “proto3”** means that the message written is incompatible with Protocol
     Buffer version three.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在上述文件中，有一个 **person** 消息，其字段 **name** 的类型为 **string。 “proto3”** 意味着该消息与协议缓冲版本三不兼容。
 - en: From the above example, there is one difference you can notice from JSON i.e,
     it has type information. This type of information will be useful in the auto-generation
     of code in different languages. Let’s see an example of  auto-generation in Golang
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从上面的例子可以注意到一个不同之处，即它具有类型信息。这种类型的信息在不同语言的代码自动生成中将非常有用。让我们看看在 Golang 中的自动生成示例。
 - en: '**Auto Generation of GO Code:**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**GO 代码的自动生成：**'
 - en: 'We can generate a corresponding Golang code using the above person.proto file.
     But to do that we need to do some installations:'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们可以使用上述 `person.proto` 文件生成相应的 Golang 代码。但为此我们需要进行一些安装：
 - en: '**Installations:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**安装：**'
 - en: First install the C++ implementation of Protocol Buffers. Each platform has
     its own way of installation. See this link – [https://github.com/protocolbuffers/protobuf/blob/master/src/README.md](https://github.com/protocolbuffers/protobuf/blob/master/src/README.md)
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 首先安装协议缓冲的 C++ 实现。每个平台的安装方式各不相同。请参见此链接 – [https://github.com/protocolbuffers/protobuf/blob/master/src/README.md](https://github.com/protocolbuffers/protobuf/blob/master/src/README.md)
 - en: Install Golang
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 安装 Golang
 - en: Install protoc-gen-go – **go get -u** [github.com/golang/protobuf/protoc-gen-go](http://github.com/golang/protobuf/protoc-gen-go)**.**
     This package will be used for auto generation of Go code
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 安装 protoc-gen-go – **go get -u** [github.com/golang/protobuf/protoc-gen-go](http://github.com/golang/protobuf/protoc-gen-go)**。**
+    这个包将用于 Go 代码的自动生成。
 - en: 'After the installation is done then cd to the directory which contains the
     **person.proto** file. Run this command:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 安装完成后，进入包含 **person.proto** 文件的目录。运行此命令：
 - en: '[PRE1]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: It will generate a data access go file with name **person.pb.go ** in the same
     directory.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将在同一目录下生成名为 **person.pb.go** 的数据访问 Go 文件。
 - en: '[PRE2]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Now the biggest question is what is this person.pb.go file which has been auto-generated
     by protoc using person.proto . The first couple of points to notice
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在最大的问题是，什么是通过 protoc 使用 `person.proto` 自动生成的 `person.pb.go` 文件。首先要注意几点。
 - en: '**Person** struct like below. See how type information of person.proto file
     is used to know what type of field **Name **is a string'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体如下。请注意 `person.proto` 文件中的类型信息如何用于了解 **Name** 字段是字符串。'
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Person** struct also implements a couple of methods that make if of interface
     type **proto.Message.**'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Person** 结构体还实现了一些方法，使其成为接口类型 **proto.Message。**'
 - en: So basically this autogenerated file generates data accessors for Person struct
     and it provides methods that allow marshaling/unmarshalling of Person struct type
     to/from actual bytes. Now let’s write a main.go program to actually create concrete
     objects of **Person** struct. Here we will see a couple of advantages which Protocol
     Buffer has to offer. The below program also shows the read and write of Person
     struct to file.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本上，这个自动生成的文件为Person结构体生成数据访问器，并提供允许将Person结构体类型与实际字节之间进行序列化/反序列化的方法。现在让我们编写一个main.go程序，实际创建**Person**结构体的具体对象。在这里，我们将看到协议缓冲区所提供的几个优势。以下程序还展示了Person结构体的读写操作。
 - en: '**main.go**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE4]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: To run this file first install protobuf/proto using “go get [github.com/golang/protobuf/prot](http://github.com/golang/protobuf/prot)o”
     and then run this file using the command “go run *.go”**Output:**
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 要运行此文件，首先使用“go get [github.com/golang/protobuf/prot](http://github.com/golang/protobuf/prot)o”安装protobuf/proto，然后使用命令“go
+    run *.go”运行此文件。**输出：**
 - en: '[PRE5]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Notice that in the above program we
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在上述程序中我们
 - en: We write a concrete **person** struct to a file **“person.bin”.** It is a binary
     file and not human readable.
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将一个具体的**person**结构体写入文件**“person.bin”。**这是一个二进制文件，不可读。
 - en: Also we read from the file. It is able to successfully read and print “**Person2’s
     name is XXX”**
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们也从文件中读取。能够成功读取并打印“**Person2的名字是XXX**”。
 - en: The astonishing thing about the **“person.bin” file** is that it is of only
     5 bytes as compared if you create a JSON file with the same data that will be
     of size more than 15 bytes.  Also Marshal and UnMarshal from bytes to concrete
     objects and vice versa are also very fast as compared to unmarshal and marshaling
     of JSON files.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**“person.bin”文件**的惊人之处在于其仅有5个字节，而如果创建一个相同数据的JSON文件，其大小将超过15个字节。此外，从字节到具体对象及其反向操作的序列化和反序列化速度也非常快，相比之下，JSON文件的序列化和反序列化速度较慢。'
 - en: Now we have provided the theory. Let’s write once again the advantages of using
     Protocol Buffers
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们提供了理论。让我们再一次列出使用协议缓冲区的优势。
 - en: More clear and less ambiguous than corresponding JSON and XML as there is also
     type information stored with them.
+  id: totrans-41
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 相比于相应的JSON和XML，更加清晰且不含歧义，因为它们还存储了类型信息。
 - en: The data stored is relatively smaller in size of almost 2- 3 times smaller.
+  id: totrans-42
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 存储的数据相对较小，约小2-3倍。
 - en: It is much faster. For example, serialization and deserialization is faster
     with protocol Buffers
+  id: totrans-43
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 它快得多。例如，使用协议缓冲区的序列化和反序列化速度更快。
 - en: Automated Code Generation – You write a protocol buffer file and you automatically
     get a corresponding GO file generated
+  id: totrans-44
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 自动代码生成——你编写一个协议缓冲文件，系统会自动生成相应的GO文件。
 - en: A protocol buffer is used in GRPC which is next-generation replacement of REST
     protocol – Watch space for here, we will add an article on it soon.
+  id: totrans-45
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 协议缓冲区用于GRPC，后者是REST协议的下一代替代品——请关注此处，我们将很快添加相关文章。
 - en: '**Conclusion:** Protocol Buffers have much to offer other than what we have
     discussed in the article. This provides a quick overview of what protocol buffers
     are and what are their advantages as compared to JSON/XML format.'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**结论：** 协议缓冲区提供的内容远不止我们在文章中讨论的。这为协议缓冲区是什么及其与JSON/XML格式相比的优势提供了快速概述。'
 - en: '[buffer](https://golangbyexample.com/tag/buffer/)*   [go](https://golangbyexample.com/tag/go/)*   [grpc](https://golangbyexample.com/tag/grpc/)*   [protocol](https://golangbyexample.com/tag/protocol/)*   [protocolbuffer](https://golangbyexample.com/tag/protocolbuffer/)'
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[buffer](https://golangbyexample.com/tag/buffer/) *   [go](https://golangbyexample.com/tag/go/)
+    *   [grpc](https://golangbyexample.com/tag/grpc/) *   [protocol](https://golangbyexample.com/tag/protocol/)
+    *   [protocolbuffer](https://golangbyexample.com/tag/protocolbuffer/)'

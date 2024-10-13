@@ -1,148 +1,230 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:49:29'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:49:29
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Program for House Robber Problem in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 用 Go (Golang) 编写的房屋抢劫问题程序
 - en: 来源：[https://golangbyexample.com/house-robber-golang/](https://golangbyexample.com/house-robber-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/house-robber-golang/](https://golangbyexample.com/house-robber-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program") *  * ## **概述**'
 - en: There are a couple of houses in the neighborhood. Each house has some money
     in it. The houses are represented as an array which each entry in the array denotes
     the amount of money in that house.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 邻里中有几所房子。每所房子里都有一些钱。这些房子被表示为一个数组，数组中的每个条目表示该房子里的钱数。
 - en: For example, if we have below array
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果我们有以下数组
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Then
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后
 - en: The **First** house has **2** money
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**第一**所房子里有 **2** 元钱。'
 - en: The **Second** house has **3** money
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**第二**所房子里有 **3** 元钱。'
 - en: The **Third** house has **4** money
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**第三**所房子里有 **4** 元钱。'
 - en: The **Fourth** house has **2** money
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**第四**所房子里有 **2** 元钱。'
 - en: The robber can rob any number of houses but he cannot rob in two consecutive
     houses. For example, he can rob in below combinations for the above array
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 抢劫者可以抢劫任意数量的房子，但他不能抢劫两个相邻的房子。例如，他可以在上述数组的以下组合中进行抢劫。
 - en: 1 and 3
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 1 和 3
 - en: 1 and 4
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 1 和 4
 - en: 2 and 4
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 2 和 4
 - en: None of the combinations above has houses that are adjacent. The problem is
     to identify the combination which will yield maximum robbery to the robber.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述组合中没有相邻的房子。问题是确定哪个组合能为抢劫者带来最大的收益。
 - en: For example, in the above case, the first combination (1 and 3) will give him
     maximum robber which is 2+4 =6Hence the robber can rob in first and third house
     which 2+4=6
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，在上述情况下，第一个组合（1 和 3）将给他带来最大的抢劫金额，即 2+4=6。因此，抢劫者可以在第一和第三所房子中抢劫，得到 2+4=6。
 - en: Another example
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个例子
 - en: '[PRE1]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The robber can rob in the first, third, and sixth houses which 1+8+4=13
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 抢劫者可以在第一、第三和第六所房子中抢劫，得到 1+8+4=13。
 - en: It is a dynamic programming question as it has an optimal substructure. Let’s
     say the name of the array is **money**
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一个动态规划问题，因为它具有最优子结构。假设数组的名称是 **money**。
 - en: dp[0] = money[0]
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: dp[0] = money[0]
 - en: dp[1] = max(money[0], money[1])
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: dp[1] = max(money[0], money[1])
 - en: dp[2] = max(money[0]+ money[1), money[2])
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: dp[2] = max(money[0] + money[1], money[2])
 - en: dp[i] = dp[i] + max(dp[i-1], dp[i-1]
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: dp[i] = dp[i] + max(dp[i-1], dp[i-2])
 - en: where **dp[i]** represents the amount which a robber can rob if the ith house
     is included. In the end, we return the maximum in the **dp** array
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中 **dp[i]** 表示如果包括第 i 所房子，抢劫者可以抢劫的金额。最后，我们返回 **dp** 数组中的最大值。
 - en: '**Program**'
+  id: totrans-32
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是相同程序的代码。
 - en: '[PRE2]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 查看我们的 Golang 高级教程。本系列教程内容详尽，我们试图用例子涵盖所有概念。这个教程是为那些希望获得专业知识和对 Golang
+    有深入理解的人准备的 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you –[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章就是为你准备的 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

@@ -1,64 +1,101 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:52:10'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:52:10
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Print the next or previous character given a char in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go语言中打印给定字符的下一个或上一个字符。
 - en: 来源：[https://golangbyexample.com/next-previous-char-golang/](https://golangbyexample.com/next-previous-char-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/next-previous-char-golang/](https://golangbyexample.com/next-previous-char-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: Simply by doing plus 1 and minus 1 we can get the next and previous character
     given a current char.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过对当前字符进行加1和减1，我们可以得到下一个和上一个字符。
 - en: '**Program**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the program for the same
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是相应的程序。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列教程内容丰富，我们努力涵盖所有概念并附有示例。这个教程适合那些希望获得专业知识和扎实理解Golang的人
+    – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you – [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为你准备的 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

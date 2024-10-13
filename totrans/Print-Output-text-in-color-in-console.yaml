@@ -1,73 +1,113 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:15:59'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:15:59
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Print/Output text in color in console
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在控制台中以颜色输出文本
 - en: 来源：[https://golangbyexample.com/print-output-text-color-console/](https://golangbyexample.com/print-output-text-color-console/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/print-output-text-color-console/](https://golangbyexample.com/print-output-text-color-console/)
 - en: '**Note:** If you are interested in learning Golang, then for that we have a
     golang comprehensive tutorial series. Do check it out – [Golang Comprehensive
     Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/).
     Now let’s see the current tutorial. Below is the table of contents.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 如果你有兴趣学习Golang，我们有一个全面的Golang教程系列。请查看一下 – [Golang全面教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。现在让我们看看当前的教程。下面是目录。'
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "代码")*  *# **概述**'
 - en: '[ANSI escape codes](http://en.wikipedia.org/wiki/ANSI_escape_code) can be used
     to output colored text in console. Please note that'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '[ANSI转义码](http://en.wikipedia.org/wiki/ANSI_escape_code)可以用来在控制台中输出彩色文本。请注意'
 - en: In MAC/Linux system terminal supports ANSI escape codes
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在MAC/Linux系统终端支持ANSI转义码
 - en: Windows Command Prompt doesn’t support it. On windows you can install Cygwin.
     ANSI escape codes work on that.
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Windows命令提示符不支持它。在Windows上，你可以安装Cygwin。ANSI转义码在那个环境下可以工作。
 - en: Also to mention in the below code we have used colorReset after printing. If
     we don’t use that then the color effect remains and it is not cleared. Remove
     the colorReset from below code and it will show text “**next”** in cyan color
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外需要提到的是，在下面的代码中，我们在打印后使用了colorReset。如果不使用它，颜色效果将保持，不会被清除。去掉下面代码中的colorReset，它将以青色显示文本“**next”**。
 - en: Below is code in golang to do the same.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是用Golang实现相同功能的代码。
 - en: '**Code**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: On my mac machine
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我的Mac机器上
 - en: '![](img/f203318bf03d0cff66708303f23161a4.png)*   [ansi](https://golangbyexample.com/tag/ansi/)*   [color](https://golangbyexample.com/tag/color/)*   [console](https://golangbyexample.com/tag/console/)*   [go](https://golangbyexample.com/tag/go/)*   [output](https://golangbyexample.com/tag/output/)*   [print](https://golangbyexample.com/tag/print/)*   [terminal](https://golangbyexample.com/tag/terminal/)*   [text](https://golangbyexample.com/tag/text/)*'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '![](img/f203318bf03d0cff66708303f23161a4.png)*   [ansi](https://golangbyexample.com/tag/ansi/)*   [color](https://golangbyexample.com/tag/color/)*   [console](https://golangbyexample.com/tag/console/)*   [go](https://golangbyexample.com/tag/go/)*   [output](https://golangbyexample.com/tag/output/)*   [print](https://golangbyexample.com/tag/print/)*   [terminal](https://golangbyexample.com/tag/terminal/)*   [text](https://golangbyexample.com/tag/text/)*'

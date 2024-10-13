@@ -1,82 +1,129 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:52:05'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:52:05
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Program for Longest Word in Dictionary through Deleting in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 通过删除在 Go (Golang) 中查找字典中最长单词的程序
 - en: 来源：[https://golangbyexample.com/longest-word-dictionary-go/](https://golangbyexample.com/longest-word-dictionary-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/longest-word-dictionary-go/](https://golangbyexample.com/longest-word-dictionary-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: A string and a dictionary of words are given. The objective is to find the longest
     word in the dictionary which is present as a subsequence in the given string.
     If the number of possible results is more than 1 then return the longest word
     with the smallest lexicographical order.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个字符串和一个单词字典。目标是找到字典中作为子序列出现在给定字符串中的最长单词。如果可能的结果数量超过 1，则返回字典中按字典顺序最小的最长单词。
 - en: '**Example 1**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 1**'
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Example 2**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 2**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Program**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相同的程序
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的 Golang 高级教程。此系列教程内容详尽，我们尽力涵盖所有概念及示例。本教程适合希望获得专业知识和对 Golang 有扎实理解的学习者
+    – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you – [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你对理解所有设计模式在 Golang 中的实现感兴趣，那么这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Also, check out our system design tutorial series here – [System Design Tutorial
     Series](https://techbyexample.com/system-design-questions/)
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 同时，可以在这里查看我们的系统设计教程系列 – [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

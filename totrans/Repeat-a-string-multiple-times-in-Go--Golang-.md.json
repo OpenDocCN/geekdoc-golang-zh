@@ -1,1 +1,0 @@
-["```\nfunc Repeat(s string, count int) string\n```", "```\npackage main\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n)\n\nfunc main() {\n\tcopy := strings.Repeat(\"a\", 2)\n\tfmt.Println(copy)\n\n\tcopy = strings.Repeat(\"abc\", 3)\n\tfmt.Println(copy)\n}\n```", "```\naa\nabcabcabc\n```"]

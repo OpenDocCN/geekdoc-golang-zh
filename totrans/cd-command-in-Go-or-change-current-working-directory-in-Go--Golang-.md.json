@@ -1,1 +1,0 @@
-["```\nfunc Chdir(dir string) error\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"os\"\n)\n\nfunc main() {\n    os.Chdir(\"/Users\")\n    newDir, err := os.Getwd()\n    if err != nil {\n    }\n    fmt.Printf(\"Current Working Direcotry: %s\\n\", newDir)\n}\n```", "```\nCurrent Working Direcoty: /Users\n```"]

@@ -1,1 +1,0 @@
-["```\nfunc getAreaFunc() func(int, int)\n```", "```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    areaF := getAreaFunc()\n    res := areaF(2, 4)\n    fmt.Println(res)\n}\n\nfunc getAreaFunc() func(int, int) int {\n    return func(x, y int) int {\n        return x * y\n    }\n}\n```", "```\n8\n```"]

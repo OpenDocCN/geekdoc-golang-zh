@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport (\n    \"fmt\"\n    \"log\"\n    \"os/exec\"\n)\n\nfunc main() {\n    out, err := exec.Command(\"pwd\").Output()\n    if err != nil {\n        log.Fatal(err)\n    }\n    fmt.Println(string(out))\n}\n```", "```\nIt will output the location of current working directory\n```"]

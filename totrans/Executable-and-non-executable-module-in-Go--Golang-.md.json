@@ -1,1 +1,0 @@
-["```\ngo mod init sample.com/math\n```", "```\npackage math\n\nfunc Add(a, b int) int {\n\treturn a + b\n}\n```", "```\ngo mod init school\n```", "```\nmodule school\n\ngo 1.14\n\nreplace sample.com/math => ../math\n```", "```\npackage main\n\nimport (\n\t\"fmt\"\n\t\"sample.com/math\"\n)\n\nfunc main() {\n\tfmt.Println(math.Add(2, 4))\n}\n```", "```\ngo run school.go\n```"]

@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport (\n\t\"github.com/fatih/color\"\n)\n\nfunc main() {\n\twhilte := color.New(color.FgWhite)\n\tboldWhite := whilte.Add(color.Underline)\n\tboldWhite.Println(\"This will print text in underline\")\n}\n```"]

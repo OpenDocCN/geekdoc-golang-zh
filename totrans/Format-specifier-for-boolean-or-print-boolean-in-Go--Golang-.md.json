@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n\tt := true\n\tf := false\n\n\tfmt.Printf(\"%t %t\\n\", t, f)\n\tfmt.Printf(\"%v %v\\n\", t, f)\n}\n```", "```\ntrue false\ntrue false\n```"]

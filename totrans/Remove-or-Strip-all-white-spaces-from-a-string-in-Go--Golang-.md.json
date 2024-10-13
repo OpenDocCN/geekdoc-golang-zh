@@ -1,1 +1,0 @@
-["```\nfunc ReplaceAll(s, old, new string) string\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"strings\"\n)\n\nfunc main() {\n    sample := \" This is a sample string   \"\n    noSpaceString := strings.ReplaceAll(sample, \" \", \"\")\n    fmt.Println(noSpaceString)\n}\n```", "```\nThisisasamplestring\n```"]

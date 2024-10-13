@@ -1,1 +1,0 @@
-["```\npackage main  \n\nimport \"fmt\" \n\nfunc main() { \n  fmt.Println(\"Hello World\") \n}\n```", "```\nfmt.Println(\"Hello World\")\n```", "```\ngo run helloworld.go\n```", "```\nHello World\n```"]

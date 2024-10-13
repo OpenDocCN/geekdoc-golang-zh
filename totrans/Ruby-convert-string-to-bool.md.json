@@ -1,1 +1,0 @@
-["```\nif \"false\"\n   puts \"yes\"\nend\n```", "```\n\"yes\"\n```", "```\ndef true?(str)\n  str.to_s.downcase == \"true\"\nend\n```", "```\ntrue?(\"false\")\n => false\n```", "```\ntrue?(\"true\")\n => true\n```"]

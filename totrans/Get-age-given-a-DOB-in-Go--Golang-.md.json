@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport (\n    \"fmt\"\n    \"time\"\n    age \"github.com/bearbin/go-age\"\n)\n\nfunc main() {\n    dob := getDOB(2011, 4, 2)\n    fmt.Printf(\"Age is %d\\n\", age.Age(dob))\n}\n\nfunc getDOB(year, month, day int) time.Time {\n    dob := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)\n    return dob\n}\n```", "```\nAge is 8\n```"]

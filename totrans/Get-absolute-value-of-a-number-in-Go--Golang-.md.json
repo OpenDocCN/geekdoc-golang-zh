@@ -1,1 +1,0 @@
-["```\nfunc Abs(x float64) float64\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"math\"\n)\n\nfunc main() {\n    res := math.Abs(-2)\n    fmt.Println(res)\n\n    res = math.Abs(2)\n    fmt.Println(res)\n\n    res = math.Abs(3.5)\n    fmt.Println(res)\n\n    res = math.Abs(-3.5)\n    fmt.Println(res)\n}\n```", "```\n2\n2\n3.5\n3.5\n```"]

@@ -1,1 +1,0 @@
-["```\npackage main\nimport (\n    \"fmt\"\n    \"log\"\n    \"os\"\n)\n\nfunc main() {\n    currentWorkingDirectory, err := os.Getwd()\n    if err != nil {\n        log.Fatal(err)\n    }\n    fmt.Printf(\"Current Wroking Direcoty: %s\", currentWorkingDirectory)\n}\n```"]

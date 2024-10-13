@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    a := \"123\"\n    b := \"xyz\"\n    fmt.Printf(\"Before a:%s b:%s\\n\", a, b)\n    a, b = b, a\n    fmt.Printf(\"After a:%s b:%s\\n\", a, b)\n}\n```", "```\nBefore a:123 b:xyz\nAfter a:xyz b:123\n```"]

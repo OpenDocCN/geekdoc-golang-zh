@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    var a *int\n    fmt.Print(\"Default Zero Value of a pointer: \")\n    fmt.Println(a)\n}\n```", "```\nDefault value of pointer: \n```"]

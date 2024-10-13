@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n\tvar curr byte\n\tcurr = 'b'\n\n\tfmt.Println(string(curr + 1))\n\tfmt.Println(string(curr - 1))\n} \n```", "```\nc\na\n```"]

@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    sample := \"ab£c\"\n    s := []rune(sample)\n    res := delChar(s, 2)\n    fmt.Println(string(res))\n}\n\nfunc delChar(s []rune, index int) []rune {\n    return append(s[0:index], s[index+1:]...)\n}\n```", "```\nabc\n```"]

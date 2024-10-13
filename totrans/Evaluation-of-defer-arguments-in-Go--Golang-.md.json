@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n\tsample := \"abc\"\n\n\tdefer fmt.Printf(\"In defer sample is: %s\\n\", sample)\n\tsample = \"xyz\"\n}\n```", "```\nIn defer sample is: abc\n```"]

@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport (\n    \"fmt\"\n    \"log\"\n    \"os/user\"\n)\n\nfunc main() {\n    user, err := user.Current()\n    if err != nil {\n        log.Fatalf(err.Error())\n    }\n    homeDirectory := user.HomeDir\n    fmt.Printf(\"Home Directory: %s\\n\", homeDirectory)\n}\n```", "```\nHome Directory: \"some_home_directory\"\n```"]

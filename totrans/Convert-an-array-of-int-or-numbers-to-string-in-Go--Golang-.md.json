@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport (\n\t\"fmt\"\n\t\"strconv\"\n)\n\nfunc main() {\n\tsample := []int{2, 1, 3}\n\n\toutput := \"\"\n\tfor _, v := range sample {\n\t\ttemp := strconv.Itoa(v)\n\t\toutput = output + temp\n\t}\n\tfmt.Println(output)\n}\n```", "```\n213\n```"]

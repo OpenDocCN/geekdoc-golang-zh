@@ -1,1 +1,0 @@
-["```\nfunc Contains(s, substr string) bool\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"strings\"\n)\n\nfunc main() {\n    present := strings.Contains(\"abc\", \"ab\")\n    fmt.Println(present)\n\n    present = strings.Contains(\"abc\", \"xyz\")\n    fmt.Println(present)\n}\n```", "```\ntrue\nfalse\n```"]

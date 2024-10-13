@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    multiline := `This is \na multiline \nstring`\n\n    fmt.Println(multiline)\n}\n```", "```\nThis is \na multiline \nstring\n```"]

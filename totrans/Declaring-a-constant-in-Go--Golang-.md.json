@@ -1,1 +1,0 @@
-["```\nconst c string = \"circle\"\n```", "```\nconst c = \"circle\"\n```", "```\nconst (\n  c = \"circle\"\n  s = \"square\"\n)\n```"]

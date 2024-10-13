@@ -1,1 +1,0 @@
-["```\nfunc Intn(n int) int\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"math/rand\"\n)\n\nfunc main() {\n    in := []int{2, 5, 6}\n    randomIndex := rand.Intn(len(in))\n    pick := in[randomIndex]\n    fmt.Println(pick)\n}\n```", "```\nBetween 2, 5 or 6\n```"]

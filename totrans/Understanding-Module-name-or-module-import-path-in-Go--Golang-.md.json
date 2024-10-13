@@ -1,1 +1,0 @@
-["```\ngo mod init sample.com/learn\n```", "```\nmodule sample.com/learn\n\ngo 1.14\n```", "```\nmodule_import_path + folder_path_of_package\n```", "```\nsample.com/learn/math\n```", "```\nmodule github.com/pborman/uuid\n\n...\n```"]

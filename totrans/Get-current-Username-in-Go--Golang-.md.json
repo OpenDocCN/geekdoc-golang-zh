@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport (\n\t\"fmt\"\n\t\"log\"\n\t\"os/user\"\n)\n\nfunc main() {\n\n\tuser, err := user.Current()\n\tif err != nil {\n\t\tlog.Fatalf(err.Error())\n\t}\n\n\tusername := user.Username\n\n\tfmt.Printf(\"Username: %s\\n\", username)\n} \n```", "```\nUsername: \"someusername\"\n```"]

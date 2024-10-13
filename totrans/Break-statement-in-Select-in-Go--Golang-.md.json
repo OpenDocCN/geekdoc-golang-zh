@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n\tch := make(chan string, 1)\n\tch <- \"Before break\"\n\n\tselect {\n\tcase msg := <-ch:\n\t\tfmt.Println(msg)\n\t\tbreak\n\t\tfmt.Println(\"After break\")\n\tdefault:\n\t\tfmt.Println(\"Default case\")\n\t}\n}\n```", "```\nBefore break\n```", "```\nfmt.Println(\"After break\")\n```"]

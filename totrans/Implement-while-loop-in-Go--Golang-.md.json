@@ -1,1 +1,0 @@
-["```\nfor initialization_part; condition_part; increment_part {\n   ...\n}\n```", "```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    i := 1\n    for i <= 5 {\n        fmt.Println(i)\n        i++\n    }\n}\n```", "```\n1\n2\n3\n4\n5\n```"]

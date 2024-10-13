@@ -1,1 +1,0 @@
-["```\npackage main\n\nfunc main() {\n\tconst e = map[string]int{\n\t\t\"a\": 1,\n\t}\n}\n```", "```\nconst initializer map[string]int literal is not a constant\n```"]

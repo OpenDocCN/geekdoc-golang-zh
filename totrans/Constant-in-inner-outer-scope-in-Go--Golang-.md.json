@@ -1,1 +1,0 @@
-["```\npackage main\nimport \"fmt\"\nconst a = 123\nfunc main() {\n    const a = 456\n    fmt.Println(a)\n}\n```", "```\n456\n```"]

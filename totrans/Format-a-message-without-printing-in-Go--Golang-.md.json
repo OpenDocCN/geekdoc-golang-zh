@@ -1,1 +1,0 @@
-["```\nfunc Sprintf(format string, a ...interface{}) string\n```", "```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    formattedMessage := fmt.Sprintf(\"Name is: %s. Age is: %d\", \"John\", 21)\n    fmt.Println(formattedMessage)\n}\n```", "```\nName is: John. Age is: 21\n```"]

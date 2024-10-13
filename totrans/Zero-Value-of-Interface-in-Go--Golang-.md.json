@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport \"fmt\"\ntype animal interface {\n    breathe()\n    walk()\n}\n\nfunc main() {\n    var a animal\n    fmt.Println(a)\n}\n```", "```\nnil\n```"]

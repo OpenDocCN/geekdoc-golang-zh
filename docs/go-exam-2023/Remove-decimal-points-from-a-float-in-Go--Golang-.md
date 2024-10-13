@@ -1,0 +1,57 @@
+<!--yml
+
+分类：未分类
+
+日期：2024-10-13 06:14:51
+
+-->
+
+# 在Go (Golang)中去除浮点数的小数点
+
+> 来源：[https://golangbyexample.com/remove-decimal-float-go/](https://golangbyexample.com/remove-decimal-float-go/)
+
+目录
+
+**   [概述](#Overview "Overview")
+
++   [代码：](#Code "Code:")*  *# **概述**
+
+**math**包提供了一个**Trunc**方法，可用于移除浮点数的小数点并将其转换为整数
+
+以下是该函数的签名。它接受一个浮点数作为输入，并返回一个浮点数。
+
+```
+func Trunc(x float64) float64\
+```
+
+# **代码：**
+
+```
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func main() {
+    res := math.Trunc(1.6)
+    fmt.Println(res)
+
+    res = math.Trunc(-1.6)
+    fmt.Println(res)
+
+    res = math.Trunc(1)
+    fmt.Println(res)
+}
+```
+
+**输出：**
+
+```
+1
+-1
+1
+```
+
++   [go](https://golangbyexample.com/tag/go/)*   [math](https://golangbyexample.com/tag/math/)*

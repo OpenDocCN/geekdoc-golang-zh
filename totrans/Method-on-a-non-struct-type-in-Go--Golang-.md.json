@@ -1,1 +1,0 @@
-["```\ntype {type_name} {built_in_type}\n```", "```\ntype myFloat float64\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"math\"\n)\n\ntype myFloat float64\n\nfunc (m myFloat) ceil() float64 {\n    return math.Ceil(float64(m))\n}\n\nfunc main() {\n    num := myFloat(1.4)\n    fmt.Println(num.ceil())\n}\n```", "```\n2\n```"]

@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport (\n    \"fmt\"\n    \"math/rand\"\n)\n\nfunc main() {\n    in := \"abcdedf£\"\n    inRune := []rune(in)\n    randomIndex := rand.Intn(len(inRune))\n    pick := inRune[randomIndex]\n    fmt.Println(string(pick))\n}\n```", "```\nOne of a,b,c,d,e,f,£\n```"]

@@ -1,0 +1,160 @@
+<!--yml
+
+category: 未分类
+
+date: 2024-10-13 06:21:07
+
+-->
+
+# 在Go（Golang）中创建/初始化/声明map
+
+> 来源：[https://golangbyexample.com/create-map-golang/](https://golangbyexample.com/create-map-golang/)
+
+目录
+
+**   [概述](#Overview "Overview")
+
++   [声明一个Map](#Declare_a_Map "声明一个Map")
+
++   [创建一个Map](#Creating_a_Map "创建一个Map")
+
+    +   [使用map[<key_type>]<value_type>格式](#Using_the_map_format "Using the map[<key_type>]<value_type>格式")
+
+    +   [使用Make](#Using_Make "使用Make")*  *# **概述**
+
+map是Golang内置的数据类型，类似于哈希表，它将键映射到值。
+
+下面是map的格式：
+
+```
+map[key_type]value_type
+```
+
+**key_type**和**value_type**可以是不同类型或相同类型。在下面的例子中，键类型是**string**，值类型是**int**
+
+```
+map[string]int
+```
+
+# **声明一个Map**
+
+map也可以使用var关键字声明，但它会创建一个nil map，因为map的默认零值是nil。向该map添加任何键值对将导致恐慌。让我们看看这个例子
+
+```
+package main
+
+func main() {
+    var employeeSalary map[string]int
+    employeeSalary["Tom"] = 2000
+}
+```
+
+**输出**
+
+```
+panic: assignment to entry in nil map
+```
+
+上面的程序因map为nil而导致恐慌。
+
+使用**var**关键字声明map的一个用例是当需要将一个已存在的map赋值给它或当我们想要赋值函数的结果时。
+
+# **创建一个Map**
+
+创建map的两种方式
+
++   使用map[<key_type>]<value_type>{}格式也称为map字面量
+
++   使用make
+
+让我们逐一看看上述每种方法。
+
+## **使用map[<key_type>]<value_type>格式**
+
+创建map的最常见方式之一是使用map字面量：
+
+```
+map[key_type]value_type{}
+```
+
+上述例子的键类型是字符串，值类型是整数
+
+```
+employeeSalary := map[string]int{}
+```
+
+map也可以创建并初始化一些键值
+
+```
+employeeSalary := map[string]int{
+"John": 1000
+"Sam": 2000
+}
+```
+
+也可以向map中添加键值对
+
+```
+employeeSalary["Tom"] = 2000
+```
+
+让我们看看一个程序
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    //Declare
+    employeeSalary := map[string]int{}
+    fmt.Println(employeeSalary)
+
+    //Intialize using map lieteral
+    employeeSalary = map[string]int{
+        "John": 1000,
+        "Sam":  1200,
+    }
+
+    //Adding a key value
+    employeeSalary["Tom"] = 2000
+    fmt.Println(employeeSalary)
+}
+```
+
+**输出**
+
+```
+map[]
+map[John:1000 Sam:1200 Tom:2000]
+```
+
+在上面的程序中，我们创建了一个初始化为某些值的map字面量。然后我们在其中添加了另一个键值对。接着我们使用**fmt.Println**打印它，以格式map[key:value key:value]打印所有的键值对。
+
+## **使用Make**
+
+这是创建map的另一种方式。内置函数**make**可用于创建map。它返回一个初始化的map。因此可以向其中添加键值对。
+
+```
+package main
+
+import "fmt"
+
+func main() {
+    //Declare
+    employeeSalary := make(map[string]int)
+    //Adding a key value
+    employeeSalary["Tom"] = 2000
+    fmt.Println(employeeSalary)
+}
+```
+
+**输出**
+
+```
+map[Tom:2000]
+```
+
+在上面的程序中，我们使用make函数创建了一个map。然后我们在其中添加了一个键值对。接着我们使用**fmt.Println**打印它，打印出所有的键值对。
+
++   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

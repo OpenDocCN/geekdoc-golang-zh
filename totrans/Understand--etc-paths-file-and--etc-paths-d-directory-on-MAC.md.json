@@ -1,1 +1,0 @@
-["```\neval `/usr/libexec/path_helper -s`\n```", "```\n/ $ cat /etc/paths\n/usr/local/bin\n/usr/bin\n/bin\n/usr/sbin\n/sbin\n```", "```\n/ $ cat /etc/paths.d/go\n/usr/local/go/bin\n```"]

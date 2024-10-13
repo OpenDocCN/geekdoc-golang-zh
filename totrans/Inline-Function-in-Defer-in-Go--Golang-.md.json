@@ -1,1 +1,0 @@
-["```\npackage main\n\nimport \"fmt\"\n\nfunc main() {\n    defer func() { fmt.Println(\"In inline defer\") }()\n    fmt.Println(\"Executed\")\n}\n```", "```\nExecuted\nIn inline defer\n```", "```\ndefer func() { fmt.Println(\"In inline defer\") }()\n```", "```\nexpression in defer must be function call\n```", "```\nExecuted in main\n```", "```\nIn inline Defer\n```"]

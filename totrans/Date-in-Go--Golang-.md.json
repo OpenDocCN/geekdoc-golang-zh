@@ -1,1 +1,0 @@
-["```\nfunc Date(year int, month Month, day, hour, min, sec, nsec int, loc *Location) Time\n```", "```\npackage main\n\nimport (\n    \"fmt\"\n    \"time\"\n)\n\nfunc main() {\n    t := time.Date(2021, time.Month(2), 21, 1, 10, 30, 0, time.UTC)\n    fmt.Println(t)\n}\n```", "```\n2021-02-21 01:10:30 +0000 UTC\n```"]

@@ -1,94 +1,146 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:17:11'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:17:11
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Rename file or folder in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中重命名文件或文件夹
 - en: 来源：[https://golangbyexample.com/rename-file-folder-golang/](https://golangbyexample.com/rename-file-folder-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/rename-file-folder-golang/](https://golangbyexample.com/rename-file-folder-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Code](#Code "Code")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "代码")'
 - en: '[Renaming a file](#Renaming_a_file "Renaming a file")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[重命名文件](#Renaming_a_file "重命名文件")'
 - en: '[Renaming a folder](#Renaming_a_folder "Renaming a folder")*  *# **Overview**'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[重命名文件夹](#Renaming_a_folder "重命名文件夹")*  *# **概述**'
 - en: os.Rename() function can be used to rename a file or folder. Below is the signature
     of the function.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以使用os.Rename()函数来重命名文件或文件夹。下面是该函数的签名。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**old** and **new** can be fully qualified as well. If the **old** and **new**
     path doesn’t lie in the same directory then **os.Rename()** function behaves the
     same as moving a file or folder.'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**old**和**new**也可以是完整路径。如果**old**和**new**路径不在同一目录中，则**os.Rename()**函数的行为与移动文件或文件夹相同。'
 - en: '**Code**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '**Renaming a file**'
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**重命名文件**'
 - en: Below is code for renaming a file
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是重命名文件的代码
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: First, it will create a file named temp.txt in the current working directory.
     Then it will rename it to newTemp.txt
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，它将在当前工作目录中创建一个名为temp.txt的文件。然后它将其重命名为newTemp.txt。
 - en: '**Renaming a folder**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**重命名文件夹**'
 - en: Below is code for renaming a folder
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是重命名文件夹的代码
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: First it will create a folder named temp in current working directory. Then
     it will rename it to newTemp
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先，它将在当前工作目录中创建一个名为temp的文件夹。然后它将其重命名为newTemp。
 - en: '[file](https://golangbyexample.com/tag/file/)*   [folder](https://golangbyexample.com/tag/folder/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [rename](https://golangbyexample.com/tag/rename/)*'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[文件](https://golangbyexample.com/tag/file/)*   [文件夹](https://golangbyexample.com/tag/folder/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [重命名](https://golangbyexample.com/tag/rename/)*'

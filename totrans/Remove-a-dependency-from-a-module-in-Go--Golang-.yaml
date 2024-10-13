@@ -1,105 +1,165 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:30:12'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:30:12
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Remove a dependency from a module in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 从Go模块中移除依赖项（Golang）
 - en: 来源：[https://golangbyexample.com/remove-dependency-golang/](https://golangbyexample.com/remove-dependency-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/remove-dependency-golang/](https://golangbyexample.com/remove-dependency-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: To remove a module dependency we need to do below two things
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 要移除一个模块依赖项，我们需要做以下两件事
 - en: Remove reference of that dependency from the source files of the module
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从模块的源文件中移除该依赖项的引用
 - en: Run go mod tidy command. Remove all dependencies from the **go.mod** file which
     are not required in the source files.
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 运行`go mod tidy`命令。移除**go.mod**文件中不需要的所有依赖项。
 - en: '**Example**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s say we have a module with import that as”learn” having below go.mod file
     and learn.go file.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有一个模块，导入名为“learn”的模块，包含以下`go.mod`文件和`learn.go`文件。
 - en: '**go.mod**'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE0]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**learn.go**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn.go**'
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Notice that we have imported the dependency in the **learn.go** as well as this
     dependency is added in the **go.mod** file
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意我们在**learn.go**中导入了该依赖项，并且这个依赖项也被添加到**go.mod**文件中
 - en: '[PRE2]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Now let’s see try to remove this dependency completely from above module. Command
     **go mod tidy** will remove the dependency from **go.mod** file if it is not required
     in the source files. To illustrate this let’s remove the **learn.go** file that
     we created above. Now run the command
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们尝试从上述模块完全移除这个依赖项。命令**go mod tidy**将从**go.mod**文件中移除该依赖项，如果它在源文件中不需要。为了说明这一点，让我们删除之前创建的**learn.go**文件。现在运行命令
 - en: '[PRE3]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: It will give below output
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将给出以下输出
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Now examine the contents of **go.mod** file.  It will be as below
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在检查**go.mod**文件的内容。它将如下所示
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: The
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 那
 - en: '[PRE6]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: line will be removed as it is not required in any of the source files. Also
     all entries of **[github.com](http://github.com)/pborman/uuid** and its depedencies
     will be removed from the **go.sum** file as well.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 该行将被移除，因为在任何源文件中都不需要它。此外，**[github.com](http://github.com)/pborman/uuid**及其依赖项的所有条目也将从**go.sum**文件中移除。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

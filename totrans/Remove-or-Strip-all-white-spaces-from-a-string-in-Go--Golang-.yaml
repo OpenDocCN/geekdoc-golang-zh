@@ -1,52 +1,82 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:10:04'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:10:04
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Remove or Strip all white spaces from a string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中删除或去掉字符串中的所有空白字符。
 - en: 来源：[https://golangbyexample.com/remove-all-white-spaces-string-golang/](https://golangbyexample.com/remove-all-white-spaces-string-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/remove-all-white-spaces-string-golang/](https://golangbyexample.com/remove-all-white-spaces-string-golang/)
 - en: '**strings.ReplaceAll** function can be used to trim all white spaces from a
     string in Golang. Below is the signature of the function'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**strings.ReplaceAll** 函数可以用来去掉 Golang 字符串中的所有空白字符。以下是该函数的签名：'
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**s**(first argument) is the input string'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**s**（第一个参数）是输入字符串。'
 - en: '**old**(second argument) is the string that has to be replaced with **new**(third
     argument) string'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**old**（第二个参数）是要被替换的字符串，**new**（第三个参数）是替换后的字符串。'
 - en: '**Working Code:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**有效代码：**'
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[all](https://golangbyexample.com/tag/all/)*   [trim](https://golangbyexample.com/tag/trim/)'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[所有](https://golangbyexample.com/tag/all/)*   [修剪](https://golangbyexample.com/tag/trim/)'

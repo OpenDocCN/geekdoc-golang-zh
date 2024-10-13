@@ -1,198 +1,305 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:15:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:15:22
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Remainder or Modulus in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的余数或模运算
 - en: 来源：[https://golangbyexample.com/remainder-modulus-go-golang/](https://golangbyexample.com/remainder-modulus-go-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/remainder-modulus-go-golang/](https://golangbyexample.com/remainder-modulus-go-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[% Operator](#_Operator "% Operator")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[% 运算符](#_Operator "% Operator")'
 - en: '[Code](#Code "Code")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")'
 - en: '[Mod function for floats](#Mod_function_for_floats "Mod function for floats")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[浮点数的 Mod 函数](#Mod_function_for_floats "Mod function for floats")'
 - en: '[Code](#Code-2 "Code")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code-2 "Code")'
 - en: '[IEEE 754 Remainder](#IEEE_754_Remainder "IEEE 754 Remainder")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[IEEE 754 余数](#IEEE_754_Remainder "IEEE 754 Remainder")'
 - en: '[Code](#Code-3 "Code")*  *# **Overview**'
+  id: totrans-13
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code-3 "Code")*  *# **概述**'
 - en: In this tutorial we will study about
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将学习关于
 - en: '**% Operator** – applicable to get remainder for integers'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**% 运算符** – 适用于获取整数的余数'
 - en: '**Mod function** – can be used to get remainder in case of floats also'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Mod 函数** – 也可以用于获取浮点数的余数'
 - en: '**Remainder function** – can be used to get IEEE 754 remainder'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**余数函数** – 可用于获取 IEEE 754 余数'
 - en: '**% Operator**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**% 运算符**'
 - en: Golang has a modulus operator **(‘ %’),** that can be used to get the remainder
     on dividing two integer numbers. Let’s see a working program illustrating this
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: Golang 有一个模运算符 **(‘ %’)**，可用于获取两个整数相除后的余数。我们来看一个示例程序。
 - en: '**Code**'
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Mod function for floats**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**浮点数的 Mod 函数**'
 - en: '% function doesn’t work for floats. For getting remainder when dividing two
     floats we can use the **Mod** function provided by the **math** package itself.
     Below is the signature of the function. It takes in two floats and returns a float.
     It will return floating point remainder of x/y. The output will take the sign
     on x'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '% 函数不适用于浮点数。要获取两个浮点数相除的余数，我们可以使用 **math** 包提供的 **Mod** 函数。以下是该函数的签名。它接受两个浮点数并返回一个浮点数，返回
+    x/y 的浮点余数，输出将采用 x 的符号。'
 - en: '[PRE2]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Some special cases of **Mod** function are
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Mod** 函数的一些特殊情况是'
 - en: Mod(±Inf, y) = NaN
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Mod(±Inf, y) = NaN
 - en: Mod(NaN, y) = NaN
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Mod(NaN, y) = NaN
 - en: Mod(x, 0) = NaN
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Mod(x, 0) = NaN
 - en: Mod(x, ±Inf) = x
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Mod(x, ±Inf) = x
 - en: Mod(x, NaN) = NaN
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Mod(x, NaN) = NaN
 - en: '**Code**'
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE3]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**IEEE 754 Remainder**'
+  id: totrans-37
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**IEEE 754 余数**'
 - en: '**math** package of GO provides a **Remainder** method that can be used to
     get **IEEE 754 Remainder** of two numbers, one acting as a Numerator and the acting
     as a denominator.'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 的 **math** 包提供了一个 **Remainder** 方法，可以用来获取两个数的 **IEEE 754 余数**，其中一个作为分子，另一个作为分母。
 - en: You can read more about why do we need **IEEE 754 Remainder** here – [https://stackoverflow.com/questions/26671975/why-do-we-need-ieee-754-remainder](https://stackoverflow.com/questions/26671975/why-do-we-need-ieee-754-remainder)
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以在这里阅读更多关于我们为什么需要 **IEEE 754 余数** 的信息 – [https://stackoverflow.com/questions/26671975/why-do-we-need-ieee-754-remainder](https://stackoverflow.com/questions/26671975/why-do-we-need-ieee-754-remainder)
 - en: Below is the signature of the function. It takes input two numbers as float64
     and returns a remainder which is also an **IEEE 754 float64 Remainder**.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名。它接受两个 float64 类型的数字并返回一个余数，这也是一个 **IEEE 754 float64 余数**。
 - en: '[PRE5]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Some special cases of Remainder function are
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 余数函数的一些特殊情况是
 - en: Remainder(±Inf, y) = NaN
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Remainder(±Inf, y) = NaN
 - en: Remainder(NaN, y) = NaN
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Remainder(NaN, y) = NaN
 - en: Remainder(x, 0) = NaN
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Remainder(x, 0) = NaN
 - en: Remainder(x, ±Inf) = x
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Remainder(x, ±Inf) = x
 - en: Remainder(x, NaN) = NaN
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Remainder(x, NaN) = NaN
 - en: '**Code**'
+  id: totrans-48
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE6]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [math](https://golangbyexample.com/tag/math/)*   [mod](https://golangbyexample.com/tag/mod/)*   [modulus](https://golangbyexample.com/tag/modulus/)*'
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [math](https://golangbyexample.com/tag/math/)*   [mod](https://golangbyexample.com/tag/mod/)*   [模](https://golangbyexample.com/tag/modulus/)*'

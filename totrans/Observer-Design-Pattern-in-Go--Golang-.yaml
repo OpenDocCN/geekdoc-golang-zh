@@ -1,176 +1,274 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:03:59'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:03:59
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Observer Design Pattern in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的观察者设计模式
 - en: 来源：[https://golangbyexample.com/observer-design-pattern-golang/](https://golangbyexample.com/observer-design-pattern-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/observer-design-pattern-golang/](https://golangbyexample.com/observer-design-pattern-golang/)
 - en: 'Note: Interested in understanding how all other design patterns can be implemented
     in GO. Please see this full reference – [All Design Patterns in Go (Golang)](https://golangbyexample.com/all-design-patterns-golang/)'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：有兴趣了解其他所有设计模式如何在GO中实现。请参见此完整参考 – [Go中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction:](#Introduction "Introduction:")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍：](#Introduction "Introduction:")'
 - en: '[UML Diagram:](#UML_Diagram "UML Diagram:")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[UML图：](#UML_Diagram "UML Diagram:")'
 - en: '[Mapping:](#Mapping "Mapping:")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射：](#Mapping "Mapping:")'
 - en: '[Practical Example:](#Practical_Example "Practical Example:")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实用示例：](#Practical_Example "Practical Example:")'
 - en: '[Full Working Code:](#Full_Working_Code "Full Working Code:")*  *# **Introduction:**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[完整工作代码：](#Full_Working_Code "Full Working Code:")*  *# **介绍：**'
 - en: Observer Design Pattern is a behavioral design pattern. This pattern allows
     an instance **(called subject)** to publish events to other multiple instances
     **(called observers).**  These **observers** subscribe to the **subject** and
     hence get notified by events in case of any change happening in the **subject.**
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 观察者设计模式是一种行为设计模式。该模式允许一个实例**（称为主题）**将事件发布给多个实例**（称为观察者）。** 这些**观察者**订阅**主题**，因此在**主题**发生任何变化时会收到事件通知。
 - en: Let’s take an example. In the E-Commerce website, many items go out of stock.
     There can be customers, who are interested in a particular item that went out
     of stock. There are three solutions to this problem
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们举个例子。在电子商务网站上，许多商品会缺货。可能会有客户对某个缺货的特定商品感兴趣。对此问题有三种解决方案
 - en: The customer keeps checking the availability of the item at some frequency.
+  id: totrans-15
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 客户以某种频率检查项目的可用性。
 - en: E-Commerce bombard customers with all new items available which are in stock
+  id: totrans-16
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 电子商务向客户推送所有新到的、现货商品。
 - en: The customer subscribes only to the particular item he is interested in and
     gets notified in the case that item is available. Also, multiple customers can
     subscribe to the same product
+  id: totrans-17
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 客户仅订阅他感兴趣的特定项目，并在该项目可用时收到通知。同时，多个客户可以订阅同一产品
 - en: 'Option 3 is most viable, and this is what Observer Patter is all about. The
     major components of the observer pattern are:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 选项3是最可行的，这正是观察者模式的核心。观察者模式的主要组件有：
 - en: '**Subject** – It is the instance to which publishes an event when anything
     changes.'
+  id: totrans-19
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**主题** – 它是当任何变化发生时发布事件的实例。'
 - en: '**Observer** – It subscribes to the subject and gets notified by the events.'
+  id: totrans-20
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**观察者** – 它订阅主题并通过事件收到通知。'
 - en: Generally, **Subject** and **Observer** are implemented as an interface. Concrete
     implementation of both are used
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 通常，**主题**和**观察者**实现为接口。两者的具体实现被使用
 - en: '**UML Diagram:**'
+  id: totrans-22
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**UML图：**'
 - en: '![](img/5087b754286321979495bdbe677f2030.png)'
+  id: totrans-23
   prefs: []
   type: TYPE_IMG
+  zh: '![](img/5087b754286321979495bdbe677f2030.png)'
 - en: '**Mapping:**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**映射：**'
 - en: The below table represents the mapping from the UML diagram actors to actual
     implementation actors in **“Practical Example”** below
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 下表表示UML图中的角色与下面**“实用示例”**中的实际实现角色之间的映射
 - en: '| Subject | subject.go |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| 主题 | subject.go |'
 - en: '| Concrete Subject | item.go |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| 具体主题 | item.go |'
 - en: '| observer | observer.go |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| 观察者 | observer.go |'
 - en: '| Concrete Observer 1 | customer.go |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| 具体观察者1 | customer.go |'
 - en: '| Client | main.go |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| 客户端 | main.go |'
 - en: '**Practical Example:**'
+  id: totrans-31
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**实用示例：**'
 - en: '**subject.go**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**subject.go**'
 - en: '[PRE0]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**item.go**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**item.go**'
 - en: '[PRE1]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**observer.go**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**observer.go**'
 - en: '[PRE2]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**customer.go**'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '**customer.go**'
 - en: '[PRE3]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**main.go**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE4]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Full Working Code:**'
+  id: totrans-44
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**完整工作代码：**'
 - en: '[PRE6]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '[design](https://golangbyexample.com/tag/design/)*   [golang](https://golangbyexample.com/tag/golang/)*   [observer](https://golangbyexample.com/tag/observer/)*   [observer
     design pattern in go](https://golangbyexample.com/tag/observer-design-pattern-in-go/)*   [pattern](https://golangbyexample.com/tag/pattern/)*'
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[设计](https://golangbyexample.com/tag/design/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [观察者](https://golangbyexample.com/tag/observer/)*   [Go中的观察者设计模式](https://golangbyexample.com/tag/observer-design-pattern-in-go/)*   [模式](https://golangbyexample.com/tag/pattern/)*'

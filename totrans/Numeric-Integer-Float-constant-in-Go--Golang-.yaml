@@ -1,247 +1,383 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类。
 - en: 'date: 2024-10-13 06:28:19'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:28:19。
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Numeric/Integer/Float constant in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的数字/整数/浮点常量。
 - en: 来源：[https://golangbyexample.com/integer-constant-golang/](https://golangbyexample.com/integer-constant-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/integer-constant-golang/](https://golangbyexample.com/integer-constant-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录。
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "概述")**。'
 - en: '[Example](#Example "Example")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "示例")。'
 - en: '[Typed integer constant](#Typed_integer_constant "Typed integer constant")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[类型化整数常量](#Typed_integer_constant "类型化整数常量")。'
 - en: '[Untyped named integer constant](#Untyped_named_integer_constant "Untyped named
     integer constant")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[未类型命名的整数常量](#Untyped_named_integer_constant "未类型命名的整数常量")。'
 - en: '[Untyped unnamed integer constant](#Untyped_unnamed_integer_constant "Untyped
     unnamed integer constant")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[未类型未命名的整数常量](#Untyped_unnamed_integer_constant "未类型未命名的整数常量")。'
 - en: '[Numeric Expressions](#Numeric_Expressions "Numeric Expressions")*  *# **Overview**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[数字表达式](#Numeric_Expressions "数字表达式")*  *# **概述**。'
 - en: Numeric constant in go are further divided into three types
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 中的数字常量进一步分为三种类型。
 - en: Integer
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 整数。
 - en: Floats
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 浮点数。
 - en: Complex Numbers
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 复数。
 - en: To better understand numeric constant in golang it is important to understand
     typed and untyped constant in go. Please refer to this article for that –[https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)/
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了更好地理解 Go 中的数字常量，理解类型化和未类型常量非常重要。请参考这篇文章 – [https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)。
 - en: Once you have gone through the article you would have understood that constant
     can be declared in three ways
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 一旦你阅读完本文，你会理解常量可以以三种方式声明。
 - en: Typed  constant
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类型化常量。
 - en: Untyped unnamed  constant
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型未命名常量。
 - en: Untyped named constant
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型命名常量。
 - en: It is the same case with numeric as well.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 数字的情况也是一样。
 - en: A untyped integer constant (both named and unnamed) can be assigned to **int**
     types, **float** types and **complex** . This is because an int value can be int
     or float or complex. For eg int value **123** can be
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 未类型的整数常量（命名和未命名）可以赋值给 **int** 类型、**float** 类型和 **complex**。这是因为一个 int 值可以是 int
+    或 float 或 complex。例如，整数值 **123** 可以是。
 - en: A **int** whose value is 123
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个值为 123 的 **int**。
 - en: A **float** whose value is 123.0
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个值为 123.0 的 **float**。
 - en: A **complex** whose imaginary part is 0
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一个虚部为 0 的 **complex**。
 - en: On the basis of similar logic a untyped **float** constant can be assigned to
     all **floats** and **complex** types but not **integer** because for eg a float
     5.3 cannot be an integer.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据类似的逻辑，未类型的 **float** 常量可以赋值给所有 **floats** 和 **complex** 类型，但不能赋值给 **integer**，因为例如浮点数
+    5.3 不能是整数。
 - en: On the basis of similar logic a untyped **comple** constant can be assigned
     to  **complex** types but not **integer** and **float** because for eg a float
     5i+3 cannot be an **integer** or a **float**
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据类似的逻辑，未类型的 **complex** 常量可以赋值给 **complex** 类型，但不能赋值给 **integer** 和 **float**，因为例如浮点数
+    5i+3 不能是 **integer** 或 **float**。
 - en: Let’s see a program to understand it
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序来理解它。
 - en: '**Example**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**。'
 - en: See below program illustrating the above point. In the program we have example
     for
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 请参见下面的程序说明上述观点。在程序中我们有例子。
 - en: Typed integer constant
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类型化整数常量。
 - en: Untyped unnamed integer constant
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型未命名的整数常量。
 - en: Untyped named integer constant
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型命名的整数常量。
 - en: '[PRE0]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**。'
 - en: '[PRE1]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Now above program shows example of a
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在上面的程序展示了一个例子。
 - en: Typed integer constant
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类型化整数常量。
 - en: Untyped unnamed integer constant
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型未命名的整数常量。
 - en: Untyped named integer constant
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 未类型命名的整数常量。
 - en: Let’s understand each of them and their behaviour
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们了解每种方式及其行为。
 - en: '**Typed integer constant**'
+  id: totrans-43
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**类型化整数常量**。'
 - en: It is defined as below
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 它定义如下。
 - en: '[PRE2]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Typed integer constant can be assigned to a variable created with **var** keyword
     like below
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 类型化整数常量可以赋值给使用 **var** 关键字创建的变量，如下所示。
 - en: '[PRE3]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: It will raise compilation error when assigned to another **int** type. So below
     raises compilation error as **aa** variable is already of type **int**
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 当赋值给另一个 **int** 类型时会引发编译错误。因此下面的代码会引发编译错误，因为 **aa** 变量已经是 **int** 类型。
 - en: '[PRE4]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Untyped named integer constant**'
+  id: totrans-50
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**未类型命名的整数常量**。'
 - en: It is defined as below
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 它定义如下。
 - en: '[PRE5]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Untyped named integer constant can be assigned to any **int** type, any **float**
     type and any **complex** number type and also to any variable created with **var**
     keyword. So below works
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 未类型命名的整数常量可以赋值给任何 **int** 类型、任何 **float** 类型和任何 **complex** 数字类型，以及使用 **var**
+    关键字创建的任何变量。因此下面的代码是可行的。
 - en: '[PRE6]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Untyped unnamed integer constant**'
+  id: totrans-55
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**未类型未命名的整数常量**。'
 - en: It is as below
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 它如下所示。
 - en: '[PRE7]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Untyped named integer constant can be assigned to any **int** type, any **float**
     type and any **complex** number type and also to any variable created with **var**
     keyword. So below works
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 无类型命名整数常量可以赋值给任何**int**类型、任何**float**类型以及任何**complex**数字类型，也可以赋值给任何使用**var**关键字创建的变量。因此，下面的代码是可行的。
 - en: '[PRE8]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Numeric Expressions**'
+  id: totrans-60
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**数值表达式**'
 - en: Due to untyped nature of constant numeric constants, different numeric constant
     type can be mixed and matched up to form a expression
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于常量数值的无类型特性，不同的数值常量类型可以混合使用以形成一个表达式。
 - en: '[PRE9]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output:**'
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE10]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)*'

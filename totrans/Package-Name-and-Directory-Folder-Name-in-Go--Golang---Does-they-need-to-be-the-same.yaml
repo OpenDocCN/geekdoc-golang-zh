@@ -1,121 +1,191 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:30:35'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:30:35
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Package Name and Directory/Folder Name in Go (Golang)- Does they need to be
     the same
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的包名称和目录/文件夹名称 - 它们需要相同吗
 - en: 来源：[https://golangbyexample.com/package-folder-name-golang/](https://golangbyexample.com/package-folder-name-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/package-folder-name-golang/](https://golangbyexample.com/package-folder-name-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "示例")*  *# **概述**'
 - en: Package name and the name of the directory containing that package don’t necessarily
     have to be the same. Then what does the import path of a package specify? For
     example in case we any package, then the import path might like as below
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 包名称和包含该包的目录名称不一定必须相同。那么包的导入路径指定了什么呢？例如，如果我们有任何包，则导入路径可能如下所示：
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Above statement essentially means that import package present at directory **“sample”.**
     It doesn’t mean import package **sample**. To validate that let’s see an example.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述陈述的本质是导入位于目录**“sample”**中的包。这并不意味着导入包**sample**。为了验证这一点，让我们看一个示例。
 - en: '**Example**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s first create a directory named **learn** and then create a module with
     import path as **“sample.com/learn”.**
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先让我们创建一个名为**learn**的目录，然后创建一个导入路径为**“sample.com/learn”**的模块。
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Let’s create a directory named **math** inside the **learn** directory. Create
     a file **math.go** inside the **math** directory with below contents
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们在**learn**目录中创建一个名为**math**的目录。在**math**目录中创建一个文件**math.go**，内容如下：
 - en: '**learn/math/math.go**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/math.go**'
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Notice the package declaration above
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意上面的包声明
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The package name is **mathematics** but the name of the directory containing
     that package is **math**.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 包名称是**数学**，但包含该包的目录名称是**math**。
 - en: Now let’s use the **mathematics** package in the **main.go** file.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们在**main.go**文件中使用**数学**包。
 - en: '**learn/main.go**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In **main.go** above, see how we import the package.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的**main.go**中，看看我们是如何导入包的。
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Above statement essentially means that import package present at directory **“math”.**
     It doesn’t mean import package **math.**
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述陈述的本质是导入位于目录**“math”**中的包。这并不意味着导入包**math**。
 - en: See how in the **main** function we are using the package.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 请查看在**main**函数中我们是如何使用该包的。
 - en: '[PRE6]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: This is what we meant when we said  import means to import package present at
     that directory location.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是我们所说的导入意味着导入位于该目录位置的包。
 - en: If you run this program, output will be correct.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你运行这个程序，输出将是正确的。
 - en: '[PRE7]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: This shows that name of the package doesn’t necessarily needs to be same as
     the name of the directory containing the package. Another convenient way is to
     use package aliasing in such case like below
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 这表明包的名称不一定要与包含该包的目录名称相同。另一种方便的方法是在这种情况下使用包别名，如下所示。
 - en: '[PRE8]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

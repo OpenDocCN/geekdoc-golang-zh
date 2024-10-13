@@ -1,149 +1,231 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:30:21'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:30:21
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Order of execution of a Go program
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go程序的执行顺序
 - en: 来源：[https://golangbyexample.com/order-execution-program-golang/](https://golangbyexample.com/order-execution-program-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/order-execution-program-golang/](https://golangbyexample.com/order-execution-program-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: Below the order of execution of a go program.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是Go程序的执行顺序。
 - en: The program starts with the main package.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 程序从主包开始。
 - en: All imported packages in the source files of the main package is initialized.
     The same thing happens recursively for further imported packages.
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主包源文件中所有导入的包都被初始化。同样的事情也会递归发生在进一步导入的包中。
 - en: Then global variables declaration in these packages is initialized. The initialization
     dependency kicks in for the initialization of these variables. [https://golang.org/ref/spec#Order_of_evaluation](https://golang.org/ref/spec#Order_of_evaluation)
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后这些包中的全局变量声明被初始化。初始化依赖关系将启动这些变量的初始化。[https://golang.org/ref/spec#Order_of_evaluation](https://golang.org/ref/spec#Order_of_evaluation)
 - en: After this, init() function is run in these packages
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 之后，这些包中的init()函数将被执行。
 - en: Global variables in the main package are initialized
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主包中的全局变量被初始化。
 - en: init function in the main package is run if present
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果存在，主包中的init函数将被运行。
 - en: main function in main package is run.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主包中的main函数被执行。
 - en: Note here that package initialization is only done once even if it is imported
     several times.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，即使包被多次导入，包的初始化也只会执行一次。
 - en: For example, if main package imports package **a** and in turn package **a**
     imports package **b**, then below will be the order
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果主包导入包**a**，而包**a**又导入包**b**，那么以下是执行顺序。
 - en: Global variables in package b will be initialized. init function in source files
     of package b will be run
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包b中的全局变量将被初始化。包b源文件中的init函数将被执行。
 - en: Global variables in the package **a** will be initialized. init function in
     source files of the package **a** will be run
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包**a**中的全局变量将被初始化。包**a**源文件中的init函数将被执行。
 - en: Global variables in main package will be initialized. init function in source
     files of main package will be run
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主包中的全局变量将被初始化。主包源文件中的init函数将被执行。
 - en: main function will start executing.
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: main函数将开始执行。
 - en: '**Example**'
+  id: totrans-23
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see a program for the same.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个相同的程序。
 - en: '**go.mod**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE0]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**sample/b/b1.go**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample/b/b1.go**'
 - en: '[PRE1]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**sample/b/b2.go**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample/b/b2.go**'
 - en: '[PRE2]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**sample/a/a1.go**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample/a/a1.go**'
 - en: '[PRE3]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**sample/a/a2.go**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample/a/a2.go**'
 - en: '[PRE4]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**sample/main.go**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**sample/main.go**'
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Notice in above example that init function in source files of package **b**
     are run first. Then init function in source files of package **a** is run and
     then init function in source file of main package is run. After that main function
     is run
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意在上述示例中，包**b**的源文件中的init函数首先被执行。然后包**a**的源文件中的init函数被执行，最后主包的源文件中的init函数被执行。之后main函数被执行。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

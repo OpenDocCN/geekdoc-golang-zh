@@ -1,23 +1,35 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:14:15'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:14:15
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Number of Characters or length of a string in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的字符数或字符串长度
 - en: 来源：[https://golangbyexample.com/number-characters-string-golang/](https://golangbyexample.com/number-characters-string-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/number-characters-string-golang/](https://golangbyexample.com/number-characters-string-golang/)
 - en: In golang string is a sequence of bytes. A string literal actually represents
     a UTF-8 sequence of bytes. In UTF-8, ASCII characters are single-byte corresponding
     to the first 128 Unicode characters. All other characters are between 1 -4 bytes.
@@ -25,76 +37,118 @@
     built-in **len** function of go. It might work if the string only contains ASCII
     characters. But if the string contains Non-ASCII characters then it will give
     the correct output.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go语言中，字符串是一系列字节。字符串字面量实际上表示的是UTF-8字节序列。在UTF-8中，ASCII字符对应于前128个Unicode字符，各占用一个字节。其他字符则占用1到4个字节。因此，使用Go内置的**len**函数无法获得字符串的确切长度。如果字符串只包含ASCII字符，可能会正常工作。但如果字符串包含非ASCII字符，则会给出正确的输出。
 - en: For example, see below the program and its output. **£** in the string below
     is a Non-ASCII character.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，见下面的程序及其输出。下面字符串中的**£**是一个非ASCII字符。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: As you might have noticed , it prints different characters than expected and
     length is also 5 instead of 4\. Why is that? To answer please remember we said
     that a string is essentially a slice of bytes. Let's print that slice of bytes
     using
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如你可能注意到的，它打印出不同于预期的字符，并且长度也是5而不是4。为什么会这样呢？请记住，我们说字符串本质上是字节的切片。让我们使用以下方式打印这个字节切片
 - en: '[PRE2]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Output will be
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 输出将是
 - en: '[PRE3]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This is the mapping of each of character to its byte sequence. As you can notice
     **a**, **b**, **c** take each 1 byte but **£** takes two bytes. That is why the
     length of the string is 5 and not 4
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是每个字符与其字节序列的映射。如你所见，**a**、**b**、**c**各占1个字节，但**£**占用两个字节。这就是字符串长度为5而不是4的原因。
 - en: '| a | 97 |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '| a | 97 |'
 - en: '| b | 98 |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| b | 98 |'
 - en: '| £ | 194, 163 |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| £ | 194, 163 |'
 - en: '| c | 99 |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| c | 99 |'
 - en: There are two alternatives to get the correct length of a string
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 有两种方法可以获取字符串的正确长度
 - en: Using rune data type . **rune** data type represents a Unicode point.  Once
     a string is converted to an array of **rune** then it is possible to get the correct
     length of a string.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用rune数据类型。**rune**数据类型表示一个Unicode点。一旦字符串转换为**rune**数组，就可以获得字符串的正确长度。
 - en: Using range operator over the string and calculating the length. range operator
     iterates over the UTF-8 characters in a string.
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用range操作符遍历字符串并计算长度。range操作符遍历字符串中的UTF-8字符。
 - en: The below code illustrates the above two points.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下代码说明了上述两点。
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'

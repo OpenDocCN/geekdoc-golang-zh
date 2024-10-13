@@ -1,126 +1,158 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
 - en: 'date: 2024-10-13 06:30:26'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
 - en: Packages and Modules in Go (Golang) – Part 1
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
 - en: 来源：[https://golangbyexample.com/packages-modules-go-first/](https://golangbyexample.com/packages-modules-go-first/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
 - en: This is the chapter 4 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
 - en: '**Next Tutorial** – [Packages and Modules – Part 2](https://golangbyexample.com/packages-modules-go-second/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
 - en: '**Previous Tutorial** – [Set up GO Workspace and Hello World Program](https://golangbyexample.com/workspace-hello-world-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     the current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
 - en: '[Modules](#Modules "Modules")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Before Modules World](#Before_Modules_World "Before Modules World")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Pre Go version 1.11](#Pre_Go_version_111 "Pre Go version 1.11")'
+  id: totrans-14
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[In Go version 1.11](#In_Go_version_111 "In Go version 1.11")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[After Go Version 1.13](#After_Go_Version_113 "After Go Version 1.13")'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Understanding Package and Also Creating a module](#Understanding_Package_and_Also_Creating_a_module
     "Understanding Package and Also Creating a module")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Creating an application before Module](#Creating_an_application_before_Module
     "Creating an application before Module")'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Exported vs Unexported Names](#Exported_vs_Unexported_Names "Exported vs Unexported
     Names")'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Nested Packages](#Nested_Packages "Nested Packages")'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Aliasing in importing packages](#Aliasing_in_importing_packages "Aliasing
     in importing packages")'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Init Functions](#Init_Functions "Init Functions")'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Order of execution of a Go program](#Order_of_execution_of_a_Go_program "Order
     of execution of a Go program")'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Blank Identifier in import](#Blank_Identifier_in_import "Blank Identifier
     in import")'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Package Naming Convention](#Package_Naming_Convention "Package Naming Convention")'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
 - en: Package is a way of code reusability in GO. As the name suggests, it is a way
     of grouping related code. Go modules is a way of dealing with dependencies in
     golang.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
 - en: Every GO source file (.go file) in a GO application file belongs to a package.
     That is why every **.go** file starts with.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
 - en: '[PRE0]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Above is called **Package Declaration**. Please note this term as this will
     be used throughout this tutorial.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
 - en: All .go files present in the same directory will belong to the same package.
@@ -129,9 +161,11 @@
     and the name of the package is what is present in **Package Declaration**. Then
     what is the importance of the directory name? It will be explained in the tutorial
     as we go along.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
 - en: Package can be of two types.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
 - en: '**Executable package** – Only **main** is the executable package in GoLang.
@@ -140,458 +174,692 @@
     main package will contain a main function that denotes the start of a program.
     On installing the main package it will create an executable in the **$GOBIN**
     directory.'
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**可执行包** – 只有**main**是GoLang中的可执行包。一个.go文件可能属于特定目录中的主程序包。稍后我们将看到目录名称或**.go**文件名称的重要性。主程序包将包含一个主函数，标志着程序的开始。安装主程序包后，它将在**$GOBIN**目录中创建一个可执行文件。'
 - en: '**Utility package**– Any package other than the main package is a utility package.
     It is not self-executable. It just contains the utility function and other utility
     things that can be utilized by an executable package.'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**实用程序包**– 任何非主程序包都是实用程序包。它不是自执行的，仅包含可供可执行包使用的实用函数和其他实用工具。'
 - en: '**Modules**'
+  id: totrans-35
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**模块**'
 - en: Module is go support for dependency management. A module by definition is a
     collection of related packages with **go.mod** at its root.  The **go.mod** file
     defines the
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 模块是Go对依赖管理的支持。根据定义，模块是一组相关包，根目录下有**go.mod**文件。**go.mod**文件定义了
 - en: Module import path.
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块导入路径。
 - en: Dependency requirements of the module for a successful build. It defines both
     project’s dependencies requirement and also locks them to their correct version
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块的依赖要求，以便成功构建。它定义了项目的依赖要求，并将其锁定到正确的版本。
 - en: Consider a module as a directory containing a collection of packages. The packages
     can be nested as well. Modules provide
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 将模块视为包含一组包的目录。这些包也可以是嵌套的。模块提供
 - en: Dependency Management
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 依赖管理。
 - en: With modules go project doesn’t necessarily have to lie in the **$GOPATH/sr**c
     folder.
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 有了模块，Go项目不一定必须位于**$GOPATH/src**文件夹中。
 - en: Also in addition to **go.mod** file go also keeps a **go.sum** file which contains
     the cryptographic hash of bits of all project’s dependent modules. This to make
     validate that your project’s dependent modules are not changed.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了**go.mod**文件，Go还保留了**go.sum**文件，包含所有项目依赖模块的加密哈希。这是为了验证项目的依赖模块未发生变化。
 - en: '**Before Modules World**'
+  id: totrans-43
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**模块之前的世界**'
 - en: Modules were introduced in go in version 1.11\. Let’s see version wise changes
     to fully understand what was the limitations earlier and what has changed since
     modules
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 模块在Go 1.11版本中引入。让我们逐版本查看变更，以便充分了解之前的限制以及自模块以来的变化。
 - en: Pre Go version 1.11 – Modules did not exist at all
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Go版本1.11之前 – 模块根本不存在。
 - en: Go Version 1.11 – Modules was introduced but not finalized
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Go版本1.11 – 引入了模块，但尚未最终确定。
 - en: Go Version 1.13 – Modules was introduced
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Go版本1.13 – 引入了模块。
 - en: '**Pre Go version 1.11**'
+  id: totrans-48
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**Go版本1.11之前**'
 - en: Before modules go only had packages. $GOPATH location would have three directories
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 在模块出现之前，Go仅有包。$GOPATH位置将有三个目录。
 - en: src
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: src
 - en: pkg
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: pkg
 - en: bin
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: bin
 - en: These were the problems which existed before the modules era
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些是模块时代之前存在的问题。
 - en: All Go project in **$GOPATH/src** directory
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 所有Go项目在**$GOPATH/src**目录中。
 - en: No native dependency management support
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 没有本地依赖管理支持。
 - en: All the dependency will be downloaded in the **$GOPATH/src**  directory without
     versioning
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 所有依赖项将下载到**$GOPATH/src**目录中，不带版本控制。
 - en: 'Let’s look at each problem one by one:'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐一查看每个问题：
 - en: Any GO project has to be inside the **$GOPATH/src** directory
+  id: totrans-58
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 任何Go项目都必须位于**$GOPATH/src**目录中。
 - en: This was a big limitation in terms of that it restricted where you can keep
     your project.
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一个重大限制，因为它限制了你可以放置项目的位置。
 - en: No native dependency management support
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 没有本地依赖管理支持。
 - en: Also, one issue before modules was that there was no way to specify a dependency
     in a project. Alternate solutions such as dep, glide were available but a native
     solution was missing.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，在模块之前的一个问题是，没有办法在项目中指定依赖项。虽然有dep、glide等替代解决方案，但缺少本地解决方案。
 - en: All the dependency will be downloaded in the $GOPATH/src  directory without
     versioning
+  id: totrans-62
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 所有依赖项将下载到**$GOPATH/src**目录中，不带版本控制。
 - en: When we do a go get it will download the required package in the $GOPATH/src
     directory.  So before go version 1.11, below go get command
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们执行go get时，它将在$GOPATH/src目录中下载所需的包。因此，在Go 1.11版本之前，以下go get命令
 - en: '[PRE1]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: It will download the package at the location
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 它将在该位置下载包。
 - en: '[PRE2]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Notice one thing about the go get command above that no version was specified.
     Hence it downloads the latest version present. Also, notice the downloaded package.
     Even it doesn’t list down any versioning info. Now, this is a problem. What if
     there is an update in the  **[github.com](http://github.com)/pborman/uuid** package
     and you want to get that update. Since there is no versioning the updated package
     will get downloaded at the same location replacing the older one.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意上面的 go get 命令没有指定版本。因此，它下载的是最新版本。此外，请注意下载的包。它甚至没有列出任何版本信息。现在，这是一个问题。如果 **[github.com](http://github.com)/pborman/uuid**
+    包有更新，你想获取该更新。由于没有版本控制，更新的包将下载到相同位置，替换旧版本。
 - en: '**In Go version 1.11**'
+  id: totrans-68
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**在 Go 版本 1.11**'
 - en: In Go 1.11\. modules were introduced but not finalized. So if you still using
     it then better to switch to the latest version
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 1.11 中，引入了模块，但尚未最终确定。因此，如果你仍在使用它，最好切换到最新版本。
 - en: '**After Go Version 1.13**'
+  id: totrans-70
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**在 Go 版本 1.13 之后**'
 - en: We already discussed all the problems which existed before the pre-modules era.
     Now let’s see how each of these problems got resolved with the introduction of
     modules.
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们已经讨论了在预模块时代存在的所有问题。现在让我们看看这些问题是如何通过引入模块得到解决的。
 - en: The first problem was
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个问题是
 - en: All Go project in **$GOPATH/src** directory
+  id: totrans-73
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 所有 Go 项目位于 **$GOPATH/src** 目录。
 - en: With modules, this is no longer a requirement.
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 有了模块，这不再是一个要求。
 - en: No native dependency management support
+  id: totrans-75
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 没有本地依赖管理支持。
 - en: Modules introduced native dependency management within go. With modules, it
     provides two new files which are
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 模块在 Go 中引入了本地依赖管理。通过模块，它提供了两个新文件：
 - en: go.mod
+  id: totrans-77
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: go.mod
 - en: go.sum
+  id: totrans-78
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: go.sum
 - en: With **go.mod** and **go.sum** files we are able to install a precise version
     of a dependency without breaking anything. We already gave a brief introduction
     to these files at the beginning of this tutorial. Later in the tutorial, we will
     look at it in detail
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用 **go.mod** 和 **go.sum** 文件，我们能够安装精确版本的依赖项而不破坏任何东西。我们已经在本教程开头简要介绍了这些文件。稍后在教程中，我们将详细查看它。
 - en: All the dependency will be downloaded in the **$GOPATH/pkg/mod**  directory
     with versioning
+  id: totrans-80
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 所有依赖项将在 **$GOPATH/pkg/mod** 目录中下载并进行版本控制。
 - en: So if you download a different version of the same library then both will be
     downloaded in a different directory inside **$GOPATH/pkg/mod** without overriding
     each other.  **$GOPATH/pkg/mod**  will have two things inside it
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以如果你下载同一库的不同版本，那么两个版本将下载到 **$GOPATH/pkg/mod** 中的不同目录，而不会互相覆盖。**$GOPATH/pkg/mod**
+    将包含两样东西。
 - en: '**cache** – This is the folder where all dependencies will get downloaded along
     with the zipped code'
+  id: totrans-82
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**cache** – 这是所有依赖项将被下载的文件夹，连同压缩代码。'
 - en: Zipped code of all downloaded dependencies will get copied over from the cache
     directory.
+  id: totrans-83
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 所有下载的依赖项的压缩代码将从缓存目录复制过来。
 - en: Also, there is a new env introduced named **GO111MODULE**
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，还引入了一个名为 **GO111MODULE** 的新环境变量。
 - en: When **GO111MODULE=off**, then go get will behave in the old way where it will
     download the dependency in the $GOPATH/src folder.
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 当 **GO111MODULE=off** 时，go get 将以旧方式运行，会在 $GOPATH/src 文件夹中下载依赖项。
 - en: When **GO111MODULE=on**, then go get will behave in a new way and all the modules
     will get downloaded in the **$GOPATH/pkg/mod/cache** folder with versioning.
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 当 **GO111MODULE=on** 时，go get 将以新方式运行，所有模块将下载到 **$GOPATH/pkg/mod/cache** 文件夹，并进行版本控制。
 - en: When **GO111MODULE=auto**, then
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 当 **GO111MODULE=auto** 时，
 - en: When running go get outside the $GOPATH/src folder, then will behave as if it
     is GO111MODULE=on
+  id: totrans-88
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在 $GOPATH/src 文件夹外运行 go get 时，它将表现得好像 GO111MODULE=on。
 - en: When running go get inside the $GOPATH/src folder, then will behave as if it
     is GO111MODULE=off
+  id: totrans-89
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在 $GOPATH/src 文件夹中运行 go get 时，它将表现得好像 GO111MODULE=off。
 - en: Let’s now create a module. Whatever we discussed will be more clear then
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们创建一个模块。我们讨论的内容将更加清晰。
 - en: '**Understanding Package and Also Creating a module**'
+  id: totrans-91
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**理解包并创建模块**'
 - en: The below command can be used to create a module.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以使用以下命令来创建模块。
 - en: '[PRE3]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Let’s see **go.mod** and **go.sum** file again that we had discussed earlier
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们再次看看之前讨论过的 **go.mod** 和 **go.sum** 文件。
 - en: '**go.mod**'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: It is the module dependency file. It will have three things
+  id: totrans-96
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是模块依赖文件。它将包含三样东西
 - en: Import path of the module at the top
+  id: totrans-97
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块的导入路径位于顶部。
 - en: The version of go with which the module is created
+  id: totrans-98
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建模块时所使用的 Go 版本。
 - en: Direct dependencies of the module.
+  id: totrans-99
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块的直接依赖项。
 - en: '**go.sum**'
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.sum**'
 - en: This file lists down the checksum of direct and indirect dependency required
     along with the version. It is to be mentioned that **go.mo**d file is enough for
     a successful build. The checksum present in **go.sum** file is used to validate
     the checksum of each direct and indirect dependency.
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: 此文件列出了所需的直接和间接依赖项的校验和及其版本。需要提到的是，**go.mod**文件对于成功构建来说是足够的。**go.sum**文件中的校验和用于验证每个直接和间接依赖项的校验和。
 - en: Now the question is what is **import_path**.  **import_path** is the prefix
     path that will be used by any other module to import your module. We will learn
     more about the import path in the second part of the tutorial.
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在问题是**import_path**是什么。**import_path**是其他任何模块用来导入你的模块的前缀路径。我们将在教程的第二部分深入了解导入路径。
 - en: Go to any directory outside $GOPATH/src folder. Let’s say the directory name
     is **learn**.
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: 转到$GOPATH/src文件夹外的任何目录。假设目录名称为**learn**。
 - en: '[PRE4]'
+  id: totrans-104
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Let’s say the module import path is **sample.com/learn**
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设模块的导入路径是**sample.com/learn**。
 - en: '[PRE5]'
+  id: totrans-106
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: This command will create a **go.mod** file in the same directory.
+  id: totrans-107
   prefs: []
   type: TYPE_NORMAL
+  zh: 此命令将在同一目录中创建一个**go.mod**文件。
 - en: Let’s examine the contents of this file. Do a cat **go.mod**
+  id: totrans-108
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们检查一下该文件的内容。执行命令`cat go.mod`。
 - en: '[PRE6]'
+  id: totrans-109
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: When the module is first created using the init command, go.mod file will have
     two things only
+  id: totrans-110
   prefs: []
   type: TYPE_NORMAL
+  zh: 当模块首次使用init命令创建时，go.mod文件将仅包含两项内容。
 - en: Import path of the module at the top
+  id: totrans-111
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块的导入路径位于顶部。
 - en: '[PRE7]'
+  id: totrans-112
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Version of go with which the module was created
+  id: totrans-113
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建模块时使用的Go版本。
 - en: '[PRE8]'
+  id: totrans-114
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Since it is an empty module it doesn’t have any direct dependency specified
     yet. Let’s create a file named **main.go** in the same directory with below contents
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于它是一个空模块，因此尚未指定任何直接依赖项。让我们在同一目录中创建一个名为**main.go**的文件，内容如下。
 - en: '**main.go**'
+  id: totrans-116
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE9]'
+  id: totrans-117
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Notice the package declaration in above file
+  id: totrans-118
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意上面文件中的包声明。
 - en: '[PRE10]'
+  id: totrans-119
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: This means that above source file belongs to the **main** package. Also Notice
     that we have imported the dependency in the **main.go** as well
+  id: totrans-120
   prefs: []
   type: TYPE_NORMAL
+  zh: 这意味着上面的源文件属于**main**包。注意我们在**main.go**中也导入了该依赖项。
 - en: '[PRE11]'
+  id: totrans-121
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Since **main.go** file belongs to main package, hence we can create an executable.
     The executable is always built with the last name in the import path of the module
     which contains the main package. while running the go install command. In our
     case the import path of the module is sample.com/learn and the last name in the
     import path is learn. Hence executable will be created with name learn when running
     go install.
+  id: totrans-122
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于**main.go**文件属于main包，因此我们可以创建一个可执行文件。可执行文件始终与包含main包的模块的导入路径中的最后一个名称一起构建。在我们的案例中，模块的导入路径是sample.com/learn，导入路径中的最后一个名称是learn。因此，运行go
+    install时将创建名为learn的可执行文件。
 - en: Any of three command can be used to create the executable
+  id: totrans-123
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以使用这三个命令中的任何一个来创建可执行文件。
 - en: '**‘go install learn’**'
+  id: totrans-124
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**‘go install learn’**'
 - en: '**‘go install’**'
+  id: totrans-125
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**‘go install’**'
 - en: '**‘go install .’**'
+  id: totrans-126
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**‘go install .’**'
 - en: The name of the directory would not matter here. The name of the executable
     will always be the same as the name of the module.  All the above commands will
     create an executable name **learn** in the **$GOBIN** directory. If the **$GOBIN**
     directory is in your path then you can directory run the executable
+  id: totrans-127
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里目录的名称无关紧要。可执行文件的名称将始终与模块名称相同。上述所有命令将在**$GOBIN**目录中创建名为**learn**的可执行文件。如果**$GOBIN**目录在你的路径中，你可以直接运行该可执行文件。
 - en: '[PRE12]'
+  id: totrans-128
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Also go install command will download all the dependencies that are required
     in your source files and update **go.mod** file with that dependency.
+  id: totrans-129
   prefs: []
   type: TYPE_NORMAL
+  zh: 同时，go install命令将下载源文件中所需的所有依赖项，并用该依赖项更新**go.mod**文件。
 - en: After running this command let’s now let’s again examine the contents of **go.mod**
     file
+  id: totrans-130
   prefs: []
   type: TYPE_NORMAL
+  zh: 在运行该命令后，让我们再次检查**go.mod**文件的内容。
 - en: Do a cat **go.mod**
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: 执行命令`cat go.mod`
 - en: '[PRE13]'
+  id: totrans-132
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: It lists direct dependency which was specified in the **main.go** file along
     with exact version of the dependency as well. Now let’s check the **go.sum** file
     as well.
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: 该文件列出了在**main.go**文件中指定的直接依赖项及其确切版本。现在让我们检查一下**go.sum**文件。
 - en: Do a cat **go.sum**
+  id: totrans-134
   prefs: []
   type: TYPE_NORMAL
+  zh: 执行命令`cat go.sum`
 - en: '[PRE14]'
+  id: totrans-135
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: '**go.sum** file lists down the checksum of direct and indirect dependency required
     by the module.  [github.com](http://github.com)/google/uuid is internally used
     by the [github.com](http://github.com)/pborman/uuid . It is an indirect dependency
     of the module and hence it is recorded in the **go.sum** file. Both the direct
     dependency as well as the indirect dependency will be downloaded in the $GOAPTH/pkg/mod/cache
     folder with versioning.'
+  id: totrans-136
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.sum** 文件列出了模块所需的直接和间接依赖项的校验和。 [github.com](http://github.com)/google/uuid
+    在 [github.com](http://github.com)/pborman/uuid 中被内部使用。它是模块的间接依赖，因此记录在 **go.sum**
+    文件中。直接依赖和间接依赖都会下载到 $GOAPTH/pkg/mod/cache 文件夹中，并带有版本信息。'
 - en: We can also run the executable directly.
+  id: totrans-137
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还可以直接运行可执行文件。
 - en: '[PRE15]'
+  id: totrans-138
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: 'Note: **$GOBIN** directly needs to be in your path for above command to run.'
+  id: totrans-139
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意：**$GOBIN** 需要直接在你的路径中，以便上述命令可以运行。
 - en: '**Output**'
+  id: totrans-140
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE16]'
+  id: totrans-141
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: The above way we added a dependency in the source file and when we run go install
     it downloaded that dependency and added it in the go.mod file.  Also the executable
     got created in the **$GOBIN** directory.
+  id: totrans-142
   prefs: []
   type: TYPE_NORMAL
+  zh: 以上方式我们在源文件中添加了一个依赖项，当我们运行 go install 时，它下载了该依赖项并将其添加到 go.mod 文件中。可执行文件也创建在 **$GOBIN**
+    目录中。
 - en: Now couple of points to notice
+  id: totrans-143
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在有几个要注意的点。
 - en: Name of the directory is **learn**
+  id: totrans-144
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 目录名称是 **learn**。
 - en: Name of the directory which contains the **go.mod** file doesn’t matter. You
     can try changing name to anything. It will always create the executable with the
     same name as last part in module import path.
+  id: totrans-145
   prefs: []
   type: TYPE_NORMAL
+  zh: 包含 **go.mod** 文件的目录名称无关紧要。你可以尝试将名称更改为任何内容。它始终会创建一个与模块导入路径最后部分相同名称的可执行文件。
 - en: Import path of the module is **sample.com/learn**
+  id: totrans-146
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 模块的导入路径是 **sample.com/learn**。
 - en: The executable is always created with the name of the last part in the module
     import path which is **learn** here. How does import path matter we will learn
     in the second part of the tutorial. For now, just understand that the module import
@@ -600,936 +868,1438 @@
     example, it is possible that the module import path would only have been just
     **learn.** In this case, too executable would have been created with name learn
     only. So for the below module import paths executable name would be **learn**
+  id: totrans-147
   prefs: []
   type: TYPE_NORMAL
+  zh: 可执行文件的名称始终是模块导入路径最后部分的名称，这里是 **learn**。导入路径的重要性将在教程的第二部分学习。现在只需理解模块导入路径用于将该模块导入到另一个模块中。如果模块导入路径仅是一个名称，那么可执行文件将只会以该名称创建。例如，模块导入路径可能仅为
+    **learn**。在这种情况下，可执行文件的名称也是 learn。因此，对于以下模块导入路径，可执行文件的名称将是 **learn**。
 - en: '[PRE17]'
+  id: totrans-148
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Name of file is **main.go**
+  id: totrans-149
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件名称是 **main.go**。
 - en: The name of the file won’t matter here when running ‘go install’. You can try
     changing the file from main.go to test.go. After doing that run the above commands
     again. It will create an executable with the module name which is **learn** and
     nothing changes.
+  id: totrans-150
   prefs: []
   type: TYPE_NORMAL
+  zh: 在运行 ‘go install’ 时，文件名称在这里并不重要。你可以尝试将文件从 main.go 更改为 test.go。之后再次运行上述命令。它将创建一个与模块名称相同的可执行文件，即
+    **learn**，且没有任何变化。
 - en: Name of package in learn module is **main**
+  id: totrans-151
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: learn 模块中的包名称是 **main**。
 - en: The name of the package does matter. If go install sees a main package in the
     directory, it will create an executable in the **$GOBIN** directory. The name
     of the executable will be the same as the last name in the module import path.
+  id: totrans-152
   prefs: []
   type: TYPE_NORMAL
+  zh: 包的名称是重要的。如果 go install 在目录中看到一个主包，它将会在 **$GOBIN** 目录中创建一个可执行文件。可执行文件的名称将与模块导入路径中的最后名称相同。
 - en: 'What we learnt so far:'
+  id: totrans-153
   prefs: []
   type: TYPE_NORMAL
+  zh: 到目前为止我们学到的：
 - en: Only **main** package is executable.
+  id: totrans-154
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 只有 **main** 包是可执行的。
 - en: The name of the directory containing the module doesn’t play any role in the
     name of the executable.
+  id: totrans-155
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包含模块的目录名称在可执行文件的名称中并不重要。
 - en: On running **‘go install**‘ it creates the binary with the name as the last
     part of the module import that contains the .go file belonging to the main package.
+  id: totrans-156
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 运行 **‘go install’** 时，它会创建一个二进制文件，名称与包含主包的 .go 文件的模块导入的最后部分相同。
 - en: The name of the file doesn’t matter when running go install. You can have any
     name
+  id: totrans-157
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在运行 go install 时，文件名称并不重要。你可以有任何名称。
 - en: Let’s also see the same example before modules to understand the benefits offered
     with the introduction of the module.
+  id: totrans-158
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们在模块之前也看看同样的例子，以了解引入模块所提供的好处。
 - en: '**Creating an application before Module**'
+  id: totrans-159
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**在模块之前创建应用程序**。'
 - en: Before module all your code should lie in the **$GOPATH/src** folder. Let’s
     create a directory **learn** inside **$GOPATH/src** directory.
+  id: totrans-160
   prefs: []
   type: TYPE_NORMAL
+  zh: 在模块出现之前，你的所有代码都应该位于**$GOPATH/src**文件夹中。让我们在**$GOPATH/src**目录中创建一个名为**learn**的目录。
 - en: '**$GOPATH/src/learn/main.go**'
+  id: totrans-161
   prefs: []
   type: TYPE_NORMAL
+  zh: '**$GOPATH/src/learn/main.go**'
 - en: '[PRE18]'
+  id: totrans-162
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: Run
+  id: totrans-163
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行
 - en: '[PRE19]'
+  id: totrans-164
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Before modules the executable is always build with the name of the directory
     which contains the **main** package while running the go install command. In our
     case the name of directory is **learn**
+  id: totrans-165
   prefs: []
   type: TYPE_NORMAL
+  zh: 在模块出现之前，可执行文件始终使用包含**main**包的目录名称进行构建，而运行`go install`命令时，在我们的例子中目录的名称是**learn**。
 - en: All the above commands will create an executable name **learn** in the $GOBIN
     directory. If the $GOBIN directory is in your path then you can directory run
     the executable
+  id: totrans-166
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述所有命令将在$GOBIN目录中创建一个名为**learn**的可执行文件。如果$GOBIN目录在你的路径中，那么你可以直接运行这个可执行文件。
 - en: '[PRE20]'
+  id: totrans-167
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: Let’s see the limitations before modules
+  id: totrans-168
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看模块之前的限制。
 - en: All code needs to reside in the **$GOPATH/src/** folder
+  id: totrans-169
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 所有代码都需要位于**$GOPATH/src/**文件夹中。
 - en: When you do a go install, it will download both direct and indirect dependency
     in the **$GOPATH/src** folder without any versioning information.  You can check
     your  **$GOPATH/src** folder. It would have downloaded the **“github.com/pborman/uuid”**
     dependency without any versioning
+  id: totrans-170
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你执行`go install`时，它将下载**$GOPATH/src**文件夹中的直接和间接依赖项，而没有任何版本信息。你可以检查你的**$GOPATH/src**文件夹。它会下载**“github.com/pborman/uuid”**依赖项，而没有任何版本信息。
 - en: There is no way to define the dependency version within code. A simple go get
     will download the latest version of the dependency and save it at location **$GOPATH/src**
     overriding the previous version if already present.
+  id: totrans-171
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在代码中没有办法定义依赖版本。简单的`go get`将下载依赖的最新版本，并将其保存在**$GOPATH/src**位置，覆盖已存在的旧版本（如果有）。
 - en: Modules solve all this problem as we have seen in the first example. Now we
     have understood the basics of packages and modules and what advantages do modules
     provide. Let’s now focus only on understanding the package more in detail here
     in this tutorial. We will focus more on modules in the second part of this tutorial-
     modules. Here is the link for second part – [https://golangbyexample.com/packages-modules-go-second](https://golangbyexample.com/packages-modules-go-second)/
+  id: totrans-172
   prefs: []
   type: TYPE_NORMAL
+  zh: 模块解决了我们在第一个例子中看到的所有问题。现在我们已经理解了包和模块的基础知识，以及模块提供的优势。接下来，让我们在本教程中更详细地了解包的内容。我们将在本教程的第二部分——模块中更加关注模块。第二部分的链接是
+    – [https://golangbyexample.com/packages-modules-go-second](https://golangbyexample.com/packages-modules-go-second)/。
 - en: Let’s now add another file belonging to the main package.
+  id: totrans-173
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们添加另一个属于主包的文件。
 - en: '**learn/subtract.go**'
+  id: totrans-174
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/subtract.go**'
 - en: '[PRE21]'
+  id: totrans-175
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**learn/main.go**'
+  id: totrans-176
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE22]'
+  id: totrans-177
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: Try running the go install command again. It will create an executable with
     name **learn** in the **$GOBIN** directory. Try running this executable ,It will
     give below output. Also notice function **main** in **main.go** is able to call
     the function **subtract** in **subtract.go**. It is possible because both **main**
     and **subtract** belong to same package main.
+  id: totrans-178
   prefs: []
   type: TYPE_NORMAL
+  zh: 请再次尝试运行`go install`命令。它将在**$GOBIN**目录中创建一个名为**learn**的可执行文件。尝试运行这个可执行文件，它将给出以下输出。此外，请注意**main.go**中的**main**函数能够调用**subtract.go**中的**subtract**函数。这是因为**main**和**subtract**都属于同一个包main。
 - en: '[PRE23]'
+  id: totrans-179
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: So basically
+  id: totrans-180
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以基本上
 - en: Within the same package, all variables, functions, constants are accessible
     between different .go files belonging to the package.
+  id: totrans-181
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在同一个包内，所有变量、函数、常量都可以在属于该包的不同.go文件之间访问。
 - en: All **.go** files present in the same directory will belong to the same package.
     This is true for all directory containing packages. It doesn’t matter whether
     that directory contains the **go.mod** file or not.   Let’s validate that. Change
     the package declaration to
+  id: totrans-182
   prefs: []
   type: TYPE_NORMAL
+  zh: 同一目录中的所有**.go**文件将属于同一个包。这对于所有包含包的目录都是正确的。无论该目录是否包含**go.mod**文件，这一点都不重要。让我们验证一下。将包声明更改为
 - en: '[PRE24]'
+  id: totrans-183
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: '**go.mod**'
+  id: totrans-184
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE25]'
+  id: totrans-185
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: '**learn/subtract.go**'
+  id: totrans-186
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/subtract.go**'
 - en: '[PRE26]'
+  id: totrans-187
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: '**learn/main.go**'
+  id: totrans-188
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE27]'
+  id: totrans-189
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: Notice the **Package Declaration.** It is
+  id: totrans-190
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意**包声明。** 它是
 - en: '[PRE28]'
+  id: totrans-191
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: Let’s try running the **go install** command. It will give error
+  id: totrans-192
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们尝试运行**go install**命令。它将产生错误。
 - en: '[PRE29]'
+  id: totrans-193
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: The above error means that directory **learn** contains two files **subtract.go**
     and **main.go** belonging to two different packages named **subtract** and **main**
     respectively.  GO source files belonging to different packages with in the same
     directory is not allowed hence this error. Change the **Package Declaration**
     in subtract.go to belong to **main** package and the error will go away
+  id: totrans-194
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述错误意味着目录**learn**包含两个文件**subtract.go**和**main.go**，它们分别属于不同的包，名为**subtract**和**main**。因此，在同一目录中，属于不同包的GO源文件是不允许的，因此出现了这个错误。将subtract.go中的**Package
+    Declaration**更改为属于**main**包，错误将消失。
 - en: As you might have noticed we are using two functions, **add** and **subtract.**
     These two methods are arithmetic functions and it will be good if we can make
     as part of some common code which can be used by other parts. This is where package
     is useful . Idea is to create a new package **math** which will include these
     two functions.  Through this way package provides a way of code reusability. Let’s
     introduce a new package **math**
+  id: totrans-195
   prefs: []
   type: TYPE_NORMAL
+  zh: 如你所见，我们使用了两个函数，**add**和**subtract**。这两个方法是算术函数，如果能将其作为一些公共代码的一部分，供其他部分使用，那将是很好的。这就是包的用处。我们的想法是创建一个新的包**math**，其中包含这两个函数。通过这种方式，包提供了代码重用的方法。让我们引入一个新包**math**。
 - en: '**go.mod**'
+  id: totrans-196
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE30]'
+  id: totrans-197
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: '**learn/math/math.go**'
+  id: totrans-198
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/math.go**'
 - en: '[PRE31]'
+  id: totrans-199
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE31]'
 - en: '**learn/main.go**'
+  id: totrans-200
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE32]'
+  id: totrans-201
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE32]'
 - en: 'If you run this program, output will be same:'
+  id: totrans-202
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你运行这个程序，输出将是相同的：
 - en: '[PRE33]'
+  id: totrans-203
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE33]'
 - en: Couple of points to notice about above program
+  id: totrans-204
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于上述程序需要注意的几点
 - en: '**Importing of a package**'
+  id: totrans-205
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**导入一个包**'
 - en: main.go file imports the package using **“sample.com/learn/math”** and is able
     to call Add and Subtract using math.Add(..) and math.Subtract(..)See how we have
     imported the math package in the main.go file.
+  id: totrans-206
   prefs: []
   type: TYPE_NORMAL
+  zh: main.go文件通过**“sample.com/learn/math”**导入包，并能够使用math.Add(..)和math.Subtract(..)调用Add和Subtract。看看我们是如何在main.go文件中导入math包的。
 - en: '[PRE34]'
+  id: totrans-207
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE34]'
 - en: Here the import path is import path of module which is **learn** +  directory
     containing the package which is **math.** Hence **“sample.com/learn/math”** .
     Packages in nested directory can also be imported in the same way.
+  id: totrans-208
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里的导入路径是模块的导入路径，即**learn** + 包所在的目录**math**。因此为**“sample.com/learn/math”**。嵌套目录中的包也可以以相同方式导入。
 - en: '**Creation of a package**'
+  id: totrans-209
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**创建一个包**'
 - en: We created new directory math and created new file math.go in it. The math.go
     has Package Declaration as “package math”. It also has file **math.go** which
     contains two functions **Add** and **Subtract**.
+  id: totrans-210
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们创建了一个新目录math，并在其中创建了新文件math.go。math.go的包声明为“package math”。它还包含文件**math.go**，其中包含两个函数**Add**和**Subtract**。
 - en: Let’s talk about the import statement first. There are two ways in which we
     can import a package
+  id: totrans-211
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先让我们讨论导入语句。我们可以通过两种方式导入一个包。
 - en: A short hand for import
+  id: totrans-212
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 导入的简写方式
 - en: '[PRE35]'
+  id: totrans-213
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE35]'
 - en: and another form
+  id: totrans-214
   prefs: []
   type: TYPE_NORMAL
+  zh: 还有另一种形式
 - en: '[PRE36]'
+  id: totrans-215
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE36]'
 - en: You can import any number of packages in a program. GO tries to resolve in below
     way
+  id: totrans-216
   prefs: []
   type: TYPE_NORMAL
+  zh: 在程序中，你可以导入任意数量的包。GO尝试以下方式解析。
 - en: Check at directory $GOROOT/src – “fmt” package lies at location **$GOROOT/src/fmt**
+  id: totrans-217
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 检查目录$GOROOT/src – “fmt”包位于位置**$GOROOT/src/fmt**。
 - en: With modules, it resolves the path starting from the root of the module i.e,
     the directory which contains the **go.mod** file.
+  id: totrans-218
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用模块时，从模块的根开始解析路径，即包含**go.mod**文件的目录。
 - en: '[PRE37]'
+  id: totrans-219
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE37]'
 - en: Above statement essentially means that import package present at location **“sample.com/learn/math”.**
     It doesn’t mean import package **math**. To validate that let’s change the directory
     name to **math2\. Package Declaration** is still same which is **“package math”**
+  id: totrans-220
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述语句基本上意味着导入位于位置**“sample.com/learn/math”**的包。它并不意味着导入包**math**。为验证这一点，让我们将目录名称更改为**math2**。包声明仍然相同，即**“package
+    math”**。
 - en: '**go.mod**'
+  id: totrans-221
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE38]'
+  id: totrans-222
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE38]'
 - en: '**learn/math2/math.go –** Notice that directory name is **math2** here'
+  id: totrans-223
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math2/math.go –** 请注意，这里目录名称是**math2**。'
 - en: '[PRE39]'
+  id: totrans-224
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE39]'
 - en: '**learn/main.go**'
+  id: totrans-225
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE40]'
+  id: totrans-226
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE40]'
 - en: 'If you run this program, output will still be same:'
+  id: totrans-227
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你运行这个程序，输出仍然是相同的：
 - en: In **main.go** the import folder changes to **“sample.com/learn/math2”** but
     it  **main** function in **main.go** still refers to **Add** and **Subtract**
     as **math.Add()** and **math.Subtract()** . So basically GO imports **math** package
     from **“math2”** directory. This is what we meant when we said  import means to
     import package present at that directory location.
+  id: totrans-228
   prefs: []
   type: TYPE_NORMAL
+  zh: 在**main.go**中，导入文件夹更改为**“sample.com/learn/math2”**，但**main**函数在**main.go**中仍然引用**Add**和**Subtract**作为**math.Add()**和**math.Subtract()**。所以基本上GO从**“math2”**目录导入**math**包。这就是我们所说的导入意味着导入位于该目录位置的包。
 - en: So we now know  the use of a package directory name
+  id: totrans-229
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以我们现在知道包目录名称的用途。
 - en: Use of the directory is for import statements in GO program. In import, we provide
     the directory path and not the package name. GO then fetches all the files having
     the same package name.
+  id: totrans-230
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 目录的使用是为了GO程序中的导入语句。在导入时，我们提供目录路径而不是包名称。GO然后获取所有具有相同包名称的文件。
 - en: What about filename. In above case filename is **math.go.** Filename doesn’t
     matter. You can try changing filename from **math.go** to something else. Output
     will still the same.
+  id: totrans-231
   prefs: []
   type: TYPE_NORMAL
+  zh: 文件名怎么样？在上述情况下，文件名是**math.go**。文件名并不重要。你可以尝试将文件名从**math.go**更改为其他名称，输出仍然是相同的。
 - en: Let’s move ahead. You might have noticed that both **Add** and **Subtract**
     are capitalized. Why is that. What will happen if they are not capitalized. If
     Add and Subtract were not capitalized, then **main.go** won’t be able to refer
     them. This brings our next topic for discussion.
+  id: totrans-232
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们继续。你可能注意到**Add**和**Subtract**都是大写的。这是为什么呢？如果它们不是大写会发生什么？如果Add和Subtract不是大写的，**main.go**将无法引用它们。这引出了我们下一个讨论话题。
 - en: '**Exported vs Unexported Names**'
+  id: totrans-233
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**导出名称与未导出名称**'
 - en: Go doesn’t have any **public**,  **private** or **protected** keyword. The only
     mechanism to control the visibility is using the capitalized and non-capitalized
     formats
+  id: totrans-234
   prefs: []
   type: TYPE_NORMAL
+  zh: Go没有任何**public**、**private**或**protected**关键字。控制可见性的唯一机制是使用大写和小写格式。
 - en: '**Capitalized Identifiers** are exported. The capital letter indicates that
     this is an exported identifier. It will be visible in other packages'
+  id: totrans-235
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**大写标识符**是导出的。大写字母表示这是一个导出标识符，它将在其他包中可见。'
 - en: '**Non-capitalized identifiers** are not exported. The lowercase indicates that
     the identifier is not exported and will only be accessed from within the same
     package.'
+  id: totrans-236
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**未大写的标识符**不会被导出。小写表示该标识符不会被导出，只能在同一包内访问。'
 - en: There are five kinds of identifier which can be exported or non-exported
+  id: totrans-237
   prefs: []
   type: TYPE_NORMAL
+  zh: 有五种标识符可以是导出的或未导出的。
 - en: Structure
+  id: totrans-238
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 结构
 - en: Structure’s Method
+  id: totrans-239
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 结构的方法
 - en: Structure’s Field
+  id: totrans-240
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 结构的字段
 - en: Function
+  id: totrans-241
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 函数
 - en: Variable
+  id: totrans-242
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 变量
 - en: Let’s add a function named **multiply** which will be in lowercase. We will
     add it to math package and see if it is accessible from **main.go**.
+  id: totrans-243
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们添加一个名为**multiply**的函数，它将是小写的。我们将它添加到math包中，看看它是否可以从**main.go**访问。
 - en: '**go.mod**'
+  id: totrans-244
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE41]'
+  id: totrans-245
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE41]'
 - en: '**learn/math/math.go**'
+  id: totrans-246
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/math.go**'
 - en: '[PRE42]'
+  id: totrans-247
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE42]'
 - en: '**learn/main.go**'
+  id: totrans-248
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE43]'
+  id: totrans-249
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE43]'
 - en: Let’s run this program. It will give error
+  id: totrans-250
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行这个程序。它会产生错误。
 - en: '[PRE44]'
+  id: totrans-251
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE44]'
 - en: The error is because **main.go** cannot refer to unexported name **math.multiply**.
     Make multiply as uppercase and it will work. It should give below output after
     that.
+  id: totrans-252
   prefs: []
   type: TYPE_NORMAL
+  zh: 错误是因为**main.go**无法引用未导出的名称**math.multiply**。将multiply改为大写，它就能工作了。之后应该会输出如下结果。
 - en: '[PRE45]'
+  id: totrans-253
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE45]'
 - en: Also as mentioned during the start of the tutorial, **multiply** function will
     be available within the **math** package. To illustrate this let’s create a function
     **Mul** in arithmetic.go which will call **multiply** function internally
+  id: totrans-254
   prefs: []
   type: TYPE_NORMAL
+  zh: 如在教程开始时提到的，**multiply**函数将在**math**包中可用。为了说明这一点，让我们在arithmetic.go中创建一个**Mul**函数，它将内部调用**multiply**函数。
 - en: '**go.mod**'
+  id: totrans-255
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE46]'
+  id: totrans-256
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE46]'
 - en: '**learn/math/math.go**'
+  id: totrans-257
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/math.go**'
 - en: '[PRE47]'
+  id: totrans-258
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE47]'
 - en: '**learn/main.go**'
+  id: totrans-259
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE48]'
+  id: totrans-260
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE48]'
 - en: Let’s run this program
+  id: totrans-261
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行这个程序。
 - en: '[PRE49]'
+  id: totrans-262
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE49]'
 - en: The above program works because within the same package you can refer to unexported
     or non-capitalized names as well.
+  id: totrans-263
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序能够工作，因为在同一包内，你可以引用未导出或未大写的名称。
 - en: For now **math.go** contains both **Add** and **Subtract** function. Can we
     distribute these two functions to different files with these function still belonging
     to same package **math.** Yes we can do that. Let’s create **add.go** and **subtract.go**
     file inside the **math** directory. add.go will contain the **Add** function and
     subtract.go will contain the **Subtract** function. Notice that both **add.go**
     and **subtract.go** have the same package declaration which is **package math**
+  id: totrans-264
   prefs: []
   type: TYPE_NORMAL
+  zh: 目前**math.go**包含**Add**和**Subtract**函数。我们可以将这两个函数分配到不同的文件中，同时仍然属于同一包**math**吗？可以。让我们在**math**目录下创建**add.go**和**subtract.go**文件。add.go将包含**Add**函数，subtract.go将包含**Subtract**函数。注意**add.go**和**subtract.go**的包声明都是**package
+    math**。
 - en: '**go.mod**'
+  id: totrans-265
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE50]'
+  id: totrans-266
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE50]'
 - en: '**learn/math/add.go**'
+  id: totrans-267
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/add.go**'
 - en: '[PRE51]'
+  id: totrans-268
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE51]'
 - en: '**learn/math/subtract.go**'
+  id: totrans-269
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/subtract.go**'
 - en: '[PRE52]'
+  id: totrans-270
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE52]'
 - en: '**learn/main.go**'
+  id: totrans-271
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE53]'
+  id: totrans-272
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE53]'
 - en: Let’s run this program
+  id: totrans-273
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行这个程序。
 - en: '[PRE54]'
+  id: totrans-274
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE54]'
 - en: It works because the import statement in **main.go** fetches all identifiers
     from all files which belong to package **math** from import. path **“sample.com/learn/math”**
+  id: totrans-275
   prefs: []
   type: TYPE_NORMAL
+  zh: 它能够工作，因为**main.go**中的导入语句从导入路径**“sample.com/learn/math”**中获取所有属于**math**包的标识符。
 - en: '**Nested Packages**'
+  id: totrans-276
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**嵌套包**'
 - en: In GO it is possible to create nested packages. Let’s create a new directory
     named **advanced** inside **math** directory.  “**.** This directory will contain
     **square**.go file which will package declaration as **“package advanced”**
+  id: totrans-277
   prefs: []
   type: TYPE_NORMAL
+  zh: 在GO中，可以创建嵌套包。我们将在**math**目录中创建一个名为**advanced**的新目录。“**.” 该目录将包含**square**.go文件，包声明为“package
+    advanced”。
 - en: '**go.mod**'
+  id: totrans-278
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE55]'
+  id: totrans-279
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE55]'
 - en: '**learn/math/math.go**'
+  id: totrans-280
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/math.go**'
 - en: '[PRE56]'
+  id: totrans-281
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE56]'
 - en: '**learn/math/advanced/advanced.go**'
+  id: totrans-282
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/advanced/advanced.go**'
 - en: '[PRE57]'
+  id: totrans-283
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE57]'
 - en: '**learn/main.go**'
+  id: totrans-284
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE58]'
+  id: totrans-285
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE58]'
 - en: Let’s run this program
+  id: totrans-286
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行这个程序。
 - en: '[PRE59]'
+  id: totrans-287
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE59]'
 - en: Points to note about above program
+  id: totrans-288
   prefs: []
   type: TYPE_NORMAL
+  zh: 关于上述程序需要注意的几点。
 - en: We imported the **advanced** package in main.go with full qualified path i.e, 
     **import “sample.com/learn/math/advanced”**
+  id: totrans-289
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们在main.go中使用完整的路径导入了**advanced**包，即**import “sample.com/learn/math/advanced”**。
 - en: '**Square** function is referred using **advanced** package i.e, **advanced.Square(2)**'
+  id: totrans-290
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Square**函数通过**advanced**包进行引用，即**advanced.Square(2)**。'
 - en: As mentioned earlier directory name can be other **advanced** just that it has
     to be imported accordingly
+  id: totrans-291
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如前所述，目录名称可以是其他**advanced**，只是必须相应导入。
 - en: Also filename can be anything other than **advanced.go**
+  id: totrans-292
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 此外，文件名可以是其他任何名称，而不必是**advanced.go**。
 - en: '**Aliasing in importing packages**'
+  id: totrans-293
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**导入包时的别名**'
 - en: Aliasing in importing packages means give a different name to the imported package.
     Syntax for it is
+  id: totrans-294
   prefs: []
   type: TYPE_NORMAL
+  zh: 在导入包时使用别名意味着为导入的包指定不同的名称。其语法为：
 - en: '[PRE60]'
+  id: totrans-295
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE60]'
 - en: Above statement means that what ever package is present at directory <directory_path>
     import that package with name <new_name>. Aliasing is useful for giving
+  id: totrans-296
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述语句的意思是，无论目录<directory_path>中存在什么包，都以<new_name>导入该包。别名对于命名很有用。
 - en: Giving more relevant name to the imported package in the current context.
+  id: totrans-297
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在当前上下文中为导入的包提供更相关的名称。
 - en: When two different import path contains same package name then import one of
     them as a different name to prevent conflict.
+  id: totrans-298
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当两个不同的导入路径包含相同的包名时，则将其中一个作为不同的名称导入，以防止冲突。
 - en: Let’s see an example.
+  id: totrans-299
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们来看一个例子。
 - en: Create a folder **math2\.** Create a file **math2.go** with the below contents
     having the **Subtract** function. Package Declaration in **math2.go** is “package
     math” which means the package name is still **math**
+  id: totrans-300
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 创建一个文件夹**math2\.** 创建一个文件**math2.go**，内容包含**Subtract**函数。**math2.go**中的包声明为“package
+    math”，这意味着包名称仍为**math**。
 - en: '**math** folder still contains **math.go** file with the only **Add** function'
+  id: totrans-301
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**math**文件夹仍包含仅有**Add**函数的**math.go**文件。'
 - en: Notice that package name (i.e **math**) is same in folder **math** as well in
     folder **math2\.** So both folder **math2** and **math** contains the same package
     which is **math**
+  id: totrans-302
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 请注意，包名（即**math**）在**math**文件夹和**math2\.**文件夹中是相同的。因此，文件夹**math2**和**math**都包含相同的包，即**math**。
 - en: '**go.mod**'
+  id: totrans-303
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE61]'
+  id: totrans-304
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE61]'
 - en: '**learn/math2/math2.go**'
+  id: totrans-305
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math2/math2.go**'
 - en: '[PRE62]'
+  id: totrans-306
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE62]'
 - en: '**learn/math/math.go**'
+  id: totrans-307
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/math.go**'
 - en: '[PRE63]'
+  id: totrans-308
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE63]'
 - en: '**learn/main.go**'
+  id: totrans-309
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE64]'
+  id: totrans-310
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE64]'
 - en: Let’s run this program
+  id: totrans-311
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行这个程序。
 - en: '[PRE65]'
+  id: totrans-312
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE65]'
 - en: Notice the line. We alias **math** package present **“sample.com/learn/math2”**
     to **math2\.** If we haven’t done that then GO will raise a compilation issue
     as it cannot import package with same name from two different folders. This one
     of the advantage of using alias.
+  id: totrans-313
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意这一行。我们将**“sample.com/learn/math2”**中存在的**math**包别名为**math2\.** 如果我们没有这样做，那么GO将引发编译问题，因为它无法从两个不同的文件夹导入同名的包。这是使用别名的一个优势。
 - en: '[PRE66]'
+  id: totrans-314
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE66]'
 - en: '**Init Functions**'
+  id: totrans-315
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**Init函数**'
 - en: init() function is a special function that is used to initialize global variables
     of a package. These functions are executed when the package is initialized. Each
     of the GO source files in a package can have its own init() function. Whenever
     you import any package in the program, then on the execution of that program,
     init functions(if present)  in the GO source files belonging to that imported
     package are called first. Some points to note about init function
+  id: totrans-316
   prefs: []
   type: TYPE_NORMAL
+  zh: init()函数是一个特殊函数，用于初始化包的全局变量。这些函数在包初始化时执行。包中的每个GO源文件都可以有自己的init()函数。每当你在程序中导入任何包时，在该程序执行时，属于该导入包的GO源文件中的init函数（如果存在）会首先被调用。关于init函数需要注意的几点：
 - en: Init function is optional
+  id: totrans-317
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init函数是可选的。
 - en: Init function does not take any argument
+  id: totrans-318
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init函数不接受任何参数。
 - en: Init function does not have any return value.
+  id: totrans-319
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init函数没有返回值。
 - en: Init function is called implicitly. Since it is called implicitly, init function
     cannot reference it from anywhere.
+  id: totrans-320
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Init函数是隐式调用的。由于它是隐式调用的，init函数无法从任何地方引用。
 - en: There can be multiple init() functions within the same source file.
+  id: totrans-321
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在同一个源文件中可以有多个init()函数。
 - en: init function is majorly used for the initialization of global variables that
     cannot be initialized using an initialization expression. For example, it requires
     a network call to intialize any DB client. Another example could be fetching secret
     keys on startup. Init function is also used for running anything that only needs
     to be executed once. Let’s see a simple use case of using an init function.
+  id: totrans-322
   prefs: []
   type: TYPE_NORMAL
+  zh: init 函数主要用于初始化无法通过初始化表达式初始化的全局变量。例如，它可能需要网络调用来初始化任何数据库客户端。另一个例子可能是在启动时获取密钥。init
+    函数还用于运行只需要执行一次的任何内容。让我们看看使用 init 函数的一个简单用例。
 - en: Let’s see an example of using an init function.
+  id: totrans-323
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个使用 init 函数的示例。
 - en: '**go.mod**'
+  id: totrans-324
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE67]'
+  id: totrans-325
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE67]'
 - en: '**learn/math/add.go**'
+  id: totrans-326
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/add.go**'
 - en: '[PRE68]'
+  id: totrans-327
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE68]'
 - en: '**learn/math/subtract.go**'
+  id: totrans-328
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/math/subtract.go**'
 - en: '[PRE69]'
+  id: totrans-329
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE69]'
 - en: '**learn/main.go**'
+  id: totrans-330
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE70]'
+  id: totrans-331
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE70]'
 - en: '**Output**'
+  id: totrans-332
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE71]'
+  id: totrans-333
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE71]'
 - en: Notice from the output that
+  id: totrans-334
   prefs: []
   type: TYPE_NORMAL
+  zh: 从输出中可以注意到
 - en: init() function in the math/add.go file is executed and it prints – “In add
     init”
+  id: totrans-335
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: math/add.go 文件中的 init() 函数被执行，并打印 – “In add init”
 - en: init() function in the math/subtract.go file is executed next and it prints
     – “In subtract init”
+  id: totrans-336
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: math/subtract.go 文件中的 init() 函数被执行，并打印 – “In subtract init”
 - en: init() function in the main.go file is executed next and it prints – “In main
     init”
+  id: totrans-337
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接下来，main.go 文件中的 init() 函数被执行，并打印 – “In main init”
 - en: Although both the source files belong to the same package math but init function
     in both the source files gets executed.
+  id: totrans-338
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管这两个源文件属于同一个包 math，但两个源文件中的 init 函数都被执行。
 - en: '**Order of execution of a Go program**'
+  id: totrans-339
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**Go 程序的执行顺序**'
 - en: Below the order of execution of a go program.
+  id: totrans-340
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是 Go 程序的执行顺序。
 - en: The program starts with the main package.
+  id: totrans-341
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 程序从主包开始。
 - en: All imported packages in the source files of the main package are initialized.
     The same thing happens recursively for further imported packages.
+  id: totrans-342
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主包源文件中所有导入的包都被初始化。后续导入的包也以递归方式执行相同的操作。
 - en: Then global variables declaration in these packages is initialized. The initialization
     dependency kicks in for the initialization of these variables. [https://golang.org/ref/spec#Order_of_evaluation](https://golang.org/ref/spec#Order_of_evaluation)
+  id: totrans-343
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后这些包中的全局变量声明被初始化。初始化依赖关系会启动以初始化这些变量。 [https://golang.org/ref/spec#Order_of_evaluation](https://golang.org/ref/spec#Order_of_evaluation)
 - en: After this, init() function is run in these packages
+  id: totrans-344
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 此后，这些包中的 init() 函数被运行。
 - en: Global variables in the main package are initialized
+  id: totrans-345
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主包中的全局变量被初始化。
 - en: init function in the main package is run if present
+  id: totrans-346
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果存在，主包中的 init 函数将被运行。
 - en: main function in main package is run.
+  id: totrans-347
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 主包中的 main 函数将被运行。
 - en: Note here that package initialization is only done once even if it is imported
     several times.
+  id: totrans-348
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，这里包的初始化只进行一次，即使被多次导入。
 - en: For example, if the main package imports package **a** and in turn package **a**
     imports package **b**, then below will be the order
+  id: totrans-349
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果主包导入包 **a**，而包 **a** 又导入包 **b**，那么顺序将如下：
 - en: Global variables in package **b** will be initialized. **init** function in
     source files of package **b** will be run
+  id: totrans-350
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包 **b** 中的全局变量将被初始化。包 **b** 的源文件中的 **init** 函数将被运行。
 - en: Global variables in the package **a** will be initialized. **init** function
     in source files of package b will be run
+  id: totrans-351
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包 **a** 中的全局变量将被初始化。包 b 的源文件中的 **init** 函数将被运行。
 - en: Global variables in the **main** package will be initialized. init function
     in source files of the **main** package will be run
+  id: totrans-352
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**main** 包中的全局变量将被初始化。**main** 包源文件中的 init 函数将被运行。'
 - en: The **main** function will start executing.
+  id: totrans-353
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**main** 函数将开始执行。'
 - en: Let’s see a program for the same.
+  id: totrans-354
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个相同的程序。
 - en: '**go.mod**'
+  id: totrans-355
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.mod**'
 - en: '[PRE72]'
+  id: totrans-356
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE72]'
 - en: '**learn/b/b1.go**'
+  id: totrans-357
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/b/b1.go**'
 - en: '[PRE73]'
+  id: totrans-358
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE73]'
 - en: '**learn/b/b2.go**'
+  id: totrans-359
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/b/b2.go**'
 - en: '[PRE74]'
+  id: totrans-360
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE74]'
 - en: '**learn/a/a1.go**'
+  id: totrans-361
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/a/a1.go**'
 - en: '[PRE75]'
+  id: totrans-362
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE75]'
 - en: '**learn/a/a2.go**'
+  id: totrans-363
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/a/a2.go**'
 - en: '[PRE76]'
+  id: totrans-364
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE76]'
 - en: '**learn/main.go**'
+  id: totrans-365
   prefs: []
   type: TYPE_NORMAL
+  zh: '**learn/main.go**'
 - en: '[PRE77]'
+  id: totrans-366
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE77]'
 - en: '**Output**'
+  id: totrans-367
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE78]'
+  id: totrans-368
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE78]'
 - en: Notice in the above example that the **init** function in source files of package
     **b** is run first. Then **init** function in source files of the package **a**
     is run and then **init** function in the source file of the main package is run.
     After that **main** function is run
+  id: totrans-369
   prefs: []
   type: TYPE_NORMAL
+  zh: 请注意，在上面的示例中，包 **b** 的源文件中的 **init** 函数最先运行。然后运行包 **a** 源文件中的 **init** 函数，最后运行主包的源文件中的
+    **init** 函数。之后，**main** 函数开始执行。
 - en: '**Blank Identifier in import**'
+  id: totrans-370
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**导入中的空标识符**'
 - en: Blank identifier in importing packages means specifying a blank import for the
     imported package. The syntax for it is
+  id: totrans-371
   prefs: []
   type: TYPE_NORMAL
+  zh: 导入包中的空标识符意味着为导入的包指定一个空导入。其语法为
 - en: '[PRE79]'
+  id: totrans-372
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE79]'
 - en: What is this blank import and why it is used. For this, you have to understand
     two things
+  id: totrans-373
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个空导入是什么，为什么会使用它。为此，你需要了解两件事。
 - en: About **init** function
+  id: totrans-374
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 关于 **init** 函数
 - en: About blank identifier represented by an underscore (‘**_**‘)
+  id: totrans-375
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 关于由下划线（‘**_**’）表示的空标识符
 - en: '**init()** function we already studied above.'
+  id: totrans-376
   prefs: []
   type: TYPE_NORMAL
+  zh: '**init()** 函数我们已经在上面学习过。'
 - en: Now let’s come to blank identifier.
+  id: totrans-377
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们来谈谈空标识符。
 - en: You are already aware that go doesn’t allow any unused variable. Any unused
     variable can be replaced by a blank identifier (‘_’).
+  id: totrans-378
   prefs: []
   type: TYPE_NORMAL
+  zh: 你已经知道 Go 不允许任何未使用的变量。任何未使用的变量可以用空标识符（‘_’）替代。
 - en: So now a blank import of a package is used when
+  id: totrans-379
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，现在当
 - en: The imported package is not being used in the current program
+  id: totrans-380
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在当前程序中，导入的包没有被使用。
 - en: But we intend to import that package so that the **init** function in the GO
     source files belonging to that package can be called and initialization of variables
     in that package can be done properly
+  id: totrans-381
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 但我们打算导入该包，以便可以调用属于该包的 GO 源文件中的 **init** 函数，并能正确初始化该包中的变量。
 - en: 'So basically a blank import is used when a package is solely imported for its
     side effects. As an example MySQL package is used as a blank import for its side-effect
     of registering the MySQL driver as a database driver in the **init()** function
     of MySQL package, without importing any other functions:'
+  id: totrans-382
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以基本上，空导入是在仅为其副作用导入包时使用的。例如，MySQL 包作为空导入使用，目的是在 MySQL 包的 **init()** 函数中注册 MySQL
+    驱动程序作为数据库驱动程序，而不导入任何其他函数：
 - en: '[PRE80]'
+  id: totrans-383
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE80]'
 - en: '**Package Naming Convention**'
+  id: totrans-384
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**包命名约定**'
 - en: A good name is very important for the package as any access to the package’s
     types, functions, constants, or variables is prefixed by the package name. So
     the package name should be short and clear. It is recommended to avoid
+  id: totrans-385
   prefs: []
   type: TYPE_NORMAL
+  zh: 包的名称非常重要，因为访问包的类型、函数、常量或变量时都需要以包名为前缀。因此，包名应该简短且清晰。建议避免
 - en: Underscore in the package name
+  id: totrans-386
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 包名中的下划线
 - en: Camel casing or any kind of mixed caps
+  id: totrans-387
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 驼峰命名法或任何混合大小写
 - en: '**Conclusion**'
+  id: totrans-388
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: In this tutorial, we learned about packages and gave a small introduction to
     modules. It is important to understand packages first before we can jump fully
     to modules. In the second part of this tutorial, we will focus entirely on modules.
     Hope you have liked this article. Please share feedback/mistakes/improvements
     in the comments
+  id: totrans-389
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们学习了包并简要介绍了模块。在我们完全转向模块之前，理解包是非常重要的。在本教程的第二部分，我们将完全专注于模块。希望你喜欢这篇文章。请在评论中分享反馈/错误/改进意见。
 - en: '****Next Tutorial** –** [Packages and Modules – Part 2](https://golangbyexample.com/packages-modules-go-second/)
     ****Previous Tutorial** –** [Set up GO Workspace and Hello World Program](https://golangbyexample.com/workspace-hello-world-golang/)'
+  id: totrans-390
   prefs: []
   type: TYPE_NORMAL
+  zh: '****下一个教程** –** [包和模块 – 第二部分](https://golangbyexample.com/packages-modules-go-second/)
+    ****上一个教程** –** [设置 GO 工作区和 Hello World 程序](https://golangbyexample.com/workspace-hello-world-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-391
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

@@ -1,84 +1,134 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:17:27'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:17:27
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Make a copy of a file in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中复制文件
 - en: 来源：[https://golangbyexample.com/copy-file-go/](https://golangbyexample.com/copy-file-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/copy-file-go/](https://golangbyexample.com/copy-file-go/)
 - en: In this article we will see two methods of copying a file.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本文中，我们将看到两种复制文件的方法。
 - en: Table of Contents
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [First Method](#First_Method "First Method")'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [第一种方法](#First_Method "第一种方法")'
 - en: '[Second Method](#Second_Method "Second Method")*  *## **First Method**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[第二种方法](#Second_Method "第二种方法")*  *## **第一种方法**'
 - en: '**io.Copy()** can be used to create a copy of the file from src to dest. A
     successful copy will return err != nil instead of err == EOF'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**io.Copy()** 可用于将文件从源（src）复制到目标（dest）。成功复制时，将返回 err != nil 而非 err == EOF。'
 - en: Below is the signature of the function. It returns the number of bytes written
     to the dest
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是该函数的签名。它返回写入目标的字节数。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Code**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: First create a file named **“original.txt”** and write some content in it.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先创建一个名为 **“original.txt”** 的文件，并在其中写入一些内容。
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Second Method**'
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**第二种方法**'
 - en: If the contents of the file is less then we can also read the contents of the
     file first and then write all the contents to the new file. See below code.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果文件内容较少，我们也可以先读取文件内容，然后将所有内容写入新文件。见下面的代码。
 - en: Here also first create a file named **“original.txt**” and write some content
     in it
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里同样首先创建一个名为 **“original.txt**” 的文件，并在其中写入一些内容。
 - en: '[PRE3]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[copy](https://golangbyexample.com/tag/copy/)*   [file](https://golangbyexample.com/tag/file/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[复制](https://golangbyexample.com/tag/copy/)*   [文件](https://golangbyexample.com/tag/file/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

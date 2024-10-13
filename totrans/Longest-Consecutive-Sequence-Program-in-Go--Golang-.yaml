@@ -1,100 +1,155 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:51:02'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:51:02
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Longest Consecutive Sequence Program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang) 中的最长连续序列程序
 - en: 来源：[https://golangbyexample.com/longest-consecutive-sequence-golang/](https://golangbyexample.com/longest-consecutive-sequence-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/longest-consecutive-sequence-golang/](https://golangbyexample.com/longest-consecutive-sequence-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *# **概述**'
 - en: An integer array is given. Find the length of the longest consecutive sequence
     in it. Let’s see an example to understand it
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个整数数组。找到其中最长连续序列的长度。让我们看看一个示例来理解它。
 - en: '**Example 1**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 1**'
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Example 2**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 2**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The naive idea is to sort the array and return the longest consecutive sequence.
     But we can do this in O(n) time. Idea is to use a hash here. Below is the idea
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 天真的想法是对数组进行排序并返回最长的连续序列。但我们可以在 O(n) 时间内完成这个任务。想法是使用哈希表。下面是这个思路。
 - en: Store each of the numbers in the hash.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将每个数字存储在哈希表中。
 - en: Then starting with each number, find the length of the longest consecutive sequence
     beginning at that number. So if a number let’s say is n. We try to find n+1, n+2…
     in the hash and get the length of the longest consecutive sequence  starting from
     that number
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 然后从每个数字开始，找到以该数字开头的最长连续序列的长度。如果一个数字是 n，我们尝试在哈希中找到 n+1, n+2… 并获取从该数字开始的最长连续序列的长度。
 - en: If the length find in step 2 is greater than the previous longest consecutive
     sequence found, then update the longest consecutive sequence length
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果步骤 2 中找到的长度大于之前找到的最长连续序列长度，则更新最长连续序列长度。
 - en: '**Program**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序。
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     – [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽力覆盖所有概念及示例。此教程适合那些希望获得专业知识和对 Golang
+    有扎实理解的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you – [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在 Golang 中实现，如果是的话，这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Also, check out our system design tutorial series here – [System Design Tutorial
     Series](https://techbyexample.com/system-design-questions/)
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，可以在这里查看我们的系统设计教程系列 – [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

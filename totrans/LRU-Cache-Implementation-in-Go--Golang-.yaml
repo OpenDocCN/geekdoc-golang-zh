@@ -1,125 +1,181 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:44:58'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:44:58
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: LRU Cache Implementation in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go (Golang)中的LRU缓存实现。
 - en: 来源：[https://golangbyexample.com/lru-cache-implementation-golang/](https://golangbyexample.com/lru-cache-implementation-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/lru-cache-implementation-golang/](https://golangbyexample.com/lru-cache-implementation-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录。
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Implementation Details](#Implementation_Details "Implementation Details")'
+  id: totrans-8
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实现细节](#Implementation_Details "Implementation Details")'
 - en: '[Set(key int, value int)](#Setkey_int_value_int "Set(key int, value int)")'
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Set(key int, value int)](#Setkey_int_value_int "Set(key int, value int)")'
 - en: '[Get(key int)](#Getkey_int "Get(key int) ")'
+  id: totrans-10
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Get(key int)](#Getkey_int "Get(key int) ")'
 - en: '[Program](#Program "Program")'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *## **Overview**'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "Conclusion")*  *## **概述**'
 - en: The objective is to implement a cache that will
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是实现一个缓存。
 - en: It should support **Set** and **Get** Operation
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它应该支持**Set**和**Get**操作。
 - en: O(1) Time Complexity for both **Set** and **Get**
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Set**和**Get**的时间复杂度为O(1)。'
 - en: Assume the maximum capacity of the cache is 3\. Once the cache is full and there
     is one more key to be inserted then one of the existing entries needs to be deleted
     from the cache
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 假设缓存的最大容量为3。当缓存已满并且需要插入一个新键时，则需要从缓存中删除现有条目之一。
 - en: Deletion should be based on eviction algorithm – **LRU**
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 删除应基于驱逐算法——**LRU**。
 - en: '**Implementation Details**'
+  id: totrans-18
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**实现细节**'
 - en: We will use a **Map** and a **Doubly-linked List** for storing everything. Both
     map and doubly-linked list are used so that **get** and **set** operations are
     of  O(1) even with evictions
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将使用**映射**和**双向链表**来存储所有内容。使用映射和双向链表的目的是确保即使在驱逐情况下，**get**和**set**操作也是O(1)。
 - en: The **Map** will have the key of type string and the value of the type pointer
     to a node in the **Doubly-linked List**
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**映射**的键为字符串类型，值为指向**双向链表**中节点的指针类型。'
 - en: Each node of the **Doubly Linked List** will contain the key as well as value.
     Each node will also have a pointer to the previous node in the double linked list
     and a pointer to the next node in the **doubly linked list**
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**双向链表**的每个节点将包含键和值。每个节点还将有一个指向双向链表中前一个节点的指针和一个指向下一个节点的指针。'
 - en: Let’s see how Get and Set are going to work in O(1) time
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看**Get**和**Set**如何在O(1)时间内工作。
 - en: '**Set(key int, value int)**'
+  id: totrans-23
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**Set(key int, value int)**'
 - en: For any set operation, it will first create a doubly-linked list node with key
     and value supplied. Then an entry will be made into the map with key as the input
     key and value as the address of the node. Once the node is created, then there
     are two cases
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于任何set操作，它将首先创建一个包含给定键和值的双向链表节点。然后在映射中以输入键作为键，节点地址作为值进行条目插入。一旦节点创建，就有两种情况。
 - en: The cache is not full –  In this case, it will pass the control to the current
     Eviction Algorithm which is LRU. The LRU algorithm is going to do insert that
     node in a double-linked list at the end. The idea is that the front node in the
     doubly linked list is the least recently used node. Every operation is O(1) here
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 缓存未满——在这种情况下，它将控制权传递给当前的驱逐算法LRU。LRU算法将在双向链表的末尾插入该节点。前面的节点是最近最少使用的节点。这里每个操作都是O(1)。
 - en: The cache is full – In this case, it will pass the control to the current eviction
     Algorithm which is LRU. It will evict the least recently used node which is the
     front node. Once that node is evicted it will insert the new node at the end.
     Every operation is O(1) here
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 缓存已满——在这种情况下，它将控制权传递给当前的驱逐算法LRU。它将驱逐前面的最近最少使用的节点。一旦该节点被驱逐，就会在末尾插入新节点。这里每个操作都是O(1)。
 - en: '**Get(key int)**'
+  id: totrans-27
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '**Get(key int)**'
 - en: For any Get operation, it will first check the map if the given key exists.
     If it exists then it will fetch the address of the node pointed to by key in the
     map. It will then fetch the value from the node. Then it will pass the control
@@ -128,66 +184,106 @@
     that the front node in the doubly linked list is the least recently used node
     and to maintain that current node is moved to the end. Every operation is O(1)
     here.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于任何Get操作，它首先检查映射中给定的键是否存在。如果存在，则获取映射中该键指向的节点的地址。然后从节点中获取值。接下来，它将控制权传递给当前的驱逐算法LRU。LRU算法将在双向链表的末尾移动当前节点。前面的节点是最近最少使用的节点，保持该节点在末尾。这里每个操作都是O(1)。
 - en: '**Program**'
+  id: totrans-29
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Here is the full working code in go programming language if anyone is interested.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是用 Go 编程语言编写的完整工作代码，供有兴趣的人参考。
 - en: '**doublylinklist.go**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**doublylinklist.go**'
 - en: '[PRE0]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**evictionAlgorithm.go**'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '**evictionAlgorithm.go**'
 - en: '[PRE1]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**lru.go**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**lru.go**'
 - en: '[PRE2]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**fifo.go**'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: '**fifo.go**'
 - en: '[PRE3]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**cache.go**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**cache.go**'
 - en: '[PRE4]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**main.go**'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '**main.go**'
 - en: '[PRE5]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Conclusion**'
+  id: totrans-45
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about LRU cache implementation in Golang. Hope you have liked this
     article. Please share feedback in the comments
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 以上就是在 Golang 中实现 LRU 缓存的所有内容。希望你喜欢这篇文章。请在评论中分享反馈。
 - en: '[lru](https://golangbyexample.com/tag/lru/)*'
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[lru](https://golangbyexample.com/tag/lru/)*'

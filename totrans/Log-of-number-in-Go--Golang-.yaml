@@ -1,268 +1,414 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:15:17'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:15:17
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Log of number in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的数字对数
 - en: 来源：[https://golangbyexample.com/log-of-number-go-golang/](https://golangbyexample.com/log-of-number-go-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/log-of-number-go-golang/](https://golangbyexample.com/log-of-number-go-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "概述")**'
 - en: '[Natural logarithm](#Natural_logarithm "Natural logarithm")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[自然对数](#Natural_logarithm "自然对数")'
 - en: '[Code](#Code "Code")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "代码")'
 - en: '[Binary Exponent Log (log e)](#Binary_Exponent_Log_log_e "Binary Exponent Log
     (log e)")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[二进制指数对数（log e）](#Binary_Exponent_Log_log_e "二进制指数对数（log e）")'
 - en: '[Code](#Code-2 "Code")'
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code-2 "代码")'
 - en: '[Binary Log (log 2)](#Binary_Log_log_2 "Binary Log (log 2)")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[二进制对数（log 2）](#Binary_Log_log_2 "二进制对数（log 2）")'
 - en: '[Code](#Code-3 "Code")'
+  id: totrans-13
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code-3 "代码")'
 - en: '[Decimal Log (log 10)](#Decimal_Log_log_10 "Decimal Log (log 10)")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[十进制对数（log 10）](#Decimal_Log_log_10 "十进制对数（log 10）")'
 - en: '[Code](#Code-4 "Code")*  *# **Overview**'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code-4 "代码")*  *# **概述**'
 - en: In this tutorial, we will see three types of logarithm possible
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本教程中，我们将看到三种可能的对数类型
 - en: Natural logarithm
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 自然对数
 - en: Binary Exponent Log (log e)
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 二进制指数对数（log e）
 - en: Binary Log (log 2)
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 二进制对数（log 2）
 - en: Decimal Log (log 10)
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 十进制对数（log 10）
 - en: Natural logarithm
+  id: totrans-21
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 自然对数
 - en: '**math** package of GO provides a **Log** method that can be used to get the
     natural logarithm of a number'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: GO的**math**包提供了一个**Log**方法，可用于获取一个数字的自然对数
 - en: Below is the signature of the function. It takes input as a **float64** number
     and returns a **float64**.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名。它的输入为**float64**数字，并返回一个**float64**。
 - en: '[PRE0]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Also some special cases of **Logb** function are
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，**Logb**函数的一些特殊情况是
 - en: Log(±Inf) = +Inf
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Log(±Inf) = +Inf
 - en: Log(0) = -Inf
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Log(0) = -Inf
 - en: Log(NaN) = NaN
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Log(NaN) = NaN
 - en: Log(x < 0) = NaN
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Log(x < 0) = NaN
 - en: '**Code**'
+  id: totrans-30
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Binary Exponent Log (log e)**'
+  id: totrans-34
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**二进制指数对数（log e）**'
 - en: '**math** package of golang provides a **Logb** method that can be used to get
     the binary exponent of a number'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: golang的**math**包提供了一个**Logb**方法，可用于获取一个数字的二进制指数
 - en: Below is the signature of the function. It takes input as a **float64** number
     and returns a **float64**.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名。它的输入为**float64**数字，并返回一个**float64**。
 - en: '[PRE3]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Also some special cases of **Logb** function are
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，**Logb**函数的一些特殊情况是
 - en: Logb(±Inf) = +Inf
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Logb(±Inf) = +Inf
 - en: Logb(0) = -Inf
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Logb(0) = -Inf
 - en: Logb(NaN) = NaN
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Logb(NaN) = NaN
 - en: '**Code**'
+  id: totrans-42
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE4]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Binary Log (log 2)**'
+  id: totrans-46
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**二进制对数（log 2）**'
 - en: '**math** package of golang provides a **Log2** method that can be used to get
     the binary logarithm or log to base 2 of a number'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: golang的**math**包提供了一个**Log2**方法，可用于获取一个数字的二进制对数或以2为底的对数
 - en: Below is the signature of the function. It takes input as a float64 number and
     returns a float64\.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名。它的输入为float64数字，并返回一个float64。
 - en: Also some special cases of **Log2** function are
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，**Log2**函数的一些特殊情况是
 - en: '**Log2**(±Inf) = +Inf'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Log2**(±Inf) = +Inf'
 - en: '**Log2**(0) = -Inf'
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Log2**(0) = -Inf'
 - en: '**Log2**(NaN) = NaN'
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Log2**(NaN) = NaN'
 - en: '**Log2**(x < 0) = NaN'
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**Log2**(x < 0) = NaN'
 - en: '**Code**'
+  id: totrans-54
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE6]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output:**'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE7]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Decimal Log (log 10)**'
+  id: totrans-58
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**十进制对数（log 10）**'
 - en: '**math** package of go provides a **Log10** method that can be used to get
     the decimal logarithm or log to base 10 of a number'
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: Go的**math**包提供了一个**Log10**方法，可用于获取一个数字的十进制对数或以10为底的对数
 - en: Below is the signature of the function. It takes input as a float64 number and
     returns a float64\.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是函数的签名。它的输入为float64数字，并返回一个float64。
 - en: '[PRE8]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Also some special cases of **Log10** function are
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，**Log10**函数的一些特殊情况是
 - en: Log10(±Inf) = +Inf
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Log10(±Inf) = +Inf
 - en: Log10(0) = -Inf
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Log10(0) = -Inf
 - en: Log10(NaN) = NaN
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Log10(NaN) = NaN
 - en: Log10(x < 0) = NaN
+  id: totrans-66
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Log10(x < 0) = NaN
 - en: '**Code**'
+  id: totrans-67
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE9]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Output:**'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE10]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [log](https://golangbyexample.com/tag/log/)*   [log
     10](https://golangbyexample.com/tag/log-10/)*   [log 2](https://golangbyexample.com/tag/log-2/)*   [log
     e](https://golangbyexample.com/tag/log-e/)*'
+  id: totrans-71
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [log](https://golangbyexample.com/tag/log/)*   [log
+    10](https://golangbyexample.com/tag/log-10/)*   [log 2](https://golangbyexample.com/tag/log-2/)*   [log
+    e](https://golangbyexample.com/tag/log-e/)*'

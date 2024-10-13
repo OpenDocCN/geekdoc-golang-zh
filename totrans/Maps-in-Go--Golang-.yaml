@@ -1,677 +1,1049 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:19:06'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:19:06
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Maps in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 语言中的映射
 - en: 来源：[https://golangbyexample.com/maps-in-golang/](https://golangbyexample.com/maps-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/maps-in-golang/](https://golangbyexample.com/maps-in-golang/)
 - en: This is the  chapter 19 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是 Go 语言综合教程系列的第19章。请参阅此链接获取系列的其他章节 – [Go 语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Method](https://golangbyexample.com/method-in-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一个教程** – [方法](https://golangbyexample.com/method-in-golang/)'
 - en: '**Previous Tutorial** – [Slice](https://golangbyexample.com/slice-in-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一个教程** – [切片](https://golangbyexample.com/slice-in-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看当前的教程。以下是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Allowed Key types in a Map](#Allowed_Key_types_in_a_Map "Allowed Key types
     in a Map")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射中允许的键类型](#Allowed_Key_types_in_a_Map "映射中允许的键类型")'
 - en: '[Allowed Value types in a Map](#Allowed_Value_types_in_a_Map "Allowed Value
     types in a Map")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射中允许的值类型](#Allowed_Value_types_in_a_Map "映射中允许的值类型")'
 - en: '[Creating a Map](#Creating_a_Map "Creating a Map")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[创建映射](#Creating_a_Map "创建映射")'
 - en: '[Using the map[<key_type>]<value_type> format](#Using_the_map_format "Using
     the map[<key_type>]<value_type> format")'
+  id: totrans-15
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 map[<key_type>]<value_type> 格式](#Using_the_map_format "使用 map[<key_type>]<value_type>
+    格式")'
 - en: '[Using Make](#Using_Make "Using Make ")'
+  id: totrans-16
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[使用 Make](#Using_Make "使用 Make")'
 - en: '[Map Operations](#Map_Operations "Map Operations")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射操作](#Map_Operations "映射操作")'
 - en: '[Add a key value pair](#Add_a_key_value_pair "Add a key value pair")'
+  id: totrans-18
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[添加键值对](#Add_a_key_value_pair "添加键值对")'
 - en: '[Update a key-value pair](#Update_a_key-value_pair "Update a key-value pair")'
+  id: totrans-19
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[更新键值对](#Update_a_key-value_pair "更新键值对")'
 - en: '[Get the value corresponding to a key](#Get_the_value_corresponding_to_a_key
     "Get the value corresponding to a key")'
+  id: totrans-20
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[获取与键对应的值](#Get_the_value_corresponding_to_a_key "获取与键对应的值")'
 - en: '[Delete a key value pair](#Delete_a_key_value_pair "Delete a key value pair")'
+  id: totrans-21
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[删除键值对](#Delete_a_key_value_pair "删除键值对")'
 - en: '[Check if a key exists](#Check_if_a_key_exists "Check if a key exists")'
+  id: totrans-22
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[检查键是否存在](#Check_if_a_key_exists "检查键是否存在")'
 - en: '[Functions on Maps](#Functions_on_Maps "Functions on Maps")'
+  id: totrans-23
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射上的函数](#Functions_on_Maps "映射上的函数")'
 - en: '[Zero Value](#Zero_Value "Zero Value")'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[零值](#Zero_Value "零值")'
 - en: '[Maps are referenced data types](#Maps_are_referenced_data_types "Maps are
     referenced data types")'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射是引用数据类型](#Maps_are_referenced_data_types "映射是引用数据类型")'
 - en: '[Iterate over a map](#Iterate_over_a_map "Iterate over a map")'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[遍历映射](#Iterate_over_a_map "遍历映射")'
 - en: '[Maps are not safe for concurrent use](#Maps_are_not_safe_for_concurrent_use
     "Maps are not safe for concurrent use")'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[映射不安全用于并发使用](#Maps_are_not_safe_for_concurrent_use "映射不安全用于并发使用")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "结论")*  *# **概述**'
 - en: Maps are golang builtin datatype similar to the hash table which maps a key
     to a value. Map is an unordered collection where each key is unique while values
     can be the same for two or more different keys. The advantages of using a map
     are that it provides fast retrieval, search, insert, and delete operations.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 映射是 Go 语言内置的数据类型，类似于哈希表，用于将键映射到值。映射是一个无序集合，其中每个键是唯一的，而值可以对两个或多个不同的键相同。使用映射的优点是提供快速的检索、搜索、插入和删除操作。
 - en: Maps are referenced data types. When you assign one map to another both refer
     to the same underlying map. Below is the format for a map
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 映射是引用数据类型。当你将一个映射赋值给另一个映射时，它们都引用相同的基础映射。以下是映射的格式
 - en: '[PRE0]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Both **key_type** and **value_type** can be of different type or same type.
     For below example the key type is **string** and value type is **int**.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '**key_type** 和 **value_type** 可以是不同类型或相同类型。在以下示例中，键类型是 **string**，值类型是 **int**。'
 - en: '[PRE1]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Allowed Key types in a Map**'
+  id: totrans-34
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**映射中允许的键类型**'
 - en: The map key can be any type that is comparable. Some of the comparable types
     as defined by go specification are
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 映射键可以是任何可比较的类型。根据 Go 规范，一些可比较的类型是
 - en: boolean
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 布尔型
 - en: numeric
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 数值型
 - en: string,
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 字符串,
 - en: pointer
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 指针
 - en: channel
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 通道
 - en: interface types
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 接口类型
 - en: structs – if all it’s field type is comparable
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构体 – 如果所有字段类型是可比较的
 - en: array – if the type of value of array element is comparable
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 数组 – 如果数组元素值的类型是可比较的
 - en: Some of the types which are not comparable as per go specification and which
     cannot be used as a key in a map are.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 根据 Go 规范，一些不可比较的类型不能作为映射中的键。
 - en: Slice
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 切片。
 - en: Map
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 地图。
 - en: Function
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 函数。
 - en: Reference – [https://golang.org/ref/spec#Comparison_operators](https://golang.org/ref/spec#Comparison_operators)
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 参考 – [https://golang.org/ref/spec#Comparison_operators](https://golang.org/ref/spec#Comparison_operators)
 - en: '**Allowed Value types in a Map**'
+  id: totrans-49
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**地图中的允许值类型**'
 - en: Value can be of any type in a map.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 值可以是地图中的任何类型。
 - en: '**Creating a Map**'
+  id: totrans-51
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**创建一个地图**'
 - en: Using the map[<key_type>]<value_type>{} format also called map literal
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用map[<key_type>]<value_type>{}格式也称为地图字面量。
 - en: Using make
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用make。
 - en: Let’s look at each of above method one by one.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐一看看上述每种方法。
 - en: '**Using the map[<key_type>]<value_type> format**'
+  id: totrans-55
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用map[<key_type>]<value_type>格式**'
 - en: 'One of the most common way of creating a map is using the map literal:'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建地图的最常见方法之一是使用地图字面量：
 - en: '[PRE2]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: An example of above where key type is string and value type is integer
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 以上是一个示例，其中键类型为字符串，值类型为整数。
 - en: '[PRE3]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: A map can also be created with some key values initialized
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 地图也可以创建为一些已初始化的键值。
 - en: '[PRE4]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: A new key-value pair can also be added to the map
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 也可以向地图添加新的键值对。
 - en: '[PRE5]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Let’s see a program
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个程序。
 - en: '[PRE6]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: In the above program, we created a map literal intialized with some values.
     Then we added another key-value pair in it. Then we printed it using fmt.Println
     which prints all the key-value pairs in format **map[key:value key:value]**
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个初始化为某些值的地图字面量。然后我们在其中添加了另一个键值对。接着我们使用fmt.Println打印它，以**map[key:value
+    key:value]**格式打印所有的键值对。
 - en: A map can also be declared with var keyword, but it creates a nil map as default
     zero value of map is nil. Adding any key value pair to that map will cause a panic.
     Let’s see an example for this
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 地图也可以使用var关键字声明，但它默认创建一个nil地图，因为地图的零值是nil。向该地图添加任何键值对将导致panic。让我们看一个例子。
 - en: '[PRE8]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '**Output**'
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE9]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Above program run into panic as the map is nil.
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序因地图为nil而引发panic。
 - en: One use case of having a map declared with **var** keyword is when an already
     existing map needs to be assigned to it or when we want to assign the result of
     a function.
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用**var**关键字声明地图的一个用例是，当需要将已有的地图赋值给它或当我们想要赋值函数的结果时。
 - en: '**Using Make**'
+  id: totrans-75
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**使用Make**'
 - en: Thisis another way of creating the map. The builtin function **make** can be
     used to create a map. It returns an initialized map. Hence key-value pairs can
     be added to it.
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是另一种创建地图的方法。内置函数**make**可以用来创建地图。它返回一个已初始化的地图。因此，可以向其添加键值对。
 - en: '[PRE10]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: In above program we created a map using make function. Then we added a key value
     pair in it. Then we printed it using **fmt.Println** which prints all the key
     value pairs.
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们使用make函数创建了一个地图。然后我们在其中添加了一个键值对。接着我们使用**fmt.Println**打印它，打印所有的键值对。
 - en: '**Map Operations**'
+  id: totrans-81
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**地图操作**'
 - en: The below operations are applicable for map
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下操作适用于地图。
 - en: Add a key-value pair
+  id: totrans-83
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 添加一个键值对。
 - en: Update a key
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 更新一个键。
 - en: Get the value corresponding to a key
+  id: totrans-85
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 获取与键对应的值。
 - en: Delete a key-value pair
+  id: totrans-86
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 删除一个键值对。
 - en: Check if a key exists
+  id: totrans-87
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 检查键是否存在。
 - en: '**Add a key value pair**'
+  id: totrans-88
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**添加一个键值对**'
 - en: Below is the format for adding a key value pair to a map
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是向地图添加键值对的格式。
 - en: '[PRE12]'
+  id: totrans-90
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Let’s see an example
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子。
 - en: '[PRE13]'
+  id: totrans-92
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '**Output**'
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE14]'
+  id: totrans-94
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Also note that adding to a nil map will cause a panic.
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: 还要注意，向nil地图添加内容将导致panic。
 - en: '**Update a key-value pair**'
+  id: totrans-96
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**更新一个键值对**'
 - en: When trying to add a key to the map which already exists, the new value will
     override the old value. This is analogous to updating a key in the map. Let’s
     see an example
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: 当尝试向已经存在的地图添加一个键时，新值将覆盖旧值。这类似于在地图中更新一个键。让我们看一个例子。
 - en: '[PRE15]'
+  id: totrans-98
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Output**'
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE16]'
+  id: totrans-100
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: In the above program after writing the same key **“Tom”** with a new value of
     **3000** it overwrites the existing value of **2000\.** When we print the map
     again the value printed is 3000
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，写入相同的键**“Tom”**并赋新值**3000**时，将覆盖现有值**2000**。当我们再次打印地图时，打印的值为3000。
 - en: '**Get the value corresponding to a key**'
+  id: totrans-102
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**获取与键对应的值**'
 - en: Below is the format for retrieving a value corresponding to a key
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是检索与键对应的值的格式。
 - en: '[PRE17]'
+  id: totrans-104
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Let’s see a program
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个程序。
 - en: '[PRE18]'
+  id: totrans-106
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**Delete a key value pair**'
+  id: totrans-107
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**删除一个键值对**'
 - en: Below is the format for delete a value corresponding to a key
+  id: totrans-108
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是删除与键对应的值的格式。
 - en: '[PRE19]'
+  id: totrans-109
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: '[PRE20]'
+  id: totrans-110
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Output**'
+  id: totrans-111
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE21]'
+  id: totrans-112
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: In above program we delete the key and when we print the map again, the key
     is not there.
+  id: totrans-113
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们删除了键，当我们再次打印地图时，该键不存在。
 - en: '**Check if a key exists**'
+  id: totrans-114
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**检查键是否存在**'
 - en: Below is the format to check if a key exist in the map
+  id: totrans-115
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是检查地图中是否存在某个键的格式。
 - en: '[PRE22]'
+  id: totrans-116
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: There are two cases
+  id: totrans-117
   prefs: []
   type: TYPE_NORMAL
+  zh: 有两种情况。
 - en: If the key exists **val** variable be the value of the key in the map and **ok**
     variable will be true
+  id: totrans-118
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果键存在，**val**变量将是地图中该键的值，**ok**变量将为true。
 - en: If the key doesn’t exist **val** variable will be default zero value of value
     type and **ok** variable will be false
+  id: totrans-119
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果键不存在，**val**变量将是值类型的默认零值，**ok**变量为false
 - en: Let’s see an example
+  id: totrans-120
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子
 - en: '[PRE23]'
+  id: totrans-121
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Output**'
+  id: totrans-122
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE24]'
+  id: totrans-123
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: In the above program when key exists then val variable is set to the actual
     value which is 2000 here and ok variable is true. When the **key** doesn’t exist,
     the **val** variable is set to 0 which is the default zero value of int and **ok**
     variable is false. This **ok** variable is the best way to check if the key exists
     in a map or not
+  id: totrans-124
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，当键存在时，val变量被设置为实际值，这里是2000，ok变量为true。当**键**不存在时，**val**变量被设置为0，这是int类型的默认零值，**ok**变量为false。这个**ok**变量是检查键是否存在于映射中的最佳方式。
 - en: In case we only want to check if a key is present and val is not needed, then
     blank identifier i.e “_” can be used in place of val.
+  id: totrans-125
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们只想检查一个键是否存在，而不需要值，则可以使用空标识符，即“_”来代替值。
 - en: '[PRE25]'
+  id: totrans-126
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: '**Functions on Maps**'
+  id: totrans-127
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**映射上的函数**'
 - en: Below is the builtin function which can be used on a map
+  id: totrans-128
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是可以在映射上使用的内置函数
 - en: len() function
+  id: totrans-129
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: len()函数
 - en: '**len() function**'
+  id: totrans-130
   prefs: []
   type: TYPE_NORMAL
+  zh: '**len()函数**'
 - en: The **len()** function can be used to get the length of the map which is number
     of key value pair present in the map. Below is the format for using this function
     on map.
+  id: totrans-131
   prefs: []
   type: TYPE_NORMAL
+  zh: '**len()**函数可以用于获取映射的长度，即映射中存在的键值对的数量。下面是使用此函数的格式。'
 - en: '[PRE26]'
+  id: totrans-132
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: Let’s see a program
+  id: totrans-133
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个程序
 - en: '[PRE27]'
+  id: totrans-134
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: '**Output**'
+  id: totrans-135
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE28]'
+  id: totrans-136
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: '**Zero Value**'
+  id: totrans-137
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**零值**'
 - en: zero value of a map is nil. This is also proved when we declare a map using
     the **var** keyword. See below program.
+  id: totrans-138
   prefs: []
   type: TYPE_NORMAL
+  zh: 映射的零值是nil。当我们使用**var**关键字声明一个映射时，这一点也得到了证明。请参见下面的程序。
 - en: '[PRE29]'
+  id: totrans-139
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE29]'
 - en: '**Output**'
+  id: totrans-140
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE30]'
+  id: totrans-141
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE30]'
 - en: '**Maps are referenced data types**'
+  id: totrans-142
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**映射是引用数据类型**'
 - en: Map are reference data types. So on assigning one map to a new variable, then
     both variable refers to the same map. Any change in one of the map would reflect
     in other and vice versa.
+  id: totrans-143
   prefs: []
   type: TYPE_NORMAL
+  zh: 映射是引用数据类型。因此，将一个映射分配给一个新变量时，这两个变量都引用同一个映射。一个映射的任何更改都会反映在另一个映射中，反之亦然。
 - en: '[PRE31]'
+  id: totrans-144
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE31]'
 - en: In**the** above program, eS is a new map variable to which we assign the existing
     **employeeSalary** map.
+  id: totrans-145
   prefs: []
   type: TYPE_NORMAL
+  zh: 在**上述程序**中，eS是一个新映射变量，我们将现有的**employeeSalary**映射分配给它。
 - en: First, we add a new key in **employeeSalary** map. The change reflects both
     in **employeeSalary** and **eS** map
+  id: totrans-146
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 首先，我们在**employeeSalary**映射中添加一个新键。这个更改同时反映在**employeeSalary**和**eS**映射中
 - en: Second, we updated an existing key in **eS** map. The change again reflects
     both in **employeeSalary** and **eS** map.
+  id: totrans-147
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 其次，我们更新了**eS**映射中的一个现有键。这个更改同样反映在**employeeSalary**和**eS**映射中。
 - en: This shows that maps are referenced data type
+  id: totrans-148
   prefs: []
   type: TYPE_NORMAL
+  zh: 这表明映射是引用数据类型
 - en: '**Iterate over a map**'
+  id: totrans-149
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**遍历映射**'
 - en: Range operator can be used to iterate over a map in Go
+  id: totrans-150
   prefs: []
   type: TYPE_NORMAL
+  zh: range操作符可以用于在Go中遍历映射
 - en: Let’s define a map first
+  id: totrans-151
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先让我们定义一个映射
 - en: '[PRE32]'
+  id: totrans-152
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE32]'
 - en: '**Iterating over all keys and values**'
+  id: totrans-153
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**迭代所有键和值**'
 - en: '[PRE33]'
+  id: totrans-154
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE33]'
 - en: '**Output:**'
+  id: totrans-155
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE34]'
+  id: totrans-156
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE34]'
 - en: '**Iterating over only keys**'
+  id: totrans-157
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**仅迭代键**'
 - en: '[PRE35]'
+  id: totrans-158
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE35]'
 - en: '**Output:**'
+  id: totrans-159
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE36]'
+  id: totrans-160
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE36]'
 - en: '**Iterating over only values**'
+  id: totrans-161
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**仅迭代值**'
 - en: '[PRE37]'
+  id: totrans-162
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE37]'
 - en: '**Output:**'
+  id: totrans-163
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE38]'
+  id: totrans-164
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE38]'
 - en: '**Get list of all keys**'
+  id: totrans-165
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**获取所有键的列表**'
 - en: '[PRE39]'
+  id: totrans-166
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE39]'
 - en: '**Output:**'
+  id: totrans-167
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE40]'
+  id: totrans-168
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE40]'
 - en: '**Maps are not safe for concurrent use**'
+  id: totrans-169
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**映射在并发使用时不安全**'
 - en: go maps are not safe for concurrent use.
+  id: totrans-170
   prefs: []
   type: TYPE_NORMAL
+  zh: golang映射在并发使用时是不安全的。
 - en: '**Buggy code:** Below is a buggy code. It might result in crash if concurrent
     read and write of map happens.'
+  id: totrans-171
   prefs: []
   type: TYPE_NORMAL
+  zh: '**有错误的代码：** 下面是一段有错误的代码。如果发生并发读取和写入映射，可能会导致崩溃。'
 - en: '[PRE41]'
+  id: totrans-172
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE41]'
 - en: '**Possible Output:**'
+  id: totrans-173
   prefs: []
   type: TYPE_NORMAL
+  zh: '**可能的输出：**'
 - en: '[PRE42]'
+  id: totrans-174
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE42]'
 - en: '**Correct Code:**'
+  id: totrans-175
   prefs: []
   type: TYPE_NORMAL
+  zh: '**正确的代码：**'
 - en: We can use a lock to allow concurrent access of the map
+  id: totrans-176
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以使用锁来允许并发访问映射
 - en: '[PRE43]'
+  id: totrans-177
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE43]'
 - en: '**Output**'
+  id: totrans-178
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE44]'
+  id: totrans-179
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE44]'
 - en: '**Conclusion**'
+  id: totrans-180
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about maps in golang. We learned how to create a map, operations
     on the map, some of the functions defined on a map such as Glen(), how we can
     iterate over the map, and last but not the least that maps are unsafe for concurrent
     use. Hope you have liked this article. Please share the feedback/improvements/mistakes
     in the comments.
+  id: totrans-181
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是关于golang中映射的全部内容。我们学习了如何创建映射、映射上的操作、映射中定义的一些函数，如Glen()，以及如何遍历映射，最后但同样重要的是，映射在并发使用时是不安全的。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Method](https://golangbyexample.com/method-in-golang/)'
+  id: totrans-182
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一篇教程** – [方法](https://golangbyexample.com/method-in-golang/)'
 - en: '**Previous Tutorial** – [Slice](https://golangbyexample.com/slice-in-golang/)'
+  id: totrans-183
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一篇教程** – [切片](https://golangbyexample.com/slice-in-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [maps](https://golangbyexample.com/tag/maps/)*'
+  id: totrans-184
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [maps](https://golangbyexample.com/tag/maps/)*'

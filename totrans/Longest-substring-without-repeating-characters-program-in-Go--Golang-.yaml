@@ -1,102 +1,156 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:41:56'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:41:56
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Longest substring without repeating characters program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中找到最长无重复字符的子字符串程序。
 - en: 来源：[https://golangbyexample.com/longest-substring-without-repeating-characters-golang/](https://golangbyexample.com/longest-substring-without-repeating-characters-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/longest-substring-without-repeating-characters-golang/](https://golangbyexample.com/longest-substring-without-repeating-characters-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: A string is given and we have to find the longest substring in it without repeating
     characters. For eg if the string is
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个字符串，我们必须找到其中最长的无重复字符的子字符串。例如，如果字符串是
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Then the answer would be **“abcd”** and the length should be 4.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 那么答案将是**“abcd”**，长度应为4。
 - en: We use a hash and three variables
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们使用哈希表和三个变量。
 - en: Hash keeps track of the last index position of any character
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 哈希表跟踪任何字符的最后索引位置。
 - en: longestSubstringLength – this holds the longest substring length without repeating
     character seen so far
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: longestSubstringLength – 这个变量存储到目前为止最长的无重复字符的子字符串长度。
 - en: currentSubstringLength – this holds the current substring length without repeating
     character
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: currentSubstringLength – 这个变量存储无重复字符的当前子字符串长度。
 - en: start – this indicates the start of the current substring without repeating
     character
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: start – 这表示当前无重复字符子字符串的起始位置。
 - en: We iterate over the string and check this hash for the current character. We
     simply increment the **currentSubstringLength** in the below two conditions
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们遍历字符串，并检查当前字符的哈希表。在以下两个条件下，我们简单地增加**currentSubstringLength**。
 - en: If the entry is not present for the current character then the current character
     has not been seen before.
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果当前字符的条目不存在，则说明当前字符之前未出现过。
 - en: If the entry is present and the current character has been seen before but it
     is not part of the current length.
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果条目存在并且当前字符之前已出现，但不属于当前长度。
 - en: Otherwise
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 否则
 - en: We reset the **start** position and **currentSubstringLength** to include the
     current character in the current length. Before resetting we check if **currentSubstringLength**
     is greater than **longestSubstringLength**. If yes then we set **longestSubstringLength**
     to **currentSubstringLength**.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们重置**起始**位置和**currentSubstringLength**以将当前字符包括在当前长度中。在重置之前，我们检查**currentSubstringLength**是否大于**longestSubstringLength**。如果是，则将**longestSubstringLength**设置为**currentSubstringLength**。
 - en: Let’s see a program for the same
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一下相应的程序。
 - en: '**Program**'
+  id: totrans-23
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: '[PRE1]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]*'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE2]*'

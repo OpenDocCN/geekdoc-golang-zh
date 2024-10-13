@@ -1,95 +1,151 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:29:18'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:29:18
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Manual download dependency from go.mod file in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 从 go.mod 文件手动下载依赖项（Go）
 - en: 来源：[https://golangbyexample.com/download-dependency-golang/](https://golangbyexample.com/download-dependency-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/download-dependency-golang/](https://golangbyexample.com/download-dependency-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: Below command can be used to download the dependency that is present in the
     **go.mod** file
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以使用下面的命令下载 **go.mod** 文件中存在的依赖项。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This command is used to pre download all the dependency before the application
     is run. **go build** as well as **go install** also will download the dependencies
     and also build the binary. **go run** will also download and and run the binary
     as well. **go mod download** command is used when you want to pre download the
     dependencies without build or running it.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 该命令用于在应用程序运行之前预下载所有依赖项。**go build** 和 **go install** 也将下载依赖项并构建二进制文件。**go run**
+    也将下载并运行二进制文件。**go mod download** 命令用于在不构建或运行的情况下预下载依赖项。
 - en: '**Example**'
+  id: totrans-12
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s create a module first.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们先创建一个模块。
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Also let’s add direct dependency to the go.mod file too.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们也将直接依赖添加到 go.mod 文件中。
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: With this dependency go.mod file will look like below.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 有了这个依赖，go.mod 文件将如下所示。
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Now we need to download the newly added dependency. Fo that we can use the below
     command
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在我们需要下载新添加的依赖。为此，我们可以使用下面的命令
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The command will download the **github.com/pborman/uuid** module as well all
     its dependencies. Also it will update the **go.sum** file with the checksum and
     version of all direct and indirect dependencies. Now let’s check the **go.sum**
     file as well.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 该命令将下载 **github.com/pborman/uuid** 模块以及它的所有依赖项。它还将更新 **go.sum** 文件，包含所有直接和间接依赖项的校验和和版本。现在让我们检查一下
+    **go.sum** 文件。
 - en: Do a cat **go.sum**
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 执行 `cat **go.sum**`
 - en: '[PRE5]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**go.sum** file lists down the checksum of direct and indirect dependency required
     by the module.  [github.com](http://github.com)/google/uuid is internally used
     by the [github.com](http://github.com)/pborman/uuid . It is an indirect dependency
     of the module and hence it is recorded in the **go.sum** file.'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '**go.sum** 文件列出了模块所需的直接和间接依赖项的校验和。[github.com](http://github.com)/google/uuid
+    被 [github.com](http://github.com)/pborman/uuid 内部使用。它是该模块的间接依赖，因此记录在 **go.sum**
+    文件中。'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

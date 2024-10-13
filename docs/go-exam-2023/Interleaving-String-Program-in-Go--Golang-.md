@@ -6,23 +6,23 @@
 
 -->
 
-# Go语言中的交错字符串程序
+# Go 语言中的交错字符串程序
 
-> 来源：[https://golangbyexample.com/interleaving-string-program-golang/](https://golangbyexample.com/interleaving-string-program-golang/)
+> 来源：[`golangbyexample.com/interleaving-string-program-golang/`](https://golangbyexample.com/interleaving-string-program-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [递归解决方案](#Recursive_Solution "递归解决方案")
++   递归解决方案
 
-+   [动态规划解决方案](#Dynamic_Programming_Solution "动态规划解决方案")*  *## **概述**
++   动态规划解决方案*  *## **概述**
 
 给定三个字符串**s1**、**s2**、**s3**。判断字符串**s3**是否为字符串的交错。
 
 如果满足以下条件，**s3**将是字符串**s1**和**s2**的交错。
 
-+   s3包含**s1**和**s2**的所有字符，并且每个字符串中的所有字符顺序保持不变。
++   s3 包含**s1**和**s2**的所有字符，并且每个字符串中的所有字符顺序保持不变。
 
 示例
 
@@ -183,8 +183,8 @@ true
 true
 ```
 
-**注意：**查看我们的Golang高级教程。本系列的教程详细且我们尽力涵盖所有概念及示例。本教程适合希望获得Golang专业知识和扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：**查看我们的 Golang 高级教程。本系列的教程详细且我们尽力涵盖所有概念及示例。本教程适合希望获得 Golang 专业知识和扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是，那么这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

@@ -8,9 +8,9 @@
 
 # Go（Golang）中的结构
 
-> 来源：[https://golangbyexample.com/struct-in-golang-complete-guide/](https://golangbyexample.com/struct-in-golang-complete-guide/)
+> 来源：[`golangbyexample.com/struct-in-golang-complete-guide/`](https://golangbyexample.com/struct-in-golang-complete-guide/)
 
-这是 golang 综合教程系列的第 16 章。有关系列其他章节，请参阅此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 golang 综合教程系列的第十六章。有关系列其他章节，请参阅此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一教程** – [数组](https://golangbyexample.com/understanding-array-golang-complete-guid)
 
@@ -20,41 +20,41 @@
 
 目录
 
-**[概述](#Overview "概述")
+**概述
 
-+   [声明一个结构类型](#Declaring_a_struct_type "声明一个结构类型")
++   声明一个结构类型
 
-+   [创建一个结构变量](#Creating_a_struct_variable "创建一个结构变量")
++   创建一个结构变量
 
-+   [访问和设置结构字段](#Accessing_and_Setting_Struct_Fields "访问和设置结构字段")
++   访问和设置结构字段
 
-+   [指向结构的指针](#Pointer_to_a_struct "指向结构的指针")
++   指向结构的指针
 
-    +   [使用 & 运算符](#Using_the_operator "使用 & 运算符")
+    +   使用 & 运算符
 
-    +   [使用 new 关键字](#Using_the_new_keyword "使用 new 关键字")
+    +   使用 new 关键字
 
-+   [打印结构变量](#Print_a_Struct_Variable "打印结构变量")
++   打印结构变量
 
-    +   [使用 fmt 包](#Using_the_fmt_package "使用 fmt 包")
+    +   使用 fmt 包
 
-    +   [以 JSON 形式打印结构](#Printing_the_struct_in_JSON_form "以 JSON 形式打印结构")
+    +   以 JSON 形式打印结构
 
-+   [结构字段元数据或标签](#Struct_Field_Meta_or_Tags "结构字段元数据或标签")
++   结构字段元数据或标签
 
-+   [结构中的匿名字段](#Anonymous_Fields_in_a_Struct "结构中的匿名字段")
++   结构中的匿名字段
 
-+   [嵌套结构](#Nested_Struct "嵌套结构")
++   嵌套结构
 
-+   [匿名嵌套结构字段](#Anonymous_nested_struct_fields "匿名嵌套结构字段")
++   匿名嵌套结构字段
 
-+   [结构的导出和未导出字段](#Exported_and_UnExported_fields_of_a_struct "结构的导出和未导出字段")
++   结构的导出和未导出字段
 
-+   [结构相等性](#Struct_Equality "结构相等性")
++   结构相等性
 
-+   [结构是值类型](#Struct_are_value_types "结构是值类型")
++   结构是值类型
 
-+   [结论](#Conclusion "结论") *  * # **概述**
++   结论 *  * # **概述**
 
 GO 结构是不同类型数据字段的命名集合。结构作为一个容器，包含不同的异构数据类型，代表一个实体。例如，不同的属性用于表示一个组织中的员工。员工可以具有
 
@@ -190,13 +190,13 @@ Emp4: {name:Sam age:31 salary:0}
 
 +   我们首先声明一个**employee**结构体。
 
-+   emp1的所有字段都被初始化为其类型的默认零值，即姓名为“”，年龄和薪水为0。
++   emp1 的所有字段都被初始化为其类型的默认零值，即姓名为“”，年龄和薪水为 0。
 
-+   emp2已在同一行上初始化了所有字段。其字段的值被正确打印。
++   emp2 已在同一行上初始化了所有字段。其字段的值被正确打印。
 
-+   emp3的所有字段在不同的行上初始化。其字段的值被正确打印。
++   emp3 的所有字段在不同的行上初始化。其字段的值被正确打印。
 
-+   emp4的薪水字段被初始化为默认的零值0，而其他两个字段的值则被正确打印。
++   emp4 的薪水字段被初始化为默认的零值 0，而其他两个字段的值则被正确打印。
 
 需要注意的是，在结构体的初始化中，每个新行在花括号内必须以逗号结尾。因此，下面的初始化将引发错误。
 
@@ -323,7 +323,7 @@ New name is: John
 
 +   使用&运算符。
 
-+   使用new关键字。
++   使用 new 关键字。
 
 让我们逐一查看上述每种方法。
 
@@ -371,9 +371,9 @@ Emp: &{name:Sam age:31 salary:2000}
 Emp: &{name:John age:30 salary:3000}
 ```
 
-## **使用new关键字**
+## **使用 new 关键字**
 
-使用new()关键字将：
+使用 new()关键字将：
 
 +   创建结构体
 
@@ -452,11 +452,11 @@ Emp Value: {name: age:0 salary:0}
 
 +   使用**fmt**包
 
-+   使用**json/encoding**包以JSON形式打印结构体。这也允许以美观的方式打印结构体。
++   使用**json/encoding**包以 JSON 形式打印结构体。这也允许以美观的方式打印结构体。
 
 让我们看看两种打印员工结构体实例的方法。
 
-## **使用fmt包**
+## **使用 fmt 包**
 
 **fmt.Printf()**函数可以用来打印结构体。可以使用不同的格式标识符以不同方式打印结构体。让我们看看如何使用不同的格式标识符以不同格式打印结构体。
 
@@ -478,7 +478,7 @@ fmt.Printf("%v", emp)  -  {Sam 31 2000}
 fmt.Printf("%+v", emp) - {name:Sam age:31 salary:2000}
 ```
 
-**fmt.Println()**函数也可以用于打印结构体。由于%v是**fmt.Println()**函数的默认格式，因此输出将与使用%v的**fmt.Printf()**相同。
+**fmt.Println()**函数也可以用于打印结构体。由于%v 是**fmt.Println()**函数的默认格式，因此输出将与使用%v 的**fmt.Printf()**相同。
 
 ```go
 fmt.Println(emp) - {Sam 31 2000}
@@ -515,11 +515,11 @@ Emp: main.employee{name:"Sam", age:31, salary:2000}
 {Sam 31 2000}
 ```
 
-## **以JSON格式打印结构体**
+## **以 JSON 格式打印结构体**
 
-第二种方法是以JSON格式打印结构体。**encoding/json**包的**Marshal**和**MarshalIndent**函数可以用来以JSON格式打印结构体。这里是区别
+第二种方法是以 JSON 格式打印结构体。**encoding/json**包的**Marshal**和**MarshalIndent**函数可以用来以 JSON 格式打印结构体。这里是区别
 
-+   **Marshal** – 以下是**Marshal**函数的签名。该函数通过递归遍历值返回**v**的JSON编码。
++   **Marshal** – 以下是**Marshal**函数的签名。该函数通过递归遍历值返回**v**的 JSON 编码。
 
 ```go
 Marshal(v interface{}) ([]byte, error)
@@ -531,7 +531,7 @@ Marshal(v interface{}) ([]byte, error)
 MarshalIndent(v interface{}, prefix, indent string) ([]byte, error)
 ```
 
-值得注意的是，**Marshal**和**MarshalIndent**函数只能访问结构体的导出字段，这意味着只有大写字段才能被访问并编码为JSON格式。
+值得注意的是，**Marshal**和**MarshalIndent**函数只能访问结构体的导出字段，这意味着只有大写字段才能被访问并编码为 JSON 格式。
 
 ```go
 package main
@@ -579,11 +579,11 @@ MarshalIndent funnction output {
 
 薪资字段在输出中没有被打印，因为它以小写字母开头并且没有导出。**Marshal**函数的输出没有格式化，而**MarshalIndent**函数的输出是格式化的。
 
-**golang**还允许通过使用结构体元字段来使JSON编码的结构体键名不同，如下一节所示。
+**golang**还允许通过使用结构体元字段来使 JSON 编码的结构体键名不同，如下一节所示。
 
 # **结构体字段的元信息或标签**
 
-Go中的结构体也允许为其字段添加元数据。这些元字段可以用于编码解码成不同形式，对结构体字段进行某些形式的验证等。因此，任何元信息都可以与结构体的字段一起存储，并可供任何包或库用于不同目的。
+Go 中的结构体也允许为其字段添加元数据。这些元字段可以用于编码解码成不同形式，对结构体字段进行某些形式的验证等。因此，任何元信息都可以与结构体的字段一起存储，并可供任何包或库用于不同目的。
 
 以下是附加元数据的格式。元数据是字符串字面量，即用反引号括起来。
 
@@ -593,7 +593,7 @@ type strutName struct{
 }
 ```
 
-现在针对我们的用例，我们将为employee结构体添加JSON标签如下。Marshal函数将使用标签中指定的键名。
+现在针对我们的用例，我们将为 employee 结构体添加 JSON 标签如下。Marshal 函数将使用标签中指定的键名。
 
 ```go
 type employee struct {
@@ -641,7 +641,7 @@ func main() {
 }
 ```
 
-输出中的键名与json元标签中指定的相同。
+输出中的键名与 json 元标签中指定的相同。
 
 # **结构体中的匿名字段**
 
@@ -797,7 +797,7 @@ emp.address.city
 
 # **结构体的导出和未导出字段**
 
-Go没有任何公共、私有或受保护的关键字。控制包外可见性的唯一机制是使用大写和小写格式。
+Go 没有任何公共、私有或受保护的关键字。控制包外可见性的唯一机制是使用大写和小写格式。
 
 +   **大写标识符**是导出的。大写字母表示这是一个导出标识符，并且在包外可用。
 
@@ -927,7 +927,7 @@ p.age undefined (cannot refer to unexported field or method age)
 
 在考虑结构体相等性之前，首先要了解的是所有结构体字段类型是否可比较。
 
-根据Go规范定义的一些可比较类型有：
+根据 Go 规范定义的一些可比较类型有：
 
 +   布尔值
 
@@ -945,7 +945,7 @@ p.age undefined (cannot refer to unexported field or method age)
 
 +   数组 – 如果数组元素的值类型是可比较的。
 
-根据Go规范，某些类型不可比较，不能用作映射的键：
+根据 Go 规范，某些类型不可比较，不能用作映射的键：
 
 +   切片
 
@@ -1013,7 +1013,7 @@ invalid operation: emp1 == emp2 (struct containing []string cannot be compared)
 
 # **结构体是值类型**
 
-结构体是Go中的值类型。因此，结构体变量名并不是指向结构体的指针，而是表示整个结构体。当
+结构体是 Go 中的值类型。因此，结构体变量名并不是指向结构体的指针，而是表示整个结构体。当
 
 +   一个结构体变量被赋值给另一个结构体变量。
 
@@ -1070,7 +1070,7 @@ Emp1 After Test Function Call: {Sam 31 2000}
 
 # **结论**
 
-这就是关于Go语言中的结构体的全部内容。在这篇文章中，我们学习了初始化结构体、指向结构体的指针、不同的打印方式、匿名字段等。我希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
+这就是关于 Go 语言中的结构体的全部内容。在这篇文章中，我们学习了初始化结构体、指向结构体的指针、不同的打印方式、匿名字段等。我希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 
 **下一篇教程** – [数组](https://golangbyexample.com/understanding-array-golang-complete-guid)
 

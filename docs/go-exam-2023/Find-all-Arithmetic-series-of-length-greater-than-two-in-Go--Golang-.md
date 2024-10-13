@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中查找所有长度大于二的算术序列
 
-> 来源：[https://golangbyexample.com/arithmetic-series-golang/](https://golangbyexample.com/arithmetic-series-golang/)
+> 来源：[`golangbyexample.com/arithmetic-series-golang/`](https://golangbyexample.com/arithmetic-series-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 算术序列是指每个元素之间的差值相等的序列。在此程序中，给定一个整数数组。目标是找到所有长度大于二的算术序列。
 

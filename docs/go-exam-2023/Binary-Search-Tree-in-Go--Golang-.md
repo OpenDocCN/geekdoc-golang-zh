@@ -6,15 +6,15 @@ date: 2024-10-13 06:06:05
 
 -->
 
-# Go语言中的二叉搜索树
+# Go 语言中的二叉搜索树
 
-> 来源：[https://golangbyexample.com/binary-search-tree-in-go/](https://golangbyexample.com/binary-search-tree-in-go/)
+> 来源：[`golangbyexample.com/binary-search-tree-in-go/`](https://golangbyexample.com/binary-search-tree-in-go/)
 
 目录
 
-**   [介绍](#Introduction "Introduction")
+**   介绍
 
-+   [完整工作代码](#Full_Working_Code "Full Working Code")*  *# **介绍**
++   完整工作代码*  *# **介绍**
 
 二叉搜索树（BST）是一个二叉树。每个节点在二叉搜索树中
 
@@ -172,4 +172,4 @@ Value 5 Found
 Value 1 Not Found
 ```
 
-+   [Go语言中的二叉搜索树](https://golangbyexample.com/tag/binary-search-tree-in-golang/)*   [bst](https://golangbyexample.com/tag/bst/)*
++   [Go 语言中的二叉搜索树](https://golangbyexample.com/tag/binary-search-tree-in-golang/)*   [bst](https://golangbyexample.com/tag/bst/)*

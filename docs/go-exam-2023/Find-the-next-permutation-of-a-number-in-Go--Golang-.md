@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go中找到一个数字的下一个排列
+# 在 Go 中找到一个数字的下一个排列
 
-> 来源：[https://golangbyexample.com/next-permuation-number-go/](https://golangbyexample.com/next-permuation-number-go/)
+> 来源：[`golangbyexample.com/next-permuation-number-go/`](https://golangbyexample.com/next-permuation-number-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是根据字典序排序找到给定数字的下一个排列。如果下一个排列不可行，则返回相同的数字
 
@@ -109,8 +109,8 @@ func nextPermutation(nums []int) {
 [2 1 3]
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列的教程内容详尽，我们努力涵盖所有概念并提供示例。此教程适合希望获得专业知识和对Golang有扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列的教程内容详尽，我们努力涵盖所有概念并提供示例。此教程适合希望获得专业知识和对 Golang 有扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，那么这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，那么这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*

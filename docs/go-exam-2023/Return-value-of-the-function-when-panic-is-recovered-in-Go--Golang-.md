@@ -6,15 +6,15 @@
 
 -->
 
-# 当恐慌在Go（Golang）中被恢复时，函数的返回值
+# 当恐慌在 Go（Golang）中被恢复时，函数的返回值
 
-> 来源：[https://golangbyexample.com/return-value-function-panic-recover-go/](https://golangbyexample.com/return-value-function-panic-recover-go/)
+> 来源：[`golangbyexample.com/return-value-function-panic-recover-go/`](https://golangbyexample.com/return-value-function-panic-recover-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program") *  *# **概述**
++   程序 *  *# **概述**
 
 当恐慌被恢复时，恐慌函数的返回值将是该函数返回类型的默认值。
 
@@ -55,7 +55,7 @@ Val: 0
 Error: 
 ```
 
-在上面的程序中，我们有一个**checkAndGet**函数，它获取int切片中特定索引的值。如果传递给此函数的索引大于（切片长度-1），则会引发恐慌。同时还有一个**handleOutOfBounds**函数用于从恐慌中恢复。因此，我们将索引2传递给**checkAndGet**函数，它引发了恐慌，并在**handleOutOfBounds**函数中得以恢复。这就是我们首先得到这个输出的原因。
+在上面的程序中，我们有一个**checkAndGet**函数，它获取 int 切片中特定索引的值。如果传递给此函数的索引大于（切片长度-1），则会引发恐慌。同时还有一个**handleOutOfBounds**函数用于从恐慌中恢复。因此，我们将索引 2 传递给**checkAndGet**函数，它引发了恐慌，并在**handleOutOfBounds**函数中得以恢复。这就是我们首先得到这个输出的原因。
 
 ```go
 Recovering from panic: Out of bound access for slice
@@ -73,7 +73,7 @@ val, err := checkAndGet(a, 2)
 
 +   error
 
-由于**checkAndGet**会引发恐慌，而该恐慌在handleOutOfBounds函数中被恢复，因此**checkAndGet**的返回值将是其类型的默认值。
+由于**checkAndGet**会引发恐慌，而该恐慌在 handleOutOfBounds 函数中被恢复，因此**checkAndGet**的返回值将是其类型的默认值。
 
 因此
 
@@ -101,7 +101,7 @@ fmt.Println("Error: ", err)
 Error: 
 ```
 
-因为nil是**error**类型的默认值。
+因为 nil 是**error**类型的默认值。
 
 如果你不想返回类型的默认零值，那么可以使用命名返回值。我们来看一个程序示例。
 
@@ -146,7 +146,7 @@ Error:
 func checkAndGet(a []int, index int) (value int, err error)
 ```
 
-我们在**checkAndGet**函数中将命名返回值设置为10
+我们在**checkAndGet**函数中将命名返回值设置为 10
 
 ```go
 value = 10

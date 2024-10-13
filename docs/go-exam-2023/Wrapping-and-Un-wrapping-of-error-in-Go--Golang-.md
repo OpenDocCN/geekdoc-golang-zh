@@ -6,23 +6,23 @@
 
 -->
 
-# 在Go（Golang）中错误的包装和解包
+# 在 Go（Golang）中错误的包装和解包
 
-> 来源：[https://golangbyexample.com/wrapping-and-unwrapping-error-golang/](https://golangbyexample.com/wrapping-and-unwrapping-error-golang/)
+> 来源：[`golangbyexample.com/wrapping-and-unwrapping-error-golang/`](https://golangbyexample.com/wrapping-and-unwrapping-error-golang/)
 
 目录
 
-**   [错误的包装](#Wrapping_of_error "错误的包装")
+**   错误的包装
 
-+   [解包错误](#Unwrap_an_error "解包错误")*  *# **错误的包装**
++   解包错误*  *# **错误的包装**
 
-在Go中，错误可以包装另一个错误。错误的包装意味着什么？它意味着创建一个错误层次结构，其中特定实例的错误包装另一个错误，而该特定实例本身也可以被包装在另一个错误中。下面是包装错误的语法。
+在 Go 中，错误可以包装另一个错误。错误的包装意味着什么？它意味着创建一个错误层次结构，其中特定实例的错误包装另一个错误，而该特定实例本身也可以被包装在另一个错误中。下面是包装错误的语法。
 
 ```go
 e := fmt.Errorf("... %w ...", ..., err, ...)
 ```
 
-**%w**指令用于包装错误。**fmt.Errorf**应仅调用一个%w指令。让我们看一个例子。
+**%w**指令用于包装错误。**fmt.Errorf**应仅调用一个%w 指令。让我们看一个例子。
 
 ```go
 package main
@@ -255,7 +255,7 @@ checkPostiveAndEven: checkEven: Given number 3 is not an even number
 func Unwrap(err error) error
 ```
 
-如果**err**封装了另一个错误，则将返回封装的错误，否则**Unwrap**函数将返回nil。
+如果**err**封装了另一个错误，则将返回封装的错误，否则**Unwrap**函数将返回 nil。
 
 让我们看看一个程序来说明这一点
 
@@ -327,7 +327,7 @@ Error One happened
 fmt.Println(errors.Unwrap(e1))
 ```
 
-将输出nil，因为**e1**并不封装任何错误
+将输出 nil，因为**e1**并不封装任何错误
 
 ```go
 {nil}

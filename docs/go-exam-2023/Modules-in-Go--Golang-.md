@@ -8,57 +8,57 @@
 
 # Go 中的模块 (Golang)
 
-> 来源：[https://golangbyexample.com/modules-golang/](https://golangbyexample.com/modules-golang/)
+> 来源：[`golangbyexample.com/modules-golang/`](https://golangbyexample.com/modules-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [模块世界之前](#Before_Modules_World "模块世界之前")
++   模块世界之前
 
-    +   [在 Go 版本 1.11 之前](#Pre_Go_version_111 "在 Go 版本 1.11 之前")
+    +   在 Go 版本 1.11 之前
 
-    +   [在 Go 版本 1.11 中](#In_Go_version_111 "在 Go 版本 1.11 中")
+    +   在 Go 版本 1.11 中
 
-    +   [在 Go 版本 1.13 之后](#After_Go_Version_113 "在 Go 版本 1.13 之后")
+    +   在 Go 版本 1.13 之后
 
-+   [创建模块](#Creating_Modules "创建模块")
++   创建模块
 
-+   [向你的项目添加依赖](#Add_a_dependency_to_your_project "向你的项目添加依赖")
++   向你的项目添加依赖
 
-    +   [直接将其添加到 go.mod 文件](#Directly_adding_it_to_the_gomod_file "直接将其添加到 go.mod 文件")
+    +   直接将其添加到 go.mod 文件
 
-    +   [执行 go get](#Do_a_go_get "执行 go get")
+    +   执行 go get
 
-    +   [将依赖添加到你的源代码并执行 go mod tidy](#Add_the_dependency_to_your_source_code_and_do_a_go_mod_tidy "将依赖添加到你的源代码并执行 go mod tidy")
+    +   将依赖添加到你的源代码并执行 go mod tidy
 
-+   [添加供应商目录](#Adding_a_vendor_directory "添加供应商目录")
++   添加供应商目录
 
-+   [模块导入路径](#Module_Import_Path "模块导入路径")
++   模块导入路径
 
-    +   [该模块是一个实用模块，且你计划发布你的模块](#The_module_is_a_utility_module_and_you_plan_to_publish_your_module "该模块是一个实用模块，且你计划发布你的模块")
+    +   该模块是一个实用模块，且你计划发布你的模块
 
-    +   [该模块是一个实用模块，你不打算发布你的模块](#The_module_is_a_utility_module_and_you_dont_plan_to_publish_your_module "该模块是一个实用模块，你不打算发布你的模块")
+    +   该模块是一个实用模块，你不打算发布你的模块
 
-    +   [该模块是一个可执行模块](#The_module_is_a_executable_module "该模块是一个可执行模块")
+    +   该模块是一个可执行模块
 
-+   [在同一模块内导入包](#Importing_package_within_same_module "在同一模块内导入包")
++   在同一模块内导入包
 
-+   [从不同模块本地导入包](#Importing_package_from_different_module_locally "从不同模块本地导入包")
++   从不同模块本地导入包
 
-+   [选择库的版本](#Selecting_the_version_of_library "选择库的版本")
++   选择库的版本
 
-    +   [在次要或补丁版本中有所不同](#Differ_in_minor_or_patch_version "在次要或补丁版本中有所不同")
+    +   在次要或补丁版本中有所不同
 
-    +   [在主要版本中有所不同](#Differ_in_major_version "在主要版本中有所不同")
+    +   在主要版本中有所不同
 
-+   [go mod 命令](#go_mod_command "go mod 命令")
++   go mod 命令
 
-+   [go.mod 文件中的直接与间接依赖](#Direct_vs_Indirect_Dependencies_in_gomod_file "go.mod 文件中的直接与间接依赖")
++   go.mod 文件中的直接与间接依赖
 
-    +   [go.mod 文件中的间接依赖示例](#Example_of_Indirect_Dependencies_in_gomod_file "go.mod 文件中的间接依赖示例")
+    +   go.mod 文件中的间接依赖示例
 
-+   [结论](#Conclusion "结论")*  *# **概述**
++   结论*  *# **概述**
 
 模块是 Go 对依赖管理的支持。模块的定义是一个相关包的集合，其根目录下有 **go.mod**。**go.mod** 文件定义了
 
@@ -150,7 +150,7 @@ $GOPATH/src/github.com/pborman/uuid
 
 1.  go.sum
 
-通过go.mod和go.sum文件，我们能够安装精确版本的依赖项而不破坏任何内容。我们在本教程开头已经简要介绍了这些文件。稍后在教程中，我们将详细查看它们。
+通过 go.mod 和 go.sum 文件，我们能够安装精确版本的依赖项而不破坏任何内容。我们在本教程开头已经简要介绍了这些文件。稍后在教程中，我们将详细查看它们。
 
 +   所有依赖项将以版本控制的形式下载到**$GOPATH/pkg/mod**目录中。
 
@@ -162,15 +162,15 @@ $GOPATH/src/github.com/pborman/uuid
 
 还有一个新环境变量被引入，名为**GO111MODULE**。
 
-当GO111MODULE=off时，go get将以旧的方式运行，将依赖项下载到$GOPATH/src文件夹中。
+当 GO111MODULE=off 时，go get 将以旧的方式运行，将依赖项下载到$GOPATH/src 文件夹中。
 
-当GO111MODULE=on时，go get将以新方式运行，所有模块将以版本控制的形式下载到$GOPATH/pkg/mod/cache文件夹中。
+当 GO111MODULE=on 时，go get 将以新方式运行，所有模块将以版本控制的形式下载到$GOPATH/pkg/mod/cache 文件夹中。
 
-当GO111MODULE=auto时。
+当 GO111MODULE=auto 时。
 
-+   当在$GOPATH/src文件夹外运行go get时，它将表现得像是GO111MODULE=on。
++   当在$GOPATH/src 文件夹外运行 go get 时，它将表现得像是 GO111MODULE=on。
 
-+   当在$GOPATH/src文件夹内运行go get时，它将表现得像是GO111MODULE=off。
++   当在$GOPATH/src 文件夹内运行 go get 时，它将表现得像是 GO111MODULE=off。
 
 现在让我们创建一个模块。我们讨论的内容在那时会更加清晰。
 
@@ -190,17 +190,17 @@ go mod init {module_import_path}
 
 +   模块名称在顶部。
 
-+   创建模块时所用的go版本。
++   创建模块时所用的 go 版本。
 
 +   模块的直接依赖项。
 
 **go.sum**
 
-该文件列出了所需的直接和间接依赖项的校验和及其版本。需要说明的是，go.mod文件足以进行成功构建。go.sum文件中的校验和用于验证每个直接和间接依赖项的校验和。
+该文件列出了所需的直接和间接依赖项的校验和及其版本。需要说明的是，go.mod 文件足以进行成功构建。go.sum 文件中的校验和用于验证每个直接和间接依赖项的校验和。
 
 现在问题是**import_path**是什么。**import_path**是任何其他模块用于导入你的模块的前缀路径。
 
-转到$GOPATH/src文件夹外的任何目录。假设目录名称为**learn**。
+转到$GOPATH/src 文件夹外的任何目录。假设目录名称为**learn**。
 
 ```go
 mkdir learn
@@ -213,7 +213,7 @@ cd learn
 go mod init learn
 ```
 
-此命令将在同一目录中创建一个**go.mod**文件。那什么是go.mod文件呢？
+此命令将在同一目录中创建一个**go.mod**文件。那什么是 go.mod 文件呢？
 
 让我们检查一下这个文件的内容。
 
@@ -225,7 +225,7 @@ module learn
 go 1.14
 ```
 
-当使用init命令首次创建模块时，go.mod文件只会包含两个内容。
+当使用 init 命令首次创建模块时，go.mod 文件只会包含两个内容。
 
 +   模块名称在顶部。
 
@@ -233,7 +233,7 @@ go 1.14
 module learn
 ```
 
-创建模块时所用的go版本。
+创建模块时所用的 go 版本。
 
 ```go
 go 1.14
@@ -260,7 +260,7 @@ func main() {
 }
 ```
 
-请注意，我们在uuid.go中也导入了依赖项。
+请注意，我们在 uuid.go 中也导入了依赖项。
 
 ```go
 "github.com/pborman/uuid"
@@ -371,14 +371,14 @@ go mod download
 
 ## **执行`go get`**
 
-只需执行`go get`也会将依赖项添加到go.mod文件中。从go.mod文件中删除我们之前添加的uuid依赖项，并清理go.sum文件。现在运行以下命令。
+只需执行`go get`也会将依赖项添加到 go.mod 文件中。从 go.mod 文件中删除我们之前添加的 uuid 依赖项，并清理 go.sum 文件。现在运行以下命令。
 
 ```go
 export GO111MODULE=on
 go get github.com/pborman/uuid
 ```
 
-现在检查go.mod文件的内容。
+现在检查 go.mod 文件的内容。
 
 执行**cat go.mod**。
 
@@ -390,11 +390,11 @@ go 1.14
 require github.com/pborman/uuid v1.2.1 //indirect
 ```
 
-该依赖项将被标记为**//indirect**，因为它未在任何源文件中使用。一旦您在源文件中使用此依赖项并执行`go build`，`//indirect`将被go自动移除。此外，它还将更新**go.sum**文件，包含所有直接和间接依赖项的校验和和版本。
+该依赖项将被标记为**//indirect**，因为它未在任何源文件中使用。一旦您在源文件中使用此依赖项并执行`go build`，`//indirect`将被 go 自动移除。此外，它还将更新**go.sum**文件，包含所有直接和间接依赖项的校验和和版本。
 
 ## **将依赖项添加到您的源代码并执行`go mod tidy`**
 
-我们在上面的示例中已经看到过这种方法。基本上，`go mod tidy`命令确保您的go.mod文件反映了您在项目中实际使用的依赖项。当我们运行`go mod tidy`命令时，它将执行两件事情。
+我们在上面的示例中已经看到过这种方法。基本上，`go mod tidy`命令确保您的 go.mod 文件反映了您在项目中实际使用的依赖项。当我们运行`go mod tidy`命令时，它将执行两件事情。
 
 +   添加在源文件中导入的任何依赖项。
 
@@ -408,7 +408,7 @@ require github.com/pborman/uuid v1.2.1 //indirect
 go mod vendor
 ```
 
-这将在您的项目目录中创建一个供应商目录。您还可以将供应商目录检查到您的版本控制系统（VCS）中。这在某种意义上非常有用，因为不需要在运行时下载任何依赖项，因为它已经存在于检查到VCS中的供应商文件夹中。
+这将在您的项目目录中创建一个供应商目录。您还可以将供应商目录检查到您的版本控制系统（VCS）中。这在某种意义上非常有用，因为不需要在运行时下载任何依赖项，因为它已经存在于检查到 VCS 中的供应商文件夹中。
 
 # **模块导入路径**
 
@@ -424,7 +424,7 @@ go mod vendor
 
 ## **该模块是一个实用模块，您计划发布您的模块。**
 
-如果您计划发布您的模块，则模块名称应与托管该模块的仓库的URL匹配。Go尝试使用相同的模块导入路径从VCS下载依赖项。
+如果您计划发布您的模块，则模块名称应与托管该模块的仓库的 URL 匹配。Go 尝试使用相同的模块导入路径从 VCS 下载依赖项。
 
 ## **该模块是一个实用模块，您不打算发布您的模块。**
 
@@ -432,7 +432,7 @@ go mod vendor
 
 ## **该模块是一个可执行模块。**
 
-在这种情况下，模块导入路径可以是任何内容。即使你打算将模块提交到VCS，模块导入路径也可以是非URL，因为其他模块不会使用它。
+在这种情况下，模块导入路径可以是任何内容。即使你打算将模块提交到 VCS，模块导入路径也可以是非 URL，因为其他模块不会使用它。
 
 不过，创建模块时使用有意义的导入路径是个好习惯。
 
@@ -450,7 +450,7 @@ go mod init learn
 
 +   现在创建`main.go`（包含主包和主函数）。
 
-+   和math/math.go – math包。
++   和 math/math.go – math 包。
 
 **main.go**
 
@@ -477,13 +477,13 @@ func Add(a, b int) int {
 }
 ```
 
-查看我们如何在`main.go`文件中导入math包。
+查看我们如何在`main.go`文件中导入 math 包。
 
 ```go
 "learn/math"
 ```
 
-这里的导入路径是模块的导入路径，即**learn**加上包含该包的目录**math**。因此是“learn/math”。嵌套目录中的包也可以以同样的方式导入。工作原理是，前缀是模块导入路径，因此go会知道你试图从同一模块导入。所以它将直接引用，而不是下载。
+这里的导入路径是模块的导入路径，即**learn**加上包含该包的目录**math**。因此是“learn/math”。嵌套目录中的包也可以以同样的方式导入。工作原理是，前缀是模块导入路径，因此 go 会知道你试图从同一模块导入。所以它将直接引用，而不是下载。
 
 # **从不同模块本地导入包**
 
@@ -515,7 +515,7 @@ func Add(a, b int) int {
 }
 ```
 
-现在让我们创建school模块。
+现在让我们创建 school 模块。
 
 +   现在在与**math**目录并排的相同路径下创建一个**school**目录。
 
@@ -525,7 +525,7 @@ func Add(a, b int) int {
 go mod init school
 ```
 
-+   现在让我们修改**go.mod**文件，以在school模块中导入math模块。要导入一个未推送到VCS的本地模块，我们将使用替换目录。替换目录将用你指定的路径替换模块路径。
++   现在让我们修改**go.mod**文件，以在 school 模块中导入 math 模块。要导入一个未推送到 VCS 的本地模块，我们将使用替换目录。替换目录将用你指定的路径替换模块路径。
 
 ```go
 module school
@@ -535,7 +535,7 @@ go 1.14
 replace sample.com/math => ../math
 ```
 
-+   创建文件`school.go`，该文件将使用**[sample.com](http://sample.com)/math**模块中的Add函数。
++   创建文件`school.go`，该文件将使用**[sample.com](http://sample.com)/math**模块中的 Add 函数。
 
 ```go
 package main
@@ -556,9 +556,9 @@ func main() {
 go run school.go
 ```
 
-它能够调用**[sample.com](http://sample.com)/math**模块的Add函数，并正确输出6。
+它能够调用**[sample.com](http://sample.com)/math**模块的 Add 函数，并正确输出 6。
 
-它还将使用**[sample.com](http://sample.com)/math**模块的版本信息更新go.mod。
+它还将使用**[sample.com](http://sample.com)/math**模块的版本信息更新 go.mod。
 
 ```go
 module school
@@ -572,7 +572,7 @@ require sample.com/math v0.0.0-00010101000000-000000000000
 
 # **选择库的版本**
 
-要了解GO在选择**go.mod**文件中指定的两个版本的库时的方式，我们首先需要理解语义版本控制。语义版本控制由用点分隔的三个部分组成。以下是版本控制的格式。
+要了解 GO 在选择**go.mod**文件中指定的两个版本的库时的方式，我们首先需要理解语义版本控制。语义版本控制由用点分隔的三个部分组成。以下是版本控制的格式。
 
 ```go
 v{major_version}.{minor_version}.{patch_version}
@@ -582,11 +582,11 @@ v{major_version}.{minor_version}.{patch_version}
 
 +   **v** – 只是指示它是一个版本。
 
-+   major_version – 它表示库中的不兼容API更改。因此，当库中发生不向后兼容的更改时，major_version将会递增。
++   major_version – 它表示库中的不兼容 API 更改。因此，当库中发生不向后兼容的更改时，major_version 将会递增。
 
 +   minor_version – 它表示库在向后兼容的方式下功能的变化。因此，当库中有一些功能变化，但这些变化是向后兼容的，那么在这种情况下，次要版本将递增。
 
-+   patch_version – 它表示库中的错误修复以向后兼容的方式进行。因此，当现有库功能存在错误修复时，在这种情况下，patch_version将递增。
++   patch_version – 它表示库中的错误修复以向后兼容的方式进行。因此，当现有库功能存在错误修复时，在这种情况下，patch_version 将递增。
 
 现在可能有两种情况
 
@@ -594,11 +594,11 @@ v{major_version}.{minor_version}.{patch_version}
 
 +   使用了两个主要版本不同的相同库。
 
-让我们看看Go在上述两种情况下遵循什么方法。
+让我们看看 Go 在上述两种情况下遵循什么方法。
 
 ## **次要或补丁版本不同**
 
-Go在选择`go.mod`文件中指定的两个仅在次要或补丁版本上不同的库版本时，遵循最低版本策略方法。
+Go 在选择`go.mod`文件中指定的两个仅在次要或补丁版本上不同的库版本时，遵循最低版本策略方法。
 
 例如，在使用相同库的两个版本时，可能是
 
@@ -612,11 +612,11 @@ Go在选择`go.mod`文件中指定的两个仅在次要或补丁版本上不同�
 1.3.0
 ```
 
-然后Go将选择1.3.0，因为它是最新版本。
+然后 Go 将选择 1.3.0，因为它是最新版本。
 
 ## **主要版本不同**
 
-Go将主要版本视为一个不同的模块。那么，这意味着什么？这基本上意味着导入路径将以主要版本作为后缀。让我们以VCS为**github.com/sample**的任意Go库为例。让我们最新的语义版本是
+Go 将主要版本视为一个不同的模块。那么，这意味着什么？这基本上意味着导入路径将以主要版本作为后缀。让我们以 VCS 为**github.com/sample**的任意 Go 库为例。让我们最新的语义版本是
 
 ```go
 v8.2.3
@@ -644,13 +644,13 @@ import "github.com/sample/v8"
 import "github.com/sample/v9"
 ```
 
-此外，go-redis库将更改其`go.mod`文件以反映v9主要版本。
+此外，go-redis 库将更改其`go.mod`文件以反映 v9 主要版本。
 
 ```go
 module github.com/samples/v9
 ```
 
-它基本上允许在同一Go应用程序中使用相同库的不同主要版本。当在同一应用程序中导入同一库的不同主要版本时，我们还可以给出有意义的名称。例如
+它基本上允许在同一 Go 应用程序中使用相同库的不同主要版本。当在同一应用程序中导入同一库的不同主要版本时，我们还可以给出有意义的名称。例如
 
 ```go
 import redis_v8 "github.com/sample/v8"
@@ -694,9 +694,9 @@ go get
 v1.2.0
 ```
 
-原因是因为`go get`只会更新次要版本或补丁版本，而不会更新主要版本，因为Go将模块的主要版本视为完全不同的模块。
+原因是因为`go get`只会更新次要版本或补丁版本，而不会更新主要版本，因为 Go 将模块的主要版本视为完全不同的模块。
 
-要升级主要版本，请在**go.mod**文件中显式指定升级的依赖，或者执行该版本的go get。
+要升级主要版本，请在**go.mod**文件中显式指定升级的依赖，或者执行该版本的 go get。
 
 还有一些关于升级模块的注意事项。
 
@@ -724,13 +724,13 @@ go get <dependency_name>@commit_number</dependency_name>
 go get ./...
 ```
 
-# **go mod命令**
+# **go mod 命令**
 
-下面是go mod命令的一些选项。
+下面是 go mod 命令的一些选项。
 
-+   **download –** 它将下载所需的依赖到$GOPATH/pkg/mod/cache文件夹。此外，它将更新go.sum文件，包含所有直接和间接依赖的校验和及版本。
++   **download –** 它将下载所需的依赖到$GOPATH/pkg/mod/cache 文件夹。此外，它将更新 go.sum 文件，包含所有直接和间接依赖的校验和及版本。
 
-+   **edit –** 该命令用于编辑go.mod文件。它提供了一组编辑标志。运行以下命令查看所有可用的编辑标志。
++   **edit –** 该命令用于编辑 go.mod 文件。它提供了一组编辑标志。运行以下命令查看所有可用的编辑标志。
 
 ```go
 go help mod edit
@@ -738,7 +738,7 @@ go help mod edit
 
 例如，下面是一些可用的编辑标志。
 
-1.  **-fmt**标志将格式化go.mod文件，但不会做其他更改。
+1.  **-fmt**标志将格式化 go.mod 文件，但不会做其他更改。
 
 1.  **-module**标志可用于设置模块的导入路径。
 
@@ -748,11 +748,11 @@ go help mod edit
 
 +   **tidy –** 此命令将下载源文件中所需的所有依赖。
 
-+   **vendor –** 如果您想对依赖进行供应管理，则可以使用以下命令来实现。它将在项目目录内创建一个vendor目录。您还可以将vendor目录中的内容检查到您的版本控制系统（VCS）中。
++   **vendor –** 如果您想对依赖进行供应管理，则可以使用以下命令来实现。它将在项目目录内创建一个 vendor 目录。您还可以将 vendor 目录中的内容检查到您的版本控制系统（VCS）中。
 
 +   **verify –** 此命令检查当前下载的依赖是否被修改。如果任何已下载的依赖被验证，程序将以非零代码退出。
 
-+   **why –** 此命令分析主模块的包图。它打印从主模块到给定包的最短路径。例如，在“从不同模块本地导入包”部分创建的学校模块，如果我们像下面这样打印why命令。
++   **why –** 此命令分析主模块的包图。它打印从主模块到给定包的最短路径。例如，在“从不同模块本地导入包”部分创建的学校模块，如果我们像下面这样打印 why 命令。
 
 ```go
 go mod why sample.com/math
@@ -766,21 +766,21 @@ school
 sample.com/math
 ```
 
-输出显示[http://sample.com/math](http://sample.com)/math包在图中距离主模块（这里是学校）为一。
+输出显示[`sample.com/math`](http://sample.com)/math 包在图中距离主模块（这里是学校）为一。
 
-# **go.mod文件中的直接与间接依赖**
+# **go.mod 文件中的直接与间接依赖**
 
 直接依赖是模块直接导入的依赖。间接依赖是由模块的直接依赖导入的依赖。此外，任何在**go.mod**文件中提到但未在模块的任何源文件中导入的依赖也视为间接依赖。
 
 **go.mod**文件仅记录直接依赖。然而，在以下情况下，它可能会记录间接依赖。
 
-+   任何不在直接依赖的go.mod文件中列出的间接依赖，或者如果直接依赖没有go.mod文件，那么该直接依赖将被添加到go.mod文件中，后缀为//direct。
++   任何不在直接依赖的 go.mod 文件中列出的间接依赖，或者如果直接依赖没有 go.mod 文件，那么该直接依赖将被添加到 go.mod 文件中，后缀为//direct。
 
 +   任何未在模块的任何源文件中导入的依赖项（我们在教程中已经看到过这个例子）。
 
 **go.sum**将记录直接和间接依赖项的校验和。
 
-## **go.mod文件中的间接依赖项示例**
+## **go.mod 文件中的间接依赖项示例**
 
 让我们通过一个例子来理解这一点。为此，让我们首先创建一个模块。
 
@@ -788,7 +788,7 @@ sample.com/math
 git mod init learn
 ```
 
-让我们在go.mod文件中添加colly库版本v1.2.0作为依赖项。colly版本v1.2.0没有go.mod文件。
+让我们在 go.mod 文件中添加 colly 库版本 v1.2.0 作为依赖项。colly 版本 v1.2.0 没有 go.mod 文件。
 
 ```go
 module learn
@@ -798,7 +798,7 @@ go 1.14
 require github.com/gocolly/colly v1.2.0
 ```
 
-现在创建一个文件learn.go。
+现在创建一个文件 learn.go。
 
 ```go
 package main
@@ -812,9 +812,9 @@ func main() {
 }
 ```
 
-现在进行go build。由于colly版本v1.2.0没有go.mod文件，colly所需的所有依赖项将以//indirect为后缀添加到go.mod文件中。
+现在进行 go build。由于 colly 版本 v1.2.0 没有 go.mod 文件，colly 所需的所有依赖项将以//indirect 为后缀添加到 go.mod 文件中。
 
-进行go build。现在检查go.mod文件。你会看到文件的以下内容。
+进行 go build。现在检查 go.mod 文件。你会看到文件的以下内容。
 
 ```go
 module learn
@@ -835,10 +835,10 @@ require (
 )
 ```
 
-所有其他依赖项后缀为**//indirect**。还要检查所有直接和间接依赖项是否会记录在go.sum文件中。
+所有其他依赖项后缀为**//indirect**。还要检查所有直接和间接依赖项是否会记录在 go.sum 文件中。
 
 # **结论**
 
-这就是关于golang中的模块的全部内容。希望你喜欢这篇文章。请在评论中分享反馈。
+这就是关于 golang 中的模块的全部内容。希望你喜欢这篇文章。请在评论中分享反馈。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

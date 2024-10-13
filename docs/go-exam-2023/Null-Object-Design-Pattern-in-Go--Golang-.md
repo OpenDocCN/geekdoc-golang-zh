@@ -6,19 +6,19 @@
 
 -->
 
-# Go中的空对象设计模式（Golang）。
+# Go 中的空对象设计模式（Golang）。
 
-> 来源：[https://golangbyexample.com/null-object-design-pattern-golang/](https://golangbyexample.com/null-object-design-pattern-golang/)
+> 来源：[`golangbyexample.com/null-object-design-pattern-golang/`](https://golangbyexample.com/null-object-design-pattern-golang/)
 
-注意：想了解其他所有设计模式如何在GO中实现，请查看这个完整参考 – [Go中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
+注意：想了解其他所有设计模式如何在 GO 中实现，请查看这个完整参考 – [Go 中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [简介：](#Introduction "Introduction:")
+**   简介：
 
-+   [完整工作代码：](#Full_Working_Code "Full Working Code:")*  *## **简介：**
++   完整工作代码：*  *## **简介：**
 
-空对象设计模式是一种行为设计模式。当客户端代码依赖于某些可能为null的依赖项时，它非常有用。使用此设计模式可以防止客户端在这些依赖项的结果上进行null检查。值得注意的是，客户端的行为对于这些null依赖项也是可以接受的。
+空对象设计模式是一种行为设计模式。当客户端代码依赖于某些可能为 null 的依赖项时，它非常有用。使用此设计模式可以防止客户端在这些依赖项的结果上进行 null 检查。值得注意的是，客户端的行为对于这些 null 依赖项也是可以接受的。
 
 空对象设计模式的主要组件是：
 
@@ -26,9 +26,9 @@
 
 1.  **ConcreteEntity** – 它实现了实体接口。
 
-1.  **NullEntity** – 它表示null对象。它也实现了实体接口，但具有null属性。
+1.  **NullEntity** – 它表示 null 对象。它也实现了实体接口，但具有 null 属性。
 
-1.  **客户端** – 客户端获取实体接口的实现并使用它。它并不关心实现是ConcreteEntity还是NullEntity。它将两者视为相同。
+1.  **客户端** – 客户端获取实体接口的实现并使用它。它并不关心实现是 ConcreteEntity 还是 NullEntity。它将两者视为相同。
 
 让我们考虑一个例子。假设我们有一个学院，里面有多个部门，每个部门有一些教授。
 
@@ -49,15 +49,15 @@ type college struct {
 }
 ```
 
-现在假设有一个机构想要计算特定学院特定部门的教授总数。我们将使用空对象设计模式处理这种情况，如果一个部门在学院中不存在，学院将返回一个nullDepartment对象（见**nullDepartment.go**）。
+现在假设有一个机构想要计算特定学院特定部门的教授总数。我们将使用空对象设计模式处理这种情况，如果一个部门在学院中不存在，学院将返回一个 nullDepartment 对象（见**nullDepartment.go**）。
 
-注意agency.go中的代码。
+注意 agency.go 中的代码。
 
-+   **agency.go** 根本不关心特定部门是否存在于学院中。如果该部门在学院中不存在，**college** 会返回一个null部门对象。
++   **agency.go** 根本不关心特定部门是否存在于学院中。如果该部门在学院中不存在，**college** 会返回一个 null 部门对象。
 
-+   它将nullDepartment和真实部门视为相同，因此避免了null检查。它在两个对象上调用**getNumberOfProfessors()**。
++   它将 nullDepartment 和真实部门视为相同，因此避免了 null 检查。它在两个对象上调用**getNumberOfProfessors()**。
 
-以上是我们通过使用null对象设计模式在这种情况下获得的两个优点。请参见下面的代码。
+以上是我们通过使用 null 对象设计模式在这种情况下获得的两个优点。请参见下面的代码。
 
 **agency.go**
 
@@ -181,7 +181,7 @@ func (c *mechanical) getName() string {
 }
 ```
 
-**nullDepartment.go** – 部门接口的null对象实现。
+**nullDepartment.go** – 部门接口的 null 对象实现。
 
 ```go
 package main
@@ -319,4 +319,4 @@ Total number of professors in college1 is 9
 Total number of professors in college2 is 2
 ```
 
-+   [Golang](https://golangbyexample.com/tag/golang/)*   [Go中的空对象设计模式](https://golangbyexample.com/tag/null-object-design-pattern-in-go/)*
++   [Golang](https://golangbyexample.com/tag/golang/)*   [Go 中的空对象设计模式](https://golangbyexample.com/tag/null-object-design-pattern-in-go/)*

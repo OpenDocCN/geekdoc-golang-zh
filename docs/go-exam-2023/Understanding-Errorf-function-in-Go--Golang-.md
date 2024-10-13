@@ -6,29 +6,29 @@
 
 -->
 
-# 理解Go中的Errorf函数
+# 理解 Go 中的 Errorf 函数
 
-> 来源：[https://golangbyexample.com/errorf-function-golang/](https://golangbyexample.com/errorf-function-golang/)
+> 来源：[`golangbyexample.com/errorf-function-golang/`](https://golangbyexample.com/errorf-function-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-    +   [格式化字符串变量](#Formatting_a_string_variable "Formatting a string variable")
+    +   格式化字符串变量
 
-    +   [格式化一个整数](#Formatting_an_integer "Formatting an integer")
+    +   格式化一个整数
 
-    +   [格式化结构体](#Formatting_a_struct "Formatting a struct")
+    +   格式化结构体
 
-+   [错误的封装](#Wrapping_of_error "Wrapping of error")*  *## **概述**
++   错误的封装*  *## **概述**
 
 **Errorf**函数在**fmt**包中定义，用于根据提供的格式说明符创建带有格式化消息的自定义错误。
 
-[https://golang.org/pkg/fmt/#Errorf](https://golang.org/pkg/fmt/#Errorf)
+[`golang.org/pkg/fmt/#Errorf`](https://golang.org/pkg/fmt/#Errorf)
 
-+   它的主要用途是用格式化消息在Golang中创建自定义错误。
++   它的主要用途是用格式化消息在 Golang 中创建自定义错误。
 
-+   它还用于创建可以封装另一个提供给它的错误的自定义错误。在Golang中，一个错误可以封装另一个错误。错误的封装是什么意思？这意味着创建一个错误的层次结构，其中特定的错误实例封装另一个错误，而该特定实例本身也可以被封装在另一个错误中。我们将在本教程后面详细讨论。
++   它还用于创建可以封装另一个提供给它的错误的自定义错误。在 Golang 中，一个错误可以封装另一个错误。错误的封装是什么意思？这意味着创建一个错误的层次结构，其中特定的错误实例封装另一个错误，而该特定实例本身也可以被封装在另一个错误中。我们将在本教程后面详细讨论。
 
 以下是**Errorf**的函数原型
 
@@ -74,7 +74,7 @@ fmt.Errorf("Age is 0: Age:%d\n", age)
 
 例如，有三种格式说明符用于打印结构体。
 
-+   **%v** – 只打印值，字段名不会被打印。这是使用Println打印结构体的默认方式
++   **%v** – 只打印值，字段名不会被打印。这是使用 Println 打印结构体的默认方式
 
 +   **%+v – **它将打印字段和对应的值。
 
@@ -156,7 +156,7 @@ err = fmt.Errorf("Err is: %s to port %d", sampleErr, port)
 
 +   %d
 
-而下一个变量参数的数量仅为一个。因此，当我们格式化它时，它返回带有第二个格式说明符的格式化错误，原样显示MISSING作为警告。
+而下一个变量参数的数量仅为一个。因此，当我们格式化它时，它返回带有第二个格式说明符的格式化错误，原样显示 MISSING 作为警告。
 
 ```go
 package main
@@ -185,7 +185,7 @@ Employee not found with name: John and age %!d(MISSING)
 e := fmt.Errorf("... %w ...", ..., err, ...)
 ```
 
-**%w**指令用于封装错误。**fmt.Errorf**应该仅使用一个%w指令调用。让我们看一个例子。
+**%w**指令用于封装错误。**fmt.Errorf**应该仅使用一个%w 指令调用。让我们看一个例子。
 
 ```go
 package main
@@ -248,8 +248,8 @@ E3: E2: Error One happened
 
 你可以在这里详细了解错误的封装和解封装。
 
-[https://golangbyexample.com/wrapping-and-unwrapping-error-golang/](https://golangbyexample.com/wrapping-and-unwrapping-error-golang/)
+[`golangbyexample.com/wrapping-and-unwrapping-error-golang/`](https://golangbyexample.com/wrapping-and-unwrapping-error-golang/)
 
-这就是关于Errorf函数的所有内容。希望你喜欢这篇文章。请在评论中分享反馈。同时，查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这就是关于 Errorf 函数的所有内容。希望你喜欢这篇文章。请在评论中分享反馈。同时，查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [errorf](https://golangbyexample.com/tag/errorf/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

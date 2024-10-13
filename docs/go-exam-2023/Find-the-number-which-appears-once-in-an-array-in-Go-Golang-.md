@@ -8,13 +8,13 @@
 
 # 在 Go(Golang) 中找到数组中只出现一次的数字
 
-> 来源：[https://golangbyexample.com/number-array-once-golang/](https://golangbyexample.com/number-array-once-golang/)
+> 来源：[`golangbyexample.com/number-array-once-golang/`](https://golangbyexample.com/number-array-once-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 给定一个数组，其中每个元素出现两次，只有一个元素出现一次。目标是以常量额外空间找到该元素
 

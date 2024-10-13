@@ -6,13 +6,13 @@
 
 -->
 
-# Golang中的集合实现
+# Golang 中的集合实现
 
-> 来源：[https://golangbyexample.com/set-implementation-in-golang/](https://golangbyexample.com/set-implementation-in-golang/)
+> 来源：[`golangbyexample.com/set-implementation-in-golang/`](https://golangbyexample.com/set-implementation-in-golang/)
 
 集合是一种数据结构，它无特定顺序地存放元素。元素在集合中只出现一次。
 
-集合可以在GO中使用地图实现。我们将使用**map[string]struct{}**作为集合，因为**struct{}**占用的内存为零，因此在存储方面更高效。
+集合可以在 GO 中使用地图实现。我们将使用**map[string]struct{}**作为集合，因为**struct{}**占用的内存为零，因此在存储方面更高效。
 
 以下是具有操作的集合的简单示例
 

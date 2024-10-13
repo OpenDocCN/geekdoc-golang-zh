@@ -8,15 +8,15 @@
 
 # Go（Golang）中的映射切片
 
-> 来源：[https://golangbyexample.com/slice-map-golang/](https://golangbyexample.com/slice-map-golang/)
+> 来源：[`golangbyexample.com/slice-map-golang/`](https://golangbyexample.com/slice-map-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-在Golang中也可以创建映射数据类型的切片。事实上，Go中可以创建任何数据类型的切片。下面是创建映射切片的一个简单示例
+在 Golang 中也可以创建映射数据类型的切片。事实上，Go 中可以创建任何数据类型的切片。下面是创建映射切片的一个简单示例
 
 ## **程序**
 
@@ -76,8 +76,8 @@ maps := make([]map[string]string, 3)
 
 这就是我们如何创建一个映射切片
 
-查看我们的Golang高级教程。本系列教程内容详尽，我们试图通过示例覆盖所有概念。这个教程是为那些希望获得专业知识和对Golang有深入理解的人准备的 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+查看我们的 Golang 高级教程。本系列教程内容详尽，我们试图通过示例覆盖所有概念。这个教程是为那些希望获得专业知识和对 Golang 有深入理解的人准备的 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章适合你 –[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章适合你 –[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

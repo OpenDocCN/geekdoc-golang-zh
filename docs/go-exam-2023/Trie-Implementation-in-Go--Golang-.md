@@ -8,13 +8,13 @@
 
 # Go (Golang) 中的 Trie 实现
 
-> 来源：[https://golangbyexample.com/trie-implementation-in-go/](https://golangbyexample.com/trie-implementation-in-go/)
+> 来源：[`golangbyexample.com/trie-implementation-in-go/`](https://golangbyexample.com/trie-implementation-in-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [完整工作代码](#Full_Working_Code "Full Working Code")*  *# **概述**
++   完整工作代码*  *# **概述**
 
 Trie 是一种用于高效信息检索的数据结构。它是一种特殊类型的树，从根节点到特定节点的路径可以定义存储在此树中的单词。可以根据使用案例构建整个 ASCII_SIZE、字母和数字的 Trie。例如，下面将是支持小写字母的 Trie 数据结构的属性。
 

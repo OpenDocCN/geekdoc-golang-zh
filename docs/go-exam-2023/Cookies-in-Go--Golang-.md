@@ -8,23 +8,23 @@ category: 未分类
 
 # Go (Golang) 中的 Cookies
 
-> 来源：[https://golangbyexample.com/cookies-golang/](https://golangbyexample.com/cookies-golang/)
+> 来源：[`golangbyexample.com/cookies-golang/`](https://golangbyexample.com/cookies-golang/)
 
 目录
 
-**   [什么是 cookie](#What_is_cookie "什么是 cookie")
+**   什么是 cookie
 
-+   [在 golang 中设置 cookie](#Set_a_cookie_in_golang "在 golang 中设置 cookie")
++   在 golang 中设置 cookie
 
-    +   [在发起请求时设置 cookie。](#Set_a_cookie_while_making_a_request "在发起请求时设置 cookie。")
+    +   在发起请求时设置 cookie。
 
-    +   [在响应传入请求时设置 cookie](#Set_a_cookie_while_responding_to_an_incoming_request "在响应传入请求时设置 cookie")
+    +   在响应传入请求时设置 cookie
 
-+   [在 golang 中读取 cookie](#Read_a_cookie_in_golang "在 golang 中读取 cookie")*  *## **什么是 cookie**
++   在 golang 中读取 cookie*  *## **什么是 cookie**
 
 Cookies 是一种在客户端存储信息的方式。客户端可以是浏览器、移动应用程序或任何发起 HTTP 请求的事物。Cookies 基本上是存储在浏览器缓存内存中的一些文件。当您浏览任何支持 cookies 的网站时，会在 cookie 中记录与您活动相关的某种信息。这些信息可以是任何内容。简而言之，cookies 存储用户活动的历史信息。这些信息存储在客户端的计算机上。由于 cookie 存储在文件中，因此即使用户关闭浏览器窗口或重启计算机，这些信息也不会丢失。cookie 还可以存储登录信息。实际上，诸如令牌等登录信息通常仅存储在 cookies 中。cookies 是按域存储的。属于特定域的本地存储 cookies 在每个请求中发送到该域。它们在每个请求中作为头的一部分发送。因此，cookie 本质上只是一种头。
 
-您可以在这里阅读关于 HTTP cookie 的一般信息 – [https://en.wikipedia.org/wiki/HTTP_cookie](https://en.wikipedia.org/wiki/HTTP_cookie)
+您可以在这里阅读关于 HTTP cookie 的一般信息 – [`en.wikipedia.org/wiki/HTTP_cookie`](https://en.wikipedia.org/wiki/HTTP_cookie)
 
 Cookies 可以发送
 
@@ -34,7 +34,7 @@ Cookies 可以发送
 
 golang 中的 cookie 如下所示
 
-[https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)
+[`golang.org/src/net/http/cookie.go`](https://golang.org/src/net/http/cookie.go)
 
 ```go
 type Cookie struct {
@@ -58,7 +58,7 @@ type Cookie struct {
 }
 ```
 
-详细信息请参见 [https://tools.ietf.org/html/rfc6265](https://tools.ietf.org/html/rfc6265) 中上述 cookie 的每个字段。
+详细信息请参见 [`tools.ietf.org/html/rfc6265`](https://tools.ietf.org/html/rfc6265) 中上述 cookie 的每个字段。
 
 让我们详细了解与 cookies 相关的两个方面
 
@@ -147,7 +147,7 @@ HTTP 客户端以两种方式使用此 jar。
 
 +   在进行任何外部 HTTP 请求时咨询此 jar。它检查此 jar 以了解特定域需要发送哪些 cookies。
 
-有关 golang 中 CookieJar 的更多信息，可以参考此链接 [https://golangbyexample.com/cookiejar-golang/](https://golangbyexample.com/cookiejar-golang/)。
+有关 golang 中 CookieJar 的更多信息，可以参考此链接 [`golangbyexample.com/cookiejar-golang/`](https://golangbyexample.com/cookiejar-golang/)。
 
 ### **在响应传入请求时设置 cookie**。
 
@@ -206,7 +206,7 @@ Set-Cookie: id=abcd; Max-Age=300
 
 ## **在 golang 中读取 cookie**。
 
-net/http Request 结构提供了一个方便的方法来读取特定名称的 cookie。下面是该方法的签名。[https://golang.org/pkg/net/http/#Request.Cookie](https://golang.org/pkg/net/http/#Request.Cookie)
+net/http Request 结构提供了一个方便的方法来读取特定名称的 cookie。下面是该方法的签名。[`golang.org/pkg/net/http/#Request.Cookie`](https://golang.org/pkg/net/http/#Request.Cookie)
 
 ```go
 func (r *Request) Cookie(name string) (*Cookie, error)
@@ -311,8 +311,8 @@ id=abcd
 token=some_token
 ```
 
-这就是关于golang中的cookie的所有内容。希望你喜欢这个教程。请在评论中分享反馈。
+这就是关于 golang 中的 cookie 的所有内容。希望你喜欢这个教程。请在评论中分享反馈。
 
-另外，查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+另外，查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

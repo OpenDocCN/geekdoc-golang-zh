@@ -8,47 +8,47 @@
 
 # Go 语言中的变量
 
-> 来源：[https://golangbyexample.com/variables-in-golang-complete-guide/](https://golangbyexample.com/variables-in-golang-complete-guide/)
+> 来源：[`golangbyexample.com/variables-in-golang-complete-guide/`](https://golangbyexample.com/variables-in-golang-complete-guide/)
 
-这是 Go 语言综合教程系列的第 6 章。请参考此链接了解该系列的其他章节 – [Go 语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 Go 语言综合教程系列的第六章。请参考此链接了解该系列的其他章节 – [Go 语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程** – [所有基本数据类型](https://golangbyexample.com/all-basic-data-types-golang/)
 
-**上一个教程** – [包和模块 – 第2部分](https://golangbyexample.com/packages-modules-go-second/)
+**上一个教程** – [包和模块 – 第二部分](https://golangbyexample.com/packages-modules-go-second/)
 
 现在让我们查看当前的教程。以下是当前教程的目录。
 
 目录
 
-**   [什么是变量](#What_is_variable "什么是变量")
+**   什么是变量
 
-+   [命名约定](#Naming_Conventions "命名约定")
++   命名约定
 
-+   [声明变量](#Declaring_a_variable "声明变量")
++   声明变量
 
-    +   [无初始值的单变量声明](#Single_variable_declaration_without_initial_value "无初始值的单变量声明")
+    +   无初始值的单变量声明
 
-    +   [带初始值的单变量声明](#Single_variable_declaration_with_initial_value "带初始值的单变量声明")
+    +   带初始值的单变量声明
 
-    +   [无初始值的多变量声明](#Multiple_variable_declaration_without_initial_value "无初始值的多变量声明")
+    +   无初始值的多变量声明
 
-    +   [带初始值的多变量声明](#Multiple_variable_declaration_with_initial_value "带初始值的多变量声明")
+    +   带初始值的多变量声明
 
-    +   [声明不同类型的变量](#Declare_variables_of_different_types "声明不同类型的变量")
+    +   声明不同类型的变量
 
-    +   [无类型声明或类型推断](#Variable_Declaration_with_no_type_or_Type_Inference "无类型声明或类型推断")
+    +   无类型声明或类型推断
 
-    +   [短变量声明](#Short_variable_declaration "短变量声明")
+    +   短变量声明
 
-+   [重要点](#Important_Points "重要点")
++   重要点
 
-+   [变量的作用域（局部变量和全局变量）](#Scope_of_a_Variable_Local_and_Global_Variable "变量的作用域（局部变量和全局变量）")
++   变量的作用域（局部变量和全局变量）
 
-    +   [局部变量](#Local_Variable "局部变量")
+    +   局部变量
 
-    +   [全局变量](#Global_Variable "全局变量")
+    +   全局变量
 
-+   [结论](#Conclusion "结论")*  *# **什么是变量**
++   结论*  *# **什么是变量**
 
 变量是内存位置的名称。该内存位置可以存储任何类型的值。因此，每个变量都有一个与之相关的类型，这决定了该变量的大小和范围，以及在该变量上定义的操作。
 
@@ -68,11 +68,11 @@
 
 # **声明变量**
 
-在GO中，变量是使用**var**关键字声明的，但还有其他声明变量的方法，稍后在本教程中我们将看到。让我们深入探索声明变量的不同方式。
+在 GO 中，变量是使用**var**关键字声明的，但还有其他声明变量的方法，稍后在本教程中我们将看到。让我们深入探索声明变量的不同方式。
 
 ## **单变量声明，无初始值**
 
-以下是没有分配初始值的单变量声明格式。第一是**var**关键字，第二是**变量名**，第三是**变量类型**。还要注意，当未提供值时，变量会被初始化为该类型的默认值，这也被称为该类型的零值。在Go中，**int**的默认值或零值是零。
+以下是没有分配初始值的单变量声明格式。第一是**var**关键字，第二是**变量名**，第三是**变量类型**。还要注意，当未提供值时，变量会被初始化为该类型的默认值，这也被称为该类型的零值。在 Go 中，**int**的默认值或零值是零。
 
 **var <变量名> <类型>**
 
@@ -89,7 +89,7 @@ func main() {
 }
 ```
 
-**输出：** 将打印int的默认值，即零。
+**输出：** 将打印 int 的默认值，即零。
 
 ```go
 0
@@ -124,7 +124,7 @@ func main() {
 
 以下是没有分配初始值的多个变量声明的格式。请注意，只有相同类型的变量可以一起声明，类型位于末尾。
 
-**var <名称1>, <名称2>**,….**<名称N> <类型>**
+**var <名称 1>, <名称 2>**,….**<名称 N> <类型>**
 
 见下面的示例
 
@@ -151,9 +151,9 @@ func main() {
 
 以下是分配初始值的多个变量声明的格式。请注意，只有相同类型的变量可以一起声明，类型位于末尾。
 
-**var <名称1>, <名称2>, …..,<名称N> <类型> = <值1>, <值2>, …..,<值N>**
+**var <名称 1>, <名称 2>, …..,<名称 N> <类型> = <值 1>, <值 2>, …..,<值 N>**
 
-见下面的代码示例。变量**aaa**和**bbb**在一次声明中分别被赋值为8和9。
+见下面的代码示例。变量**aaa**和**bbb**在一次声明中分别被赋值为 8 和 9。
 
 ```go
 package main
@@ -208,7 +208,7 @@ a
 
 变量也可以在不指定类型的情况下声明。
 
-GO编译器会根据分配给变量的值确定类型。因此，如果变量有初始值，则可以省略类型。这也称为**类型推断**。以下是这种声明的格式。
+GO 编译器会根据分配给变量的值确定类型。因此，如果变量有初始值，则可以省略类型。这也称为**类型推断**。以下是这种声明的格式。
 
 **var <变量名> = <值>**
 
@@ -532,6 +532,6 @@ test
 
 ****下一教程** – [所有基本数据类型](https://golangbyexample.com/all-basic-data-types-golang/)
 
-**上一教程** – [包和模块 – 第 2 部分](https://golangbyexample.com/packages-modules-go-second/)**
+**上一教程** – [包和模块 – 第二部分](https://golangbyexample.com/packages-modules-go-second/)**
 
 +   [golang](https://golangbyexample.com/tag/golang/)*   [理解 Go 中的变量](https://golangbyexample.com/tag/understanding-variables-in-go/)*   [在 Go 中使用变量](https://golangbyexample.com/tag/using-variables-in-go/)*

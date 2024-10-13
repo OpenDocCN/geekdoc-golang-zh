@@ -8,7 +8,7 @@
 
 # 在 Go（Golang）中将函数作为参数传递给另一个函数。
 
-> 来源：[https://golangbyexample.com/func-as-func-argument-go/](https://golangbyexample.com/func-as-func-argument-go/)
+> 来源：[`golangbyexample.com/func-as-func-argument-go/`](https://golangbyexample.com/func-as-func-argument-go/)
 
 Golang 函数是一级变量，意味着。
 

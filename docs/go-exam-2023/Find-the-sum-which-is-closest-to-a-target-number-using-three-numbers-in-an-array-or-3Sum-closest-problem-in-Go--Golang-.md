@@ -6,15 +6,15 @@
 
 -->
 
-# 使用数组中的三个数字找到最接近目标数字的和，或者说是Go语言中的3Sum最接近问题。
+# 使用数组中的三个数字找到最接近目标数字的和，或者说是 Go 语言中的 3Sum 最接近问题。
 
-> 来源：[https://golangbyexample.com/three-sum-closest-golang/](https://golangbyexample.com/three-sum-closest-golang/)
+> 来源：[`golangbyexample.com/three-sum-closest-golang/`](https://golangbyexample.com/three-sum-closest-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program") *  *## **概述**
++   程序 *  *## **概述**
 
 目标是使用给定数组中的三个三元组找到最接近给定目标和的和。
 
@@ -84,8 +84,8 @@ func threeSumClosest(nums []int, target int) int {
 5
 ```
 
-**注意：** 请查看我们的Golang高级教程。此系列的教程内容详尽，我们尽量用例子覆盖所有概念。本教程适合那些希望获得Golang专业知识和扎实理解的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。此系列的教程内容详尽，我们尽量用例子覆盖所有概念。本教程适合那些希望获得 Golang 专业知识和扎实理解的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章就是为你准备的 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章就是为你准备的 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [去](https://golangbyexample.com/tag/go/) *   [Golang](https://golangbyexample.com/tag/golang/)*

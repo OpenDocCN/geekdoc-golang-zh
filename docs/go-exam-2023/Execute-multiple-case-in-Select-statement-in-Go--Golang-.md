@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 的 Select 语句中执行多个案例
 
-> 来源：[https://golangbyexample.com/execute-multiple-case-select-go/](https://golangbyexample.com/execute-multiple-case-select-go/)
+> 来源：[`golangbyexample.com/execute-multiple-case-select-go/`](https://golangbyexample.com/execute-multiple-case-select-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
 select 语句仅在发送或接收通道操作准备好的情况下执行其中一个案例。它不能执行多个案例，但有一个变通办法。我们可以在 set 语句外部放一个 for 循环。这个 for 循环会调用 select 语句，次数等于循环的迭代次数。
 

@@ -8,13 +8,13 @@
 
 # 了解 Go（Golang）中的 int 或 uint 的大小和范围。
 
-> 来源：[https://golangbyexample.com/go-size-range-int-uint/](https://golangbyexample.com/go-size-range-int-uint/)
+> 来源：[`golangbyexample.com/go-size-range-int-uint/`](https://golangbyexample.com/go-size-range-int-uint/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [了解大小和范围](#Know_Size_and_Range "Know Size and Range")*  *# **概述**
++   了解大小和范围*  *# **概述**
 
 +   int 是带符号整数数据类型。
 
@@ -33,8 +33,8 @@ Go 中 **int** 和 **uint** 的大小和范围依赖于平台，意味着大小�
 
 | **类型** | **大小 (32 位机器)** | **大小 (64 位机器)** |
 | --- | --- | --- |
-| int | -2^(31) 到 2^(31) -1 | -2^(63) 到 2^(63) -1 |
-| uint | 0 到 2^(32) -1 | 0 到 2^(64) -1 |
+| int | -2³¹ 到 2³¹ -1 | -2⁶³ 到 2⁶³ -1 |
+| uint | 0 到 2³² -1 | 0 到 2⁶⁴ -1 |
 
 # **了解大小和范围**
 

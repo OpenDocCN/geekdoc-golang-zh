@@ -8,15 +8,15 @@ date: 2024-10-13 06:33:31
 
 # Go（Golang）中结构体与 JSON 之间的转换。
 
-> 来源：[https://golangbyexample.com/struct-json-golang/](https://golangbyexample.com/struct-json-golang/)
+> 来源：[`golangbyexample.com/struct-json-golang/`](https://golangbyexample.com/struct-json-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [结构体转 JSON](#Struct_to_JSON "Struct to JSON")
++   结构体转 JSON
 
-+   [JSON 转结构体](#JSON_to_struct "JSON to struct")*  *# **概述**
++   JSON 转结构体*  *# **概述**
 
 **encoding/json** 包提供了可以用于 JSON 转换的工具。相同的工具可以用于将 Go 结构体转换为 JSON 字符串及其反向转换。使用的两个函数是。
 
@@ -96,7 +96,7 @@ type employee struct {
 
 +   **employee2**结构体 - 它没有元标签。
 
-此外，两个结构体中的salary字段均为未导出。
+此外，两个结构体中的 salary 字段均为未导出。
 
 ```go
 package main
@@ -147,9 +147,9 @@ employee1 JSON: {"n":"John","a":21}
 employee2 JSON: {"Name":"John","Age":21}
 ```
 
-请注意，我们使用**json.Marshal**函数将结构体转换为JSON。
+请注意，我们使用**json.Marshal**函数将结构体转换为 JSON。
 
-对于**employee1**结构体到JSON的转换，输出为
+对于**employee1**结构体到 JSON 的转换，输出为
 
 ```go
 {"n":"John","a":21}
@@ -159,9 +159,9 @@ employee2 JSON: {"Name":"John","Age":21}
 
 +   **salary**字段在输出中不存在，因为它未导出，即该字段未大写。
 
-+   由于与**employee1**结构体关联的JSON标签，**‘Name’**字段映射到JSON的**‘n’**字段，而**‘Age’**字段映射到JSON的**‘a’**字段。
++   由于与**employee1**结构体关联的 JSON 标签，**‘Name’**字段映射到 JSON 的**‘n’**字段，而**‘Age’**字段映射到 JSON 的**‘a’**字段。
 
-对于**employee2**结构体到JSON的转换，输出为
+对于**employee2**结构体到 JSON 的转换，输出为
 
 ```go
 {"Name":"John","Age":21}
@@ -171,11 +171,11 @@ employee2 JSON: {"Name":"John","Age":21}
 
 +   **salary**字段在输出中不存在，因为它未导出，即该字段未大写。
 
-+   由于**employee2**结构体没有关联任何JSON标签，**employee1**结构体的**‘Name’**字段映射到JSON的**‘Name’**字段，而**‘Age’**字段映射到JSON的**‘Age’**字段。
++   由于**employee2**结构体没有关联任何 JSON 标签，**employee1**结构体的**‘Name’**字段映射到 JSON 的**‘Name’**字段，而**‘Age’**字段映射到 JSON 的**‘Age’**字段。
 
-# **JSON到结构体**
+# **JSON 到结构体**
 
-**json.Unmarshal**函数可用于将JSON转换为结构体。我们之前讨论的规则同样适用于从JSON转换为结构体。让我们来看一个例子。
+**json.Unmarshal**函数可用于将 JSON 转换为结构体。我们之前讨论的规则同样适用于从 JSON 转换为结构体。让我们来看一个例子。
 
 ```go
 package main
@@ -226,13 +226,13 @@ employee1 Struct: main.employee1{Name:"John", Age:21, salary:0}
 employee2 Struct: main.employee2{Name:"John", Age:21, salary:0}
 ```
 
-此示例使用了第一个示例的输出JSON字符串。在这里，我们使用**json.Unmarshal**函数将JSON字符串转换为结构体。首先需要注意的是，我们需要将结构体的地址传递给**json.Unmarshal**函数，如下所示。
+此示例使用了第一个示例的输出 JSON 字符串。在这里，我们使用**json.Unmarshal**函数将 JSON 字符串转换为结构体。首先需要注意的是，我们需要将结构体的地址传递给**json.Unmarshal**函数，如下所示。
 
 ```go
 err = json.Unmarshal(j, &e1Converted)
 ```
 
-第一个参数是JSON字节，第二个是结构体的地址。
+第一个参数是 JSON 字节，第二个是结构体的地址。
 
 解组
 
@@ -272,9 +272,9 @@ main.employee2{Name:"John", Age:21, salary:0}
 main.employee2{Name:"", Age:0, salary:0}
 ```
 
-由于**employee2**结构体中没有元标签，且**employee2**结构体中的键名与JSON中的键名不同，因此不会进行解组。因此将创建一个空的**employee2**结构体，结构体中的每个字段都将初始化为其类型的默认零值。
+由于**employee2**结构体中没有元标签，且**employee2**结构体中的键名与 JSON 中的键名不同，因此不会进行解组。因此将创建一个空的**employee2**结构体，结构体中的每个字段都将初始化为其类型的默认零值。
 
-如果JSON字符串包含**salary**字段，那么JSON字符串中的**salary**字段的值将不会反映在结构体的**salary**字段中，因为**salary**字段在结构体中未导出。请参见此示例。
+如果 JSON 字符串包含**salary**字段，那么 JSON 字符串中的**salary**字段的值将不会反映在结构体的**salary**字段中，因为**salary**字段在结构体中未导出。请参见此示例。
 
 ```go
 package main
@@ -305,4 +305,4 @@ func main() {
 employee1 Struct: main.employee1{Name:"John", Age:21, salary:0}
 ```
 
-尽管JSON字符串中的**salary**字段值为1000，但在转换为结构体后，结构体中的**salary**字段为0。
+尽管 JSON 字符串中的**salary**字段值为 1000，但在转换为结构体后，结构体中的**salary**字段为 0。

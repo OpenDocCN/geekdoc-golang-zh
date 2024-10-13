@@ -8,15 +8,15 @@
 
 # 在 Go (Golang) 中复制文件
 
-> 来源：[https://golangbyexample.com/copy-file-go/](https://golangbyexample.com/copy-file-go/)
+> 来源：[`golangbyexample.com/copy-file-go/`](https://golangbyexample.com/copy-file-go/)
 
 在本文中，我们将看到两种复制文件的方法。
 
 目录
 
-**   [第一种方法](#First_Method "第一种方法")
+**   第一种方法
 
-+   [第二种方法](#Second_Method "第二种方法")*  *## **第一种方法**
++   第二种方法*  *## **第一种方法**
 
 **io.Copy()** 可用于将文件从源（src）复制到目标（dest）。成功复制时，将返回 err != nil 而非 err == EOF。
 

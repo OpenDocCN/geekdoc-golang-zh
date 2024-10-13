@@ -6,27 +6,27 @@
 
 -->
 
-# 在Go（Golang）中请求体中发送/接收pdf文件的示例
+# 在 Go（Golang）中请求体中发送/接收 pdf 文件的示例
 
-> 来源：[https://golangbyexample.com/http-pdf-post-go/](https://golangbyexample.com/http-pdf-post-go/)
+> 来源：[`golangbyexample.com/http-pdf-post-go/`](https://golangbyexample.com/http-pdf-post-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [HTTP服务器](#HTTP_Server "HTTP Server")
++   HTTP 服务器
 
-+   [HTTP客户端](#HTTP_Client "HTTP Client")*  *# **概述**
++   HTTP 客户端*  *# **概述**
 
-**multipart/form-data**内容类型可用于在HTTP POST调用中发送pdf文件。表单数据将包含
+**multipart/form-data**内容类型可用于在 HTTP POST 调用中发送 pdf 文件。表单数据将包含
 
-+   pdf文件名 - 本教程中将看到的**test.pdf**
++   pdf 文件名 - 本教程中将看到的**test.pdf**
 
-+   将包含pdf文件内容的键 - 本教程示例中的**photo**
++   将包含 pdf 文件内容的键 - 本教程示例中的**photo**
 
-让我们看看HTTP **客户端**和**服务器**的示例
+让我们看看 HTTP **客户端**和**服务器**的示例
 
-# **HTTP服务器**
+# **HTTP 服务器**
 
 以下是相应的程序。
 
@@ -86,9 +86,9 @@ request.ParseMultipartForm()
 _, err = io.Copy(tmpfile, file)
 ```
 
-这是HTTP服务器示例。运行服务器。它将在**8080**端口监听。让我们创建一个HTTP客户端来测试上述服务器。以下是相关代码。
+这是 HTTP 服务器示例。运行服务器。它将在**8080**端口监听。让我们创建一个 HTTP 客户端来测试上述服务器。以下是相关代码。
 
-# **HTTP客户端**
+# **HTTP 客户端**
 
 ```go
 package main
@@ -141,9 +141,9 @@ func call(urlPath, method string) error {
 }
 ```
 
-以下是一个HTTP客户端的示例代码。它在HTTP请求中向上面创建的服务器发送**multipart/form-data**请求体。
+以下是一个 HTTP 客户端的示例代码。它在 HTTP 请求中向上面创建的服务器发送**multipart/form-data**请求体。
 
-首先，我们必须创建一个多部分写入器 [https://golang.org/pkg/mime/multipart/#Writer](https://golang.org/pkg/mime/multipart/#Writer)
+首先，我们必须创建一个多部分写入器 [`golang.org/pkg/mime/multipart/#Writer`](https://golang.org/pkg/mime/multipart/#Writer)
 
 ```go
 writer := multipart.NewWriter(body)

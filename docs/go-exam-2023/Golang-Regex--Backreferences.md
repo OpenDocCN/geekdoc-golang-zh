@@ -6,29 +6,29 @@
 
 -->
 
-# Golang正则表达式：回溯引用
+# Golang 正则表达式：回溯引用
 
-> 来源：[https://golangbyexample.com/golang-regex-backreferences/](https://golangbyexample.com/golang-regex-backreferences/)
+> 来源：[`golangbyexample.com/golang-regex-backreferences/`](https://golangbyexample.com/golang-regex-backreferences/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [程序](#Program "程序")
++   程序
 
-    +   [第一个示例](#First_Example "第一个示例")
+    +   第一个示例
 
-    +   [第二个示例](#Second_Example "第二个示例")
+    +   第二个示例
 
-+   [替换匹配字符串](#Replace_Matched_String "替换匹配字符串")*  *## **概述**
++   替换匹配字符串*  *## **概述**
 
-Golang正则表达式包[regexp](https://golang.org/pkg/regexp/)使用[re2引擎](https://swtch.com/~rsc/regexp/regexp3.html)，它不支持回溯引用。您可以在这里查看
+Golang 正则表达式包[regexp](https://golang.org/pkg/regexp/)使用[re2 引擎](https://swtch.com/~rsc/regexp/regexp3.html)，它不支持回溯引用。您可以在这里查看
 
-[https://github.com/google/re2/wiki/Syntax](https://github.com/google/re2/wiki/Syntax)
+[`github.com/google/re2/wiki/Syntax`](https://github.com/google/re2/wiki/Syntax)
 
 它确实提到它不支持回溯引用。
 
-**然而，还有另一个可用的golang包，它使用libpcre++、Perl正则表达式，并且支持回溯引用。**
+**然而，还有另一个可用的 golang 包，它使用 libpcre++、Perl 正则表达式，并且支持回溯引用。**
 
 ```go
 https://github.com/glenn-brown/golang-pkg-pcre/tree/master/src/pkg/pcre
@@ -36,7 +36,7 @@ https://github.com/glenn-brown/golang-pkg-pcre/tree/master/src/pkg/pcre
 
 ## **程序**
 
-所以让我们看看在golang中使用这个**pcre**包的回溯引用示例。
+所以让我们看看在 golang 中使用这个**pcre**包的回溯引用示例。
 
 ### **第一个示例**
 
@@ -224,6 +224,6 @@ result:  The number is 91-redacted
 
 希望您喜欢这个教程。请在评论中分享反馈
 
-另外，查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+另外，查看我们的 Golang 进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-+   [反向引用](https://golangbyexample.com/tag/backreference/)*   [去](https://golangbyexample.com/tag/go/)*   [Go语言](https://golangbyexample.com/tag/golang/)*   [正则表达式](https://golangbyexample.com/tag/regex/)*
++   [反向引用](https://golangbyexample.com/tag/backreference/)*   [去](https://golangbyexample.com/tag/go/)*   [Go 语言](https://golangbyexample.com/tag/golang/)*   [正则表达式](https://golangbyexample.com/tag/regex/)*

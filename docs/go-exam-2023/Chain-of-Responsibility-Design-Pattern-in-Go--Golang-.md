@@ -8,23 +8,23 @@
 
 # 责任链设计模式在 Go (Golang) 中的应用
 
-> 来源：[https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/](https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/)
+> 来源：[`golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/`](https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/)
 
 注意：如果您想了解所有其他设计模式如何在 GO 中实现，请查看这个完整参考 – [Go (Golang) 中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [定义：](#Definition "定义： ")
+**   定义：
 
-+   [使用时机：](#When_to_Use "使用时机：")
++   使用时机：
 
-+   [UML 图：](#UML_Diagram "UML 图：")
++   UML 图：
 
-+   [映射 ](#Mapping "映射 ")
++   映射 
 
-+   [实际例子：](#Practical_Example "实际例子：")
++   实际例子：
 
-+   [完整工作代码：](#Full_Working_Code "完整工作代码：")*  *## **定义： **
++   完整工作代码：*  *## **定义： **
 
 责任链设计模式是一种行为设计模式。它允许您创建一条请求处理者链。对于每一个传入请求，它会在链中传递，每个处理者：
 
@@ -354,4 +354,4 @@ Medical giving medicine to patient
 Cashier getting money from patient patient
 ```
 
-+   [责任链设计模式在Golang中的应用](https://golangbyexample.com/tag/chain-of-responsibility-design-pattern-in-golang/) *   [责任链](https://golangbyexample.com/tag/chain-of-responsiblity/) *   [Go中的设计模式](https://golangbyexample.com/tag/design-pattern-in-go/) *   [Golang中的设计模式](https://golangbyexample.com/tag/design-pattern-in-golang/) *
++   [责任链设计模式在 Golang 中的应用](https://golangbyexample.com/tag/chain-of-responsibility-design-pattern-in-golang/) *   [责任链](https://golangbyexample.com/tag/chain-of-responsiblity/) *   [Go 中的设计模式](https://golangbyexample.com/tag/design-pattern-in-go/) *   [Golang 中的设计模式](https://golangbyexample.com/tag/design-pattern-in-golang/) *

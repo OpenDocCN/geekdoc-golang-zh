@@ -6,17 +6,17 @@
 
 -->
 
-# Go中的Goto语句
+# Go 中的 Goto 语句
 
-> 来源：[https://golangbyexample.com/goto-statement-go/](https://golangbyexample.com/goto-statement-go/)
+> 来源：[`golangbyexample.com/goto-statement-go/`](https://golangbyexample.com/goto-statement-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example") *  *# **概述**
++   示例 *  *# **概述**
 
-Goto语句允许无条件跳转到同一函数中的标记语句。下面是goto语句的格式
+Goto 语句允许无条件跳转到同一函数中的标记语句。下面是 goto 语句的格式
 
 ```go
 goto label
@@ -25,11 +25,11 @@ goto label
 label: statement
 ```
 
-标签可以是有效的go语句，不能是关键字。一旦遇到goto语句，控制就会转移到指定的标签，并从那里继续执行。标签仅在声明它的函数内部可见，函数外部的任何引用都会导致编译错误。
+标签可以是有效的 go 语句，不能是关键字。一旦遇到 goto 语句，控制就会转移到指定的标签，并从那里继续执行。标签仅在声明它的函数内部可见，函数外部的任何引用都会导致编译错误。
 
 # **示例**
 
-让我们看看一个简单的goto语句示例
+让我们看看一个简单的 goto 语句示例
 
 ```go
 package main
@@ -72,7 +72,7 @@ FINISH:
 fmt.Println("b")
 ```
 
-标签和goto需要属于同一函数，否则会引发编译错误。这是因为标签的作用域在声明它的函数内部。如上所述，下面的程序会引发编译错误。
+标签和 goto 需要属于同一函数，否则会引发编译错误。这是因为标签的作用域在声明它的函数内部。如上所述，下面的程序会引发编译错误。
 
 ```go
 ./main.go:11:7: label FINISH not defined
@@ -101,7 +101,7 @@ FINISH:
 }
 ```
 
-标签也可以在goto语句之前。见下面的示例。该程序可以用于打印10之前的所有奇数。注意标签**START**在这里位于goto之前。
+标签也可以在 goto 语句之前。见下面的示例。该程序可以用于打印 10 之前的所有奇数。注意标签**START**在这里位于 goto 之前。
 
 ```go
 package main
@@ -124,6 +124,6 @@ START:
 }
 ```
 
-不建议使用Goto，因为可读性差，通常也是许多错误的来源。任何通过goto实现的功能都可以通过其他go结构来实现。
+不建议使用 Goto，因为可读性差，通常也是许多错误的来源。任何通过 goto 实现的功能都可以通过其他 go 结构来实现。
 
 +   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *

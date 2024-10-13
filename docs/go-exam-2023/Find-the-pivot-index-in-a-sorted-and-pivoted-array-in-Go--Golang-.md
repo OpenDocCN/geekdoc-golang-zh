@@ -6,13 +6,13 @@
 
 -->
 
-# 在Go (Golang) 中找到排序和基准化数组中的基准索引。
+# 在 Go (Golang) 中找到排序和基准化数组中的基准索引。
 
-> 来源：[https://golangbyexample.com/pivot-index-pivoted-array-go/](https://golangbyexample.com/pivot-index-pivoted-array-go/)
+> 来源：[`golangbyexample.com/pivot-index-pivoted-array-go/`](https://golangbyexample.com/pivot-index-pivoted-array-go/)
 
 目录
 
-**   [概述](#Overview "概述")*  *## **概述**
+**   概述*  *## **概述**
 
 我们有一个已排序的输入数组，但在某个索引处被基准化。例如，考虑下面的数组。
 
@@ -20,13 +20,13 @@
 [1, 3, 5, 7, 9]
 ```
 
-它在索引3处被旋转和基准化。
+它在索引 3 处被旋转和基准化。
 
 ```go
 [5, 7, 9, 1, 3]
 ```
 
-目标是找到基准索引。因此，上述数组的答案将是3。如果数组没有被基准化，则应返回-1。例如，对于下面的输入数组，它应该返回-1。
+目标是找到基准索引。因此，上述数组的答案将是 3。如果数组没有被基准化，则应返回-1。例如，对于下面的输入数组，它应该返回-1。
 
 ```go
 [0, 1, 2, 3, 4]
@@ -53,7 +53,7 @@ Pivot Index: -1
 
 +   如果**mid**的值小于输入数组的起始值，则在**mid**的左侧进行搜索。
 
-+   如果mid的值大于输入数组起始值，则在**mid**的右侧进行搜索。
++   如果 mid 的值大于输入数组起始值，则在**mid**的右侧进行搜索。
 
 下面是相应的程序。
 
@@ -139,8 +139,8 @@ func binarySearch(nums []int, start, end, target int) int {
 1
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尽力覆盖所有概念并附有示例。这个教程适合那些希望获得专业知识和对Golang有深入理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽力覆盖所有概念并附有示例。这个教程适合那些希望获得专业知识和对 Golang 有深入理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

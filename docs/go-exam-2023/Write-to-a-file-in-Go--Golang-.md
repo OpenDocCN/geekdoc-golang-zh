@@ -8,21 +8,21 @@
 
 # 在 Go (Golang) 中写入文件
 
-> 来源：[https://golangbyexample.com/write-to-a-file-go/](https://golangbyexample.com/write-to-a-file-go/)
+> 来源：[`golangbyexample.com/write-to-a-file-go/`](https://golangbyexample.com/write-to-a-file-go/)
 
 在 GO 中写文件有不同的方法。让我们通过不同的示例深入探讨如何逐行写入文件。
 
 目录
 
-**[使用 bufio 包的缓冲写入](#Buffered_write_using_bufio_package "使用 bufio 包的缓冲写入")**
+**使用 bufio 包的缓冲写入**
 
-    +   [示例：默认缓冲区大小为 4096 字节](#Example_With_Default_Buffer_Size_of_4096_bytes "示例：默认缓冲区大小为 4096 字节")
+    +   示例：默认缓冲区大小为 4096 字节
 
-    +   [示例：自定义缓冲区大小为 10 字节](#Example_With_Custom_Buffer_Size_of_10_bytes "示例：自定义缓冲区大小为 10 字节")
+    +   示例：自定义缓冲区大小为 10 字节
 
-+   [使用 file.Write()](#Using_fileWrite "使用 file.Write()")
++   使用 file.Write()")
 
-+   [使用 ioutil.WriteFile()](#Using_ioutilWriteFile "使用 ioutil.WriteFile()")*  *# **使用 bufio 包的缓冲写入**
++   使用 ioutil.WriteFile()")*  *# **使用 bufio 包的缓冲写入**
 
 **bufio** 包可以用于在 Go 中进行缓冲写入。它的默认缓冲区大小为 4096 字节，但也可以指定自定义缓冲区大小。缓冲写入的主要优点是将要写入的数据保存在缓冲区中，从而最小化我们执行 IO 操作的次数。它在
 
@@ -168,7 +168,7 @@ func main() {
 
 +   关闭文件
 
-参见下面的示例：如果temp.txt不存在，则将创建一个权限为0777的新temp.txt文件
+参见下面的示例：如果 temp.txt 不存在，则将创建一个权限为 0777 的新 temp.txt 文件
 
 ```go
 package main

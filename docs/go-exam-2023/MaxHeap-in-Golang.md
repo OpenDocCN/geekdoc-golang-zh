@@ -8,15 +8,15 @@
 
 # Golang 中的最大堆
 
-> 来源：[https://golangbyexample.com/maxheap-in-golang/](https://golangbyexample.com/maxheap-in-golang/)
+> 来源：[`golangbyexample.com/maxheap-in-golang/`](https://golangbyexample.com/maxheap-in-golang/)
 
 目录
 
-**   [介绍](#Introduction "Introduction")
+**   介绍
 
-+   [对最大堆的操作](#Operations_on_Maxheap "Operations on Maxheap")
++   对最大堆的操作
 
-+   [实现](#Implementation "Implementation")*  *# **介绍**
++   实现*  *# **介绍**
 
 最大堆是一个完整的二叉树，其中父节点的值大于或等于其左子节点和右子节点的值。完整的二叉树是一个除了最后一层外，所有层都是满的二叉树。
 

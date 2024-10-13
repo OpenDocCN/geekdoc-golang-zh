@@ -8,13 +8,13 @@
 
 # Golang 中二叉树的层序遍历
 
-> 来源：[https://golangbyexample.com/level-order-traversal-binary-tree-golang/](https://golangbyexample.com/level-order-traversal-binary-tree-golang/)
+> 来源：[`golangbyexample.com/level-order-traversal-binary-tree-golang/`](https://golangbyexample.com/level-order-traversal-binary-tree-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是逐层打印二叉树。例如，假设我们有如下二叉树
 

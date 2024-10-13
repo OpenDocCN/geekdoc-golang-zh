@@ -8,13 +8,13 @@ date: 2024-10-13 06:15:42
 
 # Go（Golang）中的两个数字的最小值
 
-> 来源：[https://golangbyexample.com/min-of-two-numbers-golang/](https://golangbyexample.com/min-of-two-numbers-golang/)
+> 来源：[`golangbyexample.com/min-of-two-numbers-golang/`](https://golangbyexample.com/min-of-two-numbers-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
 **math** 包提供了一个 **Min** 方法，可以用来获取两个数字的最小值。该
 

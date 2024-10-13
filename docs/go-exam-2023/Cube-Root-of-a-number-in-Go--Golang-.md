@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中的数字立方根
 
-> 来源：[https://golangbyexample.com/cube-root-number-golang/](https://golangbyexample.com/cube-root-number-golang/)
+> 来源：[`golangbyexample.com/cube-root-number-golang/`](https://golangbyexample.com/cube-root-number-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码：](#Code "代码：")*  *# **概述**
++   代码：*  *# **概述**
 
 GO 的 **math** 包提供了一个 **Cbrt** 方法，可以用于获取该数字的立方根。
 

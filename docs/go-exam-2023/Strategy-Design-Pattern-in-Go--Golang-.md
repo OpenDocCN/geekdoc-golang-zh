@@ -8,21 +8,21 @@
 
 # Go（Golang）中的策略设计模式
 
-> 来源：[https://golangbyexample.com/strategy-design-pattern-golang/](https://golangbyexample.com/strategy-design-pattern-golang/)
+> 来源：[`golangbyexample.com/strategy-design-pattern-golang/`](https://golangbyexample.com/strategy-design-pattern-golang/)
 
 注意：有兴趣了解其他所有设计模式如何在 GO 中实现吗？请查看这个完整的参考 – [Go（Golang）中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [定义：](#Definition "定义： ")
+**   定义：
 
-+   [何时使用](#When_to_Use "何时使用")
++   何时使用
 
-+   [UML 图](#UML_Diagram "UML 图")
++   UML 图
 
-+   [映射](#Mapping "映射")
++   映射
 
-+   [实用例子](#Practical_Example "实用例子")*  *## **定义：**
++   实用例子*  *## **定义：**
 
 策略设计模式是一种行为设计模式。该设计模式允许你在运行时更改对象的行为，而无需更改该对象的类。
 
@@ -58,7 +58,7 @@
 
 ## **映射**
 
-以下表格表示UML图中的参与者与代码中实际实现参与者的映射。
+以下表格表示 UML 图中的参与者与代码中实际实现参与者的映射。
 
 | 上下文 | cache.go |
 | --- | --- |
@@ -197,4 +197,4 @@ Evicting by lru strtegy
 Evicting by fifo strtegy
 ```
 
-+   [设计模式](https://golangbyexample.com/tag/design-pattern/) *   [Go](https://golangbyexample.com/tag/go/) *   [Golang](https://golangbyexample.com/tag/golang/) *   [策略设计模式](https://golangbyexample.com/tag/strategy-design-pattern/) *   [Golang中的策略设计模式](https://golangbyexample.com/tag/strategy-design-pattern-in-golang/) *
++   [设计模式](https://golangbyexample.com/tag/design-pattern/) *   [Go](https://golangbyexample.com/tag/go/) *   [Golang](https://golangbyexample.com/tag/golang/) *   [策略设计模式](https://golangbyexample.com/tag/strategy-design-pattern/) *   [Golang 中的策略设计模式](https://golangbyexample.com/tag/strategy-design-pattern-in-golang/) *

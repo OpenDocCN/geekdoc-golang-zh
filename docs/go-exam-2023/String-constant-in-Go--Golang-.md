@@ -6,29 +6,29 @@
 
 -->
 
-# Go中的字符串常量（Golang）
+# Go 中的字符串常量（Golang）
 
-> 来源：[https://golangbyexample.com/string-constant-golang/](https://golangbyexample.com/string-constant-golang/)
+> 来源：[`golangbyexample.com/string-constant-golang/`](https://golangbyexample.com/string-constant-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [示例](#Example "Example")
++   示例
 
-    +   [有类型的字符串常量](#Typed_string_constant "Typed string constant")
+    +   有类型的字符串常量
 
-    +   [未类型化的命名字符串常量](#Untyped_named_string_constant "Untyped named string constant")
+    +   未类型化的命名字符串常量
 
-    +   [未类型化的未命名字符串常量](#Untyped_unnamed_string_constant "Untyped unnamed string constant") *  *# **概述**
+    +   未类型化的未命名字符串常量 *  *# **概述**
 
-在Go中，字符串常量以两种方式表示
+在 Go 中，字符串常量以两种方式表示
 
 +   任何用双引号括起来的值
 
 +   任何用反引号括起来的值
 
-为了更好地理解Golang中的字符串常量，了解Go中的有类型和无类型常量是重要的。请参阅这篇文章：[https://golangbyexample.com/typed-untyped-constant-golang/](https://golangbyexample.com/typed-untyped-constant-golang/)
+为了更好地理解 Golang 中的字符串常量，了解 Go 中的有类型和无类型常量是重要的。请参阅这篇文章：[`golangbyexample.com/typed-untyped-constant-golang/`](https://golangbyexample.com/typed-untyped-constant-golang/)
 
 一旦你阅读了这篇文章，你会理解常量可以以三种方式声明
 

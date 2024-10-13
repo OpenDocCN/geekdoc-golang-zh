@@ -6,15 +6,15 @@ date: 2024-10-13 06:44:33
 
 -->
 
-# 在Go中合并重叠区间（Golang）
+# 在 Go 中合并重叠区间（Golang）
 
-> 来源：[https://golangbyexample.com/merge-overlapping-intervals-golang/](https://golangbyexample.com/merge-overlapping-intervals-golang/)
+> 来源：[`golangbyexample.com/merge-overlapping-intervals-golang/`](https://golangbyexample.com/merge-overlapping-intervals-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个区间数组，每个区间都有开始时间和结束时间，合并重叠区间。如果第一个区间的结束时间大于第二个区间的开始时间，则这两个区间被称为重叠。假设两个区间都是按开始时间排序的。
 
@@ -51,7 +51,7 @@ Output: [[1,5], [8,12]]
 
 +   根据开始时间对区间数组进行排序。
 
-+   从索引0开始合并重叠区间。如上所述，如果第一个区间的结束时间大于第二个区间的开始时间，则这两个区间被称为重叠。
++   从索引 0 开始合并重叠区间。如上所述，如果第一个区间的结束时间大于第二个区间的开始时间，则这两个区间被称为重叠。
 
 ```go
 package main
@@ -127,8 +127,8 @@ func merge(intervals [][]int) [][]int {
 [[1 10]]
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列的教程内容详尽，我们尝试覆盖所有概念并附有例子。此教程适合那些希望获得专业知识和扎实理解Golang的人——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尝试覆盖所有概念并附有例子。此教程适合那些希望获得专业知识和扎实理解 Golang 的人——[Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章适合你——[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章适合你——[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

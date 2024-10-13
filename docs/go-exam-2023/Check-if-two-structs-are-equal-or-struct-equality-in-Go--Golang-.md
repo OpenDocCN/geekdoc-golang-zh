@@ -8,7 +8,7 @@
 
 # 检查两个结构体是否相等或在 Go (Golang) 中的结构体相等性。
 
-> 来源：[https://golangbyexample.com/struct-equality-golang/](https://golangbyexample.com/struct-equality-golang/)
+> 来源：[`golangbyexample.com/struct-equality-golang/`](https://golangbyexample.com/struct-equality-golang/)
 
 在考虑结构体相等性之前，首先要知道所有结构体字段的类型是否可比较。
 

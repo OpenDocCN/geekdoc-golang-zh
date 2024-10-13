@@ -8,17 +8,17 @@
 
 # Go（Golang）中的高阶函数
 
-> 来源：[https://golangbyexample.com/gohigher-order-functions/](https://golangbyexample.com/gohigher-order-functions/)
+> 来源：[`golangbyexample.com/gohigher-order-functions/`](https://golangbyexample.com/gohigher-order-functions/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")
++   代码：
 
-    +   [示例 1](#Example_1 "Example 1")
+    +   示例 1
 
-    +   [示例 2：](#Example_2 "Example 2:")*  *# **概述**
+    +   示例 2：*  *# **概述**
 
 高阶函数是指那些接受一个函数作为参数或返回一个函数的函数。由于在 Golang 中函数是一个一阶变量，它们可以被传递、返回，并赋值给一个变量。
 

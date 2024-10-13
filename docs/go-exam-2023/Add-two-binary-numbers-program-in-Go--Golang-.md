@@ -8,13 +8,13 @@ date: 2024-10-13 06:45:36
 
 # 在 Go (Golang) 中添加两个二进制数的程序
 
-> 来源：[https://golangbyexample.com/add-two-binary-numbers-golang/](https://golangbyexample.com/add-two-binary-numbers-golang/)
+> 来源：[`golangbyexample.com/add-two-binary-numbers-golang/`](https://golangbyexample.com/add-two-binary-numbers-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是将两个给定的二进制数相加。二进制数仅由数字 0 和 1 组成。下面是单个数字的二进制加法逻辑
 

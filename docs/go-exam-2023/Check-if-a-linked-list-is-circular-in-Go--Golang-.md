@@ -6,23 +6,23 @@
 
 -->
 
-# 在Go（Golang）中检查链表是否是循环链表
+# 在 Go（Golang）中检查链表是否是循环链表
 
-> 来源：[https://golangbyexample.com/linked-list-is-circular-go/](https://golangbyexample.com/linked-list-is-circular-go/)
+> 来源：[`golangbyexample.com/linked-list-is-circular-go/`](https://golangbyexample.com/linked-list-is-circular-go/)
 
 ![链表 - 是否是循环链表图像](img/fd1244a69df50e7bcb299f396b6f796a.png)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 检查链表是否是循环链表。如果所有节点以循环的形式连接，则链表是循环的。
 
 ## **程序**
 
-在下面的程序中，我们首先创建一个链表。然后检查它是否是循环链表。它会先打印false。之后，我们将链表转换为循环链表。然后再次检查它是否是循环链表。现在打印true。
+在下面的程序中，我们首先创建一个链表。然后检查它是否是循环链表。它会先打印 false。之后，我们将链表转换为循环链表。然后再次检查它是否是循环链表。现在打印 true。
 
 ```go
 package main

@@ -8,15 +8,15 @@
 
 # Go（Golang）中的不区分大小写字符串比较
 
-> 来源：[https://golangbyexample.com/golang-case-insensitive-string-comparison/](https://golangbyexample.com/golang-case-insensitive-string-comparison/)
+> 来源：[`golangbyexample.com/golang-case-insensitive-string-comparison/`](https://golangbyexample.com/golang-case-insensitive-string-comparison/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
-在Golang中，字符串采用UTF-8编码。GO的**strings**包提供了一个**EqualFold**方法，可以用来进行两个字符串的不区分大小写的比较。
+在 Golang 中，字符串采用 UTF-8 编码。GO 的**strings**包提供了一个**EqualFold**方法，可以用来进行两个字符串的不区分大小写的比较。
 
 以下是该函数的签名。该方法返回布尔值，指示提供的两个字符串是否不区分大小写地相等。
 

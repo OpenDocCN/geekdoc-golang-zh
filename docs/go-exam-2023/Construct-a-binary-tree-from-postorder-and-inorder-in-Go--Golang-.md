@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go (Golang)中从后序和中序构建二叉树
+# 在 Go (Golang)中从后序和中序构建二叉树
 
-> 来源：[https://golangbyexample.com/binary-tree-postorder-inorder-golang/](https://golangbyexample.com/binary-tree-postorder-inorder-golang/)
+> 来源：[`golangbyexample.com/binary-tree-postorder-inorder-golang/`](https://golangbyexample.com/binary-tree-postorder-inorder-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定两个数组，表示二叉树的后序和中序遍历。目标是从中构建二叉树
 
@@ -42,11 +42,11 @@
 
 +   后序中的最后一个索引将是根节点。
 
-+   我们将在中序数组中查找与后序数组最后一个索引的值匹配的索引。我们将此索引称为rootIndex
++   我们将在中序数组中查找与后序数组最后一个索引的值匹配的索引。我们将此索引称为 rootIndex
 
-+   在中序数组中，rootIndex左侧的所有值将位于左子树中
++   在中序数组中，rootIndex 左侧的所有值将位于左子树中
 
-+   在中序数组中，rootIndex右侧的所有值将位于右子树中
++   在中序数组中，rootIndex 右侧的所有值将位于右子树中
 
 +   我们可以使用相同的策略递归处理右子树，然后处理左子树。
 
@@ -54,11 +54,11 @@
 
 +   后序遍历中的最后一个索引是根节点，其值为 **1**
 
-+   值 **1** 在中序遍历中的 **第2** 个索引。因此，rootIndex是 **2**
++   值 **1** 在中序遍历中的 **第 2** 个索引。因此，rootIndex 是 **2**
 
-+   在中序遍历中，rootIndex左侧的部分是 **[4,2]**，它是左子树的一部分
++   在中序遍历中，rootIndex 左侧的部分是 **[4,2]**，它是左子树的一部分
 
-+   在中序遍历中，rootIndex右侧是 **[5,3,6]**，它是右子树的一部分
++   在中序遍历中，rootIndex 右侧是 **[5,3,6]**，它是右子树的一部分
 
 +   我们可以递归处理右子树，然后处理左子树
 
@@ -139,6 +139,6 @@ root.Right.Left: 5
 root.Right.Right: 6
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列的教程详细且我们已尝试用示例涵盖所有概念。这个教程适合那些希望获得专业知识和对golang有扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列的教程详细且我们已尝试用示例涵盖所有概念。这个教程适合那些希望获得专业知识和对 golang 有扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)*
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)*

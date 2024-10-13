@@ -6,21 +6,21 @@
 
 -->
 
-# 在Go语言中将通道作为函数参数
+# 在 Go 语言中将通道作为函数参数
 
-> 来源：[https://golangbyexample.com/channel-function-argument-go/](https://golangbyexample.com/channel-function-argument-go/)
+> 来源：[`golangbyexample.com/channel-function-argument-go/`](https://golangbyexample.com/channel-function-argument-go/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [双向通道](#Bidirectional_channel "双向通道")
++   双向通道
 
-+   [仅发送通道](#Only_Send_Channel "仅发送通道")
++   仅发送通道
 
-+   [仅接收通道](#Only_Receive_Channel "仅接收通道")
++   仅接收通道
 
-+   [通道指针](#Channel_Pointer "通道指针")*  *# 概述
++   通道指针*  *# 概述
 
 通道可以作为函数参数传递的方式有很多。箭头的方向指定数据流的方向
 

@@ -8,21 +8,21 @@
 
 # Go (Golang)中的原型模式
 
-> 来源：[https://golangbyexample.com/prototype-pattern-go/](https://golangbyexample.com/prototype-pattern-go/)
+> 来源：[`golangbyexample.com/prototype-pattern-go/`](https://golangbyexample.com/prototype-pattern-go/)
 
-注意: 对于理解其他所有设计模式在GO中的实现有兴趣的人，请查看此完整参考 – [Go (Golang)中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
+注意: 对于理解其他所有设计模式在 GO 中的实现有兴趣的人，请查看此完整参考 – [Go (Golang)中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [定义:](#Definition "Definition:")
+**   定义:
 
-+   [使用时机](#When_to_Use "When to Use")
++   使用时机
 
-+   [UML图](#UML_Diagram "UML Diagram")
++   UML 图
 
-+   [映射](#Mapping "Mapping")
++   映射
 
-+   [实际示例:](#Practical_Example "Practical Example:")*  *## **定义:**
++   实际示例:*  *## **定义:**
 
 这是一种创建型设计模式，允许你创建对象的副本。在此模式中，克隆对象的创建责任委托给实际的克隆对象。
 
@@ -36,13 +36,13 @@
 
 +   当你想要创建新对象的副本，但它仅作为接口可用时。因此，你不能直接创建该对象的副本。
 
-## **UML图**
+## **UML 图**
 
 ![](img/f2d42664ac887048361cea1ff2937a38.png)
 
 ## **映射**
 
-下表表示UML图中参与者到代码中实际实现参与者的映射。
+下表表示 UML 图中参与者到代码中实际实现参与者的映射。
 
 | 原型接口 | inode.go |
 | --- | --- |
@@ -52,7 +52,7 @@
 
 ## **实际示例**:
 
-在golang的上下文中，让我们尝试通过os文件系统的示例来理解它。os文件系统有文件和文件夹，文件夹本身也包含文件和文件夹。每个**文件**和**文件夹**可以由**inode**接口表示。**inode**接口还有**clone**()函数。
+在 golang 的上下文中，让我们尝试通过 os 文件系统的示例来理解它。os 文件系统有文件和文件夹，文件夹本身也包含文件和文件夹。每个**文件**和**文件夹**可以由**inode**接口表示。**inode**接口还有**clone**()函数。
 
 **inode.go**
 

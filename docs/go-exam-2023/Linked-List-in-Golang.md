@@ -6,9 +6,9 @@
 
 -->
 
-# Golang中的链表
+# Golang 中的链表
 
-> 来源：[https://golangbyexample.com/singly-linked-list-in-golang/](https://golangbyexample.com/singly-linked-list-in-golang/)
+> 来源：[`golangbyexample.com/singly-linked-list-in-golang/`](https://golangbyexample.com/singly-linked-list-in-golang/)
 
 单链表是一种简单的链表，只允许向一个方向遍历，即向前。链表中的每个节点包含数据部分和指向下一个节点的指针。
 

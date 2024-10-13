@@ -8,13 +8,13 @@
 
 # Go (Golang) 中的双向链表
 
-> 来源：[https://golangbyexample.com/doubly-linked-list-golang/](https://golangbyexample.com/doubly-linked-list-golang/)
+> 来源：[`golangbyexample.com/doubly-linked-list-golang/`](https://golangbyexample.com/doubly-linked-list-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 一个双向链表的节点包含三个字段。
 
@@ -28,7 +28,7 @@
 
 参考这篇文章了解单向链表。
 
-[https://golangbyexample.com/singly-linked-list-in-golang/](https://golangbyexample.com/singly-linked-list-in-golang/)
+[`golangbyexample.com/singly-linked-list-in-golang/`](https://golangbyexample.com/singly-linked-list-in-golang/)
 
 以下是一个双向链表的示例。头节点的前指针指向空。类似地，最后一个节点的**下一个**指针指向空。
 

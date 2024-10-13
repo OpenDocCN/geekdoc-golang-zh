@@ -6,21 +6,21 @@
 
 -->
 
-# Golang正则表达式：理解正则表达式中的花括号
+# Golang 正则表达式：理解正则表达式中的花括号
 
-> 来源：[https://golangbyexample.com/curly-braces-regex-golang/](https://golangbyexample.com/curly-braces-regex-golang/)
+> 来源：[`golangbyexample.com/curly-braces-regex-golang/`](https://golangbyexample.com/curly-braces-regex-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [示例](#Examples "示例")
++   示例
 
-+   [花括号应用于分组](#Curly_braces_applied_to_a_grouping "花括号应用于分组")
++   花括号应用于分组
 
-+   [花括号应用于字符类](#Curly_Braces_applied_to_a_Character_Class "花括号应用于字符类")
++   花括号应用于字符类
 
-+   [如何在正则表达式中将花括号作为字面字符使用。](#How_to_use_the_curly_brace_as_a_literal_character_in_regex "如何在正则表达式中将花括号作为字面字符使用。")*  *# **概述**
++   如何在正则表达式中将花括号作为字面字符使用。*  *# **概述**
 
 花括号在正则表达式中作为重复量词。它们指定前面字符在输入字符串或文本中可以出现的次数。它们也可以用于指定范围，即指定字符出现的最小和最大次数。
 
@@ -42,13 +42,13 @@
 a{n}
 ```
 
-这指定字符“a”可以恰好出现n次。类似地，对于以下正则表达式
+这指定字符“a”可以恰好出现 n 次。类似地，对于以下正则表达式
 
 ```go
 \d{n}
 ```
 
-这指定任何数字可以恰好出现n次。花括号也可以用于定义范围。
+这指定任何数字可以恰好出现 n 次。花括号也可以用于定义范围。
 
 例如
 
@@ -220,7 +220,7 @@ abab
 [ab]{4}
 ```
 
-这意味着它将匹配一个长度恰好为4并由字符**‘a’**和**‘b’**以任何顺序组成的字符串
+这意味着它将匹配一个长度恰好为 4 并由字符**‘a’**和**‘b’**以任何顺序组成的字符串
 
 这就是为什么正则表达式匹配下面的字符串
 
@@ -245,10 +245,10 @@ abbaa - String of length 5
 
 如果一个闭合括号前没有开括号，它会被视为字面意义上的闭合括号。
 
-这就是在Golang中正则表达式中大括号的所有内容。希望你喜欢这篇文章。请在评论中分享反馈
+这就是在 Golang 中正则表达式中大括号的所有内容。希望你喜欢这篇文章。请在评论中分享反馈
 
-**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，我们尽力覆盖所有概念并提供示例。这个教程适合那些希望获得专业知识和对Golang有深入理解的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尽力覆盖所有概念并提供示例。这个教程适合那些希望获得专业知识和对 Golang 有深入理解的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*

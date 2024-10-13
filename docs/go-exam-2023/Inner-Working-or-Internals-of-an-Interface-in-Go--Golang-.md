@@ -8,13 +8,13 @@
 
 # Go（Golang）中接口的内部工作或内部机制
 
-> 来源：[https://golangbyexample.com/inner-working-interface-golang/](https://golangbyexample.com/inner-working-interface-golang/)
+> 来源：[`golangbyexample.com/inner-working-interface-golang/`](https://golangbyexample.com/inner-working-interface-golang/)
 
 目录
 
-**   [概览](#Overview "Overview")
+**   概览
 
-+   [代码](#Code "Code")*  *# **概览**
++   代码*  *# **概览**
 
 和其他变量一样，接口变量由类型和值表示。接口值在内部由两个元组组成
 
@@ -88,11 +88,11 @@ Lion walk
 
 ![](img/c9cc4eb8c2e7148fd7877e127d773ca6.png)
 
-Golang提供格式标识符来打印由接口值表示的底层类型和底层值。
+Golang 提供格式标识符来打印由接口值表示的底层类型和底层值。
 
-+   %T可以用于打印接口值的具体类型
++   %T 可以用于打印接口值的具体类型
 
-+   %v可以用于打印接口值的具体值。
++   %v 可以用于打印接口值的具体值。
 
 ```go
 package main

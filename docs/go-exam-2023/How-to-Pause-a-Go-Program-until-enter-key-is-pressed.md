@@ -8,7 +8,7 @@
 
 # 如何在按下回车键之前暂停 Go 程序
 
-> 来源：[https://golangbyexample.com/how-to-pause-a-go-program-until-enter-key-is-pressed/](https://golangbyexample.com/how-to-pause-a-go-program-until-enter-key-is-pressed/)
+> 来源：[`golangbyexample.com/how-to-pause-a-go-program-until-enter-key-is-pressed/`](https://golangbyexample.com/how-to-pause-a-go-program-until-enter-key-is-pressed/)
 
 有时需要暂停 Go 程序，直到按下某个键。例如，只有在按下**回车**键时，才希望 Go 程序退出。
 

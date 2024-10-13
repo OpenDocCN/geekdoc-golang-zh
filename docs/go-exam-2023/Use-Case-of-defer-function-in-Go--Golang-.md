@@ -6,23 +6,23 @@
 
 -->
 
-# Go（Golang）中的defer函数使用案例
+# Go（Golang）中的 defer 函数使用案例
 
-> 来源：[https://golangbyexample.com/defer-use-case-go/](https://golangbyexample.com/defer-use-case-go/)
+> 来源：[`golangbyexample.com/defer-use-case-go/`](https://golangbyexample.com/defer-use-case-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
-如名称所示，Defer用于推迟函数中的清理活动。这些清理活动将在函数结束时执行。这些清理活动将在一个由defer调用的不同函数中完成。这个不同的函数在其所在函数返回之前的最后执行。以下是defer函数的语法。
+如名称所示，Defer 用于推迟函数中的清理活动。这些清理活动将在函数结束时执行。这些清理活动将在一个由 defer 调用的不同函数中完成。这个不同的函数在其所在函数返回之前的最后执行。以下是 defer 函数的语法。
 
 ```go
 defer {function_or_method_call}
 ```
 
-理解使用场景defer函数的一个好例子是查看写入文件的使用场景。打开以进行写入的文件也必须关闭。
+理解使用场景 defer 函数的一个好例子是查看写入文件的使用场景。打开以进行写入的文件也必须关闭。
 
 # **示例**
 
@@ -93,6 +93,6 @@ func writeToTempFile(text string) error {
 }
 ```
 
-在上述程序中，我们在打开文件后使用**defer file.Close()**。这将确保即使写入文件时出现错误，文件也会被关闭。Defer函数确保无论函数中有多少个返回语句，文件都将被关闭。
+在上述程序中，我们在打开文件后使用**defer file.Close()**。这将确保即使写入文件时出现错误，文件也会被关闭。Defer 函数确保无论函数中有多少个返回语句，文件都将被关闭。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

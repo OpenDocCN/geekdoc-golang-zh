@@ -8,13 +8,13 @@
 
 # 找到数组中所有和为目标数字的三元组，使用 Go (Golang)
 
-> 来源：[https://golangbyexample.com/array-triplets-target-sum-golang/](https://golangbyexample.com/array-triplets-target-sum-golang/)
+> 来源：[`golangbyexample.com/array-triplets-target-sum-golang/`](https://golangbyexample.com/array-triplets-target-sum-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 假设输入是
 

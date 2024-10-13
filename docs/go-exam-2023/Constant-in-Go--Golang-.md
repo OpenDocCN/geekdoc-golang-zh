@@ -8,11 +8,11 @@
 
 # Go（Golang）中的常量
 
-> 来源：[https://golangbyexample.com/constant-golang/](https://golangbyexample.com/constant-golang/)
+> 来源：[`golangbyexample.com/constant-golang/`](https://golangbyexample.com/constant-golang/)
 
-这是golang综合教程系列的第9章。有关该系列其他章节，请参考此链接 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 golang 综合教程系列的第九章。有关该系列其他章节，请参考此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-**下一个教程** – [for循环](https://golangbyexample.com/for-loop-in-golang/)
+**下一个教程** – [for 循环](https://golangbyexample.com/for-loop-in-golang/)
 
 **上一个教程** – [函数](https://golangbyexample.com/function-golang-complete-guide/)
 
@@ -20,33 +20,33 @@
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [重要点](#Important_Points "Important Points")
++   重要点
 
-+   [类型和未类型常量](#Typed_and_Untyped_Constants "Typed and Untyped Constants")
++   类型和未类型常量
 
-    +   [类型常量](#Typed_Constant "Typed Constant")
+    +   类型常量
 
-    +   [未类型常量](#Untyped_Constant "Untyped Constant")
+    +   未类型常量
 
-+   [命名约定](#Naming_Conventions "Naming Conventions")
++   命名约定
 
-+   [全局常量](#Global_Constant "Global Constant")
++   全局常量
 
-+   [常量类型](#Types_of_Constants "Types of Constants")
++   常量类型
 
-    +   [字符串常量](#String_Constant "String Constant")
+    +   字符串常量
 
-    +   [数字常量](#Numeric_Constant "Numeric Constant")
+    +   数字常量
 
-    +   [布尔常量](#Boolean_Constant "Boolean Constant")
+    +   布尔常量
 
-    +   [字符常量](#Character_Constant "Character Constant")
+    +   字符常量
 
-+   [结论](#Conclusion "Conclusion") * * # **概述**
++   结论 * * # **概述**
 
-常量是任何不会改变其值的东西。在Go中，const可以是字符串、数字、布尔和字符类型。
+常量是任何不会改变其值的东西。在 Go 中，const 可以是字符串、数字、布尔和字符类型。
 
 常量可以使用**const**关键字声明。需要注意的一个重要点是，在声明常量时必须赋值。这与变量不同，变量的值可以稍后赋值。
 
@@ -56,13 +56,13 @@
 const c string = "circle"
 ```
 
-+   声明一个不指定类型的const – 一个没有指定类型的const是一个未类型化常量。我们稍后将深入了解类型常量和未类型常量。现在，重要的是要知道未指定类型的const具有默认的隐藏类型。常量一旦以任何方式（直接初始化、传递给函数等）分配给变量，就会被赋予类型。
++   声明一个不指定类型的 const – 一个没有指定类型的 const 是一个未类型化常量。我们稍后将深入了解类型常量和未类型常量。现在，重要的是要知道未指定类型的 const 具有默认的隐藏类型。常量一旦以任何方式（直接初始化、传递给函数等）分配给变量，就会被赋予类型。
 
 ```go
 const c = "circle"
 ```
 
-+   一次声明多个const。
++   一次声明多个 const。
 
 ```go
 const (
@@ -89,7 +89,7 @@ func main() {
 main.go:5:4: cannot assign to a
 ```
 
-+   const值必须在编译时已知。因此，const值不能赋值给运行时评估的函数调用。在下面的程序中，a是一个const，其值应该在编译时可用，但函数**getValue**将在运行时调用，因此在编译时会引发错误。
++   const 值必须在编译时已知。因此，const 值不能赋值给运行时评估的函数调用。在下面的程序中，a 是一个 const，其值应该在编译时可用，但函数**getValue**将在运行时调用，因此在编译时会引发错误。
 
 ```go
 package main
@@ -329,7 +329,7 @@ Type: float64 Value: 3.141592653589793
 
 请注意上述程序。
 
-+   由于 **math.Pi** 常量的未类型化特性，它可以被赋值给 **float32** 和 **float64** 类型的变量。在类型确定后，GO中通常不允许这样做。
++   由于 **math.Pi** 常量的未类型化特性，它可以被赋值给 **float32** 和 **float64** 类型的变量。在类型确定后，GO 中通常不允许这样做。
 
 +   当我们打印 **math.Pi** 的类型时，它打印默认类型，即 **float64**。
 
@@ -343,7 +343,7 @@ Type: float64 Value: 3.141592653589793
 
 # **全局常量**
 
-与其他变量一样，如果常量在文件顶部的任何函数的作用域之外声明，则它将在包内全局可用。例如，在下面的程序中，name将是一个在任何函数中都可用的全局常量。请注意，const name在主包外不可用。为了使其在主包外可用，它必须以大写字母开头。
+与其他变量一样，如果常量在文件顶部的任何函数的作用域之外声明，则它将在包内全局可用。例如，在下面的程序中，name 将是一个在任何函数中都可用的全局常量。请注意，const name 在主包外不可用。为了使其在主包外可用，它必须以大写字母开头。
 
 见下面的代码。它还展示了一个包内局部常量的示例。
 
@@ -380,7 +380,7 @@ func testGlobal() {
 
 ## **字符串常量**
 
-在Go语言中，字符串常量以两种方式表示
+在 Go 语言中，字符串常量以两种方式表示
 
 +   任何用双引号括起来的值
 
@@ -520,17 +520,17 @@ var zz = "abc"
 
 +   复数
 
-一个无类型整数常量（命名和未命名）可以分配给**int**类型、**float**类型和**complex**类型。这是因为一个int值可以是int、float或complex。例如，int值**123**可以是
+一个无类型整数常量（命名和未命名）可以分配给**int**类型、**float**类型和**complex**类型。这是因为一个 int 值可以是 int、float 或 complex。例如，int 值**123**可以是
 
-+   一个值为123的**int**
++   一个值为 123 的**int**
 
-+   一个值为123.0的**float**
++   一个值为 123.0 的**float**
 
-+   一个虚部为0的**complex**
++   一个虚部为 0 的**complex**
 
-基于类似逻辑，未类型**float**常量可以赋值给所有**floats**和**complex**类型，但不能赋值给**integer**，因为例如一个float 5.3不能是整数。
+基于类似逻辑，未类型**float**常量可以赋值给所有**floats**和**complex**类型，但不能赋值给**integer**，因为例如一个 float 5.3 不能是整数。
 
-基于类似逻辑，未类型**complex**常量可以赋值给**complex**类型，但不能赋值给**integer**和**float**，例如一个float 5i+3不能是**integer**或**float**。
+基于类似逻辑，未类型**complex**常量可以赋值给**complex**类型，但不能赋值给**integer**和**float**，例如一个 float 5i+3 不能是**integer**或**float**。
 
 见下面的程序，说明上述观点。在该程序中，我们有一个例子。
 
@@ -924,7 +924,7 @@ var zz = 'a'
 
 # **结论**
 
-这就是关于Golang中const关键字的全部内容。希望你喜欢这篇文章。请在评论中分享反馈。
+这就是关于 Golang 中 const 关键字的全部内容。希望你喜欢这篇文章。请在评论中分享反馈。
 
 **下一个教程** – [For Loop](https://golangbyexample.com/for-loop-in-golang/)
 

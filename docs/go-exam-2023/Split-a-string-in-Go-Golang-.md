@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go(Golang)中拆分字符串
+# 在 Go(Golang)中拆分字符串
 
-> 来源：[https://golangbyexample.com/split-a-string-golang/](https://golangbyexample.com/split-a-string-golang/)
+> 来源：[`golangbyexample.com/split-a-string-golang/`](https://golangbyexample.com/split-a-string-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-在Golang中，字符串是UTF-8编码的。GO的**strings**包提供了一个可以根据分隔符拆分字符串的**Split**方法。
+在 Golang 中，字符串是 UTF-8 编码的。GO 的**strings**包提供了一个可以根据分隔符拆分字符串的**Split**方法。
 
 以下是该函数的签名：
 
@@ -26,13 +26,13 @@ func Split(s, sep string) []string
 
 正如你所注意到的，**Split**函数的返回值是一个字符串切片。让我们注意一下这个方法的几点。
 
-+   案例1：**Split**方法将**s**拆分成由**sep**分隔的子字符串。它将返回一个字符串切片。
++   案例 1：**Split**方法将**s**拆分成由**sep**分隔的子字符串。它将返回一个字符串切片。
 
-+   案例2：如果**s**不包含**sep**，则返回一个长度为1的字符串切片。这个切片的唯一元素将是**s**。
++   案例 2：如果**s**不包含**sep**，则返回一个长度为 1 的字符串切片。这个切片的唯一元素将是**s**。
 
-+   案例3：如果**sep**为空，则会在将**s**拆分为每个UTF-8序列后返回一个字符串切片。
++   案例 3：如果**sep**为空，则会在将**s**拆分为每个 UTF-8 序列后返回一个字符串切片。
 
-+   案例4：如果**s**和**sep**都为空，它将返回一个空的字符串切片。
++   案例 4：如果**s**和**sep**都为空，它将返回一个空的字符串切片。
 
 # **代码**
 

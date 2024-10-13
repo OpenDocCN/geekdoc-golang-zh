@@ -6,19 +6,19 @@
 
 -->
 
-# 在Go（Golang）中发送/接收`application/octet-stream`请求主体。
+# 在 Go（Golang）中发送/接收`application/octet-stream`请求主体。
 
-> 来源：[https://golangbyexample.com/octet-stream-http-golang/](https://golangbyexample.com/octet-stream-http-golang/)
+> 来源：[`golangbyexample.com/octet-stream-http-golang/`](https://golangbyexample.com/octet-stream-http-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [HTTP 客户端示例](#HTTP_Client_Example "HTTP 客户端示例")
++   HTTP 客户端示例
 
-+   [HTTP 服务器示例](#HTTP_Server_Example "HTTP 服务器示例")*  *# **概述**
++   HTTP 服务器示例*  *# **概述**
 
-**application/octet-stream**内容类型用于在HTTP请求主体中传输二进制数据。因此，**application/octet-stream**用于通过HTTP请求发送文件。让我们看一个golang中HTTP客户端和服务器的示例，用于发送和接收**application/octet-stream**数据。
+**application/octet-stream**内容类型用于在 HTTP 请求主体中传输二进制数据。因此，**application/octet-stream**用于通过 HTTP 请求发送文件。让我们看一个 golang 中 HTTP 客户端和服务器的示例，用于发送和接收**application/octet-stream**数据。
 
 让我们首先创建两个文件夹。
 
@@ -76,7 +76,7 @@ func call(urlPath, method string) error {
 }
 ```
 
-在上述程序中，我们将文件**photo.png**作为**application/octet-stream**请求主体发送在POST请求中。首先将photo.png转换为字节，这些字节作为**application/octet-stream**主体发送。为此，首先读取文件的字节。
+在上述程序中，我们将文件**photo.png**作为**application/octet-stream**请求主体发送在 POST 请求中。首先将 photo.png 转换为字节，这些字节作为**application/octet-stream**主体发送。为此，首先读取文件的字节。
 
 ```go
 b, err := ioutil.ReadFile("photo.png")
@@ -88,13 +88,13 @@ b, err := ioutil.ReadFile("photo.png")
 bytes.NewReader(b)
 ```
 
-**bytes.NewReader**返回**bytes.Reader**实例。**bytes.Reader**实现了**io.Reader**和**io.Writer**。**http.NewRequest**方法接受`io.Reader`作为主体部分。因此，**bytes.Reader**实例可以作为第三个参数传递给http.NewRequest。
+**bytes.NewReader**返回**bytes.Reader**实例。**bytes.Reader**实现了**io.Reader**和**io.Writer**。**http.NewRequest**方法接受`io.Reader`作为主体部分。因此，**bytes.Reader**实例可以作为第三个参数传递给 http.NewRequest。
 
 ```go
 req, err := http.NewRequest(method, urlPath, bytes.NewReader(b))
 ```
 
-在上述程序中，我们还调用了以下API。
+在上述程序中，我们还调用了以下 API。
 
 ```go
 http://localhost:8080/photo
@@ -140,13 +140,13 @@ func createEmployee(w http.ResponseWriter, request *http.Request) {
 }
 ```
 
-在上述程序中，我们创建了一个将在端口8080上监听的API。API签名将是：
+在上述程序中，我们创建了一个将在端口 8080 上监听的 API。API 签名将是：
 
 ```go
 http://localhost:8080/photo
 ```
 
-它从POST主体读取字节并将其保存到文件**photo.png**中。
+它从 POST 主体读取字节并将其保存到文件**photo.png**中。
 
 让我们运行服务器和客户端。先运行服务器。
 
@@ -154,12 +154,12 @@ http://localhost:8080/photo
 go run server/main.go
 ```
 
-它将开始监听端口8080。之后运行客户端。
+它将开始监听端口 8080。之后运行客户端。
 
 ```go
 go run client/main.go
 ```
 
-API成功执行后，请检查服务器端。服务器端将创建一个名为**photo.png**的文件。
+API 成功执行后，请检查服务器端。服务器端将创建一个名为**photo.png**的文件。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

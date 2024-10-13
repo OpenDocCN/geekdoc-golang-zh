@@ -8,13 +8,13 @@
 
 # Go (Golang) 中的嵌套包
 
-> 来源：[https://golangbyexample.com/nested-packages-golang/](https://golangbyexample.com/nested-packages-golang/)
+> 来源：[`golangbyexample.com/nested-packages-golang/`](https://golangbyexample.com/nested-packages-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 在 Go 中，可以创建嵌套包。嵌套包是指位于另一个包内部的那些包。让我们来看一个例子
 

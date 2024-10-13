@@ -8,17 +8,17 @@
 
 # Go（Golang）中的选择排序
 
-> 来源：[https://golangbyexample.com/go-selection-sort/](https://golangbyexample.com/go-selection-sort/)
+> 来源：[`golangbyexample.com/go-selection-sort/`](https://golangbyexample.com/go-selection-sort/)
 
 目录
 
-**   [介绍](#Introduction "介绍")
+**   介绍
 
-+   [时间复杂度](#Time_Complexity "时间复杂度")
++   时间复杂度
 
-+   [空间复杂度](#Space_Complexity "空间复杂度")
++   空间复杂度
 
-+   [实现：](#Implementation "实现：")*  *# **介绍**
++   实现：*  *# **介绍**
 
 在选择排序中，我们维护两个部分
 

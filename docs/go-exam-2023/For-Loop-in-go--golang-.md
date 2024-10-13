@@ -8,9 +8,9 @@
 
 # Go 中的 For 循环（Golang）
 
-> 来源：[https://golangbyexample.com/for-loop-in-golang/](https://golangbyexample.com/for-loop-in-golang/)
+> 来源：[`golangbyexample.com/for-loop-in-golang/`](https://golangbyexample.com/for-loop-in-golang/)
 
-这是 Golang 综合教程系列的第 10 章。请参阅此链接以获取该系列的其他章节 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 Golang 综合教程系列的第十章。请参阅此链接以获取该系列的其他章节 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程** –  [For Range 循环](https://golangbyexample.com/understand-for-range-loop-golang/)
 
@@ -279,9 +279,9 @@ In test function
 2
 ```
 
-## **使用for循环实现while循环**
+## **使用 for 循环实现 while 循环**
 
-Go没有**while**关键字。相反，它只有**for**关键字。然而，**for**关键字可以用来模拟与**while**相同的功能。
+Go 没有**while**关键字。相反，它只有**for**关键字。然而，**for**关键字可以用来模拟与**while**相同的功能。
 
 如果可以跳过**初始化部分**和**增量部分**，则可以将**for**循环实现为与**while**相同的行为。以下是一个示例：
 
@@ -311,7 +311,7 @@ func main() {
 
 # **结论**
 
-这都是关于golang中的for循环。请在评论中分享反馈/改进/错误。
+这都是关于 golang 中的 for 循环。请在评论中分享反馈/改进/错误。
 
 **下一教程** – [范围循环](https://golangbyexample.com/understand-for-range-loop-golang/)
 

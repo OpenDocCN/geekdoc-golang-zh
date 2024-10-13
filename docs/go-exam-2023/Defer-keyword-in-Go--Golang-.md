@@ -6,11 +6,11 @@
 
 -->
 
-# Go语言中的**defer**关键字
+# Go 语言中的**defer**关键字
 
-> 来源：[https://golangbyexample.com/defer-golang/](https://golangbyexample.com/defer-golang/)
+> 来源：[`golangbyexample.com/defer-golang/`](https://golangbyexample.com/defer-golang/)
 
-这是Golang综合教程系列的第14章。请参考此链接获取系列的其他章节 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 Golang 综合教程系列的第十四章。请参考此链接获取系列的其他章节 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程** – [Pointer](https://golangbyexample.com/pointer-golang/)
 
@@ -20,25 +20,25 @@
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [defer中的自定义函数](#Custom_Function_in_defer "Custom Function in defer")
++   defer 中的自定义函数
 
-+   [defer中的内联函数](#Inline_Function_in_Defer "Inline Function in Defer")
++   defer 中的内联函数
 
-+   [defer是如何工作的](#How_does_defer_works "How does defer works")
++   defer 是如何工作的
 
-+   [延迟参数评估](#Evaluation_of_defer_arguments "Evaluation of defer arguments")
++   延迟参数评估
 
-+   [同一函数中的多个defer函数](#Multiple_defer_functions_in_the_same_function "Multiple defer functions in the same function")
++   同一函数中的多个 defer 函数
 
-+   [defer函数和命名返回值](#Defer_function_and_Named_Return_Values "Defer function and Named Return Values")
++   defer 函数和命名返回值
 
-+   [defer和方法](#Defer_and_Methods "Defer and Methods")
++   defer 和方法
 
-+   [defer和panic](#Defer_and_Panic "Defer and Panic")
++   defer 和 panic
 
-+   [结论](#Conclusion "Conclusion")*  *# **概述**
++   结论*  *# **概述**
 
 **defer**（延迟）顾名思义用于延迟函数中的清理操作。这些清理操作将在函数结束时执行。这些清理操作将在一个由**defer**调用的不同函数中完成。这个不同的函数会在周围函数返回之前被调用。下面是**defer**函数的语法。
 
@@ -46,11 +46,11 @@
 defer {function_or_method_call}
 ```
 
-关于defer函数需要注意的事项
+关于 defer 函数需要注意的事项
 
 +   延迟函数的执行会被推迟到周围函数返回的时刻。
 
-+   如果封闭函数异常终止，延迟函数也会被执行。例如在发生panic的情况下。
++   如果封闭函数异常终止，延迟函数也会被执行。例如在发生 panic 的情况下。
 
 理解**defer**函数的一个好例子是查看写入文件的使用案例。一个为写入而打开的文件也必须关闭。
 
@@ -123,7 +123,7 @@ func writeToTempFile(text string) error {
 
 在上述程序中，我们在打开文件后执行**defer file.Close()**。这将确保即使写入文件时发生错误，文件也会被关闭。`defer`函数确保文件会被关闭，无论函数中有多少个返回语句。
 
-# **自定义函数在defer中**
+# **自定义函数在 defer 中**
 
 我们也可以在**defer**中调用自定义函数。让我们看看一个例子。
 
@@ -160,7 +160,7 @@ In Defer
 
 上述函数还显示在主函数中使用`defer`是完全可以的。
 
-# **defer中的内联函数**
+# **defer 中的内联函数**
 
 也可以在`defer`中使用内联函数。让我们看看一个例子。
 
@@ -188,7 +188,7 @@ In inline defer
 defer func() { fmt.Println("In inline defer") }()
 ```
 
-在Go中这是允许的。此外，请注意在函数后添加**“()”**是强制性的，否则编译器会抛出错误。
+在 Go 中这是允许的。此外，请注意在函数后添加**“()”**是强制性的，否则编译器会抛出错误。
 
 ```go
 expression in defer must be function call
@@ -206,7 +206,7 @@ Executed in main
 In inline Defer
 ```
 
-# **defer是如何工作的**
+# **defer 是如何工作的**
 
 当编译器在函数中遇到`defer`语句时，它将其推送到一个列表中。该列表在内部实现了一个堆栈数据结构。所有在同一函数中遇到的`defer`语句都被推送到这个列表中。当外层函数返回时，堆栈中的所有函数从上到下执行，然后才能开始调用函数的执行。调用函数中也会发生同样的事情。
 
@@ -264,7 +264,7 @@ Finish main
 Defer in main
 ```
 
-# **defer参数的评估**
+# **defer 参数的评估**
 
 `defer`参数在`defer`语句被求值时被评估。
 

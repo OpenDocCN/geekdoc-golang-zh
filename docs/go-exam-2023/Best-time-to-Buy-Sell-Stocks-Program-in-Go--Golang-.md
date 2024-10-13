@@ -6,17 +6,17 @@
 
 -->
 
-# 用Go (Golang) 编写的最佳买卖股票程序
+# 用 Go (Golang) 编写的最佳买卖股票程序
 
-> 来源：[https://golangbyexample.com/buy-sell-stock-golang/](https://golangbyexample.com/buy-sell-stock-golang/)
+> 来源：[`golangbyexample.com/buy-sell-stock-golang/`](https://golangbyexample.com/buy-sell-stock-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-给定一个数组**prices**，其中**prices[i]**表示第i天的股票价格。你只能买入和卖出一次。找出通过一次买入和一次卖出可以获得的最大利润。
+给定一个数组**prices**，其中**prices[i]**表示第 i 天的股票价格。你只能买入和卖出一次。找出通过一次买入和一次卖出可以获得的最大利润。
 
 示例
 
@@ -85,8 +85,8 @@ func main() {
 6
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列教程内容详尽，我们努力覆盖所有概念并提供示例。这个教程是为那些希望获得专业知识和深入理解Golang的人准备的——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列教程内容详尽，我们努力覆盖所有概念并提供示例。这个教程是为那些希望获得专业知识和深入理解 Golang 的人准备的——[Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。 如果是的话，这篇文章就是为你准备的——[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。 如果是的话，这篇文章就是为你准备的——[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

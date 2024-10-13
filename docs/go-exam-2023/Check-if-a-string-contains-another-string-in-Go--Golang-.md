@@ -6,17 +6,17 @@ date: 2024-10-13 06:11:55
 
 -->
 
-# 检查字符串在Go (Golang)中是否包含另一个字符串
+# 检查字符串在 Go (Golang)中是否包含另一个字符串
 
-> 来源：[https://golangbyexample.com/check-if-substring-golang/](https://golangbyexample.com/check-if-substring-golang/)
+> 来源：[`golangbyexample.com/check-if-substring-golang/`](https://golangbyexample.com/check-if-substring-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
-在Golang中，字符串是UTF-8编码的。GO的**strings**包提供了一个**Contains**方法，可以用来检查特定字符串是否是另一个字符串的子字符串。
+在 Golang 中，字符串是 UTF-8 编码的。GO 的**strings**包提供了一个**Contains**方法，可以用来检查特定字符串是否是另一个字符串的子字符串。
 
 以下是函数的签名
 
@@ -24,11 +24,11 @@ date: 2024-10-13 06:11:55
 func Contains(s, substr string) bool
 ```
 
-如你所见，Compare函数的返回值是一个布尔值。这个值将是
+如你所见，Compare 函数的返回值是一个布尔值。这个值将是
 
-+   true是**substr**在**s**中存在
++   true 是**substr**在**s**中存在
 
-+   false是**substr**在**s**中不存在
++   false 是**substr**在**s**中不存在
 
 # **代码：**
 

@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中生成一个 UUID/GUID
 
-> 来源：[https://golangbyexample.com/generate-uuid-guid-golang/](https://golangbyexample.com/generate-uuid-guid-golang/)
+> 来源：[`golangbyexample.com/generate-uuid-guid-golang/`](https://golangbyexample.com/generate-uuid-guid-golang/)
 
 UUID 也称为 GUID，是一个 16 字节或 128 位的数字。它旨在唯一标识某个事物。UUID 的一些属性包括
 
@@ -24,7 +24,7 @@ UUID 也称为 GUID，是一个 16 字节或 128 位的数字。它旨在唯一�
 
 有不同的库可用于生成 UUID。让我们看看两个可以用来生成 UUID 的库
 
-[https://github.com/google/uuid](https://github.com/google/uuid)
+[`github.com/google/uuid`](https://github.com/google/uuid)
 
 **代码：**
 
@@ -52,7 +52,7 @@ cda6498a-235d-4f7e-ae19-661d41bc154c
 cda6498a235d4f7eae19661d41bc154c
 ```
 
-[https://github.com/pborman/uuid](https://github.com/pborman/uuid)
+[`github.com/pborman/uuid`](https://github.com/pborman/uuid)
 
 **代码**
 

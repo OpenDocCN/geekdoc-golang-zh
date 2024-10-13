@@ -8,21 +8,21 @@
 
 # Go (Golang) 中的 Panic 格式字符串
 
-> 来源：[https://golangbyexample.com/panic-format-string-go/](https://golangbyexample.com/panic-format-string-go/)
+> 来源：[`golangbyexample.com/panic-format-string-go/`](https://golangbyexample.com/panic-format-string-go/)
 
 目录
 
-**   [概述](#Overview "Overview")**
+**   概述**
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
-下面是panic函数的语法
+下面是 panic 函数的语法
 
 ```go
 func panic(v interface{})
 ```
 
-它将空接口作为参数。它并没有提供任何格式化错误字符串的方法。不过有一个变通办法。可以使用**fmt**包的**Sprintf**函数在将错误消息传递给panic函数之前进行格式化。让我们看看一个程序
+它将空接口作为参数。它并没有提供任何格式化错误字符串的方法。不过有一个变通办法。可以使用**fmt**包的**Sprintf**函数在将错误消息传递给 panic 函数之前进行格式化。让我们看看一个程序
 
 # **示例**
 
@@ -61,7 +61,7 @@ main.main()
 exit status 2
 ```
 
-在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印在参数中传递的索引处的切片元素。如果传递的索引大于数组的长度，则程序将发生panic。注意我们是如何在**checkAndPrint**函数中格式化错误字符串然后传递给panic的
+在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印在参数中传递的索引处的切片元素。如果传递的索引大于数组的长度，则程序将发生 panic。注意我们是如何在**checkAndPrint**函数中格式化错误字符串然后传递给 panic 的
 
 ```go
 errorString := fmt.Sprintf("Out of bounds access for slice. Index passed: %d", index)

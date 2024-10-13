@@ -6,21 +6,21 @@
 
 -->
 
-# Golang中的最小堆
+# Golang 中的最小堆
 
-> 来源：[https://golangbyexample.com/minheap-in-golang/](https://golangbyexample.com/minheap-in-golang/)
+> 来源：[`golangbyexample.com/minheap-in-golang/`](https://golangbyexample.com/minheap-in-golang/)
 
 目录
 
-**   [介绍](#Introduction "Introduction")
+**   介绍
 
-+   [最小堆操作](#Operations_on_Minheap "Operations on Minheap")
++   最小堆操作
 
-+   [实现](#Implementation "Implementation")*  *# **介绍**
++   实现*  *# **介绍**
 
 最小堆是一个完全二叉树，其中父节点的值小于或等于其左子节点和右子节点的值。完全二叉树是指除了最后一层外，所有层都是满的二叉树。
 
-我们使用数组来表示最小堆。根元素是arr[0]。对于索引i，我们有
+我们使用数组来表示最小堆。根元素是 arr[0]。对于索引 i，我们有
 
 +   左子节点 – 2*i + 1
 
@@ -32,23 +32,23 @@
 
 相应的数组为[2, 3, 5, 7, 6, 8]
 
-对于索引0，我们有
+对于索引 0，我们有
 
 +   左子节点 – 2*0 + 1 = 1
 
 +   右子节点 – 2*0 + 2 = 2
 
-因此arr[0]即2的左子节点为arr[1]即3，右子节点为arr[2]即5
+因此 arr[0]即 2 的左子节点为 arr[1]即 3，右子节点为 arr[2]即 5
 
 由于每个节点值小于或等于其子节点的值，因此根节点的值是最小值。
 
 # **最小堆操作**
 
-+   **插入元素**– 需要O(log n)的时间。如果插入的值小于其父节点，则需要向上遍历以修复。这种遍历会持续到插入的值大于其父节点，或者插入的值成为根节点。第二种情况发生在插入的值是最小的。
++   **插入元素**– 需要 O(log n)的时间。如果插入的值小于其父节点，则需要向上遍历以修复。这种遍历会持续到插入的值大于其父节点，或者插入的值成为根节点。第二种情况发生在插入的值是最小的。
 
-+   **移除最小元素** – 需要O(log n)的时间。它保存根值，然后用数组中的最后一个值替换它。然后对根进行最小堆化，这需要O(log n)的时间，因为它向下遍历直到小于其父节点。
++   **移除最小元素** – 需要 O(log n)的时间。它保存根值，然后用数组中的最后一个值替换它。然后对根进行最小堆化，这需要 O(log n)的时间，因为它向下遍历直到小于其父节点。
 
-+   **获取最小值** – 需要O(1)的时间。返回根值
++   **获取最小值** – 需要 O(1)的时间。返回根值
 
 # **实现**
 
@@ -174,4 +174,4 @@ func main() {
 8
 ```
 
-+   [go](https://golangbyexample.com/tag/go/)*   [在go中的最小堆](https://golangbyexample.com/tag/meanheap-in-go/)*
++   [go](https://golangbyexample.com/tag/go/)*   [在 go 中的最小堆](https://golangbyexample.com/tag/meanheap-in-go/)*

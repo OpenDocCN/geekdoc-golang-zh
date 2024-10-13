@@ -6,9 +6,9 @@
 
 -->
 
-# 在Go（Golang）中触摸文件
+# 在 Go（Golang）中触摸文件
 
-> 来源：[https://golangbyexample.com/touch-file-golang/](https://golangbyexample.com/touch-file-golang/)
+> 来源：[`golangbyexample.com/touch-file-golang/`](https://golangbyexample.com/touch-file-golang/)
 
 触摸一个文件意味着
 

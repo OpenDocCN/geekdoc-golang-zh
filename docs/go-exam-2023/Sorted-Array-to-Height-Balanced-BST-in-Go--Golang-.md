@@ -6,19 +6,19 @@ date: 2024-10-13 06:46:59
 
 -->
 
-# 将已排序数组转换为高度平衡的BST（Golang）。
+# 将已排序数组转换为高度平衡的 BST（Golang）。
 
-> 来源：[https://golangbyexample.com/sorted-array-balanced-bst-golang/](https://golangbyexample.com/sorted-array-balanced-bst-golang/)。
+> 来源：[`golangbyexample.com/sorted-array-balanced-bst-golang/`](https://golangbyexample.com/sorted-array-balanced-bst-golang/)。
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program ")*  *## **概述**
++   程序*  *## **概述**
 
-给定一个已排序的数组。数组按升序排序。目标是将该已排序数组转换为高度平衡的BST。
+给定一个已排序的数组。数组按升序排序。目标是将该已排序数组转换为高度平衡的 BST。
 
-平衡BST是指每个节点的左子树和右子树的高度差最大为1的BST。
+平衡 BST 是指每个节点的左子树和右子树的高度差最大为 1 的 BST。
 
 ## **程序**
 
@@ -90,8 +90,8 @@ func main() {
 5
 ```
 
-**注意：** 请查看我们的Golang高级教程。此系列的教程内容详尽，我们尝试涵盖所有概念并附带示例。此教程适合那些希望获得专业知识和对golang有扎实理解的读者——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
+**注意：** 请查看我们的 Golang 高级教程。此系列的教程内容详尽，我们尝试涵盖所有概念并附带示例。此教程适合那些希望获得专业知识和对 golang 有扎实理解的读者——[Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，那么这篇文章适合你——[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)。
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，那么这篇文章适合你——[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

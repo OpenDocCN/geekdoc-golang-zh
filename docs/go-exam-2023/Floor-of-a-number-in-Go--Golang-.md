@@ -8,13 +8,13 @@ date: 2024-10-13 06:14:27
 
 # Go（Golang）中的数字下限
 
-> 来源：[https://golangbyexample.com/floor-number-golang/](https://golangbyexample.com/floor-number-golang/)
+> 来源：[`golangbyexample.com/floor-number-golang/`](https://golangbyexample.com/floor-number-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码：](#Code "代码：")*  *# **概述**
++   代码：*  *# **概述**
 
 **Go**的**math**包提供了一个**Floor**方法，可以用来获取一个数的下限。一个数的下限是小于或等于该数的最大整数值。
 

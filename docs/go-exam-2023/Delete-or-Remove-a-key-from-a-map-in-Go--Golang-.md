@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go (Golang)中删除或移除映射中的键
+# 在 Go (Golang)中删除或移除映射中的键
 
-> 来源：[https://golangbyexample.com/delete-key-map-golang/](https://golangbyexample.com/delete-key-map-golang/)
+> 来源：[`golangbyexample.com/delete-key-map-golang/`](https://golangbyexample.com/delete-key-map-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [键存在于映射中](#Key_exists_in_the_Map "键存在于映射中")
++   键存在于映射中
 
-+   [键在映射中不存在](#The_Key_doesnt_exist_in_the_Map "键在映射中不存在")*  *# **概述**
++   键在映射中不存在*  *# **概述**
 
 以下是从映射中删除给定键的格式
 
@@ -130,8 +130,8 @@ map[a:1 b:2 c:3]
 map[a:1 b:2 c:3]
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，我们尝试用示例覆盖所有概念。这个教程是为了那些希望获得Golang专业知识和扎实理解的人—[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尝试用示例覆盖所有概念。这个教程是为了那些希望获得 Golang 专业知识和扎实理解的人—[Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章就是为你准备的—
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章就是为你准备的—
 
 [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)*

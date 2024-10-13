@@ -8,13 +8,13 @@
 
 # Go (Golang)中的向上取整
 
-> 来源：[https://golangbyexample.com/ceil-number-golang/](https://golangbyexample.com/ceil-number-golang/)
+> 来源：[`golangbyexample.com/ceil-number-golang/`](https://golangbyexample.com/ceil-number-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码:](#Code "Code:")*  *# **概述**
++   代码:*  *# **概述**
 
 **math**包提供了一个**Ceil**方法，可以用于获取一个数字的向上取整值。一个数字的向上取整是大于或等于该数字的最小整数值。
 

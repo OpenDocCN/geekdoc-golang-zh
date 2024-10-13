@@ -6,17 +6,17 @@
 
 -->
 
-# Go语言中颜色不同的最远房子
+# Go 语言中颜色不同的最远房子
 
-> 来源：[https://golangbyexample.com/two-furthest-houses-different-color-golang/](https://golangbyexample.com/two-furthest-houses-different-color-golang/)
+> 来源：[`golangbyexample.com/two-furthest-houses-different-color-golang/`](https://golangbyexample.com/two-furthest-houses-different-color-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [程序](#Program "程序")*  *## **概述**
++   程序*  *## **概述**
 
-给定一个数组，表示房子的颜色。所以array[i]表示索引i处房子的颜色。目标是找到两个颜色不同且距离最远的房子。
+给定一个数组，表示房子的颜色。所以 array[i]表示索引 i 处房子的颜色。目标是找到两个颜色不同且距离最远的房子。
 
 如果不存在这样的索引，则返回-1。
 
@@ -38,11 +38,11 @@ Explanation: House at index 0 and house at index 4 is of different colors
 
 以下是我们可以采取的方法。
 
-+   其中一个房子将位于第0个索引或n-1索引处，其中n是数组的长度。
++   其中一个房子将位于第 0 个索引或 n-1 索引处，其中 n 是数组的长度。
 
-+   我们可以先假设第0个索引的房子在解决方案中，然后进行计算。
++   我们可以先假设第 0 个索引的房子在解决方案中，然后进行计算。
 
-+   我们可以接着假设n-1索引的房子在解决方案中，然后进行计算。
++   我们可以接着假设 n-1 索引的房子在解决方案中，然后进行计算。
 
 ## **程序**
 
@@ -97,8 +97,8 @@ func main() {
 -1
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，我们尽力涵盖所有概念和示例。这个教程适合那些希望获得Golang专业知识和扎实理解的人——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尽力涵盖所有概念和示例。这个教程适合那些希望获得 Golang 专业知识和扎实理解的人——[Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章就是为你准备的——[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章就是为你准备的——[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*

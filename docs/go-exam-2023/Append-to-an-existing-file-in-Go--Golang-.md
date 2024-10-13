@@ -6,11 +6,11 @@
 
 -->
 
-# 在Go（Golang）中追加到现有文件
+# 在 Go（Golang）中追加到现有文件
 
-> 来源：[https://golangbyexample.com/append-file-golang/](https://golangbyexample.com/append-file-golang/)
+> 来源：[`golangbyexample.com/append-file-golang/`](https://golangbyexample.com/append-file-golang/)
 
-os包的**os.OpenFile()**函数可以用于以追加模式打开文件，然后写入内容
+os 包的**os.OpenFile()**函数可以用于以追加模式打开文件，然后写入内容
 
 让我们看一个例子。在下面的程序中：
 

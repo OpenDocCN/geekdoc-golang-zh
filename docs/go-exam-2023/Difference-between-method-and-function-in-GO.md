@@ -8,7 +8,7 @@
 
 # GO 中方法和函数的区别
 
-> 来源：[https://golangbyexample.com/difference-between-method-function-go/](https://golangbyexample.com/difference-between-method-function-go/)
+> 来源：[`golangbyexample.com/difference-between-method-function-go/`](https://golangbyexample.com/difference-between-method-function-go/)
 
 方法和函数之间有一些重要的区别。让我们来看一下两者的签名。
 

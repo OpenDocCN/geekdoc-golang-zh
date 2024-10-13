@@ -8,7 +8,7 @@
 
 # 理解 Go (Golang) 中的 := 符号或短变量声明。
 
-> 来源：[https://golangbyexample.com/short-variable-declaration-go/](https://golangbyexample.com/short-variable-declaration-go/)
+> 来源：[`golangbyexample.com/short-variable-declaration-go/`](https://golangbyexample.com/short-variable-declaration-go/)
 
 Go 提供了另一种声明变量的方法，即使用 **:=** 操作符。当使用 **:=** 操作符时，可以省略 **var** 关键字和类型信息。以下是这种声明的格式。
 

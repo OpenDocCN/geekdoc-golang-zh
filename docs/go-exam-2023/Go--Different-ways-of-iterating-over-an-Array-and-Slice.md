@@ -8,7 +8,7 @@
 
 # Go: 遍历数组和切片的不同方式
 
-> 来源：[https://golangbyexample.com/go-different-ways-iterating-array-slice/](https://golangbyexample.com/go-different-ways-iterating-array-slice/)
+> 来源：[`golangbyexample.com/go-different-ways-iterating-array-slice/`](https://golangbyexample.com/go-different-ways-iterating-array-slice/)
 
 Go 提供了许多遍历数组的不同方式。以下所有示例也适用于切片。
 
@@ -20,9 +20,9 @@ letters := []string{"a", "b", "c", "d", "e"}
 
 目录
 
-**   [使用 range 操作符](#Using_the_range_operator "使用 range 操作符")
+**   使用 range 操作符
 
-+   [仅使用 For 操作符](#Using_Only_For_operator "仅使用 For 操作符")*  *## **使用 range 操作符**
++   仅使用 For 操作符*  *## **使用 range 操作符**
 
 +   带索引和值
 

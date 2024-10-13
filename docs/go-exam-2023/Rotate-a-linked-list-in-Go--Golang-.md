@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go（Golang）中旋转链表
+# 在 Go（Golang）中旋转链表
 
-> 来源：[https://golangbyexample.com/rotate-linked-list-golang/](https://golangbyexample.com/rotate-linked-list-golang/)
+> 来源：[`golangbyexample.com/rotate-linked-list-golang/`](https://golangbyexample.com/rotate-linked-list-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是将给定列表按指定数量向右旋转。
 
@@ -154,8 +154,8 @@ func rotateRight(head *ListNode, k int) *ListNode {
 45123
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尝试涵盖所有概念及示例。本教程适合那些希望获得专业知识和对Golang有深入理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尝试涵盖所有概念及示例。本教程适合那些希望获得专业知识和对 Golang 有深入理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是，那么这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [去](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*

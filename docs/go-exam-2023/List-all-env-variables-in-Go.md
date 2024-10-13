@@ -8,13 +8,13 @@
 
 # 列出 Go 中的所有环境变量
 
-> 来源：[https://golangbyexample.com/list-all-env-variables-go/](https://golangbyexample.com/list-all-env-variables-go/)
+> 来源：[`golangbyexample.com/list-all-env-variables-go/`](https://golangbyexample.com/list-all-env-variables-go/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码：](#Code "代码：")*  *# **概述**
++   代码：*  *# **概述**
 
 **os** 包提供了一个 **Environ()** 函数，用于获取所有环境变量的列表。
 

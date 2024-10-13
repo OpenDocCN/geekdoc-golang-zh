@@ -6,21 +6,21 @@
 
 -->
 
-# HTTP服务器或在Go（Golang）中解析传入的application/x-www-form-urlencoded请求主体。
+# HTTP 服务器或在 Go（Golang）中解析传入的 application/x-www-form-urlencoded 请求主体。
 
-> 来源：[https://golangbyexample.com/url-encoded-body-golang/](https://golangbyexample.com/url-encoded-body-golang/)
+> 来源：[`golangbyexample.com/url-encoded-body-golang/`](https://golangbyexample.com/url-encoded-body-golang/)
 
-**注意**：这篇文章在服务器端解析**application/x-www-form-urlencoded**请求。如果你使用HTTP客户端并尝试发送**application/x-www-form-urlencoded**请求，请查看以下链接。
+**注意**：这篇文章在服务器端解析**application/x-www-form-urlencoded**请求。如果你使用 HTTP 客户端并尝试发送**application/x-www-form-urlencoded**请求，请查看以下链接。
 
-[https://golangbyexample.com/http-client-urlencoded-body-go](https://golangbyexample.com/http-client-urlencoded-body-go)/
+[`golangbyexample.com/http-client-urlencoded-body-go`](https://golangbyexample.com/http-client-urlencoded-body-go)/
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
-**application/x-www-form-urlencoded**内容类型的请求主体就像一个巨大的查询字符串。类似于URI中的查询字符串，它是一个具有以下格式的键值对。
+**application/x-www-form-urlencoded**内容类型的请求主体就像一个巨大的查询字符串。类似于 URI 中的查询字符串，它是一个具有以下格式的键值对。
 
 ```go
 key1=value1&key2=value21&key2=value22&key3=value3
@@ -30,17 +30,17 @@ key1=value1&key2=value21&key2=value22&key3=value3
 
 +   key1, value1
 
-+   key2有两个值，即value21和value22。
++   key2 有两个值，即 value21 和 value22。
 
 +   key3, value3
 
-每个键值对由**&**分隔，如果同一键有多个值，则会有两个该键值对的条目。此外，每个键和值都经过URL编码，类似于查询字符串。
+每个键值对由**&**分隔，如果同一键有多个值，则会有两个该键值对的条目。此外，每个键和值都经过 URL 编码，类似于查询字符串。
 
-现在可能会出现的问题是，如果**x-www-form-urlencoded**就像查询字符串，那么它为何存在。原因是查询字符串是URI的一部分，而URI的长度有限，因此你只能在查询字符串中发送有限数量的键值对。虽然**x-www-form-urlencoded**请求主体的长度没有限制，但它受到服务器允许的最大请求主体大小的限制，通常大多数服务器为10MB。现在，让我们看看如何在golang中解析**x-www-form-urlencoded**。
+现在可能会出现的问题是，如果**x-www-form-urlencoded**就像查询字符串，那么它为何存在。原因是查询字符串是 URI 的一部分，而 URI 的长度有限，因此你只能在查询字符串中发送有限数量的键值对。虽然**x-www-form-urlencoded**请求主体的长度没有限制，但它受到服务器允许的最大请求主体大小的限制，通常大多数服务器为 10MB。现在，让我们看看如何在 golang 中解析**x-www-form-urlencoded**。
 
 # **示例**
 
-net/http包的请求对象有两个字段可以保存表单数据。[https://golang.org/src/net/http/request.go](https://golang.org/src/net/http/request.go)
+net/http 包的请求对象有两个字段可以保存表单数据。[`golang.org/src/net/http/request.go`](https://golang.org/src/net/http/request.go)
 
 这两个字段是。
 
@@ -56,22 +56,22 @@ request.ParseForm()
 
 此函数基本上执行以下操作。
 
-+   它解析URL中存在的查询字符串，并填充请求对象的**Form**字段。
++   它解析 URL 中存在的查询字符串，并填充请求对象的**Form**字段。
 
 ```go
 request.Form
 ```
 
-+   之后，如果请求方法是PUT、POST或PATCH，且请求主体的内容类型是x-www-form-urlencoded，则它也会解析请求主体，并填充请求对象的上述两个字段。
++   之后，如果请求方法是 PUT、POST 或 PATCH，且请求主体的内容类型是 x-www-form-urlencoded，则它也会解析请求主体，并填充请求对象的上述两个字段。
 
 ```go
 request.Form
 request.PostForm
 ```
 
-+   如果请求主体的内容类型不是x-www-form-urlencoded，或者请求方法不是PUT、POST或PATCH，则**request.PostForm**将初始化为非空的空值。
++   如果请求主体的内容类型不是 x-www-form-urlencoded，或者请求方法不是 PUT、POST 或 PATCH，则**request.PostForm**将初始化为非空的空值。
 
-+   主体参数优先于URL查询字符串值，即如果在表单主体和查询参数中都有一个键，则表单主体中的值将优先。
++   主体参数优先于 URL 查询字符串值，即如果在表单主体和查询参数中都有一个键，则表单主体中的值将优先。
 
 +   此外，请注意这个函数是幂等的。
 

@@ -6,11 +6,11 @@
 
 -->
 
-# 在Go (Golang)中编写多行字符串
+# 在 Go (Golang)中编写多行字符串
 
-> 来源：[https://golangbyexample.com/multiline-string-go/](https://golangbyexample.com/multiline-string-go/)
+> 来源：[`golangbyexample.com/multiline-string-go/`](https://golangbyexample.com/multiline-string-go/)
 
-反引号(**`**)可以用于在Golang中编写多行字符串。请注意，用反引号编码的字符串是原始字面量字符串，不会遵循任何类型的转义。因此，在使用反引号时，\n和\t被视为字符串字面量。
+反引号(**`**)可以用于在 Golang 中编写多行字符串。请注意，用反引号编码的字符串是原始字面量字符串，不会遵循任何类型的转义。因此，在使用反引号时，\n 和\t 被视为字符串字面量。
 
 **工作代码:**
 

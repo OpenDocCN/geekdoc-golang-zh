@@ -8,7 +8,7 @@
 
 # 在 Go（Golang）中，接口是隐式实现的。
 
-> 来源：[https://golangbyexample.com/interface-implit-implementation-golanng/](https://golangbyexample.com/interface-implit-implementation-golanng/)
+> 来源：[`golangbyexample.com/interface-implit-implementation-golanng/`](https://golangbyexample.com/interface-implit-implementation-golanng/)
 
 并没有明确声明一个类型实现了一个接口。实际上，在 Go 中并不存在类似 Java 的 **“implements”** 关键字。如果一个类型实现了接口的所有方法，那么它就实现了这个接口。
 

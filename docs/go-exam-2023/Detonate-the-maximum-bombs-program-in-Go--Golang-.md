@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中引爆最大炸弹的程序
 
-> 来源：[https://golangbyexample.com/detonate-maximum-bombs-golang/](https://golangbyexample.com/detonate-maximum-bombs-golang/)
+> 来源：[`golangbyexample.com/detonate-maximum-bombs-golang/`](https://golangbyexample.com/detonate-maximum-bombs-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 给定一个二维数组，其中每个数组的条目有三个值
 

@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中的带有默认案例的 select
 
-> 来源：[https://golangbyexample.com/select-default-case-go/](https://golangbyexample.com/select-default-case-go/)
+> 来源：[`golangbyexample.com/select-default-case-go/`](https://golangbyexample.com/select-default-case-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
 与 switch 类似，select 也可以有一个默认案例。如果在任何案例语句上没有 send 或 receive 操作准备好，则将执行这个默认案例。因此，默认语句在某种程度上防止了 select 永远阻塞。需要注意的一个非常重要的点是，默认语句使得 select 变为非阻塞的。如果 select 语句不包含默认案例，那么它可能会永远阻塞，直到某个案例语句上的 send 或 receive 操作准备好。让我们看看一个例子以便完全理解。
 

@@ -8,17 +8,17 @@
 
 # 在 Go (Golang) 中进行偶数舍入
 
-> 来源：[https://golangbyexample.com/round-even-number-golang/](https://golangbyexample.com/round-even-number-golang/)
+> 来源：[`golangbyexample.com/round-even-number-golang/`](https://golangbyexample.com/round-even-number-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
 GO 的 **math** 包提供了一个 **RoundToEven** 方法，可以用来将数字舍入为偶数。它返回最近的整数，并将平局情况舍入为偶数。
 
-在这里你可以阅读关于 RoundToEven 的用例 – [https://mathematica.stackexchange.com/questions/2116/why-round-to-even-integers/2120](https://mathematica.stackexchange.com/questions/2116/why-round-to-even-integers/2120)
+在这里你可以阅读关于 RoundToEven 的用例 – [`mathematica.stackexchange.com/questions/2116/why-round-to-even-integers/2120`](https://mathematica.stackexchange.com/questions/2116/why-round-to-even-integers/2120)
 
 下面是该函数的签名。它接受一个浮点数作为输入，并返回一个浮点数。
 

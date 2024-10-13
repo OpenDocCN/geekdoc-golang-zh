@@ -8,7 +8,7 @@ date: 2024-10-13 06:21:27
 
 # Go 语言中的变量和常量命名规范
 
-> 来源：[https://golangbyexample.com/naming-conventions-variable-constant-go/](https://golangbyexample.com/naming-conventions-variable-constant-go/)
+> 来源：[`golangbyexample.com/naming-conventions-variable-constant-go/`](https://golangbyexample.com/naming-conventions-variable-constant-go/)
 
 以下是 Go 语言中变量和常量的命名规范
 

@@ -8,19 +8,19 @@ date: 2024-10-13 06:10:53
 
 # Go（Golang）中的函数闭包
 
-> 来源：[https://golangbyexample.com/function-closures-golang/](https://golangbyexample.com/function-closures-golang/)
+> 来源：[`golangbyexample.com/function-closures-golang/`](https://golangbyexample.com/function-closures-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")
++   代码：
 
-    +   [示例 1](#Example_1 "Example 1")
+    +   示例 1
 
-    +   [示例 2：](#Example_2 "Example 2:")
+    +   示例 2：
 
-    +   [示例 3：](#Example_3 "Example 3:")*  *# **概述**
+    +   示例 3：*  *# **概述**
 
 函数闭包只是一个匿名函数，它可以访问在函数外部声明的变量，并且在不同的函数调用之间保留这些变量的当前值。匿名函数是没有名称的函数。
 
@@ -28,7 +28,7 @@ date: 2024-10-13 06:10:53
 
 你可以在这里阅读更多关于闭包的内容。
 
-[https://en.wikipedia.org/wiki/Closure_(computer_programming)](https://en.wikipedia.org/wiki/Closure_(computer_programming))
+[`en.wikipedia.org/wiki/Closure_(computer_programming)`](https://en.wikipedia.org/wiki/Closure_(computer_programming))
 
 # **代码：**
 

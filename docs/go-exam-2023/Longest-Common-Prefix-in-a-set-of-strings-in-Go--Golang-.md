@@ -8,13 +8,13 @@
 
 # Go（Golang）中的字符串集合的最长公共前缀
 
-> 来源：[https://golangbyexample.com/longest-common-prefix-golang/](https://golangbyexample.com/longest-common-prefix-golang/)
+> 来源：[`golangbyexample.com/longest-common-prefix-golang/`](https://golangbyexample.com/longest-common-prefix-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个字符串数组，目标是找到该数组中最长的公共前缀。如果没有公共前缀，应该输出空字符串。
 
@@ -95,9 +95,9 @@ func main() {
 ""
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，力求涵盖所有概念及示例。此教程适合希望获得专业知识和扎实理解的Golang学习者 - [Golang综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列的教程内容详尽，力求涵盖所有概念及示例。此教程适合希望获得专业知识和扎实理解的 Golang 学习者 - [Golang 综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现，那么这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 此外，可以查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 

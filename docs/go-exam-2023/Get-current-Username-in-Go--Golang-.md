@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中获取当前用户名
 
-> 来源：[https://golangbyexample.com/get-current-username-golang/](https://golangbyexample.com/get-current-username-golang/)
+> 来源：[`golangbyexample.com/get-current-username-golang/`](https://golangbyexample.com/get-current-username-golang/)
 
 **概述**
 

@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中更改文件夹/目录权限 
 
-> 来源：[https://golangbyexample.com/change-folder-directory-permissions-go/](https://golangbyexample.com/change-folder-directory-permissions-go/) 
+> 来源：[`golangbyexample.com/change-folder-directory-permissions-go/`](https://golangbyexample.com/change-folder-directory-permissions-go/) 
 
 **os.Chmod()** 函数可用于更改现有文件夹或目录的权限。以下是该函数的签名。
 

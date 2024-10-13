@@ -8,19 +8,19 @@
 
 # Go (Golang) 中的双引号、单引号和反引号
 
-> 来源：[https://golangbyexample.com/double-single-back-quotes-go/](https://golangbyexample.com/double-single-back-quotes-go/)
+> 来源：[`golangbyexample.com/double-single-back-quotes-go/`](https://golangbyexample.com/double-single-back-quotes-go/)
 
 目录
 
-**   [双引号](#Double_quotes "Double quotes")
+**   双引号
 
-+   [反引号](#Back_Quotes "Back Quotes")
++   反引号
 
-+   [单引号](#Single_quotes "Single quotes")
++   单引号
 
-+   [示例：](#Example "Example:")*  *# **双引号**
++   示例：*  *# **双引号**
 
-用于定义字符串。用双引号定义的字符串会遵循转义字符。例如，当打印一个包含\n的字符串时，会打印出换行。同样，\t会打印制表符。
+用于定义字符串。用双引号定义的字符串会遵循转义字符。例如，当打印一个包含\n 的字符串时，会打印出换行。同样，\t 会打印制表符。
 
 # **反引号**
 
@@ -28,7 +28,7 @@
 
 # **单引号**
 
-要声明**字节**或**rune**，我们使用单引号。在声明**字节**时，我们必须指定类型。如果不指定类型，则默认为**rune**。单引号只允许一个字符。在单引号中声明一个包含两个字符的字节或rune时，编译器会产生如下错误。
+要声明**字节**或**rune**，我们使用单引号。在声明**字节**时，我们必须指定类型。如果不指定类型，则默认为**rune**。单引号只允许一个字符。在单引号中声明一个包含两个字符的字节或 rune 时，编译器会产生如下错误。
 
 ```go
 invalid character literal (more than one character)
@@ -36,7 +36,7 @@ invalid character literal (more than one character)
 
 让我们来看一下上述讨论的所有内容的示例。
 
-+   请注意下面的输出，反引号包围的字符串不遵循\n或\t
++   请注意下面的输出，反引号包围的字符串不遵循\n 或\t
 
 +   取消注释下面的行以查看我们上面讨论的编译器错误。
 
@@ -102,7 +102,7 @@ y 是：tit\nfor\ttat
 
 字符：a
 
-打印rune：
+打印 rune：
 
 大小：4
 

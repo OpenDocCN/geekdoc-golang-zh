@@ -6,15 +6,15 @@
 
 -->
 
-# 在Golang中检测链表的循环起始节点。
+# 在 Golang 中检测链表的循环起始节点。
 
-> 来源：[https://golangbyexample.com/cycle-start-node-linked-list-go/](https://golangbyexample.com/cycle-start-node-linked-list-go/)
+> 来源：[`golangbyexample.com/cycle-start-node-linked-list-go/`](https://golangbyexample.com/cycle-start-node-linked-list-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program") *  *## **概述**
++   程序 *  *## **概述**
 
 目标是找出给定链表中的循环起始节点。如果链表中的最后一个节点指向前面的某个节点，则链表中存在循环。
 
@@ -22,11 +22,11 @@
 
 ![](img/37e30f9ef9a9259067409d35628db09d.png)
 
-上述链表存在循环。循环起始节点是节点2。下面是我们可以遵循的方法。
+上述链表存在循环。循环起始节点是节点 2。下面是我们可以遵循的方法。
 
 +   首先，检测给定的链表是否有循环。设置两个指针，一个是慢指针，另一个是快指针。两者最初都指向头节点。
 
-+   现在将慢指针移动1个节点，快指针移动2个节点。
++   现在将慢指针移动 1 个节点，快指针移动 2 个节点。
 
 ```go
 slow := slow.Next
@@ -35,11 +35,11 @@ fast := fast.Next.Next
 
 +   如果在任何时刻慢指针和快指针相同，则链表存在循环。
 
-+   快指针和慢指针只能在循环内的节点相遇。假设它们在节点3相遇。现在计算循环的长度。长度为3。
++   快指针和慢指针只能在循环内的节点相遇。假设它们在节点 3 相遇。现在计算循环的长度。长度为 3。
 
-+   现在在节点头部保持一个指针，另一个指针与它保持一个循环长度的距离。因此，一个指针将指向节点1，另一个指针将指向节点4。
++   现在在节点头部保持一个指针，另一个指针与它保持一个循环长度的距离。因此，一个指针将指向节点 1，另一个指针将指向节点 4。
 
-+   移动两个指针，直到它们相同。它们将在循环起始节点相遇，即节点2。
++   移动两个指针，直到它们相同。它们将在循环起始节点相遇，即节点 2。
 
 ## **程序**
 
@@ -148,8 +148,8 @@ func cycleStartNode(head *ListNode) *ListNode {
 2
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列教程内容详尽，我们尝试涵盖所有概念及示例。本教程适合希望获得专业知识和深入理解Golang的读者 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列教程内容详尽，我们尝试涵盖所有概念及示例。本教程适合希望获得专业知识和深入理解 Golang 的读者 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，那么这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [去](https://golangbyexample.com/tag/go/) * [Golang](https://golangbyexample.com/tag/golang/) *

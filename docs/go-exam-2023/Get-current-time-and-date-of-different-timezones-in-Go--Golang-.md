@@ -8,7 +8,7 @@
 
 # 获取不同时区的当前时间和日期在 Go (Golang) 中
 
-> 来源：[https://golangbyexample.com/get-current-time-and-date-of-different-timezones-golang/](https://golangbyexample.com/get-current-time-and-date-of-different-timezones-golang/)
+> 来源：[`golangbyexample.com/get-current-time-and-date-of-different-timezones-golang/`](https://golangbyexample.com/get-current-time-and-date-of-different-timezones-golang/)
 
 **time** 包有一个 **LoadLocation(name string)** 函数，可以用来加载任何地方的位置。一旦你有了位置，**In** 函数可以用来改变与特定 **time.Time** 对象关联的位置。
 
@@ -18,7 +18,7 @@
 
 +   如果 locationName 是本地的，它会返回本地位置
 
-+   否则，位置名称必须对应于 IANA 时区数据库进行指定（参考维基 - [https://en.wikipedia.org/wiki/List_of_tz_database_time_zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)）。例如：
++   否则，位置名称必须对应于 IANA 时区数据库进行指定（参考维基 - [`en.wikipedia.org/wiki/List_of_tz_database_time_zones`](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)）。例如：
 
     +   欧洲/柏林
 

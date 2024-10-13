@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中洗牌一个切片或数组
 
-> 来源：[https://golangbyexample.com/shuffle-slice-or-array-go/](https://golangbyexample.com/shuffle-slice-or-array-go/)
+> 来源：[`golangbyexample.com/shuffle-slice-or-array-go/`](https://golangbyexample.com/shuffle-slice-or-array-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code：")*  *# **概述**
++   代码：*  *# **概述**
 
 Go 的 **math/rand** 包提供了一个 **Shuffle** 方法，可以用于洗牌数组或切片。该方法使用默认源伪随机化元素的顺序。伪随机化意味着对于固定的输入种子，它将生成相同的随机化。这就是为什么在我们的程序中，每次我们会使用不同的种子初始化 rand 包。
 

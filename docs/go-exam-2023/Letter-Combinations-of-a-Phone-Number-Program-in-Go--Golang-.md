@@ -6,15 +6,15 @@
 
 -->
 
-# 电话号码字母组合程序在Go (Golang)中
+# 电话号码字母组合程序在 Go (Golang)中
 
-> 来源：[https://golangbyexample.com/letter-combinations-phone-golang/](https://golangbyexample.com/letter-combinations-phone-golang/)
+> 来源：[`golangbyexample.com/letter-combinations-phone-golang/`](https://golangbyexample.com/letter-combinations-phone-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [程序](#Program "程序")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个输入字符串，其中包含一些数字。数字与字母的映射类似于电话键盘。
 
@@ -117,8 +117,8 @@ func main() {
 [dgj dgk dgl dhj dhk dhl dij dik dil egj egk egl ehj ehk ehl eij eik eil fgj fgk fgl fhj fhk fhl fij fik fil]
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列教程详尽，我们努力覆盖所有概念并提供示例。本教程适合那些希望获得专业知识和扎实理解Golang的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列教程详尽，我们努力覆盖所有概念并提供示例。本教程适合那些希望获得专业知识和扎实理解 Golang 的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，那么这篇文章就是为你准备的 – [所有设计模式在Golang中的实现](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，那么这篇文章就是为你准备的 – [所有设计模式在 Golang 中的实现](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

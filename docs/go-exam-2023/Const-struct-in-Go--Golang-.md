@@ -8,13 +8,13 @@
 
 # Go 中的常量结构体 (Golang)
 
-> 来源：[https://golangbyexample.com/const-struct-go/](https://golangbyexample.com/const-struct-go/)
+> 来源：[`golangbyexample.com/const-struct-go/`](https://golangbyexample.com/const-struct-go/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 Go 仅支持四种常量类型
 

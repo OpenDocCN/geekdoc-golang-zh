@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go (Golang)中检查字符串是否以前缀开头
+# 在 Go (Golang)中检查字符串是否以前缀开头
 
-> 来源：[https://golangbyexample.com/string-begins-prefix-go/](https://golangbyexample.com/string-begins-prefix-go/)
+> 来源：[`golangbyexample.com/string-begins-prefix-go/`](https://golangbyexample.com/string-begins-prefix-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
-在GO中，字符串是UTF-8编码的。GO的**strings**包提供了一个**HasPrefix**方法，可以用来检查字符串是否以某个前缀开头
+在 GO 中，字符串是 UTF-8 编码的。GO 的**strings**包提供了一个**HasPrefix**方法，可以用来检查字符串是否以某个前缀开头
 
 以下是函数的签名
 

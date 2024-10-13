@@ -8,19 +8,19 @@ date: 2024-10-13 06:06:10
 
 # 在 Go 中排序自定义结构（Golang）
 
-> 来源：[https://golangbyexample.com/sort-custom-struct-collection-golang/](https://golangbyexample.com/sort-custom-struct-collection-golang/)
+> 来源：[`golangbyexample.com/sort-custom-struct-collection-golang/`](https://golangbyexample.com/sort-custom-struct-collection-golang/)
 
 目录
 
-**   [介绍](#Introduction "介绍")
+**   介绍
 
-+   [完整工作代码：](#Full_Working_Code "完整工作代码：")*  *# **介绍**
++   完整工作代码：*  *# **介绍**
 
 GO 有一个 **sort** 包，提供了用于排序切片和用户定义类型的实用工具原语。任何集合只要实现了 **sort.Interface**，就可以通过 GO 的 **sort** 包的 **Sort** 函数进行排序。
 
 以下是 sort.Interface 的方法。
 
-[https://golang.org/pkg/sort/#Interface](https://golang.org/pkg/sort/#Interface)
+[`golang.org/pkg/sort/#Interface`](https://golang.org/pkg/sort/#Interface)
 
 ```go
 type Interface interface {

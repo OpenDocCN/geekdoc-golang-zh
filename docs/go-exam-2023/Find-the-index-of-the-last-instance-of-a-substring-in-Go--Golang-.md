@@ -8,13 +8,13 @@ date: 2024-10-13 06:13:10
 
 # 在 Go（Golang）中查找子字符串最后一次出现的索引
 
-> 来源：[https://golangbyexample.com/index-last-occurence-substring-go/](https://golangbyexample.com/index-last-occurence-substring-go/)
+> 来源：[`golangbyexample.com/index-last-occurence-substring-go/`](https://golangbyexample.com/index-last-occurence-substring-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
 在 GO 中，字符串是 UTF-8 编码的。GO 的 **strings** 包提供了一个 **LastIndex** 方法，可以用来获取特定字符串中子字符串最后一次出现的索引。如果给定字符串中不存在该子字符串，它将返回 -1。
 

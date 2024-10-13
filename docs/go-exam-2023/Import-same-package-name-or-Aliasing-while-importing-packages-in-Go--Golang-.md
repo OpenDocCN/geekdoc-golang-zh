@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中导入同名包或在导入包时使用别名
 
-> 来源：[https://golangbyexample.com/import-same-package-name-golang/](https://golangbyexample.com/import-same-package-name-golang/)
+> 来源：[`golangbyexample.com/import-same-package-name-golang/`](https://golangbyexample.com/import-same-package-name-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 导入包时的别名意味着给导入的包一个不同的名称。其语法为
 

@@ -6,19 +6,19 @@
 
 -->
 
-# 在Go语言中将数字拆分为整数和小数部分
+# 在 Go 语言中将数字拆分为整数和小数部分
 
-> 来源：[https://golangbyexample.com/break-integer-fraction-part-go/](https://golangbyexample.com/break-integer-fraction-part-go/)
+> 来源：[`golangbyexample.com/break-integer-fraction-part-go/`](https://golangbyexample.com/break-integer-fraction-part-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-GO的**math**包提供了一个**Modf**方法，可以用来将浮点数拆分为整数部分和浮动部分。请注意，该函数也将整数部分作为浮点数返回。
+GO 的**math**包提供了一个**Modf**方法，可以用来将浮点数拆分为整数部分和浮动部分。请注意，该函数也将整数部分作为浮点数返回。
 
-以下是该函数的签名。它接受一个浮点数作为输入并返回两个float64。第一个是整数部分，第二个是小数部分。
+以下是该函数的签名。它接受一个浮点数作为输入并返回两个 float64。第一个是整数部分，第二个是小数部分。
 
 ```go
 func Modf(f float64) (int float64, frac float64)

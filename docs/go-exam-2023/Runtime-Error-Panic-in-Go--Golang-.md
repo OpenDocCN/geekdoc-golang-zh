@@ -8,13 +8,13 @@
 
 # Go（Golang）中的运行时错误恐慌
 
-> 来源：[https://golangbyexample.com/runtime-error-panic-golang/](https://golangbyexample.com/runtime-error-panic-golang/)
+> 来源：[`golangbyexample.com/runtime-error-panic-golang/`](https://golangbyexample.com/runtime-error-panic-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 程序中的运行时错误可能发生在以下几种情况。所有这些情况也会造成**恐慌**。
 

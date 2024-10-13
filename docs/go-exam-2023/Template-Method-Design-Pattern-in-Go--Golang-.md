@@ -6,25 +6,25 @@
 
 -->
 
-# Go中的模板方法设计模式（Golang）
+# Go 中的模板方法设计模式（Golang）
 
-> 来源：[https://golangbyexample.com/template-method-design-pattern-golang/](https://golangbyexample.com/template-method-design-pattern-golang/)
+> 来源：[`golangbyexample.com/template-method-design-pattern-golang/`](https://golangbyexample.com/template-method-design-pattern-golang/)
 
-注意：如果有兴趣了解其他所有设计模式在GO中如何实现，请查看这个完整参考 – [GO中的所有设计模式（Golang）](https://golangbyexample.com/all-design-patterns-golang/)
+注意：如果有兴趣了解其他所有设计模式在 GO 中如何实现，请查看这个完整参考 – [GO 中的所有设计模式（Golang）](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [介绍：](#Introduction "介绍：")
+**   介绍：
 
-+   [例子](#Example "例子")
++   例子
 
-+   [完整工作代码：](#Full_Working_Code "完整工作代码：")*  *# **介绍：**
++   完整工作代码：*  *# **介绍：**
 
 模板方法设计模式是一种行为设计模式，它让你为特定操作定义一个模板或算法。让我们通过一个例子来理解模板设计模式。
 
-考虑一次性密码（OTP）的例子。有不同类型的OTP可以触发，例如OTP可以是**短信** OTP或**邮件** OTP。但无论是**短信** OTP还是**邮件** OTP，整个OTP过程的步骤是相同的。步骤包括
+考虑一次性密码（OTP）的例子。有不同类型的 OTP 可以触发，例如 OTP 可以是**短信** OTP 或**邮件** OTP。但无论是**短信** OTP 还是**邮件** OTP，整个 OTP 过程的步骤是相同的。步骤包括
 
-+   生成一个随机的n位数字。
++   生成一个随机的 n 位数字。
 
 +   将此数字保存在缓存中以备后续验证。
 
@@ -40,17 +40,17 @@
 
 现在查看下面的代码示例。
 
-+   **iOtp**代表一个定义任何OTP类型应该实现的方法集的接口。
++   **iOtp**代表一个定义任何 OTP 类型应该实现的方法集的接口。
 
 +   **短信**和**邮件**是**iOtp**接口的实现者。
 
 +   **otp**是定义模板方法**genAndSendOTP()**的结构体，**otp**嵌入了**iOtp**接口。
 
-重要提示：**iOtp**接口和**otp**结构的组合提供了GO中的抽象类的能力。参考见
+重要提示：**iOtp**接口和**otp**结构的组合提供了 GO 中的抽象类的能力。参考见
 
-> [GO中的抽象类：完整指南](https://golangbyexample.com/go-abstract-class/)
+> [GO 中的抽象类：完整指南](https://golangbyexample.com/go-abstract-class/)
 
-[https://golangbyexample.com/go-abstract-class/embed/#?secret=IJrupn5jVu#?secret=fqHnV3R5rZ](https://golangbyexample.com/go-abstract-class/embed/#?secret=IJrupn5jVu#?secret=fqHnV3R5rZ)
+[`golangbyexample.com/go-abstract-class/embed/#?secret=IJrupn5jVu#?secret=fqHnV3R5rZ`](https://golangbyexample.com/go-abstract-class/embed/#?secret=IJrupn5jVu#?secret=fqHnV3R5rZ)
 
 # **例子**
 

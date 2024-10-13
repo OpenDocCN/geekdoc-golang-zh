@@ -8,21 +8,21 @@
 
 # Go（Golang）中的命令设计模式
 
-> 来源：[https://golangbyexample.com/command-design-pattern-in-golang/](https://golangbyexample.com/command-design-pattern-in-golang/)
+> 来源：[`golangbyexample.com/command-design-pattern-in-golang/`](https://golangbyexample.com/command-design-pattern-in-golang/)
 
-注意：如果你有兴趣了解如何在GO中实现所有其他设计模式，请查看这个完整的参考 – [https://golangbyexample.com/all-design-patterns-golang/](https://golangbyexample.com/all-design-patterns-golang/)
+注意：如果你有兴趣了解如何在 GO 中实现所有其他设计模式，请查看这个完整的参考 – [`golangbyexample.com/all-design-patterns-golang/`](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**[介绍：](#Introduction "Introduction:")
+**介绍：
 
-+   [UML图：](#UML_Diagram "UML Diagram:")
++   UML 图：
 
-+   [映射](#Mapping "Mapping")
++   映射
 
-+   [实际示例：](#Practical_Example "Practical Example:")
++   实际示例：
 
-+   [完整工作代码：](#Full_Working_Code "Full Working Code:")**## **介绍：**
++   完整工作代码：**## **介绍：**
 
 命令设计模式是一种行为设计模式。它建议将请求封装为一个独立的对象。创建的对象拥有关于请求的所有信息，因此可以独立执行。
 
@@ -42,7 +42,7 @@
 
 1.  电视上的开启按钮。
 
-这两个触发点的功能相同，即打开电视。为了打开电视，我们可以将接收者实现为电视的开启命令对象。当对这个开启命令对象调用execute()方法时，它会调用TV.on()函数。所以在这种情况下：
+这两个触发点的功能相同，即打开电视。为了打开电视，我们可以将接收者实现为电视的开启命令对象。当对这个开启命令对象调用 execute()方法时，它会调用 TV.on()函数。所以在这种情况下：
 
 +   **接收者**是**电视**
 
@@ -52,13 +52,13 @@
 
 请注意，我们将打开**电视**的请求封装成一个**开启命令对象**，可以由多个调用者调用。这个开启命令对象嵌入了接收者（这里是电视），并可以独立执行。
 
-另一个例子，想象一下**Adobe Photoshop**应用程序的情况。在Photoshop中，可以从3个地方触发保存操作。
+另一个例子，想象一下**Adobe Photoshop**应用程序的情况。在 Photoshop 中，可以从 3 个地方触发保存操作。
 
 1.  从菜单中。
 
 1.  从上方工具栏上的按钮。
 
-1.  使用快捷键Ctrl+S。
+1.  使用快捷键 Ctrl+S。
 
 这三个触发点的功能相同，即保存当前应用中的图像。这个保存可以封装成一个带有当前打开图像的保存命令对象。
 

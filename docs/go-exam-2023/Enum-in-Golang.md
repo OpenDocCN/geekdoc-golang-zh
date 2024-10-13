@@ -6,17 +6,17 @@
 
 -->
 
-# Golang中的枚举
+# Golang 中的枚举
 
-> 来源：[https://golangbyexample.com/enum-in-golang/](https://golangbyexample.com/enum-in-golang/)
+> 来源：[`golangbyexample.com/enum-in-golang/`](https://golangbyexample.com/enum-in-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [示例](#Example "示例")*  *# 概述
++   示例*  *# 概述
 
-**IOTA** 提供了一种自动创建Golang中枚举的方式。让我们来看一个例子。
+**IOTA** 提供了一种自动创建 Golang 中枚举的方式。让我们来看一个例子。
 
 # 示例
 
@@ -57,7 +57,7 @@ func main() {
 type Size uint8
 ```
 
-然后我们声明了一些类型为**Size**的常量。第一个常量**small**被设置为iota，因此它将被设置为零。
+然后我们声明了一些类型为**Size**的常量。第一个常量**small**被设置为 iota，因此它将被设置为零。
 
 ```go
 small Size = iota
@@ -72,7 +72,7 @@ fmt.Println(large)      >> outputs 2
 fmt.Println(extraLarge) >> outputs 3
 ```
 
-没有IOTA，我们必须显式设置每个枚举值的值。
+没有 IOTA，我们必须显式设置每个枚举值的值。
 
 ```go
 package main
@@ -105,7 +105,7 @@ func main() {
 3
 ```
 
-我们还可以在Size类型上定义一个**toString**方法，以打印枚举的确切值。请参见下面的程序。
+我们还可以在 Size 类型上定义一个**toString**方法，以打印枚举的确切值。请参见下面的程序。
 
 ```go
 package main
@@ -143,4 +143,4 @@ func (s Size) toString() {
 medium
 ```
 
-我们为**Size**类型定义了一个**toString**方法。它可以用来打印Size类型常量的字符串值。*
+我们为**Size**类型定义了一个**toString**方法。它可以用来打印 Size 类型常量的字符串值。*

@@ -6,23 +6,23 @@
 
 -->
 
-# Golang正则表达式：替换所有匹配正则表达式的字符串
+# Golang 正则表达式：替换所有匹配正则表达式的字符串
 
-> 来源：[https://golangbyexample.com/regex-replace-string-golang/](https://golangbyexample.com/regex-replace-string-golang/)
+> 来源：[`golangbyexample.com/regex-replace-string-golang/`](https://golangbyexample.com/regex-replace-string-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [替换字符串作为字面字符串](#Replacement_string_as_a_literal_string "替换字符串作为字面字符串")
++   替换字符串作为字面字符串
 
-+   [一个包含未命名子匹配的捕获组的字符串](#A_string_having_capturing_group_unnamed_sub_matches "一个包含未命名子匹配的捕获组的字符串")
++   一个包含未命名子匹配的捕获组的字符串
 
-+   [一个包含命名子匹配的捕获组的字符串](#A_string_having_Capturing_groups_with_named_sub_matches "一个包含命名子匹配的捕获组的字符串")*  *## **概述**
++   一个包含命名子匹配的捕获组的字符串*  *## **概述**
 
 Golang **regexp** 包提供了一种名为 **ReplaceAllString** 的方法，该方法可以用来替换与正则表达式匹配的字符串中的所有子字符串。
 
-[https://golang.org/pkg/regexp/#Regexp.ReplaceAllString](https://golang.org/pkg/regexp/#Regexp.ReplaceAllString)
+[`golang.org/pkg/regexp/#Regexp.ReplaceAllString`](https://golang.org/pkg/regexp/#Regexp.ReplaceAllString)
 
 下面是该方法的签名
 
@@ -36,7 +36,7 @@ func (re *Regexp) ReplaceAllString(src, repl string) string
 
 +   第二个是替换字符串。
 
-ReplaceAll返回**src**字符串的副本，将正则表达式的匹配项替换为替换字符串**repl**。
+ReplaceAll 返回**src**字符串的副本，将正则表达式的匹配项替换为替换字符串**repl**。
 
 替换字符串可以是
 
@@ -257,7 +257,7 @@ The names are -John:21-, -Simon:23-, and -Mike:19-
 
 如果替换字符串包含字面美元符号，我们可以使用**ReplaceAllLiteralString**方法。
 
-[https://golang.org/pkg/regexp/#Regexp.ReplaceAllLiteralString](https://golang.org/pkg/regexp/#Regexp.ReplaceAllLiteralString)
+[`golang.org/pkg/regexp/#Regexp.ReplaceAllLiteralString`](https://golang.org/pkg/regexp/#Regexp.ReplaceAllLiteralString)
 
 在这里，替换字符串直接被替代，没有任何分析，即被字面使用。见下面的示例。
 
@@ -355,6 +355,6 @@ result := sampleRegexp.ReplaceAllString(input, "$Age:$Name")
 The names are 21:John, 23:Simon, 19:Mike
 ```
 
-这就是关于在Golang中替换匹配正则表达式的字符串。希望你喜欢这篇文章。请在评论中分享反馈。
+这就是关于在 Golang 中替换匹配正则表达式的字符串。希望你喜欢这篇文章。请在评论中分享反馈。
 
-此外，查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
+此外，查看我们的 Golang 进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。

@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中对排序和旋转数组进行搜索
 
-> 来源：[https://golangbyexample.com/search-sorted-pivoted-array/](https://golangbyexample.com/search-sorted-pivoted-array/)
+> 来源：[`golangbyexample.com/search-sorted-pivoted-array/`](https://golangbyexample.com/search-sorted-pivoted-array/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 我们有一个已排序但在某个索引处旋转的输入数组。例如，考虑以下数组
 

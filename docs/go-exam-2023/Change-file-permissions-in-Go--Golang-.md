@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中更改文件权限
 
-> 来源：[https://golangbyexample.com/change-file-permissions-golang/](https://golangbyexample.com/change-file-permissions-golang/)
+> 来源：[`golangbyexample.com/change-file-permissions-golang/`](https://golangbyexample.com/change-file-permissions-golang/)
 
 os.Chmod() 函数可用于更改现有文件的权限。下面是该函数的签名
 

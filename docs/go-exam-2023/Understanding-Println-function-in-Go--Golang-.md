@@ -8,19 +8,19 @@
 
 # 理解 Go (Golang) 中的 Println 函数
 
-> 来源：[https://golangbyexample.com/println-golang/](https://golangbyexample.com/println-golang/)
+> 来源：[`golangbyexample.com/println-golang/`](https://golangbyexample.com/println-golang/)
 
 ![println](img/5327d9a5221455aba6ab8a7076afdfd2.png)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 **Println** 定义在 **fmt** 包中，用于格式化字符串并写入标准输出。
 
-[https://golang.org/pkg/fmt/#Println](https://golang.org/pkg/fmt/#Println)
+[`golang.org/pkg/fmt/#Println`](https://golang.org/pkg/fmt/#Println)
 
 以下是 **Println** 的函数原型。
 

@@ -8,17 +8,17 @@
 
 # 在 Go（Golang）中从字符串中提取 URL
 
-> 来源：[https://golangbyexample.com/extract-url-golang/](https://golangbyexample.com/extract-url-golang/)
+> 来源：[`golangbyexample.com/extract-url-golang/`](https://golangbyexample.com/extract-url-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 以下 Go 包可以用于从给定字符串中提取 URL
 
-[https://github.com/mvdan/xurls](https://github.com/mvdan/xurls)
+[`github.com/mvdan/xurls`](https://github.com/mvdan/xurls)
 
 使用此包有两种方法
 

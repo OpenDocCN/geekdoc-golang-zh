@@ -6,19 +6,19 @@ category: 未分类
 
 -->
 
-# Go（Golang）中的float32与float64之间的转换
+# Go（Golang）中的 float32 与 float64 之间的转换
 
-> 来源：[https://golangbyexample.com/conversion-float-golang/](https://golangbyexample.com/conversion-float-golang/)
+> 来源：[`golangbyexample.com/conversion-float-golang/`](https://golangbyexample.com/conversion-float-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [float32 转 float64](#float32_to_float64 "float32 转 float64")
++   float32 转 float64
 
-+   [float64 转 float32](#float64_to_float32 "float64 转 float32")*  *## **概述**
++   float64 转 float32*  *## **概述**
 
-Golang需要显式转换才能在两种类型之间转换。float32和float64数据类型之间的转换需要显式类型转换。下面是语法。
+Golang 需要显式转换才能在两种类型之间转换。float32 和 float64 数据类型之间的转换需要显式类型转换。下面是语法。
 
 ```go
 {destination_type}(some_value) 
@@ -92,12 +92,12 @@ func main() {
 }
 ```
 
-如果我们直接将float64值赋给float32，或反之，且没有明确转换，将会引发编译错误。
+如果我们直接将 float64 值赋给 float32，或反之，且没有明确转换，将会引发编译错误。
 
 ```go
 cannot use a (type float64) as type float32 in assignment
 ```
 
-同时，查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+同时，查看我们的 Golang 进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

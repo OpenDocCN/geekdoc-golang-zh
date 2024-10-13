@@ -8,15 +8,15 @@ category: 未分类
 
 # 在 Go（Golang）中，选择语句与外部 for 循环的结合
 
-> 来源：[https://golangbyexample.com/select-forloop-outside-go/](https://golangbyexample.com/select-forloop-outside-go/)
+> 来源：[`golangbyexample.com/select-forloop-outside-go/`](https://golangbyexample.com/select-forloop-outside-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [有限 for 循环](#Finite_for_loop "Finite for loop")
++   有限 for 循环
 
-+   [无限 for 循环](#Infinite_for_loop "Infinite for loop")*  *# **概述**
++   无限 for 循环*  *# **概述**
 
 外部有两种情况下的 for 循环与选择语句
 

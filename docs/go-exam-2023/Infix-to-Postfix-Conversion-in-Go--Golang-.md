@@ -6,17 +6,17 @@
 
 -->
 
-# Go语言中的中缀到后缀转换
+# Go 语言中的中缀到后缀转换
 
-> 来源：[https://golangbyexample.com/infix-to-postfix-conversion-go/](https://golangbyexample.com/infix-to-postfix-conversion-go/)
+> 来源：[`golangbyexample.com/infix-to-postfix-conversion-go/`](https://golangbyexample.com/infix-to-postfix-conversion-go/)
 
 目录
 
-**   [中缀到后缀转换](#Infix_to_Postfix_Conversion "Infix to Postfix Conversion ")
+**   中缀到后缀转换
 
-+   [算法：](#Algorithm "Algorithm:")
++   算法：
 
-+   [实现：](#Implementation "Implementation:")*  *## **中缀到后缀转换**
++   实现：*  *## **中缀到后缀转换**
 
 在本教程中，我们将了解中缀和后缀表达式的表示法，后缀表示法相比中缀的优点，以及如何将中缀表达式转换为后缀表达式。我们将在另一个教程中涵盖后缀表达式的计算。
 
@@ -189,7 +189,7 @@ func main() {
     //infix := "a+b*c+d"
     //infix := "a+b*(c^d-e)^(f+g*h)-i" // abcd^e-fgh*+^*+i-
     //infix := "1+2+3*4+5/5-2"
-    infix := "2+3*(2^3-5)^(2+1*2)-4" //abcd^e-fgh*+^*+i-
+    infix := "2+3*(2³-5)^(2+1*2)-4" //abcd^e-fgh*+^*+i-
     postfix := infixToPostfix(infix)
     fmt.Printf("%s infix has %s postfix ", infix, postfix)
 
@@ -199,13 +199,13 @@ func main() {
 **输出：**
 
 ```go
-2+3*(2^3-5)^(2+1*2)-4 infix has 2323^5-212*+^*+4- postfix
+2+3*(2³-5)^(2+1*2)-4 infix has 2323⁵-212*+^*+4- postfix
 ```
 
 我们可以通过取消注释**fmt.Println**行来检查每次推送和弹出操作后栈的状态。
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尽量用例子覆盖所有概念。本教程适合那些希望获得Golang专业知识和扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽量用例子覆盖所有概念。本教程适合那些希望获得 Golang 专业知识和扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

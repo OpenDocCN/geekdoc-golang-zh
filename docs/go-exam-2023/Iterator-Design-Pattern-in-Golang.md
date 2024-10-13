@@ -6,23 +6,23 @@
 
 -->
 
-# Golang中的迭代器设计模式
+# Golang 中的迭代器设计模式
 
-> 来源：[https://golangbyexample.com/go-iterator-design-pattern/](https://golangbyexample.com/go-iterator-design-pattern/)
+> 来源：[`golangbyexample.com/go-iterator-design-pattern/`](https://golangbyexample.com/go-iterator-design-pattern/)
 
-注意：如有兴趣了解其他设计模式如何在GO中实现，请查看此完整参考 – [Go中的所有设计模式 (Golang)](https://golangbyexample.com/all-design-patterns-golang/)
+注意：如有兴趣了解其他设计模式如何在 GO 中实现，请查看此完整参考 – [Go 中的所有设计模式 (Golang)](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [介绍：](#Introduction "Introduction:")
+**   介绍：
 
-+   [UML图：](#UML_Diagram "UML Diagram:")
++   UML 图：
 
-+   [映射](#Mapping "Mapping")
++   映射
 
-+   [示例](#Example "Example")
++   示例
 
-+   [完整工作代码：](#Full_Working_Code "Full Working Code:")*  *# **介绍：**
++   完整工作代码：*  *# **介绍：**
 
 迭代器设计模式是一种行为设计模式。在此模式中，集合结构提供一个迭代器，让其能够顺序遍历集合结构中的每个元素，而不暴露其底层实现。
 
@@ -38,13 +38,13 @@
 
 此模式的主要思想是将集合结构的迭代逻辑暴露到一个不同的对象中（该对象实现了迭代器接口）。此迭代器提供了一种独立于类型的遍历集合的通用方法。
 
-# **UML图：**
+# **UML 图：**
 
 ![](img/6357865d875fdec82405c850734790aa.png)
 
 # **映射**
 
-以下表格表示UML图中参与者到实际实现参与者的映射，位于**“示例”**中。
+以下表格表示 UML 图中参与者到实际实现参与者的映射，位于**“示例”**中。
 
 | 集合 | collection.go |
 | --- | --- |

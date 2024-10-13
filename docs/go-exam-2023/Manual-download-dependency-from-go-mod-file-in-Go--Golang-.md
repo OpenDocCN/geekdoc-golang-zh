@@ -8,13 +8,13 @@ category: 未分类
 
 # 从 go.mod 文件手动下载依赖项（Go）
 
-> 来源：[https://golangbyexample.com/download-dependency-golang/](https://golangbyexample.com/download-dependency-golang/)
+> 来源：[`golangbyexample.com/download-dependency-golang/`](https://golangbyexample.com/download-dependency-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 可以使用下面的命令下载 **go.mod** 文件中存在的依赖项。
 

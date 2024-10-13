@@ -8,21 +8,21 @@
 
 # Go（Golang）中的桥接设计模式
 
-> 来源：[https://golangbyexample.com/bridge-design-pattern-in-go/](https://golangbyexample.com/bridge-design-pattern-in-go/)
+> 来源：[`golangbyexample.com/bridge-design-pattern-in-go/`](https://golangbyexample.com/bridge-design-pattern-in-go/)
 
-注意：有兴趣了解其他设计模式如何在GO中实现吗？请查看这个完整参考 – **[Go中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)**
+注意：有兴趣了解其他设计模式如何在 GO 中实现吗？请查看这个完整参考 – **[Go 中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)**
 
 目录
 
-**[介绍：](#Introduction "Introduction:")**
+**介绍：**
 
-+   **[UML图：](#UML_Diagram "UML Diagram:")**
++   **UML 图：**
 
-+   **[映射](#Mapping "Mapping")**
++   **映射**
 
-+   **[实际例子](#Practical_Example "Practical Example")**
++   **实际例子**
 
-+   **[完整工作代码：](#Full_Working_Code "Full Working Code:")**## **介绍：**
++   **完整工作代码：**## **介绍：**
 
 桥接设计模式是一种结构性设计模式，允许将抽象与其实现分离。听起来很困惑？别担心，随着我们深入，它会更清晰。
 
@@ -32,31 +32,31 @@
 
 +   实现 – 它也是一个接口，**实现**的子类被称为**具体实现**。
 
-抽象层次结构被客户端引用，而不必担心实现。我们来举个例子。假设你有两种类型的计算机**mac**和**windows**。再假设有两种类型的打印机**epson**和**hp**。计算机和打印机需要以任意组合相互配合。客户端只会访问计算机，而不必担心打印是如何发生的。与其为2*2组合创建四个结构，不如创建两个层次结构。
+抽象层次结构被客户端引用，而不必担心实现。我们来举个例子。假设你有两种类型的计算机**mac**和**windows**。再假设有两种类型的打印机**epson**和**hp**。计算机和打印机需要以任意组合相互配合。客户端只会访问计算机，而不必担心打印是如何发生的。与其为 2*2 组合创建四个结构，不如创建两个层次结构。
 
 +   抽象层次结构
 
 +   实现层次结构
 
-请查看下面的图。这两个层次通过一个桥接进行通信，其中**抽象**（这里是计算机）包含对**实现**（这里是打印机）的引用。抽象和实现可以独立发展，而不相互影响。注意**win**和**mac**如何嵌入对**printer**的引用。我们可以在运行时更改**抽象的实现**（即计算机的打印机），因为抽象通过接口引用实现。在调用**mac.print()或windows.print()**时，它会将请求分派给**printer.printFile()**。这充当一个桥梁，并为两者提供了松耦合。
+请查看下面的图。这两个层次通过一个桥接进行通信，其中**抽象**（这里是计算机）包含对**实现**（这里是打印机）的引用。抽象和实现可以独立发展，而不相互影响。注意**win**和**mac**如何嵌入对**printer**的引用。我们可以在运行时更改**抽象的实现**（即计算机的打印机），因为抽象通过接口引用实现。在调用**mac.print()或 windows.print()**时，它会将请求分派给**printer.printFile()**。这充当一个桥梁，并为两者提供了松耦合。
 
 +   ![](img/e1ef67b3d09bdb372d54f7c333450e2d.png)
 
-## **UML图：**
+## **UML 图：**
 
 +   ![](img/48c2e70e2b624d3502b34735bce83f06.png)
 
 ## **映射**
 
-下表表示从UML图中的参与者到下面**“实际例子”**中实际实现参与者的映射。
+下表表示从 UML 图中的参与者到下面**“实际例子”**中实际实现参与者的映射。
 
 | 抽象 | computer.go |
 | --- | --- |
-| 精炼抽象1 | win.go |
-| 精炼抽象2 | mac.go |
+| 精炼抽象 1 | win.go |
+| 精炼抽象 2 | mac.go |
 | 实现 | printer.go |
-| 具体实现1 | epson.go |
-| 具体实现2 | hp.go |
+| 具体实现 1 | epson.go |
+| 具体实现 2 | hp.go |
 | 客户端 | main.go |
 
 ## **实际示例**

@@ -8,19 +8,19 @@
 
 # Golang 正则表达式：正则表达式中的可选操作符或问号（?）
 
-> 来源：[https://golangbyexample.com/optional-operator-regex-golang/](https://golangbyexample.com/optional-operator-regex-golang/)
+> 来源：[`golangbyexample.com/optional-operator-regex-golang/`](https://golangbyexample.com/optional-operator-regex-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")**
+**   概述**
 
-+   [程序](#Program "Program")
++   程序
 
-+   [问号操作符是非懒惰](#Question_Mark_Operator_is_non-lazy "Question Mark Operator is non-lazy")
++   问号操作符是非懒惰
 
-+   [关于双问号操作符](#About_the_double_question_mark_operator "About the double question mark operator")
++   关于双问号操作符
 
-+   [量词后的问号](#Question_Mark_after_quantifiers "Question Mark after quantifiers")*  *## **概述**
++   量词后的问号*  *## **概述**
 
 问号是正则表达式中的可选操作符。这意味着它可选地匹配问号之前的字符。
 
@@ -335,8 +335,8 @@ Match: [aaaaaaa  aaaaaaa] Length: 3
 
 第一个捕获组给出零个匹配**‘a’**，而第二个捕获组给出其余部分。这表明问号运算符在**星号**运算符后使用是非贪婪或懒惰的
 
-这就是关于Go中问号运算符的全部内容。希望你喜欢这篇文章。请在评论中分享反馈。
+这就是关于 Go 中问号运算符的全部内容。希望你喜欢这篇文章。请在评论中分享反馈。
 
-另外，查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+另外，查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [可选](https://golangbyexample.com/tag/optional/)*   [问题](https://golangbyexample.com/tag/question/)*

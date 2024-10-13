@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go (Golang)中计算无向图中无法到达的节点对
+# 在 Go (Golang)中计算无向图中无法到达的节点对
 
-> 来源：[https://golangbyexample.com/count-unreachable-pair-nodes-golang/](https://golangbyexample.com/count-unreachable-pair-nodes-golang/)
+> 来源：[`golangbyexample.com/count-unreachable-pair-nodes-golang/`](https://golangbyexample.com/count-unreachable-pair-nodes-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
-给定一个整数n。有n个节点编号为0到n-1。还有一个二维整数数组**edges**，其中**edges[i] = [ai, bi]**表示从ai到bi有一个无向节点。
+给定一个整数 n。有 n 个节点编号为 0 到 n-1。还有一个二维整数数组**edges**，其中**edges[i] = [ai, bi]**表示从 ai 到 bi 有一个无向节点。
 
 目标是找到彼此无法到达的节点对数量
 
@@ -56,7 +56,7 @@ edges=[{0,1},{0,4},{0,5},{2,3},{2,6},{7,8}]
 
 **26**
 
-我们有26对未连接的节点
+我们有 26 对未连接的节点
 
 ```go
 [{0,2}, {0,3}, {0,6}, {0,7}, {0,8},
@@ -149,9 +149,9 @@ func main() {
 26
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，努力覆盖所有概念及示例。此教程适合希望获得Golang专业知识和扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，努力覆盖所有概念及示例。此教程适合希望获得 Golang 专业知识和扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式，那么这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式，那么这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 此外，请查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 

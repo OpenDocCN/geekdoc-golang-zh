@@ -8,7 +8,7 @@
 
 # 等待所有 Go 程序完成在 Golang 中的执行
 
-> 来源：[https://golangbyexample.com/wait-all-goroutines-go/](https://golangbyexample.com/wait-all-goroutines-go/)
+> 来源：[`golangbyexample.com/wait-all-goroutines-go/`](https://golangbyexample.com/wait-all-goroutines-go/)
 
 golang 的 **sync** 包提供 **WaitGroup** 结构，可以用来等待一组 goroutine 完成执行。WaitGroup 提供：
 

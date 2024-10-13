@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go (Golang)中嵌入接口。
+# 在 Go (Golang)中嵌入接口。
 
-> 来源：[https://golangbyexample.com/embedding-interfaces-go/](https://golangbyexample.com/embedding-interfaces-go/)
+> 来源：[`golangbyexample.com/embedding-interfaces-go/`](https://golangbyexample.com/embedding-interfaces-go/)
 
 接口可以嵌入另一个接口，也可以嵌入到结构中。让我们逐一查看。
 
 目录
 
-**[在另一个接口中嵌入接口](#Embedding_interface_in_another_interface "在另一个接口中嵌入接口")**
+**在另一个接口中嵌入接口**
 
-+   **[在结构中嵌入接口](#Embedding_interface_in_a_struct "在结构中嵌入接口")** * # **在另一个接口中嵌入接口**
++   **在结构中嵌入接口** * # **在另一个接口中嵌入接口**
 
 接口可以嵌入任意数量的接口，也可以嵌入到任意接口中。嵌入接口的所有方法成为嵌入接口的一部分。这是一种通过合并一些小接口来创建新接口的方法。让我们通过一个例子来理解。
 
@@ -93,11 +93,11 @@ Employee walk
 Employee speaks
 ```
 
-作为另一个例子，Golang的**io**包的ReaderWriter接口（[https://golang.org/pkg/io/#ReadWriter](https://golang.org/pkg/io/#ReadWriter)）嵌入了另外两个接口。
+作为另一个例子，Golang 的**io**包的 ReaderWriter 接口（[`golang.org/pkg/io/#ReadWriter`](https://golang.org/pkg/io/#ReadWriter)）嵌入了另外两个接口。
 
-+   读取器接口 – [https://golang.org/pkg/io/#Reader](https://golang.org/pkg/io/#Reader)
++   读取器接口 – [`golang.org/pkg/io/#Reader`](https://golang.org/pkg/io/#Reader)
 
-+   写入器接口 – [https://golang.org/pkg/io/#Writer](https://golang.org/pkg/io/#Writer)
++   写入器接口 – [`golang.org/pkg/io/#Writer`](https://golang.org/pkg/io/#Writer)
 
 ```go
 type ReadWriter interface {
@@ -241,6 +241,6 @@ p1 := pet1{name: "Milo", a: d}
 p2 := pet2{name: "Oscar", animal: d}
 ```
 
-如果我们不初始化嵌入的接口**animal**，那么它将被初始化为接口的零值，即nil。在这样的pet1或pet2结构实例上调用**breathe()**和**walk()**方法将导致恐慌。
+如果我们不初始化嵌入的接口**animal**，那么它将被初始化为接口的零值，即 nil。在这样的 pet1 或 pet2 结构实例上调用**breathe()**和**walk()**方法将导致恐慌。
 
 +   [go](https://golangbyexample.com/tag/go/)*

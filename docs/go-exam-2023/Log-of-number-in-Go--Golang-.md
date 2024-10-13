@@ -6,29 +6,29 @@
 
 -->
 
-# Go语言中的数字对数
+# Go 语言中的数字对数
 
-> 来源：[https://golangbyexample.com/log-of-number-go-golang/](https://golangbyexample.com/log-of-number-go-golang/)
+> 来源：[`golangbyexample.com/log-of-number-go-golang/`](https://golangbyexample.com/log-of-number-go-golang/)
 
 目录
 
-**[概述](#Overview "概述")**
+**概述**
 
-+   [自然对数](#Natural_logarithm "自然对数")
++   自然对数
 
-+   [代码](#Code "代码")
++   代码
 
-+   [二进制指数对数（log e）](#Binary_Exponent_Log_log_e "二进制指数对数（log e）")
++   二进制指数对数（log e）
 
-    +   [代码](#Code-2 "代码")
+    +   代码
 
-+   [二进制对数（log 2）](#Binary_Log_log_2 "二进制对数（log 2）")
++   二进制对数（log 2）
 
-    +   [代码](#Code-3 "代码")
+    +   代码
 
-+   [十进制对数（log 10）](#Decimal_Log_log_10 "十进制对数（log 10）")
++   十进制对数（log 10）
 
-    +   [代码](#Code-4 "代码")*  *# **概述**
+    +   代码*  *# **概述**
 
 在本教程中，我们将看到三种可能的对数类型
 
@@ -42,7 +42,7 @@
 
 # 自然对数
 
-GO的**math**包提供了一个**Log**方法，可用于获取一个数字的自然对数
+GO 的**math**包提供了一个**Log**方法，可用于获取一个数字的自然对数
 
 以下是函数的签名。它的输入为**float64**数字，并返回一个**float64**。
 
@@ -92,7 +92,7 @@ NaN
 
 # **二进制指数对数（log e）**
 
-golang的**math**包提供了一个**Logb**方法，可用于获取一个数字的二进制指数
+golang 的**math**包提供了一个**Logb**方法，可用于获取一个数字的二进制指数
 
 以下是函数的签名。它的输入为**float64**数字，并返回一个**float64**。
 
@@ -140,9 +140,9 @@ func main() {
 
 # **二进制对数（log 2）**
 
-golang的**math**包提供了一个**Log2**方法，可用于获取一个数字的二进制对数或以2为底的对数
+golang 的**math**包提供了一个**Log2**方法，可用于获取一个数字的二进制对数或以 2 为底的对数
 
-以下是函数的签名。它的输入为float64数字，并返回一个float64。
+以下是函数的签名。它的输入为 float64 数字，并返回一个 float64。
 
 另外，**Log2**函数的一些特殊情况是
 
@@ -186,9 +186,9 @@ NaN
 
 # **十进制对数（log 10）**
 
-Go的**math**包提供了一个**Log10**方法，可用于获取一个数字的十进制对数或以10为底的对数
+Go 的**math**包提供了一个**Log10**方法，可用于获取一个数字的十进制对数或以 10 为底的对数
 
-以下是函数的签名。它的输入为float64数字，并返回一个float64。
+以下是函数的签名。它的输入为 float64 数字，并返回一个 float64。
 
 ```go
 func Log10(x float64) float64

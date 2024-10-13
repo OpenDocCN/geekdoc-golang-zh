@@ -8,19 +8,19 @@
 
 # Go 中的 Init 函数 (Golang)
 
-> 来源：[https://golangbyexample.com/init-function-golang/](https://golangbyexample.com/init-function-golang/)
+> 来源：[`golangbyexample.com/init-function-golang/`](https://golangbyexample.com/init-function-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [主包中的 Init 函数](#Init_function_in_the_main_package "Init function in the main package")
++   主包中的 Init 函数
 
-+   [同一包中不同源文件的多个 init() 函数](#Multiple_init_function_in_different_source_file_of_same_package "Multiple init() function in different source file of same package")
++   同一包中不同源文件的多个 init() 函数 function in different source file of same package")
 
-    +   [同一源文件中的多个 init() 函数](#Multiple_init_function_in_same_source_file "Multiple init() function in same source file")
+    +   同一源文件中的多个 init() 函数 function in same source file")
 
-+   [程序执行顺序](#Order_of_execution_of_program "Order of execution of program")*  *# **概述**
++   程序执行顺序*  *# **概述**
 
 init() 函数是一个特殊函数，用于初始化包的全局变量。这些函数在包初始化时执行。一个包中的每个 GO 源文件都可以有自己的 init() 函数。每当您在程序中导入任何包时，程序执行时，属于该导入包的 GO 源文件中的 init 函数（如果存在）会首先被调用。关于 init 函数的一些要点：
 
@@ -239,9 +239,9 @@ In subtract init
 1
 ```
 
-## **同一源文件中的多个init()函数**
+## **同一源文件中的多个 init()函数**
 
-同一源文件中可以有多个init函数。
+同一源文件中可以有多个 init 函数。
 
 ```go
 package main
@@ -273,35 +273,35 @@ Main started
 Main Ended
 ```
 
-在上述程序中，我们有一个init函数和一个main函数。在init函数中，我们初始化全局变量“sample”。注意执行顺序，即init函数先执行，然后main函数执行。
+在上述程序中，我们有一个 init 函数和一个 main 函数。在 init 函数中，我们初始化全局变量“sample”。注意执行顺序，即 init 函数先执行，然后 main 函数执行。
 
 # **程序的执行顺序**
 
-现在如上所述，让我们看看go程序的执行顺序。
+现在如上所述，让我们看看 go 程序的执行顺序。
 
 +   程序从主包开始。
 
 +   主包源文件中导入的所有包都会被初始化。进一步导入的包同样会递归地执行。
 
-+   然后这些包中的全局变量声明被初始化。初始化依赖关系会影响这些变量的初始化。[https://golang.org/ref/spec#Order_of_evaluation](https://golang.org/ref/spec#Order_of_evaluation)
++   然后这些包中的全局变量声明被初始化。初始化依赖关系会影响这些变量的初始化。[`golang.org/ref/spec#Order_of_evaluation`](https://golang.org/ref/spec#Order_of_evaluation)
 
-+   之后，这些包中的init()函数会被运行。
++   之后，这些包中的 init()函数会被运行。
 
 +   主包中的全局变量被初始化。
 
-+   如果存在，主包中的init函数将被运行。
++   如果存在，主包中的 init 函数将被运行。
 
-+   主包中的main函数被运行。
++   主包中的 main 函数被运行。
 
 请注意，包初始化只会执行一次，即使被多次导入。
 
 例如，如果主包导入包**a**，而包**a**又导入包**b**，则执行顺序如下：
 
-+   包**b**中的全局变量将被初始化。包b的源文件中的init函数将被运行。
++   包**b**中的全局变量将被初始化。包 b 的源文件中的 init 函数将被运行。
 
-+   包**a**中的全局变量将被初始化。包**b**的源文件中的init函数将被运行。
++   包**a**中的全局变量将被初始化。包**b**的源文件中的 init 函数将被运行。
 
-+   **main**包中的全局变量将被初始化。主包源文件中的init函数将被运行。
++   **main**包中的全局变量将被初始化。主包源文件中的 init 函数将被运行。
 
 +   **main**函数将开始执行。
 
@@ -410,6 +410,6 @@ Init: main
 Main Function Executing
 ```
 
-请注意，在上述示例中，包**b**的源文件中的init函数先运行。然后包**a**的源文件中的init函数运行，最后是主包中的init函数。之后运行main函数。
+请注意，在上述示例中，包**b**的源文件中的 init 函数先运行。然后包**a**的源文件中的 init 函数运行，最后是主包中的 init 函数。之后运行 main 函数。
 
 +   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *

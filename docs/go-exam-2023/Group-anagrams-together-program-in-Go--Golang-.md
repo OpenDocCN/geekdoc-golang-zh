@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go (Golang)中将字母异位词组合在一起的程序
+# 在 Go (Golang)中将字母异位词组合在一起的程序
 
-> 来源：[https://golangbyexample.com/group-anagrams-together-go/](https://golangbyexample.com/group-anagrams-together-go/)
+> 来源：[`golangbyexample.com/group-anagrams-together-go/`](https://golangbyexample.com/group-anagrams-together-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个字符串数组，编写一个程序将所有字母异位词组合在一起。来自维基百科
 
@@ -41,7 +41,7 @@ Output: [["art", "rat", "tar"], ["tap", "pat"], ["arm"]]
 var output map[string][]int
 ```
 
-+   为上述副本数组构建一个前缀树，所有字符串都已排序。插入每个元素后更新上述映射。对于“art”，映射应如下所示，因为art在原始数组中的位置为0、2和5。
++   为上述副本数组构建一个前缀树，所有字符串都已排序。插入每个元素后更新上述映射。对于“art”，映射应如下所示，因为 art 在原始数组中的位置为 0、2 和 5。
 
 ```go
 map["art"] = [0,2,4]
@@ -158,8 +158,8 @@ func (t *trie) insert(input string, wordIndex int, anagramMap map[string][]int) 
 [[a]]
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列的教程内容详尽，我们尝试覆盖所有概念及示例。本教程适合希望获得专业知识和对golang有深入理解的学习者 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尝试覆盖所有概念及示例。本教程适合希望获得专业知识和对 golang 有深入理解的学习者 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

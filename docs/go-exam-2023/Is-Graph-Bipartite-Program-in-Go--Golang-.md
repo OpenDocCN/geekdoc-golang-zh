@@ -8,23 +8,23 @@
 
 # Go（Golang）中的图是否为二分图程序
 
-> 来源：[https://golangbyexample.com/graph-bipartite-golang/](https://golangbyexample.com/graph-bipartite-golang/)
+> 来源：[`golangbyexample.com/graph-bipartite-golang/`](https://golangbyexample.com/graph-bipartite-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个无向图。如果图的节点可以被分成两个子集，使得每条边连接第一个子集中的一个节点与第二个子集中的某个节点，则该图称为二分图。
 
-图包含n个节点，编号从**0**到**n-1**。输入是一个名为**graph**的矩阵，它是一个二维矩阵，其中graph[i]包含**第i**个节点连接的节点。例如，如果
+图包含 n 个节点，编号从**0**到**n-1**。输入是一个名为**graph**的矩阵，它是一个二维矩阵，其中 graph[i]包含**第 i**个节点连接的节点。例如，如果
 
 **graph[0] = [1,3]**
 
-这意味着**节点0**连接到**节点1**和**节点3**。
+这意味着**节点 0**连接到**节点 1**和**节点 3**。
 
-**示例1**
+**示例 1**
 
 ![](img/8b4e0e594249c6a7b6637fa47baf728d.png)
 
@@ -33,7 +33,7 @@ Input: [[1,3],[0,2],[1,3],[0,2]]
 Output: true
 ```
 
-**示例2**
+**示例 2**
 
 ![](img/77e0b7968865633eddb6ee990215089a.png)
 
@@ -42,7 +42,7 @@ Input: [[1,4],[0,2],[1,3],[2,4],[0,3]
 Output: false
 ```
 
-思路是使用DFS。我们将尝试为每个节点分配红色或黑色。如果一个节点被涂成红色，则其邻居必须涂成黑色。
+思路是使用 DFS。我们将尝试为每个节点分配红色或黑色。如果一个节点被涂成红色，则其邻居必须涂成黑色。
 
 +   如果我们能够以这种方式上色，那么图就是二分图。
 
@@ -130,9 +130,9 @@ true
 false
 ```
 
-**注意：**请查看我们的Golang高级教程。本系列的教程内容详尽，我们努力涵盖所有概念并提供示例。本教程适合那些希望获得Golang专业知识和扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：**请查看我们的 Golang 高级教程。本系列的教程内容详尽，我们努力涵盖所有概念并提供示例。本教程适合那些希望获得 Golang 专业知识和扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果您有兴趣了解所有设计模式如何在Golang中实现。如果是，那么这篇文章适合您 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果您有兴趣了解所有设计模式如何在 Golang 中实现。如果是，那么这篇文章适合您 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 另外，请查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 

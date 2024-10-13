@@ -8,11 +8,11 @@
 
 # 用 Go（Golang）实现两个由链表表示的数字相加
 
-> 来源：[https://golangbyexample.com/add-numbers-linked-list-golang/](https://golangbyexample.com/add-numbers-linked-list-golang/)
+> 来源：[`golangbyexample.com/add-numbers-linked-list-golang/`](https://golangbyexample.com/add-numbers-linked-list-golang/)
 
 目录
 
-**   [概述](#Overview "概述")*  *## **概述**
+**   概述*  *## **概述**
 
 假设链表已经被反转。也就是说，假设这两个数字是
 

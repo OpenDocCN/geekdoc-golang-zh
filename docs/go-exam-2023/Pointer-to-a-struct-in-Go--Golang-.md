@@ -8,7 +8,7 @@
 
 # Go（Golang）中的结构体指针
 
-> 来源：[https://golangbyexample.com/pointer-to-struct-golang/](https://golangbyexample.com/pointer-to-struct-golang/)
+> 来源：[`golangbyexample.com/pointer-to-struct-golang/`](https://golangbyexample.com/pointer-to-struct-golang/)
 
 在 Golang 中，结构体是命名的数据字段集合。这些字段可以是不同类型。结构体充当容器，包含不同的异构数据类型，共同表示一个实体。例如，不同的属性用于表示组织中的员工。员工可以有：
 

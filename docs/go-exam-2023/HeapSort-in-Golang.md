@@ -6,21 +6,21 @@ date: 2024-10-13 06:06:01
 
 -->
 
-# Golang中的堆排序
+# Golang 中的堆排序
 
-> 来源：[https://golangbyexample.com/heapsort-in-golang/](https://golangbyexample.com/heapsort-in-golang/)
+> 来源：[`golangbyexample.com/heapsort-in-golang/`](https://golangbyexample.com/heapsort-in-golang/)
 
 目录
 
-**   [介绍](#Introduction "介绍")
+**   介绍
 
-+   [堆排序步骤：](#Steps_for_HeapSort "堆排序步骤：")
++   堆排序步骤：
 
-+   [完整工作代码](#Full_Working_Code "完整工作代码")
++   完整工作代码
 
-+   [时间复杂度](#Time_Complexity "时间复杂度")*  *# **介绍**
++   时间复杂度*  *# **介绍**
 
-堆排序是一种基于比较的排序算法，它使用堆数据结构。有关堆的更多信息，请参考此链接 – [https://golangbyexample.com/heap-in-golang/](https://golangbyexample.com/heap-in-golang/)
+堆排序是一种基于比较的排序算法，它使用堆数据结构。有关堆的更多信息，请参考此链接 – [`golangbyexample.com/heap-in-golang/`](https://golangbyexample.com/heap-in-golang/)
 
 本文演示了使用最小堆进行堆排序。也可以使用最大堆实现相同的功能。
 
@@ -145,4 +145,4 @@ func main() {
 
 堆排序的时间复杂度为 O(nLogn)。
 
-+   [go](https://golangbyexample.com/tag/go/)*   [heapsort](https://golangbyexample.com/tag/heapsort/)*   [golang中的堆排序](https://golangbyexample.com/tag/heapsort-in-go/)*
++   [go](https://golangbyexample.com/tag/go/)*   [heapsort](https://golangbyexample.com/tag/heapsort/)*   [golang 中的堆排序](https://golangbyexample.com/tag/heapsort-in-go/)*

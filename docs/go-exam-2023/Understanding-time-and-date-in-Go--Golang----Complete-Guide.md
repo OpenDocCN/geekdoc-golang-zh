@@ -8,41 +8,41 @@
 
 # 理解 Go（Golang）中的时间和日期 – 完整指南
 
-> 来源：[https://golangbyexample.com/all-about-time-and-date-golang/](https://golangbyexample.com/all-about-time-and-date-golang/)
+> 来源：[`golangbyexample.com/all-about-time-and-date-golang/`](https://golangbyexample.com/all-about-time-and-date-golang/)
 
 **注意：** 如果你有兴趣学习 Golang，那么我们有一个全面的 golang 教程系列，欢迎查看 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。现在让我们看看当前的教程。以下是内容目录。
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [结构](#Structure "结构")
++   结构
 
-+   [创建一个新的时间](#Create_a_new_time "创建一个新的时间")
++   创建一个新的时间
 
-    +   [使用 time.Now()](#Using_timeNow "使用 time.Now()")
+    +   使用 time.Now()")
 
-    +   [使用 time.Date()](#Using_timeDate "使用 time.Date()")
+    +   使用 time.Date()")
 
-+   [理解持续时间](#Understanding_Duration "理解持续时间")
++   理解持续时间
 
-+   [加或减时间](#Add_or_Subtract_to_a_time "加或减时间")
++   加或减时间
 
-    +   [加到时间](#Add_to_time "加到时间 ")
+    +   加到时间
 
-    +   [从时间中减去](#Subtract_to_time "从时间中减去")
+    +   从时间中减去
 
-+   [时间解析/格式化](#Time_ParsingFormatting "时间解析/格式化")
++   时间解析/格式化
 
-    +   [时间解析示例](#Time_Parse_Example "时间解析示例")
+    +   时间解析示例
 
-    +   [时间格式化示例](#Time_Formatting_Example "时间格式化示例")
+    +   时间格式化示例
 
-+   [时间差](#Time_Diff "时间差")
++   时间差
 
-+   [时间转换](#Time_Conversion "时间转换 ")
++   时间转换
 
-    +   [在不同的时区之间转换时间](#Convert_time_between_different_timezones "在不同的时区之间转换时间")*  *# **概述**
+    +   在不同的时区之间转换时间*  *# **概述**
 
 **时间** 或 **日期** 在 Go 中使用 **time.Time** 结构表示。时间也可以表示为一个
 
@@ -115,25 +115,25 @@ const (
 
 一些定义在**time.Time**对象上的函数返回**持续时间**：
 
-+   **func (t Time) Sub(u Time) Duration** – 它返回持续时间t-u
++   **func (t Time) Sub(u Time) Duration** – 它返回持续时间 t-u
 
-+   **func Since(t Time) Duration –** 它返回自t以来经过的持续时间
++   **func Since(t Time) Duration –** 它返回自 t 以来经过的持续时间
 
-+   **func Until(t Time) Duration** – 它返回直到t的持续时间
++   **func Until(t Time) Duration** – 它返回直到 t 的持续时间
 
 # **加或减时间**
 
 现在你已经理解了持续时间，让我们看看如何对时间实例进行加减。
 
-golang中的**time**包定义了两种添加或减去时间的方法。
+golang 中的**time**包定义了两种添加或减去时间的方法。
 
-+   **Add**函数 - 用于将持续时间加到时间t。由于持续时间可以表示为小时、分钟、秒、毫秒、微秒和纳秒，因此Add函数可以用于从时间中加/减小时、分钟、秒、毫秒、微秒和纳秒。其签名为
++   **Add**函数 - 用于将持续时间加到时间 t。由于持续时间可以表示为小时、分钟、秒、毫秒、微秒和纳秒，因此 Add 函数可以用于从时间中加/减小时、分钟、秒、毫秒、微秒和纳秒。其签名为
 
 ```go
 func (t Time) Add(d Duration) Time
 ```
 
-+   **AddDate**函数 - 用于给时间t加/减年份、月份和天数。其签名为
++   **AddDate**函数 - 用于给时间 t 加/减年份、月份和天数。其签名为
 
 ```go
 func (t Time) AddDate(years int, months int, days int) Time
@@ -283,15 +283,15 @@ Subtracting 1 year 2 month 4 day:
 
 # **时间解析/格式化**
 
-如果你曾在其他语言中处理过时间/日期格式化/解析，你可能会注意到其他语言使用特殊的占位符进行时间/日期格式化。例如，ruby语言使用
+如果你曾在其他语言中处理过时间/日期格式化/解析，你可能会注意到其他语言使用特殊的占位符进行时间/日期格式化。例如，ruby 语言使用
 
-+   %d表示天
++   %d 表示天
 
-+   %Y表示年份
++   %Y 表示年份
 
 等等
 
-Golang没有使用上述代码，而是使用看起来像日期和时间的日期和时间格式占位符。Go使用标准时间，即：
+Golang 没有使用上述代码，而是使用看起来像日期和时间的日期和时间格式占位符。Go 使用标准时间，即：
 
 ```go
 Mon Jan 2 15:04:05 MST 2006  (MST is GMT-0700)
@@ -299,21 +299,21 @@ or
 01/02 03:04:05PM '06 -0700
 ```
 
-所以如果你注意到，go使用
+所以如果你注意到，go 使用
 
-+   01表示月份的天数，
++   01 表示月份的天数，
 
-+   02表示月份
++   02 表示月份
 
-+   03表示小时，
++   03 表示小时，
 
-+   04表示分钟
++   04 表示分钟
 
-+   05代表秒
++   05 代表秒
 
 +   等等
 
-以下占位符表描述了确切的映射。Go采用了一种更务实的方法，你不需要像其他语言一样记住或查找传统的格式化代码。
+以下占位符表描述了确切的映射。Go 采用了一种更务实的方法，你不需要像其他语言一样记住或查找传统的格式化代码。
 
 | **类型** | **占位符** |
 | --- | --- |
@@ -468,9 +468,9 @@ diff := currentTime.Sub(oldTime)
 
 下面的代码展示了转换。
 
-+   time.Time转换为Unix时间戳。
++   time.Time 转换为 Unix 时间戳。
 
-+   Unix时间戳转换为time.Time。
++   Unix 时间戳转换为 time.Time。
 
 ```go
 package main
@@ -502,11 +502,11 @@ time.Time: 2009-11-10 23:00:00 +0000 UTC
 
 ## **在不同时间区域之间转换时间**
 
-**In**函数可以用来更改与特定**time.Time**对象相关联的**location**。每当在任何**time.Time**对象（例如t）上调用**In**函数时，
+**In**函数可以用来更改与特定**time.Time**对象相关联的**location**。每当在任何**time.Time**对象（例如 t）上调用**In**函数时，
 
 +   创建一个**t**的副本，表示相同的时间瞬间。
 
-+   t的位置被设置为传递给In函数的地点，以便于显示。
++   t 的位置被设置为传递给 In 函数的地点，以便于显示。
 
 +   **t**被返回。
 

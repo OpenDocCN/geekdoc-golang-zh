@@ -8,11 +8,11 @@
 
 # 在 Go (Golang) 中检查字符串是否为数字
 
-> 来源：[https://golangbyexample.com/check-if-string-is-number-golang/](https://golangbyexample.com/check-if-string-is-number-golang/)
+> 来源：[`golangbyexample.com/check-if-string-is-number-golang/`](https://golangbyexample.com/check-if-string-is-number-golang/)
 
 **strconv.Atoi()** 函数可用于检查字符串是否为数字。如果传入的字符串不是数字，此函数将返回错误。该函数将数字解析为基数 10。
 
-[https://golang.org/pkg/strconv/#Atoi](https://golang.org/pkg/strconv/#Atoi)
+[`golang.org/pkg/strconv/#Atoi`](https://golang.org/pkg/strconv/#Atoi)
 
 函数的签名是
 

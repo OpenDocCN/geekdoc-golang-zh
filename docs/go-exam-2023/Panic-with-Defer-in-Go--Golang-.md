@@ -8,15 +8,15 @@
 
 # 在 Go 中使用 Defer 处理 Panic (Golang)
 
-> 来源：[https://golangbyexample.com/panic-with-defer-golang/](https://golangbyexample.com/panic-with-defer-golang/)
+> 来源：[`golangbyexample.com/panic-with-defer-golang/`](https://golangbyexample.com/panic-with-defer-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [示例](#Example "示例")
++   示例
 
-+   [使用 defer 从 panic 中恢复](#Using_defer_to_recover_from_a_panic "使用 defer 从 panic 中恢复")*  *# **概述**
++   使用 defer 从 panic 中恢复*  *# **概述**
 
 即使程序发生 **panic**，**defer** 函数也会被执行。事实上，**defer** 函数是唯一在 **panic** 之后被调用的函数。当在一个函数中引发 **panic** 时，该函数的执行将停止，任何被延迟的函数将被执行。实际上，所有堆栈中的延迟函数也将被执行，直到所有函数都返回。此时，程序将退出，并打印 panic 消息。
 

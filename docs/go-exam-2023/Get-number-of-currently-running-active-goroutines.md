@@ -8,11 +8,11 @@
 
 # 获取当前运行/活动的 goroutine 数量
 
-> 来源：[https://golangbyexample.com/number-currently-running-active-goroutines/](https://golangbyexample.com/number-currently-running-active-goroutines/)
+> 来源：[`golangbyexample.com/number-currently-running-active-goroutines/`](https://golangbyexample.com/number-currently-running-active-goroutines/)
 
 **NumGoroutine** 函数来自 **runtime** 包，可用于了解当前运行/活动的 goroutine 数量。
 
-[https://golang.org/pkg/runtime/#NumGoroutine](https://golang.org/pkg/runtime/#NumGoroutine)
+[`golang.org/pkg/runtime/#NumGoroutine`](https://golang.org/pkg/runtime/#NumGoroutine)
 
 以下是该函数的签名
 

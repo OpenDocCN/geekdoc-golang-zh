@@ -8,19 +8,19 @@
 
 # Go（Golang）中的多个常量声明
 
-> 来源：[https://golangbyexample.com/multiple-constant-declarations-go/](https://golangbyexample.com/multiple-constant-declarations-go/)
+> 来源：[`golangbyexample.com/multiple-constant-declarations-go/`](https://golangbyexample.com/multiple-constant-declarations-go/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [同时声明多个常量，具有不同的值和类型](#Declaring_multiple_const_together_with_different_value_and_type "同时声明多个常量，具有不同的值和类型")
++   同时声明多个常量，具有不同的值和类型
 
-+   [同时声明多个常量，具有相同的值和类型](#Declaring_multiple_const_together_with_same_value_and_type "同时声明多个常量，具有相同的值和类型")
++   同时声明多个常量，具有相同的值和类型
 
-+   [组合上述两个](#Combining_above_two "组合上述两个")
++   组合上述两个
 
-+   [单行多个声明](#Multiple_declaration_in_single_line "单行多个声明")*  *# **概述**
++   单行多个声明*  *# **概述**
 
 以下是一些同时声明多个常量的方法。
 
@@ -34,13 +34,13 @@ const (
 )
 ```
 
-声明可以是有类型的或无类型的。请参阅本文了解有类型常量和无类型常量之间的区别 – [https://golangbyexample.com/typed-untyped-constant-golang/](https://golangbyexample.com/typed-untyped-constant-golang/)
+声明可以是有类型的或无类型的。请参阅本文了解有类型常量和无类型常量之间的区别 – [`golangbyexample.com/typed-untyped-constant-golang/`](https://golangbyexample.com/typed-untyped-constant-golang/)
 
 +   a 是一个无类型声明。它将是**string**类型，值为**“circle”**。
 
 +   b 也是一个未类型声明。它将是**int**类型，值为**1**。
 
-+   c 是一个有类型的声明。它将是**float64**类型，值为4.65。
++   c 是一个有类型的声明。它将是**float64**类型，值为 4.65。
 
 # **同时声明多个常量，具有相同的值和类型**
 

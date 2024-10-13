@@ -8,23 +8,23 @@
 
 # Go 中的状态设计模式
 
-> 来源：[https://golangbyexample.com/state-design-pattern-go/](https://golangbyexample.com/state-design-pattern-go/)
+> 来源：[`golangbyexample.com/state-design-pattern-go/`](https://golangbyexample.com/state-design-pattern-go/)
 
 注意：如果想了解如何在 GO 中实现所有其他设计模式，请查看此完整参考 – [Go 中的所有设计模式 (Golang)](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [定义:](#Definition "Definition:")
+**   定义:
 
-+   [何时使用](#When_To_Use "When To Use")
++   何时使用
 
-+   [UML 图](#UML_Diagram "UML Diagram")
++   UML 图
 
-+   [映射](#Mapping "Mapping")
++   映射
 
-+   [解释:](#Explanation "Explanation:")
++   解释:
 
-+   [实际示例:](#Practical_Example "Practical Example:")*  *## **定义:**
++   实际示例:*  *## **定义:**
 
 状态设计模式是一种基于有限状态机的行为设计模式。我们将以自动售货机的示例来解释状态设计模式。为了简单起见，假设自动售货机只有一种商品。同时，假设自动售货机可以处于四种不同状态。
 
@@ -84,7 +84,7 @@
 
     1.  dispenseItem() 错误
 
-+   每个具体状态实现都实现了上述所有4个功能，并在这些操作中移动到另一个状态或给出某种响应。
++   每个具体状态实现都实现了上述所有 4 个功能，并在这些操作中移动到另一个状态或给出某种响应。
 
 +   每个具体状态都嵌入了一个指向当前自动售货机对象的指针，以便在该对象上进行状态转换。
 

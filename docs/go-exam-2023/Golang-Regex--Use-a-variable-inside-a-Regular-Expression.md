@@ -8,13 +8,13 @@
 
 # Golang 正则表达式：在正则表达式中使用变量
 
-> 来源：[https://golangbyexample.com/variable-regex-golang/](https://golangbyexample.com/variable-regex-golang/)
+> 来源：[`golangbyexample.com/variable-regex-golang/`](https://golangbyexample.com/variable-regex-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 **regexp.MustCompile** 函数用于编译给定的正则表达式字符串。因此，传递给 MustCompile 函数的仅是一个字符串。由于它是一个字符串，我们可以将任何变量与其余模式连接起来。
 

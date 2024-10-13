@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go语言中查找数组中所有和为零的三元组
+# 在 Go 语言中查找数组中所有和为零的三元组
 
-> 来源：[https://golangbyexample.com/array-triplets-add-zero-golang/](https://golangbyexample.com/array-triplets-add-zero-golang/)
+> 来源：[`golangbyexample.com/array-triplets-add-zero-golang/`](https://golangbyexample.com/array-triplets-add-zero-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 假设输入为
 

@@ -8,7 +8,7 @@
 
 # 检查一个项是否存在于 Go (Golang) 的切片中
 
-> 来源：[https://golangbyexample.com/item-exists-slice-golang/](https://golangbyexample.com/item-exists-slice-golang/)
+> 来源：[`golangbyexample.com/item-exists-slice-golang/`](https://golangbyexample.com/item-exists-slice-golang/)
 
 让我们看看一个工作代码
 

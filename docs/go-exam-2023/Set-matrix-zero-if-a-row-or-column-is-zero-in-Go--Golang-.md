@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go (Golang)中，如果行或列为零，则设置矩阵为零
+# 在 Go (Golang)中，如果行或列为零，则设置矩阵为零
 
-> 来源：[https://golangbyexample.com/set-matrix-zero-golang/](https://golangbyexample.com/set-matrix-zero-golang/)
+> 来源：[`golangbyexample.com/set-matrix-zero-golang/`](https://golangbyexample.com/set-matrix-zero-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program") *  * ## **概述**
++   程序 *  * ## **概述**
 
-给定一个m*n的矩阵。如果一个元素为零，则将其行和列设置为零
+给定一个 m*n 的矩阵。如果一个元素为零，则将其行和列设置为零
 
 示例
 
@@ -44,7 +44,7 @@ if matrix[i][j] == 0 then
    columnSet[j] = 1
 ```
 
-如果**rowSet[i]**等于1或**columnSet[j]**等于1，则可以将**matrix[i][j]**设为零。
+如果**rowSet[i]**等于 1 或**columnSet[j]**等于 1，则可以将**matrix[i][j]**设为零。
 
 ## **程序**
 
@@ -99,8 +99,8 @@ func main() {
 [[0 1 1] [0 0 0] [0 1 1]]
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尝试用实例覆盖所有概念。此教程适合那些希望获得Golang专业知识和扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尝试用实例覆盖所有概念。此教程适合那些希望获得 Golang 专业知识和扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你对了解如何在Golang中实现所有设计模式感兴趣。那么这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你对了解如何在 Golang 中实现所有设计模式感兴趣。那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *

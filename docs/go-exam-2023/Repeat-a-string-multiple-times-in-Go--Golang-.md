@@ -8,19 +8,19 @@
 
 # 在 Go (Golang) 中重复一个字符串多次
 
-> 来源：[https://golangbyexample.com/repeat-string-golang/](https://golangbyexample.com/repeat-string-golang/)
+> 来源：[`golangbyexample.com/repeat-string-golang/`](https://golangbyexample.com/repeat-string-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 **strings.Repeat** 方法可用于在 Go (Golang) 中多次重复一个字符串
 
 这是 Go 字符串包中该函数的链接
 
-[https://pkg.go.dev/strings#Repeat](https://pkg.go.dev/strings#Repeat)
+[`pkg.go.dev/strings#Repeat`](https://pkg.go.dev/strings#Repeat)
 
 这是该方法的签名
 

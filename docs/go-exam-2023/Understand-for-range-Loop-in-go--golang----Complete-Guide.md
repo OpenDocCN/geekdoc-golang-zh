@@ -8,9 +8,9 @@
 
 # 在 go (golang) 中理解 for-range 循环 – 完整指南
 
-> 来源：[https://golangbyexample.com/understand-for-range-loop-golang/](https://golangbyexample.com/understand-for-range-loop-golang/)
+> 来源：[`golangbyexample.com/understand-for-range-loop-golang/`](https://golangbyexample.com/understand-for-range-loop-golang/)
 
-这是 golang 综合教程系列的第 11 章。请参考此链接获取该系列的其他章节 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 golang 综合教程系列的第十一章。请参考此链接获取该系列的其他章节 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程** – [如果-否则](https://golangbyexample.com/understand-if-else-statement-golang/)
 
@@ -170,9 +170,9 @@ for index, character := range string {
 
 在我们进入代码示例之前需要注意的一些要点
 
-+   索引是字符串中Unicode字符的起始点。例如在字符串 "a£c" 中，字符 "a" 的起始索引为 0，字符 "£" 的起始索引为 1，而字符 "c" 的起始索引为 2。
++   索引是字符串中 Unicode 字符的起始点。例如在字符串 "a£c" 中，字符 "a" 的起始索引为 0，字符 "£" 的起始索引为 1，而字符 "c" 的起始索引为 2。
 
-+   值是Unicode点，基本上是字符串中的每个字符，而不是字节。它也被称为rune。golang中的rune表示一个Unicode代码点。
++   值是 Unicode 点，基本上是字符串中的每个字符，而不是字节。它也被称为 rune。golang 中的 rune 表示一个 Unicode 代码点。
 
 +   索引和值都是可选的。
 
@@ -225,7 +225,7 @@ Start Index: 1
 Start Index: 3
 ```
 
-## **带有映射的for-range循环**
+## **带有映射的 for-range 循环**
 
 在映射的情况下，**for-range** 遍历映射的键和值。以下是与映射一起使用时的 **for-range** 格式。
 
@@ -284,7 +284,7 @@ value :x
 value :y
 ```
 
-## **带有通道的for-range循环**
+## **带有通道的 for-range 循环**
 
 **for-range** 循环在通道中也有不同的工作方式。对于通道，索引没有任何意义，因为通道类似于一个管道，值从一端进入，从另一端退出。
 

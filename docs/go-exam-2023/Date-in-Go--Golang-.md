@@ -8,7 +8,7 @@
 
 # Go 中的日期 (Golang)
 
-> 来源：[https://golangbyexample.com/date-in-golang/](https://golangbyexample.com/date-in-golang/)
+> 来源：[`golangbyexample.com/date-in-golang/`](https://golangbyexample.com/date-in-golang/)
 
 在 Go 中，日期仅通过 **time.Time** 结构表示。Go 中没有单独的 Date 结构。可以使用 **time.Date** 函数构造日期。该函数返回格式为 **yyyy-mm-dd hh:mm:ss + nsec** 的时间，包含与给定位置对应的适当时区。函数的签名是：
 

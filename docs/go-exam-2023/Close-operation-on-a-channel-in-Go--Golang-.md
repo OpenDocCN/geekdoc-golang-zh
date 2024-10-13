@@ -8,7 +8,7 @@
 
 # Go (Golang) 中通道的关闭操作。
 
-> 来源：[https://golangbyexample.com/close-operation-on-a-channel-in-go-golang/](https://golangbyexample.com/close-operation-on-a-channel-in-go-golang/)
+> 来源：[`golangbyexample.com/close-operation-on-a-channel-in-go-golang/`](https://golangbyexample.com/close-operation-on-a-channel-in-go-golang/)
 
 关闭是一个内置函数，可以用于关闭通道。关闭通道意味着不能再向通道发送更多数据。当所有数据都已发送且没有更多数据要发送时，通道通常会被关闭。让我们看看一个程序。
 

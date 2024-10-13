@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中将数组/切片转换为 JSON
 
-> 来源：[https://golangbyexample.com/array-slice-json-golang/](https://golangbyexample.com/array-slice-json-golang/)
+> 来源：[`golangbyexample.com/array-slice-json-golang/`](https://golangbyexample.com/array-slice-json-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 **encoding/json** 包提供了 **Marshal** 函数，可用于将 golang 数组或切片转换为 JSON 字符串，反之亦然。
 

@@ -8,15 +8,15 @@
 
 # 在 Go (Golang) 中声明和实现接口
 
-> 来源：[https://golangbyexample.com/declaring-implementing-interface-golang/](https://golangbyexample.com/declaring-implementing-interface-golang/)
+> 来源：[`golangbyexample.com/declaring-implementing-interface-golang/`](https://golangbyexample.com/declaring-implementing-interface-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [声明接口](#Declaring_an_Interface "Declaring an Interface")
++   声明接口
 
-+   [实现接口](#Implementing_an_interface "Implementing an interface")*  *# **概述**
++   实现接口*  *# **概述**
 
 接口是 Go 中的一种类型，它是方法签名的集合。这些方法签名的集合旨在表示一种行为。接口仅声明方法集，任何实现接口所有方法的类型都是该接口类型。
 

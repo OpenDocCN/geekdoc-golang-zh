@@ -6,29 +6,29 @@
 
 -->
 
-# 理解Go（Golang）中的Fprintf函数
+# 理解 Go（Golang）中的 Fprintf 函数
 
-> 来源：[https://golangbyexample.com/fprintf-golang/](https://golangbyexample.com/fprintf-golang/)
+> 来源：[`golangbyexample.com/fprintf-golang/`](https://golangbyexample.com/fprintf-golang/)
 
 ![Fprintf 图像](img/9dcf336e99223726fb9611b41749a744.png)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-    +   [格式化字符串变量](#Formatting_a_string_variable "Formatting a string variable")
+    +   格式化字符串变量
 
-    +   [格式化整数](#Formatting_an_integer "Formatting an integer")
+    +   格式化整数
 
-    +   [格式化结构体](#Formatting_a_struct "Formatting a struct")
+    +   格式化结构体
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 **Fprintf**在**fmt**包中定义，用于格式化字符串并将格式化后的字符串写入传递给它的**io.Writer**实例。
 
-[https://golang.org/pkg/fmt/#Fprint](https://golang.org/pkg/fmt/#Fprint)
+[`golang.org/pkg/fmt/#Fprint`](https://golang.org/pkg/fmt/#Fprint)
 
-Golang提供了另一个类似的函数**Printf**。**Fprintf**和**Printf**之间唯一的区别是，**Fprintf**将数据写入传递给它的**io.Writer**实例，而**Printf**函数则写入标准输出。
+Golang 提供了另一个类似的函数**Printf**。**Fprintf**和**Printf**之间唯一的区别是，**Fprintf**将数据写入传递给它的**io.Writer**实例，而**Printf**函数则写入标准输出。
 
 以下是**Fprintf**的函数原型
 
@@ -84,7 +84,7 @@ fmt.Fprintf(os.Stdout, "Age is: %d\n", age)
 
 例如，打印结构体时有三种格式说明符。
 
-+   **%v** – 它只会打印值。字段名称不会被打印。这是使用Println打印结构体时的默认方式。
++   **%v** – 它只会打印值。字段名称不会被打印。这是使用 Println 打印结构体时的默认方式。
 
 +   **%+v – **它将打印字段和值。
 
@@ -183,7 +183,7 @@ fmt.Fprintf(os.Stdout, "Name: %s Age: %d\n", name, age)
 
 所以基本上，格式字符串参数中的符号或动词按照顺序被后续参数替换。
 
-**Fprintf**也可以用于写入文件。由于文件实例在golang中实现了**io.Writer**，因此这不是问题。下面是相应的程序。
+**Fprintf**也可以用于写入文件。由于文件实例在 golang 中实现了**io.Writer**，因此这不是问题。下面是相应的程序。
 
 ```go
 package main
@@ -235,7 +235,7 @@ Employee is main.employee{Name:"John", Age:21}
 
 +   **%s**
 
-而下一个可变参数只有一个。因此，当我们调用它时，它将把第二个格式说明符原样写出，并发出MISSING警告。
+而下一个可变参数只有一个。因此，当我们调用它时，它将把第二个格式说明符原样写出，并发出 MISSING 警告。
 
 ```go
 package main
@@ -263,6 +263,6 @@ func main() {
 Name is: John %!d(MISSING)
 ```
 
-此外，请查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+此外，请查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *

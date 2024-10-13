@@ -8,7 +8,7 @@
 
 # 联系我们
 
-> 来源：[https://golangbyexample.com/contact-us/](https://golangbyexample.com/contact-us/)
+> 来源：[`golangbyexample.com/contact-us/`](https://golangbyexample.com/contact-us/)
 
 嗨，你好，
 

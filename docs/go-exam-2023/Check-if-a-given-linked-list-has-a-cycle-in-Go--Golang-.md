@@ -6,15 +6,15 @@
 
 -->
 
-# 检查给定的链表在Go（Golang）中是否有循环。
+# 检查给定的链表在 Go（Golang）中是否有循环。
 
-> 来源：[https://golangbyexample.com/ilinked-list-cycle-golang/](https://golangbyexample.com/ilinked-list-cycle-golang/)
+> 来源：[`golangbyexample.com/ilinked-list-cycle-golang/`](https://golangbyexample.com/ilinked-list-cycle-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是判断给定的链表是否有循环。如果链表中的最后一个节点指向前面的某个节点，则存在循环。
 
@@ -26,7 +26,7 @@
 
 +   有两个指针，一个是慢指针，另一个是快指针。两者最初都指向头节点。
 
-+   现在将慢指针移动1个节点，将快指针移动2个节点。
++   现在将慢指针移动 1 个节点，将快指针移动 2 个节点。
 
 ```go
 slow := slow.Next
@@ -117,8 +117,8 @@ func hasCycle(head *ListNode) bool {
 true
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程详尽，我们尝试覆盖所有概念并提供示例。本教程适合希望获得专业知识和对Golang有深入理解的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程详尽，我们尝试覆盖所有概念并提供示例。本教程适合希望获得专业知识和对 Golang 有深入理解的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是，那么这篇文章适合你 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是，那么这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

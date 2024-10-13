@@ -6,21 +6,21 @@
 
 -->
 
-# 解析一个URL并提取所有部分，使用Go (Golang)
+# 解析一个 URL 并提取所有部分，使用 Go (Golang)
 
-> 来源：[https://golangbyexample.com/parse-url-golang/](https://golangbyexample.com/parse-url-golang/)
+> 来源：[`golangbyexample.com/parse-url-golang/`](https://golangbyexample.com/parse-url-golang/)
 
 目录
 
-**[概述](#Overview "Overview")
+**概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
-**net/url**包中包含一个Parse函数，可以用来解析给定的URL并返回URL结构的实例
+**net/url**包中包含一个 Parse 函数，可以用来解析给定的 URL 并返回 URL 结构的实例
 
-[https://golang.org/pkg/net/url/#URL](https://golang.org/pkg/net/url/#URL)
+[`golang.org/pkg/net/url/#URL`](https://golang.org/pkg/net/url/#URL)
 
-一旦给定的URL被正确解析，它将返回URI对象。然后我们可以从URI访问以下信息
+一旦给定的 URL 被正确解析，它将返回 URI 对象。然后我们可以从 URI 访问以下信息
 
 +   方案
 
@@ -38,7 +38,7 @@
 
 让我们来看一个工作程序：
 
-我们将解析以下URL
+我们将解析以下 URL
 
 ```go
 https://test:abcd123@golangbyexample.com:8000/tutorials/intro?type=advance&compact=false#history
@@ -46,13 +46,13 @@ https://test:abcd123@golangbyexample.com:8000/tutorials/intro?type=advance&compa
 
 然后
 
-+   方案是HTTPS
++   方案是 HTTPS
 
-+   用户信息 – 用户名是test，密码是abcd123。用户名和密码用冒号分隔：
++   用户信息 – 用户名是 test，密码是 abcd123。用户名和密码用冒号分隔：
 
 +   主机名是 [www.golangbyexample.com](http://www.golangbyexample.com/)
 
-+   端口是8000
++   端口是 8000
 
 +   路径是 tutorials/intro
 

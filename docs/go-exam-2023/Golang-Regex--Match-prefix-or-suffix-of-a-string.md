@@ -8,15 +8,15 @@
 
 # Golang 正则表达式：匹配字符串的前缀或后缀
 
-> 来源：[https://golangbyexample.com/regex-prefix-suffix-golang/](https://golangbyexample.com/regex-prefix-suffix-golang/)
+> 来源：[`golangbyexample.com/regex-prefix-suffix-golang/`](https://golangbyexample.com/regex-prefix-suffix-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [前缀匹配](#Prefix_Matching "前缀匹配")
++   前缀匹配
 
-+   [后缀匹配](#Suffix_Matching "后缀匹配")*  *## **概述**
++   后缀匹配*  *## **概述**
 
 Golang 正则表达式包含两个锚字符，可以用于匹配给定正则表达式的字符串的前缀和后缀。这两个字符是
 
@@ -194,6 +194,6 @@ abcd
 1abc23
 ```
 
-此外，请查看我们的Golang进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+此外，请查看我们的 Golang 进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

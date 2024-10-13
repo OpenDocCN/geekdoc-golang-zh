@@ -6,11 +6,11 @@
 
 -->
 
-# Go语言中的字符串长度
+# Go 语言中的字符串长度
 
-> 来源：[https://golangbyexample.com/length-of-string-golang/](https://golangbyexample.com/length-of-string-golang/)
+> 来源：[`golangbyexample.com/length-of-string-golang/`](https://golangbyexample.com/length-of-string-golang/)
 
-在Golang中，字符串是字节序列。字符串字面量实际上表示的是UTF-8字节序列。在UTF-8中，ASCII字符是单字节，对应于前128个Unicode字符。所有其他字符占用1到4个字节。为了更好地理解，考虑以下字符串
+在 Golang 中，字符串是字节序列。字符串字面量实际上表示的是 UTF-8 字节序列。在 UTF-8 中，ASCII 字符是单字节，对应于前 128 个 Unicode 字符。所有其他字符占用 1 到 4 个字节。为了更好地理解，考虑以下字符串
 
 ```go
 sample := "a£c"
@@ -18,19 +18,19 @@ sample := "a£c"
 
 在上述字符串中
 
-+   ‘a’根据UTF-8占用一个字节
++   ‘a’根据 UTF-8 占用一个字节
 
-+   ‘£’根据UTF-8占用两个字节
++   ‘£’根据 UTF-8 占用两个字节
 
-+   ‘b’根据UTF-8占用一个字节
++   ‘b’根据 UTF-8 占用一个字节
 
-上述字符串总共有1+2+1 = 4个字节。因此，当我们尝试使用标准的**len()**函数打印字符串的长度时，它会输出4，而不是3，因为**len()**函数返回的是字符串中的字节数。
+上述字符串总共有 1+2+1 = 4 个字节。因此，当我们尝试使用标准的**len()**函数打印字符串的长度时，它会输出 4，而不是 3，因为**len()**函数返回的是字符串中的字节数。
 
 ```go
 fmt.Printf("Length is %d\n", len(sample))
 ```
 
-因此，独立的for循环不能用于遍历字符串的所有字符，因为它将遍历字节而不是字符。因此，下面的**for**循环将迭代四次，并打印对应于该索引的字节值。
+因此，独立的 for 循环不能用于遍历字符串的所有字符，因为它将遍历字节而不是字符。因此，下面的**for**循环将迭代四次，并打印对应于该索引的字节值。
 
 ```go
 for i := 0; i < len(sample); i++ {
@@ -44,19 +44,19 @@ for i := 0; i < len(sample); i++ {
 aÂ£b
 ```
 
-现在我们提到了使用len()函数和for循环的上述限制，让我们看看两种计算字符串长度的方法。
+现在我们提到了使用 len()函数和 for 循环的上述限制，让我们看看两种计算字符串长度的方法。
 
-+   使用**utf8包的RuneCountInString**方法
++   使用**utf8 包的 RuneCountInString**方法
 
-+   使用for-range循环
++   使用 for-range 循环
 
-+   通过将字符串转换为rune数组。
++   通过将字符串转换为 rune 数组。
 
-**使用utf8包的**RuneCountInString**方法**
+**使用 utf8 包的**RuneCountInString**方法**
 
-**golang的utf8包提供了一个RuneCountInString方法，可以用来获取字符串的长度。它正确地计算字符串中的rune数量。**
+**golang 的 utf8 包提供了一个 RuneCountInString 方法，可以用来获取字符串的长度。它正确地计算字符串中的 rune 数量。**
 
-[https://golang.org/pkg/unicode/utf8/#RuneCountInString](https://golang.org/pkg/unicode/utf8/#RuneCountInString)
+[`golang.org/pkg/unicode/utf8/#RuneCountInString`](https://golang.org/pkg/unicode/utf8/#RuneCountInString)
 
 ```go
 package main
@@ -79,9 +79,9 @@ func main() {
 Length of given string is 3
 ```
 
-**使用for-range循环**
+**使用 for-range 循环**
 
-for-range遍历字符串中的Unicode点（在golang中也称为rune），并将正确输出a, £, b。因此，它也可以用于计算字符串的长度。以下是使用for-range与字符串时的格式
+for-range 遍历字符串中的 Unicode 点（在 golang 中也称为 rune），并将正确输出 a, £, b。因此，它也可以用于计算字符串的长度。以下是使用 for-range 与字符串时的格式
 
 ```go
 for index, character := range string {
@@ -120,9 +120,9 @@ Start Index: 3 Value:b
 Length of given string is 3
 ```
 
-**通过将字符串转换为rune数组**
+**通过将字符串转换为 rune 数组**
 
-一个rune表示一个Unicode点。通过将字符串转换为rune数组，基本上就是创建该字符串的Unicode点数组。因此，一旦字符串被转换为rune数组，它就可以用来遍历字符串的所有字符。
+一个 rune 表示一个 Unicode 点。通过将字符串转换为 rune 数组，基本上就是创建该字符串的 Unicode 点数组。因此，一旦字符串被转换为 rune 数组，它就可以用来遍历字符串的所有字符。
 
 ```go
 package main

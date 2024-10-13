@@ -6,15 +6,15 @@
 
 -->
 
-# 如何在Go（Golang）中从另一个包访问结构体
+# 如何在 Go（Golang）中从另一个包访问结构体
 
-> 来源：[https://golangbyexample.com/struct-another-package-golang/](https://golangbyexample.com/struct-another-package-golang/)。
+> 来源：[`golangbyexample.com/struct-another-package-golang/`](https://golangbyexample.com/struct-another-package-golang/)。
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 另一个包中的结构体名称必须以大写字母开头，这样它才能在包外公开。如果结构体名称以小写字母开头，则在包外不可见。
 
@@ -78,6 +78,6 @@ p := &model.Person{
 cannot refer to unexported name model.person
 ```
 
-另请查看我们的Golang综合教程系列 – [Golang综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
+另请查看我们的 Golang 综合教程系列 – [Golang 综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

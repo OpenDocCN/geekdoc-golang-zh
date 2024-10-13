@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go（Golang）中将字符串首字母大写
+# 在 Go（Golang）中将字符串首字母大写
 
-> 来源：[https://golangbyexample.com/capitalize-string-golang/](https://golangbyexample.com/capitalize-string-golang/)
+> 来源：[`golangbyexample.com/capitalize-string-golang/`](https://golangbyexample.com/capitalize-string-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码：](#Code "代码：")*  *# **概述**
++   代码：*  *# **概述**
 
-在Golang中，字符串是UTF-8编码的。Go的**strings**包提供了一个**Title**方法，可以将句子中所有单词的首字母转换为大写。它返回一个字符串的副本，所有单词的首字母都被大写。
+在 Golang 中，字符串是 UTF-8 编码的。Go 的**strings**包提供了一个**Title**方法，可以将句子中所有单词的首字母转换为大写。它返回一个字符串的副本，所有单词的首字母都被大写。
 
 下面是该函数的签名
 

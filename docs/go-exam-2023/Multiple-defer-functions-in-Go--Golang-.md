@@ -8,15 +8,15 @@
 
 # Go（Golang）中的多个延迟函数
 
-> 来源：[https://golangbyexample.com/multiple-defer-functions-golang/](https://golangbyexample.com/multiple-defer-functions-golang/)
+> 来源：[`golangbyexample.com/multiple-defer-functions-golang/`](https://golangbyexample.com/multiple-defer-functions-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [在特定函数中的多个延迟函数](#Multiple_Defer_function_within_a_particular_function "Multiple Defer function within a particular function")
++   在特定函数中的多个延迟函数
 
-+   [在不同函数中的多个延迟函数](#Multiple_Defer_function_in_different_functions "Multiple Defer function in different functions")*  *# **概述**
++   在不同函数中的多个延迟函数*  *# **概述**
 
 多个延迟函数有两种情况。
 
@@ -56,7 +56,7 @@ func main() {
 1
 ```
 
-在上面的程序中，我们有三个**延迟（defer）**函数，每个函数打印变量**i**的值。变量**i**在每个延迟函数之前递增。代码首先输出3，这意味着第三个延迟函数是第一个执行的。然后输出2，意味着第二个延迟函数在此之后执行，最后输出1，意味着第一个延迟函数是最后执行的。这表明，当一个特定函数中有多个延迟函数时，它们遵循“后进先出”规则。因此程序输出：
+在上面的程序中，我们有三个**延迟（defer）**函数，每个函数打印变量**i**的值。变量**i**在每个延迟函数之前递增。代码首先输出 3，这意味着第三个延迟函数是第一个执行的。然后输出 2，意味着第二个延迟函数在此之后执行，最后输出 1，意味着第一个延迟函数是最后执行的。这表明，当一个特定函数中有多个延迟函数时，它们遵循“后进先出”规则。因此程序输出：
 
 ```go
 3

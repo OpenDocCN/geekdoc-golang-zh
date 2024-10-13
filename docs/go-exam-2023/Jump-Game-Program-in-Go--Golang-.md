@@ -6,17 +6,17 @@
 
 -->
 
-# Go中的跳跃游戏程序
+# Go 中的跳跃游戏程序
 
-> 来源：[https://golangbyexample.com/jump-game-program-golang/](https://golangbyexample.com/jump-game-program-golang/)
+> 来源：[`golangbyexample.com/jump-game-program-golang/`](https://golangbyexample.com/jump-game-program-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## 概述
++   程序*  *## 概述
 
-提供了一个输入数组。数组中的每个条目表示从该位置的最大跳跃长度。应该从第一个索引开始，如果可以到达最后一个索引，则返回true；如果无法到达，则返回false。
+提供了一个输入数组。数组中的每个条目表示从该位置的最大跳跃长度。应该从第一个索引开始，如果可以到达最后一个索引，则返回 true；如果无法到达，则返回 false。
 
 示例
 
@@ -138,8 +138,8 @@ func main() {
 -1
 ```
 
-**注意：** 查看我们的Golang高级教程。该系列教程详细且覆盖了所有概念及示例。本教程适合希望获得专业知识和扎实理解Golang的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。该系列教程详细且覆盖了所有概念及示例。本教程适合希望获得专业知识和扎实理解 Golang 的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是，那么这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

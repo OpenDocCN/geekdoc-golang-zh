@@ -8,7 +8,7 @@
 
 # 支持这个网站
 
-> 来源：[https://golangbyexample.com/support/](https://golangbyexample.com/support/)
+> 来源：[`golangbyexample.com/support/`](https://golangbyexample.com/support/)
 
 如果你喜欢这个网站的内容，请帮助并支持这个网站。
 

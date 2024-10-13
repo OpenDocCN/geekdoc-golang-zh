@@ -6,17 +6,17 @@ date: 2024-10-13 06:23:58
 
 -->
 
-# Go (Golang)中的Select中的Break语句
+# Go (Golang)中的 Select 中的 Break 语句
 
-> 来源：[https://golangbyexample.com/break-keword-select-golang/](https://golangbyexample.com/break-keword-select-golang/)
+> 来源：[`golangbyexample.com/break-keword-select-golang/`](https://golangbyexample.com/break-keword-select-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")**
+**   概述**
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-`break`关键字可以在select中使用，以终止执行最内层的语句，类似于switch和for循环。以下是select中**break**关键字的示例。
+`break`关键字可以在 select 中使用，以终止执行最内层的语句，类似于 switch 和 for 循环。以下是 select 中**break**关键字的示例。
 
 # **代码**
 

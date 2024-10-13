@@ -8,27 +8,27 @@
 
 # 在 Go (Golang) 中为传入的 HTTP 请求设置响应头。
 
-> 来源：[https://golangbyexample.com/set-resposne-headers-http-go/](https://golangbyexample.com/set-resposne-headers-http-go/)
+> 来源：[`golangbyexample.com/set-resposne-headers-http-go/`](https://golangbyexample.com/set-resposne-headers-http-go/)
 
 注意：相关帖子。
 
-+   在 Go 中从传入的 HTTP 请求中获取头部 – [https://golangbyexample.com/headers-http-request-golang/](https://golangbyexample.com/headers-http-request-golang/)
++   在 Go 中从传入的 HTTP 请求中获取头部 – [`golangbyexample.com/headers-http-request-golang/`](https://golangbyexample.com/headers-http-request-golang/)
 
-+   获取外发 HTTP 请求的响应头在 Golang 中 – [https://golangbyexample.com/get-response-headers-making-go/](https://golangbyexample.com/get-response-headers-making-go/)
++   获取外发 HTTP 请求的响应头在 Golang 中 – [`golangbyexample.com/get-response-headers-making-go/`](https://golangbyexample.com/get-response-headers-making-go/)
 
-+   在 Go (Golang) 中为外发 HTTP 请求设置头部 – [https://golangbyexample.com/set-headers-http-request/](https://golangbyexample.com/set-headers-http-request/)
++   在 Go (Golang) 中为外发 HTTP 请求设置头部 – [`golangbyexample.com/set-headers-http-request/`](https://golangbyexample.com/set-headers-http-request/)
 
 现在让我们看看如何在传入的 HTTP 请求中设置响应头。
 
 目录。
 
-**[概述](#Overview "概述")**
+**概述**
 
-+   [使用 w.Header().Add() 方法](#Using_wHeaderAdd_method "使用 w.Header().Add() 方法")。
++   使用 w.Header().Add() 方法.Add() 方法")。
 
-+   [使用 w.Header().Set 方法](#Using_wHeaderSet_method "使用 w.Header().Set 方法")。
++   使用 w.Header().Set 方法.Set 方法")。
 
-+   [示例](#Example "示例")*  *# **概述**。
++   示例*  *# **概述**。
 
 下面是头部在 Go 中表示的格式。
 
@@ -107,7 +107,7 @@ w.Header().Add("foo", "bar2")
 
 然后**foo**头部将被设置为**[“bar1”, “bar2”]**。同时，在向客户端发送响应时，**foo**将变为**Foo**。
 
-# **使用w.Header().Set方法**
+# **使用 w.Header().Set 方法**
 
 以下是该函数的签名。
 
@@ -148,7 +148,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-在上述程序中，我们启动了一个监听在8085端口的服务器。我们将**content-type**头部设置如下。
+在上述程序中，我们启动了一个监听在 8085 端口的服务器。我们将**content-type**头部设置如下。
 
 ```go
 w.Header().Set("content-type", "application/json")
@@ -161,13 +161,13 @@ w.Header().Add("foo", "bar1")
 w.Header().Add("foo", "bar2")
 ```
 
-我们还在该端点定义了一个URL。运行此服务器并进行以下API调用。
+我们还在该端点定义了一个 URL。运行此服务器并进行以下 API 调用。
 
 ```go
 curl -v -X POST http://localhost:8085/example
 ```
 
-运行此API后，请在终端检查响应头。它与我们讨论的内容完全一致。此外，每个头部键都转换为其规范形式。
+运行此 API 后，请在终端检查响应头。它与我们讨论的内容完全一致。此外，每个头部键都转换为其规范形式。
 
 ```go
 < HTTP/1.1 200 OK

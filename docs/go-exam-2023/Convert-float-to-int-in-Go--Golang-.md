@@ -6,19 +6,19 @@
 
 -->
 
-# 在Go（Golang）中将浮点数转换为整数
+# 在 Go（Golang）中将浮点数转换为整数
 
-> 来源：[https://golangbyexample.com/float-to-int-golang/](https://golangbyexample.com/float-to-int-golang/)
+> 来源：[`golangbyexample.com/float-to-int-golang/`](https://golangbyexample.com/float-to-int-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [float64 转 int](#float64_to_int "float64 to int")
++   float64 转 int
 
-+   [float32 转 int](#float32_to_int "float32 to int")*  *## **概述**
++   float32 转 int*  *## **概述**
 
-Golang需要明确转换才能在不同类型之间进行转换。浮点数据类型可以通过显式类型转换直接转换为浮点数据类型。以下是其语法。
+Golang 需要明确转换才能在不同类型之间进行转换。浮点数据类型可以通过显式类型转换直接转换为浮点数据类型。以下是其语法。
 
 ```go
 {destination_type}(some_value) 
@@ -112,6 +112,6 @@ cannot use a (type float64) as type int in assignment
 cannot use a (type float32) as type int in assignment
 ```
 
-另外，请查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+另外，请查看我们的 Golang 进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

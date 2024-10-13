@@ -6,11 +6,11 @@
 
 -->
 
-# 理解Go中的数组（Golang）– 完整指南
+# 理解 Go 中的数组（Golang）– 完整指南
 
-> 来源：[https://golangbyexample.com/understanding-array-golang-complete-guide/](https://golangbyexample.com/understanding-array-golang-complete-guide/)
+> 来源：[`golangbyexample.com/understanding-array-golang-complete-guide/`](https://golangbyexample.com/understanding-array-golang-complete-guide/)
 
-这是golang综合教程系列的第17章。有关该系列其他章节，请参考此链接 – **[Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)**
+这是 golang 综合教程系列的第十七章。有关该系列其他章节，请参考此链接 – **[Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)**
 
 **下一个教程** – **[切片](https://golangbyexample.com/slice-in-golang/)**
 
@@ -20,23 +20,23 @@
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-    +   **[定义](#Definition "Definition")**
+    +   **定义**
 
-+   **[数组声明](#Declaration_of_an_array "Declaration of an array")**
++   **数组声明**
 
-+   **[访问数组元素](#Accessing_array_elements "Accessing array elements")**
++   **访问数组元素**
 
-+   **[数组在go中是值](#Arrays_are_value_in_go "Arrays are value in go")**
++   **数组在 go 中是值**
 
-+   **[迭代数组的不同方法](#Different_ways_of_iterating_an_array "Different ways of iterating an array")**
++   **迭代数组的不同方法**
 
-+   **[多维数组](#MultiDimensional_Arrays "MultiDimensional Arrays")**
++   **多维数组**
 
-+   **[结论](#Conclusion "Conclusion")** # **概述**
++   **结论** # **概述**
 
-类似于其他编程语言，golang也有**数组**数据结构。但在go中，**数组**的行为与其他语言略有不同，我们还有一种称为切片的东西，它类似于数组的引用。在本文中，我们将仅研究数组。
+类似于其他编程语言，golang 也有**数组**数据结构。但在 go 中，**数组**的行为与其他语言略有不同，我们还有一种称为切片的东西，它类似于数组的引用。在本文中，我们将仅研究数组。
 
 ## **定义**
 
@@ -52,9 +52,9 @@ sample := [size_of_array]{type}{a1, a2... an}
 
 +   <type>是数组中每个元素的类型。
 
-+   a1, a2 … an是实际元素。
++   a1, a2 … an 是实际元素。
 
-在golang中，数组的大小是其类型的一部分。这意味着两个具有不同元素数量的数组是两种不同的类型，不能相互赋值。如果尝试赋值两个不同长度的数组，将会引发下面的错误。
+在 golang 中，数组的大小是其类型的一部分。这意味着两个具有不同元素数量的数组是两种不同的类型，不能相互赋值。如果尝试赋值两个不同长度的数组，将会引发下面的错误。
 
 ```go
 cannot use sample1 (type [1]int) as type [2]int in assignment
@@ -75,7 +75,7 @@ sample2 = sample1
 
 数组声明中元素的数量和实际元素都是可选的。
 
-在下面的例子中，我们看到声明数组的4种方式。
+在下面的例子中，我们看到声明数组的 4 种方式。
 
 +   同时指定数组的长度和实际元素。例如：
 

@@ -6,11 +6,11 @@
 
 -->
 
-# 在Go（Golang）中迭代映射的不同方式
+# 在 Go（Golang）中迭代映射的不同方式
 
-> 来源：[https://golangbyexample.com/different-ways-iterating-over-map-go/](https://golangbyexample.com/different-ways-iterating-over-map-go/)
+> 来源：[`golangbyexample.com/different-ways-iterating-over-map-go/`](https://golangbyexample.com/different-ways-iterating-over-map-go/)
 
-范围操作符可用于在Go中迭代映射
+范围操作符可用于在 Go 中迭代映射
 
 首先定义一个映射
 

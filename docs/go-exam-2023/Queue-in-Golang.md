@@ -6,21 +6,21 @@
 
 -->
 
-# Golang中的队列
+# Golang 中的队列
 
-> 来源：[https://golangbyexample.com/queue-in-golang/](https://golangbyexample.com/queue-in-golang/)
+> 来源：[`golangbyexample.com/queue-in-golang/`](https://golangbyexample.com/queue-in-golang/)
 
 目录
 
-**   [介绍](#Introduction "Introduction")
+**   介绍
 
-+   [列表实现](#List_Implementation "List Implementation")
++   列表实现
 
-+   [切片实现](#Slice_Implementation "Slice Implementation")*  *# **介绍**
++   切片实现*  *# **介绍**
 
-可以使用GO中的
+可以使用 GO 中的
 
-1.  container/list包实现一个简单的队列
+1.  container/list 包实现一个简单的队列
 
 1.  切片
 

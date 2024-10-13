@@ -8,17 +8,17 @@
 
 # Go（Golang）中的发送操作选择
 
-> 来源：[https://golangbyexample.com/select-send-operation-go/](https://golangbyexample.com/select-send-operation-go/)
+> 来源：[`golangbyexample.com/select-send-operation-go/`](https://golangbyexample.com/select-send-operation-go/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [一次发送一次接收操作](#One_send_one_receive_operation "One send one receive operation")
++   一次发送一次接收操作
 
-+   [所有发送操作](#All_send_operations "All send operations")
++   所有发送操作
 
-+   [所有接收操作](#All_receive_operations "All receive_operations")*  *# **概述**
++   所有接收操作*  *# **概述**
 
 Select 允许在其 case 语句中同时进行发送和接收操作。让我们看看以下示例：
 

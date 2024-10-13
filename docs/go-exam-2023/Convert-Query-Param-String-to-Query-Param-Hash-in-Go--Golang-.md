@@ -8,13 +8,13 @@
 
 # 将查询参数字符串转换为 Go（Golang）中的查询参数哈希
 
-> 来源：[https://golangbyexample.com/query-param-map-golang/](https://golangbyexample.com/query-param-map-golang/)
+> 来源：[`golangbyexample.com/query-param-map-golang/`](https://golangbyexample.com/query-param-map-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 假设我们有以下查询参数字符串
 

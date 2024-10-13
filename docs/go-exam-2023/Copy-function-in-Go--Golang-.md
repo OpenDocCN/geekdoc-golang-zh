@@ -8,7 +8,7 @@
 
 # Go 中的复制函数（Golang）
 
-> 来源：[https://golangbyexample.com/copy-function-in-golang/](https://golangbyexample.com/copy-function-in-golang/)
+> 来源：[`golangbyexample.com/copy-function-in-golang/`](https://golangbyexample.com/copy-function-in-golang/)
 
 Go 的 **builtin** 包提供了 **copy** 函数，可以用于复制切片。以下是此函数的签名。它接收两个切片 **dst** 和 **src**，并将数据从 **src** 复制到 **dst**。它返回复制的元素数量。
 

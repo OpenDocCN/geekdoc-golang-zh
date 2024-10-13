@@ -8,19 +8,19 @@
 
 # Go (Golang)中的用户定义函数类型
 
-> 来源：[https://golangbyexample.com/user-defined-function-type-go/](https://golangbyexample.com/user-defined-function-type-go/)
+> 来源：[`golangbyexample.com/user-defined-function-type-go/`](https://golangbyexample.com/user-defined-function-type-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")
++   代码
 
-    +   [示例 1](#Example_1 "Example 1")
+    +   示例 1
 
-    +   [示例 2](#Example_2 "Example 2")*  *# **概述**
+    +   示例 2*  *# **概述**
 
-在GO中，函数也是一种类型。如果两个函数是同一类型的话。
+在 GO 中，函数也是一种类型。如果两个函数是同一类型的话。
 
 +   它们具有相同数量的参数，每个参数都是相同类型的。
 

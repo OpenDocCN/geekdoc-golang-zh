@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go（Golang）中查找整数数组中第一个缺失的正整数
+# 在 Go（Golang）中查找整数数组中第一个缺失的正整数
 
-> 来源：[https://golangbyexample.com/first-missing-postivie-integer-golang/](https://golangbyexample.com/first-missing-postivie-integer-golang/)
+> 来源：[`golangbyexample.com/first-missing-postivie-integer-golang/`](https://golangbyexample.com/first-missing-postivie-integer-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是找到整数数组中第一个缺失的正整数。
 
@@ -126,8 +126,8 @@ func segregate(nums []int) ([]int, int) {
 2
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程详细且我们尝试涵盖所有概念及示例。这个教程是为那些希望获得Golang专业知识和扎实理解的人准备的 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程详细且我们尝试涵盖所有概念及示例。这个教程是为那些希望获得 Golang 专业知识和扎实理解的人准备的 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，那么这篇文章就是为你准备的 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，那么这篇文章就是为你准备的 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

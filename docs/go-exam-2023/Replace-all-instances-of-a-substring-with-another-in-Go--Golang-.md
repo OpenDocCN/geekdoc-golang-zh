@@ -6,19 +6,19 @@
 
 -->
 
-# 在Go (Golang)中将一个子字符串的所有实例替换为另一个
+# 在 Go (Golang)中将一个子字符串的所有实例替换为另一个
 
-> 来源：[https://golangbyexample.com/replace-all-instances-substring-go/](https://golangbyexample.com/replace-all-instances-substring-go/)
+> 来源：[`golangbyexample.com/replace-all-instances-substring-go/`](https://golangbyexample.com/replace-all-instances-substring-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
-在GO中，字符串是UTF-8编码的。GO的**strings**包提供了一个**ReplaceAll**方法，可以用来替换给定子字符串的所有不重叠实例为一个新的子字符串。它返回字符串的副本。
+在 GO 中，字符串是 UTF-8 编码的。GO 的**strings**包提供了一个**ReplaceAll**方法，可以用来替换给定子字符串的所有不重叠实例为一个新的子字符串。它返回字符串的副本。
 
-下面是该函数的签名。该函数将在字符串**s**中替换所有不重叠的**old**实例为**new**。如果**old**为空，则它将在字符串**s**中的每个有效的UTF-8字节序列之间插入**new**。
+下面是该函数的签名。该函数将在字符串**s**中替换所有不重叠的**old**实例为**new**。如果**old**为空，则它将在字符串**s**中的每个有效的 UTF-8 字节序列之间插入**new**。
 
 ```go
 func ReplaceAll(s, old, new string) string

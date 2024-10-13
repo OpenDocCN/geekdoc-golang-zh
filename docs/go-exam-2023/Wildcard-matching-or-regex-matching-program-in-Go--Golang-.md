@@ -8,15 +8,15 @@
 
 # Go（Golang）中的通配符匹配或正则表达式匹配程序。
 
-> 来源：[https://golangbyexample.com/wildcard-matching-golang/](https://golangbyexample.com/wildcard-matching-golang/)
+> 来源：[`golangbyexample.com/wildcard-matching-golang/`](https://golangbyexample.com/wildcard-matching-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [递归解决方案](#Recursive_Solution "Recursive Solution")
++   递归解决方案
 
-+   [动态规划解决方案](#Dynamic_Program_Solution "Dynamic Program Solution") *  *## **概述**
++   动态规划解决方案 *  *## **概述**
 
 我们给定一个输入正则表达式和一个输入字符串。正则表达式可以包含两个特殊字符。
 

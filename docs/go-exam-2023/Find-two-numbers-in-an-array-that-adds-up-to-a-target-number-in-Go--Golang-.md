@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中查找两个数组中的数字，使它们的和等于目标数字
 
-> 来源：[https://golangbyexample.com/target-sum-golang/](https://golangbyexample.com/target-sum-golang/)
+> 来源：[`golangbyexample.com/target-sum-golang/`](https://golangbyexample.com/target-sum-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 例如，假设我们有一个给定的数组
 

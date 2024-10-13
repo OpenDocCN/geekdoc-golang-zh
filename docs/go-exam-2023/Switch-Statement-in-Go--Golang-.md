@@ -8,9 +8,9 @@
 
 # Go（Golang）中的 Switch 语句。
 
-> 来源：[https://golangbyexample.com/switch-statement-golang/](https://golangbyexample.com/switch-statement-golang/)
+> 来源：[`golangbyexample.com/switch-statement-golang/`](https://golangbyexample.com/switch-statement-golang/)
 
-这是 golang 综合教程系列的第 13 章。有关系列的其他章节，请参考这个链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 golang 综合教程系列的第十三章。有关系列的其他章节，请参考这个链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程** – [延迟关键字](https://golangbyexample.com/defer-golang)
 

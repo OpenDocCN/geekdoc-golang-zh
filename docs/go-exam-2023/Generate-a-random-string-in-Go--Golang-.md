@@ -6,27 +6,27 @@
 
 -->
 
-# 在Go（Golang）中生成随机字符串
+# 在 Go（Golang）中生成随机字符串
 
-> 来源：[https://golangbyexample.com/generate-random-string-golang/](https://golangbyexample.com/generate-random-string-golang/)
+> 来源：[`golangbyexample.com/generate-random-string-golang/`](https://golangbyexample.com/generate-random-string-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-**‘mat/rand’**包的golang包含一个**Intn**函数，可用于生成一个介于[0,n)之间的伪随机数。末尾的括号表示n是排除的。该函数可以用来从字符集生成一个随机字符串。
+**‘mat/rand’**包的 golang 包含一个**Intn**函数，可用于生成一个介于[0,n)之间的伪随机数。末尾的括号表示 n 是排除的。该函数可以用来从字符集生成一个随机字符串。
 
-要了解更多关于伪随机数的含义，请查看这篇文章 – [https://golangbyexample.com/generate-random-number-golang](https://golangbyexample.com/generate-random-number-golang)
+要了解更多关于伪随机数的含义，请查看这篇文章 – [`golangbyexample.com/generate-random-number-golang`](https://golangbyexample.com/generate-random-number-golang)
 
-下面是该方法的签名。它输入一个数字n，并返回一个范围在0<=x<n内的数字x。
+下面是该方法的签名。它输入一个数字 n，并返回一个范围在 0<=x<n 内的数字 x。
 
 ```go
 func Intn(n int) int
 ```
 
-上述函数可用于生成随机字符串。基本上，我们首先选择一个charSet。然后我们使用上述函数生成一个随机数，再用这个随机数从charSet中获取一个随机字符。这个随机字符被添加到字符串中，直到我们得到一个所需长度的随机字符串。
+上述函数可用于生成随机字符串。基本上，我们首先选择一个 charSet。然后我们使用上述函数生成一个随机数，再用这个随机数从 charSet 中获取一个随机字符。这个随机字符被添加到字符串中，直到我们得到一个所需长度的随机字符串。
 
 # **代码**
 
@@ -82,13 +82,13 @@ nHaiEpccEdBfCFPtaBbi
 abcdedfghijklmnopqrst and abcdedfghijklmnopqrstABCDEFGHIJKLMNOP
 ```
 
-在上述字符集中，所有字符都是ASCII字符，因此我们能够在**charSet**字符串中索引一个字符。但如果**charSet**包含非ASCII字符，这可能会成为一个问题。
+在上述字符集中，所有字符都是 ASCII 字符，因此我们能够在**charSet**字符串中索引一个字符。但如果**charSet**包含非 ASCII 字符，这可能会成为一个问题。
 
-在Golang中，字符串是字节的序列。字符串字面量实际上表示UTF-8字节序列。在UTF-8中，ASCII字符是单字节的，对应前128个Unicode字符。所有其他字符占用1到4个字节。因此，不可能在字符串中索引一个字符。在GO中，rune数据类型表示一个Unicode点。一旦字符串被转换为一个rune数组，就可以在该数组中索引字符。
+在 Golang 中，字符串是字节的序列。字符串字面量实际上表示 UTF-8 字节序列。在 UTF-8 中，ASCII 字符是单字节的，对应前 128 个 Unicode 字符。所有其他字符占用 1 到 4 个字节。因此，不可能在字符串中索引一个字符。在 GO 中，rune 数据类型表示一个 Unicode 点。一旦字符串被转换为一个 rune 数组，就可以在该数组中索引字符。
 
-因此，如果字符集包含一些非ASCII字符，它们可能会占用多个字节。在这种情况下，我们不能使用上述代码生成随机字符串，因为无法在charSet中索引。对此，我们必须首先将字符串转换为rune数组，以便能够在rune数组中索引字符，然后逐步形成随机字符串。
+因此，如果字符集包含一些非 ASCII 字符，它们可能会占用多个字节。在这种情况下，我们不能使用上述代码生成随机字符串，因为无法在 charSet 中索引。对此，我们必须首先将字符串转换为 rune 数组，以便能够在 rune 数组中索引字符，然后逐步形成随机字符串。
 
-在下面的示例中，我们的charSet包含一个非ASCII字符**'£'**。该字符占用两个字节。
+在下面的示例中，我们的 charSet 包含一个非 ASCII 字符**'£'**。该字符占用两个字节。
 
 ```go
 package main

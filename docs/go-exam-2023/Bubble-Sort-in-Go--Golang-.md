@@ -8,17 +8,17 @@
 
 # Go 语言中的冒泡排序
 
-> 来源：[https://golangbyexample.com/go-bubble-sort/](https://golangbyexample.com/go-bubble-sort/)
+> 来源：[`golangbyexample.com/go-bubble-sort/`](https://golangbyexample.com/go-bubble-sort/)
 
 目录
 
-**[介绍](#Introduction "Introduction")**
+**介绍**
 
-+   **[时间复杂度](#Time_Complexity "Time Complexity")**
++   **时间复杂度**
 
-+   **[空间复杂度](#Space_Complexity "Space Complexity")**
++   **空间复杂度**
 
-+   [实现：](#Implementation "Implementation:")*  *# **介绍**
++   实现：*  *# **介绍**
 
 在冒泡排序中：
 

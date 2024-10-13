@@ -8,13 +8,13 @@
 
 # Go（Golang）中的`recover`函数返回值
 
-> 来源：[https://golangbyexample.com/recover-return-value-golang/](https://golangbyexample.com/recover-return-value-golang/)
+> 来源：[`golangbyexample.com/recover-return-value-golang/`](https://golangbyexample.com/recover-return-value-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example") *  *# **概述**
++   示例 *  *# **概述**
 
 `recover`函数返回传递给`panic`函数的值。因此，检查`recover`函数的返回值是一种良好实践。如果返回值非空，则表示没有发生`panic`，且`recover`函数没有因`panic`被调用。
 
@@ -82,6 +82,6 @@ Exiting normally
 if r := recover(); r != nil 
 ```
 
-在这里，如果**r**为nil，则表示没有发生`panic`。因此，如果没有`panic`，则对`recover`的调用将返回nil。
+在这里，如果**r**为 nil，则表示没有发生`panic`。因此，如果没有`panic`，则对`recover`的调用将返回 nil。
 
 +   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *

@@ -6,23 +6,23 @@
 
 -->
 
-# 在Go（Golang）中读取cookie http
+# 在 Go（Golang）中读取 cookie http
 
-> 来源：[https://golangbyexample.com/read-cookie-http-golang/](https://golangbyexample.com/read-cookie-http-golang/)
+> 来源：[`golangbyexample.com/read-cookie-http-golang/`](https://golangbyexample.com/read-cookie-http-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-net/http Request结构体提供了一种方便的方法，可以根据名称读取特定cookie。以下是该方法的签名。[https://golang.org/pkg/net/http/#Request.Cookie](https://golang.org/pkg/net/http/#Request.Cookie)
+net/http Request 结构体提供了一种方便的方法，可以根据名称读取特定 cookie。以下是该方法的签名。[`golang.org/pkg/net/http/#Request.Cookie`](https://golang.org/pkg/net/http/#Request.Cookie)
 
 ```go
 func (r *Request) Cookie(name string) (*Cookie, error)
 ```
 
-要打印所有cookies，我们可以遍历**http.Request**结构体的**Cookies**方法。我们可以为此使用range关键字。
+要打印所有 cookies，我们可以遍历**http.Request**结构体的**Cookies**方法。我们可以为此使用 range 关键字。
 
 ```go
 for _, c := range r.Cookies() {
@@ -30,9 +30,9 @@ for _, c := range r.Cookies() {
 }
 ```
 
-这两个函数将返回**Cookie**结构体的实例。在golang中，cookie表示如下。
+这两个函数将返回**Cookie**结构体的实例。在 golang 中，cookie 表示如下。
 
-[https://golang.org/src/net/http/cookie.go](https://golang.org/src/net/http/cookie.go)
+[`golang.org/src/net/http/cookie.go`](https://golang.org/src/net/http/cookie.go)
 
 ```go
 type Cookie struct {
@@ -56,7 +56,7 @@ type Cookie struct {
 }
 ```
 
-有关上述cookie中每个字段的详细信息，请参见[https://tools.ietf.org/html/rfc6265](https://tools.ietf.org/html/rfc6265)。
+有关上述 cookie 中每个字段的详细信息，请参见[`tools.ietf.org/html/rfc6265`](https://tools.ietf.org/html/rfc6265)。
 
 ## **程序**
 
@@ -99,13 +99,13 @@ func docHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-运行上面的程序并进行以下curl调用
+运行上面的程序并进行以下 curl 调用
 
 ```go
 curl -X GET localhost:8080/doc --cookie "id=abcd; token=some_token"
 ```
 
-curl调用传递了两个cookie名称-值对
+curl 调用传递了两个 cookie 名称-值对
 
 +   id=abcd
 
@@ -124,7 +124,7 @@ id=abcd
 token=some_token
 ```
 
-这就是我们如何打印名为**“token”**的特定cookie
+这就是我们如何打印名为**“token”**的特定 cookie
 
 ```go
 tokenCookie, err := r.Cookie("token")
@@ -136,7 +136,7 @@ tokenCookie, err := r.Cookie("token")
 token=some_token
 ```
 
-这就是我们如何打印所有的cookie
+这就是我们如何打印所有的 cookie
 
 ```go
 for _, c := range r.Cookies() {
@@ -144,15 +144,15 @@ for _, c := range r.Cookies() {
 }
 ```
 
-它输出我们在curl调用中发送的cookie名称-值对
+它输出我们在 curl 调用中发送的 cookie 名称-值对
 
 ```go
 id=abcd
 token=some_token
 ```
 
-这就是关于golang中cookies的所有内容。希望你喜欢这个教程。请在评论中分享反馈。
+这就是关于 golang 中 cookies 的所有内容。希望你喜欢这个教程。请在评论中分享反馈。
 
-此外，请查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+此外，请查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [cookie](https://golangbyexample.com/tag/cookie/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

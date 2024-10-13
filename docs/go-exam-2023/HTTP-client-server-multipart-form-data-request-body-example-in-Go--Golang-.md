@@ -6,21 +6,21 @@
 
 -->
 
-# Go语言中的HTTP客户端/服务器multipart表单数据请求体示例
+# Go 语言中的 HTTP 客户端/服务器 multipart 表单数据请求体示例
 
-> 来源：[https://golangbyexample.com/http-mutipart-form-body-golang/](https://golangbyexample.com/http-mutipart-form-body-golang/)
+> 来源：[`golangbyexample.com/http-mutipart-form-body-golang/`](https://golangbyexample.com/http-mutipart-form-body-golang/)
 
 目录
 
-**   [概览](#Overview "Overview")
+**   概览
 
-+   [HTTP 服务器示例](#HTTP_Server_Example "HTTP Server Example")
++   HTTP 服务器示例
 
-+   [HTTP 客户端示例](#HTTP_Client_Example "HTTP Client Example")*  *# **概览**
++   HTTP 客户端示例*  *# **概览**
 
-在HTTP上下文中，**multipart/form-data**内容类型用于提交HTML表单。在**multipart/form-data**的情况下，正如名称所示，主体由不同部分组成，这些部分由分隔符或边界分开，每个部分都有自己的头部描述。分隔符或边界也作为头部的一部分发送。
+在 HTTP 上下文中，**multipart/form-data**内容类型用于提交 HTML 表单。在**multipart/form-data**的情况下，正如名称所示，主体由不同部分组成，这些部分由分隔符或边界分开，每个部分都有自己的头部描述。分隔符或边界也作为头部的一部分发送。
 
-当你通过浏览器在HTTP调用中发送HTML表单时，数据内容可以通过以下两种格式作为请求体发送。
+当你通过浏览器在 HTTP 调用中发送 HTML 表单时，数据内容可以通过以下两种格式作为请求体发送。
 
 +   application/x-www-form-urlencoded
 
@@ -46,15 +46,15 @@
 
 现在让我们看一个例子
 
-+   解析multipart/form-data请求的HTTP服务器
++   解析 multipart/form-data 请求的 HTTP 服务器
 
-+   用于发送multipart/form-data请求的HTTP客户端
++   用于发送 multipart/form-data 请求的 HTTP 客户端
 
 # **HTTP 服务器示例**
 
-对于HTTP服务器，传入的请求由**请求**结构表示
+对于 HTTP 服务器，传入的请求由**请求**结构表示
 
-[https://golang.org/src/net/http/request.go](https://golang.org/src/net/http/request.go)
+[`golang.org/src/net/http/request.go`](https://golang.org/src/net/http/request.go)
 
 要解析**multipart/form-data**请求体，我们需要先在**请求**对象上调用以下函数
 
@@ -73,7 +73,7 @@ type Form struct {
 }
 ```
 
-它有两个部分。Value保存所有非文件数据。因此，它将保存**姓名**和**年龄**的键数据。**文件**部分保存所有文件数据。因此，它将保存**照片**键的数据。这两个部分的值部分都是数组，因为对于同一个键可以有多个值。
+它有两个部分。Value 保存所有非文件数据。因此，它将保存**姓名**和**年龄**的键数据。**文件**部分保存所有文件数据。因此，它将保存**照片**键的数据。这两个部分的值部分都是数组，因为对于同一个键可以有多个值。
 
 +   **表单** – 它包含**multipart/form-data**请求体的查询字符串和非文件字段的组合数据。例如，在上述情况下，它只会包含名称和年龄字段。它的格式如下：
 
@@ -254,7 +254,7 @@ fmt.Println(request.PostFormValue("name"))
 
 然后我们使用**FormFile**方法首先保存请求体中的文件，然后使用**request.MultipartForm.File**映射进行保存。由于我们使用这两种方法保存同一个文件，因此我们向**saveFile**函数发送一个前缀参数，以便它以不同的名称保存文件。这是为了确保**FormFile**保存的文件不会被**request.MultipartForm.File**保存的文件覆盖。这只是为了演示这两种方法都可以用于从请求中提取文件数据。**FormFile**方法使用前缀**formfile**，而**request.MultipartForm.File**使用**mapaccess**前缀来保存文件。
 
-现在让我们进行一些curl调用。在运行curl命令的同一文件夹中创建一个名为**test.png**的文件。
+现在让我们进行一些 curl 调用。在运行 curl 命令的同一文件夹中创建一个名为**test.png**的文件。
 
 +   发送**名称**、**年龄**和**照片**。
 
@@ -288,7 +288,7 @@ formfile-test.png
 mapaccess-test.png
 ```
 
-现在让我们看看第二个curl示例。
+现在让我们看看第二个 curl 示例。
 
 +   发送**名称**、**年龄**和**照片**，但在此示例中，同一个键**'照片'**用于发送两个文件。
 
@@ -322,7 +322,7 @@ mapaccess-test2.png
 mapaccess-test2.png
 ```
 
-让我们看看另一个curl示例。
+让我们看看另一个 curl 示例。
 
 +   发送两个 **name** 键的值
 
@@ -364,7 +364,7 @@ John
 
 以下是一个 HTTP 客户端示例代码，它在 HTTP 请求中将 **multipart/form-data** 请求体发送到上面示例中创建的服务器。
 
-首先，我们必须创建一个多部分写入器 [https://golang.org/pkg/mime/multipart/#Writer](https://golang.org/pkg/mime/multipart/#Writer)
+首先，我们必须创建一个多部分写入器 [`golang.org/pkg/mime/multipart/#Writer`](https://golang.org/pkg/mime/multipart/#Writer)
 
 ```go
 writer := multipart.NewWriter(body)

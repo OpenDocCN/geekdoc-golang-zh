@@ -8,15 +8,15 @@
 
 # Go（Golang）中的带基本身份验证的 HTTP 客户端/服务器。
 
-> 来源：[https://golangbyexample.com/http-basic-auth-golang/](https://golangbyexample.com/http-basic-auth-golang/)
+> 来源：[`golangbyexample.com/http-basic-auth-golang/`](https://golangbyexample.com/http-basic-auth-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [HTTP 服务器基本身份验证示例](#HTTP_Server_Basic_Auth_Example "HTTP Server Basic Auth Example")
++   HTTP 服务器基本身份验证示例
 
-+   [HTTP 客户端基本身份验证示例](#HTTP_Client_Basic_Auth_Example "HTTP Client Basic Auth Example") * * # **概述**
++   HTTP 客户端基本身份验证示例 * * # **概述**
 
 基本身份验证是为网络服务器上的资源提供访问控制的最简单形式。基本访问认证是在进行 HTTP 请求时向服务器提供用户名和密码的一种方式。凭据在请求的头部发送。以下是发送凭据的头部和格式。
 
@@ -36,7 +36,7 @@ Authorization : Basic <credentials></credentials>
 
 基本身份验证在 RFC 7617 中有说明。
 
-[https://tools.ietf.org/html/rfc7617](https://tools.ietf.org/html/rfc7617)
+[`tools.ietf.org/html/rfc7617`](https://tools.ietf.org/html/rfc7617)
 
 基本身份验证不需要任何类型的会话标识符或 Cookies。此外，由于凭据仅作为 Base64 编码发送，因此没有加密涉及。因此，基本身份验证仅在 HTTPS 中使用以确保安全。
 
@@ -114,7 +114,7 @@ abc:123
 YWJjOjEyMw==
 ```
 
-你可以在这里查看 – [https://www.base64encode.org/](https://www.base64encode.org/)
+你可以在这里查看 – [`www.base64encode.org/`](https://www.base64encode.org/)
 
 现在发出以下请求。
 
@@ -149,7 +149,7 @@ Golang 的 **net/http** 包还提供了一种在 ***http.Request** 结构上定�
 func (r *Request) SetBasicAuth(username, password string)
 ```
 
-该方法的作用是接收**用户名**和**密码**，并使用以冒号（:）连接的用户名和密码的base64编码值设置Authorization头。
+该方法的作用是接收**用户名**和**密码**，并使用以冒号（:）连接的用户名和密码的 base64 编码值设置 Authorization 头。
 
 让我们看看一个程序。
 
@@ -195,8 +195,8 @@ func call(url, method string) error {
 req.SetBasicAuth(username, password)
 ```
 
-如果你运行上面的程序，你将从我们之前设置的服务器收到200的响应。
+如果你运行上面的程序，你将从我们之前设置的服务器收到 200 的响应。
 
-**注意：** 我们在上面打印**用户名**和**密码**仅用于示例目的。在实际程序中，它们需要以某种安全的方式加密存储。同时，我们在下面发送的是http请求而非https用于基本认证。这仅用于说明，客户端和服务器位于同一台机器上。这并不推荐，基本认证应仅在**HTTPS**下使用。
+**注意：** 我们在上面打印**用户名**和**密码**仅用于示例目的。在实际程序中，它们需要以某种安全的方式加密存储。同时，我们在下面发送的是 http 请求而非 https 用于基本认证。这仅用于说明，客户端和服务器位于同一台机器上。这并不推荐，基本认证应仅在**HTTPS**下使用。
 
 +   [去](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

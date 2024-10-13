@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go（Golang）中两个已排序数组的中位数
+# 在 Go（Golang）中两个已排序数组的中位数
 
-> 来源：[https://golangbyexample.com/medium-two-sorted-arrays-golang/](https://golangbyexample.com/medium-two-sorted-arrays-golang/)
+> 来源：[`golangbyexample.com/medium-two-sorted-arrays-golang/`](https://golangbyexample.com/medium-two-sorted-arrays-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是返回两个已排序数组的中位数。例如，如果输入是
 
@@ -23,7 +23,7 @@
 [3,4,6]
 ```
 
-那么中位数是4，因为如果我们对两个数组进行排序，4正好在中间。
+那么中位数是 4，因为如果我们对两个数组进行排序，4 正好在中间。
 
 ```go
 [1,3,4,5,6]
@@ -44,7 +44,7 @@
 [3,4]
 ```
 
-那么中位数是**(2+3)/2=2.5**，因为如果我们对两个数组进行排序，2和3正好在中间。
+那么中位数是**(2+3)/2=2.5**，因为如果我们对两个数组进行排序，2 和 3 正好在中间。
 
 ```go
 [1,2,3,4]

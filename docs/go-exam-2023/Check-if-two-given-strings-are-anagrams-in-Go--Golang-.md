@@ -8,13 +8,13 @@
 
 # 检查两个给定字符串在 Go (Golang) 中是否为变位词
 
-> 来源：[https://golangbyexample.com/check-two-strings-anagram-go/](https://golangbyexample.com/check-two-strings-anagram-go/)
+> 来源：[`golangbyexample.com/check-two-strings-anagram-go/`](https://golangbyexample.com/check-two-strings-anagram-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 **变位词** 是通过重新排列另一个单词或短语的字母形成的单词或短语，通常使用所有原始字母且恰好一次。例如，单词 *anagram* 本身可以重新排列为 *nagaram*，而单词 *binary* 可以变为 *brainy*，单词 *adobe* 可以变为 *abode*。
 

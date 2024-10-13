@@ -6,11 +6,11 @@
 
 -->
 
-# 在Go (Golang)中获取任意字母或数字的ASCII代码/值
+# 在 Go (Golang)中获取任意字母或数字的 ASCII 代码/值
 
-> 来源：[https://golangbyexample.com/get-ascii-value-alphabet-go/](https://golangbyexample.com/get-ascii-value-alphabet-go/)
+> 来源：[`golangbyexample.com/get-ascii-value-alphabet-go/`](https://golangbyexample.com/get-ascii-value-alphabet-go/)
 
-**遍历**字符串可以获取字符串中所有字符的**ASCII**值。在下面的代码中，我们打印小写字母、大写字母和数字的ASCII值。
+**遍历**字符串可以获取字符串中所有字符的**ASCII**值。在下面的代码中，我们打印小写字母、大写字母和数字的 ASCII 值。
 
 ```go
 package main

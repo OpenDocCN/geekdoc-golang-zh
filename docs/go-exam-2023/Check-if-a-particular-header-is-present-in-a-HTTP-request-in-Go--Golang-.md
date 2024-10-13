@@ -8,11 +8,11 @@
 
 # 检查 Go (Golang) 中 HTTP 请求是否存在特定 header。
 
-> 来源：[https://golangbyexample.com/header-present-http-golang/](https://golangbyexample.com/header-present-http-golang/)
+> 来源：[`golangbyexample.com/header-present-http-golang/`](https://golangbyexample.com/header-present-http-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")*  *# **概述**
+**   概述*  *# **概述**
 
 以下是 header 在 Go 中表示的格式。
 

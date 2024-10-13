@@ -8,7 +8,7 @@
 
 # Go（Golang）中的方法链
 
-> 来源：[https://golangbyexample.com/method-chaining-go/](https://golangbyexample.com/method-chaining-go/)
+> 来源：[`golangbyexample.com/method-chaining-go/`](https://golangbyexample.com/method-chaining-go/)
 
 为了实现方法链的功能，链中的方法应该返回接收者。链中最后一个方法返回接收者是可选的。
 

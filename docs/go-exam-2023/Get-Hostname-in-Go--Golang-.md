@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go (Golang)中获取主机名
+# 在 Go (Golang)中获取主机名
 
-> 来源：[https://golangbyexample.com/get-hostname-golang/](https://golangbyexample.com/get-hostname-golang/)
+> 来源：[`golangbyexample.com/get-hostname-golang/`](https://golangbyexample.com/get-hostname-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-golang的**‘os’**包提供了一个**Hostname**函数，可用于获取内核报告的主机名
+golang 的**‘os’**包提供了一个**Hostname**函数，可用于获取内核报告的主机名
 
 下面是此方法的签名。如果无法成功获取主机名，则返回错误
 

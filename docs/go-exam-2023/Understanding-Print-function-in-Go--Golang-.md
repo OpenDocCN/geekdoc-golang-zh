@@ -6,17 +6,17 @@
 
 -->
 
-# 理解Go（Golang）中的Print函数
+# 理解 Go（Golang）中的 Print 函数
 
-> 来源：[https://golangbyexample.com/print-function-golang/](https://golangbyexample.com/print-function-golang/)
+> 来源：[`golangbyexample.com/print-function-golang/`](https://golangbyexample.com/print-function-golang/)
 
 ![](img/a1351ff423b96c7f5cfda45be9f96f65.png)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 **Print**在**fmt**包中定义，用于格式化字符串并写入标准输出
 
@@ -140,6 +140,6 @@ Name is: John
 14
 ```
 
-**bytesPrinted**的数量为14，因为输出了14个字符
+**bytesPrinted**的数量为 14，因为输出了 14 个字符
 
-此外，请查看我们的Golang高级教程系列——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+此外，请查看我们的 Golang 高级教程系列——[Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*

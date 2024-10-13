@@ -8,15 +8,15 @@
 
 # Go（Golang）中的通道方向
 
-> 来源：[https://golangbyexample.com/channel-direction-go/](https://golangbyexample.com/channel-direction-go/)
+> 来源：[`golangbyexample.com/channel-direction-go/`](https://golangbyexample.com/channel-direction-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [仅发送到通道](#Only_Send_to_Channel "Only Send to Channel")
++   仅发送到通道
 
-+   [仅接收来自通道](#Only_Receive_from_Channel "Only Receive from Channel")*  *# **概述**
++   仅接收来自通道*  *# **概述**
 
 在 golang 中可以创建双向和单向通道。可以创建一个只能发送数据的通道，也可以创建一个只能接收数据的通道。这由通道的箭头方向决定。通道的箭头方向指定数据流动的方向。
 

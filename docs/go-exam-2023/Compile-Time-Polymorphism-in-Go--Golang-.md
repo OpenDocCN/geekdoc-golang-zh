@@ -8,7 +8,7 @@
 
 # Go（Golang）中的编译时多态性
 
-> 来源：[https://golangbyexample.com/compile-time-polymorphism-go/](https://golangbyexample.com/compile-time-polymorphism-go/)
+> 来源：[`golangbyexample.com/compile-time-polymorphism-go/`](https://golangbyexample.com/compile-time-polymorphism-go/)
 
 在编译时多态中，调用在编译时由编译器解析。编译时多态的一些形式是
 
@@ -43,7 +43,7 @@ func main() {
         previous declaration at ./main.go:5:6
 ```
 
-Go 也不支持运算符重载。原因在于 Go 的常见问题解答中说明了——[https://golang.org/doc/faq#overloading](https://golang.org/doc/faq#overloading)。
+Go 也不支持运算符重载。原因在于 Go 的常见问题解答中说明了——[`golang.org/doc/faq#overloading`](https://golang.org/doc/faq#overloading)。
 
 如果方法分发不需要进行类型匹配，则会简化。与其他语言的经验告诉我们，拥有多个同名但具有不同签名的方法有时是有用的，但在实践中也可能令人困惑且脆弱。在 Go 的类型系统中，仅通过名称匹配并要求类型一致性是一个重要的简化决策。
 

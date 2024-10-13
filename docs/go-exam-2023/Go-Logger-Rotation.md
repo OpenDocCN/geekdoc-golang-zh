@@ -6,23 +6,23 @@
 
 -->
 
-# Go日志轮换
+# Go 日志轮换
 
-> 来源：[https://golangbyexample.com/go-logger-rotation/](https://golangbyexample.com/go-logger-rotation/)
+> 来源：[`golangbyexample.com/go-logger-rotation/`](https://golangbyexample.com/go-logger-rotation/)
 
-本文讨论的是如何在go应用程序中轮换日志文件，而无需担心磁盘空间不足的警报。
+本文讨论的是如何在 go 应用程序中轮换日志文件，而无需担心磁盘空间不足的警报。
 
-我们将使用[https://github.com/lestrrat/go-file-rotatelogs](https://github.com/lestrrat/go-file-rotatelogs)进行日志轮换。
+我们将使用[`github.com/lestrrat/go-file-rotatelogs`](https://github.com/lestrrat/go-file-rotatelogs)进行日志轮换。
 
 **示例：**在下面的示例中，我们正在设置
 
-+   **MaxAge**设置为10秒。这表示在日志文件被从文件系统中清除之前的最大年龄。也就是说，文件将在10秒后被删除。见
++   **MaxAge**设置为 10 秒。这表示在日志文件被从文件系统中清除之前的最大年龄。也就是说，文件将在 10 秒后被删除。见
 
 ```go
 rotatelogs.WithMaxAge(time.Second*10)
 ```
 
-+   **RotationTime**是1秒**。**它设置了文件轮换的时间。所以文件将每秒轮换一次。见
++   **RotationTime**是 1 秒**。**它设置了文件轮换的时间。所以文件将每秒轮换一次。见
 
 ```go
 rotatelogs.WithRotationTime(time.Second*1)
@@ -88,6 +88,6 @@ func main() {
 
 +   文件每秒轮换一次。
 
-+   文件的最大年龄是10秒。因此，每个文件将在10秒后被删除。
++   文件的最大年龄是 10 秒。因此，每个文件将在 10 秒后被删除。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [logger](https://golangbyexample.com/tag/logger/)*   [rotate](https://golangbyexample.com/tag/rotate/)

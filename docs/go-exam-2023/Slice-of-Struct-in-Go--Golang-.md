@@ -8,13 +8,13 @@
 
 # Go (Golang) 中的结构体切片
 
-> 来源：[https://golangbyexample.com/slice-struct-golang/](https://golangbyexample.com/slice-struct-golang/)
+> 来源：[`golangbyexample.com/slice-struct-golang/`](https://golangbyexample.com/slice-struct-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 在 Golang 中创建结构体切片是可能的。实际上，可以为 Go 中的任何数据类型创建切片。下面是创建结构体切片的简单示例
 

@@ -8,7 +8,7 @@
 
 # 检查 Go (Golang) 中是否设置了环境变量
 
-> 来源：[https://golangbyexample.com/check-environment-variable-set-go/](https://golangbyexample.com/check-environment-variable-set-go/)
+> 来源：[`golangbyexample.com/check-environment-variable-set-go/`](https://golangbyexample.com/check-environment-variable-set-go/)
 
 **os.LookupEnv** 函数可用于检查特定环境变量是否已设置。它返回一个布尔值，如果给定的环境变量已设置，则为 true，否则为 false。让我们来看一个工作代码：
 

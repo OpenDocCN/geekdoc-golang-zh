@@ -6,29 +6,29 @@
 
 -->
 
-# 在Go (Golang)中的协程中恢复panic
+# 在 Go (Golang)中的协程中恢复 panic
 
-> 来源：[https://golangbyexample.com/recover-panic-goroutine-go/](https://golangbyexample.com/recover-panic-goroutine-go/)
+> 来源：[`golangbyexample.com/recover-panic-goroutine-go/`](https://golangbyexample.com/recover-panic-goroutine-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [在相同协程中作为panic的recover函数](#Recover_function_in_the_same_goroutine_as_panic "Recover function in the same goroutine as panic")
++   在相同协程中作为 panic 的 recover 函数
 
-+   [在不同协程中的recover函数作为panic](#Recover_function_in_a_different_goroutine_as_panic "Recover function in a different goroutine as panic")*  *# **概述**
++   在不同协程中的 recover 函数作为 panic*  *# **概述**
 
 恢复协程中恐慌的情况有两种。
 
-+   **在相同协程中的recover函数作为**panic**
++   **在相同协程中的 recover 函数作为**panic**
 
-+   **在不同协程中的recover函数作为**panic**
++   **在不同协程中的 recover 函数作为**panic**
 
-在第一种情况下，它将从panic中恢复。但需要注意的一个重要点是，recover函数只能恢复在同一协程中发生的panic。如果panic发生在不同协程中，而recover也在不同协程中，则无法恢复。
+在第一种情况下，它将从 panic 中恢复。但需要注意的一个重要点是，recover 函数只能恢复在同一协程中发生的 panic。如果 panic 发生在不同协程中，而 recover 也在不同协程中，则无法恢复。
 
 让我们看看两个例子的情况。
 
-# ****在相同协程中的recover函数作为panic****
+# ****在相同协程中的 recover 函数作为 panic****
 
 ```go
 package main
@@ -67,11 +67,11 @@ Exiting normally
 Recovering from panic: Out of bound access for slice
 ```
 
-在上述程序中，**recover**和**panic**位于同一协程中，因此能够从panic中恢复，正如从输出中所见。
+在上述程序中，**recover**和**panic**位于同一协程中，因此能够从 panic 中恢复，正如从输出中所见。
 
-# **在不同协程中的recover函数作为panic**
+# **在不同协程中的 recover 函数作为 panic**
 
-如前所述，在这种情况下无法从panic中恢复。
+如前所述，在这种情况下无法从 panic 中恢复。
 
 ```go
 package main

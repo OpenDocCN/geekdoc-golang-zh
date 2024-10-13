@@ -8,15 +8,15 @@
 
 # Go（Golang）中的崩溃堆栈跟踪
 
-> 来源：[https://golangbyexample.com/panic-stack-trace-go/](https://golangbyexample.com/panic-stack-trace-go/)
+> 来源：[`golangbyexample.com/panic-stack-trace-go/`](https://golangbyexample.com/panic-stack-trace-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
-golang的**debug**包提供了一个**StackTrace**函数，可以用来打印recover函数中崩溃的堆栈跟踪。
+golang 的**debug**包提供了一个**StackTrace**函数，可以用来打印 recover 函数中崩溃的堆栈跟踪。
 
 # **示例**
 
@@ -70,7 +70,7 @@ main.main()
 Exiting normally
 ```
 
-在上述程序中，我们有一个函数**checkAndPrint**，它检查并打印传入参数的索引处的切片元素。如果传入的索引大于数组的长度，程序将会出现崩溃。我们在函数**checkAndPrint**的开始处添加了一个名为**handleOutIfBounds**的延迟函数。这个函数包含了下面的recover函数调用。
+在上述程序中，我们有一个函数**checkAndPrint**，它检查并打印传入参数的索引处的切片元素。如果传入的索引大于数组的长度，程序将会出现崩溃。我们在函数**checkAndPrint**的开始处添加了一个名为**handleOutIfBounds**的延迟函数。这个函数包含了下面的 recover 函数调用。
 
 ```go
 if r := recover(); r != nil {
@@ -84,6 +84,6 @@ if r := recover(); r != nil {
 Recovering from panic: Out of bound access for slice
 ```
 
-我们使用**StackTrace**函数在recover函数中打印崩溃的堆栈跟踪。它打印出正确的堆栈跟踪，如输出所示。
+我们使用**StackTrace**函数在 recover 函数中打印崩溃的堆栈跟踪。它打印出正确的堆栈跟踪，如输出所示。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

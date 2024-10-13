@@ -8,7 +8,7 @@
 
 # 更新 Go (Golang) 中映射中的键
 
-> 来源：[https://golangbyexample.com/update-key-map-golang/](https://golangbyexample.com/update-key-map-golang/)
+> 来源：[`golangbyexample.com/update-key-map-golang/`](https://golangbyexample.com/update-key-map-golang/)
 
 当尝试向映射中添加一个已经存在的键时，新值会覆盖旧值。这类似于在映射中更新键。
 
@@ -43,6 +43,6 @@ After update
 map[Tom:3000]
 ```
 
-在上面的程序中，当用新值**“3000”**写入相同的键时，它会覆盖现有值**“2000”**。当我们再次打印映射时，打印的值为3000。
+在上面的程序中，当用新值**“3000”**写入相同的键时，它会覆盖现有值**“2000”**。当我们再次打印映射时，打印的值为 3000。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)

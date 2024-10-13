@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中的丑数程序
 
-> 来源：[https://golangbyexample.com/ugly-number-golang/](https://golangbyexample.com/ugly-number-golang/)
+> 来源：[`golangbyexample.com/ugly-number-golang/`](https://golangbyexample.com/ugly-number-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 丑数是其质因数仅限于 2、3 和 5 的数字。
 

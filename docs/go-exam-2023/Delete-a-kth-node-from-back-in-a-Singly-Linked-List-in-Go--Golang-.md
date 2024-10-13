@@ -6,19 +6,19 @@
 
 -->
 
-# 在Go (Golang)中删除单链表的第k个节点
+# 在 Go (Golang)中删除单链表的第 k 个节点
 
-> 来源：[https://golangbyexample.com/delete-kth-node-back-linked-list-golang/](https://golangbyexample.com/delete-kth-node-back-linked-list-golang/)
+> 来源：[`golangbyexample.com/delete-kth-node-back-linked-list-golang/`](https://golangbyexample.com/delete-kth-node-back-linked-list-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")
++   程序
 
-+   [解释](#Explanation "Explanation")*  *## **概述**
++   解释*  *## **概述**
 
-在单链表中删除从尾部的第k个节点
+在单链表中删除从尾部的第 k 个节点
 
 **输入链表：**
 
@@ -26,7 +26,7 @@
 A-> B-> C-> D-> E-> F-> Null
 ```
 
-要移除的节点是从尾部的第3个节点，然后
+要移除的节点是从尾部的第 3 个节点，然后
 
 **输出链表：**
 
@@ -203,7 +203,7 @@ Err: Given number is greater than linked list length
 A-> B-> C-> D-> E-> F-> Null
 ```
 
-然后我们从尾部移除第5个节点，即**B**。我们遍历链表。从输出中可以看到**B**被移除了。
+然后我们从尾部移除第 5 个节点，即**B**。我们遍历链表。从输出中可以看到**B**被移除了。
 
 ```go
 A
@@ -213,7 +213,7 @@ E
 F
 ```
 
-然后我们从尾部移除第1个节点，即**F**。我们遍历链表。从输出中可以看到**F**被移除了。
+然后我们从尾部移除第 1 个节点，即**F**。我们遍历链表。从输出中可以看到**F**被移除了。
 
 ```go
 A

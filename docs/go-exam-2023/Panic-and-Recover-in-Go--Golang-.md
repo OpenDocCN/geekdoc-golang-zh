@@ -8,33 +8,33 @@
 
 # Go 语言中的 Panic 和 Recover
 
-> 来源：[https://golangbyexample.com/panic-and-recover-golang/](https://golangbyexample.com/panic-and-recover-golang/)
+> 来源：[`golangbyexample.com/panic-and-recover-golang/`](https://golangbyexample.com/panic-and-recover-golang/)
 
-这是第 28 章，也是 Go 语言综合教程系列的最后一章。请参考此链接获取该系列的其他章节 – [Go 语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是第二十八章，也是 Go 语言综合教程系列的最后一章。请参考此链接获取该系列的其他章节 – [Go 语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-**上一个教程** – [错误 - 第 2 部分](https://golangbyexample.com/error-in-golang-advanced/)
+**上一个教程** – [错误 - 第二部分](https://golangbyexample.com/error-in-golang-advanced/)
 
 现在让我们来查看当前的教程。下面是当前教程的目录。
 
 目录
 
-**[概述](#Overview "概述")**
+**概述**
 
-+   [运行时错误 Panic](#Runtime_Error_Panic "运行时错误 Panic")
++   运行时错误 Panic
 
-+   [显式调用 panic 函数](#Calling_the_panic_function_explicitly "显式调用 panic 函数")
++   显式调用 panic 函数
 
-+   [使用 defer 进行 Panic](#Panic_with_defer "使用 defer 进行 Panic")
++   使用 defer 进行 Panic
 
-+   [在 Go 语言中恢复](#Recover_in_golang "在 Go 语言中恢复")
++   在 Go 语言中恢复
 
-+   [Panic/Recover 和 Goroutine](#PanicRecover_and_Goroutine "Panic/Recover 和 Goroutine")
++   Panic/Recover 和 Goroutine
 
-+   [打印堆栈跟踪](#Printing_stack_trace "打印堆栈跟踪")
++   打印堆栈跟踪
 
-+   [当 panic 被恢复时函数的返回值](#Return_value_of_the_function_when_panic_is_recovered "当 panic 被恢复时函数的返回值")
++   当 panic 被恢复时函数的返回值
 
-+   [结论](#Conclusion "结论") * *# **概述**
++   结论 * *# **概述**
 
 Go 语言中的 panic 类似于异常。panic 旨在在异常条件下退出程序。panic 可以通过两种方式在程序中发生
 
@@ -264,19 +264,19 @@ fmt.Println("After painc in f2")
 Defer in f1
 ```
 
-控制权随后返回到main函数，然后程序崩溃。输出打印了panic消息以及从main到f1再到f2的整个堆栈跟踪。
+控制权随后返回到 main 函数，然后程序崩溃。输出打印了 panic 消息以及从 main 到 f1 再到 f2 的整个堆栈跟踪。
 
-# **在Golang中使用Recover**
+# **在 Golang 中使用 Recover**
 
-Go提供了一个内置函数**recover**用于从panic中恢复。以下是该函数的签名
+Go 提供了一个内置函数**recover**用于从 panic 中恢复。以下是该函数的签名
 
 ```go
 func recover() interface{}
 ```
 
-我们已经了解到，**defer**函数是唯一在**panic**之后被调用的函数。因此，将**recover**函数放在**defer**函数中是合理的。如果**recover**函数不在defer函数内，则不会停止**panic**。
+我们已经了解到，**defer**函数是唯一在**panic**之后被调用的函数。因此，将**recover**函数放在**defer**函数中是合理的。如果**recover**函数不在 defer 函数内，则不会停止**panic**。
 
-让我们来看一个recover的例子
+让我们来看一个 recover 的例子
 
 ```go
 package main
@@ -312,7 +312,7 @@ Recovering from panic: Out of bound access for slice
 Exiting normally
 ```
 
-在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印传入参数中的切片元素。如果传入的索引大于数组的长度，则程序将引发panic。我们在函数**checkAndPrint**的开始处添加了一个名为**handleOutIfBounds**的defer函数。此函数包含如下的recover函数调用。
+在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印传入参数中的切片元素。如果传入的索引大于数组的长度，则程序将引发 panic。我们在函数**checkAndPrint**的开始处添加了一个名为**handleOutIfBounds**的 defer 函数。此函数包含如下的 recover 函数调用。
 
 ```go
 if r := recover(); r != nil {
@@ -320,27 +320,27 @@ if r := recover(); r != nil {
 }
 ```
 
-**recover**函数将捕获panic，我们还可以打印来自panic的消息。
+**recover**函数将捕获 panic，我们还可以打印来自 panic 的消息。
 
 ```go
 Recovering from panic: Out of bound access for slice
 ```
 
-在recover函数之后，程序继续运行，控制权返回到调用的函数，即这里的**main**。这就是为什么我们会得到如下输出
+在 recover 函数之后，程序继续运行，控制权返回到调用的函数，即这里的**main**。这就是为什么我们会得到如下输出
 
 ```go
 Exiting normally
 ```
 
-recover函数返回传递给panic函数的值。因此，检查recover函数的返回值是一种好习惯。如果返回值为nil，则表示没有发生panic，且recover函数没有与panic一起被调用。这就是为什么在defer函数**handleOutOfBounds**中有以下代码。
+recover 函数返回传递给 panic 函数的值。因此，检查 recover 函数的返回值是一种好习惯。如果返回值为 nil，则表示没有发生 panic，且 recover 函数没有与 panic 一起被调用。这就是为什么在 defer 函数**handleOutOfBounds**中有以下代码。
 
 ```go
 if r := recover(); r != nil 
 ```
 
-如果**r**为nil，则表示没有发生panic。因此，如果没有panic，则对recover的调用将返回nil。
+如果**r**为 nil，则表示没有发生 panic。因此，如果没有 panic，则对 recover 的调用将返回 nil。
 
-请注意，如果defer函数和recover函数不是从引发panic的函数中调用的，那么在被调用函数中也可以恢复panic。实际上，可以在调用栈的后续链中恢复panic。
+请注意，如果 defer 函数和 recover 函数不是从引发 panic 的函数中调用的，那么在被调用函数中也可以恢复 panic。实际上，可以在调用栈的后续链中恢复 panic。
 
 让我们来看这个的一个例子。
 
@@ -380,13 +380,13 @@ Exiting normally
 
 上面的程序与前一个程序非常相似，唯一不同的是我们添加了一个额外的函数**checkAndPrintWithRecover**，其中包含对该函数的调用。
 
-+   使用**handleOutOfBounds**的defer函数与recover
++   使用**handleOutOfBounds**的 defer 函数与 recover
 
 +   调用**checkAndPrint**函数
 
-**基本上，**checkAndPrint**函数引发panic，但没有recover函数，而是对recover的调用在**checkAndPrintWithRecover**函数中。但是，程序仍然能够从panic中恢复，因为panic也可以在被调用的函数中以及随后在链中恢复。**
+**基本上，**checkAndPrint**函数引发 panic，但没有 recover 函数，而是对 recover 的调用在**checkAndPrintWithRecover**函数中。但是，程序仍然能够从 panic 中恢复，因为 panic 也可以在被调用的函数中以及随后在链中恢复。**
 
-**我们上面提到，如果recover函数不在defer函数中，则不会停止panic。**
+**我们上面提到，如果 recover 函数不在 defer 函数中，则不会停止 panic。**
 
 让我们来看一个示例程序
 
@@ -430,9 +430,9 @@ main.main()
 exit status 2
 ```
 
-在上面的程序中，recover函数不在defer函数中。如您所见，输出表明它没有停止panic，因此您看到了上面的输出。
+在上面的程序中，recover 函数不在 defer 函数中。如您所见，输出表明它没有停止 panic，因此您看到了上面的输出。
 
-# **Panic/Recover与Goroutine**
+# **Panic/Recover 与 Goroutine**
 
 关于 recover 函数需要注意的一个重要点是，它只能恢复同一 goroutine 中发生的 panic。如果 panic 发生在不同的 goroutine 中，而 recover 在另一个 goroutine 中，那么它不会停止 panic。让我们看一个程序来演示这一点。
 
@@ -682,6 +682,6 @@ Error:
 
 这就是关于 golang 中的 panic 和 recover 的全部内容。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 
-**上一个教程** – [错误 - 第 2 部分](https://golangbyexample.com/error-in-golang-advanced/)
+**上一个教程** – [错误 - 第二部分](https://golangbyexample.com/error-in-golang-advanced/)
 
 +   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) ***

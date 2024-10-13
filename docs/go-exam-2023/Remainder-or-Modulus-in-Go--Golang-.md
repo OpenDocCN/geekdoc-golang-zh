@@ -8,23 +8,23 @@
 
 # Go（Golang）中的余数或模运算
 
-> 来源：[https://golangbyexample.com/remainder-modulus-go-golang/](https://golangbyexample.com/remainder-modulus-go-golang/)
+> 来源：[`golangbyexample.com/remainder-modulus-go-golang/`](https://golangbyexample.com/remainder-modulus-go-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [% 运算符](#_Operator "% Operator")
++   % 运算符
 
-    +   [代码](#Code "Code")
+    +   代码
 
-+   [浮点数的 Mod 函数](#Mod_function_for_floats "Mod function for floats")
++   浮点数的 Mod 函数
 
-    +   [代码](#Code-2 "Code")
+    +   代码
 
-+   [IEEE 754 余数](#IEEE_754_Remainder "IEEE 754 Remainder")
++   IEEE 754 余数
 
-    +   [代码](#Code-3 "Code")*  *# **概述**
+    +   代码*  *# **概述**
 
 在本教程中，我们将学习关于
 
@@ -125,7 +125,7 @@ func main() {
 
 Go 的 **math** 包提供了一个 **Remainder** 方法，可以用来获取两个数的 **IEEE 754 余数**，其中一个作为分子，另一个作为分母。
 
-你可以在这里阅读更多关于我们为什么需要 **IEEE 754 余数** 的信息 – [https://stackoverflow.com/questions/26671975/why-do-we-need-ieee-754-remainder](https://stackoverflow.com/questions/26671975/why-do-we-need-ieee-754-remainder)
+你可以在这里阅读更多关于我们为什么需要 **IEEE 754 余数** 的信息 – [`stackoverflow.com/questions/26671975/why-do-we-need-ieee-754-remainder`](https://stackoverflow.com/questions/26671975/why-do-we-need-ieee-754-remainder)
 
 以下是该函数的签名。它接受两个 float64 类型的数字并返回一个余数，这也是一个 **IEEE 754 float64 余数**。
 

@@ -8,7 +8,7 @@
 
 # 在 Go 中理解 WaitGroup (Golang)
 
-> 来源：[https://golangbyexample.com/understanding-waitgroup-go/](https://golangbyexample.com/understanding-waitgroup-go/)
+> 来源：[`golangbyexample.com/understanding-waitgroup-go/`](https://golangbyexample.com/understanding-waitgroup-go/)
 
 **WaitGroup** 是 Go 的 **sync** 包中的一个结构体。它通常用于等待一组 goroutine 完成执行。WaitGroup 具有以下方法：
 

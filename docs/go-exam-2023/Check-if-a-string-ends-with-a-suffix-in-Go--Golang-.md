@@ -8,13 +8,13 @@
 
 # 检查字符串是否以某个后缀结尾（Go 语言）
 
-> 来源：[https://golangbyexample.com/go-strings-ends-suffix/](https://golangbyexample.com/go-strings-ends-suffix/)
+> 来源：[`golangbyexample.com/go-strings-ends-suffix/`](https://golangbyexample.com/go-strings-ends-suffix/)
 
 目录
 
-**   [概述](#Overview "概述")**
+**   概述**
 
-+   [代码：](#Code "Code：")*  *# **概述**
++   代码：*  *# **概述**
 
 在 Go 中，字符串是 UTF-8 编码的。Go 的 **strings** 包提供了一个 **HasSuffix** 方法，可以用来检查字符串是否以某个特定后缀结尾
 

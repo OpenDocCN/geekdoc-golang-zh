@@ -6,23 +6,23 @@
 
 -->
 
-# Go语言中的访问者设计模式
+# Go 语言中的访问者设计模式
 
-> 来源：[https://golangbyexample.com/visitor-design-pattern-go/](https://golangbyexample.com/visitor-design-pattern-go/)
+> 来源：[`golangbyexample.com/visitor-design-pattern-go/`](https://golangbyexample.com/visitor-design-pattern-go/)
 
-注：如果你有兴趣了解如何在GO中实现所有其他设计模式，请参阅此完整参考 – [Go语言中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
+注：如果你有兴趣了解如何在 GO 中实现所有其他设计模式，请参阅此完整参考 – [Go 语言中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [介绍：](#Introduction "介绍：")
+**   介绍：
 
-+   [UML图：](#UML_Diagram "UML图：")
++   UML 图：
 
-+   [映射](#Mapping "映射")
++   映射
 
-+   [示例](#Example "示例")
++   示例
 
-+   [完整工作代码：](#Full_Working_Code "完整工作代码：")*  *# **介绍：**
++   完整工作代码：*  *# **介绍：**
 
 访问者设计模式是一种行为型设计模式，它允许你在不实际修改结构体的情况下，为结构体添加行为。
 
@@ -40,7 +40,7 @@
 
 **第一种选择**
 
-第一个想到的选项是在**形状**接口中添加**getArea()**方法，然后每个形状结构体都可以实现getArea()方法。这看起来很简单，但有一些问题：
+第一个想到的选项是在**形状**接口中添加**getArea()**方法，然后每个形状结构体都可以实现 getArea()方法。这看起来很简单，但有一些问题：
 
 +   作为库的维护者，你不想通过添加额外的行为来更改库的高测试代码。
 
@@ -78,7 +78,7 @@ type visitor interface {
 
 函数**visitforSquare(square)、visitForCircle(circle)、visitForTriangle(三角形)**允许我们分别为正方形、圆形和三角形添加功能。
 
-现在脑海中浮现的问题是，为什么我们不能在访问者接口中使用单一方法visit**(shape)**。原因在于GO及其他一些语言支持方法重载。因此每个结构体都有不同的方法。
+现在脑海中浮现的问题是，为什么我们不能在访问者接口中使用单一方法 visit**(shape)**。原因在于 GO 及其他一些语言支持方法重载。因此每个结构体都有不同的方法。
 
 我们在形状接口中添加一个 accept 方法，其签名如下，每个形状结构需要定义此方法。
 

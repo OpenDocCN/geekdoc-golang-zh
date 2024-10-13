@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go语言中生成有效括号
+# 在 Go 语言中生成有效括号
 
-> 来源：[https://golangbyexample.com/generate-valid-parentheses-golang/](https://golangbyexample.com/generate-valid-parentheses-golang/)
+> 来源：[`golangbyexample.com/generate-valid-parentheses-golang/`](https://golangbyexample.com/generate-valid-parentheses-golang/)
 
 目录
 
-**   [概述](#Overview "概述")*  *## **概述**
+**   概述*  *## **概述**
 
-给定一个整数n，表示括号对的数量，生成所有有效的成对括号。
+给定一个整数 n，表示括号对的数量，生成所有有效的成对括号。
 
 例如
 
@@ -107,8 +107,8 @@ func generateParenthesisUtil(pos, n, open, close int, input []rune) []string {
 [()()() ()(()) (())() (()()) ((()))]
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列教程内容详尽，我们尽力涵盖所有概念及示例。本教程适合那些希望掌握Golang并深入理解的读者 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽力涵盖所有概念及示例。本教程适合那些希望掌握 Golang 并深入理解的读者 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你对理解如何在Golang中实现所有设计模式感兴趣。如果是的话，这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你对理解如何在 Golang 中实现所有设计模式感兴趣。如果是的话，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [去](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

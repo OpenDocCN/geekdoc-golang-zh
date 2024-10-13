@@ -6,9 +6,9 @@
 
 -->
 
-# OOP：Go中的多态完全指南
+# OOP：Go 中的多态完全指南
 
-> 来源：[https://golangbyexample.com/oop-polymorphism-in-go-complete-guide/](https://golangbyexample.com/oop-polymorphism-in-go-complete-guide/)
+> 来源：[`golangbyexample.com/oop-polymorphism-in-go-complete-guide/`](https://golangbyexample.com/oop-polymorphism-in-go-complete-guide/)
 
 在理解多态之前，首先了解什么是多态。
 
@@ -24,12 +24,12 @@
 
 +   运行时多态——在这种多态中，调用的函数在运行时决定。
 
-让我们看看在GO中可能实现的编译时和运行时多态的类型。
+让我们看看在 GO 中可能实现的编译时和运行时多态的类型。
 
-+   **[Go中的编译时多态](https://golangbyexample.com/compile-time-polymorphism-go)**
++   **[Go 中的编译时多态](https://golangbyexample.com/compile-time-polymorphism-go)**
 
-+   **[Go中的运行时多态](https://golangbyexample.com/runtime-polymorphism-go/)**
++   **[Go 中的运行时多态](https://golangbyexample.com/runtime-polymorphism-go/)**
 
 **结论：**
 
-如果你阅读了以上两篇文章，你会发现GoLang中不支持编译时多态。它只具有运行时多态。运行时多态在GO中是通过接口实现的。
+如果你阅读了以上两篇文章，你会发现 GoLang 中不支持编译时多态。它只具有运行时多态。运行时多态在 GO 中是通过接口实现的。

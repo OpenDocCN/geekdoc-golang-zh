@@ -6,9 +6,9 @@
 
 -->
 
-# 在Go (Golang)中顺时针旋转对称矩阵或图像
+# 在 Go (Golang)中顺时针旋转对称矩阵或图像
 
-> 来源：[https://golangbyexample.com/rotate-image-clockwise-golang/](https://golangbyexample.com/rotate-image-clockwise-golang/)
+> 来源：[`golangbyexample.com/rotate-image-clockwise-golang/`](https://golangbyexample.com/rotate-image-clockwise-golang/)
 
 **概述**
 
@@ -47,7 +47,7 @@
 4->2->6->8
 ```
 
-一个n*n大小的对称矩阵将有**n-1**个边界。例如，上述矩阵有两个边界
+一个 n*n 大小的对称矩阵将有**n-1**个边界。例如，上述矩阵有两个边界
 
 第一个边界
 
@@ -65,7 +65,7 @@
 
 目录
 
-**   [程序](#Program "Program")*  *## **程序**
+**   程序*  *## **程序**
 
 下面是相应的程序
 
@@ -122,8 +122,8 @@ func rotate(matrix [][]int) {
 [[13 9 5 1] [14 10 6 2] [15 11 7 3] [16 12 8 4]]
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尽力用例子覆盖所有概念。这个教程适合那些希望获得专业知识和对Golang有深入理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽力用例子覆盖所有概念。这个教程适合那些希望获得专业知识和对 Golang 有深入理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

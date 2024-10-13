@@ -8,21 +8,21 @@
 
 # Go（Golang）中的工厂设计模式
 
-> 来源：[https://golangbyexample.com/golang-factory-design-pattern/](https://golangbyexample.com/golang-factory-design-pattern/)
+> 来源：[`golangbyexample.com/golang-factory-design-pattern/`](https://golangbyexample.com/golang-factory-design-pattern/)
 
 注意：如果有兴趣了解其他所有设计模式在 GO 中的实现，请查看这个完整参考——[Go（Golang）中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [介绍：](#Introduction "Introduction: ")
+**   介绍：
 
-+   [UML 图：](#UML_Diagram "UML Diagram:")
++   UML 图：
 
-+   [映射：](#Mapping "Mapping:")
++   映射：
 
-+   [示例：](#Example "Example: ")
++   示例：
 
-+   [完整工作代码：](#Full_Working_Code "Full Working Code:")*  *## **介绍：**
++   完整工作代码：*  *## **介绍：**
 
 工厂设计模式是一种创建型设计模式，也是最常用的模式之一。该模式提供了一种隐藏创建实例逻辑的方法。
 

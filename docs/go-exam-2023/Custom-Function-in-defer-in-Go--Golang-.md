@@ -6,17 +6,17 @@
 
 -->
 
-# Go (Golang) 中的defer中的自定义函数
+# Go (Golang) 中的 defer 中的自定义函数
 
-> 来源：[https://golangbyexample.com/custom-function-defer-golang/](https://golangbyexample.com/custom-function-defer-golang/)
+> 来源：[`golangbyexample.com/custom-function-defer-golang/`](https://golangbyexample.com/custom-function-defer-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
-我们也可以在defer中调用自定义函数。让我们来看一个示例
+我们也可以在 defer 中调用自定义函数。让我们来看一个示例
 
 # **示例**
 
@@ -51,6 +51,6 @@ Executed in main
 In Defer
 ```
 
-上述函数还显示在主函数中使用defer是完全可以的。
+上述函数还显示在主函数中使用 defer 是完全可以的。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

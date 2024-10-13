@@ -8,19 +8,19 @@
 
 # HTTP 客户端在 Go (Golang) 中不跟随重定向。
 
-> 来源：[https://golangbyexample.com/http-no-redirect-client-golang/](https://golangbyexample.com/http-no-redirect-client-golang/)
+> 来源：[`golangbyexample.com/http-no-redirect-client-golang/`](https://golangbyexample.com/http-no-redirect-client-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [CheckDirect 是 nil](#CheckDirect_is_nil "CheckDirect is nil")
++   CheckDirect 是 nil
 
-+   [CheckDirect 是非 nil](#CheckDirect_is_not-nil "CheckDirect is not-nil")*  *# **概述**
++   CheckDirect 是非 nil*  *# **概述**
 
 **http.Client** 结构用于在 golang 中发起 HTTP 请求。
 
-[https://golang.org/src/net/http/client.go](https://golang.org/src/net/http/client.go)
+[`golang.org/src/net/http/client.go`](https://golang.org/src/net/http/client.go)
 
 **http.Client** 让你指定重定向处理的策略。以下是 **http.Client** 结构的结构。
 

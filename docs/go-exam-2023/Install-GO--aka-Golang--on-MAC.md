@@ -8,35 +8,35 @@
 
 # 在 MAC 上安装 GO（也称为 Golang）
 
-> 来源：[https://golangbyexample.com/golang-mac-installation/](https://golangbyexample.com/golang-mac-installation/)
+> 来源：[`golangbyexample.com/golang-mac-installation/`](https://golangbyexample.com/golang-mac-installation/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [使用 .pkg 安装程序](#Using_pkg_installer "Using .pkg installer")
++   使用 .pkg 安装程序
 
-    +   [安装](#Install "Install")
+    +   安装
 
-    +   [测试安装：](#Test_Installation "Test Installation:")
+    +   测试安装：
 
-    +   [卸载](#Uninstall "Uninstall")
+    +   卸载
 
-+   [使用压缩包](#Using_archive "Using archive")
++   使用压缩包
 
-    +   [安装](#Install-2 "Install")
+    +   安装
 
-    +   [测试安装](#Test_Installation-2 "Test Installation")
+    +   测试安装
 
-    +   [卸载](#Uninstall-2 "Uninstall")
+    +   卸载
 
-+   [使用 brew](#Using_brew "Using brew")
++   使用 brew
 
-    +   [安装](#Install-3 "Install")
+    +   安装
 
-    +   [测试安装](#Test_Installation-3 "Test Installation")
+    +   测试安装
 
-    +   [卸载](#Uninstall-3 "Uninstall")*  *# **概述**
+    +   卸载*  *# **概述**
 
 GO 可以在 Win、Mac 和 Linux 平台上安装。可以通过三种方式在 MAC 上安装 GO。
 
@@ -52,7 +52,7 @@ GO 可以在 Win、Mac 和 Linux 平台上安装。可以通过三种方式在 M
 
 ## **安装**
 
-+   从这里下载 MAC pkg 安装程序 – [https://golang.org/dl/](https://golang.org/dl/)。双击 .pkg 文件并按照屏幕上的说明进行操作。完成后，GO 将安装在以下目录中。
++   从这里下载 MAC pkg 安装程序 – [`golang.org/dl/`](https://golang.org/dl/)。双击 .pkg 文件并按照屏幕上的说明进行操作。完成后，GO 将安装在以下目录中。
 
 ```go
 /usr/local/go
@@ -79,7 +79,7 @@ rm -rf /etc/paths.do/go   //Will require sudo permission. This action deletes wi
 
 ## **安装**
 
-+   从这里下载最新版本的 GO 压缩包 – [https://golang.org/dl/](https://golang.org/dl/)。下载后在 **/usr/local** 位置解压。你可以运行以下命令进行解压。
++   从这里下载最新版本的 GO 压缩包 – [`golang.org/dl/`](https://golang.org/dl/)。下载后在 **/usr/local** 位置解压。你可以运行以下命令进行解压。
 
 ```go
 tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz

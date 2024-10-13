@@ -6,19 +6,19 @@
 
 -->
 
-# 在Go（Golang）中检查IP地址是IPV4还是IPV6
+# 在 Go（Golang）中检查 IP 地址是 IPV4 还是 IPV6
 
-> 来源：[https://golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/](https://golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/)
+> 来源：[`golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/`](https://golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/)
 
-+   IPV4地址是4字节字符串，每个字节用点（‘.’）分隔
++   IPV4 地址是 4 字节字符串，每个字节用点（‘.’）分隔
 
-+   IPV6地址由8组4个十六进制数字组成，每组用冒号（‘：’）分隔
++   IPV6 地址由 8 组 4 个十六进制数字组成，每组用冒号（‘：’）分隔
 
 以下代码
 
-+   如果给定的IP地址无效，则打印无效
++   如果给定的 IP 地址无效，则打印无效
 
-+   否则打印该IP地址是ipV4还是ipV6
++   否则打印该 IP 地址是 ipV4 还是 ipV6
 
 **代码：**
 

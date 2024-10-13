@@ -8,19 +8,19 @@
 
 # 在 Go (Golang) 中查找对象的类型
 
-> 来源：[https://golangbyexample.com/find-the-type-of-an-object-in-golang/](https://golangbyexample.com/find-the-type-of-an-object-in-golang/)
+> 来源：[`golangbyexample.com/find-the-type-of-an-object-in-golang/`](https://golangbyexample.com/find-the-type-of-an-object-in-golang/)
 
 本文将描述在 Go 中了解对象类型的不同方法
 
 目录
 
-**   [使用反射包](#Using_Reflect_Package "使用反射包")
+**   使用反射包
 
-+   [使用类型断言](#Using_Type_Assertion "使用类型断言")
++   使用类型断言
 
-+   [使用 Switch](#Using_Switch "使用 Switch")
++   使用 Switch
 
-+   [使用 printf 或 sprintf](#Using_printf_or_sprintf "使用 printf 或 sprintf")*  *# **使用反射包**
++   使用 printf 或 sprintf*  *# **使用反射包**
 
 反射包提供了一些有用的检查函数，可以让我们了解类型
 

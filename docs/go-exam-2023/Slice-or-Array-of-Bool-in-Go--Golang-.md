@@ -8,23 +8,23 @@
 
 # Go（Golang）中的布尔切片或数组
 
-> 来源：[https://golangbyexample.com/slice-array-bool-golang/](https://golangbyexample.com/slice-array-bool-golang/)
+> 来源：[`golangbyexample.com/slice-array-bool-golang/`](https://golangbyexample.com/slice-array-bool-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [布尔切片](#Slice_of_Bool "Slice of Bool")
++   布尔切片
 
-+   [布尔数组](#Array_of_Bool "Array of Bool")*  *## **概述**
++   布尔数组*  *## **概述**
 
-在Golang中，可以创建**bool**数据类型的切片或数组。实际上，可以创建任何数据类型的切片或数组。本教程包含创建布尔数据类型切片或数组的简单示例。
+在 Golang 中，可以创建**bool**数据类型的切片或数组。实际上，可以创建任何数据类型的切片或数组。本教程包含创建布尔数据类型切片或数组的简单示例。
 
-这里需要补充的是，在golang中，数组是固定大小的，切片可以有可变大小。更多细节见这里
+这里需要补充的是，在 golang 中，数组是固定大小的，切片可以有可变大小。更多细节见这里
 
-数组 – [https://golangbyexample.com/understanding-array-golang-complete-guide/](https://golangbyexample.com/understanding-array-golang-complete-guide/)
+数组 – [`golangbyexample.com/understanding-array-golang-complete-guide/`](https://golangbyexample.com/understanding-array-golang-complete-guide/)
 
-切片 – [https://golangbyexample.com/slice-in-golang/](https://golangbyexample.com/slice-in-golang/)
+切片 – [`golangbyexample.com/slice-in-golang/`](https://golangbyexample.com/slice-in-golang/)
 
 ## **布尔切片**
 
@@ -82,7 +82,7 @@ booleans_first = append(booleans_first, false)
 booleans_first = append(booleans_first, true)
 ```
 
-第二种方法，我们使用make命令创建布尔切片
+第二种方法，我们使用 make 命令创建布尔切片
 
 ```go
 booleans_second := make([]bool, 3)
@@ -159,8 +159,8 @@ booleans_second := [3]bool{
 }
 ```
 
-查看我们的Golang高级教程。本系列教程内容详尽，我们尽力覆盖所有概念和示例。本教程适合那些希望获得专业知识并深入理解golang的读者 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽力覆盖所有概念和示例。本教程适合那些希望获得专业知识并深入理解 golang 的读者 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章适合你 –[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章适合你 –[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

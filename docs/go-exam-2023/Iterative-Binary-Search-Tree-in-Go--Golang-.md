@@ -8,13 +8,13 @@
 
 # Go（Golang）中的迭代二叉搜索树
 
-> 来源：[https://golangbyexample.com/iterative-binary-search-tree-go/](https://golangbyexample.com/iterative-binary-search-tree-go/)
+> 来源：[`golangbyexample.com/iterative-binary-search-tree-go/`](https://golangbyexample.com/iterative-binary-search-tree-go/)
 
 目录
 
-**   [介绍](#Introduction "Introduction")
+**   介绍
 
-+   [完整工作代码](#Full_Working_Code "Full Working Code")*  *# **介绍**
++   完整工作代码*  *# **介绍**
 
 二叉搜索树（BST）是二叉树的缩写。每个节点在二叉搜索树中
 

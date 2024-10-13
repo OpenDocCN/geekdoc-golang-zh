@@ -6,11 +6,11 @@
 
 -->
 
-# 在Go (Golang) 中选择库或依赖项的版本。
+# 在 Go (Golang) 中选择库或依赖项的版本。
 
-> 来源：[https://golangbyexample.com/versiono-module-selection-go/](https://golangbyexample.com/versiono-module-selection-go/)
+> 来源：[`golangbyexample.com/versiono-module-selection-go/`](https://golangbyexample.com/versiono-module-selection-go/)
 
-要理解Go在选择**go.mod**文件中指定的两个版本的库版本时的做法，我们首先要理解语义版本控制。
+要理解 Go 在选择**go.mod**文件中指定的两个版本的库版本时的做法，我们首先要理解语义版本控制。
 
 语义版本控制由三个部分组成，以点分隔。以下是版本控制的格式。
 
@@ -22,7 +22,7 @@ v{major_version}.{minor_version}.{patch_version}
 
 +   **v** – 这只是一个指示符，表示这是一个版本。
 
-+   **主要版本** – 它表示库中不兼容的API更改。因此，当库中有不向后兼容的更改时，此时主要版本会递增。
++   **主要版本** – 它表示库中不兼容的 API 更改。因此，当库中有不向后兼容的更改时，此时主要版本会递增。
 
 +   **次要版本** – 它表示库功能的变化是向后兼容的。因此，当库中有一些功能变化但这些变化是向后兼容时，此时次要版本会递增。
 
@@ -34,15 +34,15 @@ v{major_version}.{minor_version}.{patch_version}
 
 +   使用的同一个库的两个版本在主要版本上有所不同。
 
-让我们看看Go在上述两种情况下遵循什么方法。
+让我们看看 Go 在上述两种情况下遵循什么方法。
 
 目录
 
-**[次要或补丁版本的差异](#Differ_in_minor_or_patch_version "次要或补丁版本的差异")**
+**次要或补丁版本的差异**
 
-+   [主要版本的差异](#Differ_in_major_version "主要版本的差异")*  *# **次要或补丁版本的差异**
++   主要版本的差异*  *# **次要或补丁版本的差异**
 
-Go在选择库版本时遵循最小版本策略，其中**go.mod**文件中指定的两个版本仅在次要或补丁版本上有所不同。
+Go 在选择库版本时遵循最小版本策略，其中**go.mod**文件中指定的两个版本仅在次要或补丁版本上有所不同。
 
 例如，如果你使用同一个库的两个版本，分别是
 
@@ -56,17 +56,17 @@ Go在选择库版本时遵循最小版本策略，其中**go.mod**文件中指�
 1.3.0
 ```
 
-然后Go将选择1.3.0，因为这是最新版本。
+然后 Go 将选择 1.3.0，因为这是最新版本。
 
 # **主要版本的差异**
 
-Go将主要版本视为不同的模块。这意味着什么呢？这基本上意味着导入路径将以主要版本作为后缀。让我们以任何Go库为例。假设最新的语义版本是
+Go 将主要版本视为不同的模块。这意味着什么呢？这基本上意味着导入路径将以主要版本作为后缀。让我们以任何 Go 库为例。假设最新的语义版本是
 
 ```go
 v8.2.3
 ```
 
-此时go.mod文件将如下所示。
+此时 go.mod 文件将如下所示。
 
 ```go
 module github.com/sample/v8
@@ -75,7 +75,7 @@ go 1.11
 ..
 ```
 
-它在导入路径中有主要版本。因此，任何使用go-redis的库都必须像这样导入。
+它在导入路径中有主要版本。因此，任何使用 go-redis 的库都必须像这样导入。
 
 ```go
 import "github.com/sample/v8"
@@ -87,7 +87,7 @@ import "github.com/sample/v8"
 import "github.com/sample/v9"
 ```
 
-此外，库将更改其go.mod文件以反映v9主要版本。
+此外，库将更改其 go.mod 文件以反映 v9 主要版本。
 
 ```go
 module github.com/sample/v9

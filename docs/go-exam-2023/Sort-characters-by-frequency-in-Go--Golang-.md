@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go (Golang)中按频率对字符进行排序
+# 在 Go (Golang)中按频率对字符进行排序
 
-> 来源：[https://golangbyexample.com/sort-characters-frequency-go/](https://golangbyexample.com/sort-characters-frequency-go/)
+> 来源：[`golangbyexample.com/sort-characters-frequency-go/`](https://golangbyexample.com/sort-characters-frequency-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 给定一个输入字符串。目标是根据频率对字符串进行排序。我们必须按照字符频率的降序进行排序。让我们通过一个示例来理解
 
@@ -99,9 +99,9 @@ bbbcca
 ffmni
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程详细且覆盖了所有概念及示例。本教程适合那些希望获得专业知识并深入理解Golang的学习者 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程详细且覆盖了所有概念及示例。本教程适合那些希望获得专业知识并深入理解 Golang 的学习者 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你对了解所有设计模式在Golang中的实现感兴趣，这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你对了解所有设计模式在 Golang 中的实现感兴趣，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 同时，请查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 

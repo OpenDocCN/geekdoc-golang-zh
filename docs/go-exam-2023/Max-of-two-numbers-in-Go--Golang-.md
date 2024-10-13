@@ -8,15 +8,15 @@
 
 # Go（Golang）中两个数字的最大值
 
-> 来源：[https://golangbyexample.com/max-of-two-numbers-go/](https://golangbyexample.com/max-of-two-numbers-go/)
+> 来源：[`golangbyexample.com/max-of-two-numbers-go/`](https://golangbyexample.com/max-of-two-numbers-go/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码：](#Code "代码：")*  *# **概述**
++   代码：*  *# **概述**
 
-GO的**math**包提供了一个**Max**方法，可以用来获取两个数字的最大值。
+GO 的**math**包提供了一个**Max**方法，可以用来获取两个数字的最大值。
 
 以下是函数的签名。它接收两个浮点数作为输入，并返回一个浮点数。
 

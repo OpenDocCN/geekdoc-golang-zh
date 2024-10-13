@@ -8,7 +8,7 @@
 
 # 在 Go（Golang）中检查键是否存在于映射中的有效方法。
 
-> 来源：[https://golangbyexample.com/check-key-exists-map-golang/](https://golangbyexample.com/check-key-exists-map-golang/)
+> 来源：[`golangbyexample.com/check-key-exists-map-golang/`](https://golangbyexample.com/check-key-exists-map-golang/)
 
 以下是检查键是否存在于映射中的格式。
 

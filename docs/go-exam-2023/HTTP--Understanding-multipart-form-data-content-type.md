@@ -6,13 +6,13 @@
 
 -->
 
-# HTTP - 理解multipart/form-data内容类型
+# HTTP - 理解 multipart/form-data 内容类型
 
-> 来源：[https://golangbyexample.com/multipart-form-data-content-type-golang/](https://golangbyexample.com/multipart-form-data-content-type-golang/)
+> 来源：[`golangbyexample.com/multipart-form-data-content-type-golang/`](https://golangbyexample.com/multipart-form-data-content-type-golang/)
 
-在HTTP上下文中，**multipart/form-data**内容类型用于提交HTML表单。在**multipart/form-data**的情况下，正如其名称所示，主体由不同部分组成，部分之间用分隔符或边界分隔，每个部分都有自己的头部描述。分隔符或边界也作为头部的一部分发送。
+在 HTTP 上下文中，**multipart/form-data**内容类型用于提交 HTML 表单。在**multipart/form-data**的情况下，正如其名称所示，主体由不同部分组成，部分之间用分隔符或边界分隔，每个部分都有自己的头部描述。分隔符或边界也作为头部的一部分发送。
 
-当你通过浏览器在HTTP调用中发送HTML表单时，数据内容可以以下两种格式发送为请求体。
+当你通过浏览器在 HTTP 调用中发送 HTML 表单时，数据内容可以以下两种格式发送为请求体。
 
 +   application/x-www-form-urlencoded
 
@@ -22,7 +22,7 @@
 
 +   发送文件或图像
 
-+   发送大量二进制数据或包含非ASCII字符的文本
++   发送大量二进制数据或包含非 ASCII 字符的文本
 
 例如，假设以下数据需要发送。
 
@@ -42,19 +42,19 @@
 
 为什么会这样？在我们理解**application/x-www-form-urlencoded**和**multipart/form-data**的格式后，我们将回答这个问题。
 
-**application/x-www-form-urlencoded**将每个非ASCII字节编码为3个字节。基本上，**application/x-www-form-urlencoded**内容类型请求体就像一个巨大的查询字符串。类似于URI中的查询字符串，它是一个具有以下格式的键值对
+**application/x-www-form-urlencoded**将每个非 ASCII 字节编码为 3 个字节。基本上，**application/x-www-form-urlencoded**内容类型请求体就像一个巨大的查询字符串。类似于 URI 中的查询字符串，它是一个具有以下格式的键值对
 
 ```go
 key1=value1&key2=value21&key2=value22&key3=value3
 ```
 
-发送**application/x-www-form-urlencoded**时，所有非字母数字字符都会被URL编码。所有非字母数字字符（仅限保留）将以以下格式进行URL编码
+发送**application/x-www-form-urlencoded**时，所有非字母数字字符都会被 URL 编码。所有非字母数字字符（仅限保留）将以以下格式进行 URL 编码
 
 ```go
 %WW
 ```
 
-其中**WW**是以十六进制格式表示的字母数字字符的ASCII码。由于二进制数据中的所有非字母数字字符都经过URL编码，1个字节转换为3个字节。因此，大小增加了三倍。因此，如果你发送的是一个文件或图像（这是一大堆二进制数据），那么你的负载将非常大，即几乎是实际负载的三倍。因此，发送大型二进制文件或大量非ASCII数据时效率不高。
+其中**WW**是以十六进制格式表示的字母数字字符的 ASCII 码。由于二进制数据中的所有非字母数字字符都经过 URL 编码，1 个字节转换为 3 个字节。因此，大小增加了三倍。因此，如果你发送的是一个文件或图像（这是一大堆二进制数据），那么你的负载将非常大，即几乎是实际负载的三倍。因此，发送大型二进制文件或大量非 ASCII 数据时效率不高。
 
 要全面了解**application/x-www-form-urlencoded**的格式，请参考此链接
 

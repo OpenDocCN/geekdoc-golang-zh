@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中删除或去掉字符串中的所有空白字符。
 
-> 来源：[https://golangbyexample.com/remove-all-white-spaces-string-golang/](https://golangbyexample.com/remove-all-white-spaces-string-golang/)
+> 来源：[`golangbyexample.com/remove-all-white-spaces-string-golang/`](https://golangbyexample.com/remove-all-white-spaces-string-golang/)
 
 **strings.ReplaceAll** 函数可以用来去掉 Golang 字符串中的所有空白字符。以下是该函数的签名：
 

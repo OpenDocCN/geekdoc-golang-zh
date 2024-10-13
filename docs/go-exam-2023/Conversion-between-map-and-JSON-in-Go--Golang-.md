@@ -6,23 +6,23 @@
 
 -->
 
-# 在Go (Golang)中，映射与JSON之间的转换。
+# 在 Go (Golang)中，映射与 JSON 之间的转换。
 
-> 来源：[https://golangbyexample.com/map-json-golang/](https://golangbyexample.com/map-json-golang/)
+> 来源：[`golangbyexample.com/map-json-golang/`](https://golangbyexample.com/map-json-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [映射到JSON](#Map_to_JSON "映射到JSON")
++   映射到 JSON
 
-+   [JSON到映射](#JSON_to_map "JSON到映射")*  *# **概述**
++   JSON 到映射*  *# **概述**
 
-**encoding/json**包提供了用于转换到JSON和从JSON转换的工具。可以使用相同的工具将Golang映射转换为JSON字符串，反之亦然。但需要注意的是，映射允许键的整数值，而JSON不允许键的整数值。JSON仅允许键的字符串值。因此，当将具有整数键值的映射转换为JSON时，键将具有字符串值。
+**encoding/json**包提供了用于转换到 JSON 和从 JSON 转换的工具。可以使用相同的工具将 Golang 映射转换为 JSON 字符串，反之亦然。但需要注意的是，映射允许键的整数值，而 JSON 不允许键的整数值。JSON 仅允许键的字符串值。因此，当将具有整数键值的映射转换为 JSON 时，键将具有字符串值。
 
-# **映射到JSON**
+# **映射到 JSON**
 
-让我们来看一个将映射转换为JSON的程序。
+让我们来看一个将映射转换为 JSON 的程序。
 
 ```go
 package main
@@ -52,13 +52,13 @@ func main() {
 {"1":"John"}
 ```
 
-在上面的代码中，我们使用**json.Marshal**函数将映射转换为JSON。该映射的键对应一个整数值。
+在上面的代码中，我们使用**json.Marshal**函数将映射转换为 JSON。该映射的键对应一个整数值。
 
 ```go
 a := make(map[int]string)
 ```
 
-在转换后，结果JSON作为键的字符串值。
+在转换后，结果 JSON 作为键的字符串值。
 
 ```go
 {"1":"John"}
@@ -93,11 +93,11 @@ func main() {
 {"1":{"Name":"John"}}
 ```
 
-# **JSON到映射**
+# **JSON 到映射**
 
-让我们尝试将JSON转换为映射。我们将把上面示例中得到的JSON结果转换回映射。
+让我们尝试将 JSON 转换为映射。我们将把上面示例中得到的 JSON 结果转换回映射。
 
-**json.Unmarshal**函数可用于将JSON转换回映射。
+**json.Unmarshal**函数可用于将 JSON 转换回映射。
 
 **第一种情况：**
 

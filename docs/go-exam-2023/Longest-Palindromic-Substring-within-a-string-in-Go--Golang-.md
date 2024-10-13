@@ -6,15 +6,15 @@
 
 -->
 
-# Go语言中的字符串最长回文子串
+# Go 语言中的字符串最长回文子串
 
-> 来源：[https://golangbyexample.com/longest-palindromic-substring-go/](https://golangbyexample.com/longest-palindromic-substring-go/)
+> 来源：[`golangbyexample.com/longest-palindromic-substring-go/`](https://golangbyexample.com/longest-palindromic-substring-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是在字符串中找到最大的回文子串。例如，假设输入字符串为
 

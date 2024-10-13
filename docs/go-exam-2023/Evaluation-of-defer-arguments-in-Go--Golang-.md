@@ -8,15 +8,15 @@
 
 # 在 Go (Golang) 中的 defer 参数评估
 
-> 来源：[https://golangbyexample.com/defer-arguments-evaluation-go/](https://golangbyexample.com/defer-arguments-evaluation-go/)
+> 来源：[`golangbyexample.com/defer-arguments-evaluation-go/`](https://golangbyexample.com/defer-arguments-evaluation-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")
++   示例
 
-+   [输出](#Output "Output")*  *# **概述**
++   输出*  *# **概述**
 
 **defer** 参数在 defer 语句被评估时进行计算。
 

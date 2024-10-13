@@ -8,13 +8,13 @@
 
 # Go (Golang) 中的最长连续序列程序
 
-> 来源：[https://golangbyexample.com/longest-consecutive-sequence-golang/](https://golangbyexample.com/longest-consecutive-sequence-golang/)
+> 来源：[`golangbyexample.com/longest-consecutive-sequence-golang/`](https://golangbyexample.com/longest-consecutive-sequence-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 给定一个整数数组。找到其中最长连续序列的长度。让我们看看一个示例来理解它。
 

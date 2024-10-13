@@ -6,17 +6,17 @@
 
 -->
 
-# Go中的抽象工厂设计模式
+# Go 中的抽象工厂设计模式
 
-> 来源：[https://golangbyexample.com/abstract-factory-design-pattern-go/](https://golangbyexample.com/abstract-factory-design-pattern-go/)
+> 来源：[`golangbyexample.com/abstract-factory-design-pattern-go/`](https://golangbyexample.com/abstract-factory-design-pattern-go/)
 
-注意：如果你对如何在GO中实现所有其他设计模式感兴趣，请查看这个完整参考 – [Go中的所有设计模式 (Golang)](https://golangbyexample.com/all-design-patterns-golang/)
+注意：如果你对如何在 GO 中实现所有其他设计模式感兴趣，请查看这个完整参考 – [Go 中的所有设计模式 (Golang)](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [定义：](#Definition "Definition:")
+**   定义：
 
-+   [代码：](#Code "Code:")*  *## **定义：**
++   代码：*  *## **定义：**
 
 抽象工厂设计模式是一种创建型设计模式，它允许你创建一组相关的对象。它是工厂模式的抽象化。最好用一个例子来解释。假设我们有两个工厂
 

@@ -8,13 +8,13 @@
 
 # Go (Golang) 中的常量数组或切片
 
-> 来源：[https://golangbyexample.com/constant-array-golang/](https://golangbyexample.com/constant-array-golang/)
+> 来源：[`golangbyexample.com/constant-array-golang/`](https://golangbyexample.com/constant-array-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 Go 只支持四种常量类型
 

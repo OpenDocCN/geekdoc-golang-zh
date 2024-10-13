@@ -6,19 +6,19 @@
 
 -->
 
-# 检查给定的树是否为二叉搜索树（BST）在Go (Golang)中
+# 检查给定的树是否为二叉搜索树（BST）在 Go (Golang)中
 
-> 来源：[https://golangbyexample.com/tree-is-bst-golang/](https://golangbyexample.com/tree-is-bst-golang/)
+> 来源：[`golangbyexample.com/tree-is-bst-golang/`](https://golangbyexample.com/tree-is-bst-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-我们可以使用以下策略来判断给定的树是否为BST。
+我们可以使用以下策略来判断给定的树是否为 BST。
 
-+   对于给定的当前节点，如果左子树和右子树都是BST
++   对于给定的当前节点，如果左子树和右子树都是 BST
 
 +   左子树中的最大值小于当前节点值。
 
@@ -118,8 +118,8 @@ func main() {
 true
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尽力覆盖所有概念并提供示例。本教程适合那些希望深入了解Golang并获得专业知识的人—— [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽力覆盖所有概念并提供示例。本教程适合那些希望深入了解 Golang 并获得专业知识的人—— [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章适合你—— [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是，那么这篇文章适合你—— [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

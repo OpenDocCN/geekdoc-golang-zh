@@ -6,33 +6,33 @@
 
 -->
 
-# 获取Go（Golang）中发出的HTTP请求的响应头。
+# 获取 Go（Golang）中发出的 HTTP 请求的响应头。
 
-> 来源：[https://golangbyexample.com/get-response-headers-making-go/](https://golangbyexample.com/get-response-headers-making-go/)
+> 来源：[`golangbyexample.com/get-response-headers-making-go/`](https://golangbyexample.com/get-response-headers-making-go/)
 
 注意：相关帖子
 
-+   从传入的HTTP请求中获取请求头，在Golang中 – [https://golangbyexample.com/headers-http-request-golang/](https://golangbyexample.com/headers-http-request-golang/)
++   从传入的 HTTP 请求中获取请求头，在 Golang 中 – [`golangbyexample.com/headers-http-request-golang/`](https://golangbyexample.com/headers-http-request-golang/)
 
-+   为传入的HTTP请求设置响应头，在Golang中 – [https://golangbyexample.com/set-resposne-headers-http-go/](https://golangbyexample.com/set-resposne-headers-http-go/)
++   为传入的 HTTP 请求设置响应头，在 Golang 中 – [`golangbyexample.com/set-resposne-headers-http-go/`](https://golangbyexample.com/set-resposne-headers-http-go/)
 
-+   为发出的HTTP请求设置请求头 – [https://golangbyexample.com/set-headers-http-request/](https://golangbyexample.com/set-headers-http-request/)
++   为发出的 HTTP 请求设置请求头 – [`golangbyexample.com/set-headers-http-request/`](https://golangbyexample.com/set-headers-http-request/)
 
-现在让我们看看在进行HTTP请求时如何获取头部信息。
+现在让我们看看在进行 HTTP 请求时如何获取头部信息。
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [使用 Header.Values 方法](#Using_HeaderValues_method "Using Header.Values method")
++   使用 Header.Values 方法
 
-    +   [使用 Header.Get 方法](#Using_HeaderGet_method "Using Header.Get method")
+    +   使用 Header.Get 方法
 
-+   [直接访问 Header 结构](#Directly_Accessing_the_Header_Struct "直接访问 Header 结构")
++   直接访问 Header 结构
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
-以下是Go中表示头部的格式。
+以下是 Go 中表示头部的格式。
 
 ```go
 type Header map[string][]string
@@ -49,9 +49,9 @@ Accept-Encoding
 
 值表示为字符串切片。为什么是字符串数组？因为在请求中允许有两个相同键但不同值的头部。这两个值会被收集到切片中。
 
-HTTP请求中的响应由**http.Response**结构表示。
+HTTP 请求中的响应由**http.Response**结构表示。
 
-[https://golang.org/src/net/http/response.go](https://golang.org/src/net/http/response.go)
+[`golang.org/src/net/http/response.go`](https://golang.org/src/net/http/response.go)
 
 在**http.Response**结构中定义了一个**Header**字段，如下所示。它包含与响应相关的响应头。
 
@@ -72,7 +72,7 @@ Foo: bar2
 
 # **使用 Header.Values 方法**
 
-用于访问给定键的头部的所有值，使用Values方法。下面是该方法的格式。
+用于访问给定键的头部的所有值，使用 Values 方法。下面是该方法的格式。
 
 ```go
 func (h Header) Values(key string) []string

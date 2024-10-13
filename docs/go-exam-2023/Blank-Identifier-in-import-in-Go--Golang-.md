@@ -8,7 +8,7 @@
 
 # Go (Golang) 中的空标识符导入。
 
-> 来源：[https://golangbyexample.com/blank-identifier-import-golang/](https://golangbyexample.com/blank-identifier-import-golang/)
+> 来源：[`golangbyexample.com/blank-identifier-import-golang/`](https://golangbyexample.com/blank-identifier-import-golang/)
 
 导入包中的空标识符意味着为导入的包指定空导入。其语法为：
 

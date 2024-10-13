@@ -8,13 +8,13 @@
 
 # Go (Golang) 中的二叉树最大路径和程序
 
-> 来源：[https://golangbyexample.com/binary-tree-maximum-path-sum-golang/](https://golangbyexample.com/binary-tree-maximum-path-sum-golang/)
+> 来源：[`golangbyexample.com/binary-tree-maximum-path-sum-golang/`](https://golangbyexample.com/binary-tree-maximum-path-sum-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 给定一个二叉树。目标是找到该二叉树中的最大路径和。二叉树中的一条路径是相互连接的节点序列。每个节点在最大路径和中仅出现一次。
 

@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中获取浮点数的整数值
 
-> 来源：[https://golangbyexample.com/integer-value-of-float/](https://golangbyexample.com/integer-value-of-float/)
+> 来源：[`golangbyexample.com/integer-value-of-float/`](https://golangbyexample.com/integer-value-of-float/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
 GO 的 **math** 包提供了一个 **Trunc** 方法，可以用来获取浮点数的整数值
 

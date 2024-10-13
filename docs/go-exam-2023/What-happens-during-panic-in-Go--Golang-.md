@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go（Golang）中发生恐慌时会发生什么
+# 在 Go（Golang）中发生恐慌时会发生什么
 
-> 来源：[https://golangbyexample.com/what-happens-during-panic-go/](https://golangbyexample.com/what-happens-during-panic-go/)
+> 来源：[`golangbyexample.com/what-happens-during-panic-go/`](https://golangbyexample.com/what-happens-during-panic-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 让我们了解当程序发生恐慌时会发生什么。想象一个从**main**函数调用到**f1**函数再到**f2**函数的调用
 

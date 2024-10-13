@@ -6,19 +6,19 @@ date: 2024-10-13 06:41:13
 
 -->
 
-# 在Go（Golang）中以粗体打印/输出文本
+# 在 Go（Golang）中以粗体打印/输出文本
 
-> 来源：[https://golangbyexample.com/print-text-bold-go/](https://golangbyexample.com/print-text-bold-go/)
+> 来源：[`golangbyexample.com/print-text-bold-go/`](https://golangbyexample.com/print-text-bold-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
-我们可以使用faith包来实现相同的功能
+我们可以使用 faith 包来实现相同的功能
 
-[https://github.com/fatih/color](https://github.com/fatih/color)
+[`github.com/fatih/color`](https://github.com/fatih/color)
 
 # **程序**
 

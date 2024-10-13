@@ -8,17 +8,17 @@
 
 # 在 Go (Golang) 中创建一个新时间实例
 
-> 来源：[https://golangbyexample.com/create-new-time-instance-go/](https://golangbyexample.com/create-new-time-instance-go/)
+> 来源：[`golangbyexample.com/create-new-time-instance-go/`](https://golangbyexample.com/create-new-time-instance-go/)
 
 在 Go 中，**time.Time** 结构用于表示时间或日期的实例。下面是创建新时间实例的三种方法
 
 目录
 
-**   [使用 time.Now()](#Using_timeNow "使用 time.Now()")
+**   使用 time.Now()")
 
-+   [使用 time.Date()](#Using_timeDate "使用 time.Date()")
++   使用 time.Date()")
 
-+   [使用 time.Parse()](#Using_timeParse "使用 time.Parse()")*  *# **使用 time.Now()**
++   使用 time.Parse()")*  *# **使用 time.Now()**
 
 **time.Now()** 函数可用于获取当前本地时间戳。该函数的签名是
 

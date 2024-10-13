@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中，具有相等数量的 0 和 1 的连续子数组的最大长度
 
-> 来源：[https://golangbyexample.com/max-length-array-zero-one-golang/](https://golangbyexample.com/max-length-array-zero-one-golang/)
+> 来源：[`golangbyexample.com/max-length-array-zero-one-golang/`](https://golangbyexample.com/max-length-array-zero-one-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个仅包含 0 和 1 的数组。目标是找到一个具有相等数量的 0 和 1 的最大长度子数组。让我们通过示例来理解它。
 

@@ -8,15 +8,15 @@
 
 # 在 Go (Golang) 中返回 200 (状态正常) 状态码的 HTTP 响应 -P
 
-> 来源：[https://golangbyexample.com/200-http-status-response-golang/](https://golangbyexample.com/200-http-status-response-golang/)
+> 来源：[`golangbyexample.com/200-http-status-response-golang/`](https://golangbyexample.com/200-http-status-response-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-Golang 的 **net/http** 包提供了可以用来返回不同状态码的状态码常量 - [https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)
+Golang 的 **net/http** 包提供了可以用来返回不同状态码的状态码常量 - [`golang.org/src/net/http/status.go`](https://golang.org/src/net/http/status.go)
 
 同样可以用来返回 200 (状态正常) HTTP 状态码。 HTTP 200 状态码由以下常量定义。
 

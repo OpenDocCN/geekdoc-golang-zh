@@ -8,9 +8,9 @@
 
 # Go（Golang）中的方法
 
-> 来源：[https://golangbyexample.com/method-in-golang/](https://golangbyexample.com/method-in-golang/)
+> 来源：[`golangbyexample.com/method-in-golang/`](https://golangbyexample.com/method-in-golang/)
 
-这是Golang综合教程系列的第20章。有关该系列其他章节的信息，请参考这个链接 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 Golang 综合教程系列的第二十章。有关该系列其他章节的信息，请参考这个链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程** – [接口](https://golangbyexample.com/interface-in-golang/)
 
@@ -20,35 +20,35 @@
 
 目录
 
-**[概述](#Overview "概述")
+**概述
 
-+   [为什么使用方法](#Why_Method "为什么使用方法")
++   为什么使用方法
 
-+   [方法的格式](#Format_of_a_Method "方法的格式")
++   方法的格式
 
-+   [结构体上的方法](#Methods_on_Structs "结构体上的方法")
++   结构体上的方法
 
-+   [指针接收者上的方法](#Method_on_a_Pointer_Receiver "指针接收者上的方法")
++   指针接收者上的方法
 
-+   [何时使用指针接收者](#When_to_use_pointer_receiver "何时使用指针接收者")
++   何时使用指针接收者
 
-+   [关于方法的更多注意事项](#Some_More_Points_to_note_about_methods "关于方法的更多注意事项")
++   关于方法的更多注意事项
 
-+   [匿名嵌套结构字段上的方法](#Methods_on_Anonymous_nested_struct_fields "匿名嵌套结构字段上的方法")
++   匿名嵌套结构字段上的方法
 
-+   [导出方法](#Exported_Method "导出方法")
++   导出方法
 
-+   [方法链](#Method_Chaining "方法链")
++   方法链
 
-+   [非结构类型的方法](#Methods_on_Non-Struct_Types "非结构类型的方法")
++   非结构类型的方法
 
-+   [结论](#Conclusion "结论") *  *# **概述**
++   结论 *  *# **概述**
 
-在Golang中，方法实际上就是一个带接收者的函数。接收者是某种特定类型的实例，如结构体，但它可以是任何其他自定义类型的实例。因此，当你将一个函数附加到一个类型时，这个函数就成为该类型的方法。方法将可以访问接收者的属性，并可以调用接收者的其他方法。
+在 Golang 中，方法实际上就是一个带接收者的函数。接收者是某种特定类型的实例，如结构体，但它可以是任何其他自定义类型的实例。因此，当你将一个函数附加到一个类型时，这个函数就成为该类型的方法。方法将可以访问接收者的属性，并可以调用接收者的其他方法。
 
 # **为什么使用方法**
 
-由于方法允许你在类型上定义函数，因此它使你能够在Golang中编写面向对象的代码。此外，还有一些其他好处，比如在同一个包中两个不同的方法可以拥有相同的名称，而这在函数中是不可能的。
+由于方法允许你在类型上定义函数，因此它使你能够在 Golang 中编写面向对象的代码。此外，还有一些其他好处，比如在同一个包中两个不同的方法可以拥有相同的名称，而这在函数中是不可能的。
 
 # **方法的格式**
 
@@ -389,7 +389,7 @@ employee.details(emp)
 (*employee).setName(&emp, "John")
 ```
 
-还需注意，方法的参数从第二个参数开始，正如上面setName函数所示：
+还需注意，方法的参数从第二个参数开始，正如上面 setName 函数所示：
 
 ```go
 (*employee).setName(&emp, "John")
@@ -443,7 +443,7 @@ City: London
 Country: UK
 ```
 
-请注意，在上面的程序中，地址结构的details方法可以通过两种方式访问。
+请注意，在上面的程序中，地址结构的 details 方法可以通过两种方式访问。
 
 ```go
 emp.details()
@@ -454,7 +454,7 @@ emp.address.details()
 
 # **导出方法**
 
-Go没有任何公共、私有或保护关键字。控制包外可见性的唯一机制是使用大写和小写格式。
+Go 没有任何公共、私有或保护关键字。控制包外可见性的唯一机制是使用大写和小写格式。
 
 +   **大写标识符**是导出的。大写字母表示这是一个导出标识符，可以在包外使用。
 

@@ -6,9 +6,9 @@ date: 2024-10-13 06:21:02
 
 -->
 
-# 用于布尔值的格式说明符或在Go（Golang）中打印布尔值。
+# 用于布尔值的格式说明符或在 Go（Golang）中打印布尔值。
 
-> 来源：[https://golangbyexample.com/format-specifier-for-bool-golang/](https://golangbyexample.com/format-specifier-for-bool-golang/)
+> 来源：[`golangbyexample.com/format-specifier-for-bool-golang/`](https://golangbyexample.com/format-specifier-for-bool-golang/)
 
 可以使用不同的格式说明符以布尔或字符串形式打印布尔值。
 
@@ -39,4 +39,4 @@ true false
 true false
 ```
 
-+   [布尔值](https://golangbyexample.com/tag/bool/)*   [Go语言](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)
++   [布尔值](https://golangbyexample.com/tag/bool/)*   [Go 语言](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)

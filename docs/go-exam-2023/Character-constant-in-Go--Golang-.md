@@ -8,23 +8,23 @@
 
 # Go (Golang) 中的字符常量
 
-> 来源：[https://golangbyexample.com/character-constant-golang/](https://golangbyexample.com/character-constant-golang/)
+> 来源：[`golangbyexample.com/character-constant-golang/`](https://golangbyexample.com/character-constant-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [示例](#Example "示例")
++   示例
 
-    +   [类型字符常量](#Typed_character_constant "类型字符常量")
+    +   类型字符常量
 
-    +   [未类型命名字符常量](#Untyped_named_character_constant "未类型命名字符常量")
+    +   未类型命名字符常量
 
-    +   [未类型未命名字符常量](#Untyped_unnamed_character_constant "未类型未命名字符常量")*  *# **概述**
+    +   未类型未命名字符常量*  *# **概述**
 
-在Go中，字符常量表示为单引号之间的值。请参考这篇文章以更好地理解Golang中的字符。
+在 Go 中，字符常量表示为单引号之间的值。请参考这篇文章以更好地理解 Golang 中的字符。
 
-同样，为了更好地理解Golang中的字符常量，理解Go中的类型和未类型常量是很重要的。请参考这篇文章了解更多 – [https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)/
+同样，为了更好地理解 Golang 中的字符常量，理解 Go 中的类型和未类型常量是很重要的。请参考这篇文章了解更多 – [`golangbyexample.com/typed-untyped-constant-golang`](https://golangbyexample.com/typed-untyped-constant-golang)/
 
 一旦你阅读完这篇文章，你将会明白常量可以用三种方式声明
 

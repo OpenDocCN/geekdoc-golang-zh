@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中查找并删除字符串中的字符
 
-> 来源：[https://golangbyexample.com/go-find-delete-character-in-string/](https://golangbyexample.com/go-find-delete-character-in-string/)
+> 来源：[`golangbyexample.com/go-find-delete-character-in-string/`](https://golangbyexample.com/go-find-delete-character-in-string/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
 GO 的 **strings** 包提供了一个 **ReplaceAll** 方法，可以用于将给定子字符串的所有不重叠实例替换为一个新的子字符串。我们可以使用此方法通过将要删除的字符的替换设为空字符串来删除一个字符。
 

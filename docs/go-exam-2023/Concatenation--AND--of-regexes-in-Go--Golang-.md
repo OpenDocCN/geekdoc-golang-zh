@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go（Golang）中正则表达式的串联（AND）
+# 在 Go（Golang）中正则表达式的串联（AND）
 
-> 来源：[https://golangbyexample.com/concatenation-regex-golang/](https://golangbyexample.com/concatenation-regex-golang/)
+> 来源：[`golangbyexample.com/concatenation-regex-golang/`](https://golangbyexample.com/concatenation-regex-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 它类似于**AND**运算符。例如，如果有两个正则表达式**r1**和**r2**，它们的串联将表示如下。
 
@@ -76,7 +76,7 @@ abcxyz
 sampleRegexp := regexp.MustCompile(first + second)
 ```
 
-我们可以在正则表达式实例上调用**[Match](https://golang.org/pkg/regexp/#Match)**方法，将给定模式与正则表达式进行匹配。如果正则表达式与输入字符串匹配，则返回true，否则返回false。我们需要将输入字符串的字节传递给此方法。
+我们可以在正则表达式实例上调用**[Match](https://golang.org/pkg/regexp/#Match)**方法，将给定模式与正则表达式进行匹配。如果正则表达式与输入字符串匹配，则返回 true，否则返回 false。我们需要将输入字符串的字节传递给此方法。
 
 ```go
 match := sampleRegexp.Match([]byte("abcxyz"))
@@ -130,4 +130,4 @@ false
 abcxyz123
 ```
 
-此外，查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+此外，查看我们的 Golang 进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*

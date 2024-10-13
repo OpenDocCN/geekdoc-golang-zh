@@ -8,21 +8,21 @@
 
 # Go（Golang）中的代理设计模式
 
-> 来源：[https://golangbyexample.com/proxy-design-pattern-in-golang/](https://golangbyexample.com/proxy-design-pattern-in-golang/)
+> 来源：[`golangbyexample.com/proxy-design-pattern-in-golang/`](https://golangbyexample.com/proxy-design-pattern-in-golang/)
 
 注意：想了解其他所有设计模式如何在 GO 中实现吗？请参见这个完整参考 – [Go（Golang）中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [介绍：](#Introduction "介绍：")
+**   介绍：
 
-+   [UML 图：](#UML_Diagram "UML 图：")
++   UML 图：
 
-+   [映射](#Mapping "映射")
++   映射
 
-+   [实际示例：](#Practical_Example "实际示例：")
++   实际示例：
 
-+   [完整工作代码：](#Full_Working_Code "完整工作代码：")*  *## **介绍：**
++   完整工作代码：*  *## **介绍：**
 
 代理设计模式是一种结构设计模式。此模式建议为对主对象的受控和智能访问提供额外的间接层。
 

@@ -6,15 +6,15 @@
 
 -->
 
-# 用Go (Golang)编写的给定整数数组的幂集程序。
+# 用 Go (Golang)编写的给定整数数组的幂集程序。
 
-> 来源：[https://golangbyexample.com/power-set-array-golang/](https://golangbyexample.com/power-set-array-golang/)
+> 来源：[`golangbyexample.com/power-set-array-golang/`](https://golangbyexample.com/power-set-array-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个包含所有唯一元素的整数数组。目标是返回该数组的幂集。
 
@@ -26,9 +26,9 @@ Input: [1, 2, 3]
 Output: [[] [1] [2] [1 2] [3] [1 3] [2 3] [1 2 3]]
 ```
 
-如果给定数组中的元素数量为n，则幂集中的元素数量将为pow(2, n)。假设n为3，则幂集中的元素数量为pow(2, n)=8。
+如果给定数组中的元素数量为 n，则幂集中的元素数量将为 pow(2, n)。假设 n 为 3，则幂集中的元素数量为 pow(2, n)=8。
 
-假设我们对数字从0到(8-1)进行所有二进制转换，即从0到7。
+假设我们对数字从 0 到(8-1)进行所有二进制转换，即从 0 到 7。
 
 ```go
 000
@@ -88,6 +88,6 @@ func subsets(nums []int) [][]int {
 [[] [1] [2] [1 2] [3] [1 3] [2 3] [1 2 3]]
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程详尽，我们尽力涵盖所有概念和示例。本教程适合那些希望获得专业知识和扎实理解golang的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程详尽，我们尽力涵盖所有概念和示例。本教程适合那些希望获得专业知识和扎实理解 golang 的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)*
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)*

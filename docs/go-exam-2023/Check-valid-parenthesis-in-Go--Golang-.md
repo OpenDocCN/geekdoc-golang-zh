@@ -8,13 +8,13 @@
 
 # 检查 Go (Golang) 中的有效括号
 
-> 来源：[https://golangbyexample.com/valid-parenthesis-golang/](https://golangbyexample.com/valid-parenthesis-golang/)
+> 来源：[`golangbyexample.com/valid-parenthesis-golang/`](https://golangbyexample.com/valid-parenthesis-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [程序](#Program "程序")*  *## **概述**
++   程序*  *## **概述**
 
 有一个输入字符串，只包含以下字符。
 

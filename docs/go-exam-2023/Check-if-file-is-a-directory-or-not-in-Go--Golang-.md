@@ -6,15 +6,15 @@
 
 -->
 
-# 检查文件是否是目录在Go (Golang)
+# 检查文件是否是目录在 Go (Golang)
 
-> 来源：[https://golangbyexample.com/check-if-file-is-a-directory-go/](https://golangbyexample.com/check-if-file-is-a-directory-go/)
+> 来源：[`golangbyexample.com/check-if-file-is-a-directory-go/`](https://golangbyexample.com/check-if-file-is-a-directory-go/)
 
 请查看下面的代码以了解一个文件是否是文件或是目录
 
-+   如果temp是一个文件，输出将是 = “temp是一个文件”
++   如果 temp 是一个文件，输出将是 = “temp 是一个文件”
 
-+   如果temp是一个目录，输出将是 = “temp是一个目录”
++   如果 temp 是一个目录，输出将是 = “temp 是一个目录”
 
 ```go
 package main

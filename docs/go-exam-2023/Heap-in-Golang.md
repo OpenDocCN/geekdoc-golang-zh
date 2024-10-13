@@ -8,13 +8,13 @@
 
 # Golang 中的堆
 
-> 来源：[https://golangbyexample.com/heap-in-golang/](https://golangbyexample.com/heap-in-golang/)
+> 来源：[`golangbyexample.com/heap-in-golang/`](https://golangbyexample.com/heap-in-golang/)
 
 目录
 
-**   [介绍](#Introduction "Introduction")
+**   介绍
 
-+   [MinHeap 的实现](#Implementation_of_MinHeap "Implementation of MinHeap")*  *# **介绍**
++   MinHeap 的实现*  *# **介绍**
 
 堆是一种完整的二叉树。完整的二叉树是指除最后一层外，所有层都是满的。堆有两种类型：
 
@@ -32,9 +32,9 @@
 
 在这篇文章中，让我们来看一下 Go 中 minheap 的实现。
 
-MaxHeap 的实现可以在链接中找到 – [https://golangbyexample.com/maxheap-in-golang/](https://golangbyexample.com/maxheap-in-golang/)
+MaxHeap 的实现可以在链接中找到 – [`golangbyexample.com/maxheap-in-golang/`](https://golangbyexample.com/maxheap-in-golang/)
 
-MinHeap 的完整描述可以在链接中找到 – [https://golangbyexample.com/minheap-in-golang/](https://golangbyexample.com/minheap-in-golang/)
+MinHeap 的完整描述可以在链接中找到 – [`golangbyexample.com/minheap-in-golang/`](https://golangbyexample.com/minheap-in-golang/)
 
 # **MinHeap 的实现**
 

@@ -6,9 +6,9 @@
 
 -->
 
-# 在Go（Golang）中实现接口时，指针与值接收器的方法
+# 在 Go（Golang）中实现接口时，指针与值接收器的方法
 
-> 来源：[https://golangbyexample.com/pointer-vs-value-receiver-method-golang/](https://golangbyexample.com/pointer-vs-value-receiver-method-golang/)
+> 来源：[`golangbyexample.com/pointer-vs-value-receiver-method-golang/`](https://golangbyexample.com/pointer-vs-value-receiver-method-golang/)
 
 一个类型的方法可以有指针接收器或值接收器。当该类型实现接口时，指针与值接收器有一些注意事项
 

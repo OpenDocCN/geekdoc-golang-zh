@@ -8,17 +8,17 @@
 
 # 在 Go（Golang）中加载 .env 或环境文件。
 
-> 来源：[https://golangbyexample.com/load-env-fiie-golang/](https://golangbyexample.com/load-env-fiie-golang/)
+> 来源：[`golangbyexample.com/load-env-fiie-golang/`](https://golangbyexample.com/load-env-fiie-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program") *  *# **概述**
++   程序 *  *# **概述**
 
 **gotenv** 包在 Golang 中可用于加载 **.env** 或 **环境** 文件。
 
-[https://github.com/joho/godotenv](https://github.com/joho/godotenv)
+[`github.com/joho/godotenv`](https://github.com/joho/godotenv)
 
 以下是函数的签名。
 

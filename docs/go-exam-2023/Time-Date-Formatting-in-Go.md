@@ -6,11 +6,11 @@
 
 -->
 
-# Go语言中的时间/日期格式化
+# Go 语言中的时间/日期格式化
 
-> 来源：[https://golangbyexample.com/time-date-formatting-in-go/](https://golangbyexample.com/time-date-formatting-in-go/)
+> 来源：[`golangbyexample.com/time-date-formatting-in-go/`](https://golangbyexample.com/time-date-formatting-in-go/)
 
-如果你在其他语言中处理过时间/日期格式化，你可能会注意到其他语言使用特殊占位符进行时间/日期格式化。例如，Ruby语言使用
+如果你在其他语言中处理过时间/日期格式化，你可能会注意到其他语言使用特殊占位符进行时间/日期格式化。例如，Ruby 语言使用
 
 +   %d 表示日期
 
@@ -18,7 +18,7 @@
 
 等等
 
-在Golang中，日期和时间格式占位符看起来像日期和时间。请参考以下占位符表
+在 Golang 中，日期和时间格式占位符看起来像日期和时间。请参考以下占位符表
 
 | **类型** | **占位符** |
 | --- | --- |

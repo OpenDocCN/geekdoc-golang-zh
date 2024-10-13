@@ -8,13 +8,13 @@
 
 # Go (Golang) 中的常量映射
 
-> 来源：[https://golangbyexample.com/constant-map-go/](https://golangbyexample.com/constant-map-go/)
+> 来源：[`golangbyexample.com/constant-map-go/`](https://golangbyexample.com/constant-map-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 Go 仅支持四种类型的常量
 

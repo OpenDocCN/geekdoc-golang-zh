@@ -6,17 +6,17 @@
 
 -->
 
-# Go语言中的指针算术运算
+# Go 语言中的指针算术运算
 
-> 来源：[https://golangbyexample.com/pointer-arithmetic-golang/](https://golangbyexample.com/pointer-arithmetic-golang/)
+> 来源：[`golangbyexample.com/pointer-arithmetic-golang/`](https://golangbyexample.com/pointer-arithmetic-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
-与C语言不同，Golang中不支持指针算术运算，这会引发编译错误。
+与 C 语言不同，Golang 中不支持指针算术运算，这会引发编译错误。
 
 # **程序**
 

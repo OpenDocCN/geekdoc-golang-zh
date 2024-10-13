@@ -8,9 +8,9 @@
 
 # Go（Golang）中的接口零值
 
-> 来源：[https://golangbyexample.com/zero-value-of-interface-go/](https://golangbyexample.com/zero-value-of-interface-go/)
+> 来源：[`golangbyexample.com/zero-value-of-interface-go/`](https://golangbyexample.com/zero-value-of-interface-go/)
 
-接口的默认值或零值为nil。下面的程序演示了这一点。
+接口的默认值或零值为 nil。下面的程序演示了这一点。
 
 ```go
 package main

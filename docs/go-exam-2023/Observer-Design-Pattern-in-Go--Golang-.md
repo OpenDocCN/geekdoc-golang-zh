@@ -6,23 +6,23 @@
 
 -->
 
-# Go中的观察者设计模式
+# Go 中的观察者设计模式
 
-> 来源：[https://golangbyexample.com/observer-design-pattern-golang/](https://golangbyexample.com/observer-design-pattern-golang/)
+> 来源：[`golangbyexample.com/observer-design-pattern-golang/`](https://golangbyexample.com/observer-design-pattern-golang/)
 
-注意：有兴趣了解其他所有设计模式如何在GO中实现。请参见此完整参考 – [Go中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
+注意：有兴趣了解其他所有设计模式如何在 GO 中实现。请参见此完整参考 – [Go 中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [介绍：](#Introduction "Introduction:")
+**   介绍：
 
-+   [UML图：](#UML_Diagram "UML Diagram:")
++   UML 图：
 
-+   [映射：](#Mapping "Mapping:")
++   映射：
 
-+   [实用示例：](#Practical_Example "Practical Example:")
++   实用示例：
 
-+   [完整工作代码：](#Full_Working_Code "Full Working Code:")*  *# **介绍：**
++   完整工作代码：*  *# **介绍：**
 
 观察者设计模式是一种行为设计模式。该模式允许一个实例**（称为主题）**将事件发布给多个实例**（称为观察者）。** 这些**观察者**订阅**主题**，因此在**主题**发生任何变化时会收到事件通知。
 
@@ -34,7 +34,7 @@
 
 1.  客户仅订阅他感兴趣的特定项目，并在该项目可用时收到通知。同时，多个客户可以订阅同一产品
 
-选项3是最可行的，这正是观察者模式的核心。观察者模式的主要组件有：
+选项 3 是最可行的，这正是观察者模式的核心。观察者模式的主要组件有：
 
 1.  **主题** – 它是当任何变化发生时发布事件的实例。
 
@@ -42,19 +42,19 @@
 
 通常，**主题**和**观察者**实现为接口。两者的具体实现被使用
 
-# **UML图：**
+# **UML 图：**
 
 ![](img/5087b754286321979495bdbe677f2030.png)
 
 # **映射：**
 
-下表表示UML图中的角色与下面**“实用示例”**中的实际实现角色之间的映射
+下表表示 UML 图中的角色与下面**“实用示例”**中的实际实现角色之间的映射
 
 | 主题 | subject.go |
 | --- | --- |
 | 具体主题 | item.go |
 | 观察者 | observer.go |
-| 具体观察者1 | customer.go |
+| 具体观察者 1 | customer.go |
 | 客户端 | main.go |
 
 # **实用示例：**
@@ -267,4 +267,4 @@ Sending email to customer abc@gmail.com for item Nike Shirt
 Sending email to customer xyz@gmail.com for item Nike Shirt
 ```
 
-+   [设计](https://golangbyexample.com/tag/design/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [观察者](https://golangbyexample.com/tag/observer/)*   [Go中的观察者设计模式](https://golangbyexample.com/tag/observer-design-pattern-in-go/)*   [模式](https://golangbyexample.com/tag/pattern/)*
++   [设计](https://golangbyexample.com/tag/design/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [观察者](https://golangbyexample.com/tag/observer/)*   [Go 中的观察者设计模式](https://golangbyexample.com/tag/observer-design-pattern-in-go/)*   [模式](https://golangbyexample.com/tag/pattern/)*

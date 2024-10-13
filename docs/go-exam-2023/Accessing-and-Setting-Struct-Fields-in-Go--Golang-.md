@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中访问和设置结构体字段
 
-> 来源：[https://golangbyexample.com/accessing-setting-struct-fields-golang/](https://golangbyexample.com/accessing-setting-struct-fields-golang/)
+> 来源：[`golangbyexample.com/accessing-setting-struct-fields-golang/`](https://golangbyexample.com/accessing-setting-struct-fields-golang/)
 
 **概述**
 
@@ -34,7 +34,7 @@ type employee struct {
 
 目录
 
-**   [访问和设置结构体字段](#Accessing_and_Setting_Struct_Fields "Accessing and Setting Struct Fields")*  *# **访问和设置结构体字段**
+**   访问和设置结构体字段*  *# **访问和设置结构体字段**
 
 结构体变量可以如下创建
 

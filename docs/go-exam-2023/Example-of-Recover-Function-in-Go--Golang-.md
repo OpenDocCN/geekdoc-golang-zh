@@ -8,25 +8,25 @@
 
 # Go (Golang) 中的恢复函数示例
 
-> 来源：[https://golangbyexample.com/recover-example-go/](https://golangbyexample.com/recover-example-go/)
+> 来源：[`golangbyexample.com/recover-example-go/`](https://golangbyexample.com/recover-example-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
-Go提供了一个内置函数**recover**用于从恐慌中恢复。下面是这个函数的签名
+Go 提供了一个内置函数**recover**用于从恐慌中恢复。下面是这个函数的签名
 
 ```go
 func recover() interface{}
 ```
 
-**defer**函数是唯一在**panic**之后被调用的函数。因此，把**recover**函数放在**defer**函数中是有意义的。如果**recover**函数不在defer函数内，则无法停止**panic**。
+**defer**函数是唯一在**panic**之后被调用的函数。因此，把**recover**函数放在**defer**函数中是有意义的。如果**recover**函数不在 defer 函数内，则无法停止**panic**。
 
 # **例子**
 
-让我们看一个recover的例子
+让我们看一个 recover 的例子
 
 ```go
 package main
@@ -62,7 +62,7 @@ Recovering from panic: Out of bound access for slice
 Exiting normally
 ```
 
-在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印传递到参数中的索引处的切片元素。如果传递的索引大于数组的长度，则程序将会恐慌。我们在**checkAndPrint**函数的开始处添加了一个名为**handleOutOfBounds**的defer函数。这个函数包含对recover函数的调用，如下所示。
+在上面的程序中，我们有一个函数**checkAndPrint**，它检查并打印传递到参数中的索引处的切片元素。如果传递的索引大于数组的长度，则程序将会恐慌。我们在**checkAndPrint**函数的开始处添加了一个名为**handleOutOfBounds**的 defer 函数。这个函数包含对 recover 函数的调用，如下所示。
 
 ```go
 if r := recover(); r != nil {
@@ -82,15 +82,15 @@ Recovering from panic: Out of bound access for slice
 Exiting normally
 ```
 
-recover函数返回传递给panic函数的值。因此，检查recover函数的返回值是一个好习惯。如果返回值非nil，则没有发生恐慌，并且recover函数没有与恐慌一起被调用。这就是我们在defer函数**handleOutOfBounds**中有以下代码的原因。
+recover 函数返回传递给 panic 函数的值。因此，检查 recover 函数的返回值是一个好习惯。如果返回值非 nil，则没有发生恐慌，并且 recover 函数没有与恐慌一起被调用。这就是我们在 defer 函数**handleOutOfBounds**中有以下代码的原因。
 
 ```go
 if r := recover(); r != nil 
 ```
 
-如果**r**为nil，那么没有发生恐慌。所以如果没有恐慌，则对recover的调用将返回nil。
+如果**r**为 nil，那么没有发生恐慌。所以如果没有恐慌，则对 recover 的调用将返回 nil。
 
-注意，如果defer函数和recover函数没有从恐慌函数中调用，则在这种情况下，恐慌也可以在被调用的函数中恢复。实际上，可能在调用栈的后续链中恢复。
+注意，如果 defer 函数和 recover 函数没有从恐慌函数中调用，则在这种情况下，恐慌也可以在被调用的函数中恢复。实际上，可能在调用栈的后续链中恢复。
 
 让我们看一个示例。
 
@@ -130,10 +130,10 @@ Exiting normally
 
 上面的程序与之前的程序几乎相同，唯一的不同是我们有一个额外的函数**checkAndPrintWithRecover**，其中包含对
 
-+   带有recover的defer函数是**handleOutOfBounds**
++   带有 recover 的 defer 函数是**handleOutOfBounds**
 
 +   调用**checkAndPrint**函数
 
-**基本上，**checkAndPrint**函数引发恐慌，但没有recover函数，而是调用recover的地方在**checkAndPrintWithRecover**函数中。但程序仍然能够从恐慌中恢复，因为恐慌也可以在被调用的函数中恢复，并且可以在链中继续恢复。**
+**基本上，**checkAndPrint**函数引发恐慌，但没有 recover 函数，而是调用 recover 的地方在**checkAndPrintWithRecover**函数中。但程序仍然能够从恐慌中恢复，因为恐慌也可以在被调用的函数中恢复，并且可以在链中继续恢复。**
 
 ***   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)***

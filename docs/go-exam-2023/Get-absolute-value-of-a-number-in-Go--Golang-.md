@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中获取数字的绝对值
 
-> 来源：[https://golangbyexample.com/absolute-value-number-golang/](https://golangbyexample.com/absolute-value-number-golang/)
+> 来源：[`golangbyexample.com/absolute-value-number-golang/`](https://golangbyexample.com/absolute-value-number-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
 GO 的 **math** 包提供了一个 **Abs** 方法，可以用来获取数字的绝对值。
 

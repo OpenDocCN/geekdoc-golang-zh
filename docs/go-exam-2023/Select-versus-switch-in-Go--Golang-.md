@@ -8,15 +8,15 @@
 
 # Go 中的 Select 与 Switch (Golang)
 
-> 来源：[https://golangbyexample.com/select-versus-switch-in-golang/](https://golangbyexample.com/select-versus-switch-in-golang/)
+> 来源：[`golangbyexample.com/select-versus-switch-in-golang/`](https://golangbyexample.com/select-versus-switch-in-golang/)
 
 目录
 
-**[概述](#Overview "概述")**
+**概述**
 
-+   [开关示例](#Example_of_switch "开关示例")
++   开关示例
 
-+   [选择示例](#Example_of_select "选择示例") *  * # **概述**
++   选择示例 *  * # **概述**
 
 以下是 **switch** 和 **select** 语句之间的一些差异。
 
@@ -60,9 +60,9 @@ default:
 
 请参考全面的教程
 
-+   Switch – [https://golangbyexample.com/switch-statement-golang/](https://golangbyexample.com/switch-statement-golang/)
++   Switch – [`golangbyexample.com/switch-statement-golang/`](https://golangbyexample.com/switch-statement-golang/)
 
-+   Select – [https://golangbyexample.com/select-statement-golang/](https://golangbyexample.com/select-statement-golang/)
++   Select – [`golangbyexample.com/select-statement-golang/`](https://golangbyexample.com/select-statement-golang/)
 
 # **开关示例**
 
@@ -129,7 +129,7 @@ func goTwo(ch chan string) {
 From goOne goroutine
 ```
 
-在上述程序中，我们创建了两个通道，并将它们传递给两个不同的goroutine。然后，每个goroutine向通道发送一个值。在select中，我们有两个case语句。两个case语句都在等待某个通道的接收操作完成。一旦任何通道的接收操作完成，它就会执行并退出select。因此，从输出可以看出，在上述程序中，它打印了从某个通道接收到的值并退出。
+在上述程序中，我们创建了两个通道，并将它们传递给两个不同的 goroutine。然后，每个 goroutine 向通道发送一个值。在 select 中，我们有两个 case 语句。两个 case 语句都在等待某个通道的接收操作完成。一旦任何通道的接收操作完成，它就会执行并退出 select。因此，从输出可以看出，在上述程序中，它打印了从某个通道接收到的值并退出。
 
 因此，在上述程序中，由于哪个发送操作会先完成是不可确定的，这就是为什么你在不同时间运行程序时会看到不同输出的原因。
 

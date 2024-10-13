@@ -6,21 +6,21 @@
 
 -->
 
-# Go中的栈
+# Go 中的栈
 
-> 来源：[https://golangbyexample.com/stack-in-golang/](https://golangbyexample.com/stack-in-golang/)
+> 来源：[`golangbyexample.com/stack-in-golang/`](https://golangbyexample.com/stack-in-golang/)
 
 目录
 
-**   [介绍](#Introduction "介绍")
+**   介绍
 
-+   [列表实现](#List_Implementation "列表实现")
++   列表实现
 
-+   [切片实现](#Slice_Implementation "切片实现") *  *## **介绍**
++   切片实现 *  *## **介绍**
 
-一个简单的栈可以在Go中通过
+一个简单的栈可以在 Go 中通过
 
-1.  container/list包
+1.  container/list 包
 
 1.  切片实现
 
@@ -194,4 +194,4 @@ Pop: A
 Size: 0
 ```
 
-+   [Go中的数据结构](https://golangbyexample.com/tag/data-structure-in-go/) *   [栈](https://golangbyexample.com/tag/stack/) *   [Go中的栈](https://golangbyexample.com/tag/stack-in-go/) *
++   [Go 中的数据结构](https://golangbyexample.com/tag/data-structure-in-go/) *   [栈](https://golangbyexample.com/tag/stack/) *   [Go 中的栈](https://golangbyexample.com/tag/stack-in-go/) *

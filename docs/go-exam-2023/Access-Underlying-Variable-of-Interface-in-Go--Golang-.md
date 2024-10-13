@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go语言（Golang）中访问接口的基础变量
+# 在 Go 语言（Golang）中访问接口的基础变量
 
-> 来源：[https://golangbyexample.com/access-underlying-type-interface-golang/](https://golangbyexample.com/access-underlying-type-interface-golang/)
+> 来源：[`golangbyexample.com/access-underlying-type-interface-golang/`](https://golangbyexample.com/access-underlying-type-interface-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [类型断言](#Type_Assertion "Type Assertion")
++   类型断言
 
-+   [类型切换](#Type_Switch "Type Switch")*  *# **概述**
++   类型切换*  *# **概述**
 
 像其他任何变量一样，接口变量由类型和值表示。接口值在底层由两个元组组成。
 
@@ -36,7 +36,7 @@
 
 # **类型断言**
 
-类型断言提供了一种通过断言正确的基础值类型来访问接口值内部的基础变量的方法。下面是该语法，其中i是一个接口。
+类型断言提供了一种通过断言正确的基础值类型来访问接口值内部的基础变量的方法。下面是该语法，其中 i 是一个接口。
 
 ```go
 val := i.({type})

@@ -6,21 +6,21 @@
 
 -->
 
-# Go中的对象池设计模式
+# Go 中的对象池设计模式
 
-> 来源：[https://golangbyexample.com/golang-object-pool/](https://golangbyexample.com/golang-object-pool/)
+> 来源：[`golangbyexample.com/golang-object-pool/`](https://golangbyexample.com/golang-object-pool/)
 
-注意：如果想了解如何在GO中实现所有其他设计模式，请查看这个完整参考 – [Go中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
+注意：如果想了解如何在 GO 中实现所有其他设计模式，请查看这个完整参考 – [Go 中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [介绍：](#Introduction "介绍：")
+**   介绍：
 
-+   [何时使用：](#When_to_Use "何时使用：")
++   何时使用：
 
-+   [示例：](#Example "示例：")
++   示例：
 
-+   [完整工作代码：](#Full_Working_Code "完整工作代码：")*  *## **介绍：**
++   完整工作代码：*  *## **介绍：**
 
 对象池设计模式是一种创建型设计模式，其中一个对象池在之前被初始化和创建，并保持在池中。根据需要，客户端可以从池中请求一个对象，使用它，然后将其返回到池中。池中的对象从未被销毁。
 

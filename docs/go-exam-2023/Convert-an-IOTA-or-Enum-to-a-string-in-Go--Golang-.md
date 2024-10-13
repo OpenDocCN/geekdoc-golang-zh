@@ -6,23 +6,23 @@
 
 -->
 
-# 将IOTA或枚举转换为Go语言中的字符串
+# 将 IOTA 或枚举转换为 Go 语言中的字符串
 
-> 来源：[https://golangbyexample.com/convert-an-iota-or-enum-to-a-string-in-go-golang/](https://golangbyexample.com/convert-an-iota-or-enum-to-a-string-in-go-golang/)
+> 来源：[`golangbyexample.com/convert-an-iota-or-enum-to-a-string-in-go-golang/`](https://golangbyexample.com/convert-an-iota-or-enum-to-a-string-in-go-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# 概述
++   示例*  *# 概述
 
-在Golang中，可以通过使用IOTA创建枚举。请参考这篇文章以了解更多关于IOTA的信息。
+在 Golang 中，可以通过使用 IOTA 创建枚举。请参考这篇文章以了解更多关于 IOTA 的信息。
 
-> [Go语言中的IOTA](https://golangbyexample.com/iota-in-golang/)
+> [Go 语言中的 IOTA](https://golangbyexample.com/iota-in-golang/)
 
-[https://golangbyexample.com/iota-in-golang/embed/#?secret=0FEJ5OZNxf#?secret=4y3pVxudgT](https://golangbyexample.com/iota-in-golang/embed/#?secret=0FEJ5OZNxf#?secret=4y3pVxudgT)
+[`golangbyexample.com/iota-in-golang/embed/#?secret=0FEJ5OZNxf#?secret=4y3pVxudgT`](https://golangbyexample.com/iota-in-golang/embed/#?secret=0FEJ5OZNxf#?secret=4y3pVxudgT)
 
-在这篇文章中，我们将看到如何将IOTA或枚举转换为字符串值。默认情况下，当打印IOTA或枚举值时，它将打印其整数部分。请看这个例子。稍后我们将看到如何定义自定义的**toString**方法以打印IOTA或枚举的字符串值。
+在这篇文章中，我们将看到如何将 IOTA 或枚举转换为字符串值。默认情况下，当打印 IOTA 或枚举值时，它将打印其整数部分。请看这个例子。稍后我们将看到如何定义自定义的**toString**方法以打印 IOTA 或枚举的字符串值。
 
 # 示例
 
@@ -57,7 +57,7 @@ func main() {
 3
 ```
 
-我们还可以在Size类型上定义一个**toString**方法，以打印枚举的确切值。请看下面的程序。
+我们还可以在 Size 类型上定义一个**toString**方法，以打印枚举的确切值。请看下面的程序。
 
 ```go
 package main
@@ -95,4 +95,4 @@ func (s Size) toString() {
 medium
 ```
 
-现在我们将为**Size**类型定义一个**toString**方法。它可以用来打印Size类型常量的字符串值。
+现在我们将为**Size**类型定义一个**toString**方法。它可以用来打印 Size 类型常量的字符串值。

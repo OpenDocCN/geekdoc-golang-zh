@@ -8,7 +8,7 @@ date: 2024-10-13 06:17:57
 
 # 在 Go 中的 cd 命令或更改当前工作目录
 
-> 来源：[https://golangbyexample.com/change-current-working-directory-go/](https://golangbyexample.com/change-current-working-directory-go/)
+> 来源：[`golangbyexample.com/change-current-working-directory-go/`](https://golangbyexample.com/change-current-working-directory-go/)
 
 **概述**
 

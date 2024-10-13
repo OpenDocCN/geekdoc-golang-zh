@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go (Golang)中去除浮点数的小数点
+# 在 Go (Golang)中去除浮点数的小数点
 
-> 来源：[https://golangbyexample.com/remove-decimal-float-go/](https://golangbyexample.com/remove-decimal-float-go/)
+> 来源：[`golangbyexample.com/remove-decimal-float-go/`](https://golangbyexample.com/remove-decimal-float-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
 **math**包提供了一个**Trunc**方法，可用于移除浮点数的小数点并将其转换为整数
 

@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go (Golang)中，go mod tidy的作用是什么
+# 在 Go (Golang)中，go mod tidy 的作用是什么
 
-> 来源：[https://golangbyexample.com/go-mod-tidy/](https://golangbyexample.com/go-mod-tidy/)
+> 来源：[`golangbyexample.com/go-mod-tidy/`](https://golangbyexample.com/go-mod-tidy/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 此命令将基本上将**go.mod**文件与源文件中所需的依赖项进行匹配。
 
@@ -28,7 +28,7 @@
 go mod tidy [-v]
 ```
 
-使用**-v**标志，go mod tidy将打印从**go.mod**文件中删除的所有未使用模块的信息（如果有）。
+使用**-v**标志，go mod tidy 将打印从**go.mod**文件中删除的所有未使用模块的信息（如果有）。
 
 # **示例**
 
@@ -59,7 +59,7 @@ func main() {
 }
 ```
 
-请注意，我们在uuid.go中也导入了该依赖项。
+请注意，我们在 uuid.go 中也导入了该依赖项。
 
 ```go
 "github.com/pborman/uuid"
@@ -83,7 +83,7 @@ go 1.14
 require github.com/pborman/uuid v1.2.1
 ```
 
-它列出了在uuid文件中指定的直接依赖项，以及该依赖项的确切版本。现在让我们检查**go.sum**文件。
+它列出了在 uuid 文件中指定的直接依赖项，以及该依赖项的确切版本。现在让我们检查**go.sum**文件。
 
 执行**cat go.sum**
 

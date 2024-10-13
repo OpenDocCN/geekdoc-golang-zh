@@ -6,21 +6,21 @@
 
 -->
 
-# 理解Go（Golang）中的Fprintln函数
+# 理解 Go（Golang）中的 Fprintln 函数
 
-> 来源：[https://golangbyexample.com/fprintln-golang/](https://golangbyexample.com/fprintln-golang/)
+> 来源：[`golangbyexample.com/fprintln-golang/`](https://golangbyexample.com/fprintln-golang/)
 
 ![fprintln 图像](img/3cd9912b7a0733f8200683fac3715644.png)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 **Fprintln**定义在**fmt**包中，用于使用默认格式说明符格式化字符串，并将其写入传递给它的**io.Writer**实例。它还添加了一个新行。
 
-[https://golang.org/pkg/fmt/#Fprintln](https://golang.org/pkg/fmt/#Fprintln)
+[`golang.org/pkg/fmt/#Fprintln`](https://golang.org/pkg/fmt/#Fprintln)
 
 下面是**Fprintln**的函数原型
 
@@ -134,9 +134,9 @@ Name is: John
 14
 ```
 
-**bytesPrinted**的数量是14，因为输出了14个字符
+**bytesPrinted**的数量是 14，因为输出了 14 个字符
 
-**Fprintln**还可以用于写入文件。由于文件实例在Golang中实现了**io.Writer**，这不是问题。以下是相应的程序
+**Fprintln**还可以用于写入文件。由于文件实例在 Golang 中实现了**io.Writer**，这不是问题。以下是相应的程序
 
 ```go
 package main
@@ -173,7 +173,7 @@ func main() {
 
 **输出**
 
-它将在当前目录中创建名为temp.txt的文件，内容如下。在这个程序中，我们将**os.Stdou**t替换为创建的文件。
+它将在当前目录中创建名为 temp.txt 的文件，内容如下。在这个程序中，我们将**os.Stdou**t 替换为创建的文件。
 
 ```go
 Name is:  John
@@ -182,6 +182,6 @@ Age is:  21
 a 12 b 12
 ```
 
-另外，查看我们的Golang进阶教程系列 – [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
+另外，查看我们的 Golang 进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 
 +   [fprintln](https://golangbyexample.com/tag/fprintln/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

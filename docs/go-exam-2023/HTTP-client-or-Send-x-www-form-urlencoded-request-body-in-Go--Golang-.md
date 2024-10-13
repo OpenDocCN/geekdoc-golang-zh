@@ -8,13 +8,13 @@
 
 # HTTP 客户端或在 Go（Golang）中发送 x-www-form-urlencoded 请求主体
 
-> 来源：[https://golangbyexample.com/http-client-urlencoded-body-go/](https://golangbyexample.com/http-client-urlencoded-body-go/)
+> 来源：[`golangbyexample.com/http-client-urlencoded-body-go/`](https://golangbyexample.com/http-client-urlencoded-body-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 **application/x-www-form-urlencoded**内容类型的请求主体就像一个巨大的查询字符串。类似于 URI 中的查询字符串，它是一个键值对，具有以下格式。
 
@@ -32,9 +32,9 @@ key1=value1&key2=value21&key2=value22&key3=value3
 
 每个键值对用 **&** 分隔，如果同一键有多个值，则会有两个条目。并且，每个键和值都经过 URL 编码，类似于查询字符串。
 
-现在可能会有人问，如果**x-www-form-urlencoded**就像查询字符串，那它为什么存在。原因是查询字符串是 URI 的一部分，而 URI 的长度有限，因此你可以在查询字符串中发送有限数量的键值对。而**x-www-form-urlencoded**请求主体的长度没有限制。然而，它受到服务器允许的最大请求主体大小的限制，对于大多数服务器通常为10MB。现在让我们看看如何在 golang 中解析**x-www-form-urlencoded**
+现在可能会有人问，如果**x-www-form-urlencoded**就像查询字符串，那它为什么存在。原因是查询字符串是 URI 的一部分，而 URI 的长度有限，因此你可以在查询字符串中发送有限数量的键值对。而**x-www-form-urlencoded**请求主体的长度没有限制。然而，它受到服务器允许的最大请求主体大小的限制，对于大多数服务器通常为 10MB。现在让我们看看如何在 golang 中解析**x-www-form-urlencoded**
 
-基本上，由于 x-www-form-urlencoded 主体与查询字符串类似，因此在 golang 中使用**url.Values**表示。[https://golang.org/pkg/net/url/#Values](https://golang.org/pkg/net/url/#Values)
+基本上，由于 x-www-form-urlencoded 主体与查询字符串类似，因此在 golang 中使用**url.Values**表示。[`golang.org/pkg/net/url/#Values`](https://golang.org/pkg/net/url/#Values)
 
 **url.Values** 只不过是一个映射
 
@@ -120,7 +120,7 @@ func call(urlPath, method string) error {
 
 如果你运行一个监听在：8080 端口的服务器，类似于下面的链接，那么你会看到服务器能够正确打印传入请求的主体
 
-[https://golangbyexample.com/url-encoded-body-golang](https://golangbyexample.com/url-encoded-body-golang)/
+[`golangbyexample.com/url-encoded-body-golang`](https://golangbyexample.com/url-encoded-body-golang)/
 
 也是
 

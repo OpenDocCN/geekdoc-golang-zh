@@ -6,11 +6,11 @@
 
 -->
 
-# 在Go(Golang)中接收或获取来自goroutine的多个返回值
+# 在 Go(Golang)中接收或获取来自 goroutine 的多个返回值
 
-> 来源：[https://golangbyexample.com/receive-multiple-return-value-goroutine-golang/](https://golangbyexample.com/receive-multiple-return-value-goroutine-golang/)
+> 来源：[`golangbyexample.com/receive-multiple-return-value-goroutine-golang/`](https://golangbyexample.com/receive-multiple-return-value-goroutine-golang/)
 
-通道可以用于从goroutine中获取返回值。通道提供了goroutine之间的同步和通信。你可以在goroutine中将返回值发送到通道，然后在主函数中收集该值。
+通道可以用于从 goroutine 中获取返回值。通道提供了 goroutine 之间的同步和通信。你可以在 goroutine 中将返回值发送到通道，然后在主函数中收集该值。
 
 为了接收多个值，我们可以创建一个自定义结构体类型，其中包含两个返回值的字段，然后创建该类型的通道。
 
@@ -63,7 +63,7 @@ Multiply Value: 6
 
 +   multiplyValue
 
-我们创建了一个变量**resultChan**，它是一个长度为1的通道，存储**result**结构体类型的值。我们将这个通道传递给**sumAndMultiply**函数。**sumAndMultiply**函数将结果结构体推送到**resultChan**。
+我们创建了一个变量**resultChan**，它是一个长度为 1 的通道，存储**result**结构体类型的值。我们将这个通道传递给**sumAndMultiply**函数。**sumAndMultiply**函数将结果结构体推送到**resultChan**。
 
 ```go
 res := result{sumValue: sumValue, multiplyValue: multiplyValue}

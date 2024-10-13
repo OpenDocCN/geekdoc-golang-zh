@@ -6,21 +6,21 @@
 
 -->
 
-# 理解Go（Golang）中的Printf函数。
+# 理解 Go（Golang）中的 Printf 函数。
 
-> 来源：[https://golangbyexample.com/printf-golang/](https://golangbyexample.com/printf-golang/)
+> 来源：[`golangbyexample.com/printf-golang/`](https://golangbyexample.com/printf-golang/)
 
-![printf图像](img/f431e47ca15664fa153f6a9b962dacbc.png)
+![printf 图像](img/f431e47ca15664fa153f6a9b962dacbc.png)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 **Printf**定义在**fmt**包中，用于格式化字符串并写入标准输出。
 
-[https://golang.org/pkg/fmt/#Printf](https://golang.org/pkg/fmt/#Printf)
+[`golang.org/pkg/fmt/#Printf`](https://golang.org/pkg/fmt/#Printf)
 
 下面是**Printf**的函数原型。
 
@@ -64,7 +64,7 @@ fmt.Printf("Age is: %d\n", age)
 
 例如，有三个格式说明符用于打印结构体。
 
-+   **%v** – 它只会打印值。字段名称不会被打印。这是在使用Println时打印结构体的默认方式。
++   **%v** – 它只会打印值。字段名称不会被打印。这是在使用 Println 时打印结构体的默认方式。
 
 +   **%+v –**它将打印字段和值。
 
@@ -185,4 +185,4 @@ func main() {
 Name is: John %!d(MISSING)
 ```
 
-另外，查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*
+另外，查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*

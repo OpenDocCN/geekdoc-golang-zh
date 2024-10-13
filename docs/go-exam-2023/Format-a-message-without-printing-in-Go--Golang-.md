@@ -8,13 +8,13 @@
 
 # 在 Go（Golang）中格式化消息而不打印。
 
-> 来源：[https://golangbyexample.com/format-message-no-print-golang/](https://golangbyexample.com/format-message-no-print-golang/)
+> 来源：[`golangbyexample.com/format-message-no-print-golang/`](https://golangbyexample.com/format-message-no-print-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 **fmt** 包的 **Sprintf** 函数可以用来格式化字符串而不打印。它与 **Printf** 函数类似，唯一的区别在于二者。
 

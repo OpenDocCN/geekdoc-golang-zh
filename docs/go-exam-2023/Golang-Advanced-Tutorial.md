@@ -6,75 +6,75 @@
 
 -->
 
-# Golang高级教程
+# Golang 高级教程
 
-> 来源：[https://golangbyexample.com/golang-comprehensive-tutorial/](https://golangbyexample.com/golang-comprehensive-tutorial/)
+> 来源：[`golangbyexample.com/golang-comprehensive-tutorial/`](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [Golang基础教程](#Golang_Basic_Tutorial "Golang基础教程")
++   Golang 基础教程
 
-    +   [关于](#About "关于")
+    +   关于
 
-    +   [基础](#Basics "基础")
+    +   基础
 
-    +   [循环/迭代/流程控制](#LoopsIterationsFlow_Control "循环/迭代/流程控制")
+    +   循环/迭代/流程控制
 
-    +   [更多类型](#More_Types "更多类型")
+    +   更多类型
 
-    +   [并发](#Concurrency "并发")
+    +   并发
 
-    +   [错误处理](#Error_Handling "错误处理")
+    +   错误处理
 
-+   [Golang高级教程](#Golang_Advanced_Tutorial "Golang高级教程")
++   Golang 高级教程
 
-    +   [Golang中的面向对象编程](#OOPS_in_Golang "Golang中的面向对象编程")
+    +   Golang 中的面向对象编程
 
-    +   [其他](#Others "其他")
+    +   其他
 
-+   [Golang中的所有设计模式](#All_Design_Patterns_in_Golang "Golang中的所有设计模式")
++   Golang 中的所有设计模式
 
-    +   [创建型设计模式](#Creational_Design_Patterns "创建型设计模式")
+    +   创建型设计模式
 
-    +   [行为型设计模式](#Behavioural_Design_Patterns "行为型设计模式")
+    +   行为型设计模式
 
-    +   [结构型设计模式](#Structural_Design_Patterns "结构型设计模式")
+    +   结构型设计模式
 
-+   [Golang中的数据结构](#Data_Structures_in_Golang "Golang中的数据结构")*  *## **概述**
++   Golang 中的数据结构*  *## **概述**
 
-欢迎来到Golang高级教程系列。本系列教程内容详尽，我们尽量用示例覆盖所有概念。本教程适合那些希望深入理解和掌握Golang的人。如果您发现任何错误或改进的地方，我们也欢迎您的反馈。
+欢迎来到 Golang 高级教程系列。本系列教程内容详尽，我们尽量用示例覆盖所有概念。本教程适合那些希望深入理解和掌握 Golang 的人。如果您发现任何错误或改进的地方，我们也欢迎您的反馈。
 
-这是Golang官方网站的链接供参考 [https://golang.org/](https://golang.org/)
+这是 Golang 官方网站的链接供参考 [`golang.org/`](https://golang.org/)
 
 本教程分为四个部分
 
-+   Golang基础主题
++   Golang 基础主题
 
-+   Golang高级主题
++   Golang 高级主题
 
-+   所有Golang设计模式
++   所有 Golang 设计模式
 
-+   Golang中的数据结构
++   Golang 中的数据结构
 
-## **Golang基础教程**
+## **Golang 基础教程**
 
-让我们先看看Go中的一些基础主题
+让我们先看看 Go 中的一些基础主题
 
 ### **关于**
 
-+   第一章 – [关于Golang](https://golangbyexample.com/about-golang/)
++   第一章 – [关于 Golang](https://golangbyexample.com/about-golang/)
 
-+   第二章 – [GO安装](https://golangbyexample.com/golang-installation/)
++   第二章 – [GO 安装](https://golangbyexample.com/golang-installation/)
 
-+   第三章 – [设置Go工作空间和Hello World程序](https://golangbyexample.com/workspace-hello-world-golang)
++   第三章 – [设置 Go 工作空间和 Hello World 程序](https://golangbyexample.com/workspace-hello-world-golang)
 
 ### **基础**
 
-+   第四章 – [包和模块 – 第1部分](https://golangbyexample.com/packages-modules-go-first)
++   第四章 – [包和模块 – 第一部分](https://golangbyexample.com/packages-modules-go-first)
 
-+   第五章 – [包和模块 – 第2部分](https://golangbyexample.com/packages-modules-go-second/)
++   第五章 – [包和模块 – 第二部分](https://golangbyexample.com/packages-modules-go-second/)
 
 +   第六章 – [变量](https://golangbyexample.com/variables-in-golang-complete-guide/)
 
@@ -86,59 +86,59 @@
 
 ### **循环/迭代/流程控制**
 
-+   第十章 – [for循环](https://golangbyexample.com/for-loop-in-golang/)
++   第十章 – [for 循环](https://golangbyexample.com/for-loop-in-golang/)
 
 +   第十一章 – [范围循环](https://golangbyexample.com/understand-for-range-loop-golang/)
 
-+   第12章 – [如果否则](https://golangbyexample.com/understand-if-else-statement-golang/)
++   第十二章 – [如果否则](https://golangbyexample.com/understand-if-else-statement-golang/)
 
-+   第13章 – [选择语句](https://golangbyexample.com/switch-statement-golang/)
++   第十三章 – [选择语句](https://golangbyexample.com/switch-statement-golang/)
 
-+   第14章 – [延迟关键字](https://golangbyexample.com/defer-golang)
++   第十四章 – [延迟关键字](https://golangbyexample.com/defer-golang)
 
 ### **更多类型**
 
-+   第15章 – [指针](https://golangbyexample.com/pointer-golang/)
++   第十五章 – [指针](https://golangbyexample.com/pointer-golang/)
 
-+   第16章 – [结构体](https://golangbyexample.com/struct-in-golang-complete-guide/)
++   第十六章 – [结构体](https://golangbyexample.com/struct-in-golang-complete-guide/)
 
-+   第17章 – [数组](https://golangbyexample.com/understanding-array-golang-complete-guid)
++   第十七章 – [数组](https://golangbyexample.com/understanding-array-golang-complete-guid)
 
-+   第18章 – [切片](https://golangbyexample.com/slice-in-golang/)
++   第十八章 – [切片](https://golangbyexample.com/slice-in-golang/)
 
-+   第19章 – [映射](https://golangbyexample.com/maps-in-golang)
++   第十九章 – [映射](https://golangbyexample.com/maps-in-golang)
 
-+   第20章 – [方法](https://golangbyexample.com/method-in-golang/)
++   第二十章 – [方法](https://golangbyexample.com/method-in-golang/)
 
-+   第21章 – [接口](https://golangbyexample.com/interface-in-golang/)
++   第二十一章 – [接口](https://golangbyexample.com/interface-in-golang/)
 
-+   第22章 – [Iota](https://golangbyexample.com/iota-in-golang)
++   第二十二章 – [Iota](https://golangbyexample.com/iota-in-golang)
 
 ### **并发**
 
-+   第23章 – [协程](https://golangbyexample.com/goroutines-golang/)
++   第二十三章 – [协程](https://golangbyexample.com/goroutines-golang/)
 
-+   第24章 – [通道](https://golangbyexample.com/channel-golang/)
++   第二十四章 – [通道](https://golangbyexample.com/channel-golang/)
 
-+   第25章 – [选择语句](https://golangbyexample.com/select-statement-golang/)
++   第二十五章 – [选择语句](https://golangbyexample.com/select-statement-golang/)
 
 ### **错误处理**
 
-+   第26章 – [错误](https://golangbyexample.com/error-in-golang/)
++   第二十六章 – [错误](https://golangbyexample.com/error-in-golang/)
 
-+   第27章 – [错误 - 第二部分](https://golangbyexample.com/error-in-golang-advanced/)
++   第二十七章 – [错误 - 第二部分](https://golangbyexample.com/error-in-golang-advanced/)
 
-+   第28章 – [恐慌和恢复](https://golangbyexample.com/panic-and-recover-golang/)
++   第二十八章 – [恐慌和恢复](https://golangbyexample.com/panic-and-recover-golang/)
 
-## **Golang高级教程**
+## **Golang 高级教程**
 
-现在我们来深入探讨一些Go中的高级主题。
+现在我们来深入探讨一些 Go 中的高级主题。
 
-### **Golang中的面向对象编程**
+### **Golang 中的面向对象编程**
 
-+   [OOP：GOLANG中的继承完整指南](https://golangbyexample.com/oop-inheritance-golang-complete/)
++   [OOP：GOLANG 中的继承完整指南](https://golangbyexample.com/oop-inheritance-golang-complete/)
 
-+   [Golang中的封装](https://golangbyexample.com/encapsulation-in-go/)
++   [Golang 中的封装](https://golangbyexample.com/encapsulation-in-go/)
 
 +   [运行时多态性](https://golangbyexample.com/runtime-polymorphism-go/)
 
@@ -146,19 +146,19 @@
 
 ### **其他**
 
-+   [理解Go中的时间和日期](https://golangbyexample.com/all-about-time-and-date-golang/)
++   [理解 Go 中的时间和日期](https://golangbyexample.com/all-about-time-and-date-golang/)
 
-+   [在GO中使用上下文包的完整指南](https://golangbyexample.com/using-context-in-golang-complete-guide/)
++   [在 GO 中使用上下文包的完整指南](https://golangbyexample.com/using-context-in-golang-complete-guide/)
 
-+   [Go中的Goto语句](https://golangbyexample.com/goto-statement-go/)
++   [Go 中的 Goto 语句](https://golangbyexample.com/goto-statement-go/)
 
-+   [更多关于uintptr的信息](https://golangbyexample.com/understanding-uintptr-golang)
++   [更多关于 uintptr 的信息](https://golangbyexample.com/understanding-uintptr-golang)
 
-+   [基本HTTP服务器实现](https://golangbyexample.com/basic-http-server-go/)
++   [基本 HTTP 服务器实现](https://golangbyexample.com/basic-http-server-go/)
 
-## **Golang中的所有设计模式**
+## **Golang 中的所有设计模式**
 
-以下是Go中的所有设计模式列表
+以下是 Go 中的所有设计模式列表
 
 ### **创建型设计模式**
 
@@ -212,7 +212,7 @@
 
 +   [代理](https://golangbyexample.com/proxy-design-pattern-in-golang/)
 
-## **Golang中的数据结构**
+## **Golang 中的数据结构**
 
 +   [队列](https://golangbyexample.com/queue-in-golang/)
 

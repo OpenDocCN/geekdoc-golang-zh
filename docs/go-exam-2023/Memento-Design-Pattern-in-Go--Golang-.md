@@ -6,19 +6,19 @@
 
 -->
 
-# Go语言中的备忘录设计模式（Memento Design Pattern in Go (Golang)）
+# Go 语言中的备忘录设计模式（Memento Design Pattern in Go (Golang)）
 
-> 来源：[https://golangbyexample.com/memento-design-pattern-go/](https://golangbyexample.com/memento-design-pattern-go/)
+> 来源：[`golangbyexample.com/memento-design-pattern-go/`](https://golangbyexample.com/memento-design-pattern-go/)
 
-注意：如有兴趣了解其他设计模式在Go中的实现，请查看此完整参考 – [Go语言中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
+注意：如有兴趣了解其他设计模式在 Go 中的实现，请查看此完整参考 – [Go 语言中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**[介绍：](#Introduction "Introduction:")
+**介绍：
 
-+   [实际例子：](#Practical_Example "Practical Example:")
++   实际例子：
 
-+   [完整工作代码：](#Full_Working_Code "Full Working Code:")*  *# **介绍：**
++   完整工作代码：*  *# **介绍：**
 
 备忘录设计模式是一种行为设计模式。它允许我们为对象保存检查点，从而使对象能够恢复到之前的状态。基本上，它有助于对象的撤销-重做操作。以下是备忘录设计模式的设计组件。
 
@@ -77,7 +77,7 @@ func (m *memento) getSavedState() string {
 
 **caretaker.go**
 
-注意，照管者包含了mementoArray，它保存了所有备忘录。
+注意，照管者包含了 mementoArray，它保存了所有备忘录。
 
 ```go
 package main

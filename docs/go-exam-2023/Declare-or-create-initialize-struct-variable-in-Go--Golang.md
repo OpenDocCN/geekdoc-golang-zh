@@ -8,15 +8,15 @@
 
 # 在 Go（Golang）中声明或创建/初始化结构变量
 
-> 来源：[https://golangbyexample.com/declare-initialize-struct-variable-golang/](https://golangbyexample.com/declare-initialize-struct-variable-golang/)
+> 来源：[`golangbyexample.com/declare-initialize-struct-variable-golang/`](https://golangbyexample.com/declare-initialize-struct-variable-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [声明一个结构类型](#Declaring_a_struct_type "声明一个结构类型")
++   声明一个结构类型
 
-+   [创建一个结构变量](#Creating_a_struct_variable "创建一个结构变量")*  *# **概述**
++   创建一个结构变量*  *# **概述**
 
 GO 结构是不同类型数据字段的命名集合。结构充当容器，具有不同的异构数据类型，共同表示一个实体。
 

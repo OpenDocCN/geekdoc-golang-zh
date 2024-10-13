@@ -8,15 +8,15 @@
 
 # Golang 正则表达式: Go（Golang）中的大小写不敏感正则表达式匹配
 
-> 来源：[https://golangbyexample.com/case-insensitive-regex-golang/](https://golangbyexample.com/case-insensitive-regex-golang/)
+> 来源：[`golangbyexample.com/case-insensitive-regex-golang/`](https://golangbyexample.com/case-insensitive-regex-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-在golang中，正则表达式匹配的默认行为是大小写敏感的。但通过在正则表达式开头添加一组标志，可以更改默认行为。我们需要在正则表达式开头添加的标志是：
+在 golang 中，正则表达式匹配的默认行为是大小写敏感的。但通过在正则表达式开头添加一组标志，可以更改默认行为。我们需要在正则表达式开头添加的标志是：
 
 ```go
 (?i)
@@ -112,8 +112,8 @@ abc
 
 从输出中我们可以注意到，它对文本**“abc”**给出了正确匹配，但对文本**“ABC”**没有匹配。
 
-这就是关于golang中大小写不敏感正则表达式匹配的全部内容。希望你喜欢这篇文章。
+这就是关于 golang 中大小写不敏感正则表达式匹配的全部内容。希望你喜欢这篇文章。
 
-请在评论中分享反馈。此外，查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+请在评论中分享反馈。此外，查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

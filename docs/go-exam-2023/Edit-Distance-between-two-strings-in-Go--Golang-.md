@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go语言中计算两个字符串之间的编辑距离（Golang）。
+# 在 Go 语言中计算两个字符串之间的编辑距离（Golang）。
 
-> 来源：[https://golangbyexample.com/edit-distance-two-strings-golang/](https://golangbyexample.com/edit-distance-two-strings-golang/)
+> 来源：[`golangbyexample.com/edit-distance-two-strings-golang/`](https://golangbyexample.com/edit-distance-two-strings-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")**
+**   概述**
 
-+   [递归解决方案](#Recursive_Solution "递归解决方案")
++   递归解决方案
 
-+   [动态规划解决方案](#Dynamic_Programming_Solution "动态规划解决方案")*  *## **概述**
++   动态规划解决方案*  *## **概述**
 
 给定两个字符串，找出将一个字符串转换为另一个字符串所需的最小操作次数。可以通过执行以下三种操作将一个字符串转换为另一个字符串：
 
@@ -72,7 +72,7 @@ Output: 2
 
 一些基本情况。假设第一个字符串的长度为**m**，第二个字符串的长度为**n**。
 
-+   如果第一个字符串和第二个字符串的长度均为零，则输出为0。
++   如果第一个字符串和第二个字符串的长度均为零，则输出为 0。
 
 +   如果只有第一个字符串为空，则输出为第二个字符串的长度。
 
@@ -236,6 +236,6 @@ func minOfThree(x, y, z int) int {
 2
 ```
 
-**注意：** 请查看我们的Go语言高级教程。本系列的教程内容详尽，我们试图通过示例覆盖所有概念。本教程适合那些希望获得专业知识和对Go语言有深入理解的人 - [Go语言高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Go 语言高级教程。本系列的教程内容详尽，我们试图通过示例覆盖所有概念。本教程适合那些希望获得专业知识和对 Go 语言有深入理解的人 - [Go 语言高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)*
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)*

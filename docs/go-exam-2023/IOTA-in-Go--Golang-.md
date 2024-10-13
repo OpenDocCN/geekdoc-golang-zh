@@ -6,11 +6,11 @@
 
 -->
 
-# Go中的IOTA（Golang）
+# Go 中的 IOTA（Golang）
 
-> 来源：[https://golangbyexample.com/iota-in-golang/](https://golangbyexample.com/iota-in-golang/)
+> 来源：[`golangbyexample.com/iota-in-golang/`](https://golangbyexample.com/iota-in-golang/)
 
-这是Golang综合教程系列的第22章。请参考此链接以获取该系列的其他章节– [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 Golang 综合教程系列的第二十二章。请参考此链接以获取该系列的其他章节– [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程**– [Goroutines](https://golangbyexample.com/goroutines-golang/)
 
@@ -20,17 +20,17 @@
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [更多关于IOTA的信息](#More_about_IOTA "More about IOTA")
++   更多关于 IOTA 的信息
 
-+   [Golang中的枚举](#Enum_in_Golang "Enum in Golang")
++   Golang 中的枚举
 
-+   [结论](#Conclusion "Conclusion")*  *# **概述**
++   结论*  *# **概述**
 
-Iota是一个标识符，用于常量，能够简化使用自动递增数字的常量定义。**IOTA**关键字表示从零开始的整数常量。因此，它可以用于在Go中创建有效的常量。它们还可以用于在Go中创建枚举，正如我们在本教程后面将看到的那样。
+Iota 是一个标识符，用于常量，能够简化使用自动递增数字的常量定义。**IOTA**关键字表示从零开始的整数常量。因此，它可以用于在 Go 中创建有效的常量。它们还可以用于在 Go 中创建枚举，正如我们在本教程后面将看到的那样。
 
-没有IOTA的自动递增常量。
+没有 IOTA 的自动递增常量。
 
 ```go
 const (
@@ -40,7 +40,7 @@ const (
 )
 ```
 
-带IOTA的自动递增常量。
+带 IOTA 的自动递增常量。
 
 ```go
 const (
@@ -58,15 +58,15 @@ b=1
 c=2
 ```
 
-所以IOTA是。
+所以 IOTA 是。
 
 +   一个从零开始的计数器。
 
-+   每行增加1。
++   每行增加 1。
 
 +   仅用于常量。
 
-IOTA从零开始，每行增加1，但也有一些注意事项。首先，让我们看一个简单的例子，其中iota从零开始并在每一行后递增1。
+IOTA 从零开始，每行增加 1，但也有一些注意事项。首先，让我们看一个简单的例子，其中 iota 从零开始并在每一行后递增 1。
 
 ```go
 package main
@@ -93,13 +93,13 @@ func main() {
 2
 ```
 
-Iota将**a**的值设置为零。然后在每一行上递增该值1。因此，输出为0，接着是1，再接着是2。
+Iota 将**a**的值设置为零。然后在每一行上递增该值 1。因此，输出为 0，接着是 1，再接着是 2。
 
-# **更多关于IOTA的信息**
+# **更多关于 IOTA 的信息**
 
-让我们看看与iota相关的其他几点。
+让我们看看与 iota 相关的其他几点。
 
-+   iota关键字也可以在每一行上使用。在这种情况下，iota将从零开始并在每一行递增。这将与上述情况相同。
++   iota 关键字也可以在每一行上使用。在这种情况下，iota 将从零开始并在每一行递增。这将与上述情况相同。
 
 ```go
 const (
@@ -117,7 +117,7 @@ const (
 2
 ```
 
-+   iota关键字也可以跳过。在这种情况下，iota将从零开始并在每一行递增。这与上述两种情况相同。
++   iota 关键字也可以跳过。在这种情况下，iota 将从零开始并在每一行递增。这与上述两种情况相同。
 
 ```go
 const (
@@ -155,7 +155,7 @@ const (
 2
 ```
 
-+   如果再次使用const关键字，iota值将重置并重新从零开始。
++   如果再次使用 const 关键字，iota 值将重置并重新从零开始。
 
 ```go
 const (
@@ -175,7 +175,7 @@ const (
 0
 ```
 
-+   可以使用空标识符跳过iota递增。
++   可以使用空标识符跳过 iota 递增。
 
 ```go
 const (
@@ -194,7 +194,7 @@ const (
 3
 ```
 
-+   iota表达式–iota允许表达式，可以用于为常量设置任何值。
++   iota 表达式–iota 允许表达式，可以用于为常量设置任何值。
 
 ```go
 package main
@@ -222,13 +222,13 @@ func main() {
 8
 ```
 
-第一次的iota值是零，因此输出为零。
+第一次的 iota 值是零，因此输出为零。
 
-下一行的iota值为1，因此输出为1+4=5。
+下一行的 iota 值为 1，因此输出为 1+4=5。
 
-下一行，iota值为2，因此输出为2*4=8。
+下一行，iota 值为 2，因此输出为 2*4=8。
 
-+   iota也可以从非零数字开始，iota表达式也可以用于从任何数字开始iota。
++   iota 也可以从非零数字开始，iota 表达式也可以用于从任何数字开始 iota。
 
 ```go
 const (
@@ -246,9 +246,9 @@ const (
 12
 ```
 
-# **Golang中的枚举**
+# **Golang 中的枚举**
 
-**IOTA**提供了一种自动创建Golang中的枚举的方法。让我们看看一个例子。
+**IOTA**提供了一种自动创建 Golang 中的枚举的方法。让我们看看一个例子。
 
 ```go
 package main

@@ -8,17 +8,17 @@
 
 # 在 Go (Golang) 中生成一个随机字符
 
-> 来源：[https://golangbyexample.com/generate-random-character-golang/](https://golangbyexample.com/generate-random-character-golang/)
+> 来源：[`golangbyexample.com/generate-random-character-golang/`](https://golangbyexample.com/generate-random-character-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# 概述
++   代码*  *# 概述
 
 golang 的 **‘mat/rand’** 包包含一个 **Intn** 函数，可以用来生成一个在 [0,n) 之间的随机数。末尾的括号意味着 n 是不包含的。
 
-要了解更多关于伪随机数的含义，请查看这篇文章 – [https://golangbyexample.com/generate-random-number-golang](https://golangbyexample.com/generate-random-number-golang)
+要了解更多关于伪随机数的含义，请查看这篇文章 – [`golangbyexample.com/generate-random-number-golang`](https://golangbyexample.com/generate-random-number-golang)
 
 以下是此方法的签名。它接收一个数字 n，并将返回一个范围在 0 <= x < n 的数字。
 

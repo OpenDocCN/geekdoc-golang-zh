@@ -8,9 +8,9 @@
 
 # Go 语言中的指针
 
-> 来源：[https://golangbyexample.com/pointer-golang/](https://golangbyexample.com/pointer-golang/)
+> 来源：[`golangbyexample.com/pointer-golang/`](https://golangbyexample.com/pointer-golang/)
 
-这是 Go 语言综合教程系列的第 15 章。有关该系列其他章节，请参阅此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 Go 语言综合教程系列的第十五章。有关该系列其他章节，请参阅此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一教程** – [结构体](https://golangbyexample.com/struct-in-golang-complete-guide/)
 
@@ -20,25 +20,25 @@
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [指针的声明](#Declaration_of_a_Pointer "Declaration of a Pointer")
++   指针的声明
 
-+   [指针的初始化](#Initialization_of_a_Pointer "Initialization of a Pointer")
++   指针的初始化
 
-    +   [使用 new 运算符](#Using_the_new_operator "Using the new operator")
+    +   使用 new 运算符
 
-    +   [使用符号 ‘&’ 运算符](#Using_the_ambersand_operator "Using the ambersand ‘&’ operator")
+    +   使用符号 ‘&’ 运算符
 
-+   [关于 * 或解引用指针](#About_or_dereferencing_pointer "About * or dereferencing pointer")
++   关于 * 或解引用指针
 
-+   [指向指针的指针](#Pointer_to_a_Pointer "Pointer to a Pointer")
++   指向指针的指针
 
-+   [指针算术](#Pointer_Arithmetic "Pointer Arithmetic")
++   指针算术
 
-+   [指针的默认零值](#Default_Zero_Value_of_Pointer "Default Zero Value of Pointer")
++   指针的默认零值
 
-+   [结论](#Conclusion "Conclusion")*  *# **概述**
++   结论*  *# **概述**
 
 指针是一个变量，它保存另一个变量的内存地址。
 
@@ -186,7 +186,7 @@ b := &a
 c := &b
 ```
 
-**c**在这里是一个指向指针的指针。它存储**b**的地址，而**b**又存储**a**的地址。使用*****运算符进行双重解引用可以打印指向指针的值。因此，****c**将打印值2
+**c**在这里是一个指向指针的指针。它存储**b**的地址，而**b**又存储**a**的地址。使用*****运算符进行双重解引用可以打印指向指针的值。因此，****c**将打印值 2
 
 以下图示描绘了指向指针的指针。
 
@@ -255,7 +255,7 @@ b: 824633778216
 
 从输出可以清楚地看到
 
-以下是与变量a的值相等且等同于2
+以下是与变量 a 的值相等且等同于 2
 
 +   a
 
@@ -265,7 +265,7 @@ b: 824633778216
 
 +   **c
 
-**以下是与变量b的值相等且等同于a的地址**
+**以下是与变量 b 的值相等且等同于 a 的地址**
 
 ***   &a
 
@@ -277,7 +277,7 @@ b: 824633778216
 
 +   *c
 
-****以下是与变量c的值相等且等同于b的地址****
+****以下是与变量 c 的值相等且等同于 b 的地址****
 
 *****   b
 
@@ -285,7 +285,7 @@ b: 824633778216
 
 # **指针算术**
 
-在golang中，指针算术是不可能的，这与C语言不同。这会引发编译错误。
+在 golang 中，指针算术是不可能的，这与 C 语言不同。这会引发编译错误。
 
 ```go
 package main
@@ -306,7 +306,7 @@ invalid operation: b + 1 (mismatched types *int and int)
 
 # **指针的默认零值**
 
-指针的默认零值是nil。让我们来看一个示例程序
+指针的默认零值是 nil。让我们来看一个示例程序
 
 ```go
 package main
@@ -328,10 +328,10 @@ Default value of pointer:
 
 # **结论**
 
-这就是golang中的指针。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误
+这就是 golang 中的指针。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误
 
 **下一教程** – [结构体](https://golangbyexample.com/struct-in-golang-complete-guide/)
 
-**上一篇教程** – [defer关键字](https://golangbyexample.com/defer-golang)
+**上一篇教程** – [defer 关键字](https://golangbyexample.com/defer-golang)
 
 +   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *******

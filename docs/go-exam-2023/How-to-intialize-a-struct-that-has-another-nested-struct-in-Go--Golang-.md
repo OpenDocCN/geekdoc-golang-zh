@@ -6,15 +6,15 @@
 
 -->
 
-# 如何在Go（Golang）中初始化一个包含嵌套结构体的结构体
+# 如何在 Go（Golang）中初始化一个包含嵌套结构体的结构体
 
-> 来源：[https://golangbyexample.com/struct-init-nested-struct-go/](https://golangbyexample.com/struct-init-nested-struct-go/)
+> 来源：[`golangbyexample.com/struct-init-nested-struct-go/`](https://golangbyexample.com/struct-init-nested-struct-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 一个结构体可以嵌套另一个结构体。让我们来看一个嵌套结构体的示例。在下面的示例中，**员工**结构体嵌套了**地址**结构体。
 

@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go（Golang）中计算字符串中子字符串的实例
+# 在 Go（Golang）中计算字符串中子字符串的实例
 
-> 来源：[https://golangbyexample.com/instances-substring-string-go/](https://golangbyexample.com/instances-substring-string-go/)
+> 来源：[`golangbyexample.com/instances-substring-string-go/`](https://golangbyexample.com/instances-substring-string-go/)
 
 目录
 
-**   [概述](#Overview "概述")**
+**   概述**
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
-在GO中，字符串采用UTF-8编码。GO的**strings**包提供了一个**Count**方法，可以用来获取特定字符串中非重叠子字符串的数量。
+在 GO 中，字符串采用 UTF-8 编码。GO 的**strings**包提供了一个**Count**方法，可以用来获取特定字符串中非重叠子字符串的数量。
 
 以下是该函数的签名
 
@@ -24,7 +24,7 @@
 func Count(s, substr string) int
 ```
 
-另外请注意，如果传递给函数的**substr**是一个空字符串，则返回值将为1加上给定字符串中的Unicode字符点数。
+另外请注意，如果传递给函数的**substr**是一个空字符串，则返回值将为 1 加上给定字符串中的 Unicode 字符点数。
 
 让我们看一下工作代码
 

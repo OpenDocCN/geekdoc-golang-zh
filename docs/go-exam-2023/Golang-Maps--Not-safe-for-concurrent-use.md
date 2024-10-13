@@ -6,11 +6,11 @@
 
 -->
 
-# Golang映射：不安全用于并发使用
+# Golang 映射：不安全用于并发使用
 
-> 来源：[https://golangbyexample.com/go-maps-concurrency/](https://golangbyexample.com/go-maps-concurrency/)
+> 来源：[`golangbyexample.com/go-maps-concurrency/`](https://golangbyexample.com/go-maps-concurrency/)
 
-如果你是一名Golang网页应用开发者，你可能会遇到将一些数据存储在内存中的用例，以便频繁访问。如果是这种情况，你需要小心，因为Golang映射在并发使用时并不安全。
+如果你是一名 Golang 网页应用开发者，你可能会遇到将一些数据存储在内存中的用例，以便频繁访问。如果是这种情况，你需要小心，因为 Golang 映射在并发使用时并不安全。
 
 **有缺陷的代码：** 以下是有缺陷的代码。如果发生映射的并发读写，可能会导致崩溃。
 

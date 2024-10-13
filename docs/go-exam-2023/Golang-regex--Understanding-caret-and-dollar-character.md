@@ -6,17 +6,17 @@
 
 -->
 
-# Golang正则表达式：理解插入符号和美元字符
+# Golang 正则表达式：理解插入符号和美元字符
 
-> 来源：[https://golangbyexample.com/golang-regex-understanding-caret-and-dollar-character/](https://golangbyexample.com/golang-regex-understanding-caret-and-dollar-character/)
+> 来源：[`golangbyexample.com/golang-regex-understanding-caret-and-dollar-character/`](https://golangbyexample.com/golang-regex-understanding-caret-and-dollar-character/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-**插入符号字符‘^’** 和 **美元字符‘$’** 是在golang中使用的元字符。元字符是指在正则表达式中具有特殊意义的字符。下面是golang中插入符号字符和美元字符的简要介绍。
+**插入符号字符‘^’** 和 **美元字符‘$’** 是在 golang 中使用的元字符。元字符是指在正则表达式中具有特殊意义的字符。下面是 golang 中插入符号字符和美元字符的简要介绍。
 
 +   **插入符号字符‘^’ –** 它是一个锚字符，通常用在正则表达式的开头，以确保给定的输入字符串从开头与正则表达式匹配。它匹配输入字符串的开头
 

@@ -8,13 +8,13 @@
 
 # 在 Go（Golang）中删除链表的中间节点
 
-> 来源：[https://golangbyexample.com/delete-middle-node-linked-list-golang/](https://golangbyexample.com/delete-middle-node-linked-list-golang/)
+> 来源：[`golangbyexample.com/delete-middle-node-linked-list-golang/`](https://golangbyexample.com/delete-middle-node-linked-list-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是删除链表的中间节点。如果 x 是链表的大小，则中间节点是
 

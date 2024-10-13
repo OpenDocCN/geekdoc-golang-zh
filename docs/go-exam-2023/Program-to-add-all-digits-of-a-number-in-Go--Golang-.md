@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中添加数字的所有数字的程序
 
-> 来源：[https://golangbyexample.com/add-all-digits-number-golang/](https://golangbyexample.com/add-all-digits-number-golang/)
+> 来源：[`golangbyexample.com/add-all-digits-number-golang/`](https://golangbyexample.com/add-all-digits-number-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是反复相加一个数字的所有数字，直到结果仅为一个单一数字。
 

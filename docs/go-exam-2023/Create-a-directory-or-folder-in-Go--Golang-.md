@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中创建目录或文件夹
 
-> 来源：[https://golangbyexample.com/create-directory-folder-golang/](https://golangbyexample.com/create-directory-folder-golang/)
+> 来源：[`golangbyexample.com/create-directory-folder-golang/`](https://golangbyexample.com/create-directory-folder-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
 **os.Mkdir()** 函数可以用于在 Go 中创建目录或文件夹。
 

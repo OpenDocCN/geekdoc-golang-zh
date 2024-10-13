@@ -8,23 +8,23 @@
 
 # Go (Golang)中的布尔常量
 
-> 来源：[https://golangbyexample.com/boolean-constant-go/](https://golangbyexample.com/boolean-constant-go/)
+> 来源：[`golangbyexample.com/boolean-constant-go/`](https://golangbyexample.com/boolean-constant-go/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [示例](#Example "Example")
++   示例
 
-    +   [类型布尔常量](#Typed_boolean_constant "Typed boolean constant")
+    +   类型布尔常量
 
-    +   [未类型命名布尔常量](#Untyped_named_boolean_constant "Untyped named boolean constant")
+    +   未类型命名布尔常量
 
-    +   [未类型未命名布尔常量](#Untyped_unnamed_boolean_constant "Untyped unnamed boolean constant") *  *# **概述**
+    +   未类型未命名布尔常量 *  *# **概述**
 
 有两个未类型的布尔常量**true**和**false**。下面是一个说明布尔常量的程序。
 
-为了更好地理解Golang中的布尔常量，了解Go中的类型和未类型常量是很重要的。请参考这篇文章 – [https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)/
+为了更好地理解 Golang 中的布尔常量，了解 Go 中的类型和未类型常量是很重要的。请参考这篇文章 – [`golangbyexample.com/typed-untyped-constant-golang`](https://golangbyexample.com/typed-untyped-constant-golang)/
 
 一旦你读完这篇文章，你就会明白常量可以以三种方式声明。
 

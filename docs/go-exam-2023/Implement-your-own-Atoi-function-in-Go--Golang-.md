@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中实现你自己的 Atoi 函数
 
-> 来源：[https://golangbyexample.com/implement-your-own-atoi-function-golang/](https://golangbyexample.com/implement-your-own-atoi-function-golang/)
+> 来源：[`golangbyexample.com/implement-your-own-atoi-function-golang/`](https://golangbyexample.com/implement-your-own-atoi-function-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 **Atoi** 函数将给定字符串转换为其数字表示。例如
 

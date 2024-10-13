@@ -8,15 +8,15 @@
 
 # Go（Golang）中的直方图最大矩形面积
 
-> 来源：[https://golangbyexample.com/largest-rectangular-area-histogram-go/](https://golangbyexample.com/largest-rectangular-area-histogram-go/)
+> 来源：[`golangbyexample.com/largest-rectangular-area-histogram-go/`](https://golangbyexample.com/largest-rectangular-area-histogram-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-有一组每个宽度为1单位但高度不同的柱子并排放置。柱子的高度用数组表示
+有一组每个宽度为 1 单位但高度不同的柱子并排放置。柱子的高度用数组表示
 
 ```go
 [2, 0 , 2, 1, 3, 1]
@@ -24,21 +24,21 @@
 
 数组表示如下
 
-+   柱子的总数为5
++   柱子的总数为 5
 
-+   第一根柱子的高度为2
++   第一根柱子的高度为 2
 
-+   第二根柱子的高度为0
++   第二根柱子的高度为 0
 
-+   第三根柱子的高度为2
++   第三根柱子的高度为 2
 
-+   第四根柱子的高度为1
++   第四根柱子的高度为 1
 
-+   第五根柱子的高度为3
++   第五根柱子的高度为 3
 
-+   第六根柱子的高度为1
++   第六根柱子的高度为 1
 
-目标是在直方图中找到最大的矩形面积。从图中可以看出，最大矩形面积为4。
+目标是在直方图中找到最大的矩形面积。从图中可以看出，最大矩形面积为 4。
 
 ![](img/4ccccd1ceb90e3a1ef0bbed77118cc2a.png)
 
@@ -161,8 +161,8 @@ func main() {
 4
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列的教程详尽，我们尽量用示例涵盖所有概念。本教程适合那些希望获得专业知识并深入理解Golang的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列的教程详尽，我们尽量用示例涵盖所有概念。本教程适合那些希望获得专业知识并深入理解 Golang 的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章适合你 –[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是，那么这篇文章适合你 –[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

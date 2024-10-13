@@ -6,15 +6,15 @@
 
 -->
 
-# 字符串或数组在Go（Golang）中的不同或唯一排列
+# 字符串或数组在 Go（Golang）中的不同或唯一排列
 
-> 来源：[https://golangbyexample.com/unique-permutations-golang/](https://golangbyexample.com/unique-permutations-golang/)
+> 来源：[`golangbyexample.com/unique-permutations-golang/`](https://golangbyexample.com/unique-permutations-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个可以包含重复元素的整数数组，仅查找所有不同的排列。
 
@@ -89,8 +89,8 @@ func main() {
 [[2 2 1 1] [2 1 2 1] [2 1 1 2] [2 1 1 2] [2 1 2 1] [1 2 2 1] [1 2 1 2] [1 1 2 2] [1 2 1 2] [1 2 2 1] [1 1 2 2]]
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列教程内容详尽，我们尽量用示例覆盖所有概念。此教程适合希望获得Golang专业知识和深入理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽量用示例覆盖所有概念。此教程适合希望获得 Golang 专业知识和深入理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

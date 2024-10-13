@@ -6,21 +6,21 @@
 
 -->
 
-# Go语言中的二叉树高度或最大深度
+# Go 语言中的二叉树高度或最大深度
 
-> 来源：[https://golangbyexample.com/height-binary-tree-golang/](https://golangbyexample.com/height-binary-tree-golang/)
+> 来源：[`golangbyexample.com/height-binary-tree-golang/`](https://golangbyexample.com/height-binary-tree-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是获取二叉树的高度。例如，假设我们有下面的二叉树
 
 ![](img/9a9347838908483552b24df3dc54cd38.png)
 
-那么这里二叉树的高度是3。
+那么这里二叉树的高度是 3。
 
 ## **程序**
 
@@ -77,8 +77,8 @@ func main() {
 3
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程详尽，我们尝试涵盖所有概念及示例。本教程适合希望获得专业知识和对golang有扎实理解的读者 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程详尽，我们尝试涵盖所有概念及示例。本教程适合希望获得专业知识和对 golang 有扎实理解的读者 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你对了解如何在Golang中实现所有设计模式感兴趣。如果是的话，这篇文章适合你 –[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你对了解如何在 Golang 中实现所有设计模式感兴趣。如果是的话，这篇文章适合你 –[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

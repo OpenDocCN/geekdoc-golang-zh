@@ -8,13 +8,13 @@
 
 # Go (Golang) 中的帕斯卡三角形程序
 
-> 来源：[https://golangbyexample.com/program-pascal-triangle-golang/](https://golangbyexample.com/program-pascal-triangle-golang/)
+> 来源：[`golangbyexample.com/program-pascal-triangle-golang/`](https://golangbyexample.com/program-pascal-triangle-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是打印 n 行帕斯卡三角形。数字 n 作为输入提供给程序
 
@@ -32,7 +32,7 @@ Input: numRows = 5
 Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
 ```
 
-请参考此链接以了解更多关于帕斯卡三角形的信息 - [https://en.wikipedia.org/wiki/Pascal%27s_triangle](https://en.wikipedia.org/wiki/Pascal%27s_triangle)
+请参考此链接以了解更多关于帕斯卡三角形的信息 - [`en.wikipedia.org/wiki/Pascal%27s_triangle`](https://en.wikipedia.org/wiki/Pascal%27s_triangle)
 
 这里的思路是使用动态规划。
 

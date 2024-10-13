@@ -8,7 +8,7 @@
 
 # 协议缓冲与 Go：入门指南
 
-> 来源：[https://golangbyexample.com/protocol-buffers-go/](https://golangbyexample.com/protocol-buffers-go/)
+> 来源：[`golangbyexample.com/protocol-buffers-go/`](https://golangbyexample.com/protocol-buffers-go/)
 
 在本教程中，我们将看到协议缓冲如何在 GO 语言中使用。
 
@@ -44,7 +44,7 @@ message Person {
 
 **安装：**
 
-+   首先安装协议缓冲的 C++ 实现。每个平台的安装方式各不相同。请参见此链接 – [https://github.com/protocolbuffers/protobuf/blob/master/src/README.md](https://github.com/protocolbuffers/protobuf/blob/master/src/README.md)
++   首先安装协议缓冲的 C++ 实现。每个平台的安装方式各不相同。请参见此链接 – [`github.com/protocolbuffers/protobuf/blob/master/src/README.md`](https://github.com/protocolbuffers/protobuf/blob/master/src/README.md)
 
 +   安装 Golang
 
@@ -151,7 +151,7 @@ type Person struct {
 
 +   **Person** 结构体还实现了一些方法，使其成为接口类型 **proto.Message。**
 
-基本上，这个自动生成的文件为Person结构体生成数据访问器，并提供允许将Person结构体类型与实际字节之间进行序列化/反序列化的方法。现在让我们编写一个main.go程序，实际创建**Person**结构体的具体对象。在这里，我们将看到协议缓冲区所提供的几个优势。以下程序还展示了Person结构体的读写操作。
+基本上，这个自动生成的文件为 Person 结构体生成数据访问器，并提供允许将 Person 结构体类型与实际字节之间进行序列化/反序列化的方法。现在让我们编写一个 main.go 程序，实际创建**Person**结构体的具体对象。在这里，我们将看到协议缓冲区所提供的几个优势。以下程序还展示了 Person 结构体的读写操作。
 
 **main.go**
 
@@ -195,7 +195,7 @@ func main() {
 }
 ```
 
-要运行此文件，首先使用“go get [github.com/golang/protobuf/prot](http://github.com/golang/protobuf/prot)o”安装protobuf/proto，然后使用命令“go run *.go”运行此文件。**输出：**
+要运行此文件，首先使用“go get [github.com/golang/protobuf/prot](http://github.com/golang/protobuf/prot)o”安装 protobuf/proto，然后使用命令“go run *.go”运行此文件。**输出：**
 
 ```go
 Person's name is XXX
@@ -208,22 +208,22 @@ Person2's name is XXX
 
 +   我们将一个具体的**person**结构体写入文件**“person.bin”。**这是一个二进制文件，不可读。
 
-+   我们也从文件中读取。能够成功读取并打印“**Person2的名字是XXX**”。
++   我们也从文件中读取。能够成功读取并打印“**Person2 的名字是 XXX**”。
 
-**“person.bin”文件**的惊人之处在于其仅有5个字节，而如果创建一个相同数据的JSON文件，其大小将超过15个字节。此外，从字节到具体对象及其反向操作的序列化和反序列化速度也非常快，相比之下，JSON文件的序列化和反序列化速度较慢。
+**“person.bin”文件**的惊人之处在于其仅有 5 个字节，而如果创建一个相同数据的 JSON 文件，其大小将超过 15 个字节。此外，从字节到具体对象及其反向操作的序列化和反序列化速度也非常快，相比之下，JSON 文件的序列化和反序列化速度较慢。
 
 现在我们提供了理论。让我们再一次列出使用协议缓冲区的优势。
 
-1.  相比于相应的JSON和XML，更加清晰且不含歧义，因为它们还存储了类型信息。
+1.  相比于相应的 JSON 和 XML，更加清晰且不含歧义，因为它们还存储了类型信息。
 
-1.  存储的数据相对较小，约小2-3倍。
+1.  存储的数据相对较小，约小 2-3 倍。
 
 1.  它快得多。例如，使用协议缓冲区的序列化和反序列化速度更快。
 
-1.  自动代码生成——你编写一个协议缓冲文件，系统会自动生成相应的GO文件。
+1.  自动代码生成——你编写一个协议缓冲文件，系统会自动生成相应的 GO 文件。
 
-1.  协议缓冲区用于GRPC，后者是REST协议的下一代替代品——请关注此处，我们将很快添加相关文章。
+1.  协议缓冲区用于 GRPC，后者是 REST 协议的下一代替代品——请关注此处，我们将很快添加相关文章。
 
-**结论：** 协议缓冲区提供的内容远不止我们在文章中讨论的。这为协议缓冲区是什么及其与JSON/XML格式相比的优势提供了快速概述。
+**结论：** 协议缓冲区提供的内容远不止我们在文章中讨论的。这为协议缓冲区是什么及其与 JSON/XML 格式相比的优势提供了快速概述。
 
 +   [buffer](https://golangbyexample.com/tag/buffer/) *   [go](https://golangbyexample.com/tag/go/) *   [grpc](https://golangbyexample.com/tag/grpc/) *   [protocol](https://golangbyexample.com/tag/protocol/) *   [protocolbuffer](https://golangbyexample.com/tag/protocolbuffer/)

@@ -8,17 +8,17 @@
 
 # 理解 Go（Golang）中的 go.sum 和 go.mod 文件。
 
-> 来源：[https://golangbyexample.com/go-mod-sum-module/](https://golangbyexample.com/go-mod-sum-module/)
+> 来源：[`golangbyexample.com/go-mod-sum-module/`](https://golangbyexample.com/go-mod-sum-module/)
 
 **注意：** 如果你有兴趣学习 Golang，那么我们有一个全面的 golang 教程系列。请查看一下 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。现在让我们看看当前的教程。下面是内容目录。
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")
++   示例
 
-+   [go.mod 文件中的间接依赖示例](#Example_of_indirect_dependency_in_gomod_file "go.mod 文件中的间接依赖示例") * # **概述**
++   go.mod 文件中的间接依赖示例 * # **概述**
 
 模块是 go 对依赖管理的支持。根据定义，模块是一个相关包的集合，其根目录下有 **go.mod** 文件。 **go.mod** 文件定义了该模块的
 
@@ -68,7 +68,7 @@ go 1.14
 module learn
 ```
 
-+   创建模块时使用的go版本
++   创建模块时使用的 go 版本
 
 ```go
 go 1.14
@@ -95,7 +95,7 @@ func main() {
 }
 ```
 
-请注意，我们在uuid.go中也导入了依赖项。
+请注意，我们在 uuid.go 中也导入了依赖项。
 
 ```go
 "github.com/pborman/uuid"
@@ -117,7 +117,7 @@ go 1.14
 require github.com/pborman/uuid v1.2.1
 ```
 
-它列出了在uuid文件中指定的直接依赖项及其确切版本。现在让我们检查一下**go.sum**文件。
+它列出了在 uuid 文件中指定的直接依赖项及其确切版本。现在让我们检查一下**go.sum**文件。
 
 执行`cat go.sum`
 
@@ -142,11 +142,11 @@ go run uuid.go
 e594dc4d9a754bcb83b56e89b18b4b46
 ```
 
-# **go.mod文件中的间接依赖示例**
+# **go.mod 文件中的间接依赖示例**
 
 我们在上面提到，**go.mod**文件在以下情况下可能包含间接依赖项。
 
-+   任何未在直接依赖项的**go.mod**文件中列出的间接依赖项，或者如果直接依赖项没有go.mod文件，那么该依赖项将以**//indirect**作为后缀添加到**go.mod**文件中。我们将在本文后面看到一个示例以更好地了解这一点。
++   任何未在直接依赖项的**go.mod**文件中列出的间接依赖项，或者如果直接依赖项没有 go.mod 文件，那么该依赖项将以**//indirect**作为后缀添加到**go.mod**文件中。我们将在本文后面看到一个示例以更好地了解这一点。
 
 让我们通过一个示例来理解。为此，我们先再次创建一个模块。
 
@@ -174,13 +174,13 @@ func main() {
 github.com/gocolly/colly
 ```
 
-因此，**github.com/gocolly/colly**是learn模块的直接依赖项，因为它在模块中被直接导入。现在让我们运行以下命令：
+因此，**github.com/gocolly/colly**是 learn 模块的直接依赖项，因为它在模块中被直接导入。现在让我们运行以下命令：
 
 ```go
 go mod tidy
 ```
 
-运行此命令后，让我们再次检查**go.mod**文件的内容。由于colly版本v1.2.0没有go.mod文件，colly所需的所有依赖项将以//indirect作为后缀添加到**go.mod**文件中。
+运行此命令后，让我们再次检查**go.mod**文件的内容。由于 colly 版本 v1.2.0 没有 go.mod 文件，colly 所需的所有依赖项将以//indirect 作为后缀添加到**go.mod**文件中。
 
 执行`cat go.mod`
 
@@ -203,6 +203,6 @@ require (
 )
 ```
 
-所有其他依赖项都以**//indirect**结尾。所有直接和间接依赖项的校验和将记录在go.sum文件中。
+所有其他依赖项都以**//indirect**结尾。所有直接和间接依赖项的校验和将记录在 go.sum 文件中。
 
 +   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *

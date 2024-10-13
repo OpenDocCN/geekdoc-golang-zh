@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go语言中修剪字符串的后缀
+# 在 Go 语言中修剪字符串的后缀
 
-> 来源：[https://golangbyexample.com/trim-suffix-string-golang/](https://golangbyexample.com/trim-suffix-string-golang/)
+> 来源：[`golangbyexample.com/trim-suffix-string-golang/`](https://golangbyexample.com/trim-suffix-string-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
-在GO中，字符串是UTF-8编码的。GO的**strings**包提供了一个**TrimSuffix**方法，可以用来从输入字符串中移除后缀字符串。如果输入字符串不以给定的后缀结尾，那么输入字符串将保持不变。同时，请注意该函数返回的是字符串的副本。
+在 GO 中，字符串是 UTF-8 编码的。GO 的**strings**包提供了一个**TrimSuffix**方法，可以用来从输入字符串中移除后缀字符串。如果输入字符串不以给定的后缀结尾，那么输入字符串将保持不变。同时，请注意该函数返回的是字符串的副本。
 
 以下是该函数的签名
 

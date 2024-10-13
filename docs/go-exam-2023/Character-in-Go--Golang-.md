@@ -6,25 +6,25 @@
 
 -->
 
-# Go语言中的字符（Golang）
+# Go 语言中的字符（Golang）
 
-> 来源：[https://golangbyexample.com/character-in-go/](https://golangbyexample.com/character-in-go/)
+> 来源：[`golangbyexample.com/character-in-go/`](https://golangbyexample.com/character-in-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码示例](#Code_Example "Code Example")
++   代码示例
 
-+   [注意事项](#Caveats "Caveats")*  *# **概述**
++   注意事项*  *# **概述**
 
-Golang没有任何‘**char**’数据类型。因此
+Golang 没有任何‘**char**’数据类型。因此
 
-+   **byte**用于表示ASCII字符。byte是uint8的别名，因此为8位或1字节，可以表示所有从0到255的ASCII字符
++   **byte**用于表示 ASCII 字符。byte 是 uint8 的别名，因此为 8 位或 1 字节，可以表示所有从 0 到 255 的 ASCII 字符
 
-+   **rune**用于表示所有UNICODE字符，包括所有存在的字符。rune是**int32**的别名，能够表示所有UNICODE字符。其大小为4字节。
++   **rune**用于表示所有 UNICODE 字符，包括所有存在的字符。rune 是**int32**的别名，能够表示所有 UNICODE 字符。其大小为 4 字节。
 
-+   一个长度为一的**string**也可以隐式表示一个字符。一个字符字符串的大小将取决于该字符的编码。对于utf-8编码，它将在1-4字节之间
++   一个长度为一的**string**也可以隐式表示一个字符。一个字符字符串的大小将取决于该字符的编码。对于 utf-8 编码，它将在 1-4 字节之间
 
 要声明**byte**或**rune**，我们使用单引号。在声明**byte**时，必须指定类型。如果不指定类型，则默认类型为**rune**。
 
@@ -34,9 +34,9 @@ Golang没有任何‘**char**’数据类型。因此
 
 请参见下面的程序。它显示
 
-+   表示字符‘**a**‘的byte
++   表示字符‘**a**‘的 byte
 
-+   表示英镑符号‘**£**‘的rune
++   表示英镑符号‘**£**‘的 rune
 
 +   一个字符微符号**‘µ’**的字符串
 
@@ -91,7 +91,7 @@ Character: µ
 
 # **注意事项**
 
-+   用非ASCII字符声明byte会导致编译器错误，如下所示。我尝试用一个对应代码为285的字符
++   用非 ASCII 字符声明 byte 会导致编译器错误，如下所示。我尝试用一个对应代码为 285 的字符
 
 ```go
 constant 285 overflows byte

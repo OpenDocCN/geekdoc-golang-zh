@@ -6,19 +6,19 @@
 
 -->
 
-# 在Go（Golang）中执行操作系统/系统命令
+# 在 Go（Golang）中执行操作系统/系统命令
 
-> 来源：[https://golangbyexample.com/execute-os-system-command-golang/](https://golangbyexample.com/execute-os-system-command-golang/)
+> 来源：[`golangbyexample.com/execute-os-system-command-golang/`](https://golangbyexample.com/execute-os-system-command-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-**os/exec** 包可用于从Go触发任何操作系统或系统命令。它有两个可以实现相同功能的函数。
+**os/exec** 包可用于从 Go 触发任何操作系统或系统命令。它有两个可以实现相同功能的函数。
 
-+   **命令** – 用于创建cmd对象
++   **命令** – 用于创建 cmd 对象
 
 +   **输出** – 它运行命令并返回标准输出
 

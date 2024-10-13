@@ -6,55 +6,55 @@
 
 -->
 
-# Go（Golang）中的包和模块 – 第1部分
+# Go（Golang）中的包和模块 – 第一部分
 
-> 来源：[https://golangbyexample.com/packages-modules-go-first/](https://golangbyexample.com/packages-modules-go-first/)
+> 来源：[`golangbyexample.com/packages-modules-go-first/`](https://golangbyexample.com/packages-modules-go-first/)
 
-这是golang综合教程系列的第4章。有关该系列其他章节，请参考此链接 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 golang 综合教程系列的第四章。有关该系列其他章节，请参考此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-**下一个教程** – [包和模块 – 第2部分](https://golangbyexample.com/packages-modules-go-second/)
+**下一个教程** – [包和模块 – 第二部分](https://golangbyexample.com/packages-modules-go-second/)
 
-**上一个教程** – [设置GO工作区和Hello World程序](https://golangbyexample.com/workspace-hello-world-golang/)
+**上一个教程** – [设置 GO 工作区和 Hello World 程序](https://golangbyexample.com/workspace-hello-world-golang/)
 
 现在让我们查看当前教程。以下是当前教程的目录。
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [模块](#Modules "Modules")
++   模块
 
-+   [模块世界之前](#Before_Modules_World "Before Modules World")
++   模块世界之前
 
-    +   [Go版本1.11之前](#Pre_Go_version_111 "Pre Go version 1.11")
+    +   Go 版本 1.11 之前
 
-    +   [在Go版本1.11中](#In_Go_version_111 "In Go version 1.11")
+    +   在 Go 版本 1.11 中
 
-    +   [Go版本1.13之后](#After_Go_Version_113 "After Go Version 1.13")
+    +   Go 版本 1.13 之后
 
-+   [理解包及创建模块](#Understanding_Package_and_Also_Creating_a_module "Understanding Package and Also Creating a module")
++   理解包及创建模块
 
-+   [模块之前创建应用程序](#Creating_an_application_before_Module "Creating an application before Module")
++   模块之前创建应用程序
 
-+   [导出与未导出名称](#Exported_vs_Unexported_Names "Exported vs Unexported Names")
++   导出与未导出名称
 
-+   [嵌套包](#Nested_Packages "Nested Packages")
++   嵌套包
 
-+   [导入包中的别名](#Aliasing_in_importing_packages "Aliasing in importing packages")
++   导入包中的别名
 
-+   [初始化函数](#Init_Functions "Init Functions")
++   初始化函数
 
-+   [Go程序的执行顺序](#Order_of_execution_of_a_Go_program "Order of execution of a Go program")
++   Go 程序的执行顺序
 
-+   [导入中的空标识符](#Blank_Identifier_in_import "Blank Identifier in import")
++   导入中的空标识符
 
-+   [包命名约定](#Package_Naming_Convention "Package Naming Convention")
++   包命名约定
 
-+   [结论](#Conclusion "Conclusion") * *# **概述**
++   结论 * *# **概述**
 
-包是GO中代码重用的一种方式。顾名思义，它是将相关代码分组的一种方法。Go模块是处理golang中依赖关系的一种方式。
+包是 GO 中代码重用的一种方式。顾名思义，它是将相关代码分组的一种方法。Go 模块是处理 golang 中依赖关系的一种方式。
 
-GO应用程序文件中的每个GO源文件（.go文件）都属于一个包。这就是每个**.go**文件以此开头的原因。
+GO 应用程序文件中的每个 GO 源文件（.go 文件）都属于一个包。这就是每个**.go**文件以此开头的原因。
 
 ```go
 package <package_name></package_name>
@@ -62,17 +62,17 @@ package <package_name></package_name>
 
 上述称为**包声明**。请记住这个术语，因为在本教程中将多次使用。
 
-同一目录下的所有.go文件都将属于同一包。关于包的一个很大误解是，包是包含.go文件的目录的名称。这并不正确。目录只是一个目录，而包的名称就是在**包声明**中出现的名称。那么目录名称的重要性是什么呢？将在教程中逐步解释。
+同一目录下的所有.go 文件都将属于同一包。关于包的一个很大误解是，包是包含.go 文件的目录的名称。这并不正确。目录只是一个目录，而包的名称就是在**包声明**中出现的名称。那么目录名称的重要性是什么呢？将在教程中逐步解释。
 
 包可以分为两种类型。
 
-+   **可执行包** – 只有**main**是GoLang中的可执行包。一个.go文件可能属于特定目录中的主程序包。稍后我们将看到目录名称或**.go**文件名称的重要性。主程序包将包含一个主函数，标志着程序的开始。安装主程序包后，它将在**$GOBIN**目录中创建一个可执行文件。
++   **可执行包** – 只有**main**是 GoLang 中的可执行包。一个.go 文件可能属于特定目录中的主程序包。稍后我们将看到目录名称或**.go**文件名称的重要性。主程序包将包含一个主函数，标志着程序的开始。安装主程序包后，它将在**$GOBIN**目录中创建一个可执行文件。
 
 +   **实用程序包**– 任何非主程序包都是实用程序包。它不是自执行的，仅包含可供可执行包使用的实用函数和其他实用工具。
 
 # **模块**
 
-模块是Go对依赖管理的支持。根据定义，模块是一组相关包，根目录下有**go.mod**文件。**go.mod**文件定义了
+模块是 Go 对依赖管理的支持。根据定义，模块是一组相关包，根目录下有**go.mod**文件。**go.mod**文件定义了
 
 +   模块导入路径。
 
@@ -82,23 +82,23 @@ package <package_name></package_name>
 
 +   依赖管理。
 
-+   有了模块，Go项目不一定必须位于**$GOPATH/src**文件夹中。
++   有了模块，Go 项目不一定必须位于**$GOPATH/src**文件夹中。
 
-除了**go.mod**文件，Go还保留了**go.sum**文件，包含所有项目依赖模块的加密哈希。这是为了验证项目的依赖模块未发生变化。
+除了**go.mod**文件，Go 还保留了**go.sum**文件，包含所有项目依赖模块的加密哈希。这是为了验证项目的依赖模块未发生变化。
 
 # **模块之前的世界**
 
-模块在Go 1.11版本中引入。让我们逐版本查看变更，以便充分了解之前的限制以及自模块以来的变化。
+模块在 Go 1.11 版本中引入。让我们逐版本查看变更，以便充分了解之前的限制以及自模块以来的变化。
 
-+   Go版本1.11之前 – 模块根本不存在。
++   Go 版本 1.11 之前 – 模块根本不存在。
 
-+   Go版本1.11 – 引入了模块，但尚未最终确定。
++   Go 版本 1.11 – 引入了模块，但尚未最终确定。
 
-+   Go版本1.13 – 引入了模块。
++   Go 版本 1.13 – 引入了模块。
 
-## **Go版本1.11之前**
+## **Go 版本 1.11 之前**
 
-在模块出现之前，Go仅有包。$GOPATH位置将有三个目录。
+在模块出现之前，Go 仅有包。$GOPATH 位置将有三个目录。
 
 +   src
 
@@ -108,7 +108,7 @@ package <package_name></package_name>
 
 这些是模块时代之前存在的问题。
 
-+   所有Go项目在**$GOPATH/src**目录中。
++   所有 Go 项目在**$GOPATH/src**目录中。
 
 +   没有本地依赖管理支持。
 
@@ -116,17 +116,17 @@ package <package_name></package_name>
 
 让我们逐一查看每个问题：
 
-+   任何Go项目都必须位于**$GOPATH/src**目录中。
++   任何 Go 项目都必须位于**$GOPATH/src**目录中。
 
 这是一个重大限制，因为它限制了你可以放置项目的位置。
 
 +   没有本地依赖管理支持。
 
-此外，在模块之前的一个问题是，没有办法在项目中指定依赖项。虽然有dep、glide等替代解决方案，但缺少本地解决方案。
+此外，在模块之前的一个问题是，没有办法在项目中指定依赖项。虽然有 dep、glide 等替代解决方案，但缺少本地解决方案。
 
 +   所有依赖项将下载到**$GOPATH/src**目录中，不带版本控制。
 
-当我们执行go get时，它将在$GOPATH/src目录中下载所需的包。因此，在Go 1.11版本之前，以下go get命令
+当我们执行 go get 时，它将在$GOPATH/src 目录中下载所需的包。因此，在 Go 1.11 版本之前，以下 go get 命令
 
 ```go
 go get github.com/pborman/uuid
@@ -212,7 +212,7 @@ go mod init {module_import_path}
 
 现在问题是**import_path**是什么。**import_path**是其他任何模块用来导入你的模块的前缀路径。我们将在教程的第二部分深入了解导入路径。
 
-转到$GOPATH/src文件夹外的任何目录。假设目录名称为**learn**。
+转到$GOPATH/src 文件夹外的任何目录。假设目录名称为**learn**。
 
 ```go
 mkdir learn
@@ -235,7 +235,7 @@ module sameple.com/learn
 go 1.14
 ```
 
-当模块首次使用init命令创建时，go.mod文件将仅包含两项内容。
+当模块首次使用 init 命令创建时，go.mod 文件将仅包含两项内容。
 
 +   模块的导入路径位于顶部。
 
@@ -243,7 +243,7 @@ go 1.14
 module sameple.com/learn
 ```
 
-+   创建模块时使用的Go版本。
++   创建模块时使用的 Go 版本。
 
 ```go
 go 1.14
@@ -282,7 +282,7 @@ package main
 "github.com/pborman/uuid"
 ```
 
-由于**main.go**文件属于main包，因此我们可以创建一个可执行文件。可执行文件始终与包含main包的模块的导入路径中的最后一个名称一起构建。在我们的案例中，模块的导入路径是sample.com/learn，导入路径中的最后一个名称是learn。因此，运行go install时将创建名为learn的可执行文件。
+由于**main.go**文件属于 main 包，因此我们可以创建一个可执行文件。可执行文件始终与包含 main 包的模块的导入路径中的最后一个名称一起构建。在我们的案例中，模块的导入路径是 sample.com/learn，导入路径中的最后一个名称是 learn。因此，运行 go install 时将创建名为 learn 的可执行文件。
 
 可以使用这三个命令中的任何一个来创建可执行文件。
 
@@ -298,7 +298,7 @@ package main
 learn
 ```
 
-同时，go install命令将下载源文件中所需的所有依赖项，并用该依赖项更新**go.mod**文件。
+同时，go install 命令将下载源文件中所需的所有依赖项，并用该依赖项更新**go.mod**文件。
 
 在运行该命令后，让我们再次检查**go.mod**文件的内容。
 
@@ -409,7 +409,7 @@ go install
 
 在模块出现之前，可执行文件始终使用包含**main**包的目录名称进行构建，而运行`go install`命令时，在我们的例子中目录的名称是**learn**。
 
-上述所有命令将在$GOBIN目录中创建一个名为**learn**的可执行文件。如果$GOBIN目录在你的路径中，那么你可以直接运行这个可执行文件。
+上述所有命令将在$GOBIN 目录中创建一个名为**learn**的可执行文件。如果$GOBIN 目录在你的路径中，那么你可以直接运行这个可执行文件。
 
 ```go
 learn
@@ -423,7 +423,7 @@ learn
 
 +   在代码中没有办法定义依赖版本。简单的`go get`将下载依赖的最新版本，并将其保存在**$GOPATH/src**位置，覆盖已存在的旧版本（如果有）。
 
-模块解决了我们在第一个例子中看到的所有问题。现在我们已经理解了包和模块的基础知识，以及模块提供的优势。接下来，让我们在本教程中更详细地了解包的内容。我们将在本教程的第二部分——模块中更加关注模块。第二部分的链接是 – [https://golangbyexample.com/packages-modules-go-second](https://golangbyexample.com/packages-modules-go-second)/。
+模块解决了我们在第一个例子中看到的所有问题。现在我们已经理解了包和模块的基础知识，以及模块提供的优势。接下来，让我们在本教程中更详细地了解包的内容。我们将在本教程的第二部分——模块中更加关注模块。第二部分的链接是 – [`golangbyexample.com/packages-modules-go-second`](https://golangbyexample.com/packages-modules-go-second)/。
 
 现在让我们添加另一个属于主包的文件。
 
@@ -450,7 +450,7 @@ func add(a, b int) int {
 }
 ```
 
-请再次尝试运行`go install`命令。它将在**$GOBIN**目录中创建一个名为**learn**的可执行文件。尝试运行这个可执行文件，它将给出以下输出。此外，请注意**main.go**中的**main**函数能够调用**subtract.go**中的**subtract**函数。这是因为**main**和**subtract**都属于同一个包main。
+请再次尝试运行`go install`命令。它将在**$GOBIN**目录中创建一个名为**learn**的可执行文件。尝试运行这个可执行文件，它将给出以下输出。此外，请注意**main.go**中的**main**函数能够调用**subtract.go**中的**subtract**函数。这是因为**main**和**subtract**都属于同一个包 main。
 
 ```go
 learn $ learn
@@ -460,7 +460,7 @@ learn $ learn
 
 所以基本上
 
-+   在同一个包内，所有变量、函数、常量都可以在属于该包的不同.go文件之间访问。
++   在同一个包内，所有变量、函数、常量都可以在属于该包的不同.go 文件之间访问。
 
 同一目录中的所有**.go**文件将属于同一个包。这对于所有包含包的目录都是正确的。无论该目录是否包含**go.mod**文件，这一点都不重要。让我们验证一下。将包声明更改为
 
@@ -515,7 +515,7 @@ package subtract
 can't load package: package learn: found packages subtract (subtract.go) and main (main.go) in
 ```
 
-上述错误意味着目录**learn**包含两个文件**subtract.go**和**main.go**，它们分别属于不同的包，名为**subtract**和**main**。因此，在同一目录中，属于不同包的GO源文件是不允许的，因此出现了这个错误。将subtract.go中的**Package Declaration**更改为属于**main**包，错误将消失。
+上述错误意味着目录**learn**包含两个文件**subtract.go**和**main.go**，它们分别属于不同的包，名为**subtract**和**main**。因此，在同一目录中，属于不同包的 GO 源文件是不允许的，因此出现了这个错误。将 subtract.go 中的**Package Declaration**更改为属于**main**包，错误将消失。
 
 如你所见，我们使用了两个函数，**add**和**subtract**。这两个方法是算术函数，如果能将其作为一些公共代码的一部分，供其他部分使用，那将是很好的。这就是包的用处。我们的想法是创建一个新的包**math**，其中包含这两个函数。通过这种方式，包提供了代码重用的方法。让我们引入一个新包**math**。
 
@@ -567,7 +567,7 @@ func main() {
 
 +   **导入一个包**
 
-main.go文件通过**“sample.com/learn/math”**导入包，并能够使用math.Add(..)和math.Subtract(..)调用Add和Subtract。看看我们是如何在main.go文件中导入math包的。
+main.go 文件通过**“sample.com/learn/math”**导入包，并能够使用 math.Add(..)和 math.Subtract(..)调用 Add 和 Subtract。看看我们是如何在 main.go 文件中导入 math 包的。
 
 ```go
 "sample.com/learn/math"
@@ -577,7 +577,7 @@ main.go文件通过**“sample.com/learn/math”**导入包，并能够使用mat
 
 +   **创建一个包**
 
-我们创建了一个新目录math，并在其中创建了新文件math.go。math.go的包声明为“package math”。它还包含文件**math.go**，其中包含两个函数**Add**和**Subtract**。
+我们创建了一个新目录 math，并在其中创建了新文件 math.go。math.go 的包声明为“package math”。它还包含文件**math.go**，其中包含两个函数**Add**和**Subtract**。
 
 首先让我们讨论导入语句。我们可以通过两种方式导入一个包。
 
@@ -597,7 +597,7 @@ import "fmt"
 import "sample.com/learn/math"
 ```
 
-在程序中，你可以导入任意数量的包。GO尝试以下方式解析。
+在程序中，你可以导入任意数量的包。GO 尝试以下方式解析。
 
 +   检查目录$GOROOT/src – “fmt”包位于位置**$GOROOT/src/fmt**。
 
@@ -649,19 +649,19 @@ func main() {
 
 如果你运行这个程序，输出仍然是相同的：
 
-在**main.go**中，导入文件夹更改为**“sample.com/learn/math2”**，但**main**函数在**main.go**中仍然引用**Add**和**Subtract**作为**math.Add()**和**math.Subtract()**。所以基本上GO从**“math2”**目录导入**math**包。这就是我们所说的导入意味着导入位于该目录位置的包。
+在**main.go**中，导入文件夹更改为**“sample.com/learn/math2”**，但**main**函数在**main.go**中仍然引用**Add**和**Subtract**作为**math.Add()**和**math.Subtract()**。所以基本上 GO 从**“math2”**目录导入**math**包。这就是我们所说的导入意味着导入位于该目录位置的包。
 
 所以我们现在知道包目录名称的用途。
 
-+   目录的使用是为了GO程序中的导入语句。在导入时，我们提供目录路径而不是包名称。GO然后获取所有具有相同包名称的文件。
++   目录的使用是为了 GO 程序中的导入语句。在导入时，我们提供目录路径而不是包名称。GO 然后获取所有具有相同包名称的文件。
 
 文件名怎么样？在上述情况下，文件名是**math.go**。文件名并不重要。你可以尝试将文件名从**math.go**更改为其他名称，输出仍然是相同的。
 
-让我们继续。你可能注意到**Add**和**Subtract**都是大写的。这是为什么呢？如果它们不是大写会发生什么？如果Add和Subtract不是大写的，**main.go**将无法引用它们。这引出了我们下一个讨论话题。
+让我们继续。你可能注意到**Add**和**Subtract**都是大写的。这是为什么呢？如果它们不是大写会发生什么？如果 Add 和 Subtract 不是大写的，**main.go**将无法引用它们。这引出了我们下一个讨论话题。
 
 # **导出名称与未导出名称**
 
-Go没有任何**public**、**private**或**protected**关键字。控制可见性的唯一机制是使用大写和小写格式。
+Go 没有任何**public**、**private**或**protected**关键字。控制可见性的唯一机制是使用大写和小写格式。
 
 +   **大写标识符**是导出的。大写字母表示这是一个导出标识符，它将在其他包中可见。
 
@@ -679,7 +679,7 @@ Go没有任何**public**、**private**或**protected**关键字。控制可见�
 
 1.  变量
 
-让我们添加一个名为**multiply**的函数，它将是小写的。我们将它添加到math包中，看看它是否可以从**main.go**访问。
+让我们添加一个名为**multiply**的函数，它将是小写的。我们将它添加到 math 包中，看看它是否可以从**main.go**访问。
 
 **go.mod**
 
@@ -728,7 +728,7 @@ learn $ learn
 ./main.go:12:14: undefined: math.multiply
 ```
 
-错误是因为**main.go**无法引用未导出的名称**math.multiply**。将multiply改为大写，它就能工作了。之后应该会输出如下结果。
+错误是因为**main.go**无法引用未导出的名称**math.multiply**。将 multiply 改为大写，它就能工作了。之后应该会输出如下结果。
 
 ```go
 3
@@ -736,7 +736,7 @@ learn $ learn
 2
 ```
 
-如在教程开始时提到的，**multiply**函数将在**math**包中可用。为了说明这一点，让我们在arithmetic.go中创建一个**Mul**函数，它将内部调用**multiply**函数。
+如在教程开始时提到的，**multiply**函数将在**math**包中可用。为了说明这一点，让我们在 arithmetic.go 中创建一个**Mul**函数，它将内部调用**multiply**函数。
 
 **go.mod**
 
@@ -791,7 +791,7 @@ learn $ learn
 
 上述程序能够工作，因为在同一包内，你可以引用未导出或未大写的名称。
 
-目前**math.go**包含**Add**和**Subtract**函数。我们可以将这两个函数分配到不同的文件中，同时仍然属于同一包**math**吗？可以。让我们在**math**目录下创建**add.go**和**subtract.go**文件。add.go将包含**Add**函数，subtract.go将包含**Subtract**函数。注意**add.go**和**subtract.go**的包声明都是**package math**。
+目前**math.go**包含**Add**和**Subtract**函数。我们可以将这两个函数分配到不同的文件中，同时仍然属于同一包**math**吗？可以。让我们在**math**目录下创建**add.go**和**subtract.go**文件。add.go 将包含**Add**函数，subtract.go 将包含**Subtract**函数。注意**add.go**和**subtract.go**的包声明都是**package math**。
 
 **go.mod**
 
@@ -846,7 +846,7 @@ learn $ learn
 
 # **嵌套包**
 
-在GO中，可以创建嵌套包。我们将在**math**目录中创建一个名为**advanced**的新目录。“**.” 该目录将包含**square**.go文件，包声明为“package advanced”。
+在 GO 中，可以创建嵌套包。我们将在**math**目录中创建一个名为**advanced**的新目录。“**.” 该目录将包含**square**.go 文件，包声明为“package advanced”。
 
 **go.mod**
 
@@ -905,7 +905,7 @@ learn $ learn
 
 关于上述程序需要注意的几点。
 
-+   我们在main.go中使用完整的路径导入了**advanced**包，即**import “sample.com/learn/math/advanced”**。
++   我们在 main.go 中使用完整的路径导入了**advanced**包，即**import “sample.com/learn/math/advanced”**。
 
 +   **Square**函数通过**advanced**包进行引用，即**advanced.Square(2)**。
 
@@ -985,25 +985,25 @@ learn $ learn
 1
 ```
 
-请注意这一行。我们将**“sample.com/learn/math2”**中存在的**math**包别名为**math2\.** 如果我们没有这样做，那么GO将引发编译问题，因为它无法从两个不同的文件夹导入同名的包。这是使用别名的一个优势。
+请注意这一行。我们将**“sample.com/learn/math2”**中存在的**math**包别名为**math2\.** 如果我们没有这样做，那么 GO 将引发编译问题，因为它无法从两个不同的文件夹导入同名的包。这是使用别名的一个优势。
 
 ```go
 math2 "sample.com/learn/math2"
 ```
 
-# **Init函数**
+# **Init 函数**
 
-init()函数是一个特殊函数，用于初始化包的全局变量。这些函数在包初始化时执行。包中的每个GO源文件都可以有自己的init()函数。每当你在程序中导入任何包时，在该程序执行时，属于该导入包的GO源文件中的init函数（如果存在）会首先被调用。关于init函数需要注意的几点：
+init()函数是一个特殊函数，用于初始化包的全局变量。这些函数在包初始化时执行。包中的每个 GO 源文件都可以有自己的 init()函数。每当你在程序中导入任何包时，在该程序执行时，属于该导入包的 GO 源文件中的 init 函数（如果存在）会首先被调用。关于 init 函数需要注意的几点：
 
-+   Init函数是可选的。
++   Init 函数是可选的。
 
-+   Init函数不接受任何参数。
++   Init 函数不接受任何参数。
 
-+   Init函数没有返回值。
++   Init 函数没有返回值。
 
-+   Init函数是隐式调用的。由于它是隐式调用的，init函数无法从任何地方引用。
++   Init 函数是隐式调用的。由于它是隐式调用的，init 函数无法从任何地方引用。
 
-+   在同一个源文件中可以有多个init()函数。
++   在同一个源文件中可以有多个 init()函数。
 
 init 函数主要用于初始化无法通过初始化表达式初始化的全局变量。例如，它可能需要网络调用来初始化任何数据库客户端。另一个例子可能是在启动时获取密钥。init 函数还用于运行只需要执行一次的任何内容。让我们看看使用 init 函数的一个简单用例。
 
@@ -1098,7 +1098,7 @@ In main init
 
 +   主包源文件中所有导入的包都被初始化。后续导入的包也以递归方式执行相同的操作。
 
-+   然后这些包中的全局变量声明被初始化。初始化依赖关系会启动以初始化这些变量。 [https://golang.org/ref/spec#Order_of_evaluation](https://golang.org/ref/spec#Order_of_evaluation)
++   然后这些包中的全局变量声明被初始化。初始化依赖关系会启动以初始化这些变量。 [`golang.org/ref/spec#Order_of_evaluation`](https://golang.org/ref/spec#Order_of_evaluation)
 
 +   此后，这些包中的 init() 函数被运行。
 

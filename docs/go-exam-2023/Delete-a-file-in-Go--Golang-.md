@@ -6,11 +6,11 @@
 
 -->
 
-# 在Go (Golang)中删除文件
+# 在 Go (Golang)中删除文件
 
-> 来源：[https://golangbyexample.com/delete-file-go/](https://golangbyexample.com/delete-file-go/)
+> 来源：[`golangbyexample.com/delete-file-go/`](https://golangbyexample.com/delete-file-go/)
 
-**os.Remove()** 函数可用于在Golang中删除文件。以下是该函数的签名。
+**os.Remove()** 函数可用于在 Golang 中删除文件。以下是该函数的签名。
 
 ```go
 func Remove(name string) error

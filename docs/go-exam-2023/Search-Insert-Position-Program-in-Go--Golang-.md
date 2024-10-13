@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go (Golang)中搜索插入位置程序
+# 在 Go (Golang)中搜索插入位置程序
 
-> 来源：[https://golangbyexample.com/search-insert-position-golang/](https://golangbyexample.com/search-insert-position-golang/)
+> 来源：[`golangbyexample.com/search-insert-position-golang/`](https://golangbyexample.com/search-insert-position-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个有序的输入数组，包含不同的整数和一个目标值。目标是找到该目标值在该数组中的插入位置。有两种情况
 
@@ -83,8 +83,8 @@ func main() {
 2
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列的教程详尽全面，我们努力覆盖所有概念并附有示例。本教程适合那些希望获得专业知识并深入理解golang的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列的教程详尽全面，我们努力覆盖所有概念并附有示例。本教程适合那些希望获得专业知识并深入理解 golang 的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你对理解如何在Golang中实现所有设计模式感兴趣。如果是，那么这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你对理解如何在 Golang 中实现所有设计模式感兴趣。如果是，那么这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

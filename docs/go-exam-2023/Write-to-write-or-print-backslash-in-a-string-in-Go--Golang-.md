@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go语言中写入或打印字符串中的反斜杠
+# 在 Go 语言中写入或打印字符串中的反斜杠
 
-> 来源：[https://golangbyexample.com/backslash-print-golang/](https://golangbyexample.com/backslash-print-golang/)
+> 来源：[`golangbyexample.com/backslash-print-golang/`](https://golangbyexample.com/backslash-print-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [双引号的程序](#Program_for_double_quotes "Program for double quotes")
++   双引号的程序
 
-+   [反引号的程序](#Program_for_back_quotes "Program for back quotes")*  *## **概述**
++   反引号的程序*  *## **概述**
 
 反斜杠是一个转义字符。要打印反斜杠，我们需要先用另一个反斜杠字符进行转义，尤其是在使用双引号时。然而，反斜杠也可以使用反引号打印。它也用于定义字符串。用反引号编码的字符串是原始字面量字符串，不会遵循任何类型的转义。
 

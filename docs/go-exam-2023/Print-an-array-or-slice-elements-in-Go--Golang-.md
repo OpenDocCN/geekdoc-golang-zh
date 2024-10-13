@@ -8,15 +8,15 @@
 
 # 在 Go（Golang）中打印数组或切片元素
 
-> 来源：[https://golangbyexample.com/print-an-array-or-slice-elements-golang/](https://golangbyexample.com/print-an-array-or-slice-elements-golang/)
+> 来源：[`golangbyexample.com/print-an-array-or-slice-elements-golang/`](https://golangbyexample.com/print-an-array-or-slice-elements-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [打印切片](#Print_a_Slice "Print a Slice")
++   打印切片
 
-+   [打印数组](#Print_a_Array "Print a Array")*  *# **概述**
++   打印数组*  *# **概述**
 
 打印数组或切片的方式是相同的。让我们逐个查看
 

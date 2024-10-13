@@ -6,25 +6,25 @@
 
 -->
 
-# 在HTTP响应中返回401（未授权）状态码的Go（Golang）实现。
+# 在 HTTP 响应中返回 401（未授权）状态码的 Go（Golang）实现。
 
-> 来源：[https://golangbyexample.com/401-http-status-response-go/](https://golangbyexample.com/401-http-status-response-go/)
+> 来源：[`golangbyexample.com/401-http-status-response-go/`](https://golangbyexample.com/401-http-status-response-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-**net/http**包提供状态码常量，可用于返回不同的状态码 - [https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)
+**net/http**包提供状态码常量，可用于返回不同的状态码 - [`golang.org/src/net/http/status.go`](https://golang.org/src/net/http/status.go)
 
-同样可以用于返回401（未授权）HTTP状态码。HTTP 401状态码由以下常量定义。
+同样可以用于返回 401（未授权）HTTP 状态码。HTTP 401 状态码由以下常量定义。
 
 ```go
 http.StatusUnauthorized
 ```
 
-在本文中，我们还将看到如何在返回401（未授权）状态码的同时返回JSON主体。
+在本文中，我们还将看到如何在返回 401（未授权）状态码的同时返回 JSON 主体。
 
 ## **程序**
 
@@ -59,13 +59,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-在这里，我们使用**WriteHeader**函数来指定401 HTTP状态码，并使用**Write**函数来返回响应主体。上述代码将返回以下JSON请求主体作为响应。
+在这里，我们使用**WriteHeader**函数来指定 401 HTTP 状态码，并使用**Write**函数来返回响应主体。上述代码将返回以下 JSON 请求主体作为响应。
 
 ```go
 {"message":"Unauthorized"}
 ```
 
-运行上述程序。它将在本地机器的8080端口启动一个服务器。现在对服务器进行以下curl调用。
+运行上述程序。它将在本地机器的 8080 端口启动一个服务器。现在对服务器进行以下 curl 调用。
 
 ```go
 curl -v -X POST http://localhost:8080/example
@@ -91,7 +91,7 @@ curl -v -X POST http://localhost:8080/example
 
 如你所见，输出将正确返回**401**状态码及其主体。
 
-你也可以直接将401传递给WriteHeader函数以发送401响应。
+你也可以直接将 401 传递给 WriteHeader 函数以发送 401 响应。
 
 ```go
 w.WriteHeader(401)
@@ -99,6 +99,6 @@ w.WriteHeader(401)
 
 这也可以正常工作。试试看。
 
-同时，查看我们的Golang高级教程系列 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+同时，查看我们的 Golang 高级教程系列 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [401](https://golangbyexample.com/tag/401/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

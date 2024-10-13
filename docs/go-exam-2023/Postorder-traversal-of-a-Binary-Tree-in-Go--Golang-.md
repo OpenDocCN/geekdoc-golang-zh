@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中的二叉树后序遍历
 
-> 来源：[https://golangbyexample.com/postorder-binary-tree-golang/](https://golangbyexample.com/postorder-binary-tree-golang/)
+> 来源：[`golangbyexample.com/postorder-binary-tree-golang/`](https://golangbyexample.com/postorder-binary-tree-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 在二叉树的后序遍历中，我们遵循以下顺序
 

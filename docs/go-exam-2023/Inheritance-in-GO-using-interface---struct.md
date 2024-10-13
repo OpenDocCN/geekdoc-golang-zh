@@ -8,13 +8,13 @@
 
 # 使用接口 + 结构体的 GO 继承
 
-> 来源：[https://golangbyexample.com/inheritance-go-interface-struct/](https://golangbyexample.com/inheritance-go-interface-struct/)
+> 来源：[`golangbyexample.com/inheritance-go-interface-struct/`](https://golangbyexample.com/inheritance-go-interface-struct/)
 
 本文描述了使用接口和结构体的继承。请查看我们关于 Go 继承的完整指南以获取全面参考。
 
 > [OOP: GOLANG 继承完整指南](https://golangbyexample.com/oop-inheritance-golang-complete/)
 
-[https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=EpVuUFYEMN#?secret=OtvYyDmPmR](https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=EpVuUFYEMN#?secret=OtvYyDmPmR)
+[`golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=EpVuUFYEMN#?secret=OtvYyDmPmR`](https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=EpVuUFYEMN#?secret=OtvYyDmPmR)
 
 Go 通过嵌入结构体或使用接口来支持继承。实现方式不同，每种方式都有一些限制。这些不同的方法包括：
 

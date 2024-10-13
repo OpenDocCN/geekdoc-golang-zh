@@ -8,7 +8,7 @@
 
 # Go（Golang）中的指针接收者方法
 
-> 来源：[https://golangbyexample.com/pointer-receiver-method-golang/](https://golangbyexample.com/pointer-receiver-method-golang/)
+> 来源：[`golangbyexample.com/pointer-receiver-method-golang/`](https://golangbyexample.com/pointer-receiver-method-golang/)
 
 为了更好地理解指针接收者，我们首先必须理解方法的值接收者。
 

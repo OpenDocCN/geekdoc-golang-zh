@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go语言中，二叉树的先序遍历
+# 在 Go 语言中，二叉树的先序遍历
 
-> 来源：[https://golangbyexample.com/preorder-binary-tree-golang/](https://golangbyexample.com/preorder-binary-tree-golang/)
+> 来源：[`golangbyexample.com/preorder-binary-tree-golang/`](https://golangbyexample.com/preorder-binary-tree-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [程序](#Program "程序")*  *## **概述**
++   程序*  *## **概述**
 
 在二叉树的先序遍历中，我们遵循以下顺序
 
@@ -87,8 +87,8 @@ func main() {
 [1 2 4 3 5 6]
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列教程内容详尽，我们尽力覆盖所有概念并附有示例。本教程适合希望深入掌握Golang的用户 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽力覆盖所有概念并附有示例。本教程适合希望深入掌握 Golang 的用户 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章就是为你准备的 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章就是为你准备的 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

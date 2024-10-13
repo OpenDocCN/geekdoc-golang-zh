@@ -8,25 +8,25 @@
 
 # Go (Golang)中的外观设计模式
 
-> 来源：[https://golangbyexample.com/facade-design-pattern-in-golang/](https://golangbyexample.com/facade-design-pattern-in-golang/)
+> 来源：[`golangbyexample.com/facade-design-pattern-in-golang/`](https://golangbyexample.com/facade-design-pattern-in-golang/)
 
 注意：如果想了解如何在 GO 中实现其他设计模式，请参阅此完整参考 – [Go (Golang) 中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [定义：](#Definition "Definition:  ")
+**   定义：
 
-+   [问题陈述：](#Problem_Statement "Problem Statement:")
++   问题陈述：
 
-+   [使用时机：](#When_to_Use "When to Use:")
++   使用时机：
 
-+   [UML 图：](#UML_Diagram "UML Diagram:")
++   UML 图：
 
-+   [映射](#Mapping "Mapping")
++   映射
 
-+   [实践示例：](#Practical_Example "Practical Example:")
++   实践示例：
 
-+   [完整工作代码：](#Full_Working_Code "Full Working Code:")*  *## **定义：**
++   完整工作代码：*  *## **定义：**
 
 外观模式被归类为结构设计模式。该设计模式旨在隐藏底层系统的复杂性，并为客户端提供一个简单的接口。它为系统中许多接口提供统一的接口，从客户端的角度来看，使用起来更为简单。基本上，它为复杂系统提供了更高级别的抽象。
 
@@ -72,7 +72,7 @@
 
 ## **映射**
 
-下表表示UML图中演员与代码中实际实现演员之间的映射。
+下表表示 UML 图中演员与代码中实际实现演员之间的映射。
 
 | 钱包外观 | walletFacade.go |
 | --- | --- |
@@ -499,4 +499,4 @@ Sending wallet debit notification
 Make ledger entry for accountId abc with txnType debit for amount 5 
 ```
 
-+   [Go中的设计模式](https://golangbyexample.com/tag/design-pattern-in-go/) *   [Golang中的设计模式](https://golangbyexample.com/tag/design-pattern-in-golang/) *   [外观](https://golangbyexample.com/tag/facade/) *   [外观设计模式](https://golangbyexample.com/tag/facade-design-pattern/) *   [Go中的外观设计模式](https://golangbyexample.com/tag/facade-design-pattern-in-go/) *
++   [Go 中的设计模式](https://golangbyexample.com/tag/design-pattern-in-go/) *   [Golang 中的设计模式](https://golangbyexample.com/tag/design-pattern-in-golang/) *   [外观](https://golangbyexample.com/tag/facade/) *   [外观设计模式](https://golangbyexample.com/tag/facade-design-pattern/) *   [Go 中的外观设计模式](https://golangbyexample.com/tag/facade-design-pattern-in-go/) *

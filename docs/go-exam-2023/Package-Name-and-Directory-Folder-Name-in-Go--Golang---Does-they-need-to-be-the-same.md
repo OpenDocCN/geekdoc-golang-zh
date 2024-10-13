@@ -8,13 +8,13 @@
 
 # Go (Golang) 中的包名称和目录/文件夹名称 - 它们需要相同吗
 
-> 来源：[https://golangbyexample.com/package-folder-name-golang/](https://golangbyexample.com/package-folder-name-golang/)
+> 来源：[`golangbyexample.com/package-folder-name-golang/`](https://golangbyexample.com/package-folder-name-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [示例](#Example "示例")*  *# **概述**
++   示例*  *# **概述**
 
 包名称和包含该包的目录名称不一定必须相同。那么包的导入路径指定了什么呢？例如，如果我们有任何包，则导入路径可能如下所示：
 

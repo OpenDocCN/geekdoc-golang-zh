@@ -6,17 +6,17 @@ date: 2024-10-13 06:15:11
 
 -->
 
-# 在Go (Golang) 中的平方根
+# 在 Go (Golang) 中的平方根
 
-> 来源：[https://golangbyexample.com/square-root-number-golang/](https://golangbyexample.com/square-root-number-golang/)
+> 来源：[`golangbyexample.com/square-root-number-golang/`](https://golangbyexample.com/square-root-number-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码：](#Code "代码：")*  *# **概述**
++   代码：*  *# **概述**
 
-GO的**math**包提供了一个**Sqrt**方法，可以用来获取该数字的立方根。
+GO 的**math**包提供了一个**Sqrt**方法，可以用来获取该数字的立方根。
 
 以下是该函数的签名。它接受一个浮点数输入，并返回一个浮点数。
 
@@ -24,7 +24,7 @@ GO的**math**包提供了一个**Sqrt**方法，可以用来获取该数字的�
 func Sqrt(x float64) float64
 ```
 
-Sqrt函数的一些特殊情况是
+Sqrt 函数的一些特殊情况是
 
 +   Sqrt(±0) = ±0
 

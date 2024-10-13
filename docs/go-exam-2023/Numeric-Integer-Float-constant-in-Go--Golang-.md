@@ -8,21 +8,21 @@
 
 # Go (Golang) 中的数字/整数/浮点常量。
 
-> 来源：[https://golangbyexample.com/integer-constant-golang/](https://golangbyexample.com/integer-constant-golang/)
+> 来源：[`golangbyexample.com/integer-constant-golang/`](https://golangbyexample.com/integer-constant-golang/)
 
 目录。
 
-**[概述](#Overview "概述")**。
+**概述**。
 
-+   [示例](#Example "示例")。
++   示例。
 
-    +   [类型化整数常量](#Typed_integer_constant "类型化整数常量")。
+    +   类型化整数常量。
 
-    +   [未类型命名的整数常量](#Untyped_named_integer_constant "未类型命名的整数常量")。
+    +   未类型命名的整数常量。
 
-    +   [未类型未命名的整数常量](#Untyped_unnamed_integer_constant "未类型未命名的整数常量")。
+    +   未类型未命名的整数常量。
 
-+   [数字表达式](#Numeric_Expressions "数字表达式")*  *# **概述**。
++   数字表达式*  *# **概述**。
 
 Go 中的数字常量进一步分为三种类型。
 
@@ -32,7 +32,7 @@ Go 中的数字常量进一步分为三种类型。
 
 +   复数。
 
-为了更好地理解 Go 中的数字常量，理解类型化和未类型常量非常重要。请参考这篇文章 – [https://golangbyexample.com/typed-untyped-constant-golang](https://golangbyexample.com/typed-untyped-constant-golang)。
+为了更好地理解 Go 中的数字常量，理解类型化和未类型常量非常重要。请参考这篇文章 – [`golangbyexample.com/typed-untyped-constant-golang`](https://golangbyexample.com/typed-untyped-constant-golang)。
 
 一旦你阅读完本文，你会理解常量可以以三种方式声明。
 

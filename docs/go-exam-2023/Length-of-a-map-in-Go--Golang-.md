@@ -8,7 +8,7 @@
 
 # Go（Golang）中映射的长度
 
-> 来源：[https://golangbyexample.com/length-map-golang/](https://golangbyexample.com/length-map-golang/)
+> 来源：[`golangbyexample.com/length-map-golang/`](https://golangbyexample.com/length-map-golang/)
 
 Golang 内置函数 **len()** 可用于获取映射的长度，即映射中键值对的数量。以下是使用此函数在映射上操作的格式。
 

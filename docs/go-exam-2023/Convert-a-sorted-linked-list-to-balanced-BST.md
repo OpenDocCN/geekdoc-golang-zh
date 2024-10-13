@@ -8,15 +8,15 @@
 
 # 将已排序的链表转换为平衡的二叉搜索树
 
-> 来源：[https://golangbyexample.com/sorted-linked-list-to-balanced-bst/](https://golangbyexample.com/sorted-linked-list-to-balanced-bst/)
+> 来源：[`golangbyexample.com/sorted-linked-list-to-balanced-bst/`](https://golangbyexample.com/sorted-linked-list-to-balanced-bst/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-目标是将已排序的链表转换为平衡的二叉搜索树。平衡的二叉搜索树是指每个节点的两个子树深度差不超过1的二叉搜索树。
+目标是将已排序的链表转换为平衡的二叉搜索树。平衡的二叉搜索树是指每个节点的两个子树深度差不超过 1 的二叉搜索树。
 
 假设我们有以下已排序的链表
 
@@ -142,8 +142,8 @@ root.Right: 2
 root.Right.Left: 1
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列教程详尽，我们试图用示例覆盖所有概念。本教程适合那些希望获得专业知识并深入理解Golang的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列教程详尽，我们试图用示例覆盖所有概念。本教程适合那些希望获得专业知识并深入理解 Golang 的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你对如何在Golang中实现所有设计模式感兴趣，这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你对如何在 Golang 中实现所有设计模式感兴趣，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

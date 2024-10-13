@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中从函数返回一个函数
 
-> 来源：[https://golangbyexample.com/return-func-from-func-go/](https://golangbyexample.com/return-func-from-func-go/)
+> 来源：[`golangbyexample.com/return-func-from-func-go/`](https://golangbyexample.com/return-func-from-func-go/)
 
 在 Golang 中，函数是一级变量，这意味着
 

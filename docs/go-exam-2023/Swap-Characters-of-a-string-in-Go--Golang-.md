@@ -8,9 +8,9 @@
 
 # 在 Go (Golang) 中交换字符串的字符
 
-> 来源：[https://golangbyexample.com/swap-characters-string-golang/](https://golangbyexample.com/swap-characters-string-golang/)
+> 来源：[`golangbyexample.com/swap-characters-string-golang/`](https://golangbyexample.com/swap-characters-string-golang/)
 
-在 Golang 中，字符串是字节的序列。字符串字面量实际上代表的是一段 UTF-8 字节序列。在 UTF-8 中，ASCII 字符对应于前 128 个 Unicode 字符，均为单字节。所有其他字符则在 1 到 4 字节之间。因此，无法直接在字符串中索引字符。在 Go 中，rune 数据类型表示一个 Unicode 点。一旦将字符串转换为 rune 数组，就可以在该数组中索引字符。你可以在这里了解更多关于 rune 的信息 – [https://golangbyexample.com/understanding-rune-in-golang](https://golangbyexample.com/understanding-rune-in-golang)。
+在 Golang 中，字符串是字节的序列。字符串字面量实际上代表的是一段 UTF-8 字节序列。在 UTF-8 中，ASCII 字符对应于前 128 个 Unicode 字符，均为单字节。所有其他字符则在 1 到 4 字节之间。因此，无法直接在字符串中索引字符。在 Go 中，rune 数据类型表示一个 Unicode 点。一旦将字符串转换为 rune 数组，就可以在该数组中索引字符。你可以在这里了解更多关于 rune 的信息 – [`golangbyexample.com/understanding-rune-in-golang`](https://golangbyexample.com/understanding-rune-in-golang)。
 
 因此，在下面的程序中，为了交换字符串中的字符，我们首先将字符串转换为 rune 数组，以便可以通过索引访问该 rune 数组中的单个字符。
 

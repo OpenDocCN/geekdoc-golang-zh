@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中从不同模块本地导入包
 
-> 来源：[https://golangbyexample.com/import-local-module-golang/](https://golangbyexample.com/import-local-module-golang/)
+> 来源：[`golangbyexample.com/import-local-module-golang/`](https://golangbyexample.com/import-local-module-golang/)
 
 有些情况下，我们希望导入一个本地存在的模块。让我们理解如何导入这样的模块。但首先，我们必须创建一个可以被他人使用的模块，然后将其导入到其他模块中。为此，让我们创建两个模块
 
@@ -38,7 +38,7 @@ func Add(a, b int) int {
 }
 ```
 
-现在让我们创建school模块
+现在让我们创建 school 模块
 
 +   在与**math**目录并排的同一路径下创建一个**school**目录
 
@@ -48,7 +48,7 @@ func Add(a, b int) int {
 go mod init school
 ```
 
-+   现在让我们修改**go.mod**文件以在school模块中导入math模块。要导入一个未推送到版本控制系统的本地模块，我们将使用替换目录。替换目录将用你指定的路径替换模块路径。
++   现在让我们修改**go.mod**文件以在 school 模块中导入 math 模块。要导入一个未推送到版本控制系统的本地模块，我们将使用替换目录。替换目录将用你指定的路径替换模块路径。
 
 ```go
 module school
@@ -79,7 +79,7 @@ func main() {
 go run school.go
 ```
 
-它能够调用**[sample.com](http://sample.com)/math**模块的Add函数，并正确输出为6。
+它能够调用**[sample.com](http://sample.com)/math**模块的 Add 函数，并正确输出为 6。
 
 此外，它还将更新**go.mod**，并包含**[sample.com](http://sample.com)/math**模块的版本信息
 

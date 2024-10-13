@@ -8,13 +8,13 @@
 
 # * 或在 Go (Golang) 中解引用指针
 
-> 来源：[https://golangbyexample.com/dereferencing-pointer-golang/](https://golangbyexample.com/dereferencing-pointer-golang/)
+> 来源：[`golangbyexample.com/dereferencing-pointer-golang/`](https://golangbyexample.com/dereferencing-pointer-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program") *  *# **概述**
++   程序 *  *# **概述**
 
 ***** 运算符可以用来：
 

@@ -6,25 +6,25 @@
 
 -->
 
-# 在Go (Golang)中创建浮点切片或数组。
+# 在 Go (Golang)中创建浮点切片或数组。
 
-> 来源：[https://golangbyexample.com/slice-array-floats-golang/](https://golangbyexample.com/slice-array-floats-golang/)。
+> 来源：[`golangbyexample.com/slice-array-floats-golang/`](https://golangbyexample.com/slice-array-floats-golang/)。
 
 目录。
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [浮点切片](#Slice_of_Float "Slice of Float")
++   浮点切片
 
-+   [浮点数组](#Array_of_Floats "Array of Floats")*  *## **概述**
++   浮点数组*  *## **概述**
 
-在Golang中也可以创建**浮点**数据类型的切片或数组。实际上，任何数据类型都可以在Go中创建切片或数组。本教程包含创建浮点数据类型切片或数组的简单示例。
+在 Golang 中也可以创建**浮点**数据类型的切片或数组。实际上，任何数据类型都可以在 Go 中创建切片或数组。本教程包含创建浮点数据类型切片或数组的简单示例。
 
-在此补充说明，Golang中的数组大小是固定的，而切片可以具有可变大小。更多详情请见这里。
+在此补充说明，Golang 中的数组大小是固定的，而切片可以具有可变大小。更多详情请见这里。
 
-数组 – [https://golangbyexample.com/understanding-array-golang-complete-guide/](https://golangbyexample.com/understanding-array-golang-complete-guide/)
+数组 – [`golangbyexample.com/understanding-array-golang-complete-guide/`](https://golangbyexample.com/understanding-array-golang-complete-guide/)
 
-切片 – [https://golangbyexample.com/slice-in-golang/](https://golangbyexample.com/slice-in-golang/)。
+切片 – [`golangbyexample.com/slice-in-golang/`](https://golangbyexample.com/slice-in-golang/)。
 
 ## **浮点切片**
 
@@ -82,7 +82,7 @@ floats_first = append(floats_first, 2.2)
 floats_first = append(floats_first, 3.3)
 ```
 
-在第二种方法中，我们使用make命令来创建浮点切片。
+在第二种方法中，我们使用 make 命令来创建浮点切片。
 
 ```go
 floats_second := make([]float64, 3)
@@ -157,8 +157,8 @@ floats_second := [3]float64{
 }
 ```
 
-请查看我们的Golang高级教程。本系列教程内容详尽，我们尽力涵盖所有概念和示例。本教程适合希望获得专业知识和对Golang有深入理解的读者 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
+请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽力涵盖所有概念和示例。本教程适合希望获得专业知识和对 Golang 有深入理解的读者 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 
-如果您有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章适合您 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)。
+如果您有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章适合您 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

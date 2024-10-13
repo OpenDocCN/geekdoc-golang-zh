@@ -6,25 +6,25 @@
 
 -->
 
-# 在Go (Golang)中美观地打印结构体变量
+# 在 Go (Golang)中美观地打印结构体变量
 
-> 来源：[https://golangbyexample.com/print-struct-variables-golang/](https://golangbyexample.com/print-struct-variables-golang/)
+> 来源：[`golangbyexample.com/print-struct-variables-golang/`](https://golangbyexample.com/print-struct-variables-golang/)
 
-**注意：** 如果你对学习Golang感兴趣，我们有一个全面的Golang教程系列。请查看一下 – [Golang全面教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。现在让我们来看当前的教程。以下是目录。
+**注意：** 如果你对学习 Golang 感兴趣，我们有一个全面的 Golang 教程系列。请查看一下 – [Golang 全面教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。现在让我们来看当前的教程。以下是目录。
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [使用fmt包](#Using_the_fmt_package "使用fmt包")
++   使用 fmt 包
 
-+   [以JSON格式打印结构体](#Printing_the_struct_in_JSON_form "以JSON格式打印结构体")*  *# 概述
++   以 JSON 格式打印结构体*  *# 概述
 
 有两种方法可以打印所有结构体变量，包括所有的键和值。
 
 +   使用**fmt**包
 
-+   使用**json/encoding**包以JSON格式打印结构体。这也允许美观地打印结构体。
++   使用**json/encoding**包以 JSON 格式打印结构体。这也允许美观地打印结构体。
 
 假设我们有一个员工结构体，如下所示：
 
@@ -38,7 +38,7 @@ type employee struct {
 
 让我们看看两种打印员工结构体实例的方法。
 
-# **使用fmt包**
+# **使用 fmt 包**
 
 **fmt.Printf()**函数可以用来打印一个结构体。可以使用不同的格式标识符以不同的方式打印结构体。让我们看看如何使用不同的格式标识符以不同的格式打印结构体。
 
@@ -66,7 +66,7 @@ fmt.Printf("%+v", emp) - {name:Sam age:31 salary:2000}
 fmt.Printf("%#v", emp) - main.employee{name:"Sam", age:31, salary:2000}
 ```
 
-**fmt.Println()**函数也可以用来打印一个结构体。由于**fmt.Println()**函数的默认值是%v，因此输出将与使用%v的**fmt.Printf()**相同。
+**fmt.Println()**函数也可以用来打印一个结构体。由于**fmt.Println()**函数的默认值是%v，因此输出将与使用%v 的**fmt.Printf()**相同。
 
 ```go
 fmt.Println(emp) - {Sam 31 2000}
@@ -103,11 +103,11 @@ Emp: main.employee{name:"Sam", age:31, salary:2000}
 {Sam 31 2000}
 ```
 
-# **以JSON格式打印结构体**
+# **以 JSON 格式打印结构体**
 
-第二种方法是以JSON格式打印结构体。**encoding/json**包的**Marshal**和**MarshalIndent**函数可以用来以JSON格式打印结构体。这里是区别：
+第二种方法是以 JSON 格式打印结构体。**encoding/json**包的**Marshal**和**MarshalIndent**函数可以用来以 JSON 格式打印结构体。这里是区别：
 
-+   **Marshal** – 以下是**Marshal**函数的签名。该函数通过递归遍历值返回**v**的JSON编码。
++   **Marshal** – 以下是**Marshal**函数的签名。该函数通过递归遍历值返回**v**的 JSON 编码。
 
 ```go
 Marshal(v interface{}) ([]byte, error)
@@ -119,7 +119,7 @@ Marshal(v interface{}) ([]byte, error)
 MarshalIndent(v interface{}, prefix, indent string) ([]byte, error)
 ```
 
-需要注意的是，**Marshal**和**MarshalIndent**函数只能访问结构体的导出字段，这意味着只有以大写字母开头的字段才能被访问和编码为JSON格式。
+需要注意的是，**Marshal**和**MarshalIndent**函数只能访问结构体的导出字段，这意味着只有以大写字母开头的字段才能被访问和编码为 JSON 格式。
 
 ```go
 package main
@@ -167,7 +167,7 @@ MarshalIndent funnction output {
 
 工资字段未在输出中打印，因为它以小写字母开头且未导出。**Marshal**函数的输出未经过格式化，而**MarshalIndent**函数的输出是格式化的。
 
-**golang** 还允许通过使用结构体元字段使JSON编码结构体的键名不同。我们先来理解一下什么是结构体元字段。在Go中，结构体也允许为其字段添加元数据。这些元字段可以用于编码解码成不同形式，对结构体字段进行某些形式的验证等。因此，基本上任何元信息都可以与结构体的字段存储，并可以被任何包或库用于不同的目的。
+**golang** 还允许通过使用结构体元字段使 JSON 编码结构体的键名不同。我们先来理解一下什么是结构体元字段。在 Go 中，结构体也允许为其字段添加元数据。这些元字段可以用于编码解码成不同形式，对结构体字段进行某些形式的验证等。因此，基本上任何元信息都可以与结构体的字段存储，并可以被任何包或库用于不同的目的。
 
 以下是附加元数据的格式。元数据是一个字符串文字，即它被反引号包围。
 
@@ -177,7 +177,7 @@ type strutName struct{
 }
 ```
 
-现在针对我们的用例，我们将为员工结构体添加JSON标签，如下所示。Marshal函数将使用标签中指定的键名。
+现在针对我们的用例，我们将为员工结构体添加 JSON 标签，如下所示。Marshal 函数将使用标签中指定的键名。
 
 ```go
 type employee struct {
@@ -225,7 +225,7 @@ func main() {
 }
 ```
 
-输出中的键名与JSON元标签中指定的相同。
+输出中的键名与 JSON 元标签中指定的相同。
 
 **打印嵌套结构体**
 

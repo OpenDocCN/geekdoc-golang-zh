@@ -8,7 +8,7 @@
 
 # Go（Golang）中的通道范围循环
 
-> 来源：[https://golangbyexample.com/for-range-loop-channel-go/](https://golangbyexample.com/for-range-loop-channel-go/)
+> 来源：[`golangbyexample.com/for-range-loop-channel-go/`](https://golangbyexample.com/for-range-loop-channel-go/)
 
 范围循环可以用于从通道接收数据，直到它被关闭。请注意，范围循环将持续从通道接收数据，退出的唯一方式是关闭通道。
 

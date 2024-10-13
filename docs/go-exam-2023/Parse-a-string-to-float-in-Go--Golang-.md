@@ -6,13 +6,13 @@
 
 -->
 
-# 在Go (Golang)中将字符串解析为浮点数
+# 在 Go (Golang)中将字符串解析为浮点数
 
-> 来源：[https://golangbyexample.com/parse-string-representation-float-go/](https://golangbyexample.com/parse-string-representation-float-go/)
+> 来源：[`golangbyexample.com/parse-string-representation-float-go/`](https://golangbyexample.com/parse-string-representation-float-go/)
 
 **strconv.ParseFloat()**函数可以用于解析浮点数的字符串表示。
 
-[https://golang.org/pkg/strconv/#ParseFloat](https://golang.org/pkg/strconv/#ParseFloat)
+[`golang.org/pkg/strconv/#ParseFloat`](https://golang.org/pkg/strconv/#ParseFloat)
 
 以下是函数的签名
 
@@ -24,9 +24,9 @@ func ParseFloat(s string, bitSize int) (float64, error)
 
 +   第一个参数是浮点数的字符串表示。
 
-+   第二个参数是bitSize，指定精度。float32为32，float64为64。
++   第二个参数是 bitSize，指定精度。float32 为 32，float64 为 64。
 
-+   返回值始终为float64，但可以无损地转换为float32。
++   返回值始终为 float64，但可以无损地转换为 float32。
 
 让我们看看一个工作代码
 

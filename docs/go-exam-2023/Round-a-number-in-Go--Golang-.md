@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go（Golang）中四舍五入一个数字
+# 在 Go（Golang）中四舍五入一个数字
 
-> 来源：[https://golangbyexample.com/round-number-golang/](https://golangbyexample.com/round-number-golang/)
+> 来源：[`golangbyexample.com/round-number-golang/`](https://golangbyexample.com/round-number-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码：](#Code "代码：")*  *# **概述**
++   代码：*  *# **概述**
 
-Go的**math**包提供了一个可以用于四舍五入数字的**Round**方法。它返回最接近的整数值。
+Go 的**math**包提供了一个可以用于四舍五入数字的**Round**方法。它返回最接近的整数值。
 
 以下是该函数的签名。它接受一个浮点数作为输入，并返回一个浮点数。
 
@@ -24,7 +24,7 @@ Go的**math**包提供了一个可以用于四舍五入数字的**Round**方法�
 func Round(x float64) float64
 ```
 
-Round函数的一些特殊情况是
+Round 函数的一些特殊情况是
 
 +   Round(±0) = ±0
 

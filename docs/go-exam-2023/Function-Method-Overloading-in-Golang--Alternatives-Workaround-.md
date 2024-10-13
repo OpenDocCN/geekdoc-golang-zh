@@ -6,13 +6,13 @@
 
 -->
 
-# Golang中的函数/方法重载（替代方案/变通方法）
+# Golang 中的函数/方法重载（替代方案/变通方法）
 
-> 来源：[https://golangbyexample.com/function-method-overloading-golang/](https://golangbyexample.com/function-method-overloading-golang/)
+> 来源：[`golangbyexample.com/function-method-overloading-golang/`](https://golangbyexample.com/function-method-overloading-golang/)
 
 函数/方法重载意味着可以使用相同的函数/方法名称，并具有不同数量和类型的参数
 
-请参见此帖子了解Go中函数和方法之间的区别 – [https://golangbyexample.com/difference-between-method-function-go](https://golangbyexample.com/difference-between-method-function-go)
+请参见此帖子了解 Go 中函数和方法之间的区别 – [`golangbyexample.com/difference-between-method-function-go`](https://golangbyexample.com/difference-between-method-function-go)
 
 例如。
 
@@ -23,11 +23,11 @@ func X(name, address string)
 func X(name string, age int)
 ```
 
-Go不支持方法/函数重载。请查看此常见问题以了解原因 [https://golang.org/doc/faq#overloading](https://golang.org/doc/faq#overloading)
+Go 不支持方法/函数重载。请查看此常见问题以了解原因 [`golang.org/doc/faq#overloading`](https://golang.org/doc/faq#overloading)
 
 根据上述常见问题，没有它一切都更简单。
 
-我们可以通过使用变参函数来变通GO中的方法/函数重载
+我们可以通过使用变参函数来变通 GO 中的方法/函数重载
 
 +   **变参函数** – 变参函数是接受可变数量参数的函数
 
@@ -106,7 +106,7 @@ Handle func called with parameters:
 4
 ```
 
-我们还可以使用switch语句来获取确切的参数并相应使用。请参见以下示例。
+我们还可以使用 switch 语句来获取确切的参数并相应使用。请参见以下示例。
 
 ```go
 package main

@@ -8,13 +8,13 @@
 
 # Go 中两个时间值之间的时间差
 
-> 来源：[https://golangbyexample.com/time-difference-between-two-time-value-golang/](https://golangbyexample.com/time-difference-between-two-time-value-golang/)
+> 来源：[`golangbyexample.com/time-difference-between-two-time-value-golang/`](https://golangbyexample.com/time-difference-between-two-time-value-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
 在 **Go** 中，时间由 time.Time 结构体表示。该结构体有一个 **Sub** 方法，可用于获取两个不同时间值之间的差值。
 

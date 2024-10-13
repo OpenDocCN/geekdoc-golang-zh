@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go（Golang）中获取文件名、大小、权限位、模式、修改时间
+# 在 Go（Golang）中获取文件名、大小、权限位、模式、修改时间
 
-> 来源：[https://golangbyexample.com/file-info-golang/](https://golangbyexample.com/file-info-golang/)
+> 来源：[`golangbyexample.com/file-info-golang/`](https://golangbyexample.com/file-info-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-**os.Stat()**函数可用于获取Go中文件的信息。该函数返回可用于获取的信息统计数据。
+**os.Stat()**函数可用于获取 Go 中文件的信息。该函数返回可用于获取的信息统计数据。
 
 +   文件的名称
 

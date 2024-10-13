@@ -6,31 +6,31 @@
 
 -->
 
-# Go中的CookieJar（Golang）
+# Go 中的 CookieJar（Golang）
 
-> 来源：[https://golangbyexample.com/cookiejar-golang/](https://golangbyexample.com/cookiejar-golang/)
+> 来源：[`golangbyexample.com/cookiejar-golang/`](https://golangbyexample.com/cookiejar-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [第一个示例](#First_example "First example")
++   第一个示例
 
-    +   [服务器](#Server "Server")
+    +   服务器
 
-    +   [客户端](#Client "Client")
+    +   客户端
 
-+   [第二个示例](#Second_Example "Second Example")
++   第二个示例
 
-    +   [服务器](#Server-2 "Server")
+    +   服务器
 
-    +   [客户端](#Client-2 "Client")*  *## **概述**
+    +   客户端*  *## **概述**
 
-Golang中的HTTP客户端允许您指定一个**CookieJar**，用于管理在进行外部HTTP请求时的cookies存储和发送。如其名所示，可以将其视为一个包含cookies的罐子。
+Golang 中的 HTTP 客户端允许您指定一个**CookieJar**，用于管理在进行外部 HTTP 请求时的 cookies 存储和发送。如其名所示，可以将其视为一个包含 cookies 的罐子。
 
-[https://golang.org/pkg/net/http/#Client](https://golang.org/pkg/net/http/#Client)
+[`golang.org/pkg/net/http/#Client`](https://golang.org/pkg/net/http/#Client)
 
-以下是net/http **Client**结构的结构。它包含一个名为**Jar**的实例变量，其类型为**CookieJar**接口。
+以下是 net/http **Client**结构的结构。它包含一个名为**Jar**的实例变量，其类型为**CookieJar**接口。
 
 ```go
 type Client struct {
@@ -53,37 +53,37 @@ type CookieJar interface {
 }
 ```
 
-net/http提供了一个默认的cookie jar实现，符合上述**CookieJar**接口。我们在初始化net/http客户端时将使用它。
+net/http 提供了一个默认的 cookie jar 实现，符合上述**CookieJar**接口。我们在初始化 net/http 客户端时将使用它。
 
-[https://golang.org/pkg/net/http/cookiejar/#Jar](https://golang.org/pkg/net/http/cookiejar/#Jar)
+[`golang.org/pkg/net/http/cookiejar/#Jar`](https://golang.org/pkg/net/http/cookiejar/#Jar)
 
-您还可以在初始化net/http Client结构时提供自定义cookie jar，该结构实现了上述**CookieJar**接口。
+您还可以在初始化 net/http Client 结构时提供自定义 cookie jar，该结构实现了上述**CookieJar**接口。
 
-HTTP客户端以两种方式使用此jar。
+HTTP 客户端以两种方式使用此 jar。
 
-+   向此Jar中添加cookies。您可以显式地将cookies添加到此jar中。如果服务器在响应头中发送Set-Cookies头，则这些cookies也将被添加到jar中。Set-Cookie头中指定的所有cookies都将被添加。
++   向此 Jar 中添加 cookies。您可以显式地将 cookies 添加到此 jar 中。如果服务器在响应头中发送 Set-Cookies 头，则这些 cookies 也将被添加到 jar 中。Set-Cookie 头中指定的所有 cookies 都将被添加。
 
-+   在进行任何外部HTTP请求时，查询此jar。它检查此jar以了解需要为特定域发送哪些cookies。
++   在进行任何外部 HTTP 请求时，查询此 jar。它检查此 jar 以了解需要为特定域发送哪些 cookies。
 
-让我们通过几个示例来说明cookie jar。
+让我们通过几个示例来说明 cookie jar。
 
-在第一个示例中，客户端将在进行HTTP请求时添加一个cookie。此cookie将在后续所有请求中发送到同一域。
+在第一个示例中，客户端将在进行 HTTP 请求时添加一个 cookie。此 cookie 将在后续所有请求中发送到同一域。
 
-在第二个示例中，我们将看到服务器发送**Set-Cookie**头，该cookie将在客户端设置。
+在第二个示例中，我们将看到服务器发送**Set-Cookie**头，该 cookie 将在客户端设置。
 
 ## **第一个示例**
 
-在本示例中，我们将看到客户端如何在cookie jar中设置cookie。首先，让我们创建一个服务器，以下是相关程序。
+在本示例中，我们将看到客户端如何在 cookie jar 中设置 cookie。首先，让我们创建一个服务器，以下是相关程序。
 
 ### **服务器**
 
-服务器监听8080端口，并有两个API。
+服务器监听 8080 端口，并有两个 API。
 
 +   **localhost:8080/doc**
 
 +   **localhost:8080/doc/id**
 
-在这两个API中，我们打印接收到的请求头中的cookies。
+在这两个 API 中，我们打印接收到的请求头中的 cookies。
 
 **go.mod**
 
@@ -207,7 +207,7 @@ func main() {
 }
 ```
 
-在上述客户端程序中，我们创建了一个带有cookie jar的HTTP客户端。
+在上述客户端程序中，我们创建了一个带有 cookie jar 的 HTTP 客户端。
 
 ```go
 jar, err := cookiejar.New(nil)
@@ -220,7 +220,7 @@ client = http.Client{
 }
 ```
 
-我们正在向Cookie Jar添加一个cookie。
+我们正在向 Cookie Jar 添加一个 cookie。
 
 ```go
 cookie := &http.Cookie{
@@ -395,9 +395,9 @@ func main() {
 
 在客户端，我们只是创建了一个指定了 CookieJar 的 HTTP 客户端。除此之外，我们只是进行了两个 API 调用。
 
-+   首先 [http://localhost:8080/doc](http://localhost:8080/doc)
++   首先 [`localhost:8080/doc`](http://localhost:8080/doc)
 
-+   第二个 [http://localhost:8080/doc/id](http://localhost:8080/doc/id)
++   第二个 [`localhost:8080/doc/id`](http://localhost:8080/doc/id)
 
 现在首先运行服务器。它将在 8080 端口启动一个本地服务器。
 

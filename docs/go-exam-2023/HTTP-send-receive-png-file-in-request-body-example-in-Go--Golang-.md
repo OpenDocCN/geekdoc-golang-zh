@@ -6,27 +6,27 @@
 
 -->
 
-# Go（Golang）中HTTP发送/接收png文件的请求体示例
+# Go（Golang）中 HTTP 发送/接收 png 文件的请求体示例
 
-> 来源：[https://golangbyexample.com/http-png-post-golang/](https://golangbyexample.com/http-png-post-golang/)
+> 来源：[`golangbyexample.com/http-png-post-golang/`](https://golangbyexample.com/http-png-post-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [HTTP服务器](#HTTP_Server "HTTP Server")
++   HTTP 服务器
 
-+   [HTTP客户端](#HTTP_Client "HTTP Client")*  *# **概述**
++   HTTP 客户端*  *# **概述**
 
-**multipart/form-data**内容类型可以用于在HTTP POST调用中发送png文件。表单数据将包含
+**multipart/form-data**内容类型可以用于在 HTTP POST 调用中发送 png 文件。表单数据将包含
 
-+   png文件名- 示例中的**test.png**，我们将在本教程中看到。
++   png 文件名- 示例中的**test.png**，我们将在本教程中看到。
 
-+   包含png文件内容的key – 在教程示例中的**photo**
++   包含 png 文件内容的 key – 在教程示例中的**photo**
 
-让我们来看一下HTTP **客户端**和**服务器**的示例。
+让我们来看一下 HTTP **客户端**和**服务器**的示例。
 
-# **HTTP服务器**
+# **HTTP 服务器**
 
 下面是相应的程序。
 
@@ -80,15 +80,15 @@ func createImage(w http.ResponseWriter, request *http.Request) {
 request.ParseMultipartForm()
 ```
 
-它将解析表单数据请求体。之后，我们可以在请求对象上调用**FormFile**函数，并传入key作为参数。它将返回给定key的**multipart.File**对象，在这里是**"photo"**。该对象是访问多部分消息中该key的文件部分的接口。程序使用它将文件保存到磁盘。
+它将解析表单数据请求体。之后，我们可以在请求对象上调用**FormFile**函数，并传入 key 作为参数。它将返回给定 key 的**multipart.File**对象，在这里是**"photo"**。该对象是访问多部分消息中该 key 的文件部分的接口。程序使用它将文件保存到磁盘。
 
 ```go
 _, err = io.Copy(tmpfile, file)
 ```
 
-这就是HTTP服务器示例。运行服务器。它将监听**8080**端口。让我们创建一个HTTP客户端来测试上述服务器。下面是相关代码。
+这就是 HTTP 服务器示例。运行服务器。它将监听**8080**端口。让我们创建一个 HTTP 客户端来测试上述服务器。下面是相关代码。
 
-# **HTTP客户端**
+# **HTTP 客户端**
 
 ```go
 package main
@@ -141,9 +141,9 @@ func call(urlPath, method string) error {
 }
 ```
 
-下面是相同的HTTP客户端示例代码。它在HTTP请求中向上面创建的服务器发送**multipart/form-data**请求体。
+下面是相同的 HTTP 客户端示例代码。它在 HTTP 请求中向上面创建的服务器发送**multipart/form-data**请求体。
 
-首先，我们必须创建一个多部分写入器 [https://golang.org/pkg/mime/multipart/#Writer](https://golang.org/pkg/mime/multipart/#Writer)
+首先，我们必须创建一个多部分写入器 [`golang.org/pkg/mime/multipart/#Writer`](https://golang.org/pkg/mime/multipart/#Writer)
 
 ```go
 writer := multipart.NewWriter(body)

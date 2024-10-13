@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go (Golang)中反转字符串的元音
+# 在 Go (Golang)中反转字符串的元音
 
-> 来源：[https://golangbyexample.com/reverse-vowels-string-golang/](https://golangbyexample.com/reverse-vowels-string-golang/)
+> 来源：[`golangbyexample.com/reverse-vowels-string-golang/`](https://golangbyexample.com/reverse-vowels-string-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 给定一个字符串。目标是反转该字符串中的所有元音。
 
@@ -107,8 +107,8 @@ sempli
 cemplox
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尽量涵盖所有概念和示例。此教程适合希望获得Golang专业知识和扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽量涵盖所有概念和示例。此教程适合希望获得 Golang 专业知识和扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是，那么这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 另外，请查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)*

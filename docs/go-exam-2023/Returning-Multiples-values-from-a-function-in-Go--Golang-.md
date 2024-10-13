@@ -8,21 +8,21 @@
 
 # 在 Go (Golang) 中从函数返回多个值
 
-> 来源：[https://golangbyexample.com/go-return-multiples-values-function/](https://golangbyexample.com/go-return-multiples-values-function/)
+> 来源：[`golangbyexample.com/go-return-multiples-values-function/`](https://golangbyexample.com/go-return-multiples-values-function/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [函数的签名](#Signature_of_a_function "Signature of a function")
++   函数的签名
 
-+   [返回值](#Return_Values "Return Values ")
++   返回值
 
-    +   [代码：](#Code "Code:")
+    +   代码：
 
-+   [命名返回值](#Named_Return_Values "Named Return Values")
++   命名返回值
 
-    +   [代码：](#Code-2 "Code:")*  *# **概述**
+    +   代码：*  *# **概述**
 
 函数是一组执行特定任务的语句。
 

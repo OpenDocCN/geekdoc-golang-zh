@@ -8,13 +8,13 @@
 
 # 在 Go（Golang）中以 HTTP 响应返回图像或文件。
 
-> 来源：[https://golangbyexample.com/image-http-response-golang/](https://golangbyexample.com/image-http-response-golang/)
+> 来源：[`golangbyexample.com/image-http-response-golang/`](https://golangbyexample.com/image-http-response-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [示例](#Example "Example")*  *## **概述**
++   示例*  *## **概述**
 
 **ResponseWriter** 接口的 **Write** 方法可以用于在 HTTP 响应体中发送 **image** 或 **file**。当我们将文件或图像作为 HTTP 响应的一部分发送时，Content-Type 响应头为
 

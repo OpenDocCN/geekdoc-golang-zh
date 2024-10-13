@@ -8,9 +8,9 @@
 
 # 理解 Go（Golang）中的时间包中的持续时间
 
-> 来源：[https://golangbyexample.com/understanding-duration-go/](https://golangbyexample.com/understanding-duration-go/)
+> 来源：[`golangbyexample.com/understanding-duration-go/`](https://golangbyexample.com/understanding-duration-go/)
 
-**duration** 是两个时刻之间经过的时间。它表示为 **int64纳秒** 计数。因此，持续时间在 Go 中只是一个表示纳秒的数字。如果持续时间值等于 **1000000000**，则表示 **1 秒** 或 **1000 毫秒** 或 **10000000000 纳秒**。由于持续时间是 **int64，** 因此可以表示的最长持续时间为290年。因此，持续时间用于捕获两个 **time.Time** 对象之间的纳秒数。例如，两个时间值相隔1小时的持续时间将是以下值，相当于1小时中的纳秒数。
+**duration** 是两个时刻之间经过的时间。它表示为 **int64 纳秒** 计数。因此，持续时间在 Go 中只是一个表示纳秒的数字。如果持续时间值等于 **1000000000**，则表示 **1 秒** 或 **1000 毫秒** 或 **10000000000 纳秒**。由于持续时间是 **int64，** 因此可以表示的最长持续时间为 290 年。因此，持续时间用于捕获两个 **time.Time** 对象之间的纳秒数。例如，两个时间值相隔 1 小时的持续时间将是以下值，相当于 1 小时中的纳秒数。
 
 ```go
 1 *60*60*1000*1000*1000

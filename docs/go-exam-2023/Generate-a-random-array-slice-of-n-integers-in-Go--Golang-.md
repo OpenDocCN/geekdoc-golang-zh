@@ -8,17 +8,17 @@
 
 # 在 Go (Golang) 中生成 n 个整数的随机数组/切片
 
-> 来源：[https://golangbyexample.com/generate-random-array-slice-golang/](https://golangbyexample.com/generate-random-array-slice-golang/)
+> 来源：[`golangbyexample.com/generate-random-array-slice-golang/`](https://golangbyexample.com/generate-random-array-slice-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码:](#Code "代码:")*  *# **概述**
++   代码:*  *# **概述**
 
 GO 的 **math/rand** 包提供了一个 **Perm** 方法，可以用来生成 n 个整数的伪随机切片。数组将是范围 [0,n) 内整数的伪随机排列。
 
-要了解更多关于伪随机数的含义，请查看这篇文章 – [https://golangbyexample.com/generate-random-number-golang](https://golangbyexample.com/generate-random-number-golang)
+要了解更多关于伪随机数的含义，请查看这篇文章 – [`golangbyexample.com/generate-random-number-golang`](https://golangbyexample.com/generate-random-number-golang)
 
 以下是该函数的签名。它接受一个数字 n 作为输入并返回排列后的切片。
 

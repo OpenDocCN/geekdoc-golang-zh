@@ -6,17 +6,17 @@
 
 -->
 
-# 计算x^y – Go中的Pow()
+# 计算 x^y – Go 中的 Pow()
 
-> 来源：[https://golangbyexample.com/power-golang/](https://golangbyexample.com/power-golang/)
+> 来源：[`golangbyexample.com/power-golang/`](https://golangbyexample.com/power-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code") *  *# **概述**
++   代码 *  *# **概述**
 
-GO的**math**包提供了一个**Pow**方法，可以用来计算x的y次幂。
+GO 的**math**包提供了一个**Pow**方法，可以用来计算 x 的 y 次幂。
 
 以下是该函数的签名。它接受两个浮点参数作为输入，并返回一个浮点数。
 
@@ -24,7 +24,7 @@ GO的**math**包提供了一个**Pow**方法，可以用来计算x的y次幂。
 func Pow(x, y float64) float64
 ```
 
-同样的函数也可以用来计算一个数字的平方或立方。只需在**平方**情况下将第二个参数y传入2，在**立方**情况下传入3即可。
+同样的函数也可以用来计算一个数字的平方或立方。只需在**平方**情况下将第二个参数 y 传入 2，在**立方**情况下传入 3 即可。
 
 # **代码**
 

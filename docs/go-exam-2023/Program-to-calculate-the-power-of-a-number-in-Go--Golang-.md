@@ -6,15 +6,15 @@ category: 未分类
 
 -->
 
-# 用Go（Golang）编写的计算一个数字的幂的程序。
+# 用 Go（Golang）编写的计算一个数字的幂的程序。
 
-> 来源：[https://golangbyexample.com/power-number-golang/](https://golangbyexample.com/power-number-golang/)
+> 来源：[`golangbyexample.com/power-number-golang/`](https://golangbyexample.com/power-number-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是计算给定整数的幂。将有两个输入。
 
@@ -90,8 +90,8 @@ func main() {
 0.0625
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，我们尝试用实例覆盖所有概念。本教程适合那些希望获得专业知识和对Golang有深刻理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
+**注意：** 请查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尝试用实例覆盖所有概念。本教程适合那些希望获得专业知识和对 Golang 有深刻理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 
-如果你对了解所有设计模式在Golang中的实现感兴趣，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)。
+如果你对了解所有设计模式在 Golang 中的实现感兴趣，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

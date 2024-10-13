@@ -8,13 +8,13 @@ date: 2024-10-13 06:09:20
 
 # 在 Go（Golang）中创建一个空文件。
 
-> 来源：[https://golangbyexample.com/create-empty-file-go/](https://golangbyexample.com/create-empty-file-go/)
+> 来源：[`golangbyexample.com/create-empty-file-go/`](https://golangbyexample.com/create-empty-file-go/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码：](#Code "代码：")*  *# **概述**
++   代码：*  *# **概述**
 
 **os.Create()** 可用于在 Go 中创建一个空文件。该函数的签名为
 

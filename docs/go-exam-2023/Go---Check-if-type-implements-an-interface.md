@@ -8,7 +8,7 @@
 
 # Go : 检查类型是否实现接口
 
-> 来源：[https://golangbyexample.com/go-check-if-type-implements-interface/](https://golangbyexample.com/go-check-if-type-implements-interface/)
+> 来源：[`golangbyexample.com/go-check-if-type-implements-interface/`](https://golangbyexample.com/go-check-if-type-implements-interface/)
 
 有时可能会出现需要知道你的类型是否满足某个接口的场景。这可以通过使用空标识符轻松实现。
 

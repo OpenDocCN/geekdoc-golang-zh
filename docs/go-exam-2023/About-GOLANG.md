@@ -8,7 +8,7 @@
 
 # 关于 GOLANG
 
-> 来源：[https://golangbyexample.com/about-golang/](https://golangbyexample.com/about-golang/)
+> 来源：[`golangbyexample.com/about-golang/`](https://golangbyexample.com/about-golang/)
 
 这是 golang 综合教程系列的第一章。有关系列其他章节，请参阅此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
@@ -16,37 +16,37 @@
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [历史](#History "历史")
++   历史
 
-+   [GO 的不同之处](#What_makes_GO_different "GO 的不同之处")
++   GO 的不同之处
 
-    +   [简单易用的语法](#Simple_to_Use_Syntax "简单易用的语法")
+    +   简单易用的语法
 
-    +   [快速编译的编译语言](#Compiled_Language_with_fast_Compilation "快速编译的编译语言")
+    +   快速编译的编译语言
 
-    +   [静态类型语言](#Static_Type_Language "静态类型语言")
+    +   静态类型语言
 
-    +   [垃圾回收](#Garbage_Collected "垃圾回收")
+    +   垃圾回收
 
-    +   [内置并发](#Built_In_Concurrency "内置并发")
+    +   内置并发
 
-    +   [标准库](#Standard_Library "标准库")
+    +   标准库
 
-    +   [工具](#Tooling "工具")
+    +   工具
 
-+   [与其他编程语言的比较](#Comparison_with_other_programming_languages "与其他编程语言的比较")
++   与其他编程语言的比较
 
-+   [GO 的缺点](#Disadvantages_of_GO "GO 的缺点")
++   GO 的缺点
 
-    +   [GO 中没有继承](#No_inheritance_in_GO "GO 中没有继承")
+    +   GO 中没有继承
 
-    +   [GO 中没有泛型](#No_Generics_in_GO "GO 中没有泛型")
+    +   GO 中没有泛型
 
-    +   [没有编译时多态或函数重载](#No_Compile_Time_Polymorphism_or_Function_Overloading "没有编译时多态或函数重载")
+    +   没有编译时多态或函数重载
 
-+   [结论：](#Conclusion "结论：")*  *# **概述**
++   结论：*  *# **概述**
 
 这是第一篇将为你介绍 GOLANG 语言的教程。Go 是一种静态类型的编译编程语言。它是一种开源语言，由谷歌开发。
 
@@ -58,7 +58,7 @@
 
 由于 GO 是一种开源编程语言，它托管在 GitHub 上，并且任何人都可以贡献代码。
 
-[https://github.com/golang/go](https://github.com/golang/go)
+[`github.com/golang/go`](https://github.com/golang/go)
 
 Go 具有 C 风格的语法，但提供内存安全、垃圾回收和内置并发。
 
@@ -74,7 +74,7 @@ GO 于 2011 年首次稳定发布。
 
 Go 的语法与 C 相似，语法非常简单。学习起来容易，几乎没有复杂的方面。它的特性不算繁杂，因此编写可读和可维护的代码变得更容易。此外，与其他主流语言相比，GO 的关键字非常少，GO 规范提到有 25 个关键字。
 
-[https://golang.org/ref/spec#Keywords](https://golang.org/ref/spec#Keywords)
+[`golang.org/ref/spec#Keywords`](https://golang.org/ref/spec#Keywords)
 
 ## **快速编译的编译语言**
 
@@ -128,47 +128,47 @@ Go 对工具的支持强大且丰富。它有用于代码格式化、单元测�
 
 +   Go 的速度比 C 稍慢，但由于其简化的语法，与 C/C++ 相比，学习、编写和维护 Go 代码更容易。
 
-+   GO也比C/C++更安全，因为它是垃圾收集语言，也不允许存在于C/C++中的棘手指针操作。作为一门GC语言，你无需担心malloc()和free()操作。
++   GO 也比 C/C++更安全，因为它是垃圾收集语言，也不允许存在于 C/C++中的棘手指针操作。作为一门 GC 语言，你无需担心 malloc()和 free()操作。
 
 **使用 Python/Ruby/Java Script**
 
-+   与上述编程语言相比，GO非常快速
++   与上述编程语言相比，GO 非常快速
 
-+   这些语言的代码可读性更强，但GO是编译型和静态类型的语言，有助于在编译阶段捕获一些棘手的错误。
++   这些语言的代码可读性更强，但 GO 是编译型和静态类型的语言，有助于在编译阶段捕获一些棘手的错误。
 
-# **GO的缺点**
+# **GO 的缺点**
 
-让我们看看GO的一些缺点
+让我们看看 GO 的一些缺点
 
-## **GO中没有继承**
+## **GO 中没有继承**
 
-Go没有类，只有结构体。尽管结构体的功能与类非常相似，但GO更倾向于组合而非继承。GO也不支持类型层次结构，没有像JAVA中的extends或implements这样的关键字。因此在这方面，GO不是一种纯粹的面向对象编程语言。缺少这些特性可能对习惯于面向对象编程的编码者来说显得奇怪。
+Go 没有类，只有结构体。尽管结构体的功能与类非常相似，但 GO 更倾向于组合而非继承。GO 也不支持类型层次结构，没有像 JAVA 中的 extends 或 implements 这样的关键字。因此在这方面，GO 不是一种纯粹的面向对象编程语言。缺少这些特性可能对习惯于面向对象编程的编码者来说显得奇怪。
 
-## **GO中没有泛型**
+## **GO 中没有泛型**
 
-由于GO中缺少泛型，它期望你为想要做的事情编写非常明确的代码。尽管有关于很快会向GO添加泛型支持的讨论。
+由于 GO 中缺少泛型，它期望你为想要做的事情编写非常明确的代码。尽管有关于很快会向 GO 添加泛型支持的讨论。
 
 ## **没有编译时多态或函数重载**
 
-在GO中不可能进行函数重载。请查看这个常见问题了解原因 [https://golang.org/doc/faq#overloading](https://golang.org/doc/faq#overloading)
+在 GO 中不可能进行函数重载。请查看这个常见问题了解原因 [`golang.org/doc/faq#overloading`](https://golang.org/doc/faq#overloading)
 
 根据上述常见问题，没有这些东西会简单得多。尽管有一些变通方法可以实现相同的功能。可以参考这个链接
 
-[https://golangbyexample.com/function-method-overloading-golang/](https://golangbyexample.com/function-method-overloading-golang/)
+[`golangbyexample.com/function-method-overloading-golang/`](https://golangbyexample.com/function-method-overloading-golang/)
 
 # **结论：**
 
 总结一下我们到目前为止讨论的内容
 
-+   Go是静态类型，其性能和运行时效率与C/C++相当
++   Go 是静态类型，其性能和运行时效率与 C/C++相当
 
-+   语法非常简单，写代码像在Python、Ruby中一样容易
++   语法非常简单，写代码像在 Python、Ruby 中一样容易
 
 +   内置的并发支持，拥有良好的标准库和丰富的工具。
 
-+   GO不是一种纯粹的面向对象编程语言，与其他主流语言相比，其错误处理风格不同
++   GO 不是一种纯粹的面向对象编程语言，与其他主流语言相比，其错误处理风格不同
 
-这是对Golang的基本介绍。希望你喜欢这篇文章。请在评论中分享反馈、改进意见或错误。
+这是对 Golang 的基本介绍。希望你喜欢这篇文章。请在评论中分享反馈、改进意见或错误。
 
 ****下一个教程 –**** [GO 安装](https://golangbyexample.com/golang-installation)
 

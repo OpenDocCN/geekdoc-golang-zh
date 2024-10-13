@@ -6,11 +6,11 @@ date: 2024-10-13 06:01:42
 
 -->
 
-# 在Go(Golang)中逐字读取大型文件
+# 在 Go(Golang)中逐字读取大型文件
 
-> 来源：[https://golangbyexample.com/read-large-file-word-by-word-go/](https://golangbyexample.com/read-large-file-word-by-word-go/)
+> 来源：[`golangbyexample.com/read-large-file-word-by-word-go/`](https://golangbyexample.com/read-large-file-word-by-word-go/)
 
-处理大型文件时，显然我们不想将整个文件加载到内存中。在Golang中，bufio包在读取大型文件时提供了帮助。假设我们有一个名为sample.txt的文件，内容如下：
+处理大型文件时，显然我们不想将整个文件加载到内存中。在 Golang 中，bufio 包在读取大型文件时提供了帮助。假设我们有一个名为 sample.txt 的文件，内容如下：
 
 ```go
 This is an example
@@ -71,7 +71,7 @@ by
 word.
 ```
 
-请注意，在上面的程序中，我们设置了**scanner.Split(bufio.ScanWords)**，这有助于我们逐字读取文件。不过需要注意的是，bufio.Scanner的最大缓冲区大小为64*1024字节，这意味着如果你的文件中有任何一行超过64*1024的大小，将会出现错误。
+请注意，在上面的程序中，我们设置了**scanner.Split(bufio.ScanWords)**，这有助于我们逐字读取文件。不过需要注意的是，bufio.Scanner 的最大缓冲区大小为 64*1024 字节，这意味着如果你的文件中有任何一行超过 64*1024 的大小，将会出现错误。
 
 ```go
 bufio.Scanner: token too long

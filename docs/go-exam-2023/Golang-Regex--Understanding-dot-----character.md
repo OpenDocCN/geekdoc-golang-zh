@@ -6,29 +6,29 @@
 
 -->
 
-# Golang正则表达式：理解点字符‘.’。
+# Golang 正则表达式：理解点字符‘.’。
 
-> 来源：[https://golangbyexample.com/dot-chracter-golang-regex/](https://golangbyexample.com/dot-chracter-golang-regex/)
+> 来源：[`golangbyexample.com/dot-chracter-golang-regex/`](https://golangbyexample.com/dot-chracter-golang-regex/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-    +   [MatchCompile函数](#MatchCompile_Function "MatchCompile Function")
+    +   MatchCompile 函数
 
-    +   [匹配方法](#Match_Method "Match Method")
+    +   匹配方法
 
-+   [将点作为字面字符使用](#Using_Dot_as_a_literal_character "Using Dot as a literal character")
++   将点作为字面字符使用
 
-+   [字符类中的点字符](#Dot_character_inside_a_character_class "Dot character inside a character class")*  *## **概述**
++   字符类中的点字符*  *## **概述**
 
 点字符‘.’是正则表达式中最常用的元字符之一。它用于匹配任何字符。如果在正则表达式中添加特定的标志，它也可以匹配新行，稍后我们会讨论这个。默认情况下，它不匹配新行。
 
-在查看正则表达式本身和点字符‘**.’**的用法之前，让我们看一下Go提供的一些基本函数或方法来进行正则匹配。
+在查看正则表达式本身和点字符‘**.’**的用法之前，让我们看一下 Go 提供的一些基本函数或方法来进行正则匹配。
 
-### **MatchCompile函数**
+### **MatchCompile 函数**
 
-[https://golang.org/pkg/regexp/#MustCompile](https://golang.org/pkg/regexp/#MustCompile)。以下是该函数的签名。
+[`golang.org/pkg/regexp/#MustCompile`](https://golang.org/pkg/regexp/#MustCompile)。以下是该函数的签名。
 
 ```go
 func MustCompile(str string) *Regexp
@@ -42,7 +42,7 @@ sampleRegexp := regexp.MustCompile("some_regular_expression")
 
 ### **匹配方法**
 
-[https://golang.org/pkg/regexp/#Regexp.Match](https://golang.org/pkg/regexp/#Regexp.Match)
+[`golang.org/pkg/regexp/#Regexp.Match`](https://golang.org/pkg/regexp/#Regexp.Match)
 
 以下是该方法的签名。
 
@@ -50,7 +50,7 @@ sampleRegexp := regexp.MustCompile("some_regular_expression")
 func (re *Regexp) Match(b []byte) bool
 ```
 
-我们可以在**regexp**结构实例上调用**Match**方法，将给定模式与正则表达式匹配。如果正则表达式与输入字符串匹配，则返回true，否则返回false。我们需要将输入字符串的字节传递给此方法。
+我们可以在**regexp**结构实例上调用**Match**方法，将给定模式与正则表达式匹配。如果正则表达式与输入字符串匹配，则返回 true，否则返回 false。我们需要将输入字符串的字节传递给此方法。
 
 ```go
 match := sampleRegexp.Match([]byte("some_string"))

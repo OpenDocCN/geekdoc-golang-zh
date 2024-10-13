@@ -6,15 +6,15 @@
 
 -->
 
-# 非结构体自定义类型在Go（Golang）中实现接口
+# 非结构体自定义类型在 Go（Golang）中实现接口
 
-> 来源：[https://golangbyexample.com/non-struct-type-implementing-interface-go/](https://golangbyexample.com/non-struct-type-implementing-interface-go/)
+> 来源：[`golangbyexample.com/non-struct-type-implementing-interface-go/`](https://golangbyexample.com/non-struct-type-implementing-interface-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
 任何非结构体自定义类型实现接口也是完全可以的。让我们来看一个例子。
 

@@ -6,17 +6,17 @@ category: 未分类
 
 -->
 
-# 从传入的HTTP请求中获取IP地址。
+# 从传入的 HTTP 请求中获取 IP 地址。
 
-> 来源：[https://golangbyexample.com/golang-ip-address-http-request/](https://golangbyexample.com/golang-ip-address-http-request/)
+> 来源：[`golangbyexample.com/golang-ip-address-http-request/`](https://golangbyexample.com/golang-ip-address-http-request/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-在这篇文章中，我们将使用传入的HTTP请求获取客户端的IP地址。
+在这篇文章中，我们将使用传入的 HTTP 请求获取客户端的 IP 地址。
 
 +   **X-REAL-IP** 头部。
 
@@ -26,17 +26,17 @@ category: 未分类
 
 请注意，
 
-+   **X-REAL-IP** 头部仅包含客户端机器的一个IP地址。一些代理服务器，如Nginx，如果该头部为空，会根据请求之前遇到的可信代理填充此头部。同时请注意，客户端也可以轻易伪造该头部。
++   **X-REAL-IP** 头部仅包含客户端机器的一个 IP 地址。一些代理服务器，如 Nginx，如果该头部为空，会根据请求之前遇到的可信代理填充此头部。同时请注意，客户端也可以轻易伪造该头部。
 
-+   **X-FORWARDED-FOR** 是一个IP地址列表——代理链。将其视为请求跳跃日志。因此，如果请求源自IP为 **ip1** 的客户端，然后经过IP为 **ip2** 的代理服务器，再经过IP为 **ip3** 的负载均衡器，那么 **X-FORWARDED-FOR** 的值将是 **“ip1,ip2,ip3”**。因此，按 **“,”** 分割是个好主意。此外，请注意，客户端也可以轻易伪造它。只有在你控制设置该头部的代理时，才应该使用该头部。
++   **X-FORWARDED-FOR** 是一个 IP 地址列表——代理链。将其视为请求跳跃日志。因此，如果请求源自 IP 为 **ip1** 的客户端，然后经过 IP 为 **ip2** 的代理服务器，再经过 IP 为 **ip3** 的负载均衡器，那么 **X-FORWARDED-FOR** 的值将是 **“ip1,ip2,ip3”**。因此，按 **“,”** 分割是个好主意。此外，请注意，客户端也可以轻易伪造它。只有在你控制设置该头部的代理时，才应该使用该头部。
 
-+   **RemoteAddr** 包含客户端的真实IP地址。它是网络服务器接收连接的实际物理IP地址，响应将发送到该地址。但如果客户端通过代理连接，它将给出代理的IP地址。如果使用负载均衡器或反向代理服务器，则将提供它们的地址。**RemoteAddr** 代表 IP 端口组合。
++   **RemoteAddr** 包含客户端的真实 IP 地址。它是网络服务器接收连接的实际物理 IP 地址，响应将发送到该地址。但如果客户端通过代理连接，它将给出代理的 IP 地址。如果使用负载均衡器或反向代理服务器，则将提供它们的地址。**RemoteAddr** 代表 IP 端口组合。
 
 有关 **X-REAL-IP** 和 **X-FORWARDED-FOR** 头部的更多信息，请参考这篇文章。
 
-[https://distinctplace.com/2014/04/23/story-behind-x-forwarded-for-and-x-real-ip-headers/](https://distinctplace.com/2014/04/23/story-behind-x-forwarded-for-and-x-real-ip-headers/)
+[`distinctplace.com/2014/04/23/story-behind-x-forwarded-for-and-x-real-ip-headers/`](https://distinctplace.com/2014/04/23/story-behind-x-forwarded-for-and-x-real-ip-headers/)
 
-在上述三个值中，**RemoteAddr** 是最可靠的，但如果客户端位于代理后面，或使用负载均衡器或反向代理服务器，它将永远无法提供正确的IP地址，因此顺序为 **X-REAL-IP**，然后是 **X-FORWARDED-FOR**，最后是 **RemoteAddr**。请注意，恶意用户仍然可以伪造 **X-REAL-IP** 和 **X-FORWARDED-FOR** 头部。
+在上述三个值中，**RemoteAddr** 是最可靠的，但如果客户端位于代理后面，或使用负载均衡器或反向代理服务器，它将永远无法提供正确的 IP 地址，因此顺序为 **X-REAL-IP**，然后是 **X-FORWARDED-FOR**，最后是 **RemoteAddr**。请注意，恶意用户仍然可以伪造 **X-REAL-IP** 和 **X-FORWARDED-FOR** 头部。
 
 # **代码**
 
@@ -113,6 +113,6 @@ On my machine it outputs ::1 which is actually loopback address for IPV6
 
 在你的机器上，它将输出 IPV4 的 127.0.0.1 或 IPV6 的 ::1。
 
-[https://en.wikipedia.org/wiki/Localhost](https://en.wikipedia.org/wiki/Localhost)
+[`en.wikipedia.org/wiki/Localhost`](https://en.wikipedia.org/wiki/Localhost)
 
 +   [golang](https://golangbyexample.com/tag/golang/)*

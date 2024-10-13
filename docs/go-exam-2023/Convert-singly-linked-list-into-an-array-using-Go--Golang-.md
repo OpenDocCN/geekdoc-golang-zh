@@ -6,19 +6,19 @@
 
 -->
 
-# 使用Go (Golang)将单链表转换为数组
+# 使用 Go (Golang)将单链表转换为数组
 
-> 来源：[https://golangbyexample.com/linked-list-array-go/](https://golangbyexample.com/linked-list-array-go/)
+> 来源：[`golangbyexample.com/linked-list-array-go/`](https://golangbyexample.com/linked-list-array-go/)
 
 ![单链表转数组图](img/ccbe90c04631b28e895e760eba3b58b3.png)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-使用Golang将单链表转换为数组
+使用 Golang 将单链表转换为数组
 
 **输入单链表：**
 

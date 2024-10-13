@@ -6,21 +6,21 @@
 
 -->
 
-# 在Linux上安装GO（也称为Golang）
+# 在 Linux 上安装 GO（也称为 Golang）
 
-> 来源：[https://golangbyexample.com/golang-linux-installation/](https://golangbyexample.com/golang-linux-installation/)
+> 来源：[`golangbyexample.com/golang-linux-installation/`](https://golangbyexample.com/golang-linux-installation/)
 
-GO可在Windows、Mac和Linux平台上安装。让我们看看Linux的安装设置。
+GO 可在 Windows、Mac 和 Linux 平台上安装。让我们看看 Linux 的安装设置。
 
 **安装**
 
-+   从这里下载最新版本的GO的压缩包 – [https://golang.org/dl/](https://golang.org/dl/)。下载后在**/usr/local.**位置解压。你也可以运行以下命令来解压。
++   从这里下载最新版本的 GO 的压缩包 – [`golang.org/dl/`](https://golang.org/dl/)。下载后在**/usr/local.**位置解压。你也可以运行以下命令来解压。
 
 ```go
 tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
 ```
 
-+   解压后，下面的路径包含GO二进制文件**‘/usr/local/go/bin’**。你必须将此位置添加到你的.bashrc中。打开你的.bashrc并进行以下条目。如果文件尚不存在，请创建它。
++   解压后，下面的路径包含 GO 二进制文件**‘/usr/local/go/bin’**。你必须将此位置添加到你的.bashrc 中。打开你的.bashrc 并进行以下条目。如果文件尚不存在，请创建它。
 
 ```go
 export PATH=$PATH:/usr/local/go/bin
@@ -28,9 +28,9 @@ export PATH=$PATH:/usr/local/go/bin
 
 **测试安装：**
 
-+   重新启动终端，并在终端中输入命令`which go`。它将输出**/usr/local/go/bin/go.** 这是GO二进制文件的位置。
++   重新启动终端，并在终端中输入命令`which go`。它将输出**/usr/local/go/bin/go.** 这是 GO 二进制文件的位置。
 
-+   尝试运行**‘go version’**命令。它将输出当前的GO版本。
++   尝试运行**‘go version’**命令。它将输出当前的 GO 版本。
 
 +   尝试运行**‘go’**命令。它将输出。
 
@@ -90,13 +90,13 @@ Use "go help <topic>" for more information about that topic.</topic>
 
 要卸载，请执行以下两个步骤。
 
-+   运行以下命令以删除文件。这需要sudo权限。
++   运行以下命令以删除文件。这需要 sudo 权限。
 
 ```go
 rm -rf /usr/local/go
 ```
 
-+   从.bashrc文件中删除以下条目。
++   从.bashrc 文件中删除以下条目。
 
 ```go
 export PATH=$PATH:/usr/local/go/bin

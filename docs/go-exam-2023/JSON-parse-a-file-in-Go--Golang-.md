@@ -6,21 +6,21 @@
 
 -->
 
-# 在Go中解析JSON文件（Golang）
+# 在 Go 中解析 JSON 文件（Golang）
 
-> 来源：[https://golangbyexample.com/json-parse-file-golang/](https://golangbyexample.com/json-parse-file-golang/)
+> 来源：[`golangbyexample.com/json-parse-file-golang/`](https://golangbyexample.com/json-parse-file-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [将JSON文件解析为结构体](#JSON_parse_a_file_into_a_struct "将JSON文件解析为结构体")
++   将 JSON 文件解析为结构体
 
-+   [将JSON文件解析为映射](#JSON_parse_a_file_into_a_map "将JSON文件解析为映射")*  *# **概述**
++   将 JSON 文件解析为映射*  *# **概述**
 
 **encoding/json**包提供了一个**Unmarshal**方法，可以用于将文件字节转换为结构体或映射。
 
-**json.Unmarshal**函数可用于将JSON转换为结构体或应用程序。以下是该方法的签名：
+**json.Unmarshal**函数可用于将 JSON 转换为结构体或应用程序。以下是该方法的签名：
 
 ```go
 func Unmarshal(data []byte, v interface{}) error
@@ -28,11 +28,11 @@ func Unmarshal(data []byte, v interface{}) error
 
 让我们看看以下示例：
 
-+   将JSON文件解析为结构体
++   将 JSON 文件解析为结构体
 
-+   将JSON文件解析为映射
++   将 JSON 文件解析为映射
 
-# **将JSON文件解析为结构体**
+# **将 JSON 文件解析为结构体**
 
 创建一个名为**employee.json**的文件，内容如下：
 
@@ -87,7 +87,7 @@ type employee struct {
 }
 ```
 
-员工结构体包含一些用于将JSON转换为结构体的元数据标签。有关更多详细信息，请查看此链接 – [https://golangbyexample.com/struct-field-meta-or-tags/](https://golangbyexample.com/struct-field-meta-or-tags/)
+员工结构体包含一些用于将 JSON 转换为结构体的元数据标签。有关更多详细信息，请查看此链接 – [`golangbyexample.com/struct-field-meta-or-tags/`](https://golangbyexample.com/struct-field-meta-or-tags/)
 
 这就是我们如何将文件字节解析到员工实例中的。
 
@@ -95,17 +95,17 @@ type employee struct {
 err = json.Unmarshal([]byte(file), &emp)
 ```
 
-# **将JSON文件解析为映射**
+# **将 JSON 文件解析为映射**
 
-需要注意的一点是，映射允许整数作为键，而JSON不允许整数作为键。JSON仅允许字符串作为键。因此，具有整数值作为键的映射在转换为JSON时，键将变为字符串值。
+需要注意的一点是，映射允许整数作为键，而 JSON 不允许整数作为键。JSON 仅允许字符串作为键。因此，具有整数值作为键的映射在转换为 JSON 时，键将变为字符串值。
 
-假设我们有以下JSON
+假设我们有以下 JSON
 
 ```go
 {"1":"John", "2": "Simon"}
 ```
 
-以下是一个程序，将从上述内容读取并将上述JSON转换为映射：
+以下是一个程序，将从上述内容读取并将上述 JSON 转换为映射：
 
 ```go
 package main

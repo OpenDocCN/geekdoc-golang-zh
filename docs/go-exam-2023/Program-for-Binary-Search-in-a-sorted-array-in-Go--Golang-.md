@@ -8,13 +8,13 @@
 
 # Go（Golang）中在已排序数组中进行二分查找的程序
 
-> 来源：[https://golangbyexample.com/binary-search-sorted-array-golang/](https://golangbyexample.com/binary-search-sorted-array-golang/)
+> 来源：[`golangbyexample.com/binary-search-sorted-array-golang/`](https://golangbyexample.com/binary-search-sorted-array-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [程序](#Program "程序")*  *## **概述**
++   程序*  *## **概述**
 
 思路是在输入数组中对给定的目标元素进行二分查找。如果目标元素存在，则输出其索引。如果输出元素不存在，则输出 -1。
 

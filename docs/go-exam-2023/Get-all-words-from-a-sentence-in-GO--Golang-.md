@@ -8,13 +8,13 @@
 
 # 从 GO（Golang）中的句子获取所有单词
 
-> 来源：[https://golangbyexample.com/words-from-sentence-golang/](https://golangbyexample.com/words-from-sentence-golang/)
+> 来源：[`golangbyexample.com/words-from-sentence-golang/`](https://golangbyexample.com/words-from-sentence-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码:](#Code "代码:")*  *# **概述**
++   代码:*  *# **概述**
 
 在 GO 中，字符串是 UTF-8 编码的。GO 的 **strings** 包提供了一个 **Fields** 方法，可以用于根据一个或多个连续空白字符的实例来分割字符串。
 

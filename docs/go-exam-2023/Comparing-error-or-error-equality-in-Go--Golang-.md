@@ -6,27 +6,27 @@
 
 -->
 
-# 在Go (Golang)中比较错误或错误相等
+# 在 Go (Golang)中比较错误或错误相等
 
-> 来源：[https://golangbyexample.com/comparing-error-go/](https://golangbyexample.com/comparing-error-go/)
+> 来源：[`golangbyexample.com/comparing-error-go/`](https://golangbyexample.com/comparing-error-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-首先，什么是错误的相等性？正如您所知道的，错误在Go中由错误接口表示。在Go中，如果两个接口是相等的
+首先，什么是错误的相等性？正如您所知道的，错误在 Go 中由错误接口表示。在 Go 中，如果两个接口是相等的
 
 +   两者指向相同的底层类型
 
-+   底层值相等（或两个都是nil）
++   底层值相等（或两个都是 nil）
 
 所以上述两点也适用于比较错误。有两种方法可以检查给定的错误是否相等。
 
 +   使用相等运算符 (==)
 
-+   使用错误包的Is函数 – [https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)。 使用Is函数优于使用相等运算符，因为它通过逐步解包第一个错误来检查相等性，并在每一步解包时与目标错误匹配。稍后我们将看到一个例子，以充分理解为什么它更可取。下面是Is函数的语法。
++   使用错误包的 Is 函数 – [`golang.org/pkg/errors/`](https://golang.org/pkg/errors/)。 使用 Is 函数优于使用相等运算符，因为它通过逐步解包第一个错误来检查相等性，并在每一步解包时与目标错误匹配。稍后我们将看到一个例子，以充分理解为什么它更可取。下面是 Is 函数的语法。
 
 ```go
 func Is(err, target error) bool

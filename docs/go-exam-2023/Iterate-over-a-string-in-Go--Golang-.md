@@ -8,7 +8,7 @@ date: 2024-10-13 06:20:46
 
 # 在 Go（Golang）中遍历字符串
 
-> 来源：[https://golangbyexample.com/iterate-over-a-string-golang/](https://golangbyexample.com/iterate-over-a-string-golang/)
+> 来源：[`golangbyexample.com/iterate-over-a-string-golang/`](https://golangbyexample.com/iterate-over-a-string-golang/)
 
 在 Golang 中，字符串是字节的序列。字符串字面量实际上表示一个 UTF-8 字节序列。在 UTF-8 中，ASCII 字符是单字节，对应于前 128 个 Unicode 字符。所有其他字符占用 1 到 4 个字节。为了更好地理解，考虑以下字符串：
 

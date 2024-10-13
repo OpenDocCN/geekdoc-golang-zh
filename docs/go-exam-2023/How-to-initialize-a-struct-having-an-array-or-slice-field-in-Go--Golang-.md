@@ -6,15 +6,15 @@
 
 -->
 
-# 如何在Go（Golang）中初始化具有数组或切片字段的结构。
+# 如何在 Go（Golang）中初始化具有数组或切片字段的结构。
 
-> 来源：[https://golangbyexample.com/struct-slice-field-go/](https://golangbyexample.com/struct-slice-field-go/)
+> 来源：[`golangbyexample.com/struct-slice-field-go/`](https://golangbyexample.com/struct-slice-field-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 一个结构可以包含一个字段，该字段是另一种类型的切片或数组。要初始化这样的结构，我们可以首先初始化另一种类型的切片/数组。之后，我们可以初始化父结构。在下面的示例中，**class**结构类型有一个**student**结构类型的切片。
 

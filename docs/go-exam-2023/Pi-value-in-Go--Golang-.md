@@ -8,17 +8,17 @@
 
 # Go（Golang）中的圆周率值
 
-> 来源：[https://golangbyexample.com/pi-value-golang/](https://golangbyexample.com/pi-value-golang/)
+> 来源：[`golangbyexample.com/pi-value-golang/`](https://golangbyexample.com/pi-value-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码：](#Code "代码：")*  *# **概述**
++   代码：*  *# **概述**
 
-GO的**math**包提供了**圆周率**常量。
+GO 的**math**包提供了**圆周率**常量。
 
-它在math包的constant.go文件中是这样定义的。它是一个float64值。
+它在 math 包的 constant.go 文件中是这样定义的。它是一个 float64 值。
 
 ```go
 Pi  = 3.14159265358979323846264338327950288419716939937510582097494459

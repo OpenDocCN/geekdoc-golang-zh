@@ -6,11 +6,11 @@
 
 -->
 
-# Go中的协程（Golang）
+# Go 中的协程（Golang）
 
-> 来源：[https://golangbyexample.com/goroutines-golang/](https://golangbyexample.com/goroutines-golang/)
+> 来源：[`golangbyexample.com/goroutines-golang/`](https://golangbyexample.com/goroutines-golang/)
 
-这是golang综合教程系列的第23章。有关该系列其他章节，请参考此链接 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 golang 综合教程系列的第二十三章。有关该系列其他章节，请参考此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程** – [通道](https://golangbyexample.com/channel-golang/)
 
@@ -20,33 +20,33 @@
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [启动一个go协程](#Start_a_go_routine "Start a go routine")
++   启动一个 go 协程
 
-+   [主协程](#Main_goroutine "Main goroutine")
++   主协程
 
-+   [创建多个协程](#Creating_Multiple_Goroutines "Creating Multiple Goroutines")
++   创建多个协程
 
-+   [协程调度](#Scheduling_of_the_goroutines "Scheduling of the goroutines")
++   协程调度
 
-    +   [本地运行队列](#Local_run_queue "Local run queue ")
+    +   本地运行队列
 
-    +   [全局运行队列](#Global_Run_Queue "Global Run Queue")
+    +   全局运行队列
 
-+   [Golang调度器是一个协作调度器](#Golang_scheduler_is_a_Cooperative_Scheduler "Golang scheduler is a Cooperative Scheduler")
++   Golang 调度器是一个协作调度器
 
-+   [协程相较于线程的优势](#Advantages_of_goroutines_over_threads "Advantages of goroutines over threads")
++   协程相较于线程的优势
 
-+   [匿名协程](#Anonymous_Goroutines "Anonymous Goroutines")
++   匿名协程
 
-+   [结论](#Conclusion "Conclusion")*  *# **概述**
++   结论*  *# **概述**
 
-协程可以被视为一种轻量级线程，具有独立的执行，并可以与其他协程并发执行。它是一个与其他协程并发执行的函数或方法。它完全由GO运行时管理。Golang是一种并发语言。每个协程都是一个独立的执行。正是协程帮助在golang中实现并发。
+协程可以被视为一种轻量级线程，具有独立的执行，并可以与其他协程并发执行。它是一个与其他协程并发执行的函数或方法。它完全由 GO 运行时管理。Golang 是一种并发语言。每个协程都是一个独立的执行。正是协程帮助在 golang 中实现并发。
 
-# **启动一个go协程**
+# **启动一个 go 协程**
 
-Golang使用特殊关键字**‘go’**来启动协程。只需在函数或方法调用之前添加**go**关键字即可启动一个。该函数或方法现在将在协程中执行。请注意，并不是函数或方法决定是否是协程。如果我们用go关键字调用该方法或函数，那么该函数或方法就被认为是在协程中执行。
+Golang 使用特殊关键字**‘go’**来启动协程。只需在函数或方法调用之前添加**go**关键字即可启动一个。该函数或方法现在将在协程中执行。请注意，并不是函数或方法决定是否是协程。如果我们用 go 关键字调用该方法或函数，那么该函数或方法就被认为是在协程中执行。
 
 让我们理解正常运行函数与将函数作为协程运行之间的区别。
 
@@ -64,7 +64,7 @@ statement2
 
 1.  然后将调用**start()**函数
 
-1.  一旦start()函数完成，**statement2**将被执行
+1.  一旦 start()函数完成，**statement2**将被执行
 
 +   将函数作为协程运行
 
@@ -76,9 +76,9 @@ statement2
 
 在上述场景中将函数作为协程运行
 
-1.  首先，将执行statement1
+1.  首先，将执行 statement1
 
-1.  然后将作为协程调用start()函数，该函数将异步执行。
+1.  然后将作为协程调用 start()函数，该函数将异步执行。
 
 1.  **statement2**将立即执行。它不会等待**start()**函数完成。开始函数将作为协程并发执行，而程序的其余部分将继续执行。
 
@@ -254,21 +254,21 @@ id: 5
 Finished
 ```
 
-上述程序将在循环中生成10个协程。每次运行程序时，它都会给出不同的输出，因为协程将并发运行，无法确定哪个会先运行。
+上述程序将在循环中生成 10 个协程。每次运行程序时，它都会给出不同的输出，因为协程将并发运行，无法确定哪个会先运行。
 
-让我们了解Go调度器的工作原理。理解协程后将更容易。
+让我们了解 Go 调度器的工作原理。理解协程后将更容易。
 
 # **协程的调度**
 
-一旦Go程序启动，Go运行时将启动与当前进程可用的逻辑CPU数量相等的操作系统线程。每个虚拟核心有一个逻辑CPU，其中虚拟核心的含义是
+一旦 Go 程序启动，Go 运行时将启动与当前进程可用的逻辑 CPU 数量相等的操作系统线程。每个虚拟核心有一个逻辑 CPU，其中虚拟核心的含义是
 
 ```go
 virtual_cores = x*number_of_physical_cores
 ```
 
-其中x=每个核心的硬件线程数量
+其中 x=每个核心的硬件线程数量
 
-**runtime.Numcpus**函数可用于获取可用于Go程序的逻辑处理器数量。见下面的程序
+**runtime.Numcpus**函数可用于获取可用于 Go 程序的逻辑处理器数量。见下面的程序
 
 ```go
 package main
@@ -281,29 +281,29 @@ func main() {
 }
 ```
 
-在我的机器上显示16。我的机器有8个物理核心，每个核心有2个硬件线程。因此2*8=16。
+在我的机器上显示 16。我的机器有 8 个物理核心，每个核心有 2 个硬件线程。因此 2*8=16。
 
-Go程序将启动与可用逻辑CPU数量相等的操作系统线程，或运行时的`runtime.NumCPU()`输出。这些线程将由操作系统管理，这些线程调度到CPU核心的责任仅在于操作系统。
+Go 程序将启动与可用逻辑 CPU 数量相等的操作系统线程，或运行时的`runtime.NumCPU()`输出。这些线程将由操作系统管理，这些线程调度到 CPU 核心的责任仅在于操作系统。
 
-Go运行时有自己的调度器，它将在Go运行时的操作系统级线程上复用协程。因此，本质上每个协程在分配给逻辑CPU的操作系统线程上运行。
+Go 运行时有自己的调度器，它将在 Go 运行时的操作系统级线程上复用协程。因此，本质上每个协程在分配给逻辑 CPU 的操作系统线程上运行。
 
 管理协程并将其分配给操作系统线程涉及两个队列
 
 ## **本地运行队列**
 
-在Go运行时，每个操作系统线程都有一个关联的队列。称为本地运行队列。它包含在该线程上下文中执行的所有协程。Go运行时将调度并进行上下文切换，将属于特定LRQ的协程分配到拥有该LRQ的相应操作系统线程。
+在 Go 运行时，每个操作系统线程都有一个关联的队列。称为本地运行队列。它包含在该线程上下文中执行的所有协程。Go 运行时将调度并进行上下文切换，将属于特定 LRQ 的协程分配到拥有该 LRQ 的相应操作系统线程。
 
 ## **全局运行队列**
 
-它包含所有尚未移动到任何操作系统线程LRQ的协程。Go调度器将从此队列中将一个协程分配到任何操作系统线程的本地运行队列。
+它包含所有尚未移动到任何操作系统线程 LRQ 的协程。Go 调度器将从此队列中将一个协程分配到任何操作系统线程的本地运行队列。
 
 下面的图示说明了调度器的工作原理。
 
 ![](img/ddadf96d5c501fe34af12075fcb1e18d.png)
 
-# **Golang调度器是一个协作调度器**
+# **Golang 调度器是一个协作调度器**
 
-Go调度器是一个协作调度器。这意味着它是非抢占式的。没有基于时间的抢占，这是抢占式调度器的情况。在协作调度器中，线程必须明确让出执行。协程可以在某些特定检查点让出其执行给其他协程。
+Go 调度器是一个协作调度器。这意味着它是非抢占式的。没有基于时间的抢占，这是抢占式调度器的情况。在协作调度器中，线程必须明确让出执行。协程可以在某些特定检查点让出其执行给其他协程。
 
 运行时在函数调用时调用调度器，以决定是否需要调度一个新的协程。因此，当一个协程进行任何函数调用时，调度器将被调用，可能发生上下文切换，这意味着可能调度一个新的协程。现有的协程也可能继续执行。调度器还可以在以下事件中进行上下文切换。
 
@@ -315,7 +315,7 @@ Go调度器是一个协作调度器。这意味着它是非抢占式的。没有
 
 1.  通道操作
 
-1.  使用go关键字时
+1.  使用 go 关键字时
 
 1.  在原语（如互斥锁等）上阻塞
 
@@ -335,7 +335,7 @@ Go调度器是一个协作调度器。这意味着它是非抢占式的。没有
 
 # **匿名 goroutines**
 
-在 Golang 中，匿名函数也可以通过 goroutine 调用。有关匿名函数的更多理解，请参考这篇文章 - [https://golangbyexample.com/go-anonymous-function/](https://golangbyexample.com/go-anonymous-function/)
+在 Golang 中，匿名函数也可以通过 goroutine 调用。有关匿名函数的更多理解，请参考这篇文章 - [`golangbyexample.com/go-anonymous-function/`](https://golangbyexample.com/go-anonymous-function/)
 
 下面是调用匿名函数在 goroutine 中的格式
 

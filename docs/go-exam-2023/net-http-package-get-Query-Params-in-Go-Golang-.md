@@ -8,7 +8,7 @@
 
 # net/http 包获取 Go (Golang) 中的查询参数
 
-> 来源：[https://golangbyexample.com/net-http-package-get-query-params-golang/](https://golangbyexample.com/net-http-package-get-query-params-golang/)
+> 来源：[`golangbyexample.com/net-http-package-get-query-params-golang/`](https://golangbyexample.com/net-http-package-get-query-params-golang/)
 
 **注意：** 如果你对学习 Golang 感兴趣，我们有一个全面的 Golang 教程系列。请务必查看一下 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。现在让我们来看当前的教程。
 

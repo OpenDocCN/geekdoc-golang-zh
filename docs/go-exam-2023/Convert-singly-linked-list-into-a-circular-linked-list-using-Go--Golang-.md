@@ -8,15 +8,15 @@
 
 # 使用 Go (Golang) 将单链表转换为循环链表
 
-> 来源：[https://golangbyexample.com/single-linked-list-circular-golang/](https://golangbyexample.com/single-linked-list-circular-golang/)
+> 来源：[`golangbyexample.com/single-linked-list-circular-golang/`](https://golangbyexample.com/single-linked-list-circular-golang/)
 
 ![](img/2bc3aa339263d40466019d041011a04e.png)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 使用 Golang 将单链表转换为循环链表
 

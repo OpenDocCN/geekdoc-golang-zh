@@ -8,15 +8,15 @@
 
 # HTTP 在请求体中发送/接收 jpeg 文件的示例（使用 Go 语言）
 
-> 来源：[https://golangbyexample.com/jpeg-post-http-go/](https://golangbyexample.com/jpeg-post-http-go/)
+> 来源：[`golangbyexample.com/jpeg-post-http-go/`](https://golangbyexample.com/jpeg-post-http-go/)
 
 目录
 
-**[概览](#Overview "Overview")**
+**概览**
 
-+   [HTTP 服务器](#HTTP_Server "HTTP Server")
++   HTTP 服务器
 
-+   [HTTP 客户端](#HTTP_Client "HTTP Client")*  *# **概览**
++   HTTP 客户端*  *# **概览**
 
 **multipart/form-data** 内容类型可用于在 HTTP POST 调用中发送 jpeg 文件。表单数据将包含
 
@@ -143,7 +143,7 @@ func call(urlPath, method string) error {
 
 以下是 HTTP 客户端示例的代码。它在 HTTP 请求中向上述创建的服务器发送 **multipart/form-data** 请求体。
 
-首先，我们必须创建一个多部分写入器 [https://golang.org/pkg/mime/multipart/#Writer](https://golang.org/pkg/mime/multipart/#Writer)
+首先，我们必须创建一个多部分写入器 [`golang.org/pkg/mime/multipart/#Writer`](https://golang.org/pkg/mime/multipart/#Writer)
 
 ```go
 writer := multipart.NewWriter(body)

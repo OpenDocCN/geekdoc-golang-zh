@@ -6,11 +6,11 @@
 
 -->
 
-# Go中的Hello World（Golang）
+# Go 中的 Hello World（Golang）
 
-> 来源：[https://golangbyexample.com/hello-world-golang/](https://golangbyexample.com/hello-world-golang/)
+> 来源：[`golangbyexample.com/hello-world-golang/`](https://golangbyexample.com/hello-world-golang/)
 
-让我们看看如何用golang编写一个简单的Hello World程序。创建一个扩展名为.go的文件。我们将这个文件命名为**helloworld.go**。下面是文件的内容。
+让我们看看如何用 golang 编写一个简单的 Hello World 程序。创建一个扩展名为.go 的文件。我们将这个文件命名为**helloworld.go**。下面是文件的内容。
 
 ```go
 package main  
@@ -24,7 +24,7 @@ func main() {
 
 关于上述程序需要注意的几点
 
-+   每个go文件都以包名开始。在上述情况下，它是包**main**
++   每个 go 文件都以包名开始。在上述情况下，它是包**main**
 
 +   只有**main**包是可执行的。
 
@@ -36,7 +36,7 @@ func main() {
 fmt.Println("Hello World")
 ```
 
-现在让我们运行这个文件。要运行，请转到包含此文件的目录。输入下面的命令来运行该文件。这个命令的作用是编译go文件并立即运行它。
+现在让我们运行这个文件。要运行，请转到包含此文件的目录。输入下面的命令来运行该文件。这个命令的作用是编译 go 文件并立即运行它。
 
 ```go
 go run helloworld.go

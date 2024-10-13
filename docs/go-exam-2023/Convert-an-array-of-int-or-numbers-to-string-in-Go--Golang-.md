@@ -8,13 +8,13 @@
 
 # 将整型数组或数字转换为 Go（Golang）中的字符串
 
-> 来源：[https://golangbyexample.com/array-int-string-golang/](https://golangbyexample.com/array-int-string-golang/)
+> 来源：[`golangbyexample.com/array-int-string-golang/`](https://golangbyexample.com/array-int-string-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [程序](#Program "程序")*  *## **概述**
++   程序*  *## **概述**
 
 在本教程中，我们将学习如何在 Go 中将整型或数字数组转换为字符串。
 

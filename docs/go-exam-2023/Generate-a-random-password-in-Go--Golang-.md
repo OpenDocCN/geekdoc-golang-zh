@@ -6,21 +6,21 @@ date: 2024-10-13 06:16:04
 
 -->
 
-# 在Go (Golang)中生成随机密码
+# 在 Go (Golang)中生成随机密码
 
-> 来源：[https://golangbyexample.com/generate-random-password-golang/](https://golangbyexample.com/generate-random-password-golang/)
+> 来源：[`golangbyexample.com/generate-random-password-golang/`](https://golangbyexample.com/generate-random-password-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-**‘math/rand’** 包含一个Intn函数，可用于生成[0,n)之间的伪随机数。末尾的括号表示n是不包含的。这个函数可以用来从字符集生成随机密码。
+**‘math/rand’** 包含一个 Intn 函数，可用于生成[0,n)之间的伪随机数。末尾的括号表示 n 是不包含的。这个函数可以用来从字符集生成随机密码。
 
-要了解伪随机数的含义，请查看这篇文章 – [https://golangbyexample.com/generate-random-number-golang](https://golangbyexample.com/generate-random-number-golang)
+要了解伪随机数的含义，请查看这篇文章 – [`golangbyexample.com/generate-random-number-golang`](https://golangbyexample.com/generate-random-number-golang)
 
-以下是该方法的签名。它接受一个数字n作为输入，并返回一个范围为0<=x<n的数字。
+以下是该方法的签名。它接受一个数字 n 作为输入，并返回一个范围为 0<=x<n 的数字。
 
 ```go
 func Intn(n int) int
@@ -38,7 +38,7 @@ allCharSet     = lowerCharSet + upperCharSet + specialCharSet + numberSet
 
 以下代码也处理密码必须包含特定数量的特殊字符、数字或大写字母的情况。
 
-还请注意，一旦生成符合要求的密码，我们会在最后对其进行洗牌。为了洗牌，我们首先将其转换为一个rune数组。请参阅这篇文章以了解为什么需要洗牌字符串 – [https://golangbyexample.com/shuffle-string-golang/](https://golangbyexample.com/shuffle-string-golang/)
+还请注意，一旦生成符合要求的密码，我们会在最后对其进行洗牌。为了洗牌，我们首先将其转换为一个 rune 数组。请参阅这篇文章以了解为什么需要洗牌字符串 – [`golangbyexample.com/shuffle-string-golang/`](https://golangbyexample.com/shuffle-string-golang/)
 
 # **代码**
 

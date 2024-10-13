@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中使用 nil 通道的 select 语句
 
-> 来源：[https://golangbyexample.com/select-with-nil-channel-golang/](https://golangbyexample.com/select-with-nil-channel-golang/)
+> 来源：[`golangbyexample.com/select-with-nil-channel-golang/`](https://golangbyexample.com/select-with-nil-channel-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
 在 nil 通道上进行发送或接收操作会永久阻塞。因此，在 select 语句中使用 nil 通道的一个用例是，在该 case 语句上的发送或接收操作完成后禁用该 case 语句。然后通道可以简单地设置为 nil。当 select 语句再次执行时，该 case 语句将被忽略，接收或发送操作将会在另一个 case 语句上等待。因此，它的目的是忽略该 case 语句并执行其他 case 语句。
 

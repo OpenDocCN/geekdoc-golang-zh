@@ -8,17 +8,17 @@
 
 # 在 Go (Golang) 中以斜体打印/输出文本
 
-> 来源：[https://golangbyexample.com/print-italic-text-golang/](https://golangbyexample.com/print-italic-text-golang/)
+> 来源：[`golangbyexample.com/print-italic-text-golang/`](https://golangbyexample.com/print-italic-text-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 我们可以使用 faith 包来实现相同的功能。
 
-[https://github.com/fatih/color](https://github.com/fatih/color)
+[`github.com/fatih/color`](https://github.com/fatih/color)
 
 # **程序**
 

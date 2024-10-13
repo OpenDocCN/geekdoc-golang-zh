@@ -6,23 +6,23 @@
 
 -->
 
-# 在Golang中比较浮点数
+# 在 Golang 中比较浮点数
 
-> 来源：[https://golangbyexample.com/comparing-floating-point-numbers-go/](https://golangbyexample.com/comparing-floating-point-numbers-go/)
+> 来源：[`golangbyexample.com/comparing-floating-point-numbers-go/`](https://golangbyexample.com/comparing-floating-point-numbers-go/)
 
 目录
 
-**   [引言](#Introduction "Introduction")
+**   引言
 
-+   [比较相同浮点类型](#Comparing_Same_Float_Types "Comparing Same Float Types")
++   比较相同浮点类型
 
-+   [比较不同浮点类型](#Comparing_Different_Float_Types "Comparing Different Float Types")
++   比较不同浮点类型
 
-+   [比较相同浮点类型的容差](#Comparing_Same_Float_Types_With_Tolerance "Comparing Same Float Types With Tolerance")
++   比较相同浮点类型的容差
 
-+   [使用math.big包进行比较](#Comparing_Using_mathbig_package "Comparing Using math.big package")*  *# 引言
++   使用 math.big 包进行比较*  *# 引言
 
-Go语言有两种浮点类型
+Go 语言有两种浮点类型
 
 +   float32
 
@@ -30,7 +30,7 @@ Go语言有两种浮点类型
 
 # **比较相同浮点类型**
 
-可以使用Go的==运算符比较两个浮点数，前提是它们是相同的浮点类型。请看下面的例子
+可以使用 Go 的==运算符比较两个浮点数，前提是它们是相同的浮点类型。请看下面的例子
 
 ```go
 package main
@@ -65,7 +65,7 @@ Not Same
 
 # **比较不同浮点类型**
 
-比较float32和float64将导致编译错误
+比较 float32 和 float64 将导致编译错误
 
 ```go
 package main
@@ -124,9 +124,9 @@ When a=3.140000 and b =3.141000 => Nearly same by tolerance
 When a=3.140000 and b=3.142000 => Not same Even by Tolerance
 ```
 
-# **使用math.big包进行比较**
+# **使用 math.big 包进行比较**
 
-big包支持大数，并支持整型、有理数和浮点数。它有一个比较方法，可以用来比较两个浮点数
+big 包支持大数，并支持整型、有理数和浮点数。它有一个比较方法，可以用来比较两个浮点数
 
 ```go
 package main
@@ -165,4 +165,4 @@ func main() {
 a less than b
 ```
 
-+   [比较](https://golangbyexample.com/tag/compare/)*   [浮点](https://golangbyexample.com/tag/float/)*   [Go中的浮点数](https://golangbyexample.com/tag/floating-point-numbers-in-go/)*
++   [比较](https://golangbyexample.com/tag/compare/)*   [浮点](https://golangbyexample.com/tag/float/)*   [Go 中的浮点数](https://golangbyexample.com/tag/floating-point-numbers-in-go/)*

@@ -8,9 +8,9 @@
 
 # Go 中的接口（Golang）。
 
-> 来源：[https://golangbyexample.com/interface-in-golang/](https://golangbyexample.com/interface-in-golang/)。
+> 来源：[`golangbyexample.com/interface-in-golang/`](https://golangbyexample.com/interface-in-golang/)。
 
-这是 Go 语言综合教程系列的第 21 章。请参考此链接获取系列的其他章节 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。
+这是 Go 语言综合教程系列的第二十一章。请参考此链接获取系列的其他章节 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 
 **下一个教程** – [Iota](https://golangbyexample.com/iota-in-golang)。
 
@@ -20,41 +20,41 @@
 
 目录。
 
-**[概述](#Overview "概述")**。
+**概述**。
 
-+   [实现接口](#Implementing_an_Interface "实现接口")。
++   实现接口。
 
-+   [接口是隐式实现的](#Interface_are_implemented_implicitly "接口是隐式实现的")。
++   接口是隐式实现的。
 
-+   [接口类型作为函数参数](#Interface_types_as_argument_to_a_function "接口类型作为函数参数")。
++   接口类型作为函数参数。
 
-+   [为什么使用接口](#Why_Interface "为什么使用接口")。
++   为什么使用接口。
 
-+   [指针接收者在实现接口时](#Pointer_Receiver_while_implementing_an_interface "指针接收者在实现接口时")。
++   指针接收者在实现接口时。
 
-+   [非结构体自定义类型实现接口](#Non-struct_Custom_Type_Implementing_an_interface "非结构体自定义类型实现接口")。
++   非结构体自定义类型实现接口。
 
-+   [类型实现多个接口](#Type_Implementing_multiple_interfaces "类型实现多个接口")。
++   类型实现多个接口。
 
-+   [接口的零值](#Zero_Value_of_Interface "接口的零值")。
++   接口的零值。
 
-+   [接口的内部工作原理](#Inner_Working_of_Interface "接口的内部工作原理")。
++   接口的内部工作原理。
 
-+   [嵌入接口](#Embedding_Interfaces "嵌入接口")。
++   嵌入接口。
 
-    +   [在其他接口中嵌入接口](#Embedding_interface_in_other_interface "在其他接口中嵌入接口")。
+    +   在其他接口中嵌入接口。
 
-    +   [在结构体中嵌入接口](#Embedding_interface_in_a_struct "在结构体中嵌入接口")。
+    +   在结构体中嵌入接口。
 
-+   [访问接口的底层变量](#Access_Underlying_Variable_of_Interface "访问接口的底层变量")。
++   访问接口的底层变量。
 
-    +   [类型断言](#Type_Assertion "类型断言")。
+    +   类型断言。
 
-    +   [类型切换](#Type_Switch "类型切换")。
+    +   类型切换。
 
-+   [空接口](#Empty_interface "空接口")。
++   空接口。
 
-+   [结论](#Conclusion "结论")*  *# **概述**
++   结论*  *# **概述**
 
 接口是 Go 中的一种类型，它是方法签名的集合。这些方法签名的集合旨在表示某种行为。接口只声明方法集，任何实现了接口所有方法的类型都是该接口类型。
 
@@ -120,7 +120,7 @@ func main() {
 nil
 ```
 
-如上程序所示，创建一个接口类型的变量是可以的。它打印nil，因为接口的默认零值是nil。
+如上程序所示，创建一个接口类型的变量是可以的。它打印 nil，因为接口的默认零值是 nil。
 
 # **实现接口**
 
@@ -181,11 +181,11 @@ a = lion{}
 
 # **接口是隐式实现的**
 
-并没有明确声明一个类型实现了一个接口。实际上，在Go中并不存在类似于Java的**“implements”**关键字。如果一个类型实现了接口的所有方法，它就实现了该接口。
+并没有明确声明一个类型实现了一个接口。实际上，在 Go 中并不存在类似于 Java 的**“implements”**关键字。如果一个类型实现了接口的所有方法，它就实现了该接口。
 
 如上所见，定义一个接口类型的变量是正确的，并且如果具体类型实现了接口的所有方法，我们可以将任何具体类型的值分配给这个变量。
 
-并没有明确声明**狮子**结构体实现了**动物**接口。在编译期间，Go会注意到**狮子**结构体实现了**动物**接口的所有方法，因此这是允许的。任何实现了**动物**接口所有方法的其他类型都成为该接口类型。
+并没有明确声明**狮子**结构体实现了**动物**接口。在编译期间，Go 会注意到**狮子**结构体实现了**动物**接口的所有方法，因此这是允许的。任何实现了**动物**接口所有方法的其他类型都成为该接口类型。
 
 让我们看看另一个类型实现动物接口的更复杂的例子。
 
@@ -249,7 +249,7 @@ Dog walk
 
 **狮子**和**狗**都实现了呼吸和行走方法，因此它们属于动物类型，并且可以正确地分配给接口类型的变量。
 
-接口变量a最初被分配为**狮子**实例，然后同一变量被分配为**狗**实例。因此，接口变量所引用的类型是动态的。它动态地持有对底层类型的引用。
+接口变量 a 最初被分配为**狮子**实例，然后同一变量被分配为**狗**实例。因此，接口变量所引用的类型是动态的。它动态地持有对底层类型的引用。
 
 需要注意的两个重要点：
 
@@ -259,7 +259,7 @@ Dog walk
 cannot use lion literal (type lion) as type animal in assignment:
 ```
 
-+   根据实例的类型，在运行时调用正确的方法——这意味着根据接口变量引用的是狮子实例还是狗实例来调用相应的方法。如果它引用的是狮子实例，则调用狮子的方法；如果它引用的是狗实例，则调用狗的方法。这也从输出中得到了验证。这是在Go中实现运行时多态性的一种方式。
++   根据实例的类型，在运行时调用正确的方法——这意味着根据接口变量引用的是狮子实例还是狗实例来调用相应的方法。如果它引用的是狮子实例，则调用狮子的方法；如果它引用的是狗实例，则调用狗的方法。这也从输出中得到了验证。这是在 Go 中实现运行时多态性的一种方式。
 
 还需注意，类型定义的方法应与接口中方法的整个签名匹配，即应匹配。
 
@@ -269,7 +269,7 @@ cannot use lion literal (type lion) as type animal in assignment:
 
 +   返回值的数量和每个返回值的类型。
 
-想象一下，**动物**接口还有另一个方法**速度**，返回动物速度的int值。
+想象一下，**动物**接口还有另一个方法**速度**，返回动物速度的 int 值。
 
 ```go
 type animal interface {
@@ -279,7 +279,7 @@ type animal interface {
 }
 ```
 
-如果**狮子**结构具有如下的**速度**方法，但不返回int值，则**狮子**结构将不实现**动物**接口。
+如果**狮子**结构具有如下的**速度**方法，但不返回 int 值，则**狮子**结构将不实现**动物**接口。
 
 ```go
 func (l lion) speed()
@@ -372,9 +372,9 @@ Dog walk
 
 +   有助于在代码库的不同部分之间编写更模块化和解耦的代码——它可以帮助减少代码库不同部分之间的依赖，并提供松耦合。
 
-比如想象一个与数据库层交互的应用程序。如果该应用程序通过接口与数据库交互，那么它永远不会知道后台使用的是哪种数据库。你可以在后台更改数据库的类型，比如从arango db更改为mongo db，而应用层无需任何更改，因为它通过实现该接口的arango db和mongo db与数据库层交互。
+比如想象一个与数据库层交互的应用程序。如果该应用程序通过接口与数据库交互，那么它永远不会知道后台使用的是哪种数据库。你可以在后台更改数据库的类型，比如从 arango db 更改为 mongo db，而应用层无需任何更改，因为它通过实现该接口的 arango db 和 mongo db 与数据库层交互。
 
-+   接口可以用于实现golang中的运行时多态性。运行时多态性意味着调用在运行时被解析。让我们通过一个示例了解如何使用接口实现运行时多态性。
++   接口可以用于实现 golang 中的运行时多态性。运行时多态性意味着调用在运行时被解析。让我们通过一个示例了解如何使用接口实现运行时多态性。
 
 不同国家有不同的税收计算方式。这可以通过接口来表示。
 
@@ -689,7 +689,7 @@ Lion feeds young
 
 # **接口的零值**
 
-接口的默认或零值是nil。下面的程序演示了这一点。
+接口的默认或零值是 nil。下面的程序演示了这一点。
 
 ```go
 package main
@@ -728,11 +728,11 @@ nil
 
 ![](img/c9cc4eb8c2e7148fd7877e127d773ca6.png)
 
-Golang提供了格式标识符，以打印由接口值表示的底层类型和底层值。
+Golang 提供了格式标识符，以打印由接口值表示的底层类型和底层值。
 
-+   %T可以用来打印接口值的具体类型。
++   %T 可以用来打印接口值的具体类型。
 
-+   %v可以用来打印接口值的具体值。
++   %v 可以用来打印接口值的具体值。
 
 ```go
 package main
@@ -854,11 +854,11 @@ Employee walk
 Employee speaks
 ```
 
-作为另一个示例，golang 的 **io** 包的 ReaderWriter 接口 ([https://golang.org/pkg/io/#ReadWriter](https://golang.org/pkg/io/#ReadWriter)) 嵌入了两个其他接口。
+作为另一个示例，golang 的 **io** 包的 ReaderWriter 接口 ([`golang.org/pkg/io/#ReadWriter`](https://golang.org/pkg/io/#ReadWriter)) 嵌入了两个其他接口。
 
-+   reader 接口 – [https://golang.org/pkg/io/#Reader](https://golang.org/pkg/io/#Reader)
++   reader 接口 – [`golang.org/pkg/io/#Reader`](https://golang.org/pkg/io/#Reader)
 
-+   writer 接口 – [https://golang.org/pkg/io/#Writer](https://golang.org/pkg/io/#Writer)
++   writer 接口 – [`golang.org/pkg/io/#Writer`](https://golang.org/pkg/io/#Writer)
 
 ```go
 type ReadWriter interface {
@@ -1099,9 +1099,9 @@ val, ok := i.(<type>)</type>
 
 在这种情况下，类型断言返回两个值，第一个值与上面讨论的相同，另一个值是布尔值，指示类型断言是否正确。这个值是：
 
-+   如果类型断言正确，则返回true，意味着断言的类型与底层类型相同。
++   如果类型断言正确，则返回 true，意味着断言的类型与底层类型相同。
 
-+   如果类型断言失败，则返回false。
++   如果类型断言失败，则返回 false。
 
 所以第二种方法是一种良好的类型断言方式，因为它可以防止程序崩溃。让我们来看一个例子。
 
@@ -1237,7 +1237,7 @@ func print(a animal) {
 Type: lion
 ```
 
-在上面的代码中，使用类型开关我们可以确定接口变量x中包含的值的类型是**狮子**、**狗**或其他某种类型。也可以在case语句中添加更多不同的类型。
+在上面的代码中，使用类型开关我们可以确定接口变量 x 中包含的值的类型是**狮子**、**狗**或其他某种类型。也可以在 case 语句中添加更多不同的类型。
 
 # **空接口**
 
@@ -1269,7 +1269,7 @@ func test(a interface{}) {
 
 # **结论**
 
-这就是Go语言中的接口。希望你喜欢这篇文章。请在评论中分享反馈/改进建议/错误。
+这就是 Go 语言中的接口。希望你喜欢这篇文章。请在评论中分享反馈/改进建议/错误。
 
 **下一教程** – [Iota](https://golangbyexample.com/iota-in-golang)
 

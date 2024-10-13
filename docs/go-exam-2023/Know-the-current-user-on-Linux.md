@@ -8,11 +8,11 @@
 
 # 了解 Linux 上的当前用户
 
-> 来源：[https://golangbyexample.com/know-the-current-user-on-linux/](https://golangbyexample.com/know-the-current-user-on-linux/)
+> 来源：[`golangbyexample.com/know-the-current-user-on-linux/`](https://golangbyexample.com/know-the-current-user-on-linux/)
 
 目录
 
-**   [概述](#Overview "Overview")*  *# **概述**
+**   概述*  *# **概述**
 
 Linux 命令 **‘whoami’** 可用于获取当前登录的用户。
 

@@ -8,7 +8,7 @@
 
 # 规范的 HTTP 头部键含义
 
-> 来源：[https://golangbyexample.com/canonical-http-header-key/](https://golangbyexample.com/canonical-http-header-key/)
+> 来源：[`golangbyexample.com/canonical-http-header-key/`](https://golangbyexample.com/canonical-http-header-key/)
 
 规范形式意味着第一个字符和其后任何跟随的连字符后的字符均为大写。其他所有字符均为小写。规范形式的示例有
 

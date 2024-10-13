@@ -6,21 +6,21 @@
 
 -->
 
-# 在Go（Golang）中打印接口的基础类型和值
+# 在 Go（Golang）中打印接口的基础类型和值
 
-> 来源：[https://golangbyexample.com/print-type-value-interface-golang/](https://golangbyexample.com/print-type-value-interface-golang/)
+> 来源：[`golangbyexample.com/print-type-value-interface-golang/`](https://golangbyexample.com/print-type-value-interface-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码](#Code "代码")*  *# **概述**
++   代码*  *# **概述**
 
-Golang提供格式标识符来打印接口值所表示的基础类型和基础值。
+Golang 提供格式标识符来打印接口值所表示的基础类型和基础值。
 
-+   %T可以用来打印接口值的具体类型
++   %T 可以用来打印接口值的具体类型
 
-+   %v可以用来打印接口值的具体值。
++   %v 可以用来打印接口值的具体值。
 
 假设我们有一个接口**动物**如下
 

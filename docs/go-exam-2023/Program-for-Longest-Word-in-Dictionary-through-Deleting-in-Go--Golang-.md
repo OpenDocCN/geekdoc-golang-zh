@@ -8,13 +8,13 @@
 
 # 通过删除在 Go (Golang) 中查找字典中最长单词的程序
 
-> 来源：[https://golangbyexample.com/longest-word-dictionary-go/](https://golangbyexample.com/longest-word-dictionary-go/)
+> 来源：[`golangbyexample.com/longest-word-dictionary-go/`](https://golangbyexample.com/longest-word-dictionary-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 给定一个字符串和一个单词字典。目标是找到字典中作为子序列出现在给定字符串中的最长单词。如果可能的结果数量超过 1，则返回字典中按字典顺序最小的最长单词。
 

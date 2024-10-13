@@ -6,9 +6,9 @@
 
 -->
 
-# 将接口作为参数传递给Go（Golang）中的函数。
+# 将接口作为参数传递给 Go（Golang）中的函数。
 
-> 来源：[https://golangbyexample.com/pass-interface-as-argument-function-go/](https://golangbyexample.com/pass-interface-as-argument-function-go/)
+> 来源：[`golangbyexample.com/pass-interface-as-argument-function-go/`](https://golangbyexample.com/pass-interface-as-argument-function-go/)
 
 函数可以接受接口类型的参数。该接口类型可以是任意类型。
 
@@ -20,9 +20,9 @@
 
 目录
 
-**   [常规接口](#Regular_Interface "常规接口")
+**   常规接口
 
-+   [空接口](#Empty_Interface "空接口")*  *# **常规接口**
++   空接口*  *# **常规接口**
 
 函数可以接受接口类型的参数。任何实现该接口的类型都可以作为参数传递给该函数。让我们通过一个示例来理解。假设我们有如下动物接口。
 

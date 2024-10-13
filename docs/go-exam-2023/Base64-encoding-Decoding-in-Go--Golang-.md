@@ -8,21 +8,21 @@
 
 # Go（Golang）中的 Base64 编码/解码
 
-> 来源：[https://golangbyexample.com/base64-golang/](https://golangbyexample.com/base64-golang/)
+> 来源：[`golangbyexample.com/base64-golang/`](https://golangbyexample.com/base64-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [标准编码](#StdEncoding "StdEncoding")
++   标准编码
 
-+   [URL编码](#URLEncoding "URLEncoding")
++   URL 编码
 
-+   [原始标准编码](#RawStdEncoding "RawStdEncoding")
++   原始标准编码
 
-+   [原始 URL 编码](#RawURLEncoding "RawURLEncoding")*  *# **概述**
++   原始 URL 编码*  *# **概述**
 
-Golang 提供了一个 **encoding/base64** 包，可用于将字符串编码为 base64 并将 base64 编码的字符串解码回原始字符串。[https://golang.org/pkg/encoding/base64/](https://golang.org/pkg/encoding/base64/)
+Golang 提供了一个 **encoding/base64** 包，可用于将字符串编码为 base64 并将 base64 编码的字符串解码回原始字符串。[`golang.org/pkg/encoding/base64/`](https://golang.org/pkg/encoding/base64/)
 
 Go 支持四种不同方式的 base64。
 
@@ -32,7 +32,7 @@ Go 支持四种不同方式的 base64。
 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
 ```
 
-+   **URL编码** – 与标准编码相同，只是其中的 **‘+’** 和 **‘\’** 符号被替换为 **‘-‘** 和 **‘_’**。它们被替换以使其与文件名和 URL 兼容。以下是 base64 URL 编码的字符集
++   **URL 编码** – 与标准编码相同，只是其中的 **‘+’** 和 **‘\’** 符号被替换为 **‘-‘** 和 **‘_’**。它们被替换以使其与文件名和 URL 兼容。以下是 base64 URL 编码的字符集
 
 ```go
 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_
@@ -44,7 +44,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_
 
 上述每个编码由 Encoding 结构表示
 
-[https://golang.org/pkg/encoding/base64/#Encoding](https://golang.org/pkg/encoding/base64/#Encoding)
+[`golang.org/pkg/encoding/base64/#Encoding`](https://golang.org/pkg/encoding/base64/#Encoding)
 
 Encoding 结构进一步定义了两个编码和解码的方法
 
@@ -139,7 +139,7 @@ fmt.Println(string(originalStringBytes))
 
 它在解码时正确输出原始字符串
 
-# **URL编码**
+# **URL 编码**
 
 在这个例子中，**‘+’** 和 **‘\’** 符号被替换为 **‘-‘** 和 **‘_’**。它们被替换以使其与文件名和 URL 兼容。
 

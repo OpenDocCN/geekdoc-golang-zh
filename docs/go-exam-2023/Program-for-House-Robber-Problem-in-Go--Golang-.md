@@ -8,13 +8,13 @@
 
 # 用 Go (Golang) 编写的房屋抢劫问题程序
 
-> 来源：[https://golangbyexample.com/house-robber-golang/](https://golangbyexample.com/house-robber-golang/)
+> 来源：[`golangbyexample.com/house-robber-golang/`](https://golangbyexample.com/house-robber-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [程序](#Program "Program") *  * ## **概述**
++   程序 *  * ## **概述**
 
 邻里中有几所房子。每所房子里都有一些钱。这些房子被表示为一个数组，数组中的每个条目表示该房子里的钱数。
 

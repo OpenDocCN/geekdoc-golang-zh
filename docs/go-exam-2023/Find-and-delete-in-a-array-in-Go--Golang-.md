@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go（Golang）中查找并删除数组中的元素
+# 在 Go（Golang）中查找并删除数组中的元素
 
-> 来源：[https://golangbyexample.com/find-delete-array-golang/](https://golangbyexample.com/find-delete-array-golang/)
+> 来源：[`golangbyexample.com/find-delete-array-golang/`](https://golangbyexample.com/find-delete-array-golang/)
 
 可能有两种情况：
 
 目录
 
-**   [修改原数组](#Modify_Original_Array "Modify Original Array")
+**   修改原数组
 
-+   [请勿修改原数组](#Do_not_modify_the_original_array "Do not modify the original array")*  *# **修改原数组**
++   请勿修改原数组*  *# **修改原数组**
 
 +   继续复制到原数组，跳过需要删除的项。
 

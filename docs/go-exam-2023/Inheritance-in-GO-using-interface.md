@@ -6,17 +6,17 @@
 
 -->
 
-# 使用接口的GO中的继承
+# 使用接口的 GO 中的继承
 
-> 来源：[https://golangbyexample.com/inheritance-go-interface/](https://golangbyexample.com/inheritance-go-interface/)
+> 来源：[`golangbyexample.com/inheritance-go-interface/`](https://golangbyexample.com/inheritance-go-interface/)
 
-本文描述了使用接口的继承。请访问我们的Go中的继承完整指南文章以获取完整参考
+本文描述了使用接口的继承。请访问我们的 Go 中的继承完整指南文章以获取完整参考
 
-> [OOP：GOLANG中的继承完整指南](https://golangbyexample.com/oop-inheritance-golang-complete/)
+> [OOP：GOLANG 中的继承完整指南](https://golangbyexample.com/oop-inheritance-golang-complete/)
 
-[https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=lwzs553n8n#?secret=ZXUMNIsae2](https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=lwzs553n8n#?secret=ZXUMNIsae2)
+[`golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=lwzs553n8n#?secret=ZXUMNIsae2`](https://golangbyexample.com/oop-inheritance-golang-complete/embed/#?secret=lwzs553n8n#?secret=ZXUMNIsae2)
 
-Go通过嵌入结构体或使用接口支持继承。有不同的实现方式，每种方式都有一些限制。这些不同的方式是：
+Go 通过嵌入结构体或使用接口支持继承。有不同的实现方式，每种方式都有一些限制。这些不同的方式是：
 
 1.  通过使用嵌入式结构体——父结构体嵌入到子结构体中。这个方法的限制是无法进行子类型化。你不能将子结构体传递给期望基类的函数。更多详情请参见此链接——**[使用结构体的继承](https://golangbyexample.com/inheritance-go-struct/)**
 

@@ -8,33 +8,33 @@
 
 # Go（Golang）中的二维（2d）和多维数组及切片
 
-> 来源：[https://golangbyexample.com/two-dimensional-array-slice-golang/](https://golangbyexample.com/two-dimensional-array-slice-golang/)
+> 来源：[`golangbyexample.com/two-dimensional-array-slice-golang/`](https://golangbyexample.com/two-dimensional-array-slice-golang/)
 
-在Go语言中，多维数组和切片都是可以的。让我们详细了解它们。
+在 Go 语言中，多维数组和切片都是可以的。让我们详细了解它们。
 
 目录
 
-**   [多维数组](#Multi-Dimensional_Arrays "多维数组")
+**   多维数组
 
-    +   [概述](#Overview "概述")
+    +   概述
 
-    +   [访问多维数组的元素](#Accessing_elements_of_a_multi_dimensional_array "访问多维数组的元素")
+    +   访问多维数组的元素
 
-    +   [多维数组的遍历](#Traversal_of_a_multidimensional_array "多维数组的遍历")
+    +   多维数组的遍历
 
-    +   [多维数组在内存中是如何存储的](#How_multidimensional_array_is_stored_in_memory "多维数组在内存中是如何存储的")
+    +   多维数组在内存中是如何存储的
 
-+   [多维切片](#Multi-dimensional_Slices "多维切片")
++   多维切片
 
-    +   [概述](#Overview-2 "概述")
+    +   概述
 
-    +   [访问多维切片元素](#Accessing_Multi-Dimensional_Slice_elements "访问多维切片元素")
+    +   访问多维切片元素
 
-    +   [多维切片的遍历。](#Traversal_of_a_multi_dimensional_slice "多维切片的遍历。")
+    +   多维切片的遍历。
 
-    +   [多维切片在内存中是如何存储的](#How_multidimensional_slice_is_stored_in_memory "多维切片在内存中是如何存储的")
+    +   多维切片在内存中是如何存储的
 
-+   [结论](#Conclusion "结论")*  *# **多维数组**
++   结论*  *# **多维数组**
 
 ## **概述**
 
@@ -226,9 +226,9 @@ func main() {
 
 多维数组可以通过以下方式遍历：
 
-+   for-range循环
++   for-range 循环
 
-+   for循环
++   for 循环
 
 让我们来看一个遍历二维数组的代码示例。
 
@@ -292,13 +292,13 @@ Using for loop
 
 关于上述程序的一些要点
 
-+   我们必须使用嵌套范围进行遍历，使用for-range循环。第一个范围遍历每一行。第二个范围遍历该行中的各个数组。
++   我们必须使用嵌套范围进行遍历，使用 for-range 循环。第一个范围遍历每一行。第二个范围遍历该行中的各个数组。
 
-+   迭代使用for循环也是如此。
++   迭代使用 for 循环也是如此。
 
 +   len(sample) 给出行数。
 
-+   len(sample[i]) 给出行i中列的数量。
++   len(sample[i]) 给出行 i 中列的数量。
 
 +   同样的思想也可以扩展到三维、四维数组元素。
 
@@ -368,7 +368,7 @@ oneDSlice := make([]int, 2)
 twoDSlice := make([][]int, 2)
 ```
 
-上述声明意味着我们想要创建一个**切片**，包含2个切片。仔细理解这一点。但在这里等一下，我们还没有指定第二个维度，这意味着每个内层切片的长度。在切片的情况下，每个内层切片必须像下面这样明确初始化。
+上述声明意味着我们想要创建一个**切片**，包含 2 个切片。仔细理解这一点。但在这里等一下，我们还没有指定第二个维度，这意味着每个内层切片的长度。在切片的情况下，每个内层切片必须像下面这样明确初始化。
 
 ```go
 for i := range twoDSlice {
@@ -376,7 +376,7 @@ for i := range twoDSlice {
 }
 ```
 
-所以使用原始切片上的范围，我们使用make指定每个2个切片的长度。下面是另一种相同的方法，但指定了切片元素。
+所以使用原始切片上的范围，我们使用 make 指定每个 2 个切片的长度。下面是另一种相同的方法，但指定了切片元素。
 
 ```go
 var twoDSlice = make([][]int, 2)
@@ -384,7 +384,7 @@ twoDSlice[0] = []int{1, 2, 3}
 twoDSlice[1] = []int{4, 5, 6}
 ```
 
-基本上，通过上述声明，我们创建了一个2*3维的切片，这就是一个二维切片。同样的思想可以扩展到二维、三维，等等。
+基本上，通过上述声明，我们创建了一个 2*3 维的切片，这就是一个二维切片。同样的思想可以扩展到二维、三维，等等。
 
 上述两点的完整工作示例
 
@@ -449,7 +449,7 @@ Second Slice
 6
 ```
 
-我们上面提到，我们正在创建一个二维切片，维度为2*3。也就是说，您可能会想到的问题是，内层切片是否可以有不同的长度。是的，这是可能的。与具有相同长度内层数组的数组不同，在切片的情况下，由于我们分别初始化每个内层切片，因此内层切片可以具有不同的长度。
+我们上面提到，我们正在创建一个二维切片，维度为 2*3。也就是说，您可能会想到的问题是，内层切片是否可以有不同的长度。是的，这是可能的。与具有相同长度内层数组的数组不同，在切片的情况下，由于我们分别初始化每个内层切片，因此内层切片可以具有不同的长度。
 
 让我们来看一个示例。
 
@@ -489,7 +489,7 @@ Traversing slice
 5
 ```
 
-让我们看看一个三维切片的小示例。在下面的程序中，我们创建一个维度为2*2*3的切片。
+让我们看看一个三维切片的小示例。在下面的程序中，我们创建一个维度为 2*2*3 的切片。
 
 ```go
 package main
@@ -684,6 +684,6 @@ Second row
 
 # **结论**
 
-这就是关于Golang中的多维数组和切片的全部内容。希望您喜欢这篇文章。请在评论中分享您的反馈。
+这就是关于 Golang 中的多维数组和切片的全部内容。希望您喜欢这篇文章。请在评论中分享您的反馈。
 
-+   [二维切片](https://golangbyexample.com/tag/2d/)*   [三维切片](https://golangbyexample.com/tag/3d/)*   [数组](https://golangbyexample.com/tag/array/)*   [Go语言](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [切片](https://golangbyexample.com/tag/slice/)*
++   [二维切片](https://golangbyexample.com/tag/2d/)*   [三维切片](https://golangbyexample.com/tag/3d/)*   [数组](https://golangbyexample.com/tag/array/)*   [Go 语言](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*   [切片](https://golangbyexample.com/tag/slice/)*

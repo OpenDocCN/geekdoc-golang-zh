@@ -8,17 +8,17 @@
 
 # 在 Golang 中解析时间
 
-> 来源：[https://golangbyexample.com/parse-time-in-golang/](https://golangbyexample.com/parse-time-in-golang/)
+> 来源：[`golangbyexample.com/parse-time-in-golang/`](https://golangbyexample.com/parse-time-in-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
 **time** 包中的 **Parse** 函数可以用来解析时间的字符串表示为 **time.Time** 对象
 
-包链接 – [https://golang.org/pkg/time/#Parse](https://golang.org/pkg/time/#Parse)
+包链接 – [`golang.org/pkg/time/#Parse`](https://golang.org/pkg/time/#Parse)
 
 如果你曾在其他语言中处理时间/日期格式化/解析，你可能会注意到其他语言使用特殊占位符来格式化时间/日期。例如，Ruby 语言使用
 
@@ -36,15 +36,15 @@ or
 
 所以如果你注意到 Go 使用
 
-+   01表示月份中的天数，
++   01 表示月份中的天数，
 
-+   02为月份
++   02 为月份
 
-+   03表示小时，
++   03 表示小时，
 
-+   04表示分钟
++   04 表示分钟
 
-+   05表示秒
++   05 表示秒
 
 +   依此类推
 

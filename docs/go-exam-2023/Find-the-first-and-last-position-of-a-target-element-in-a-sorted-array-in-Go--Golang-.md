@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go（Golang）中查找有序数组中目标元素的第一个和最后一个位置
+# 在 Go（Golang）中查找有序数组中目标元素的第一个和最后一个位置
 
-> 来源：[https://golangbyexample.com/first-last-position-target-sorted-array-golang/](https://golangbyexample.com/first-last-position-target-sorted-array-golang/)
+> 来源：[`golangbyexample.com/first-last-position-target-sorted-array-golang/`](https://golangbyexample.com/first-last-position-target-sorted-array-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是找到有序数组中元素的第一个和最后一个位置。
 
@@ -130,8 +130,8 @@ func findRightPivot(nums []int, start, end, target, len int) int {
 [-1 -1]
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列的教程内容详尽，我们尝试涵盖所有概念并附上示例。本教程适合希望获得专业知识和扎实理解Golang的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尝试涵盖所有概念并附上示例。本教程适合希望获得专业知识和扎实理解 Golang 的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你对理解所有设计模式在Golang中的实现感兴趣。如果是的话，这篇文章适合你 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你对理解所有设计模式在 Golang 中的实现感兴趣。如果是的话，这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

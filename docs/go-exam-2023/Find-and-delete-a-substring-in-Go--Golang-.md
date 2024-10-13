@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中查找并删除子字符串
 
-> 来源：[https://golangbyexample.com/go-find-delete-substring/](https://golangbyexample.com/go-find-delete-substring/)
+> 来源：[`golangbyexample.com/go-find-delete-substring/`](https://golangbyexample.com/go-find-delete-substring/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码：](#Code "代码：")*  *# **概述**
++   代码：*  *# **概述**
 
 GO 的 **strings** 包提供了一个 **ReplaceAll** 方法，可以用来替换给定子字符串的所有不重叠实例为新的子字符串。我们可以使用这个方法通过将要删除的子字符串的替换设为空字符串来删除一个子字符串。
 

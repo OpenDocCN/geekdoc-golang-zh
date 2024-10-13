@@ -6,11 +6,11 @@
 
 -->
 
-# 在Golang中交换两个字符串
+# 在 Golang 中交换两个字符串
 
-> 来源：[https://golangbyexample.com/swap-two-strings-in-golang/](https://golangbyexample.com/swap-two-strings-in-golang/)
+> 来源：[`golangbyexample.com/swap-two-strings-in-golang/`](https://golangbyexample.com/swap-two-strings-in-golang/)
 
-GO提供了一种非常简洁的方式来交换两个字符串。请看下面的程序
+GO 提供了一种非常简洁的方式来交换两个字符串。请看下面的程序
 
 ```go
 package main

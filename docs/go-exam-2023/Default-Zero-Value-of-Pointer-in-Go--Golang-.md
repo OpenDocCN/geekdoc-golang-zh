@@ -8,15 +8,15 @@ date: 2024-10-13 06:29:05
 
 # Go（Golang）中的指针默认零值
 
-> 来源：[https://golangbyexample.com/default-zero-value-pointer-golang/](https://golangbyexample.com/default-zero-value-pointer-golang/)
+> 来源：[`golangbyexample.com/default-zero-value-pointer-golang/`](https://golangbyexample.com/default-zero-value-pointer-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
-指针的默认零值是nil。让我们看看一个程序
+指针的默认零值是 nil。让我们看看一个程序
 
 # **程序**
 

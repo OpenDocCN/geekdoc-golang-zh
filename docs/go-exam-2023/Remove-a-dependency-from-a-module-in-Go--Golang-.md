@@ -6,15 +6,15 @@
 
 -->
 
-# 从Go模块中移除依赖项（Golang）
+# 从 Go 模块中移除依赖项（Golang）
 
-> 来源：[https://golangbyexample.com/remove-dependency-golang/](https://golangbyexample.com/remove-dependency-golang/)
+> 来源：[`golangbyexample.com/remove-dependency-golang/`](https://golangbyexample.com/remove-dependency-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 要移除一个模块依赖项，我们需要做以下两件事
 

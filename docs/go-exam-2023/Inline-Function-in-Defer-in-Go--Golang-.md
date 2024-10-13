@@ -6,17 +6,17 @@
 
 -->
 
-# Go（Golang）中的defer中的内联函数
+# Go（Golang）中的 defer 中的内联函数
 
-> 来源：[https://golangbyexample.com/inline-function-defer-go/](https://golangbyexample.com/inline-function-defer-go/)
+> 来源：[`golangbyexample.com/inline-function-defer-go/`](https://golangbyexample.com/inline-function-defer-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
-也可以有一个带有defer的内联函数。
+也可以有一个带有 defer 的内联函数。
 
 # **示例**
 
@@ -40,13 +40,13 @@ Executed
 In inline defer
 ```
 
-在上面的代码中，我们使用了一个内联函数的defer。
+在上面的代码中，我们使用了一个内联函数的 defer。
 
 ```go
 defer func() { fmt.Println("In inline defer") }()
 ```
 
-这在Go中是允许的。还要注意，函数后面必须添加**“()”**，否则编译器会报错。
+这在 Go 中是允许的。还要注意，函数后面必须添加**“()”**，否则编译器会报错。
 
 ```go
 expression in defer must be function call

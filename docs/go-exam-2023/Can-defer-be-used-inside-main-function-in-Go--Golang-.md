@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中，`main` 函数内部可以使用 **defer** 吗？
 
-> 来源：[https://golangbyexample.com/defer-inside-main-golang/](https://golangbyexample.com/defer-inside-main-golang/)
+> 来源：[`golangbyexample.com/defer-inside-main-golang/`](https://golangbyexample.com/defer-inside-main-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 正如名称所示，defer 用于延迟函数中的清理活动。这些清理活动将在函数结束时执行。
 

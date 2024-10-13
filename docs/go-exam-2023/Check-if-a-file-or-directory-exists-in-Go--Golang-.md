@@ -8,15 +8,15 @@
 
 # 在 Go (Golang) 中检查文件或目录是否存在
 
-> 来源：[https://golangbyexample.com/check-if-file-or-directory-exists-go/](https://golangbyexample.com/check-if-file-or-directory-exists-go/)
+> 来源：[`golangbyexample.com/check-if-file-or-directory-exists-go/`](https://golangbyexample.com/check-if-file-or-directory-exists-go/)
 
 **os.Stat** 和 **os.IsNotExist()** 可用于检查特定文件或目录是否存在。
 
 目录
 
-**   [文件存在   ](#File_Exists "File Exists    ")
+**   文件存在   
 
-+   [文件夹存在](#Folder_Exists "Folder Exists")*  *# **文件存在   **
++   文件夹存在*  *# **文件存在   **
 
 ```go
 package main

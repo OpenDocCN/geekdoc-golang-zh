@@ -8,13 +8,13 @@
 
 # Golang 正则匹配任何字符
 
-> 来源：[https://golangbyexample.com/golang-regex-match-any-character/](https://golangbyexample.com/golang-regex-match-any-character/)
+> 来源：[`golangbyexample.com/golang-regex-match-any-character/`](https://golangbyexample.com/golang-regex-match-any-character/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 点 ‘.’ 字符是正则表达式中最常用的元字符之一。它用于匹配任何字符。默认情况下，它不匹配新行。
 

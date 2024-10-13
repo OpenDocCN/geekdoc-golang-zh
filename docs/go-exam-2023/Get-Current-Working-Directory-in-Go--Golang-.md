@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中获取当前工作目录
 
-> 来源：[https://golangbyexample.com/current-working-directory-golang/](https://golangbyexample.com/current-working-directory-golang/)
+> 来源：[`golangbyexample.com/current-working-directory-golang/`](https://golangbyexample.com/current-working-directory-golang/)
 
 **os.Getwd()** 用于获取当前工作目录。输出将类似于 linux 上的 **pwd** 命令
 

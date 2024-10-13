@@ -8,19 +8,19 @@
 
 # 理解 Set-Cookie 响应头
 
-> 来源：[https://golangbyexample.com/set-cookie-response-header/](https://golangbyexample.com/set-cookie-response-header/)
+> 来源：[`golangbyexample.com/set-cookie-response-header/`](https://golangbyexample.com/set-cookie-response-header/)
 
 目录
 
-**[Set-Cookie 响应头概述](#Overview_of_Set-Cookie_Response_Header "Set-Cookie 响应头概述")**
+**Set-Cookie 响应头概述**
 
-+   [示例](#Examples "示例")
++   示例
 
-+   [程序](#Program "程序")*  *# **Set-Cookie 响应头概述**
++   程序*  *# **Set-Cookie 响应头概述**
 
 网页服务器可以将 Set-Cookie 头返回给客户端、浏览器或任何其他用户代理。然后，客户端应在其端存储此 cookie。该客户端将在每次请求时将此 cookie 发送给服务器。
 
-您可以在这里阅读有关 HTTP cookie 的一般信息 – [https://en.wikipedia.org/wiki/HTTP_cookie](https://en.wikipedia.org/wiki/HTTP_cookie)
+您可以在这里阅读有关 HTTP cookie 的一般信息 – [`en.wikipedia.org/wiki/HTTP_cookie`](https://en.wikipedia.org/wiki/HTTP_cookie)
 
 下面是 Set-Cookie 头的语法
 

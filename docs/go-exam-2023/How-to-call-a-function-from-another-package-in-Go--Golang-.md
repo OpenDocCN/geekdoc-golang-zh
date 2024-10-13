@@ -6,15 +6,15 @@
 
 -->
 
-# 如何在Go (Golang)中从另一个包调用函数
+# 如何在 Go (Golang)中从另一个包调用函数
 
-> 来源：[https://golangbyexample.com/functoin-different-package-go/](https://golangbyexample.com/functoin-different-package-go/)
+> 来源：[`golangbyexample.com/functoin-different-package-go/`](https://golangbyexample.com/functoin-different-package-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 另一个包中的函数必须以大写字母开头，以便在其包外部是公共的。如果函数名以小写字母开头，则在其包外部将不可见。
 
@@ -81,6 +81,6 @@ hello.SayHello()
 cannot refer to unexported name hello.sayHello
 ```
 
-还可以查看我们的Golang综合教程系列 – [Golang综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+还可以查看我们的 Golang 综合教程系列 – [Golang 综合教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go (Golang)中修剪字符串的前缀
+# 在 Go (Golang)中修剪字符串的前缀
 
-> 来源：[https://golangbyexample.com/trim-prefix-string-go/](https://golangbyexample.com/trim-prefix-string-go/)
+> 来源：[`golangbyexample.com/trim-prefix-string-go/`](https://golangbyexample.com/trim-prefix-string-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-在GO中，字符串是UTF-8编码的。GO的**strings**包提供了一个**TrimPrefix**方法，可用于从输入字符串中移除前缀字符串。如果输入字符串不以给定前缀开头，则输入字符串保持不变。此外，请注意此函数返回字符串的副本。
+在 GO 中，字符串是 UTF-8 编码的。GO 的**strings**包提供了一个**TrimPrefix**方法，可用于从输入字符串中移除前缀字符串。如果输入字符串不以给定前缀开头，则输入字符串保持不变。此外，请注意此函数返回字符串的副本。
 
 下面是该函数的签名
 

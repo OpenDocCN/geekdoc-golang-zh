@@ -8,13 +8,13 @@
 
 # Go（Golang）中的第 n 位数字序列程序
 
-> 来源：[https://golangbyexample.com/nth-digit-sequence-golang/](https://golangbyexample.com/nth-digit-sequence-golang/)
+> 来源：[`golangbyexample.com/nth-digit-sequence-golang/`](https://golangbyexample.com/nth-digit-sequence-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个整数 n，找出无限序列 {1, 2, 3, 4 ….. 无限} 中的第 n 位数字。
 

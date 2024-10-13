@@ -6,41 +6,41 @@
 
 -->
 
-# Go中的错误（Golang）- 高级
+# Go 中的错误（Golang）- 高级
 
-> 来源：[https://golangbyexample.com/error-in-golang-advanced/](https://golangbyexample.com/error-in-golang-advanced/)
+> 来源：[`golangbyexample.com/error-in-golang-advanced/`](https://golangbyexample.com/error-in-golang-advanced/)
 
-这是golang综合教程系列的第27章。有关系列其他章节的信息，请参考这个链接 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 golang 综合教程系列的第二十七章。有关系列其他章节的信息，请参考这个链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程** – [恐慌与恢复](https://golangbyexample.com/panic-and-recover-golang/)
 
-**上一个教程** – [错误 – 第1部分](https://golangbyexample.com/error-in-golang/)
+**上一个教程** – [错误 – 第一部分](https://golangbyexample.com/error-in-golang/)
 
 现在让我们查看当前的教程。以下是当前教程的目录。
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [错误的包装](#Wrapping_of_error "Wrapping of error")
++   错误的包装
 
-+   [解包错误](#Unwrap_an_error "Unwrap an error")
++   解包错误
 
-+   [检查两个错误是否相等](#Check_if_two_error_are_equal "Check if two error are equal")
++   检查两个错误是否相等
 
-    +   [使用等于运算符 (==)](#Using_the_equality_operator "Using the equality operator (==)")
+    +   使用等于运算符 (==)")
 
-    +   [使用错误包的Is函数](#Using_the_Is_function_of_errors_package "Using the Is function of errors package")
+    +   使用错误包的 Is 函数
 
-+   [从错误接口表示的错误中获取基础错误](#Get_the_underlying_error_from_an_error_represented_by_the_error_interface "Get the underlying error from an error represented by the error interface")
++   从错误接口表示的错误中获取基础错误
 
-    +   [使用.({type})断言](#Using_the_type_assert "Using the .({type}) assert")
+    +   使用.({type})断言 assert")
 
-    +   [使用错误包的As函数](#Using_the_As_function_of_errors_package "Using the As function of errors package")
+    +   使用错误包的 As 函数
 
-+   [结论](#Conclusion "Conclusion")*  *# **概述**
++   结论*  *# **概述**
 
-在这篇文章中，我们将涵盖与go中错误相关的高级主题。
+在这篇文章中，我们将涵盖与 go 中错误相关的高级主题。
 
 +   错误的包装与解包
 
@@ -50,9 +50,9 @@
 
 +   **As**和**Is**函数的错误包
 
-请首先参考下面的链接，该链接介绍了**go中的错误**的基础知识。
+请首先参考下面的链接，该链接介绍了**go 中的错误**的基础知识。
 
-[https://golangbyexample.com/error-in-golang/](https://golangbyexample.com/error-in-golang/)
+[`golangbyexample.com/error-in-golang/`](https://golangbyexample.com/error-in-golang/)
 
 这篇文章将涵盖有关错误的基本内容，例如：
 
@@ -66,7 +66,7 @@
 
 # **错误的包装**
 
-在go中，错误也可以包装另一个错误。
+在 go 中，错误也可以包装另一个错误。
 
 错误的包装是什么意思？这意味着创建一个错误层级，其中一个特定实例的错误包装了另一个错误，并且该特定实例本身也可以被包装在另一个错误中。下面是包装错误的语法。
 
@@ -301,13 +301,13 @@ checkPostiveAndEven: checkEven: Given number 3 is not an even number
 
 # **解包错误**
 
-在上节中，我们研究了如何包装错误。同样也可以解包错误。错误包的Unwrap函数可以用来解包错误。下面是该函数的语法。
+在上节中，我们研究了如何包装错误。同样也可以解包错误。错误包的 Unwrap 函数可以用来解包错误。下面是该函数的语法。
 
 ```go
 func Unwrap(err error) error
 ```
 
-如果**err**包装了另一个错误，那么将返回被包装的错误，否则**Unwrap**函数将返回nil。
+如果**err**包装了另一个错误，那么将返回被包装的错误，否则**Unwrap**函数将返回 nil。
 
 让我们看一个程序来说明同样的情况。
 
@@ -367,7 +367,7 @@ E2: Error One happened
 fmt.Println(errors.Unwrap(e1))
 ```
 
-将输出nil，因为**e1**没有包装任何错误。
+将输出 nil，因为**e1**没有包装任何错误。
 
 ```go
 {nil}
@@ -375,21 +375,21 @@ fmt.Println(errors.Unwrap(e1))
 
 # **检查两个错误是否相等**
 
-首先，错误的相等性是什么意思？正如你所知道的，错误在Go中由错误接口表示。在Go中，当两个接口相等时：
+首先，错误的相等性是什么意思？正如你所知道的，错误在 Go 中由错误接口表示。在 Go 中，当两个接口相等时：
 
 +   两者指向相同的基础类型。
 
-+   基础值相等（或两个都是nil）
++   基础值相等（或两个都是 nil）
 
 所以上述两个要点同样适用于比较错误。有两种方法可以检查给定的错误是否相等。
 
 ## 使用相等运算符（==）。
 
-**==**运算符可以用于比较两个Go语言中的错误。
+**==**运算符可以用于比较两个 Go 语言中的错误。
 
 ## 使用错误包的**Is**函数。
 
-[https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)。使用 **Is** 函数比使用等于运算符更可取，因为它通过顺序展开第一个错误来检查相等性，并在每一步展开时与目标错误进行匹配。稍后我们将看到一个例子，以充分理解为什么这更可取。下面是 Is 函数的语法。
+[`golang.org/pkg/errors/`](https://golang.org/pkg/errors/)。使用 **Is** 函数比使用等于运算符更可取，因为它通过顺序展开第一个错误来检查相等性，并在每一步展开时与目标错误进行匹配。稍后我们将看到一个例子，以充分理解为什么这更可取。下面是 Is 函数的语法。
 
 ```go
 func Is(err, target error) bool
@@ -535,7 +535,7 @@ err, ok := err.({type})
 
 ## **使用 errors 包的 As 函数**
 
-[https://golang.org/pkg/errors/](https://golang.org/pkg/errors/)。使用 **As** 函数比使用 .({type}) 断言更可取，因为它通过顺序展开第一个错误来检查匹配，并在每一步展开时与目标错误进行匹配。下面是 Is 函数的语法。
+[`golang.org/pkg/errors/`](https://golang.org/pkg/errors/)。使用 **As** 函数比使用 .({type}) 断言更可取，因为它通过顺序展开第一个错误来检查匹配，并在每一步展开时与目标错误进行匹配。下面是 Is 函数的语法。
 
 ```go
 func As(err error, target interface{}) bool
@@ -594,7 +594,7 @@ Using As function: Error e is of type path error. Path: non-existing.txt
 e,ok := err.(*os.PathError); ok
 ```
 
-+   使用errors包的**As**函数
++   使用 errors 包的**As**函数
 
 ```go
 errors.As(err, &pathError)
@@ -664,10 +664,10 @@ Using As function: Error e is of type path error. Error: open non-existing.txt: 
 
 # **结论**
 
-这就是关于Golang中错误的高级主题。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
+这就是关于 Golang 中错误的高级主题。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 
 **下一教程** – [恐慌与恢复](https://golangbyexample.com/panic-and-recover-golang/)
 
-**上一个教程** – [错误 – 第 1 部分](https://golangbyexample.com/error-in-golang/)
+**上一个教程** – [错误 – 第一部分](https://golangbyexample.com/error-in-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

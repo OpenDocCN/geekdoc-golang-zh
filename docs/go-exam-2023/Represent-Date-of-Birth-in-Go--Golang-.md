@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中表示出生日期
 
-> 来源：[https://golangbyexample.com/dob-golang/](https://golangbyexample.com/dob-golang/)
+> 来源：[`golangbyexample.com/dob-golang/`](https://golangbyexample.com/dob-golang/)
 
 **time** 包的 **time.Date** 函数可用于创建一个特定日期，以表示出生日期。
 

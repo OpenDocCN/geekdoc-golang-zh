@@ -6,11 +6,11 @@
 
 -->
 
-# 在Go (Golang)中删除/移除一个文件夹
+# 在 Go (Golang)中删除/移除一个文件夹
 
-> 来源：[https://golangbyexample.com/delete-folder-go/](https://golangbyexample.com/delete-folder-go/)
+> 来源：[`golangbyexample.com/delete-folder-go/`](https://golangbyexample.com/delete-folder-go/)
 
-**os.Remove()**函数可以用于删除Golang中的文件夹。以下是该函数的签名。
+**os.Remove()**函数可以用于删除 Golang 中的文件夹。以下是该函数的签名。
 
 ```go
 func Remove(name string) error

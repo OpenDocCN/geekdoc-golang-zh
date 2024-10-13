@@ -8,11 +8,11 @@
 
 # Ruby 将字符串转换为布尔值
 
-> 来源：[https://golangbyexample.com/string-bool-ruby/](https://golangbyexample.com/string-bool-ruby/)
+> 来源：[`golangbyexample.com/string-bool-ruby/`](https://golangbyexample.com/string-bool-ruby/)
 
 目录
 
-**[概述](#Overview "概述")**  # **概述**
+**概述**  # **概述**
 
 在 Ruby 语言中，字符串“true”和“false”在 **if** 条件中被解释为 true。请参见下面的示例。
 

@@ -8,13 +8,13 @@
 
 # Go（Golang）中的全局和局部常量。
 
-> 来源：[https://golangbyexample.com/global-local-constant-golang/](https://golangbyexample.com/global-local-constant-golang/)。
+> 来源：[`golangbyexample.com/global-local-constant-golang/`](https://golangbyexample.com/global-local-constant-golang/)。
 
 目录。
 
-**   [概述](#Overview "Overview")**。
+**   概述**。
 
-+   [示例](#Example "Example")*  *# **概述**。
++   示例*  *# **概述**。
 
 与其他变量一样，如果常量在文件顶部的任何函数范围外声明，则它在包内是全局的。例如，在下面的程序中，**name** 将是一个全局常量，可以在主包的任何函数中使用。请注意，const **name** 在主包外不可用。要使其在主包外可用，必须以大写字母开头。请查看下面的代码。它还显示了包内局部常量的示例。
 

@@ -8,17 +8,17 @@
 
 # Go 语言中的插入排序
 
-> 来源：[https://golangbyexample.com/insertion-sort-in-go/](https://golangbyexample.com/insertion-sort-in-go/)
+> 来源：[`golangbyexample.com/insertion-sort-in-go/`](https://golangbyexample.com/insertion-sort-in-go/)
 
 目录
 
-**   [介绍](#Introduction "Introduction")
+**   介绍
 
-+   [时间复杂度](#Time_Complexity "Time Complexity")
++   时间复杂度
 
-+   [空间复杂度](#Space_Complexity "Space Complexity")
++   空间复杂度
 
-+   [实现：](#Implementation "Implementation:")*  *# **介绍**
++   实现：*  *# **介绍**
 
 插入排序是最简单的排序算法之一。在插入排序中，输入数组被分为两部分。
 

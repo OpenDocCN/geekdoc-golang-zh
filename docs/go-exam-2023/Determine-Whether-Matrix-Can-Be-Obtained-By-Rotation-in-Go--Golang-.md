@@ -6,17 +6,17 @@
 
 -->
 
-# 确定矩阵是否可以通过旋转在Go (Golang)中获得
+# 确定矩阵是否可以通过旋转在 Go (Golang)中获得
 
-> 来源：[https://golangbyexample.com/matrix-rotation-target-golang/](https://golangbyexample.com/matrix-rotation-target-golang/)
+> 来源：[`golangbyexample.com/matrix-rotation-target-golang/`](https://golangbyexample.com/matrix-rotation-target-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [程序](#Program "程序")*  *# **概述**
++   程序*  *# **概述**
 
-给定两个n*n矩阵，**源**和**目标**。我们需要确定**源**矩阵是否可以通过任意次数的90度旋转转换为**目标**矩阵
+给定两个 n*n 矩阵，**源**和**目标**。我们需要确定**源**矩阵是否可以通过任意次数的 90 度旋转转换为**目标**矩阵
 
 **示例 1**
 
@@ -25,7 +25,7 @@ Input: source = [2,1],[1,2]], target = [[1,2],[2,1]]
 Output: true
 ```
 
-源矩阵可以旋转90度一次以获得目标矩阵
+源矩阵可以旋转 90 度一次以获得目标矩阵
 
 **示例 2**
 
@@ -34,7 +34,7 @@ Input:  source = [[1,2],[2,2]], target = [[2,1],[1,2]]
 Output: false
 ```
 
-即使我们将源矩阵旋转3次90度，也无法获得目标矩阵。
+即使我们将源矩阵旋转 3 次 90 度，也无法获得目标矩阵。
 
 # **程序**
 
@@ -86,9 +86,9 @@ true
 false
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尽力覆盖所有概念并提供示例。本教程适合那些希望获得Golang专业知识和扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尽力覆盖所有概念并提供示例。本教程适合那些希望获得 Golang 专业知识和扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 另外，请查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 

@@ -8,7 +8,7 @@
 
 # Go（Golang）中所有类型的默认零值及示例
 
-> 来源：[https://golangbyexample.com/go-default-zero-value-all-types/](https://golangbyexample.com/go-default-zero-value-all-types/)
+> 来源：[`golangbyexample.com/go-default-zero-value-all-types/`](https://golangbyexample.com/go-default-zero-value-all-types/)
 
 **默认值表**
 
@@ -169,7 +169,7 @@ Default zero value of bool: false
 
 ## **数组**
 
-数组的默认值是其值的默认值。例如，在下面的代码中，有一个长度为2的bool类型数组。当我们打印时，输出是**[false false]**。
+数组的默认值是其值的默认值。例如，在下面的代码中，有一个长度为 2 的 bool 类型数组。当我们打印时，输出是**[false false]**。
 
 ```go
 package main
@@ -189,7 +189,7 @@ Default Zero Value of a array: [false false]
 
 ## **结构体**
 
-**结构体**的默认值是其字段的默认值。例如，在下面的代码中，有一个包含两个字段的结构体样本。其中一个是int类型，另一个是bool类型。我们创建这个结构体的一个实例，当我们打印它时，输出是**{0 false}**。
+**结构体**的默认值是其字段的默认值。例如，在下面的代码中，有一个包含两个字段的结构体样本。其中一个是 int 类型，另一个是 bool 类型。我们创建这个结构体的一个实例，当我们打印它时，输出是**{0 false}**。
 
 ```go
 package main
@@ -213,7 +213,7 @@ Default Zero Value of a struct: {0 false}
 
 ## **映射**
 
-**映射**的默认值是**nil**。这就是为什么**fmt.Println(a==nil)**的输出为true。当映射传递给**fmt.Println**时，它尝试打印映射中的值。这就是输出为map[]的原因。
+**映射**的默认值是**nil**。这就是为什么**fmt.Println(a==nil)**的输出为 true。当映射传递给**fmt.Println**时，它尝试打印映射中的值。这就是输出为 map[]的原因。
 
 ```go
 package main
@@ -267,7 +267,7 @@ func main() {
 
 ## **切片**
 
-切片的默认值是**nil**。这就是为什么**fmt.Println(a==nil)**的输出为true。当切片传递给**fmt.Println**时，它尝试打印切片中的值。这就是输出为[]的原因。
+切片的默认值是**nil**。这就是为什么**fmt.Println(a==nil)**的输出为 true。当切片传递给**fmt.Println**时，它尝试打印切片中的值。这就是输出为[]的原因。
 
 ```go
 package main

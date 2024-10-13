@@ -6,11 +6,11 @@ date: 2024-10-13 06:19:34
 
 -->
 
-# Go中结构体的导出与未导出字段
+# Go 中结构体的导出与未导出字段
 
-> 来源：[https://golangbyexample.com/exported-unexported-fields-struct-go/](https://golangbyexample.com/exported-unexported-fields-struct-go/)
+> 来源：[`golangbyexample.com/exported-unexported-fields-struct-go/`](https://golangbyexample.com/exported-unexported-fields-struct-go/)
 
-Go没有任何公共、私有或受保护的关键字。控制包外可见性的唯一机制是使用大写和小写格式。
+Go 没有任何公共、私有或受保护的关键字。控制包外可见性的唯一机制是使用大写和小写格式。
 
 +   **大写标识符** 是导出的。大写字母表示这是一个导出的标识符，可以在包外使用。
 

@@ -8,7 +8,7 @@ date: 2024-10-13 06:17:52
 
 # 获取当前用户的主目录（Go/Golang）
 
-> 来源：[https://golangbyexample.com/get-current-user-home-directory-go/](https://golangbyexample.com/get-current-user-home-directory-go/)
+> 来源：[`golangbyexample.com/get-current-user-home-directory-go/`](https://golangbyexample.com/get-current-user-home-directory-go/)
 
 **概述**
 

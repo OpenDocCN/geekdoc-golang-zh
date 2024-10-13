@@ -6,21 +6,21 @@
 
 -->
 
-# 在Go (Golang)中重命名文件或文件夹
+# 在 Go (Golang)中重命名文件或文件夹
 
-> 来源：[https://golangbyexample.com/rename-file-folder-golang/](https://golangbyexample.com/rename-file-folder-golang/)
+> 来源：[`golangbyexample.com/rename-file-folder-golang/`](https://golangbyexample.com/rename-file-folder-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [代码](#Code "代码")
++   代码
 
-    +   [重命名文件](#Renaming_a_file "重命名文件")
+    +   重命名文件
 
-    +   [重命名文件夹](#Renaming_a_folder "重命名文件夹")*  *# **概述**
+    +   重命名文件夹*  *# **概述**
 
-可以使用os.Rename()函数来重命名文件或文件夹。下面是该函数的签名。
+可以使用 os.Rename()函数来重命名文件或文件夹。下面是该函数的签名。
 
 ```go
 func Rename(old, new string) error
@@ -65,7 +65,7 @@ func main() {
 
 **输出**
 
-首先，它将在当前工作目录中创建一个名为temp.txt的文件。然后它将其重命名为newTemp.txt。
+首先，它将在当前工作目录中创建一个名为 temp.txt 的文件。然后它将其重命名为 newTemp.txt。
 
 ## **重命名文件夹**
 
@@ -94,6 +94,6 @@ func main() {
 
 **输出：**
 
-首先，它将在当前工作目录中创建一个名为temp的文件夹。然后它将其重命名为newTemp。
+首先，它将在当前工作目录中创建一个名为 temp 的文件夹。然后它将其重命名为 newTemp。
 
 +   [文件](https://golangbyexample.com/tag/file/)*   [文件夹](https://golangbyexample.com/tag/folder/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [重命名](https://golangbyexample.com/tag/rename/)*

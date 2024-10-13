@@ -6,21 +6,21 @@ category: 未分类
 
 -->
 
-# 在Go中合并两个已排序数组（Golang）
+# 在 Go 中合并两个已排序数组（Golang）
 
-> 来源：[https://golangbyexample.com/merge-two-sorted-arrays-golang/](https://golangbyexample.com/merge-two-sorted-arrays-golang/)
+> 来源：[`golangbyexample.com/merge-two-sorted-arrays-golang/`](https://golangbyexample.com/merge-two-sorted-arrays-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定两个数组。两个数组均已排序。
 
-+   第一个数组的长度为m+n
++   第一个数组的长度为 m+n
 
-+   第二个数组的长度为n
++   第二个数组的长度为 n
 
 目标是合并这些已排序的数组。第一个数组的长度足够，因此只需修改第一个数组
 
@@ -121,8 +121,8 @@ func main() {
 [1 2 3 4 5 7]
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程详细阐述了所有概念，并附有示例。该教程适合希望获得专业知识和扎实理解Golang的学习者 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程详细阐述了所有概念，并附有示例。该教程适合希望获得专业知识和扎实理解 Golang 的学习者 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果您有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为您准备的 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果您有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章就是为您准备的 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

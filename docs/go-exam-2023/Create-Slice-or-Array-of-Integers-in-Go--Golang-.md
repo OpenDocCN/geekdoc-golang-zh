@@ -6,25 +6,25 @@
 
 -->
 
-# 在Go中创建整数的切片或数组（Golang）
+# 在 Go 中创建整数的切片或数组（Golang）
 
-> 来源：[https://golangbyexample.com/slice-array-integers-golang/](https://golangbyexample.com/slice-array-integers-golang/)
+> 来源：[`golangbyexample.com/slice-array-integers-golang/`](https://golangbyexample.com/slice-array-integers-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")**
+**   概述**
 
-+   [整数切片](#Slice_of_Int "Slice of Int")
++   整数切片
 
-+   [整数数组](#Array_of_Integers "Array of Integers")*  *## **概述**
++   整数数组*  *## **概述**
 
-在Golang中也可以创建**int**数据类型的切片或数组。实际上，Go中可以创建任何数据类型的切片或数组。本教程包含简单的示例，演示如何在Golang中创建int数据类型的切片或数组。
+在 Golang 中也可以创建**int**数据类型的切片或数组。实际上，Go 中可以创建任何数据类型的切片或数组。本教程包含简单的示例，演示如何在 Golang 中创建 int 数据类型的切片或数组。
 
-这里补充一下，在Golang中数组是固定大小的，而切片可以有可变大小。更多细节在这里
+这里补充一下，在 Golang 中数组是固定大小的，而切片可以有可变大小。更多细节在这里
 
-数组 – [https://golangbyexample.com/understanding-array-golang-complete-guide/](https://golangbyexample.com/understanding-array-golang-complete-guide/)
+数组 – [`golangbyexample.com/understanding-array-golang-complete-guide/`](https://golangbyexample.com/understanding-array-golang-complete-guide/)
 
-切片 – [https://golangbyexample.com/slice-in-golang/](https://golangbyexample.com/slice-in-golang/)
+切片 – [`golangbyexample.com/slice-in-golang/`](https://golangbyexample.com/slice-in-golang/)
 
 ## **整数切片**
 
@@ -82,7 +82,7 @@ integers_first = append(integers_first, 2)
 integers_first = append(integers_first, 3)
 ```
 
-在第二种方法中，我们使用make命令来创建整数切片
+在第二种方法中，我们使用 make 命令来创建整数切片
 
 ```go
 integers_second := make([]int, 3)
@@ -159,8 +159,8 @@ integers_second := [3]int{
 }
 ```
 
-查看我们的Golang高级教程。本系列教程详尽，我们努力覆盖所有概念及示例。本教程适合那些希望获得专业知识和扎实理解Golang的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+查看我们的 Golang 高级教程。本系列教程详尽，我们努力覆盖所有概念及示例。本教程适合那些希望获得专业知识和扎实理解 Golang 的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章适合你 –[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章适合你 –[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

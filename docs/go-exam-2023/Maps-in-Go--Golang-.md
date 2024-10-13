@@ -8,9 +8,9 @@
 
 # Go 语言中的映射
 
-> 来源：[https://golangbyexample.com/maps-in-golang/](https://golangbyexample.com/maps-in-golang/)
+> 来源：[`golangbyexample.com/maps-in-golang/`](https://golangbyexample.com/maps-in-golang/)
 
-这是 Go 语言综合教程系列的第19章。请参阅此链接获取系列的其他章节 – [Go 语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 Go 语言综合教程系列的第十九章。请参阅此链接获取系列的其他章节 – [Go 语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程** – [方法](https://golangbyexample.com/method-in-golang/)
 
@@ -20,41 +20,41 @@
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [映射中允许的键类型](#Allowed_Key_types_in_a_Map "映射中允许的键类型")
++   映射中允许的键类型
 
-+   [映射中允许的值类型](#Allowed_Value_types_in_a_Map "映射中允许的值类型")
++   映射中允许的值类型
 
-+   [创建映射](#Creating_a_Map "创建映射")
++   创建映射
 
     +   [使用 map[<key_type>]<value_type> 格式](#Using_the_map_format "使用 map[<key_type>]<value_type> 格式")
 
-    +   [使用 Make](#Using_Make "使用 Make")
+    +   使用 Make
 
-+   [映射操作](#Map_Operations "映射操作")
++   映射操作
 
-    +   [添加键值对](#Add_a_key_value_pair "添加键值对")
+    +   添加键值对
 
-    +   [更新键值对](#Update_a_key-value_pair "更新键值对")
+    +   更新键值对
 
-    +   [获取与键对应的值](#Get_the_value_corresponding_to_a_key "获取与键对应的值")
+    +   获取与键对应的值
 
-    +   [删除键值对](#Delete_a_key_value_pair "删除键值对")
+    +   删除键值对
 
-    +   [检查键是否存在](#Check_if_a_key_exists "检查键是否存在")
+    +   检查键是否存在
 
-    +   [映射上的函数](#Functions_on_Maps "映射上的函数")
+    +   映射上的函数
 
-+   [零值](#Zero_Value "零值")
++   零值
 
-+   [映射是引用数据类型](#Maps_are_referenced_data_types "映射是引用数据类型")
++   映射是引用数据类型
 
-+   [遍历映射](#Iterate_over_a_map "遍历映射")
++   遍历映射
 
-+   [映射不安全用于并发使用](#Maps_are_not_safe_for_concurrent_use "映射不安全用于并发使用")
++   映射不安全用于并发使用
 
-+   [结论](#Conclusion "结论")*  *# **概述**
++   结论*  *# **概述**
 
 映射是 Go 语言内置的数据类型，类似于哈希表，用于将键映射到值。映射是一个无序集合，其中每个键是唯一的，而值可以对两个或多个不同的键相同。使用映射的优点是提供快速的检索、搜索、插入和删除操作。
 
@@ -98,7 +98,7 @@ map[string]int
 
 +   函数。
 
-参考 – [https://golang.org/ref/spec#Comparison_operators](https://golang.org/ref/spec#Comparison_operators)
+参考 – [`golang.org/ref/spec#Comparison_operators`](https://golang.org/ref/spec#Comparison_operators)
 
 # **地图中的允许值类型**
 
@@ -106,13 +106,13 @@ map[string]int
 
 # **创建一个地图**
 
-+   使用map[<key_type>]<value_type>{}格式也称为地图字面量。
++   使用 map[<key_type>]<value_type>{}格式也称为地图字面量。
 
-+   使用make。
++   使用 make。
 
 让我们逐一看看上述每种方法。
 
-## **使用map[<key_type>]<value_type>格式**
+## **使用 map[<key_type>]<value_type>格式**
 
 创建地图的最常见方法之一是使用地图字面量：
 
@@ -172,9 +172,9 @@ map[]
 map[John:1000 Sam:1200 Tom:2000]
 ```
 
-在上面的程序中，我们创建了一个初始化为某些值的地图字面量。然后我们在其中添加了另一个键值对。接着我们使用fmt.Println打印它，以**map[key:value key:value]**格式打印所有的键值对。
+在上面的程序中，我们创建了一个初始化为某些值的地图字面量。然后我们在其中添加了另一个键值对。接着我们使用 fmt.Println 打印它，以**map[key:value key:value]**格式打印所有的键值对。
 
-地图也可以使用var关键字声明，但它默认创建一个nil地图，因为地图的零值是nil。向该地图添加任何键值对将导致panic。让我们看一个例子。
+地图也可以使用 var 关键字声明，但它默认创建一个 nil 地图，因为地图的零值是 nil。向该地图添加任何键值对将导致 panic。让我们看一个例子。
 
 ```go
 package main
@@ -191,11 +191,11 @@ func main() {
 panic: assignment to entry in nil map
 ```
 
-上述程序因地图为nil而引发panic。
+上述程序因地图为 nil 而引发 panic。
 
 使用**var**关键字声明地图的一个用例是，当需要将已有的地图赋值给它或当我们想要赋值函数的结果时。
 
-## **使用Make**
+## **使用 Make**
 
 这是另一种创建地图的方法。内置函数**make**可以用来创建地图。它返回一个已初始化的地图。因此，可以向其添加键值对。
 
@@ -219,7 +219,7 @@ func main() {
 map[Tom:2000]
 ```
 
-在上面的程序中，我们使用make函数创建了一个地图。然后我们在其中添加了一个键值对。接着我们使用**fmt.Println**打印它，打印所有的键值对。
+在上面的程序中，我们使用 make 函数创建了一个地图。然后我们在其中添加了一个键值对。接着我们使用**fmt.Println**打印它，打印所有的键值对。
 
 # **地图操作**
 
@@ -265,7 +265,7 @@ func main() {
 map[Tom:2000]
 ```
 
-还要注意，向nil地图添加内容将导致panic。
+还要注意，向 nil 地图添加内容将导致 panic。
 
 ## **更新一个键值对**
 
@@ -300,7 +300,7 @@ After update
 map[Tom:3000]
 ```
 
-在上面的程序中，写入相同的键**“Tom”**并赋新值**3000**时，将覆盖现有值**2000**。当我们再次打印地图时，打印的值为3000。
+在上面的程序中，写入相同的键**“Tom”**并赋新值**3000**时，将覆盖现有值**2000**。当我们再次打印地图时，打印的值为 3000。
 
 ## **获取与键对应的值**
 
@@ -380,9 +380,9 @@ val, ok := mapName[key]
 
 有两种情况。
 
-+   如果键存在，**val**变量将是地图中该键的值，**ok**变量将为true。
++   如果键存在，**val**变量将是地图中该键的值，**ok**变量将为 true。
 
-+   如果键不存在，**val**变量将是值类型的默认零值，**ok**变量为false
++   如果键不存在，**val**变量将是值类型的默认零值，**ok**变量为 false
 
 让我们看一个例子
 
@@ -416,7 +416,7 @@ Key doesn't exists case
 Val: 0, ok: false
 ```
 
-在上述程序中，当键存在时，val变量被设置为实际值，这里是2000，ok变量为true。当**键**不存在时，**val**变量被设置为0，这是int类型的默认零值，**ok**变量为false。这个**ok**变量是检查键是否存在于映射中的最佳方式。
+在上述程序中，当键存在时，val 变量被设置为实际值，这里是 2000，ok 变量为 true。当**键**不存在时，**val**变量被设置为 0，这是 int 类型的默认零值，**ok**变量为 false。这个**ok**变量是检查键是否存在于映射中的最佳方式。
 
 如果我们只想检查一个键是否存在，而不需要值，则可以使用空标识符，即“_”来代替值。
 
@@ -466,7 +466,7 @@ func main() {
 
 # **零值**
 
-映射的零值是nil。当我们使用**var**关键字声明一个映射时，这一点也得到了证明。请参见下面的程序。
+映射的零值是 nil。当我们使用**var**关键字声明一个映射时，这一点也得到了证明。请参见下面的程序。
 
 ```go
 package main
@@ -520,7 +520,7 @@ func main() {
 }
 ```
 
-在**上述程序**中，eS是一个新映射变量，我们将现有的**employeeSalary**映射分配给它。
+在**上述程序**中，eS 是一个新映射变量，我们将现有的**employeeSalary**映射分配给它。
 
 +   首先，我们在**employeeSalary**映射中添加一个新键。这个更改同时反映在**employeeSalary**和**eS**映射中
 
@@ -530,7 +530,7 @@ func main() {
 
 # **遍历映射**
 
-range操作符可以用于在Go中遍历映射
+range 操作符可以用于在 Go 中遍历映射
 
 首先让我们定义一个映射
 
@@ -609,7 +609,7 @@ func getAllKeys(sample map[string]string) []string {
 
 # **映射在并发使用时不安全**
 
-golang映射在并发使用时是不安全的。
+golang 映射在并发使用时是不安全的。
 
 **有错误的代码：** 下面是一段有错误的代码。如果发生并发读取和写入映射，可能会导致崩溃。
 
@@ -689,7 +689,7 @@ Some data
 
 # **结论**
 
-这就是关于golang中映射的全部内容。我们学习了如何创建映射、映射上的操作、映射中定义的一些函数，如Glen()，以及如何遍历映射，最后但同样重要的是，映射在并发使用时是不安全的。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
+这就是关于 golang 中映射的全部内容。我们学习了如何创建映射、映射上的操作、映射中定义的一些函数，如 Glen()，以及如何遍历映射，最后但同样重要的是，映射在并发使用时是不安全的。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 
 **下一篇教程** – [方法](https://golangbyexample.com/method-in-golang/)
 

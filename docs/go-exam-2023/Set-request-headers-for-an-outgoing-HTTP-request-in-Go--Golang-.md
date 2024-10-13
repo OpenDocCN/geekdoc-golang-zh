@@ -8,27 +8,27 @@ date: 2024-10-13 06:32:02
 
 # 在 Go (Golang) 中为输出的 HTTP 请求设置请求头部
 
-> 来源：[https://golangbyexample.com/set-headers-http-request/](https://golangbyexample.com/set-headers-http-request/)
+> 来源：[`golangbyexample.com/set-headers-http-request/`](https://golangbyexample.com/set-headers-http-request/)
 
 注意：相关帖子
 
-+   从传入的 HTTP 请求中获取头部信息 – [https://golangbyexample.com/headers-http-request-golang/](https://golangbyexample.com/headers-http-request-golang/)
++   从传入的 HTTP 请求中获取头部信息 – [`golangbyexample.com/headers-http-request-golang/`](https://golangbyexample.com/headers-http-request-golang/)
 
-+   在 Go (Golang) 中为传入的 HTTP 请求设置响应头部 – [https://golangbyexample.com/set-resposne-headers-http-go/](https://golangbyexample.com/set-resposne-headers-http-go/)
++   在 Go (Golang) 中为传入的 HTTP 请求设置响应头部 – [`golangbyexample.com/set-resposne-headers-http-go/`](https://golangbyexample.com/set-resposne-headers-http-go/)
 
-+   获取 Golang 中的输出 HTTP 请求的响应头部 - [https://golangbyexample.com/get-response-headers-making-go/](https://golangbyexample.com/get-response-headers-making-go/)
++   获取 Golang 中的输出 HTTP 请求的响应头部 - [`golangbyexample.com/get-response-headers-making-go/`](https://golangbyexample.com/get-response-headers-making-go/)
 
 现在让我们看看如何在进行 HTTP 请求时设置头部
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [使用 r.Header.Add() 方法](#Using_rHeaderAdd_method "使用 r.Header.Add() 方法")
++   使用 r.Header.Add() 方法 方法")
 
-+   [使用 r.Header.Set 方法](#Using_rHeaderSet_method "使用 r.Header.Set 方法")
++   使用 r.Header.Set 方法
 
-+   [示例](#Example "示例")*  *# **概述**
++   示例*  *# **概述**
 
 以下是头部在 Go 中表示的格式。
 

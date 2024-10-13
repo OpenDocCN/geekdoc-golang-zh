@@ -6,19 +6,19 @@
 
 -->
 
-# 在Go（Golang）中获取URL的完整主机名及端口。
+# 在 Go（Golang）中获取 URL 的完整主机名及端口。
 
-> 来源：[https://golangbyexample.com/hostname-port-url-golang/](https://golangbyexample.com/hostname-port-url-golang/)
+> 来源：[`golangbyexample.com/hostname-port-url-golang/`](https://golangbyexample.com/hostname-port-url-golang/)
 
 目录
 
-**   [概览](#Overview "Overview")
+**   概览
 
-+   [程序](#Program "Program")*  *# **概览**
++   程序*  *# **概览**
 
-**golang的net/url包**包含一个解析函数，可以用来解析给定的URL并返回URL结构体的实例。[https://golang.org/pkg/net/url/#URL](https://golang.org/pkg/net/url/#URL)
+**golang 的 net/url 包**包含一个解析函数，可以用来解析给定的 URL 并返回 URL 结构体的实例。[`golang.org/pkg/net/url/#URL`](https://golang.org/pkg/net/url/#URL)
 
-一旦给定的URL正确解析，将返回URI对象。我们可以从URI中访问以下信息。
+一旦给定的 URL 正确解析，将返回 URI 对象。我们可以从 URI 中访问以下信息。
 
 +   协议
 
@@ -34,7 +34,7 @@
 
 +   片段
 
-一旦我们拥有所有部分，就可以将它们连接起来，以获取完整的主机名及端口。我们将解析以下URL。
+一旦我们拥有所有部分，就可以将它们连接起来，以获取完整的主机名及端口。我们将解析以下 URL。
 
 ```go
 https://test:abcd123@golangbyexample.com:8000/tutorials/intro?type=advance&compact=false#history

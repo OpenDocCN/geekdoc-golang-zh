@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go语言中查找字符串内最长有效括号子串
+# 在 Go 语言中查找字符串内最长有效括号子串
 
-> 来源：[https://golangbyexample.com/longest-valid-parentheses-substring-go/](https://golangbyexample.com/longest-valid-parentheses-substring-go/)
+> 来源：[`golangbyexample.com/longest-valid-parentheses-substring-go/`](https://golangbyexample.com/longest-valid-parentheses-substring-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是找到字符串内最长有效括号子串的长度
 
@@ -164,8 +164,8 @@ func longestValidParentheses(s string) int {
 0
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，力求用示例覆盖所有概念。本教程适合那些希望获得Golang专业知识和扎实理解的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列的教程内容详尽，力求用示例覆盖所有概念。本教程适合那些希望获得 Golang 专业知识和扎实理解的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章就是为你准备的 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章就是为你准备的 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

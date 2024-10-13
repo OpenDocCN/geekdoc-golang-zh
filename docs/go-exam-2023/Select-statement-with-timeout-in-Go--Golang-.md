@@ -8,15 +8,15 @@
 
 # Go（Golang）中的带超时选择语句
 
-> 来源：[https://golangbyexample.com/select-statement-with-timeout-go/](https://golangbyexample.com/select-statement-with-timeout-go/)
+> 来源：[`golangbyexample.com/select-statement-with-timeout-go/`](https://golangbyexample.com/select-statement-with-timeout-go/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   **[代码](#Code "Code")**
++   **代码**
 
-+   [在选择语句外使用无限循环的超时](#Timeout_with_infinite_for_loop_outside_select_statement "Timeout with infinite for loop outside select statement")*  *# **概述**
++   在选择语句外使用无限循环的超时*  *# **概述**
 
 在选择中，可以通过使用时间包的**After()**函数实现超时。下面是**After()**函数的签名。
 
@@ -24,9 +24,9 @@
 func After(d Duration) <-chan Time
 ```
 
-**After**函数等待持续时间d完成，然后在通道上返回当前时间 -
+**After**函数等待持续时间 d 完成，然后在通道上返回当前时间 -
 
-[https://golang.org/pkg/time/#Time.After](https://golang.org/pkg/time/#Time.After)
+[`golang.org/pkg/time/#Time.After`](https://golang.org/pkg/time/#Time.After)
 
 让我们看看一个程序
 
@@ -64,7 +64,7 @@ func goOne(ch chan string) {
 Timeout
 ```
 
-在上述选择语句中，我们正在等待**ch1**上的接收操作完成。在其他案例语句中，我们有**time.After**，持续时间为1秒。因此，这个选择语句实际上将等待至少1秒以完成**ch1**上的接收操作，之后**time.After**的案例语句将被执行。我们在**goOne**函数中设置了超过1秒的超时，因此我们看到**time.After**语句被执行，并且
+在上述选择语句中，我们正在等待**ch1**上的接收操作完成。在其他案例语句中，我们有**time.After**，持续时间为 1 秒。因此，这个选择语句实际上将等待至少 1 秒以完成**ch1**上的接收操作，之后**time.After**的案例语句将被执行。我们在**goOne**函数中设置了超过 1 秒的超时，因此我们看到**time.After**语句被执行，并且
 
 ```go
 Timeout
@@ -72,11 +72,11 @@ Timeout
 
 被打印为输出。
 
-所以time.After()是一个通道操作，在一段时间后解除阻塞。
+所以 time.After()是一个通道操作，在一段时间后解除阻塞。
 
 # **在选择语句外使用无限循环的超时**
 
-我们可以在选择语句外使用无限循环。这将导致选择语句执行无限次。因此，在选择语句外使用带无限循环的for语句时，我们需要有一种方法来退出循环。选择语句外使用无限循环的一个用例可能是等待多个操作在特定通道上接收一段时间。
+我们可以在选择语句外使用无限循环。这将导致选择语句执行无限次。因此，在选择语句外使用带无限循环的 for 语句时，我们需要有一种方法来退出循环。选择语句外使用无限循环的一个用例可能是等待多个操作在特定通道上接收一段时间。
 
 请参见以下示例
 
@@ -123,6 +123,6 @@ News: 2
 Timeout: News feed finished
 ```
 
-在上述程序中，我们创建了一个名为**news**的通道，它将保存字符串类型的数据。然后，我们将此通道传递给**newsfeed**函数，该函数将新闻推送到此通道。在选择语句中，我们正在从**news**通道接收新闻。这个选择语句位于无限循环中，因此选择语句将多次执行，直到我们退出循环。我们还有一个持续时间为1秒的**time.After**作为案例语句之一。因此，该设置将在1秒内接收所有来自**news**通道的新闻，然后退出。
+在上述程序中，我们创建了一个名为**news**的通道，它将保存字符串类型的数据。然后，我们将此通道传递给**newsfeed**函数，该函数将新闻推送到此通道。在选择语句中，我们正在从**news**通道接收新闻。这个选择语句位于无限循环中，因此选择语句将多次执行，直到我们退出循环。我们还有一个持续时间为 1 秒的**time.After**作为案例语句之一。因此，该设置将在 1 秒内接收所有来自**news**通道的新闻，然后退出。
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

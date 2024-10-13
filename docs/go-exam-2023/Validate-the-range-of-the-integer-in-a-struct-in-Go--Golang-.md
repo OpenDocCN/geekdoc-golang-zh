@@ -8,17 +8,17 @@
 
 # 验证 Go（Golang）中结构体中整数的范围
 
-> 来源：[https://golangbyexample.com/range-int-struct-validate-golang/](https://golangbyexample.com/range-int-struct-validate-golang/)
+> 来源：[`golangbyexample.com/range-int-struct-validate-golang/`](https://golangbyexample.com/range-int-struct-validate-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 下面的库可用于验证 Golang 中结构体中整数的范围
 
-+   **gopkg.in/go-playground/validator.v9** – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)
++   **gopkg.in/go-playground/validator.v9** – [`pkg.go.dev/github.com/go-playground/validator`](https://pkg.go.dev/github.com/go-playground/validator)
 
 在本教程中，我们将使用以下员工结构体
 
@@ -136,7 +136,7 @@ Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'requi
 e := employee{Age: 5}
 ```
 
-输出如下，因为**年龄**字段的值是5，小于10
+输出如下，因为**年龄**字段的值是 5，小于 10
 
 ```go
 Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'gte' tag
@@ -148,7 +148,7 @@ Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'gte' 
 e := employee{Age: 25}
 ```
 
-输出如下，因为**年龄**字段的值是25，超过了20
+输出如下，因为**年龄**字段的值是 25，超过了 20
 
 ```go
 Error: Key: 'employee.Age' Error:Field validation for 'Age' failed on the 'lte' tag

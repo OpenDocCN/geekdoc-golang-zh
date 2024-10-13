@@ -8,7 +8,7 @@
 
 # 在 GO（Golang）中使用上下文包 – 完整指南
 
-> 来源：[https://golangbyexample.com/using-context-in-golang-complete-guide/](https://golangbyexample.com/using-context-in-golang-complete-guide/)
+> 来源：[`golangbyexample.com/using-context-in-golang-complete-guide/`](https://golangbyexample.com/using-context-in-golang-complete-guide/)
 
 # **介绍：**
 
@@ -79,17 +79,17 @@ type Context interface {
 
 ## **context.ToDo():**
 
-+   context包中的ToDo函数返回一个空的Context。该上下文用于当周围函数没有传递上下文时，想要在当前函数中使用该上下文作为占位符，并计划在不久的将来添加实际上下文。将其作为占位符的一个用途是它有助于在静态代码分析工具中的验证。
++   context 包中的 ToDo 函数返回一个空的 Context。该上下文用于当周围函数没有传递上下文时，想要在当前函数中使用该上下文作为占位符，并计划在不久的将来添加实际上下文。将其作为占位符的一个用途是它有助于在静态代码分析工具中的验证。
 
-+   它也是一个与context.Background()相同的空Context。
++   它也是一个与 context.Background()相同的空 Context。
 
 上述两种方法描述了一种创建新上下文的方法。可以从这些上下文中派生更多上下文。这就是上下文树的出现。
 
 # **上下文树**
 
-在理解上下文树之前，请确保在使用**context**时它在后台隐式创建。你将在Go的上下文包中找不到任何提及。
+在理解上下文树之前，请确保在使用**context**时它在后台隐式创建。你将在 Go 的上下文包中找不到任何提及。
 
-每当使用上下文时，从context.Background()获取的空上下文是所有上下文的根。context.ToDo()也充当根上下文，但如上所述，它更像是未来使用的上下文占位符。这个空上下文没有任何功能，我们可以通过从中派生新上下文来添加功能。基本上，通过包装已存在的不可变上下文并添加附加信息来创建新的上下文。让我们看看创建的上下文树的一些示例。
+每当使用上下文时，从 context.Background()获取的空上下文是所有上下文的根。context.ToDo()也充当根上下文，但如上所述，它更像是未来使用的上下文占位符。这个空上下文没有任何功能，我们可以通过从中派生新上下文来添加功能。基本上，通过包装已存在的不可变上下文并添加附加信息来创建新的上下文。让我们看看创建的上下文树的一些示例。
 
 **两级树**
 
@@ -100,9 +100,9 @@ childCtx := context.WithValue(rootCtx, "msgId", "someMsgId")
 
 在上面
 
-+   **rootCtx**是没有功能的空Context。
++   **rootCtx**是没有功能的空 Context。
 
-+   **childCtx**源自rootCtx，并具有存储请求范围值的功能。在上面的示例中，它存储键值对{"msgId" : "someMsgId"}。
++   **childCtx**源自 rootCtx，并具有存储请求范围值的功能。在上面的示例中，它存储键值对{"msgId" : "someMsgId"}。
 
 **三级树**
 
@@ -114,11 +114,11 @@ childOfChildCtx, cancelFunc := context.WithCancel(childCtx)
 
 在上面
 
-+   **rootCtx**是没有功能的空Context。
++   **rootCtx**是没有功能的空 Context。
 
-+   **childCtx**源自rootCtx，并具有存储请求范围值的功能。在上面的示例中，它存储键值对{"msgId" : "someMsgId"}。
++   **childCtx**源自 rootCtx，并具有存储请求范围值的功能。在上面的示例中，它存储键值对{"msgId" : "someMsgId"}。
 
-+   **childOfChildCtx**源自childCtx。它具有存储请求范围值的功能，并且还具有触发取消信号的功能。cancelFunc可用于触发取消信号。
++   **childOfChildCtx**源自 childCtx。它具有存储请求范围值的功能，并且还具有触发取消信号的功能。cancelFunc 可用于触发取消信号。
 
 **多级树**
 
@@ -131,11 +131,11 @@ childCtx3 := context.WithValue(rootCtx, "user_id", "some_user_id)
 
 在上面：
 
-+   **rootCtx**是没有功能的空Context。
++   **rootCtx**是没有功能的空 Context。
 
 +   **childCtx1**源自**rootCtx**，并具有存储请求范围值的功能。在上面的示例中，它存储键值对{"msgId" : "someMsgId"}。
 
-+   **childCtx2**源自**childCtx1**。它具有触发取消信号的功能。cancelFunc可用于触发取消信号。
++   **childCtx2**源自**childCtx1**。它具有触发取消信号的功能。cancelFunc 可用于触发取消信号。
 
 +   **childCtx3**源自**rootCtx**，具有存储当前用户的功能。
 
@@ -153,11 +153,11 @@ childCtx4 := context.WithValue(childCtx1, "current_time", "some_time)
 
 ![](img/3060e2e36d25c6a5579b4c7f756f3667.png)
 
-目前，可能不清楚如何使用WithValue()或WithCancel()函数。现在只需理解，在使用上下文时，会创建一个以**emptyCtx**为根的上下文树。这些函数在我们继续时会更清晰
+目前，可能不清楚如何使用 WithValue()或 WithCancel()函数。现在只需理解，在使用上下文时，会创建一个以**emptyCtx**为根的上下文树。这些函数在我们继续时会更清晰
 
 # **从上下文派生**
 
-派生上下文可以通过4种方式创建
+派生上下文可以通过 4 种方式创建
 
 +   传递请求范围的值 - 使用**WithValue()**函数的上下文包
 
@@ -177,7 +177,7 @@ childCtx4 := context.WithValue(childCtx1, "current_time", "some_time)
 withValue(parent Context, key, val interface{}) (ctx Context)
 ```
 
-它接受一个父上下文、键、值并返回一个派生上下文。这个派生上下文与**值**关联的**键**。这里的父上下文可以是context.Background()或其他任何上下文。此外，任何从此上下文派生的上下文将具有此值。
+它接受一个父上下文、键、值并返回一个派生上下文。这个派生上下文与**值**关联的**键**。这里的父上下文可以是 context.Background()或其他任何上下文。此外，任何从此上下文派生的上下文将具有此值。
 
 ```go
 #Root Context
@@ -192,11 +192,11 @@ ctxChildofChild := context.WithValue(ctxChild, "b", "y")
 
 **示例：**
 
-**withValue()**的完整工作示例。在下面的示例中，我们为每个传入请求注入一个msgId。如果你注意到下面的程序
+**withValue()**的完整工作示例。在下面的示例中，我们为每个传入请求注入一个 msgId。如果你注意到下面的程序
 
-+   injectMsgID是一个网络HTTP中间件函数，在上下文中填充**"msgID"**字段
++   injectMsgID 是一个网络 HTTP 中间件函数，在上下文中填充**"msgID"**字段
 
-+   HelloWorld是API "localhost:8080/welcome"的处理函数，它从上下文中获取msgID并作为响应头发送回去
++   HelloWorld 是 API "localhost:8080/welcome"的处理函数，它从上下文中获取 msgID 并作为响应头发送回去
 
 ```go
 package main
@@ -236,13 +236,13 @@ func inejctMsgID(next http.Handler) http.Handler {
 }
 ```
 
-只需在运行上面的程序后对上述请求进行curl调用
+只需在运行上面的程序后对上述请求进行 curl 调用
 
 ```go
 curl -v http://localhost/welcome
 ```
 
-这里将是响应。注意响应头中填充的**MsgId**。injectMsgId函数作为中间件，向请求上下文注入唯一的msgId。
+这里将是响应。注意响应头中填充的**MsgId**。injectMsgId 函数作为中间件，向请求上下文注入唯一的 msgId。
 
 ```go
 curl -v http://localhost:8080/welcome
@@ -328,7 +328,7 @@ context canceled
 
 在上面的程序中
 
-+   一旦调用**cancelFunc**，任务函数将优雅地退出。一旦调用cancelFunc，上下文包将错误字符串设置为**"context cancelled"**。这就是**ctx.Err()**的输出为**"context cancelled"**的原因
++   一旦调用**cancelFunc**，任务函数将优雅地退出。一旦调用 cancelFunc，上下文包将错误字符串设置为**"context cancelled"**。这就是**ctx.Err()**的输出为**"context cancelled"**的原因
 
 ## **context.WithTimeout()**
 
@@ -396,7 +396,7 @@ context deadline exceeded
 
 在上面的程序中
 
-+   一旦超时3秒到期，任务函数将优雅退出。错误字符串由上下文包设置为“上下文截止日期已超过”。这就是ctx.Err()输出为“上下文截止日期已超过”的原因。
++   一旦超时 3 秒到期，任务函数将优雅退出。错误字符串由上下文包设置为“上下文截止日期已超过”。这就是 ctx.Err()输出为“上下文截止日期已超过”的原因。
 
 ## **context.WithDeadline()**
 
@@ -466,15 +466,15 @@ context deadline exceeded
 
 在上面的程序中
 
-+   一旦超时5秒到期，任务函数将优雅退出，因为我们设定的截止日期为Time.now() + 5秒。错误字符串由上下文包设置为“上下文截止日期已超过”。这就是ctx.Err()输出为“上下文截止日期已超过”的原因。
++   一旦超时 5 秒到期，任务函数将优雅退出，因为我们设定的截止日期为 Time.now() + 5 秒。错误字符串由上下文包设置为“上下文截止日期已超过”。这就是 ctx.Err()输出为“上下文截止日期已超过”的原因。
 
 # **我们学到了什么**
 
 **如何创建上下文：**
 
-+   使用context.Background()
++   使用 context.Background()
 
-+   使用context.Todo()
++   使用 context.Todo()
 
 **上下文树**
 
@@ -494,12 +494,12 @@ context deadline exceeded
 
 +   不要在结构体类型中存储上下文。
 
-+   上下文应该在你的程序中流动。例如，在HTTP请求的情况下，可以为每个传入请求创建一个新的上下文，该上下文可以用于保存request_id或在上下文中放入一些公共信息，如当前登录用户，这在特定请求中可能会很有用。
++   上下文应该在你的程序中流动。例如，在 HTTP 请求的情况下，可以为每个传入请求创建一个新的上下文，该上下文可以用于保存 request_id 或在上下文中放入一些公共信息，如当前登录用户，这在特定请求中可能会很有用。
 
 +   始终将上下文作为函数的第一个参数传递。
 
-+   每当你不确定是否使用上下文时，最好使用context.ToDo()作为占位符。
++   每当你不确定是否使用上下文时，最好使用 context.ToDo()作为占位符。
 
-+   只有父级goroutine或函数应该取消上下文。因此，不要将**cancelFunc**传递给下游的goroutines或函数。Golang允许你将**cancelFunc**传递给子goroutines，但这不是推荐的做法。
++   只有父级 goroutine 或函数应该取消上下文。因此，不要将**cancelFunc**传递给下游的 goroutines 或函数。Golang 允许你将**cancelFunc**传递给子 goroutines，但这不是推荐的做法。
 
-+   [Golang中的上下文](https://golangbyexample.com/tag/context-in-golang/) *   [解释](https://golangbyexample.com/tag/explained/) *   [Golang上下文解释](https://golangbyexample.com/tag/golang-context-explained/) *   [sidetoc](https://golangbyexample.com/tag/sidetoc/)
++   [Golang 中的上下文](https://golangbyexample.com/tag/context-in-golang/) *   [解释](https://golangbyexample.com/tag/explained/) *   [Golang 上下文解释](https://golangbyexample.com/tag/golang-context-explained/) *   [sidetoc](https://golangbyexample.com/tag/sidetoc/)

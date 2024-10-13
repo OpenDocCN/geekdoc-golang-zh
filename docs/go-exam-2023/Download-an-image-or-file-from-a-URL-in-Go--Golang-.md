@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中从 URL 下载图像或文件。
 
-> 来源：[https://golangbyexample.com/download-image-file-url-golang/](https://golangbyexample.com/download-image-file-url-golang/)
+> 来源：[`golangbyexample.com/download-image-file-url-golang/`](https://golangbyexample.com/download-image-file-url-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# 概述
++   代码*  *# 概述
 
 以下是从 URL 下载图像或文件的步骤。
 

@@ -8,23 +8,23 @@
 
 # Golang 正则表达式：匹配原始或字面字符串
 
-> 来源：[https://golangbyexample.com/golang-regex-literal-strin/](https://golangbyexample.com/golang-regex-literal-strin/)
+> 来源：[`golangbyexample.com/golang-regex-literal-strin/`](https://golangbyexample.com/golang-regex-literal-strin/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-    +   [MatchCompile 函数](#MatchCompile_Function)
+    +   MatchCompile 函数
 
-    +   [匹配方法](#Match_Method "Match Method")*  *## **概述**
+    +   匹配方法*  *## **概述**
 
-在我们的示例中，我们将使用 Golang 中的 **regexp** 包，它提供了正则表达式搜索功能 [https://golang.org/pkg/regexp/](https://golang.org/pkg/regexp/)
+在我们的示例中，我们将使用 Golang 中的 **regexp** 包，它提供了正则表达式搜索功能 [`golang.org/pkg/regexp/`](https://golang.org/pkg/regexp/)
 
 在查看正则表达式本身之前，让我们先看一些 Go 提供的基本函数或方法来进行正则匹配。
 
 ### **MatchCompile 函数**
 
-[https://golang.org/pkg/regexp/#MustCompile](https://golang.org/pkg/regexp/#MustCompile)
+[`golang.org/pkg/regexp/#MustCompile`](https://golang.org/pkg/regexp/#MustCompile)
 
 以下是函数的签名
 
@@ -40,7 +40,7 @@ sampleRegexp := regexp.MustCompile("some_regular_expression"")
 
 ### **匹配方法**
 
-[https://golang.org/pkg/regexp/#Regexp.Match](https://golang.org/pkg/regexp/#Regexp.Match)
+[`golang.org/pkg/regexp/#Regexp.Match`](https://golang.org/pkg/regexp/#Regexp.Match)
 
 以下是该方法的签名
 
@@ -100,6 +100,6 @@ For xyz: false
 
 有关全字符串匹配的详细信息，请参考本文
 
-[https://golangbyexample.com/golang-regex-match-full-string](https://golangbyexample.com/golang-regex-match-full-string/)
+[`golangbyexample.com/golang-regex-match-full-string`](https://golangbyexample.com/golang-regex-match-full-string/)
 
 此外，查看我们的 Golang 进阶教程系列 – [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)*

@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go (Golang)中查找第k个不同字符串的程序
+# 在 Go (Golang)中查找第 k 个不同字符串的程序
 
-> 来源：[https://golangbyexample.com/kth-distinct-string-golang/](https://golangbyexample.com/kth-distinct-string-golang/)
+> 来源：[`golangbyexample.com/kth-distinct-string-golang/`](https://golangbyexample.com/kth-distinct-string-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-给定一个输入字符串数组，可以包含重复字符串。还提供一个输入数字 **k**。其思路是找到给定输入字符串数组中的第k个不同字符串
+给定一个输入字符串数组，可以包含重复字符串。还提供一个输入数字 **k**。其思路是找到给定输入字符串数组中的第 k 个不同字符串
 
 让我们通过一个例子来理解
 
@@ -41,7 +41,7 @@ Output: "d"
 
 +   “d”
 
-由于字符串 **“d”** 在顺序中第二次出现，而k为2，因此输出为 **“d”**另一个例子
+由于字符串 **“d”** 在顺序中第二次出现，而 k 为 2，因此输出为 **“d”**另一个例子
 
 ```go
 Input: ["xxx", "xx" "x"]
@@ -116,8 +116,8 @@ func main() {
 13
 ```
 
-**注意：** 查看我们的Golang高级教程。此系列的教程内容详尽，我们尽力涵盖所有概念及示例。这个教程适合那些希望获得Golang专业知识和扎实理解的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。此系列的教程内容详尽，我们尽力涵盖所有概念及示例。这个教程适合那些希望获得 Golang 专业知识和扎实理解的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是，那么这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是，那么这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

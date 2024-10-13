@@ -8,21 +8,21 @@
 
 # Go 中的包与模块（Golang）
 
-> 来源：[https://golangbyexample.com/package-vs-module-golang/](https://golangbyexample.com/package-vs-module-golang/)
+> 来源：[`golangbyexample.com/package-vs-module-golang/`](https://golangbyexample.com/package-vs-module-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [模块时代之前](#Before_Modules_World "Before Modules World")
++   模块时代之前
 
-    +   [Go 版本 1.11 之前](#Pre_Go_version_111 "Pre Go version 1.11")
+    +   Go 版本 1.11 之前
 
-    +   [在 Go 版本 1.11 中](#In_Go_version_111 "In Go version 1.11")
+    +   在 Go 版本 1.11 中
 
-    +   [在 Go 版本 1.13 之后](#After_Go_Version_113 "After Go Version 1.13")
+    +   在 Go 版本 1.13 之后
 
-+   [创建模块](#Creating_Modules "Creating Modules")*  *# **概述**
++   创建模块*  *# **概述**
 
 根据模块的定义，它是一个包含嵌套和相关的 Go 包集合的目录，根目录下有 **go.mod** 文件。**go.mod** 文件定义了
 
@@ -76,7 +76,7 @@
 
 +   没有原生的依赖管理支持。
 
-在模块出现之前的一个问题是没有办法在项目中指定依赖。虽然有像dep、glide这样的替代解决方案，但缺乏原生解决方案。
+在模块出现之前的一个问题是没有办法在项目中指定依赖。虽然有像 dep、glide 这样的替代解决方案，但缺乏原生解决方案。
 
 +   所有依赖项将在 $GOPATH/src 目录中下载，而没有版本控制。
 
@@ -92,25 +92,25 @@ go get github.com/pborman/uuid
 $GOPATH/src/github.com/pborman/uuid
 ```
 
-请注意上面的go get命令没有指定版本。因此，它下载最新版本。此外，请注意下载的包。即使它没有列出任何版本信息。这是个问题。如果**[github.com](http://github.com)/pborman/uuid**包有更新，而你想获取该更新，由于没有版本控制，更新的包将被下载到同一位置，替换掉旧的包。
+请注意上面的 go get 命令没有指定版本。因此，它下载最新版本。此外，请注意下载的包。即使它没有列出任何版本信息。这是个问题。如果**[github.com](http://github.com)/pborman/uuid**包有更新，而你想获取该更新，由于没有版本控制，更新的包将被下载到同一位置，替换掉旧的包。
 
-## **在Go版本1.11中**
+## **在 Go 版本 1.11 中**
 
-在Go 1.11中，模块被引入但尚未定型。因此，如果你仍在使用它，最好切换到最新版本。
+在 Go 1.11 中，模块被引入但尚未定型。因此，如果你仍在使用它，最好切换到最新版本。
 
-## **在Go版本1.13之后**
+## **在 Go 版本 1.13 之后**
 
 我们已经讨论了在预模块时代存在的所有问题。现在让我们看看这些问题是如何通过引入模块得到解决的。
 
 第一个问题是。
 
-+   所有Go项目在$GOPATH/src目录下。
++   所有 Go 项目在$GOPATH/src 目录下。
 
 有了模块，这不再是一个要求。
 
 +   没有本地依赖管理支持。
 
-模块在Go中引入了本地依赖管理。通过模块，它提供了两个新的文件。
+模块在 Go 中引入了本地依赖管理。通过模块，它提供了两个新的文件。
 
 1.  go.mod
 
@@ -152,7 +152,7 @@ module learn
 go 1.14
 ```
 
-它包含模块的导入路径和创建该模块时使用的Go版本。
+它包含模块的导入路径和创建该模块时使用的 Go 版本。
 
 由于这是一个空模块，因此尚未指定任何直接依赖项。让我们在同一目录下创建一个名为**uuid.go**的文件，内容如下。
 
@@ -175,7 +175,7 @@ func main() {
 }
 ```
 
-请注意，我们在uuid.go中也导入了依赖项。
+请注意，我们在 uuid.go 中也导入了依赖项。
 
 ```go
 "github.com/pborman/uuid"
@@ -197,7 +197,7 @@ go 1.14
 require github.com/pborman/uuid v1.2.1
 ```
 
-它列出了在uuid文件中指定的直接依赖项及其确切版本。现在让我们检查一下**go.sum**文件。
+它列出了在 uuid 文件中指定的直接依赖项及其确切版本。现在让我们检查一下**go.sum**文件。
 
 执行`cat go.sum`。
 

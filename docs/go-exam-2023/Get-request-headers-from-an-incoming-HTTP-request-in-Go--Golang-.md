@@ -8,29 +8,29 @@
 
 # 在 Go (Golang) 中从传入的 HTTP 请求获取请求头
 
-> 来源：[https://golangbyexample.com/headers-http-request-golang/](https://golangbyexample.com/headers-http-request-golang/)
+> 来源：[`golangbyexample.com/headers-http-request-golang/`](https://golangbyexample.com/headers-http-request-golang/)
 
 注意：相关帖子
 
-+   在 Go 中为传入 HTTP 请求设置响应头 - [https://golangbyexample.com/set-resposne-headers-http-go/](https://golangbyexample.com/set-resposne-headers-http-go/)
++   在 Go 中为传入 HTTP 请求设置响应头 - [`golangbyexample.com/set-resposne-headers-http-go/`](https://golangbyexample.com/set-resposne-headers-http-go/)
 
-+   在 Golang 中获取传出 HTTP 请求的响应头 - [https://golangbyexample.com/get-response-headers-making-go/](https://golangbyexample.com/get-response-headers-making-go/)
++   在 Golang 中获取传出 HTTP 请求的响应头 - [`golangbyexample.com/get-response-headers-making-go/`](https://golangbyexample.com/get-response-headers-making-go/)
 
-+   在 Go (Golang) 中为传出的 HTTP 请求设置头部– [https://golangbyexample.com/set-headers-http-request/](https://golangbyexample.com/set-headers-http-request/)
++   在 Go (Golang) 中为传出的 HTTP 请求设置头部– [`golangbyexample.com/set-headers-http-request/`](https://golangbyexample.com/set-headers-http-request/)
 
 现在我们来看看如何在传入的 HTTP 请求中获取请求头
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [使用 Header.Values 方法](#Using_HeaderValues_method "使用 Header.Values 方法")
++   使用 Header.Values 方法
 
-+   [使用 Header.Get 方法](#Using_HeaderGet_method "使用 Header.Get 方法")
++   使用 Header.Get 方法
 
-+   [直接访问 Header 结构](#Directly_Accessing_the_Header_Struct "直接访问 Header 结构")
++   直接访问 Header 结构
 
-+   [示例](#Example "示例")*  *# **概述**
++   示例*  *# **概述**
 
 以下是 Go 中头部的表示格式。
 
@@ -196,13 +196,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-在上述程序中，我们启动了一个监听在8080端口的服务器。我们还在该端点定义了一个URL。运行此服务器并进行以下API调用。
+在上述程序中，我们启动了一个监听在 8080 端口的服务器。我们还在该端点定义了一个 URL。运行此服务器并进行以下 API 调用。
 
 ```go
 curl -v -X POST http://localhost:8080/example -H "content-type: application/json" -H "foo: bar1" -H "foo: bar2"
 ```
 
-运行此API后，请检查终端中的输出。它将输出。你可以检查输出，它与我们讨论的完全一致。
+运行此 API 后，请检查终端中的输出。它将输出。你可以检查输出，它与我们讨论的完全一致。
 
 ```go
 r.Header.Values("foo"):: [bar1 bar2]

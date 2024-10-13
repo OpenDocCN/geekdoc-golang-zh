@@ -8,15 +8,15 @@
 
 # 在 Go (Golang) 中向函数传递可变数量的参数。
 
-> 来源：[https://golangbyexample.com/go-variadic-function/](https://golangbyexample.com/go-variadic-function/)
+> 来源：[`golangbyexample.com/go-variadic-function/`](https://golangbyexample.com/go-variadic-function/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [不同数量的参数但类型相同](#Different_number_of_parameters_but_of_the_same_type "不同数量的参数但类型相同")
++   不同数量的参数但类型相同
 
-+   [不同数量的参数且类型不同](#Different_number_of_parameters_and_of_different_types "不同数量的参数且类型不同")*  *# 概述
++   不同数量的参数且类型不同*  *# 概述
 
 在 Go 中，能够接受动态数量参数的函数称为变长函数。下面是变长函数的语法。三个点用作类型前缀。
 

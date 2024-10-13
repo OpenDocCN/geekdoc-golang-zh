@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中延迟一个 goroutine
 
-> 来源：[https://golangbyexample.com/defer-goroutine-golang/](https://golangbyexample.com/defer-goroutine-golang/)
+> 来源：[`golangbyexample.com/defer-goroutine-golang/`](https://golangbyexample.com/defer-goroutine-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 直接延迟一个 goroutine 是不可能的。但有一种变通方法。在 defer 函数中，你可以像下面这样在 goroutine 中调用另一个函数
 

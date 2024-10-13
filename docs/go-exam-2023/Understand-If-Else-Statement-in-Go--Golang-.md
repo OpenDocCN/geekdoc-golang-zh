@@ -6,11 +6,11 @@
 
 -->
 
-# 理解Go中的如果-否则语句（Golang）
+# 理解 Go 中的如果-否则语句（Golang）
 
-> 来源：[https://golangbyexample.com/understand-if-else-statement-golang/](https://golangbyexample.com/understand-if-else-statement-golang/)
+> 来源：[`golangbyexample.com/understand-if-else-statement-golang/`](https://golangbyexample.com/understand-if-else-statement-golang/)
 
-这是golang综合教程系列的第12章。有关该系列其他章节，请参考此链接——[Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 golang 综合教程系列的第十二章。有关该系列其他章节，请参考此链接——[Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一个教程**——[开关](https://golangbyexample.com/switch-statement-golang/)
 
@@ -20,7 +20,7 @@
 
 # **概述**
 
-Go有类似于其他编程语言的if-else语句，以执行基本的条件逻辑。以下是golang中if-else语句的格式。
+Go 有类似于其他编程语言的 if-else 语句，以执行基本的条件逻辑。以下是 golang 中 if-else 语句的格式。
 
 ```go
 if condition {
@@ -31,23 +31,23 @@ if condition {
    //Do something
 ```
 
-在我们进一步讨论之前，先谈谈**条件**。条件中只允许语句或结果为布尔值的语句组合。在Go中，false布尔值在条件中被视为假，true布尔值被视为真。如上所述，条件可以由多个语句通过运算符组合而成，例如&&、||、>、<、>=、<=、!等。
+在我们进一步讨论之前，先谈谈**条件**。条件中只允许语句或结果为布尔值的语句组合。在 Go 中，false 布尔值在条件中被视为假，true 布尔值被视为真。如上所述，条件可以由多个语句通过运算符组合而成，例如&&、||、>、<、>=、<=、!等。
 
-现在让我们详细看看if-else语句，以理解其中的小细节。Go支持以下格式的if-else语句。
+现在让我们详细看看 if-else 语句，以理解其中的小细节。Go 支持以下格式的 if-else 语句。
 
-+   仅仅if
++   仅仅 if
 
 +   如果-否则
 
 +   如果-否则阶梯
 
-+   嵌套if-else
++   嵌套 if-else
 
 +   如果与简短语句
 
 ## **如果语句**
 
-if语句单独具有以下格式。
+if 语句单独具有以下格式。
 
 ```go
 if condition {
@@ -55,13 +55,13 @@ if condition {
 }
 ```
 
-如果条件为真，则执行括号内的语句。关于if语句需要注意的一些要点。
+如果条件为真，则执行括号内的语句。关于 if 语句需要注意的一些要点。
 
 +   可以省略条件周围的括号。
 
 +   条件后的开闭括号是强制的。
 
-让我们看一个工作示例。以下程序检查一个数字是否大于5。
+让我们看一个工作示例。以下程序检查一个数字是否大于 5。
 
 ```go
 package main
@@ -82,7 +82,7 @@ func main() {
 a is greater than 5
 ```
 
-让我们看另一个if条件中的多个语句的示例。以下是一个程序，用于检查一个数字是否在特定范围内。注意条件中的多个语句由&&运算符连接。
+让我们看另一个 if 条件中的多个语句的示例。以下是一个程序，用于检查一个数字是否在特定范围内。注意条件中的多个语句由&&运算符连接。
 
 ```go
 package main
@@ -115,15 +115,15 @@ if condition {
 }
 ```
 
-如果条件为真，则执行if块中的语句，否则执行else块中的语句。关于if-else语句需要注意一些要点。
+如果条件为真，则执行 if 块中的语句，否则执行 else 块中的语句。关于 if-else 语句需要注意一些要点。
 
-+   else关键字应该与其闭合括号在同一行。如果不在同一行，将会出现以下编译器错误。
++   else 关键字应该与其闭合括号在同一行。如果不在同一行，将会出现以下编译器错误。
 
 ```go
 syntax error: unexpected else, expecting }
 ```
 
-让我们看一个小的if-else语句示例。在下面的程序中，我们使用if-else语句找出两个数字中的最大值。
+让我们看一个小的 if-else 语句示例。在下面的程序中，我们使用 if-else 语句找出两个数字中的最大值。
 
 ```go
 package main
@@ -162,13 +162,13 @@ if condition1 {
 }
 ```
 
-关于这个if-else阶梯需要注意的一些要点。
+关于这个 if-else 阶梯需要注意的一些要点。
 
-+   可以在中间添加任意数量的else if语句。
++   可以在中间添加任意数量的 else if 语句。
 
-+   else if应位于前一个闭合括号的同一行。
++   else if 应位于前一个闭合括号的同一行。
 
-以下是一个可工作的代码示例。该代码根据年龄使用if-else阶梯来判断一个人是“孩子”、“年轻”还是“老年”。
+以下是一个可工作的代码示例。该代码根据年龄使用 if-else 阶梯来判断一个人是“孩子”、“年轻”还是“老年”。
 
 ```go
 package main

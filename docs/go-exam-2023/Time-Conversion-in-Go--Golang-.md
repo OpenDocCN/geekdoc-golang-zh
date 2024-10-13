@@ -8,85 +8,85 @@
 
 # Go（Golang）中的时间转换
 
-> 来源：[https://golangbyexample.com/time-conversion-in-golang/](https://golangbyexample.com/time-conversion-in-golang/)
+> 来源：[`golangbyexample.com/time-conversion-in-golang/`](https://golangbyexample.com/time-conversion-in-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [转换](#Conversions "转换")
++   转换
 
-    +   [time.Time 到其他](#timeTime_To_Others "time.Time 到其他")
+    +   time.Time 到其他
 
-        +   [时间 Unix](#Time_Unix "时间 Unix")
+        +   时间 Unix
 
-        +   [时间 Unix 毫秒](#Time_Unix_Millisecond "时间 Unix 毫秒")
+        +   时间 Unix 毫秒
 
-        +   [时间 Unix 微秒](#Time_Unix_Microsecond "时间 Unix 微秒")
+        +   时间 Unix 微秒
 
-        +   [时间 Unix 纳秒](#Time_Unix_Nanosecond "时间 Unix 纳秒")
+        +   时间 Unix 纳秒
 
-        +   [完整工作代码](#Full_Working_Code "完整工作代码")
+        +   完整工作代码
 
-    +   [时间 Unix 到其他](#time_Unix_To_Others "时间 Unix 到其他")
+    +   时间 Unix 到其他
 
-        +   [time.Time](#timeTime "time.Time")
+        +   time.Time
 
-        +   [时间 Unix 毫秒](#Time_Unix_Millisecond-2 "时间 Unix 毫秒")
+        +   时间 Unix 毫秒
 
-        +   [时间 Unix 微秒](#Time_Unix_Microsecond-2 "时间 Unix 微秒")
+        +   时间 Unix 微秒
 
-        +   [时间 Unix 纳秒](#Time_Unix_Nanosecond-2 "时间 Unix 纳秒")
+        +   时间 Unix 纳秒
 
-        +   [完整工作代码](#Full_Working_Code-2 "完整工作代码")
+        +   完整工作代码
 
-    +   [时间 Unix 毫秒到其他](#time_Unix_MilliSecond_To_Others "时间 Unix 毫秒到其他")
+    +   时间 Unix 毫秒到其他
 
-        +   [time.Time](#timeTime-2 "time.Time")
+        +   time.Time
 
-        +   [时间 Unix](#Time_Unix-2 "时间 Unix ")
+        +   时间 Unix
 
-        +   [时间 Unix 微秒](#Time_Unix_Microsecond-3 "时间 Unix 微秒")
+        +   时间 Unix 微秒
 
-        +   [时间 Unix 纳秒](#Time_Unix_Nanosecond-3 "时间 Unix 纳秒")
+        +   时间 Unix 纳秒
 
-        +   [完整工作代码：](#Full_Working_Code-3 "完整工作代码：")
+        +   完整工作代码：
 
-    +   [时间 Unix 微秒到其他](#time_Unix_MicroSecond_To_Others "时间 Unix 微秒到其他")
+    +   时间 Unix 微秒到其他
 
-        +   [time.Time](#timeTime-3 "time.Time")
+        +   time.Time
 
-        +   [时间 Unix](#Time_Unix-3 "时间 Unix ")
+        +   时间 Unix
 
-        +   [时间 Unix 毫秒](#Time_Unix_Millisecond-3 "时间 Unix 毫秒")
+        +   时间 Unix 毫秒
 
-        +   [时间 Unix 纳秒](#Time_Unix_Nanosecond-4 "时间 Unix 纳秒")
+        +   时间 Unix 纳秒
 
-        +   [完整工作代码：](#Full_Working_Code-4 "完整工作代码：")
+        +   完整工作代码：
 
-    +   [时间 Unix 纳秒到其他](#time_Unix_NanoSecond_To_Others "时间 Unix 纳秒到其他")
+    +   时间 Unix 纳秒到其他
 
-        +   [time.Time](#timeTime-4 "time.Time")
+        +   time.Time
 
-        +   [时间 Unix](#Time_Unix-4 "时间 Unix ")
+        +   时间 Unix
 
-        +   [时间 Unix 毫秒](#Time_Unix_Millisecond-4 "时间 Unix 毫秒")
+        +   时间 Unix 毫秒
 
-        +   [时间 Unix 微秒](#Time_Unix_Microsecond-4 "时间 Unix 微秒")
+        +   时间 Unix 微秒
 
-        +   [完整工作代码](#Full_Working_Code-5 "完整工作代码")*  *# **概述**
+        +   完整工作代码*  *# **概述**
 
 时间可以在 GO 中以以下 5 种格式表示：
 
 +   **time.Time** 对象
 
-+   **Unix 时间（也称为纪元时间）** – 自1970年1月1日00:00:00 UTC以来经过的秒数。此时间也称为 Unix 纪元
++   **Unix 时间（也称为纪元时间）** – 自 1970 年 1 月 1 日 00:00:00 UTC 以来经过的秒数。此时间也称为 Unix 纪元
 
-+   **Unix 纳秒** – 自1970年1月1日00:00:00 UTC以来经过的纳秒数
++   **Unix 纳秒** – 自 1970 年 1 月 1 日 00:00:00 UTC 以来经过的纳秒数
 
-+   **Unix 毫秒** – 自1970年1月1日00:00:00 UTC以来经过的毫秒数
++   **Unix 毫秒** – 自 1970 年 1 月 1 日 00:00:00 UTC 以来经过的毫秒数
 
-+   **Unix 微秒** – 自1970年1月1日00:00:00 UTC以来经过的微秒数
++   **Unix 微秒** – 自 1970 年 1 月 1 日 00:00:00 UTC 以来经过的微秒数
 
 # **转换**
 

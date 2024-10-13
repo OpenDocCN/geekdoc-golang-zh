@@ -6,27 +6,27 @@ date: 2024-10-13 06:31:52
 
 -->
 
-# 从HTTP请求中获取JSON请求体（Golang）
+# 从 HTTP 请求中获取 JSON 请求体（Golang）
 
-> 来源：[https://golangbyexample.com/json-request-body-golang-http/](https://golangbyexample.com/json-request-body-golang-http/)
+> 来源：[`golangbyexample.com/json-request-body-golang-http/`](https://golangbyexample.com/json-request-body-golang-http/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
-**json/encoding**包包含可以用于将传入HTTP请求的请求体转换为Go语言结构体的方法。在开始之前，先说一句关于请求体的话。HTTP请求的请求体是一系列字节。请求体的内容类型表示这些字节的表示格式，并且意味着要被读取。对于JSON请求体，内容类型是
+**json/encoding**包包含可以用于将传入 HTTP 请求的请求体转换为 Go 语言结构体的方法。在开始之前，先说一句关于请求体的话。HTTP 请求的请求体是一系列字节。请求体的内容类型表示这些字节的表示格式，并且意味着要被读取。对于 JSON 请求体，内容类型是
 
 ```go
 application/json
 ```
 
-另外还有两件关于Go语言结构体你需要知道的事。
+另外还有两件关于 Go 语言结构体你需要知道的事。
 
-+   仅导出的结构体字段对外部库可见。因此，只有导出的结构体字段才能从传入的HTTP请求中解析。需要注意的是，Go语言中大写的结构体字段是导出的。
++   仅导出的结构体字段对外部库可见。因此，只有导出的结构体字段才能从传入的 HTTP 请求中解析。需要注意的是，Go 语言中大写的结构体字段是导出的。
 
-+   结构体字段有一个元信息部分，包含关于该字段的附加信息。这些元字段在将传入的JSON请求体解析为结构体时使用。例如，假设我们有以下结构体：
++   结构体字段有一个元信息部分，包含关于该字段的附加信息。这些元字段在将传入的 JSON 请求体解析为结构体时使用。例如，假设我们有以下结构体：
 
 ```go
 type employee struct {
@@ -35,7 +35,7 @@ type employee struct {
 }
 ```
 
-注意与每个标记为‘json’的字段相关联的元标签。这些元字段用于将JSON中的键映射到结构体的字段。例如，如果我们有以下JSON：
+注意与每个标记为‘json’的字段相关联的元标签。这些元字段用于将 JSON 中的键映射到结构体的字段。例如，如果我们有以下 JSON：
 
 ```go
 {
@@ -44,7 +44,7 @@ type employee struct {
 }
 ```
 
-然后上述JSON的**name**键将映射到**employee**结构体的**Name**字段，JSON中的**age**键将映射到结构体的**Age**字段。假设我们有以下结构体和JSON：
+然后上述 JSON 的**name**键将映射到**employee**结构体的**Name**字段，JSON 中的**age**键将映射到结构体的**Age**字段。假设我们有以下结构体和 JSON：
 
 ```go
 type employee struct {
@@ -58,29 +58,29 @@ type employee struct {
 }
 ```
 
-然后JSON中的**‘n’**键将映射到结构体的**Name**字段，JSON中的**‘ag’**键将映射到结构体的**Age**字段。
+然后 JSON 中的**‘n’**键将映射到结构体的**Name**字段，JSON 中的**‘ag’**键将映射到结构体的**Age**字段。
 
-可以使用**json/encoding**包的以下两个方法获取传入请求的JSON请求体。
+可以使用**json/encoding**包的以下两个方法获取传入请求的 JSON 请求体。
 
 +   json.Unmarshal([]byte)
 
 +   json.NewDecoder(io.Reader).Decode(interface{})
 
-第二种方法是获取JSON请求体的优选方式，原因有两个。
+第二种方法是获取 JSON 请求体的优选方式，原因有两个。
 
-+   传入HTTP请求的请求体是一个io流。**json.Unmarshal**将首先读取请求体的全部内容，然后进行解组。它不会对请求体进行验证，而是直接处理。相比之下，Decode方法如果JSON无效会立即给出解析错误。这对于客户端发送的大型无效请求体非常有用。Unmarshal将在整个大请求体读取完毕后发现问题，而Decode在一开始就会抛出错误。
++   传入 HTTP 请求的请求体是一个 io 流。**json.Unmarshal**将首先读取请求体的全部内容，然后进行解组。它不会对请求体进行验证，而是直接处理。相比之下，Decode 方法如果 JSON 无效会立即给出解析错误。这对于客户端发送的大型无效请求体非常有用。Unmarshal 将在整个大请求体读取完毕后发现问题，而 Decode 在一开始就会抛出错误。
 
-+   **json.Decode**包含**DisallowUnknownFields**方法，如果传入的JSON包含与任何字段不匹配的键，则会引发错误。
++   **json.Decode**包含**DisallowUnknownFields**方法，如果传入的 JSON 包含与任何字段不匹配的键，则会引发错误。
 
 1.  导出和
 
 1.  未被忽略的结构体字段。
 
-在解析传入的JSON请求体时，可能需要处理几个问题。
+在解析传入的 JSON 请求体时，可能需要处理几个问题。
 
-+   请求体可能不是有效的JSON。
++   请求体可能不是有效的 JSON。
 
-+   这是一个有效的JSON，但包含额外的字段或没有任何结构体中预期的字段。
++   这是一个有效的 JSON，但包含额外的字段或没有任何结构体中预期的字段。
 
 +   JSON 请求体太大。
 

@@ -6,23 +6,23 @@
 
 -->
 
-# Golang中的范围和二维数组程序
+# Golang 中的范围和二维数组程序
 
-> 来源：[https://golangbyexample.com/range-sum-2d-array-go/](https://golangbyexample.com/range-sum-2d-array-go/)
+> 来源：[`golangbyexample.com/range-sum-2d-array-go/`](https://golangbyexample.com/range-sum-2d-array-go/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [程序](#Program "程序")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个数字的二维矩阵。目标是计算矩阵中由**左上角**（row1, col1）和**右下角**（row2, col2）定义的矩形内元素的**和**。
 
-看起来简单，对吧。只需从左角迭代到右角并返回总和。但这里有个问题。允许的时间复杂度是O(1)
+看起来简单，对吧。只需从左角迭代到右角并返回总和。但这里有个问题。允许的时间复杂度是 O(1)
 
-这里是我们可以遵循的方法，以便能够在O(1)时间复杂度内返回答案
+这里是我们可以遵循的方法，以便能够在 O(1)时间复杂度内返回答案
 
-+   为该二维矩阵预计算另一个sum_array
++   为该二维矩阵预计算另一个 sum_array
 
 +   sum_array[i][j] = 从**左角**（0, 0）和**右角**（i, j）计算的数字之和。
 
@@ -130,8 +130,8 @@ func main() {
 19
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列的教程内容详尽，我们努力涵盖所有概念及其示例。本教程适合那些希望获得专业知识并深入理解Golang的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列的教程内容详尽，我们努力涵盖所有概念及其示例。本教程适合那些希望获得专业知识并深入理解 Golang 的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是的话，这篇文章适合你 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是的话，这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

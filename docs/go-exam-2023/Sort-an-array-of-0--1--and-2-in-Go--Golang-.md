@@ -6,19 +6,19 @@
 
 -->
 
-# 在Go中对0、1和2的数组进行排序。
+# 在 Go 中对 0、1 和 2 的数组进行排序。
 
-> 来源：[https://golangbyexample.com/sort-array-one-zero-two-golang/](https://golangbyexample.com/sort-array-one-zero-two-golang/)
+> 来源：[`golangbyexample.com/sort-array-one-zero-two-golang/`](https://golangbyexample.com/sort-array-one-zero-two-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [第一种方法 - 使用计数](#First_Approach_-_Using_count "第一种方法 - 使用计数")
++   第一种方法 - 使用计数
 
-+   [第二种方法 - 使用交换和洗牌](#Second_Approach_-_Using_switch_and_shuffling "第二种方法 - 使用交换和洗牌")*  *## **概述**
++   第二种方法 - 使用交换和洗牌*  *## **概述**
 
-目标是对一个包含0、1和2的数组进行排序，使所有的0在开头，所有的1在中间，所有的2在最后。该解决方案的空间复杂度应为O(1)，这意味着不应在给定数组的输入大小上分配任何额外空间。
+目标是对一个包含 0、1 和 2 的数组进行排序，使所有的 0 在开头，所有的 1 在中间，所有的 2 在最后。该解决方案的空间复杂度应为 O(1)，这意味着不应在给定数组的输入大小上分配任何额外空间。
 
 例如
 
@@ -32,23 +32,23 @@ Output: [0, 1]
 
 解决此问题有两种方法。
 
-**第一种方法：**我们可以遍历数组并记录0、1和2的数量。一旦我们有了计数，再次遍历数组并将该数量的0先放入，然后是1的数量，最后是2的数量。
+**第一种方法：**我们可以遍历数组并记录 0、1 和 2 的数量。一旦我们有了计数，再次遍历数组并将该数量的 0 先放入，然后是 1 的数量，最后是 2 的数量。
 
 **第二种方法：**在第二种方法中，我们可以使用三个索引。
 
-+   low初始化为0。
++   low 初始化为 0。
 
-+   mid初始化为0。
++   mid 初始化为 0。
 
-+   high初始化为输入数组长度减一。
++   high 初始化为输入数组长度减一。
 
-现在遍历数组的mid位置。
+现在遍历数组的 mid 位置。
 
-+   如果遇到0，我们将其移动到位置**low**的左侧。然后递增**low**和**mid**。
++   如果遇到 0，我们将其移动到位置**low**的左侧。然后递增**low**和**mid**。
 
-+   如果遇到1，我们简单地执行**mid++**。
++   如果遇到 1，我们简单地执行**mid++**。
 
-+   如果遇到2，我们将其简单地移动到位置**high**的右侧。然后递减**high**。
++   如果遇到 2，我们将其简单地移动到位置**high**的右侧。然后递减**high**。
 
 这里是相同的程序。
 
@@ -141,8 +141,8 @@ func sortNums(nums []int) {
 [0 0 1 1 2 2]
 ```
 
-**注意：**查看我们的Golang高级教程。本系列的教程内容详尽，我们尝试涵盖所有概念并配有示例。该教程适合那些希望获得专业知识并深入理解Golang的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：**查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尝试涵盖所有概念并配有示例。该教程适合那些希望获得专业知识并深入理解 Golang 的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

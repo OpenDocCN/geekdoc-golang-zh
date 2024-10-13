@@ -6,25 +6,25 @@
 
 -->
 
-# 在Go（Golang）HTTP响应中返回201（状态创建）状态码。
+# 在 Go（Golang）HTTP 响应中返回 201（状态创建）状态码。
 
-> 来源：[https://golangbyexample.com/201-http-status-response-golang/](https://golangbyexample.com/201-http-status-response-golang/)
+> 来源：[`golangbyexample.com/201-http-status-response-golang/`](https://golangbyexample.com/201-http-status-response-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-**net/http**包提供了状态码常量，可用于返回不同的状态码 - [https://golang.org/src/net/http/status.go](https://golang.org/src/net/http/status.go)
+**net/http**包提供了状态码常量，可用于返回不同的状态码 - [`golang.org/src/net/http/status.go`](https://golang.org/src/net/http/status.go)
 
-同样可以用于返回201（状态创建）HTTP状态码。HTTP 201状态码由以下常量定义。
+同样可以用于返回 201（状态创建）HTTP 状态码。HTTP 201 状态码由以下常量定义。
 
 ```go
 http.StatusCreated
 ```
 
-在这篇文章中，我们还将看到如何返回JSON体以及201（状态创建）状态码。
+在这篇文章中，我们还将看到如何返回 JSON 体以及 201（状态创建）状态码。
 
 ## **程序**
 
@@ -59,13 +59,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-在这里，我们使用**WriteHeader**函数指定201 HTTP状态码，并使用**Write**函数返回响应体。上述代码返回以下JSON请求体作为响应。
+在这里，我们使用**WriteHeader**函数指定 201 HTTP 状态码，并使用**Write**函数返回响应体。上述代码返回以下 JSON 请求体作为响应。
 
 ```go
 {"message":"Status Created"}
 ```
 
-运行上述程序，它将在你的本地机器上启动一个8080端口的服务器。现在进行以下curl调用到服务器。
+运行上述程序，它将在你的本地机器上启动一个 8080 端口的服务器。现在进行以下 curl 调用到服务器。
 
 ```go
 curl -v -X POST http://localhost:8080/example
@@ -89,9 +89,9 @@ curl -v -X POST http://localhost:8080/example
 {"message":"Status Created"}
 ```
 
-如你所见，输出将正确返回201状态码以及主体。
+如你所见，输出将正确返回 201 状态码以及主体。
 
-你也可以直接将201传递给WriteHeader函数以发送201响应。
+你也可以直接将 201 传递给 WriteHeader 函数以发送 201 响应。
 
 ```go
 w.WriteHeader(201)
@@ -99,6 +99,6 @@ w.WriteHeader(201)
 
 这同样工作正常。试试看。
 
-此外，查看我们的Golang进阶教程系列 - [Golang进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
+此外，查看我们的 Golang 进阶教程系列 - [Golang 进阶教程](https://golangbyexample.com/golang-comprehensive-tutorial/)。
 
 +   [201](https://golangbyexample.com/tag/201/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

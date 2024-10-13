@@ -8,25 +8,25 @@
 
 # 理解 Go 语言中的 Rune
 
-> 来源：[https://golangbyexample.com/understanding-rune-in-golang/](https://golangbyexample.com/understanding-rune-in-golang/)
+> 来源：[`golangbyexample.com/understanding-rune-in-golang/`](https://golangbyexample.com/understanding-rune-in-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-    +   [什么是 Unicode](#What_is_Unicode "What is Unicode")
+    +   什么是 Unicode
 
-    +   [UTF-8](#UTF-8 "UTF-8")
+    +   UTF-8
 
-+   [何时使用](#When_to_Use "When to Use")
++   何时使用
 
-+   [代码：](#Code "Code:")
++   代码：
 
-+   [Rune 数组转字符串及反向操作](#Rune_array_to_string_and_vice_versa "Rune array to string and vice versa")
++   Rune 数组转字符串及反向操作
 
-    +   [Rune 数组转字符串](#Rune_array_to_string "Rune array to string")
+    +   Rune 数组转字符串
 
-    +   [字符串转 Rune 数组](#String_to_Rune_Array "String to Rune Array")*  *# **概述**
+    +   字符串转 Rune 数组*  *# **概述**
 
 在 Go 语言中，**rune** 是 int32 的别名，这意味着它是一个整数值。这个整数值用于表示一个 Unicode 代码点。要理解 rune，你必须知道什么是 Unicode。下面是简短的描述，但你可以参考关于它的著名博客文章 –
 
@@ -42,7 +42,7 @@ Unicode 是 ASCII 字符的超集，它为每个存在的字符分配一个唯�
 
 +   英镑符号 **£** 表示为 Unicode 点 **U+00A3 (十进制值 – 163)**
 
-访问 [https://en.wikipedia.org/wiki/List_of_Unicode_characters](https://en.wikipedia.org/wiki/List_of_Unicode_characters) 了解其他字符的 Unicode 点。但 Unicode 不会讨论这些代码点如何在内存中保存。这就是 **utf-8** 的用武之地。
+访问 [`en.wikipedia.org/wiki/List_of_Unicode_characters`](https://en.wikipedia.org/wiki/List_of_Unicode_characters) 了解其他字符的 Unicode 点。但 Unicode 不会讨论这些代码点如何在内存中保存。这就是 **utf-8** 的用武之地。
 
 ## **UTF-8**
 
@@ -178,4 +178,4 @@ func main() {
 [U+0061 U+0062 U+00A3]
 ```
 
-+   [Go语言](https://golangbyexample.com/tag/go/)*   [符文](https://golangbyexample.com/tag/rune/)*
++   [Go 语言](https://golangbyexample.com/tag/go/)*   [符文](https://golangbyexample.com/tag/rune/)*

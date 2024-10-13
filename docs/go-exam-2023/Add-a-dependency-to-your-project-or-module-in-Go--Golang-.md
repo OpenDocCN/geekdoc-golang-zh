@@ -8,17 +8,17 @@
 
 # 在 Go（Golang）中向项目或模块添加依赖。
 
-> 来源：[https://golangbyexample.com/add-dependency-module-golang/](https://golangbyexample.com/add-dependency-module-golang/)
+> 来源：[`golangbyexample.com/add-dependency-module-golang/`](https://golangbyexample.com/add-dependency-module-golang/)
 
 目录。
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [直接添加到 go.mod 文件](#Directly_adding_it_to_the_gomod_file "直接添加到 go.mod 文件")
++   直接添加到 go.mod 文件
 
-+   [执行 go get](#Do_a_go_get "执行 go get")
++   执行 go get
 
-+   [将依赖添加到源代码并执行 go mod tidy](#Add_the_dependency_to_your_source_code_and_do_a_go_mod_tidy "将依赖添加到源代码并执行 go mod tidy")*  *# **概述**
++   将依赖添加到源代码并执行 go mod tidy*  *# **概述**
 
 模块是 Go 支持的依赖管理。模块的定义是一个相关包的集合，根目录下有 **go.mod** 文件。**go.mod** 文件定义了
 
@@ -93,17 +93,17 @@ go 1.14
 require github.com/pborman/uuid v1.2.1 //indirect
 ```
 
-该依赖项将被标记为**//indirect**，因为它没有在任何源文件中使用。使用这个依赖项后，如果你执行`go build`，**//indirect**将会被Go自动移除。同时，它会更新**go.sum**文件，包含所有直接和间接依赖项的校验和与版本。
+该依赖项将被标记为**//indirect**，因为它没有在任何源文件中使用。使用这个依赖项后，如果你执行`go build`，**//indirect**将会被 Go 自动移除。同时，它会更新**go.sum**文件，包含所有直接和间接依赖项的校验和与版本。
 
 # **将依赖项添加到你的源代码中并执行`go mod tidy`**。
 
-我们在上面的例子中已经看到过这个方法。基本上，`go mod tidy`命令确保你的go.mod文件反映出你在项目中实际使用的依赖项。当我们运行`go mod tidy`命令时，它会做两件事情。
+我们在上面的例子中已经看到过这个方法。基本上，`go mod tidy`命令确保你的 go.mod 文件反映出你在项目中实际使用的依赖项。当我们运行`go mod tidy`命令时，它会做两件事情。
 
 +   添加任何在源文件中导入的依赖项。
 
 +   移除任何在**go.mod**文件中提到但没有在任何源文件中导入的依赖项。
 
-让我们看一个例子。移除我们之前在go.mod文件中添加的依赖项。你的go.mod文件应该如下所示。
+让我们看一个例子。移除我们之前在 go.mod 文件中添加的依赖项。你的 go.mod 文件应该如下所示。
 
 ```go
 module learn
@@ -132,7 +132,7 @@ func main() {
 }
 ```
 
-请注意，我们在uuid.go中也导入了该依赖项。
+请注意，我们在 uuid.go 中也导入了该依赖项。
 
 ```go
 "github.com/pborman/uuid"
@@ -156,7 +156,7 @@ go 1.14
 require github.com/pborman/uuid v1.2.1
 ```
 
-它列出了在uuid文件中指定的直接依赖项，以及该依赖项的确切版本。现在让我们检查一下**go.sum**文件。执行`cat go.sum`。
+它列出了在 uuid 文件中指定的直接依赖项，以及该依赖项的确切版本。现在让我们检查一下**go.sum**文件。执行`cat go.sum`。
 
 ```go
 github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=

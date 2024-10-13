@@ -8,7 +8,7 @@
 
 # Golang: Redis 集群客户端示例
 
-> 来源：[https://golangbyexample.com/golang-redis-cluster-client-example/](https://golangbyexample.com/golang-redis-cluster-client-example/)
+> 来源：[`golangbyexample.com/golang-redis-cluster-client-example/`](https://golangbyexample.com/golang-redis-cluster-client-example/)
 
 首先，我们将编写 Redis 集群层，该层将具有初始化 Redis 集群客户端的功能。Redis 集群客户端只会创建一次，并在整个过程中使用。在下面的代码中，初始化函数将初始化 Redis。
 

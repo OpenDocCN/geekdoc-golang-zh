@@ -6,23 +6,23 @@
 
 -->
 
-# Go中的组合设计模式（GoLang）
+# Go 中的组合设计模式（GoLang）
 
-> 来源：[https://golangbyexample.com/composite-design-pattern-golang/](https://golangbyexample.com/composite-design-pattern-golang/)
+> 来源：[`golangbyexample.com/composite-design-pattern-golang/`](https://golangbyexample.com/composite-design-pattern-golang/)
 
-注意：对理解其他所有设计模式在GO中的实现感兴趣。请参阅这个完整参考 – [Go语言中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
+注意：对理解其他所有设计模式在 GO 中的实现感兴趣。请参阅这个完整参考 – [Go 语言中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [定义：](#Definition "定义：")
+**   定义：
 
-+   [何时使用](#When_to_Use "何时使用")
++   何时使用
 
-+   [UML图](#UML_Diagram "UML图")
++   UML 图
 
-+   [映射](#Mapping "映射")
++   映射
 
-+   [实际示例](#Practical_Example "实际示例")*  *## **定义：**
++   实际示例*  *## **定义：**
 
 这是一种结构设计模式。当我们希望一组称为“组合”的对象以与单个对象相同的方式处理时，组合设计模式就会被使用。它属于结构设计模式，因为它允许您将对象组合成树结构。树结构中的每个个体对象可以以相同的方式处理，无论它们是复杂的还是原始的。
 
@@ -38,7 +38,7 @@
 
 – 在我们的示例中，**文件**和**文件夹**确实形成了一个树结构
 
-## **UML图**
+## **UML 图**
 
 +   **组件** – 它是定义**组合**和**叶子**对象的公共操作的接口
 
@@ -48,13 +48,13 @@
 
 ![](img/a2112b0fd53adcf02fc6a03a4e0c5226.png)
 
-下面是与上述示例对应的映射UML图
+下面是与上述示例对应的映射 UML 图
 
 ![](img/241bbd461e5145959cbcba02e11dca09.png)
 
 ## **映射**
 
-下表表示从UML图中的参与者到代码中实际实现的参与者的映射。
+下表表示从 UML 图中的参与者到代码中实际实现的参与者的映射。
 
 | 组件接口 | component.go |
 | --- | --- |
@@ -153,4 +153,4 @@ Serching recursively for keyword rose in folder Folder1
 Searching for keyword rose in file File1
 ```
 
-+   [组合设计模式](https://golangbyexample.com/tag/composite-design-pattern/)*   [Go中的组合设计模式](https://golangbyexample.com/tag/composite-design-pattern-in-go/)*   [Golang中的组合设计模式](https://golangbyexample.com/tag/composite-design-pattern-in-golang/)*   [设计模式](https://golangbyexample.com/tag/design-pattern/)*   [Go](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*
++   [组合设计模式](https://golangbyexample.com/tag/composite-design-pattern/)*   [Go 中的组合设计模式](https://golangbyexample.com/tag/composite-design-pattern-in-go/)*   [Golang 中的组合设计模式](https://golangbyexample.com/tag/composite-design-pattern-in-golang/)*   [设计模式](https://golangbyexample.com/tag/design-pattern/)*   [Go](https://golangbyexample.com/tag/go/)*   [Golang](https://golangbyexample.com/tag/golang/)*

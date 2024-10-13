@@ -6,25 +6,25 @@
 
 -->
 
-# 在Windows上安装GO（又名Golang）
+# 在 Windows 上安装 GO（又名 Golang）
 
-> 来源：[https://golangbyexample.com/golang-windows-installation/](https://golangbyexample.com/golang-windows-installation/)
+> 来源：[`golangbyexample.com/golang-windows-installation/`](https://golangbyexample.com/golang-windows-installation/)
 
-GO可以在Win、Mac和Linux平台上安装。让我们来看一下Windows的安装设置。
+GO 可以在 Win、Mac 和 Linux 平台上安装。让我们来看一下 Windows 的安装设置。
 
 **安装**
 
-+   从这里下载.msi安装程序 – [https://golang.org/dl/](https://golang.org/dl/)。双击.msi文件并按照屏幕上的指示进行操作。一旦完成，GO将安装在以下目录中。
++   从这里下载.msi 安装程序 – [`golang.org/dl/`](https://golang.org/dl/)。双击.msi 文件并按照屏幕上的指示进行操作。一旦完成，GO 将安装在以下目录中。
 
 ```go
 c:\Go
 ```
 
-+   安装程序还会将**‘c:\Go\bin’**目录添加到你的PATH环境变量中。这是GO二进制文件所在的目录。你需要重新启动命令提示符以使更改生效。
++   安装程序还会将**‘c:\Go\bin’**目录添加到你的 PATH 环境变量中。这是 GO 二进制文件所在的目录。你需要重新启动命令提示符以使更改生效。
 
 **测试安装**
 
-+   尝试运行**‘go version’**命令。它会输出当前的GO版本。
++   尝试运行**‘go version’**命令。它会输出当前的 GO 版本。
 
 +   也尝试运行**‘go’**命令。它将输出
 
@@ -86,4 +86,4 @@ Use "go help <topic>" for more information about that topic.</topic>
 
 +   删除目录**– c:\Go**。
 
-+   从PATH环境变量中删除条目**‘c:\Go\bin’**。请参见此链接 – [http://johnatten.com/2014/12/07/adding-and-editing-path-environment-variables-in-windows/](http://johnatten.com/2014/12/07/adding-and-editing-path-environment-variables-in-windows/)
++   从 PATH 环境变量中删除条目**‘c:\Go\bin’**。请参见此链接 – [`johnatten.com/2014/12/07/adding-and-editing-path-environment-variables-in-windows/`](http://johnatten.com/2014/12/07/adding-and-editing-path-environment-variables-in-windows/)

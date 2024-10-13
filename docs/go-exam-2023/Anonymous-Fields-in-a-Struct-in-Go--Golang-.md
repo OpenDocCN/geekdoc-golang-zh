@@ -8,7 +8,7 @@
 
 # Go (Golang) 中的结构体中的匿名字段。
 
-> 来源：[https://golangbyexample.com/anonymous-fields-struct-golang/](https://golangbyexample.com/anonymous-fields-struct-golang/)
+> 来源：[`golangbyexample.com/anonymous-fields-struct-golang/`](https://golangbyexample.com/anonymous-fields-struct-golang/)
 
 结构体也可以包含匿名字段，意味着一个字段没有名称。类型将成为字段名。在下面的示例中，**string** 也将作为字段名。
 
@@ -96,7 +96,7 @@ emp.address.country
 
 目录
 
-**[匿名嵌套结构体字段](#Anonymous_nested_struct_fields "Anonymous nested struct fields")*  *# **匿名嵌套结构体字段**
+**匿名嵌套结构体字段*  *# **匿名嵌套结构体字段**
 
 嵌套结构体字段也可以是匿名的。此外，在这种情况下，嵌套结构体的字段可以直接访问。因此，下面是有效的。
 

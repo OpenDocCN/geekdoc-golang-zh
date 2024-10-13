@@ -8,7 +8,7 @@
 
 # Golang net/http 包 – 检测超时
 
-> 来源：[https://golangbyexample.com/net-http-timeout/](https://golangbyexample.com/net-http-timeout/)
+> 来源：[`golangbyexample.com/net-http-timeout/`](https://golangbyexample.com/net-http-timeout/)
 
 下面是一个示例代码，用于检测使用 net/http 包的上游调用是否存在超时。Http 客户端创建时设置为 1 纳秒超时，因此它在访问 google.com 时总是会超时。
 

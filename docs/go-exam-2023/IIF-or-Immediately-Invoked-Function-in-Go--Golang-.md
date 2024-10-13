@@ -8,15 +8,15 @@
 
 # IIF 或在 Go (Golang) 中的立即调用函数
 
-> 来源：[https://golangbyexample.com/immediately-invoked-function-go/](https://golangbyexample.com/immediately-invoked-function-go/)
+> 来源：[`golangbyexample.com/immediately-invoked-function-go/`](https://golangbyexample.com/immediately-invoked-function-go/)
 
 目录
 
-**   [概述：](#Overview "Overview:")
+**   概述：
 
-+   [用例](#Use_Case "Use Case")
++   用例
 
-+   [代码：](#Code "Code:")*  *# **概述：**
++   代码：*  *# **概述：**
 
 **IIF 或** 立即调用函数是指那些可以同时定义和执行的函数。通过在函数结束括号后添加 **()**，可以立即调用该函数。
 

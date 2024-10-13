@@ -8,17 +8,17 @@
 
 # 在 Go (Golang) 中随机选择数组或切片中的元素
 
-> 来源：[https://golangbyexample.com/pick-random-element-array-slice-go/](https://golangbyexample.com/pick-random-element-array-slice-go/)
+> 来源：[`golangbyexample.com/pick-random-element-array-slice-go/`](https://golangbyexample.com/pick-random-element-array-slice-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
 Go 的 **‘mat/rand’** 包包含一个 **Intn** 函数，可以用来生成一个在 [0,n) 范围内的伪随机数。末尾的括号意味着 n 是排除在外的。此函数可用于在整型或字符串的数组或切片中选择一个随机元素。
 
-要了解更多关于伪随机数的含义，请查看这篇文章 – [https://golangbyexample.com/generate-random-number-golang](https://golangbyexample.com/generate-random-number-golang)
+要了解更多关于伪随机数的含义，请查看这篇文章 – [`golangbyexample.com/generate-random-number-golang`](https://golangbyexample.com/generate-random-number-golang)
 
 下面是此方法的签名。它接收一个数字 n，并将返回一个范围在 0<=x<n 内的数字 x。
 

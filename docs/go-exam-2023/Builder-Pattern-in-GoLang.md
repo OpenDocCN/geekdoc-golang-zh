@@ -6,37 +6,37 @@
 
 -->
 
-# GoLang中的建造者模式
+# GoLang 中的建造者模式
 
-> 来源：[https://golangbyexample.com/builder-pattern-golang/](https://golangbyexample.com/builder-pattern-golang/)
+> 来源：[`golangbyexample.com/builder-pattern-golang/`](https://golangbyexample.com/builder-pattern-golang/)
 
 目录
 
-**   [定义：](#Definition "定义：")
+**   定义：
 
-+   [UML图](#UML_Diagram "UML图")
++   UML 图
 
-+   [映射（另请参见第5点 - 示例）](#Mapping_Also_Refer_5th_point_-_Example "映射（另请参见第5点 - 示例）")
++   映射（另请参见第 5 点 - 示例）
 
-+   [何时使用](#When_To_Use "何时使用")
++   何时使用
 
-+   [示例：](#Example "示例：")*  *# **定义：**
++   示例：*  *# **定义：**
 
-建造者模式是一种用于构建复杂对象的创建型设计模式。下面是UML图。
+建造者模式是一种用于构建复杂对象的创建型设计模式。下面是 UML 图。
 
-注意：想了解其他所有设计模式如何在GO中实现。请参见此完整参考 - [Go中的所有设计模式（Golang）](https://golangbyexample.com/all-design-patterns-golang/)
+注意：想了解其他所有设计模式如何在 GO 中实现。请参见此完整参考 - [Go 中的所有设计模式（Golang）](https://golangbyexample.com/all-design-patterns-golang/)
 
-# **UML图**
+# **UML 图**
 
 +   ![](img/636a38ada58dfd0df19e87ad386b9afd.png)
 
-# **映射（另请参见第5点 - 示例）**
+# **映射（另请参见第 5 点 - 示例）**
 
 | 主管 | director.go |
 | --- | --- |
 | 建造者接口 | iBuilder.go |
-| 具体建造者1 | normalBuilder.go |
-| 具体建造者2 | iglooBuilder.go |
+| 具体建造者 1 | normalBuilder.go |
+| 具体建造者 2 | iglooBuilder.go |
 | 产品 | house.go |
 
 # **何时使用**

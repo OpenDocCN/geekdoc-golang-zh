@@ -8,19 +8,19 @@
 
 # chmod o-w 命令在 bash 或终端中是什么意思？
 
-> 来源：[https://golangbyexample.com/chmod-ow-command/](https://golangbyexample.com/chmod-ow-command/)
+> 来源：[`golangbyexample.com/chmod-ow-command/`](https://golangbyexample.com/chmod-ow-command/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [权限组](#Permission_Groups "Permission Groups")
++   权限组
 
-+   [权限类型](#Permission_Types "Permission Types")
++   权限类型
 
-+   [操作定义](#Operations_Definitions "Operations Definitions")
++   操作定义
 
-+   [示例](#Example "Example")*  *## **概述**
++   示例*  *## **概述**
 
 在管理文件权限时，图中有三个组件。
 

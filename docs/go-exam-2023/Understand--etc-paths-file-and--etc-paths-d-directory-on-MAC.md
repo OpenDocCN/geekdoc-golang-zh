@@ -8,7 +8,7 @@
 
 # 理解 MAC 上的 /etc/paths 文件和 /etc/paths.d 目录
 
-> 来源：[https://golangbyexample.com/understand-etc-paths-pathsd-mac/](https://golangbyexample.com/understand-etc-paths-pathsd-mac/)
+> 来源：[`golangbyexample.com/understand-etc-paths-pathsd-mac/`](https://golangbyexample.com/understand-etc-paths-pathsd-mac/)
 
 MAC OS 使用 **/etc/paths** 文件和 **/etc/paths.d** 目录来设置 **PATH** 环境变量的值。一个工具 **path_helper** 用于根据 **/etc/paths** 文件的内容和 **/etc/paths.d** 目录中文件的内容来设置 **PATH** 环境变量。这就是如何运行 path_helper。
 
@@ -35,7 +35,7 @@ eval `/usr/libexec/path_helper -s`
 
 **/etc/paths.d 目录**
 
-此目录包含文件列表。每个文件包含需要添加到 PATH 变量的路径。作为演示，如果我使用这里提供的 GO 的 .pkg 安装程序在我的 MAC 上安装 GO – [https://golang.org/dl/](https://golang.org/dl/)。
+此目录包含文件列表。每个文件包含需要添加到 PATH 变量的路径。作为演示，如果我使用这里提供的 GO 的 .pkg 安装程序在我的 MAC 上安装 GO – [`golang.org/dl/`](https://golang.org/dl/)。
 
 安装后，它将在 **‘/etc/paths.d’** 目录中创建一个名为 **‘go’** 的文件。让我们输出该文件的内容。
 

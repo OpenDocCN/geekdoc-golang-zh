@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中将文件从一个位置移动到另一个位置或使用命令 mv
 
-> 来源：[https://golangbyexample.com/move-file-from-one-location-to-another-golang/](https://golangbyexample.com/move-file-from-one-location-to-another-golang/)
+> 来源：[`golangbyexample.com/move-file-from-one-location-to-another-golang/`](https://golangbyexample.com/move-file-from-one-location-to-another-golang/)
 
 os.Rename() 函数可用于在不同位置之间移动文件。它相当于 Linux 的命令 **‘mv’**。以下是该函数的签名
 

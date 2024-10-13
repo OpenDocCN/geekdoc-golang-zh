@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中将 JSON 转换为 map。
 
-> 来源：[https://golangbyexample.com/json-to-map-golang/](https://golangbyexample.com/json-to-map-golang/)
+> 来源：[`golangbyexample.com/json-to-map-golang/`](https://golangbyexample.com/json-to-map-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")**
+**   概述**
 
-+   [示例](#Examples "Examples")*  *# **概述**
++   示例*  *# **概述**
 
 **encoding/json** 包提供的工具可以用于在 JSON 之间进行转换。相同的工具可以用于将 Golang map 转换为 JSON 字符串，反之亦然。
 

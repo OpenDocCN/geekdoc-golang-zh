@@ -6,23 +6,23 @@
 
 -->
 
-# 在Go（Golang）中获取或提取URL的查询参数。
+# 在 Go（Golang）中获取或提取 URL 的查询参数。
 
-> 来源：[https://golangbyexample.com/query-params-url-golang/](https://golangbyexample.com/query-params-url-golang/)
+> 来源：[`golangbyexample.com/query-params-url-golang/`](https://golangbyexample.com/query-params-url-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
-URL实例的查询函数可用于获取URL中存在的查询参数。
+URL 实例的查询函数可用于获取 URL 中存在的查询参数。
 
-[https://pkg.go.dev/net/url#URL.Query](https://pkg.go.dev/net/url#URL.Query)
+[`pkg.go.dev/net/url#URL.Query`](https://pkg.go.dev/net/url#URL.Query)
 
-请注意，在Golang中，查询参数表示如下。
+请注意，在 Golang 中，查询参数表示如下。
 
-[https://pkg.go.dev/net/url#Values](https://pkg.go.dev/net/url#Values)
+[`pkg.go.dev/net/url#Values`](https://pkg.go.dev/net/url#Values)
 
 这是
 
@@ -38,7 +38,7 @@ map[string][]string
 http://localhost:8080/products?filters=color&filters=price&order=asc
 ```
 
-在此URL中，**filters**键有两个值——**color**和**price**，而**order**键只有一个值**asc**。
+在此 URL 中，**filters**键有两个值——**color**和**price**，而**order**键只有一个值**asc**。
 
 # **程序**
 
@@ -79,8 +79,8 @@ map[filters:[color price] order:[asc]]
 [asc]
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们努力涵盖所有概念及示例。本教程适合希望获得Golang专业知识和扎实理解的人——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们努力涵盖所有概念及示例。本教程适合希望获得 Golang 专业知识和扎实理解的人——[Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章适合你——[所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是，那么这篇文章适合你——[所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

@@ -8,13 +8,13 @@
 
 # Go 中的最大和子数组程序 (Golang)
 
-> 来源：[https://golangbyexample.com/maximum-sum-subarray-golang/](https://golangbyexample.com/maximum-sum-subarray-golang/)
+> 来源：[`golangbyexample.com/maximum-sum-subarray-golang/`](https://golangbyexample.com/maximum-sum-subarray-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是在给定的输入数组中找到最大子数组。子数组应是连续的，并且至少应包含一个元素。
 

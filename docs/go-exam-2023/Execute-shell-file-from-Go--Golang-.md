@@ -8,13 +8,13 @@
 
 # 从 Go (Golang) 执行 shell 文件
 
-> 来源：[https://golangbyexample.com/execute-shell-file-golang/](https://golangbyexample.com/execute-shell-file-golang/)
+> 来源：[`golangbyexample.com/execute-shell-file-golang/`](https://golangbyexample.com/execute-shell-file-golang/)
 
 目录
 
-**   [概述：](#Overview "概述：")
+**   概述：
 
-+   [代码：](#Code "代码：")*  *# **概述：**
++   代码：*  *# **概述：**
 
 **os/exec** 包可用于从 Go 中触发任何操作系统命令。也可以用于触发 .sh 文件。
 

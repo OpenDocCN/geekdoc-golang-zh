@@ -6,11 +6,11 @@
 
 -->
 
-# 在Go（Golang）中更改文件的修改/更新时间和访问时间
+# 在 Go（Golang）中更改文件的修改/更新时间和访问时间
 
-> 来源：[https://golangbyexample.com/change-updated-time-file-go/](https://golangbyexample.com/change-updated-time-file-go/)
+> 来源：[`golangbyexample.com/change-updated-time-file-go/`](https://golangbyexample.com/change-updated-time-file-go/)
 
-**os.Chtimes()** 函数可以用来更改Golang中一个文件的mtime（修改时间）或atime（访问时间）。下面是该函数的签名。
+**os.Chtimes()** 函数可以用来更改 Golang 中一个文件的 mtime（修改时间）或 atime（访问时间）。下面是该函数的签名。
 
 ```go
 func Chtimes(name string, atime time.Time, mtime time.Time)

@@ -8,9 +8,9 @@
 
 # Go（Golang）中地图允许的键和值类型
 
-> 来源：[https://golangbyexample.com/allowed-key-and-value-types-golang/](https://golangbyexample.com/allowed-key-and-value-types-golang/)
+> 来源：[`golangbyexample.com/allowed-key-and-value-types-golang/`](https://golangbyexample.com/allowed-key-and-value-types-golang/)
 
-地图是Golang内置数据类型，类似于哈希表，用于将键映射到值。以下是地图的格式：
+地图是 Golang 内置数据类型，类似于哈希表，用于将键映射到值。以下是地图的格式：
 
 ```go
 map[key_type]value_type
@@ -24,7 +24,7 @@ map[string]int
 
 **地图中允许的键类型**
 
-地图键可以是任何可比较的类型。根据Go规范定义的一些可比较类型是
+地图键可以是任何可比较的类型。根据 Go 规范定义的一些可比较类型是
 
 +   布尔值
 
@@ -42,7 +42,7 @@ map[string]int
 
 +   数组 – 如果数组元素的值类型是可比较的
 
-根据Go规范，一些不可比较的类型不能作为地图中的键使用。
+根据 Go 规范，一些不可比较的类型不能作为地图中的键使用。
 
 +   切片
 
@@ -50,7 +50,7 @@ map[string]int
 
 +   函数
 
-参考 – [https://golang.org/ref/spec#Comparison_operators](https://golang.org/ref/spec#Comparison_operators)
+参考 – [`golang.org/ref/spec#Comparison_operators`](https://golang.org/ref/spec#Comparison_operators)
 
 **地图中允许的值类型**
 

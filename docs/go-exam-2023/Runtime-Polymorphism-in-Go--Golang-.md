@@ -6,11 +6,11 @@
 
 -->
 
-# Go中的运行时多态（Golang）
+# Go 中的运行时多态（Golang）
 
-> 来源：[https://golangbyexample.com/runtime-polymorphism-go/](https://golangbyexample.com/runtime-polymorphism-go/)
+> 来源：[`golangbyexample.com/runtime-polymorphism-go/`](https://golangbyexample.com/runtime-polymorphism-go/)
 
-运行时多态意味着一个调用在运行时被解析。它在GO中通过使用接口来实现。
+运行时多态意味着一个调用在运行时被解析。它在 GO 中通过使用接口来实现。
 
 让我们通过一个例子来理解。不同国家有不同的计算税的方法。这可以通过接口来表示。
 
@@ -20,9 +20,9 @@ type taxCalculator interface{
 }
 ```
 
-现在不同国家可以拥有自己的结构体，并且可以实现**calculateTax()**方法。例如，**indianTax**结构可以表示如下。它还可以定义一个方法calculateTax()，根据百分比进行实际计算。
+现在不同国家可以拥有自己的结构体，并且可以实现**calculateTax()**方法。例如，**indianTax**结构可以表示如下。它还可以定义一个方法 calculateTax()，根据百分比进行实际计算。
 
-类似地，其他国家的税制也可以通过结构体表示，并且它们也可以实现自己的calculateTax()方法，以提供自己的税值。
+类似地，其他国家的税制也可以通过结构体表示，并且它们也可以实现自己的 calculateTax()方法，以提供自己的税值。
 
 现在让我们看看如何使用这个**taxCalculator**接口来计算一个人在不同国家的税务，尤其是在一年中的不同时间。请参见下面的完整程序作为参考。
 

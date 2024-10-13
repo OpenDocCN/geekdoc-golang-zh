@@ -8,13 +8,13 @@
 
 # Go（Golang）中的模块供应商依赖
 
-> 来源：[https://golangbyexample.com/vendor-dependency-go/](https://golangbyexample.com/vendor-dependency-go/)
+> 来源：[`golangbyexample.com/vendor-dependency-go/`](https://golangbyexample.com/vendor-dependency-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 如果您想供应您的依赖，可以使用下面的命令来实现。
 
@@ -75,9 +75,9 @@ func main() {
 go mod vendor
 ```
 
-这将创建一个vendor目录在您的项目目录中。vendor目录将包含所有直接和间接下载的依赖。您还可以将vendor目录检查到您的版本控制系统（VCS）中。这在运行时不需要下载任何依赖，因为它们已经存在于检查到VCS的vendor文件夹中。
+这将创建一个 vendor 目录在您的项目目录中。vendor 目录将包含所有直接和间接下载的依赖。您还可以将 vendor 目录检查到您的版本控制系统（VCS）中。这在运行时不需要下载任何依赖，因为它们已经存在于检查到 VCS 的 vendor 文件夹中。
 
-**-v**标志也可以与go mod vendor一起使用。当提供该标志时，命令将打印所有被引入的模块和包。
+**-v**标志也可以与 go mod vendor 一起使用。当提供该标志时，命令将打印所有被引入的模块和包。
 
 ```go
 go mod vendor -v

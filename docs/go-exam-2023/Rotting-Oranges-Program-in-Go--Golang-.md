@@ -6,17 +6,17 @@
 
 -->
 
-# Go语言中的腐烂橙子程序（Golang）
+# Go 语言中的腐烂橙子程序（Golang）
 
-> 来源：[https://golangbyexample.com/rotting-oranges-program-go/](https://golangbyexample.com/rotting-oranges-program-go/)
+> 来源：[`golangbyexample.com/rotting-oranges-program-go/`](https://golangbyexample.com/rotting-oranges-program-go/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [程序](#Program "程序")*  *# **概述**
++   程序*  *# **概述**
 
-给定一个m*n矩阵，其中每个条目包含三个值
+给定一个 m*n 矩阵，其中每个条目包含三个值
 
 +   0 – 表示该条目为空
 
@@ -24,7 +24,7 @@
 
 +   2 – 表示该条目包含腐烂的橙子
 
-腐烂的橙子将在1天内腐烂相邻的橙子。对于给定的橙子，位于上、下、左和右的任何橙子都是相邻橙子。对角线的橙子不算在内。
+腐烂的橙子将在 1 天内腐烂相邻的橙子。对于给定的橙子，位于上、下、左和右的任何橙子都是相邻橙子。对角线的橙子不算在内。
 
 目标是找出所有橙子腐烂的天数。如果所有橙子无法腐烂，则写-1。这种情况发生在新鲜橙子无法从腐烂橙子到达时。
 
@@ -135,9 +135,9 @@ func main() {
 -1
 ```
 
-**注意：**查看我们的Golang高级教程。本系列的教程内容详尽，我们试图用示例覆盖所有概念。这个教程是为那些希望获得专业知识和对Golang有扎实理解的人准备的 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：**查看我们的 Golang 高级教程。本系列的教程内容详尽，我们试图用示例覆盖所有概念。这个教程是为那些希望获得专业知识和对 Golang 有扎实理解的人准备的 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 同时，查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 

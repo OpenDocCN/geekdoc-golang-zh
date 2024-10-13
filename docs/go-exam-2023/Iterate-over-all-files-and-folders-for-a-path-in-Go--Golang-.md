@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中遍历路径下的所有文件和文件夹。
 
-> 来源：[https://golangbyexample.com/iterate-over-all-files-and-folders-go/](https://golangbyexample.com/iterate-over-all-files-and-folders-go/)
+> 来源：[`golangbyexample.com/iterate-over-all-files-and-folders-go/`](https://golangbyexample.com/iterate-over-all-files-and-folders-go/)
 
 **‘Walk’** 函数来自 **‘filepath’** 包，可用于递归遍历目录树中的所有文件/文件夹。
 

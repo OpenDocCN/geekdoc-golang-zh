@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中检测操作系统
 
-> 来源：[https://golangbyexample.com/detect-os-golang/](https://golangbyexample.com/detect-os-golang/)
+> 来源：[`golangbyexample.com/detect-os-golang/`](https://golangbyexample.com/detect-os-golang/)
 
 **runtime.GOOS** 常量可以用于在运行时检测操作系统，因为这个常量仅在运行时设置。
 

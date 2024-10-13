@@ -8,13 +8,13 @@
 
 # Go (Golang) 中一组句子中的最大单词数
 
-> 来源：[https://golangbyexample.com/maximum-words-group-sentences-go/](https://golangbyexample.com/maximum-words-group-sentences-go/)
+> 来源：[`golangbyexample.com/maximum-words-group-sentences-go/`](https://golangbyexample.com/maximum-words-group-sentences-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一组句子。找到在该组句子中出现的最大单词数。
 

@@ -8,15 +8,15 @@
 
 # Go（Golang）中的非重叠区间程序
 
-> 来源：[https://golangbyexample.com/non-overlapping-intervals-golang/](https://golangbyexample.com/non-overlapping-intervals-golang/)
+> 来源：[`golangbyexample.com/non-overlapping-intervals-golang/`](https://golangbyexample.com/non-overlapping-intervals-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-给定一个区间数组，其中intervals[i] = [starti, endi]。我们需要找出最少需要移除的区间数量，以使区间数组中的区间不重叠。
+给定一个区间数组，其中 intervals[i] = [starti, endi]。我们需要找出最少需要移除的区间数量，以使区间数组中的区间不重叠。
 
 让我们通过一个例子来理解。
 
@@ -80,8 +80,8 @@ func main() {
 13
 ```
 
-**注意：** 查看我们的Golang高级教程。该系列的教程内容详尽，我们尝试覆盖所有概念并提供示例。此教程适合希望获得Golang专业知识和扎实理解的人——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。该系列的教程内容详尽，我们尝试覆盖所有概念并提供示例。此教程适合希望获得 Golang 专业知识和扎实理解的人——[Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，那么这篇文章适合你——[Golang中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，那么这篇文章适合你——[Golang 中的所有设计模式](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

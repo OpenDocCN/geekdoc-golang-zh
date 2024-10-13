@@ -6,17 +6,17 @@
 
 -->
 
-# Go语言中的当前时间戳
+# Go 语言中的当前时间戳
 
-> 来源：[https://golangbyexample.com/current-timestamp-in-golang/](https://golangbyexample.com/current-timestamp-in-golang/)
+> 来源：[`golangbyexample.com/current-timestamp-in-golang/`](https://golangbyexample.com/current-timestamp-in-golang/)
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
-在本教程中，我们将看到如何使用Go语言中的time包获取当前时间戳。当前时间可以用不同的方式表示。
+在本教程中，我们将看到如何使用 Go 语言中的 time 包获取当前时间戳。当前时间可以用不同的方式表示。
 
 +   **time.Time**对象
 
@@ -24,28 +24,28 @@
 t := time.Now() //It will return time.Time object with current timestamp
 ```
 
-+   **Unix时间（也称为纪元时间）** – 它是自1970年1月1日00:00:00 UTC以来经过的秒数。这个时间也被称为Unix纪元。
++   **Unix 时间（也称为纪元时间）** – 它是自 1970 年 1 月 1 日 00:00:00 UTC 以来经过的秒数。这个时间也被称为 Unix 纪元。
 
 ```go
 t := time.Now().Unix() 
 //Will return number of seconds passed since Unix epoch
 ```
 
-+   **Unix纳秒** – 自1970年1月1日00:00:00 UTC以来经过的纳秒数
++   **Unix 纳秒** – 自 1970 年 1 月 1 日 00:00:00 UTC 以来经过的纳秒数
 
 ```go
 t := time.Now().UnixNano() 
 //Will return number of nano seconds passed since Unix epoch
 ```
 
-+   **Unix毫秒** – 自1970年1月1日00:00:00 UTC以来经过的毫秒数
++   **Unix 毫秒** – 自 1970 年 1 月 1 日 00:00:00 UTC 以来经过的毫秒数
 
 ```go
 t:= int64(time.Nanosecond) * t.UnixNano() / int64(time.Millisecond)/ time.Millisecond  
 //Number of millisecond elapsed since Unix epoch
 ```
 
-+   **Unix微秒** – 自1970年1月1日00:00:00 UTC以来经过的微秒数
++   **Unix 微秒** – 自 1970 年 1 月 1 日 00:00:00 UTC 以来经过的微秒数
 
 ```go
 t:= int64(time.Nanosecond) * t.UnixNano() / int64(time.Millisecond)/ time.Millisecond  

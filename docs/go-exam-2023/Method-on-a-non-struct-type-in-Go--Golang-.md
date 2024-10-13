@@ -8,7 +8,7 @@
 
 # 在 Go（Golang）中对非结构体类型的方法
 
-> 来源：[https://golangbyexample.com/method-non-struct-type-golang/](https://golangbyexample.com/method-non-struct-type-golang/)
+> 来源：[`golangbyexample.com/method-non-struct-type-golang/`](https://golangbyexample.com/method-non-struct-type-golang/)
 
 方法也可以在非结构体自定义类型上定义。非结构体自定义类型可以通过类型定义创建。以下是创建新自定义类型的格式
 

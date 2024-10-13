@@ -8,21 +8,21 @@
 
 # Go (GoLang) 中的适配器设计模式
 
-> 来源：[https://golangbyexample.com/adapter-design-pattern-go/](https://golangbyexample.com/adapter-design-pattern-go/)
+> 来源：[`golangbyexample.com/adapter-design-pattern-go/`](https://golangbyexample.com/adapter-design-pattern-go/)
 
 注意：有兴趣了解所有其他设计模式如何在 GO 中实现。请参见此完整参考 – [Go 中的所有设计模式 (Golang)](https://golangbyexample.com/all-design-patterns-golang/)
 
 目录
 
-**   [介绍：](#Introduction "Introduction: ")
+**   介绍：
 
-+   [何时使用](#When_to_Use "When to Use")
++   何时使用
 
-+   [UML 图](#UML_Diagram "UML Diagram")
++   UML 图
 
-+   [映射](#Mapping "Mapping ")
++   映射
 
-+   [示例：](#Example "Example:")*  *# **介绍：**
++   示例：*  *# **介绍：**
 
 此设计模式是一种结构设计模式。该模式通过示例最佳理解。假设你有两台笔记本电脑
 

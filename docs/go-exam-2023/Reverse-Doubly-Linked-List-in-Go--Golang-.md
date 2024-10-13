@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go中反转双向链表 (Golang)
+# 在 Go 中反转双向链表 (Golang)
 
-> 来源：[https://golangbyexample.com/reverse-doubly-linked-list-golang/](https://golangbyexample.com/reverse-doubly-linked-list-golang/)
+> 来源：[`golangbyexample.com/reverse-doubly-linked-list-golang/`](https://golangbyexample.com/reverse-doubly-linked-list-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 双向链表可以通过以下两种方法反转：
 
@@ -162,6 +162,6 @@ value = B, prev = &{C 0xc000070080 0xc000070040}, next = &{A 0xc000070040 <nil>}
 value = A, prev = &{B 0xc000070020 0xc000070060}, next =</nil></nil></nil></nil></nil></nil></nil> 
 ```
 
-此外，请查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+此外，请查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

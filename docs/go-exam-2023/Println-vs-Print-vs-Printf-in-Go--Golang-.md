@@ -6,29 +6,29 @@
 
 -->
 
-# Go (Golang)中的Println vs Print vs Printf
+# Go (Golang)中的 Println vs Print vs Printf
 
-> 来源：[https://golangbyexample.com/println-printf-print-golang/](https://golangbyexample.com/println-printf-print-golang/)
+> 来源：[`golangbyexample.com/println-printf-print-golang/`](https://golangbyexample.com/println-printf-print-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [关于Println函数](#About_Println_function "关于Println函数")
++   关于 Println 函数
 
-+   [关于Print函数](#About_Print_function "关于Print函数")
++   关于 Print 函数
 
-+   [关于Printf函数](#About_Printf_function "关于Printf函数")
++   关于 Printf 函数
 
-    +   [打印字符串变量](#Printing_a_string_variable "打印字符串变量")
+    +   打印字符串变量
 
-    +   [打印整数](#Printing_an_integer "打印整数")
+    +   打印整数
 
-    +   [打印结构体](#Printing_a_struct "打印结构体")*  *## **概述**
+    +   打印结构体*  *## **概述**
 
 **Println**、**Print**和**Printf**在**fmt**包中定义，用于格式化字符串并写入标准输出
 
-[https://golang.org/pkg/fmt/](https://golang.org/pkg/fmt/)
+[`golang.org/pkg/fmt/`](https://golang.org/pkg/fmt/)
 
 它们之间的基本区别是
 
@@ -40,7 +40,7 @@
 
 让我们详细了解每个例子
 
-## **关于Println函数**
+## **关于 Println 函数**
 
 以下是**Println**的函数原型
 
@@ -129,9 +129,9 @@ Name is: John
 14
 ```
 
-**bytesPrinted**的数量为14，因为输出了14个字符
+**bytesPrinted**的数量为 14，因为输出了 14 个字符
 
-## **关于Print函数**
+## **关于 Print 函数**
 
 **Print**的函数原型
 

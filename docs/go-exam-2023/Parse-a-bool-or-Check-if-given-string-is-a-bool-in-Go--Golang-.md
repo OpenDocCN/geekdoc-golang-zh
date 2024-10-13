@@ -8,11 +8,11 @@
 
 # 在 Go (Golang) 中解析布尔值或检查给定字符串是否为布尔值
 
-> 来源：[https://golangbyexample.com/check-string-bool-golang/](https://golangbyexample.com/check-string-bool-golang/)
+> 来源：[`golangbyexample.com/check-string-bool-golang/`](https://golangbyexample.com/check-string-bool-golang/)
 
 **strconv.ParseBool()** 函数可以用于解析布尔值的字符串表示。
 
-[https://golang.org/pkg/strconv/#ParseBool](https://golang.org/pkg/strconv/#ParseBool)
+[`golang.org/pkg/strconv/#ParseBool`](https://golang.org/pkg/strconv/#ParseBool)
 
 下面是该函数的签名
 

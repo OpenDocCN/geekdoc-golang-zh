@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中通过分隔符连接字符串
 
-> 来源：[https://golangbyexample.com/go-join-string-delimiter/](https://golangbyexample.com/go-join-string-delimiter/)
+> 来源：[`golangbyexample.com/go-join-string-delimiter/`](https://golangbyexample.com/go-join-string-delimiter/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码:](#Code "Code:")*  *# **概述**
++   代码:*  *# **概述**
 
 在 GO 中，字符串是 UTF-8 编码的。**strings** 包提供了一个 **Join** 方法，可以根据分隔符连接字符串。
 

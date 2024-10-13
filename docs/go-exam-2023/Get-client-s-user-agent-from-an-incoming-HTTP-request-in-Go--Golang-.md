@@ -8,17 +8,17 @@ date: 2024-10-13 06:32:13
 
 # 在 Go (Golang) 中，从传入的 HTTP 请求中获取客户端的用户代理。
 
-> 来源：[https://golangbyexample.com/user-agent-http-golang/](https://golangbyexample.com/user-agent-http-golang/)
+> 来源：[`golangbyexample.com/user-agent-http-golang/`](https://golangbyexample.com/user-agent-http-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [示例](#Example "Example")*  *# **概述**
++   示例*  *# **概述**
 
 在传入的 HTTP 请求中，用户代理存在于请求的头部。在 Go 中，传入的 HTTP 请求由 **http.Request** 结构体表示。
 
-[https://golang.org/src/net/http/request.go](https://golang.org/src/net/http/request.go)
+[`golang.org/src/net/http/request.go`](https://golang.org/src/net/http/request.go)
 
 **http.Request** 结构体提供了获取请求用户代理的以下方法。
 

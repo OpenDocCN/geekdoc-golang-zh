@@ -6,17 +6,17 @@
 
 -->
 
-# 在Go语言中，针对给定链表按k组反转节点
+# 在 Go 语言中，针对给定链表按 k 组反转节点
 
-> 来源：[https://golangbyexample.com/reverse-nodes-k-group-linked-list-golang/](https://golangbyexample.com/reverse-nodes-k-group-linked-list-golang/)
+> 来源：[`golangbyexample.com/reverse-nodes-k-group-linked-list-golang/`](https://golangbyexample.com/reverse-nodes-k-group-linked-list-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-给定一个链表和一个数字k，按k组反转链表中的节点。
+给定一个链表和一个数字 k，按 k 组反转链表中的节点。
 
 例如
 
@@ -26,7 +26,7 @@ k: 3
 Output: 3->2->1->6->5->4->7
 ```
 
-如果链表最后一组的长度小于k，则保留最后一组不变
+如果链表最后一组的长度小于 k，则保留最后一组不变
 
 ## **程序**
 
@@ -129,8 +129,8 @@ func (s *SingleList) AddFront(num int) {
 4
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尝试用例子覆盖所有概念。此教程适合希望获得Golang专业知识和扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们尝试用例子覆盖所有概念。此教程适合希望获得 Golang 专业知识和扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解如何在 Golang 中实现所有设计模式。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

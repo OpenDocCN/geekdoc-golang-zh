@@ -8,15 +8,15 @@
 
 # Go（Golang）中的正则表达式的交替（OR）
 
-> 来源：[https://golangbyexample.com/alternation-regex-golang/](https://golangbyexample.com/alternation-regex-golang/)
+> 来源：[`golangbyexample.com/alternation-regex-golang/`](https://golangbyexample.com/alternation-regex-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-它类似于OR操作。通过使用|运算符连接两个正则表达式。如果有两个正则表达式**r1**和**r2**，则交替表示如下
+它类似于 OR 操作。通过使用|运算符连接两个正则表达式。如果有两个正则表达式**r1**和**r2**，则交替表示如下
 
 ```go
 r1|r2
@@ -138,6 +138,6 @@ abcxyz123
 abd
 ```
 
-此外，请查看我们的Golang高级教程系列——[Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+此外，请查看我们的 Golang 高级教程系列——[Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

@@ -8,7 +8,7 @@
 
 # Go (Golang) 中的所有设计模式
 
-> 来源：[https://golangbyexample.com/all-design-patterns-golang/](https://golangbyexample.com/all-design-patterns-golang/) 
+> 来源：[`golangbyexample.com/all-design-patterns-golang/`](https://golangbyexample.com/all-design-patterns-golang/) 
 
 一份关于在 Go 中实现的设计模式的整理列表。如果你有兴趣学习 Golang，我们还提供了一系列全面的 Golang 教程，欢迎查看 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/) 
 
@@ -16,11 +16,11 @@
 
 目录
 
-**   [创建型设计模式](#Creational_Design_Patterns "创建型设计模式")
+**   创建型设计模式
 
-+   [行为设计模式](#Behavioural_Design_Patterns "行为设计模式") 
++   行为设计模式 
 
-+   [结构设计模式](#Structural_Design_Patterns "结构设计模式") *  *# **创建型设计模式**
++   结构设计模式 *  *# **创建型设计模式**
 
 | [抽象工厂](https://golangbyexample.com/abstract-factory-design-pattern-go/) |
 | --- |

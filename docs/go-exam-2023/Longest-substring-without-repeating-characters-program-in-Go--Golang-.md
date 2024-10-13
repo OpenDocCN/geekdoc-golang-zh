@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go (Golang)中找到最长无重复字符的子字符串程序。
+# 在 Go (Golang)中找到最长无重复字符的子字符串程序。
 
-> 来源：[https://golangbyexample.com/longest-substring-without-repeating-characters-golang/](https://golangbyexample.com/longest-substring-without-repeating-characters-golang/)
+> 来源：[`golangbyexample.com/longest-substring-without-repeating-characters-golang/`](https://golangbyexample.com/longest-substring-without-repeating-characters-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 给定一个字符串，我们必须找到其中最长的无重复字符的子字符串。例如，如果字符串是
 
@@ -22,7 +22,7 @@
 abbabcda
 ```
 
-那么答案将是**“abcd”**，长度应为4。
+那么答案将是**“abcd”**，长度应为 4。
 
 我们使用哈希表和三个变量。
 

@@ -6,11 +6,11 @@
 
 -->
 
-# Go语言中的函数
+# Go 语言中的函数
 
-> 来源：[https://golangbyexample.com/function-golang-complete-guide/](https://golangbyexample.com/function-golang-complete-guide/)
+> 来源：[`golangbyexample.com/function-golang-complete-guide/`](https://golangbyexample.com/function-golang-complete-guide/)
 
-这是Go语言综合教程系列的第8章。有关该系列其他章节，请参考此链接 – [Go语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 Go 语言综合教程系列的第八章。有关该系列其他章节，请参考此链接 – [Go 语言综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一教程** – [常量](https://golangbyexample.com/constant-golang/)
 
@@ -20,49 +20,49 @@
 
 目录
 
-**[概述](#Overview "Overview")**
+**概述**
 
-+   **[函数的签名](#Signature_of_a_function "Signature of a function")**
++   **函数的签名**
 
-+   **[调用函数](#Calling_a_function "Calling a function")**
++   **调用函数**
 
-+   **[函数参数](#Function_Parameters "Function Parameters")**
++   **函数参数**
 
-+   **[返回值](#Return_Values "Return Values")**
++   **返回值**
 
-    +   **[命名返回值](#Named_Return_Values "Named Return Values")**
+    +   **命名返回值**
 
-+   **[函数用法](#Function_Usages "Function Usages")**
++   **函数用法**
 
-    +   **[泛型用法](#Generic_Usage "Generic Usage")**
+    +   **泛型用法**
 
-    +   **[函数作为类型](#Function_as_Type "Function as  Type")**
+    +   **函数作为类型**
 
-        +   **[函数作为用户定义类型](#Function_as_User_Defined_Type "Function as User Defined Type")**
+        +   **函数作为用户定义类型**
 
-    +   **[函数作为值（或匿名函数）](#Function_as_values_or_Anonymous_functions "Function as values (or Anonymous functions)")**
+    +   **函数作为值（或匿名函数）")**
 
-+   **[函数的特殊用法](#Special_Usages_of_Function "Special Usages of Function")**
++   **函数的特殊用法**
 
-    +   **[函数闭包](#Function_Closures "Function Closures")**
+    +   **函数闭包**
 
-    +   **[高阶函数](#Higher_Order_Function "Higher Order Function")**
+    +   **高阶函数**
 
-    +   **[IIF或立即调用函数](#IIF_or_Immediately_Invoked_Function "IIF or Immediately Invoked Function")**
+    +   **IIF 或立即调用函数**
 
-    +   **[可变参数函数](#Variadic_Function "Variadic Function")**
+    +   **可变参数函数**
 
-    +   **[方法](#Methods "Methods")**
+    +   **方法**
 
-+   **[结论](#Conclusion "Conclusion")** *# **概述**
++   **结论** *# **概述**
 
-函数是一组执行特定任务的语句。在Go中，函数是一级变量，可以像其他变量一样传递。
+函数是一组执行特定任务的语句。在 Go 中，函数是一级变量，可以像其他变量一样传递。
 
 关于函数名称的一些注意事项
 
 +   函数名称不能以数字开头
 
-+   函数名称是区分大小写的。因此，sum、Sum、SUM是不同的函数。
++   函数名称是区分大小写的。因此，sum、Sum、SUM 是不同的函数。
 
 +   名称以大写字母开头的函数将被导出到其包外，并可以从其他包调用。名称以小写字母开头的函数不会被导出，仅在其包内可见。
 
@@ -74,7 +74,7 @@ func func_name(input_parameters) return_values{
 }
 ```
 
-Go语言中的函数
+Go 语言中的函数
 
 +   使用**func**关键字声明
 
@@ -92,9 +92,9 @@ Go语言中的函数
 
 +   名称为**“sum”**
 
-+   接受两个int类型的参数
++   接受两个 int 类型的参数
 
-+   返回一个int类型的单一值
++   返回一个 int 类型的单一值
 
 ```go
 func sum(a int, b int) int {
@@ -104,7 +104,7 @@ func sum(a int, b int) int {
 
 # **调用函数**
 
-Go中的函数可以如下调用
+Go 中的函数可以如下调用
 
 ```go
 results := sum(2, 3)

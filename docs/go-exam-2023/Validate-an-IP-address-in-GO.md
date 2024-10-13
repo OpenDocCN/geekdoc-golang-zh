@@ -8,7 +8,7 @@ date: 2024-10-13 06:08:58
 
 # 在 GO 中验证 IP 地址
 
-> 来源：[https://golangbyexample.com/validate-an-ip-address-in-go/](https://golangbyexample.com/validate-an-ip-address-in-go/)
+> 来源：[`golangbyexample.com/validate-an-ip-address-in-go/`](https://golangbyexample.com/validate-an-ip-address-in-go/)
 
 net 包的 ParseIP 函数可用于验证 IP 地址。该函数可以同时验证 IPV4 和 IPV6 地址。以下是该函数的签名。
 
@@ -16,7 +16,7 @@ net 包的 ParseIP 函数可用于验证 IP 地址。该函数可以同时验证
 func ParseIP(s string) IP
 ```
 
-[https://golang.org/pkg/net/#ParseIP](https://golang.org/pkg/net/#ParseIP)
+[`golang.org/pkg/net/#ParseIP`](https://golang.org/pkg/net/#ParseIP)
 
 ParseIP 函数
 

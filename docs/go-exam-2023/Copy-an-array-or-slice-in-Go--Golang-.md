@@ -6,23 +6,23 @@
 
 -->
 
-# 在Go语言中复制数组或切片
+# 在 Go 语言中复制数组或切片
 
-> 来源：[https://golangbyexample.com/copy-an-array-or-slice-golang/](https://golangbyexample.com/copy-an-array-or-slice-golang/)
+> 来源：[`golangbyexample.com/copy-an-array-or-slice-golang/`](https://golangbyexample.com/copy-an-array-or-slice-golang/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [复制一个数组](#Copy_an_array "复制一个数组")
++   复制一个数组
 
-+   [复制一个切片](#Copy_a_slice "复制一个切片")*  *# **概述**
++   复制一个切片*  *# **概述**
 
-在Go语言中，数组是值类型，而切片是引用类型。因此，数组或切片如何复制到另一个数组或切片的方式是不同的。
+在 Go 语言中，数组是值类型，而切片是引用类型。因此，数组或切片如何复制到另一个数组或切片的方式是不同的。
 
 # **复制一个数组**
 
-如上所述，数组在Go语言中是值类型。因此，数组变量名不是指向第一个元素的指针，而是表示整个数组。当
+如上所述，数组在 Go 语言中是值类型。因此，数组变量名不是指向第一个元素的指针，而是表示整个数组。当
 
 +   一个数组变量被赋值给另一个数组变量。
 
@@ -63,19 +63,19 @@ Sample1 After Test Function Call: [a b]
 
 在上述例子中，
 
-+   我们将**sample1**赋值给**sample2**，然后在**sample2**的0索引处改变为不同的值。之后，当我们打印**sample1**时，发现它没有改变。这是因为当我们将**sample1**赋值给**sample2**时，会创建一个副本，改变**sample2**不会影响**sample1**。
++   我们将**sample1**赋值给**sample2**，然后在**sample2**的 0 索引处改变为不同的值。之后，当我们打印**sample1**时，发现它没有改变。这是因为当我们将**sample1**赋值给**sample2**时，会创建一个副本，改变**sample2**不会影响**sample1**。
 
-+   我们将**sample1**传递给测试函数，然后在测试函数的0索引处再次改变其值。之后，当我们打印**sample1**时，发现它没有改变。原因相同，当**sample1**作为参数传递给测试函数时，会创建**sample1**的一个副本。
++   我们将**sample1**传递给测试函数，然后在测试函数的 0 索引处再次改变其值。之后，当我们打印**sample1**时，发现它没有改变。原因相同，当**sample1**作为参数传递给测试函数时，会创建**sample1**的一个副本。
 
 # **复制一个切片**
 
-Go的**builtin**包提供了一个**copy**函数，可以用来复制切片。下面是这个函数的签名。它返回复制的元素数量。
+Go 的**builtin**包提供了一个**copy**函数，可以用来复制切片。下面是这个函数的签名。它返回复制的元素数量。
 
 ```go
 func copy(dst, src []Type) int
 ```
 
-在使用copy函数时，有两种情况需要考虑：
+在使用 copy 函数时，有两种情况需要考虑：
 
 +   如果**src**的长度大于**dst**的长度，则复制的元素数量为**dst**的长度
 

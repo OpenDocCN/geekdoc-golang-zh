@@ -8,15 +8,15 @@
 
 # 在 Go（Golang）中加或减时间
 
-> 来源：[https://golangbyexample.com/add-or-subtract-to-time-go/](https://golangbyexample.com/add-or-subtract-to-time-go/)
+> 来源：[`golangbyexample.com/add-or-subtract-to-time-go/`](https://golangbyexample.com/add-or-subtract-to-time-go/)
 
 目录
 
-**[概览](#Overview "Overview")
+**概览
 
-+   [Add to time](#Add_to_time "Add to time ")
++   Add to time
 
-+   [Subtract to time](#Subtract_to_time "Subtract to time")*  *# **概览**
++   Subtract to time*  *# **概览**
 
 golang 中的 **time** 包定义了两种添加或减去时间的方法。
 

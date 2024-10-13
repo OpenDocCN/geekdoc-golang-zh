@@ -8,25 +8,25 @@
 
 # Go（Golang）中的范围和数组程序
 
-> 来源：[https://golangbyexample.com/range-sum-array-golang/](https://golangbyexample.com/range-sum-array-golang/)
+> 来源：[`golangbyexample.com/range-sum-array-golang/`](https://golangbyexample.com/range-sum-array-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program") *  *## **概述**
++   程序 *  *## **概述**
 
 有一个给定的数字数组。目标是在该数组中找到范围和。这意味着将给定一个范围，其中包含左索引和右索引。我们必须在给定的数字数组中找到左索引和右索引之间的和。
 
-看起来很简单，对吧？只需从给定数组的左索引迭代到右索引并返回和。但这里有个陷阱。允许的时间复杂度是O(1)
+看起来很简单，对吧？只需从给定数组的左索引迭代到右索引并返回和。但这里有个陷阱。允许的时间复杂度是 O(1)
 
-这里是我们可以遵循的方法，以便能够在O(1)时间复杂度内返回答案
+这里是我们可以遵循的方法，以便能够在 O(1)时间复杂度内返回答案
 
-+   从给定的数字数组预计算另一个sum_array
++   从给定的数字数组预计算另一个 sum_array
 
-+   sum_array[i] = 从0索引到第i索引的数字之和。
++   sum_array[i] = 从 0 索引到第 i 索引的数字之和。
 
-+   对于给定的左索引和右索引，只需返回sum_array[left-1] – sum_array[right]。当然，我们需要验证left-1是否大于或等于零。
++   对于给定的左索引和右索引，只需返回 sum_array[left-1] – sum_array[right]。当然，我们需要验证 left-1 是否大于或等于零。
 
 ## **程序**
 
@@ -80,8 +80,8 @@ func main() {
 13
 ```
 
-**注意：** 查看我们的Golang高级教程。本系列教程内容丰富，涵盖了所有概念及其示例。本教程适合那些希望获得专业知识和对Golang有扎实理解的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。本系列教程内容丰富，涵盖了所有概念及其示例。本教程适合那些希望获得专业知识和对 Golang 有扎实理解的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你对了解如何在Golang中实现所有设计模式感兴趣，那么这篇文章适合你 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你对了解如何在 Golang 中实现所有设计模式感兴趣，那么这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/) *

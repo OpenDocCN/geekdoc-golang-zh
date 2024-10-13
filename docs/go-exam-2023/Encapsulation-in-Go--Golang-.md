@@ -8,7 +8,7 @@
 
 # Go（Golang）中的封装
 
-> 来源：[https://golangbyexample.com/encapsulation-in-go/](https://golangbyexample.com/encapsulation-in-go/)
+> 来源：[`golangbyexample.com/encapsulation-in-go/`](https://golangbyexample.com/encapsulation-in-go/)
 
 Golang 在包级别提供封装。Go 没有公共、私有或受保护的关键字。控制可见性的唯一机制是使用大写和小写格式
 
@@ -222,4 +222,4 @@ test.go:35:14: cannot refer to unexported name model.companyLocation
 test.go:35:14: undefined: model.companyLocation
 ```
 
-+   [封装](https://golangbyexample.com/tag/encapsulation/) *   [golang中的封装](https://golangbyexample.com/tag/encapsulation-in-golang/) *   [面向对象的Go](https://golangbyexample.com/tag/object-oriented-go/) *   [面向对象编程](https://golangbyexample.com/tag/oop/) *   [Go中的面向对象编程](https://golangbyexample.com/tag/oop-in-go/)
++   [封装](https://golangbyexample.com/tag/encapsulation/) *   [golang 中的封装](https://golangbyexample.com/tag/encapsulation-in-golang/) *   [面向对象的 Go](https://golangbyexample.com/tag/object-oriented-go/) *   [面向对象编程](https://golangbyexample.com/tag/oop/) *   [Go 中的面向对象编程](https://golangbyexample.com/tag/oop-in-go/)

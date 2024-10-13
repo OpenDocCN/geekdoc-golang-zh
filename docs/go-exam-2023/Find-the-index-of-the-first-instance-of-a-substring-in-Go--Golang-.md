@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中查找子字符串的第一次出现的索引
 
-> 来源：[https://golangbyexample.com/index-first-instance-substring-golang/](https://golangbyexample.com/index-first-instance-substring-golang/)
+> 来源：[`golangbyexample.com/index-first-instance-substring-golang/`](https://golangbyexample.com/index-first-instance-substring-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码：](#Code "Code:")*  *# **概述**
++   代码：*  *# **概述**
 
 在 Go 中，字符串是 UTF-8 编码的。GO 的 **strings** 包提供了一个 **Index** 方法，可以用于获取特定字符串中子字符串第一次出现的索引。如果子字符串不在给定字符串中，则返回 -1。
 

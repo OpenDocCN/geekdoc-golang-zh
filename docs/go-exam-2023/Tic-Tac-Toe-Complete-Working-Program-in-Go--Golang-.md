@@ -6,21 +6,21 @@
 
 -->
 
-# Tic Tac Toe 完整工作程序在Go语言中
+# Tic Tac Toe 完整工作程序在 Go 语言中
 
-> 来源：[https://golangbyexample.com/tic-tac-toe-program-golang/](https://golangbyexample.com/tic-tac-toe-program-golang/)
+> 来源：[`golangbyexample.com/tic-tac-toe-program-golang/`](https://golangbyexample.com/tic-tac-toe-program-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")
++   程序
 
-+   [完整工作代码：](#Full_Working_Code "Full Working Code:")*  *## **概述**
++   完整工作代码：*  *## **概述**
 
 让我们首先通过一个例子了解什么是井字游戏。
 
-+   有一个n*n的棋盘，每个块只能在空时标记为**交叉**或**圆圈**。
++   有一个 n*n 的棋盘，每个块只能在空时标记为**交叉**或**圆圈**。
 
 +   最多两名玩家同时进行游戏，每人轮流进行。
 
@@ -34,7 +34,7 @@
 
 +   一旦一名玩家赢得游戏，就不允许再进行更多的移动。
 
-让我们通过一个例子来理解这个游戏。假设有一个3*3的网格。点（‘.’）表示一个空块。
+让我们通过一个例子来理解这个游戏。假设有一个 3*3 的网格。点（‘.’）表示一个空块。
 
 ```go
 Player 1 Move with Symbol * at Position X:1 Y:1
@@ -716,7 +716,7 @@ func main() {
 
 **输出**
 
-在上述程序中，我们也为两位玩家固定了移动，保存在**humanPlayer类**中。以下是基于这些移动的输出。
+在上述程序中，我们也为两位玩家固定了移动，保存在**humanPlayer 类**中。以下是基于这些移动的输出。
 
 ```go
 Player 1 Move with Symbol * at Position X:1 Y:1
@@ -760,8 +760,8 @@ o.o
 ***
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程详细且我们尽力用示例覆盖所有概念。本教程适合希望掌握并深入理解Golang的读者 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程详细且我们尽力用示例覆盖所有概念。本教程适合希望掌握并深入理解 Golang 的读者 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是，那么这篇文章就是为你准备的 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

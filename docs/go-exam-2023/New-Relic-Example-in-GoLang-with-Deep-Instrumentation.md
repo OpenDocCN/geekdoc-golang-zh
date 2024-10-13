@@ -6,11 +6,11 @@
 
 -->
 
-# GoLang中使用深度监控的New Relic示例
+# GoLang 中使用深度监控的 New Relic 示例
 
-> 来源：[https://golangbyexample.com/go-new-relic-example-in-golang-with-deep-instrumentation/](https://golangbyexample.com/go-new-relic-example-in-golang-with-deep-instrumentation/)
+> 来源：[`golangbyexample.com/go-new-relic-example-in-golang-with-deep-instrumentation/`](https://golangbyexample.com/go-new-relic-example-in-golang-with-deep-instrumentation/)
 
-在GoLang中集成newrelic很简单。我们只需要其中一个中间件来使用newrelic.Application。例如，在GO的GIN框架中，我们可以这样做。
+在 GoLang 中集成 newrelic 很简单。我们只需要其中一个中间件来使用 newrelic.Application。例如，在 GO 的 GIN 框架中，我们可以这样做。
 
 ```go
 nrConfig := newrelic.NewConfig("test", "somekey")
@@ -19,11 +19,11 @@ r := gin.Default()
 r.Use(nrgin.Middleware(nrapp))
 ```
 
-通过这个更改，你将能够在New Relic中看到你的应用程序像这样。
+通过这个更改，你将能够在 New Relic 中看到你的应用程序像这样。
 
 ![](img/4f5038db14d03848095a716e1ee21aa3.png)
 
-但你将无法在“Transaction”中看到API的拆解，因为Go是一种编译语言。因此，与JAVA不同，要查看API的细分，你必须在golang中进行显式的深度监控。以下是如何在Go的GIN web框架中使用newrelic进行深度监控的简单示例。
+但你将无法在“Transaction”中看到 API 的拆解，因为 Go 是一种编译语言。因此，与 JAVA 不同，要查看 API 的细分，你必须在 golang 中进行显式的深度监控。以下是如何在 Go 的 GIN web 框架中使用 newrelic 进行深度监控的简单示例。
 
 **main.go**
 
@@ -149,6 +149,6 @@ func doSomeThing(ctx context.Context) {
 }
 ```
 
-这就是在NewRelic中如何显示拆解的方式。可以看到它显示了在“callGoogle”和“doSomeThing”函数中花费的平均时间。
+这就是在 NewRelic 中如何显示拆解的方式。可以看到它显示了在“callGoogle”和“doSomeThing”函数中花费的平均时间。
 
 ![](img/a9f1c59342bddde8e47f4441b4866c15.png)*   [context](https://golangbyexample.com/tag/context/)*   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [intrumentation](https://golangbyexample.com/tag/intrumentation/)*   [newrelic](https://golangbyexample.com/tag/newrelic/)

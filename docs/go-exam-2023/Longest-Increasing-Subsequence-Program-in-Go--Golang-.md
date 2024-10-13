@@ -6,15 +6,15 @@
 
 -->
 
-# Go语言中的最长递增子序列程序
+# Go 语言中的最长递增子序列程序
 
-> 来源：[https://golangbyexample.com/longest-increasing-subsequence-golang/](https://golangbyexample.com/longest-increasing-subsequence-golang/)
+> 来源：[`golangbyexample.com/longest-increasing-subsequence-golang/`](https://golangbyexample.com/longest-increasing-subsequence-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是找到给定输入数组中的最长递增子序列。它是给定序列中最长的子序列，使得每个元素都大于其前一个元素。
 
@@ -97,8 +97,8 @@ func main() {
 1
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们试图通过示例覆盖所有概念。本教程适合那些希望获得Golang专业知识和扎实理解的人 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列教程内容详尽，我们试图通过示例覆盖所有概念。本教程适合那些希望获得 Golang 专业知识和扎实理解的人 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为你准备的 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章就是为你准备的 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

@@ -6,21 +6,21 @@
 
 -->
 
-# Golang中的唯一路径程序
+# Golang 中的唯一路径程序
 
-> 来源：[https://golangbyexample.com/unique-paths-program-golang/](https://golangbyexample.com/unique-paths-program-golang/)
+> 来源：[`golangbyexample.com/unique-paths-program-golang/`](https://golangbyexample.com/unique-paths-program-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")**
+**   概述**
 
-+   [第一种变体](#First_Variation "First Variation")
++   第一种变体
 
-    +   [程序](#Program "Program")
+    +   程序
 
-    +   [程序](#Program-2 "Program")*  *## **概述**
+    +   程序*  *## **概述**
 
-有一个m*n的网格。在位置(0,0)有一个机器人。机器人只能向右和向下移动。机器人到达右下角即(m-1, n-1)的总方式数量是多少？
+有一个 m*n 的网格。在位置(0,0)有一个机器人。机器人只能向右和向下移动。机器人到达右下角即(m-1, n-1)的总方式数量是多少？
 
 示例
 
@@ -39,7 +39,7 @@ Robot can reach the right down corner in two ways.
 
 我们将通过动态编程解决这个问题。
 
-+   创建一个大小为m*n的路径矩阵。
++   创建一个大小为 m*n 的路径矩阵。
 
 +   **paths[i][j]**表示机器人到达(i,j)索引的方式数量。
 
@@ -96,7 +96,7 @@ func main() {
 
 **第二种变体**我们将通过动态编程解决这个问题。
 
-+   创建一个大小为m*n的路径矩阵。
++   创建一个大小为 m*n 的路径矩阵。
 
 +   **paths[i][j]**表示机器人到达(i,j)索引的方式数量。
 
@@ -169,8 +169,8 @@ func main() {
 2
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，我们尝试用示例覆盖所有概念。本教程适合那些希望获得专业知识并深入理解Golang的读者 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尝试用示例覆盖所有概念。本教程适合那些希望获得专业知识并深入理解 Golang 的读者 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章适合你 - [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章适合你 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

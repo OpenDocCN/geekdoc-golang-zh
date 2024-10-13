@@ -8,7 +8,7 @@
 
 # 在 Go (Golang) 中查找并删除切片
 
-> 来源：[https://golangbyexample.com/find-delete-slice-golang/](https://golangbyexample.com/find-delete-slice-golang/)
+> 来源：[`golangbyexample.com/find-delete-slice-golang/`](https://golangbyexample.com/find-delete-slice-golang/)
 
 可能有两种情况：
 

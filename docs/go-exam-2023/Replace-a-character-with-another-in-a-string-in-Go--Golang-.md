@@ -8,13 +8,13 @@
 
 # 在 Go (Golang) 中用另一个字符替换字符串中的字符
 
-> 来源：[https://golangbyexample.com/replace-character-string-go/](https://golangbyexample.com/replace-character-string-go/)
+> 来源：[`golangbyexample.com/replace-character-string-go/`](https://golangbyexample.com/replace-character-string-go/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [代码:](#Code "Code:")*  *# **概述**
++   代码:*  *# **概述**
 
 在 GO 中，字符串是 UTF-8 编码的。GO 的 **strings** 包提供了一个 **Replace** 方法，可以用来在给定字符串中将一个字符替换为另一个字符。它返回字符串的副本。
 

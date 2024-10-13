@@ -8,7 +8,7 @@
 
 # Go (Golang) 中创建错误的不同方式
 
-> 来源：[https://golangbyexample.com/different-ways-of-creating-an-error-in-go-golang/](https://golangbyexample.com/different-ways-of-creating-an-error-in-go-golang/)
+> 来源：[`golangbyexample.com/different-ways-of-creating-an-error-in-go-golang/`](https://golangbyexample.com/different-ways-of-creating-an-error-in-go-golang/)
 
 在学习 Go 中创建错误的不同方式之前，首先了解错误。错误是一个具有以下签名的接口类型。
 

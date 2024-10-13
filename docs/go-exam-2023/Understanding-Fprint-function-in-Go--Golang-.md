@@ -6,21 +6,21 @@
 
 -->
 
-# 理解Go中的Fprint函数（Golang）
+# 理解 Go 中的 Fprint 函数（Golang）
 
-> 来源：[https://golangbyexample.com/fprint-golang/](https://golangbyexample.com/fprint-golang/)
+> 来源：[`golangbyexample.com/fprint-golang/`](https://golangbyexample.com/fprint-golang/)
 
 ![](img/73f3f2483c5496743de2017b97b4b213.png)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 **Fprint**在**fmt**包中定义，用于使用默认格式说明符格式化字符串，并将其写入传递给它的**io.Writer**实例。
 
-[https://golang.org/pkg/fmt/#Fprint](https://golang.org/pkg/fmt/#Fprint)
+[`golang.org/pkg/fmt/#Fprint`](https://golang.org/pkg/fmt/#Fprint)
 
 下面是**Fprint**的函数原型
 
@@ -149,9 +149,9 @@ Name is: John
 14
 ```
 
-**bytesPrinted**的数量为14，因为输出了14个字符
+**bytesPrinted**的数量为 14，因为输出了 14 个字符
 
-**Fprint**也可以用于写入文件。由于在golang中的文件实例实现了**io.Writer**，这不是问题。下面是相应的程序
+**Fprint**也可以用于写入文件。由于在 golang 中的文件实例实现了**io.Writer**，这不是问题。下面是相应的程序
 
 ```go
 package main
@@ -185,7 +185,7 @@ func main() {
 
 **输出**
 
-它将在当前目录中创建文件名temp.txt，内容如下。在这个程序中，我们用创建的文件替换了**os.Stdout**。
+它将在当前目录中创建文件名 temp.txt，内容如下。在这个程序中，我们用创建的文件替换了**os.Stdout**。
 
 ```go
 Name is:John
@@ -195,6 +195,6 @@ a12b12
 12 12
 ```
 
-另外，请查看我们的Golang高级教程系列 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+另外，请查看我们的 Golang 高级教程系列 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

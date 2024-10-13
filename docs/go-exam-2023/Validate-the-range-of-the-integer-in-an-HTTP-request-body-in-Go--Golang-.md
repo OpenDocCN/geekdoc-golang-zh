@@ -8,17 +8,17 @@
 
 # 在 Go (Golang) 中验证 HTTP 请求体中整数的范围。
 
-> 来源：[https://golangbyexample.com/validate-range-http-body-golang/](https://golangbyexample.com/validate-range-http-body-golang/)
+> 来源：[`golangbyexample.com/validate-range-http-body-golang/`](https://golangbyexample.com/validate-range-http-body-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 以下库可用于验证传入 JSON HTTP 请求体中整数的范围。
 
-+   **gopkg.in/go-playground/validator.v9** – [https://pkg.go.dev/github.com/go-playground/validator](https://pkg.go.dev/github.com/go-playground/validator)
++   **gopkg.in/go-playground/validator.v9** – [`pkg.go.dev/github.com/go-playground/validator`](https://pkg.go.dev/github.com/go-playground/validator)
 
 在本教程中，我们将尝试将传入的 JSON 请求体解析为以下员工结构。
 

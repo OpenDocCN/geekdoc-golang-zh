@@ -8,15 +8,15 @@
 
 # Go (Golang)中的指向指针
 
-> 来源：[https://golangbyexample.com/pointer-to-pointer-golang/](https://golangbyexample.com/pointer-to-pointer-golang/)
+> 来源：[`golangbyexample.com/pointer-to-pointer-golang/`](https://golangbyexample.com/pointer-to-pointer-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
-在Go中也可以创建指向指针的指针。
+在 Go 中也可以创建指向指针的指针。
 
 ```go
 a := 2
@@ -24,7 +24,7 @@ b := &a
 c := &b
 ```
 
-**c**在这里是一个指向指针的指针。它存储**b**的地址，而**b**又存储**a**的地址。可以使用*****运算符进行双重解引用，从而打印指向指针的值。因此，****c**将打印值2。
+**c**在这里是一个指向指针的指针。它存储**b**的地址，而**b**又存储**a**的地址。可以使用*****运算符进行双重解引用，从而打印指向指针的值。因此，****c**将打印值 2。
 
 下图描绘了指向指针的指针。
 
@@ -95,7 +95,7 @@ b: 824633778216
 
 从输出中可以清楚看出。
 
-以下是等价且值为变量**a**的2。
+以下是等价且值为变量**a**的 2。
 
 +   a
 

@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go (Golang)中删除链表元素的程序
+# 在 Go (Golang)中删除链表元素的程序
 
-> 来源：[https://golangbyexample.com/remove-linked-list-elements-golang/](https://golangbyexample.com/remove-linked-list-elements-golang/)
+> 来源：[`golangbyexample.com/remove-linked-list-elements-golang/`](https://golangbyexample.com/remove-linked-list-elements-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *# **概述**
++   程序*  *# **概述**
 
 给定一个链表和一个值，删除链表中所有值等于给定值的节点。
 
@@ -133,9 +133,9 @@ Resultant Second List
 3
 ```
 
-**注意：** 查看我们的Golang高级教程。该系列教程内容详尽，我们努力涵盖所有概念及示例。本教程适合希望获得专业知识和深入理解Golang的学习者 – [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 查看我们的 Golang 高级教程。该系列教程内容详尽，我们努力涵盖所有概念及示例。本教程适合希望获得专业知识和深入理解 Golang 的学习者 – [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你对理解如何在Golang中实现所有设计模式感兴趣。如果是的话，这篇文章适合你 – [所有设计模式Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你对理解如何在 Golang 中实现所有设计模式感兴趣。如果是的话，这篇文章适合你 – [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 另外，可以在这里查看我们的系统设计教程系列 – [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 

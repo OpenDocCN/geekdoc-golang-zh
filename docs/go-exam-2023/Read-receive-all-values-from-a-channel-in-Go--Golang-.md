@@ -8,13 +8,13 @@ category: 未分类
 
 # 在 Go (Golang) 中从通道读取/接收所有值
 
-> 来源：[https://golangbyexample.com/receive-all-values-channel-golang/](https://golangbyexample.com/receive-all-values-channel-golang/)
+> 来源：[`golangbyexample.com/receive-all-values-channel-golang/`](https://golangbyexample.com/receive-all-values-channel-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")**
+**   概述**
 
-+   [代码](#Code "Code")*  *# **概述**
++   代码*  *# **概述**
 
 对于范围循环，可以用来接收来自通道的数据，直到它被关闭。请注意，for-range 循环会持续接收通道中的数据，唯一退出范围循环的方式是关闭通道。
 

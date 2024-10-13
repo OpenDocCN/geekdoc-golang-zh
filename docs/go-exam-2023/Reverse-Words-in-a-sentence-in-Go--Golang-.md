@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go中反转句子中的单词 (Golang)
+# 在 Go 中反转句子中的单词 (Golang)
 
-> 来源：[https://golangbyexample.com/reverse-words-sentence-golang/](https://golangbyexample.com/reverse-words-sentence-golang/)
+> 来源：[`golangbyexample.com/reverse-words-sentence-golang/`](https://golangbyexample.com/reverse-words-sentence-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是反转给定句子中的单词
 
@@ -132,6 +132,6 @@ world hello
 hello
 ```
 
-**注意：** 请查看我们的Golang高级教程。本系列的教程内容详尽，我们尽力涵盖所有概念和示例。本教程适合那些希望获得专业知识和深入理解Golang的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：** 请查看我们的 Golang 高级教程。本系列的教程内容详尽，我们尽力涵盖所有概念和示例。本教程适合那些希望获得专业知识和深入理解 Golang 的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)*
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)*

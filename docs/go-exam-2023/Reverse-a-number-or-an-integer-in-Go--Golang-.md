@@ -6,15 +6,15 @@
 
 -->
 
-# 在Go语言中反转一个数字或整数
+# 在 Go 语言中反转一个数字或整数
 
-> 来源：[https://golangbyexample.com/reverse-number-golang/](https://golangbyexample.com/reverse-number-golang/)
+> 来源：[`golangbyexample.com/reverse-number-golang/`](https://golangbyexample.com/reverse-number-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
 目标是反转一个整数。整数可以是负数。以下是一些示例
 

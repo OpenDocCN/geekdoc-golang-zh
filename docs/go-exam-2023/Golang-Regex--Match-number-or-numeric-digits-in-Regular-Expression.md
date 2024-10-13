@@ -8,15 +8,15 @@
 
 # Golang 正则表达式：在正则表达式中匹配数字或数值数字。
 
-> 来源：[https://golangbyexample.com/golang-regex-match-number/](https://golangbyexample.com/golang-regex-match-number/)
+> 来源：[`golangbyexample.com/golang-regex-match-number/`](https://golangbyexample.com/golang-regex-match-number/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [匹配单个数字](#Match_a_single_digit "Match a single digit")
++   匹配单个数字
 
-+   [匹配数字重复](#Match_Repetition_of_digit "Match Repetition of digit")*  *## **概述**
++   匹配数字重复*  *## **概述**
 
 **\d** 可用于在 Golang 中匹配数字。实际上，**\d** 可用于匹配整个范围。
 
@@ -30,7 +30,7 @@
 \d
 ```
 
-如果你只想匹配特定数字，比如说5，那么正则表达式就是那个数字。
+如果你只想匹配特定数字，比如说 5，那么正则表达式就是那个数字。
 
 ```go
 5

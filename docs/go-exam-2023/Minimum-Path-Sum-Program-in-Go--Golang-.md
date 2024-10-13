@@ -8,33 +8,33 @@
 
 # Go (Golang)中的最小路径和程序
 
-> 来源：[https://golangbyexample.com/minimum-path-sum-golang/](https://golangbyexample.com/minimum-path-sum-golang/)
+> 来源：[`golangbyexample.com/minimum-path-sum-golang/`](https://golangbyexample.com/minimum-path-sum-golang/)
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [程序](#Program "Program")*  *## **概述**
++   程序*  *## **概述**
 
-有一个包含非负整数的m*n矩阵。目标是找到从左上角到右下角的最小路径和。你只能向右或向下移动。
+有一个包含非负整数的 m*n 矩阵。目标是找到从左上角到右下角的最小路径和。你只能向右或向下移动。
 
 例如，假设我们有以下矩阵
 
 ![](img/695599be49b8f5c57183e0e8a42623c8.png)
 
-然后最小和路径如下。它的和为1+1+2+2+1 = 7
+然后最小和路径如下。它的和为 1+1+2+2+1 = 7
 
 ```go
 [{0,0}, {1,0}, {1,1}, {2,1}, {2,2}
 ```
 
-这是一个动态规划问题，因为它具有最优子结构。假设矩阵的名称是input。
+这是一个动态规划问题，因为它具有最优子结构。假设矩阵的名称是 input。
 
 +   minPath[0][0] = input[0][0]
 
 +   minPath[i][j] = ming(minPath[i-1][j], minPath[i][j-1])) + input[i][j]
 
-其中minPath[i][j]表示从{0,0}到{i,j}的最小和
+其中 minPath[i][j]表示从{0,0}到{i,j}的最小和
 
 ## **程序**
 
@@ -91,8 +91,8 @@ func main() {
 7
 ```
 
-**注意：**查看我们的Golang高级教程。此系列的教程内容详尽，我们尽力覆盖所有概念及示例。本教程适合希望获得专业知识和对Golang有扎实理解的人 - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
+**注意：**查看我们的 Golang 高级教程。此系列的教程内容详尽，我们尽力覆盖所有概念及示例。本教程适合希望获得专业知识和对 Golang 有扎实理解的人 - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
-如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
+如果你有兴趣了解所有设计模式如何在 Golang 中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 
 +   [go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*

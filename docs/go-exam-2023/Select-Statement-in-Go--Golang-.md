@@ -6,11 +6,11 @@
 
 -->
 
-# Go中的选择语句（Golang）
+# Go 中的选择语句（Golang）
 
-> 来源：[https://golangbyexample.com/select-statement-golang/](https://golangbyexample.com/select-statement-golang/)
+> 来源：[`golangbyexample.com/select-statement-golang/`](https://golangbyexample.com/select-statement-golang/)
 
-这是Golang综合教程系列的第25章。有关该系列其他章节，请参考此链接 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
+这是 Golang 综合教程系列的第二十五章。有关该系列其他章节，请参考此链接 – [Golang 综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 
 **下一教程** – [错误](https://golangbyexample.com/error-in-golang/)
 
@@ -20,27 +20,27 @@
 
 目录
 
-**   [概述](#Overview "Overview")
+**   概述
 
-+   [选择语句的使用](#Use_of_select_statement "Use of  select statement")
++   选择语句的使用
 
-+   [带发送操作的选择示例](#Select_with_send_operation_example "Select with send operation example")
++   带发送操作的选择示例
 
-+   [带默认情况的选择](#Select_with_default_case "Select with default case")
++   带默认情况的选择
 
-+   [带阻塞超时的选择](#Select_with_blocking_timeout "Select with blocking timeout")
++   带阻塞超时的选择
 
-+   [空选择](#Empty_select "Empty select")
++   空选择
 
-+   [带无限for循环的选择语句](#Select_statement_with_an_infinite_for_loop_outside "Select statement with an infinite for loop outside")
++   带无限 for 循环的选择语句
 
-+   [带nil通道的选择语句](#Select_statement_with_a_nil_channel "Select statement with a nil channel")
++   带 nil 通道的选择语句
 
-+   [选择中的中断关键字](#Break_keyword_in_Select "Break keyword in Select")
++   选择中的中断关键字
 
-+   [结论](#Conclusion "Conclusion")*  *# **概述**
++   结论*  *# **概述**
 
-选择类似于switch语句，区别在于在选择中，每个案例语句等待来自通道的发送或接收操作。选择语句将等待，直到任何一个案例语句上的发送或接收操作完成。它与switch语句的不同之处在于，每个案例语句要么在通道上发送或接收操作，而在switch中，每个案例语句是一个表达式。因此，选择语句允许你等待来自不同通道的多个发送和接收操作。需要注意的关于选择语句的两个重要点是
+选择类似于 switch 语句，区别在于在选择中，每个案例语句等待来自通道的发送或接收操作。选择语句将等待，直到任何一个案例语句上的发送或接收操作完成。它与 switch 语句的不同之处在于，每个案例语句要么在通道上发送或接收操作，而在 switch 中，每个案例语句是一个表达式。因此，选择语句允许你等待来自不同通道的多个发送和接收操作。需要注意的关于选择语句的两个重要点是
 
 +   选择会阻塞，直到任何一个案例语句准备就绪。
 
@@ -255,7 +255,7 @@ To goTwo goroutine
 
 # **带默认案例的选择**
 
-类似于switch，选择也可以有一个默认案例。这个默认案例将在没有任何发送或接收操作准备就绪时执行。因此，从某种意义上说，默认语句防止选择永远阻塞。因此，非常重要的一点是，默认语句使选择变为非阻塞。如果选择语句不包含默认案例，则可能会永远阻塞，直到某个案例语句上的发送或接收操作准备就绪。让我们看一个例子以完全理解它。
+类似于 switch，选择也可以有一个默认案例。这个默认案例将在没有任何发送或接收操作准备就绪时执行。因此，从某种意义上说，默认语句防止选择永远阻塞。因此，非常重要的一点是，默认语句使选择变为非阻塞。如果选择语句不包含默认案例，则可能会永远阻塞，直到某个案例语句上的发送或接收操作准备就绪。让我们看一个例子以完全理解它。
 
 ```go
 package main
@@ -279,7 +279,7 @@ func main() {
 Default statement executed
 ```
 
-在上面的程序中，有一个选择语句正在等待在**ch1**上的接收操作和一个默认语句。由于没有goroutine向通道**ch1**发送数据，因此执行了默认案例，选择退出。如果没有默认案例，选择将会阻塞。
+在上面的程序中，有一个选择语句正在等待在**ch1**上的接收操作和一个默认语句。由于没有 goroutine 向通道**ch1**发送数据，因此执行了默认案例，选择退出。如果没有默认案例，选择将会阻塞。
 
 # **带有阻塞超时的选择语句**
 
@@ -289,9 +289,9 @@ Default statement executed
 func After(d Duration) <-chan Time
 ```
 
-**After**函数等待d持续时间完成，然后在一个通道上返回当前时间。
+**After**函数等待 d 持续时间完成，然后在一个通道上返回当前时间。
 
-[https://golang.org/pkg/time/#Time.After](https://golang.org/pkg/time/#Time.After)
+[`golang.org/pkg/time/#Time.After`](https://golang.org/pkg/time/#Time.After)
 
 让我们看看一个带有超时的选择程序。
 
@@ -327,7 +327,7 @@ func goOne(ch chan string) {
 Timeout
 ```
 
-在上述选择语句中，我们在等待在**ch1**上的接收操作完成。在其他案例语句中，我们有**time.After**，持续时间为1秒。因此，本质上这个选择语句将至少等待1秒以完成**ch1**上的接收操作，之后**time.After**案例语句将被执行。我们在**goOne**函数中设置了超过1秒的超时，因此我们看到了**time.After**语句被执行。
+在上述选择语句中，我们在等待在**ch1**上的接收操作完成。在其他案例语句中，我们有**time.After**，持续时间为 1 秒。因此，本质上这个选择语句将至少等待 1 秒以完成**ch1**上的接收操作，之后**time.After**案例语句将被执行。我们在**goOne**函数中设置了超过 1 秒的超时，因此我们看到了**time.After**语句被执行。
 
 ```go
 Timeout
@@ -337,7 +337,7 @@ Timeout
 
 # **空选择**
 
-没有任何案例语句的选择块是空选择。空选择将永远阻塞，因为没有案例语句可以执行。这也是goroutine无限期等待的一种方式。但如果这个空选择放在主goroutine中，则会导致死锁。让我们来看一个程序。
+没有任何案例语句的选择块是空选择。空选择将永远阻塞，因为没有案例语句可以执行。这也是 goroutine 无限期等待的一种方式。但如果这个空选择放在主 goroutine 中，则会导致死锁。让我们来看一个程序。
 
 ```go
 package main
@@ -361,7 +361,7 @@ fatal error: all goroutines are asleep - deadlock!
 
 # **外部无限循环的选择语句**
 
-我们可以在选择语句外部有一个无限循环。这将导致选择语句无限次执行。因此，当使用在选择语句外部的无限循环的for语句时，我们需要有一种方式来跳出for循环。在选择语句外部使用无限循环的一个用例可能是你在等待多个操作在同一通道上接收一段时间。请看下面的例子。
+我们可以在选择语句外部有一个无限循环。这将导致选择语句无限次执行。因此，当使用在选择语句外部的无限循环的 for 语句时，我们需要有一种方式来跳出 for 循环。在选择语句外部使用无限循环的一个用例可能是你在等待多个操作在同一通道上接收一段时间。请看下面的例子。
 
 ```go
 package main
@@ -406,11 +406,11 @@ News: 2
 Timeout: News feed finished
 ```
 
-在上述程序中，我们创建了一个名为 **news** 的通道，用于存储字符串类型的数据。然后，我们将此通道传递给 **newsfeed** 函数，该函数将新闻推送到此通道。在选择语句中，我们从 **news** 通道接收新闻。这条选择语句位于无限循环中，因此选择语句将被多次执行，直到我们退出循环。我们还使用了 **time.After**，其持续时间为1秒，作为其中一个案例语句。因此，这个设置将在1秒内接收所有来自 **news** 通道的新闻，然后退出。
+在上述程序中，我们创建了一个名为 **news** 的通道，用于存储字符串类型的数据。然后，我们将此通道传递给 **newsfeed** 函数，该函数将新闻推送到此通道。在选择语句中，我们从 **news** 通道接收新闻。这条选择语句位于无限循环中，因此选择语句将被多次执行，直到我们退出循环。我们还使用了 **time.After**，其持续时间为 1 秒，作为其中一个案例语句。因此，这个设置将在 1 秒内接收所有来自 **news** 通道的新闻，然后退出。
 
 # **选择语句与空通道**
 
-对空通道的发送或接收操作会永远阻塞。因此，在选择语句中使用空通道的用例是，在该案例语句上的发送或接收操作完成后禁用该案例语句。然后可以将通道简单设置为nil。该案例语句在再次执行选择语句时将被忽略，接收或发送操作将等待另一个案例语句。因此，目的是忽略该案例语句并执行其他案例语句。
+对空通道的发送或接收操作会永远阻塞。因此，在选择语句中使用空通道的用例是，在该案例语句上的发送或接收操作完成后禁用该案例语句。然后可以将通道简单设置为 nil。该案例语句在再次执行选择语句时将被忽略，接收或发送操作将等待另一个案例语句。因此，目的是忽略该案例语句并执行其他案例语句。
 
 ```go
 package main
@@ -454,7 +454,7 @@ News: 1
 Timeout: News feed finished
 ```
 
-上述程序与我们研究的程序非常相似，都是在无限循环中包含选择语句。唯一的变化是，在接收到第一条新闻后，我们通过将新闻通道设置为nil来禁用案例语句。
+上述程序与我们研究的程序非常相似，都是在无限循环中包含选择语句。唯一的变化是，在接收到第一条新闻后，我们通过将新闻通道设置为 nil 来禁用案例语句。
 
 ```go
 case n := <-news:
@@ -500,7 +500,7 @@ fmt.Println("After break")
 
 # **结论**
 
-这就是golang中选择语句的全部内容。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
+这就是 golang 中选择语句的全部内容。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 
 **下一教程** – [错误](https://golangbyexample.com/error-in-golang/)
 

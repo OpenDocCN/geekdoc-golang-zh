@@ -8,7 +8,7 @@
 
 # Go (Golang) 中接口的好处
 
-> 来源：[https://golangbyexample.com/benefits-of-interface-golang/](https://golangbyexample.com/benefits-of-interface-golang/)
+> 来源：[`golangbyexample.com/benefits-of-interface-golang/`](https://golangbyexample.com/benefits-of-interface-golang/)
 
 以下是使用接口的一些好处。
 

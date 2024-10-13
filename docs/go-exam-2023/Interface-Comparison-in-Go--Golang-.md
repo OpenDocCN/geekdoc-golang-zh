@@ -8,7 +8,7 @@
 
 # Go (Golang) 中的接口比较
 
-> 来源：[https://golangbyexample.com/interface-comparison-golang/](https://golangbyexample.com/interface-comparison-golang/)
+> 来源：[`golangbyexample.com/interface-comparison-golang/`](https://golangbyexample.com/interface-comparison-golang/)
 
 为了理解两个接口变量是否相等，我们首先需要了解接口的内部表示。像其他变量一样，接口变量由类型和值表示。接口变量的值，实际上包含两个元组
 

@@ -8,15 +8,15 @@
 
 # Go 中 go.mod 文件的直接与间接依赖
 
-> 来源：[https://golangbyexample.com/direct-indirect-dependency-module-go/](https://golangbyexample.com/direct-indirect-dependency-module-go/)
+> 来源：[`golangbyexample.com/direct-indirect-dependency-module-go/`](https://golangbyexample.com/direct-indirect-dependency-module-go/)
 
 目录
 
-**   [概述](#Overview "概述")
+**   概述
 
-+   [直接和间接依赖的示例](#Example_of_direct_and_indirect_dependency "直接和间接依赖的示例")
++   直接和间接依赖的示例
 
-+   [go.mod 文件中的间接依赖示例](#Example_of_indirect_dependency_in_gomod_file "go.mod 文件中的间接依赖示例")*  *# **概述**
++   go.mod 文件中的间接依赖示例*  *# **概述**
 
 模块是 Go 对依赖管理的支持。模块的定义是一组相关包，根目录有 **go.mod**。 **go.mod** 文件定义了
 
@@ -99,7 +99,7 @@ github.com/pborman/uuid v1.2.1/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtP
 
 以上方式我们在源文件中添加了一个依赖，并使用**go mod tidy**命令下载该依赖并将其添加到**go.mod**文件中。
 
-# **go.mod文件中的间接依赖示例**。
+# **go.mod 文件中的间接依赖示例**。
 
 让我们通过一个示例来理解这一点。为此，首先创建一个模块。
 
@@ -126,7 +126,7 @@ func main() {
 github.com/gocolly/colly
 ```
 
-因此，github.com/gocolly/colly是learn模块的直接依赖，因为它在模块中直接导入。让我们将colly版本v1.2.0作为依赖添加到go.mod文件中。
+因此，github.com/gocolly/colly 是 learn 模块的直接依赖，因为它在模块中直接导入。让我们将 colly 版本 v1.2.0 作为依赖添加到 go.mod 文件中。
 
 ```go
 module learn
@@ -142,7 +142,7 @@ require	github.com/gocolly/colly v1.2.0
 go mod tidy
 ```
 
-在运行此命令后，让我们再次检查**go.mod**文件的内容。由于colly版本v1.2.0没有go.mod文件，colly所需的所有依赖项将以**//indirect**为后缀添加到**go.mod**文件中。
+在运行此命令后，让我们再次检查**go.mod**文件的内容。由于 colly 版本 v1.2.0 没有 go.mod 文件，colly 所需的所有依赖项将以**//indirect**为后缀添加到**go.mod**文件中。
 
 执行**cat go.mod**。
 
@@ -165,9 +165,9 @@ require (
 )
 ```
 
-所有其他依赖项都以**//indirect**为后缀。此外，所有直接和间接依赖项的校验和将记录在go.sum文件中。
+所有其他依赖项都以**//indirect**为后缀。此外，所有直接和间接依赖项的校验和将记录在 go.sum 文件中。
 
-我们还提到，任何未在任何源文件中导入的依赖项将标记为//indirect。为了说明这一点，删除上面创建的**learn.go**。同时清理**go.mod**文件以删除所有require行。现在运行下面的命令。
+我们还提到，任何未在任何源文件中导入的依赖项将标记为//indirect。为了说明这一点，删除上面创建的**learn.go**。同时清理**go.mod**文件以删除所有 require 行。现在运行下面的命令。
 
 ```go
 go get github.com/pborman/uuid

@@ -1,88 +1,136 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:25:46'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:25:46
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Runtime Error Panic in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的运行时错误恐慌
 - en: 来源：[https://golangbyexample.com/runtime-error-panic-golang/](https://golangbyexample.com/runtime-error-panic-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/runtime-error-panic-golang/](https://golangbyexample.com/runtime-error-panic-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Example](#Example "Example")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[示例](#Example "Example")*  *# **概述**'
 - en: Runtime error in the program can happen in the below cases. All the below cases
     will also create a **panic**
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 程序中的运行时错误可能发生在以下几种情况。所有这些情况也会造成**恐慌**。
 - en: Out of bounds array access
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 超出范围的数组访问
 - en: Calling a function on a nil pointer
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在空指针上调用函数
 - en: Sending on a closed channel
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在关闭的通道上发送
 - en: Incorrect type assertion
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 错误的类型断言
 - en: '**Example**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**示例**'
 - en: Let’s see an example of runtime error caused by out of bounds array access.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个由于超出范围的数组访问而导致的运行时错误示例。
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, we have a slice of length 2 and we are trying to access
     slice at index 2 in the **print** function. Out of bound access is not allowed
     and it will create panic as seen from the output. Notice that in the output there
     are two things
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们有一个长度为 2 的切片，而我们在**打印**函数中尝试访问索引为 2 的切片。超出范围的访问是不允许的，这会造成恐慌，正如输出中所示。注意输出中有两个要点。
 - en: The error message
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 错误消息
 - en: Stack trace of where the panic happened
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 恐慌发生时的堆栈跟踪
 - en: There are many more cases in which runtime error can happen in a program. We
     are not going to mention all of them but you get the idea
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在程序中可能发生运行时错误的情况还有很多。我们不打算提到所有情况，但你能理解这个意思。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

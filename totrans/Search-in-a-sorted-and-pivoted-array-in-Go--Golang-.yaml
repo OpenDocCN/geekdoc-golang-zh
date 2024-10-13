@@ -1,120 +1,185 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:43:50'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:43:50
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Search in a sorted and pivoted array in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中对排序和旋转数组进行搜索
 - en: 来源：[https://golangbyexample.com/search-sorted-pivoted-array/](https://golangbyexample.com/search-sorted-pivoted-array/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/search-sorted-pivoted-array/](https://golangbyexample.com/search-sorted-pivoted-array/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Program](#Program "Program")*  *## **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "Program")*  *## **概述**'
 - en: We have an input array that is sorted but is pivoted at a certain index. For
     example, consider below array
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们有一个已排序但在某个索引处旋转的输入数组。例如，考虑以下数组
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: It has been rotated and pivoted at index 3
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 它已在索引 3 处旋转和旋转
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Given a target element, the objective is to find the index of a target element
     in that sorted and pivoted array in **O(logn)** time. It should return -1 if the
     target element doesn’t exist in the given array
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个目标元素，目标是在该排序和旋转数组中以 **O(logn)** 的时间找到目标元素的索引。如果目标元素不存在于给定数组中，则应返回 -1
 - en: For eg
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '[PRE2]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Below will be the strategy
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是策略
 - en: Find the pivot index in the given input array using binary search with some
     modifications
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用一些修改的二分查找法在给定的输入数组中找到旋转点索引
 - en: If the target element is less th**a**n the start element of the array then do
     a binary search from the pivot end to the end of the array
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果目标元素小于数组的起始元素，则从旋转点到数组末尾进行二分查找
 - en: If the target element is greater than the start element of the array then do
     a binary search from start to pivot-1 index
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果目标元素大于数组的起始元素，则从起始位置到旋转点 - 1 索引进行二分查找
 - en: Below will be the strategy to find the pivot index
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是找到旋转点索引的策略
 - en: Do a binary search. For every mid element check if **mid** or **mid+1** is the
     pivot
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 进行二分查找。对于每个中间元素，检查 **mid** 或 **mid+1** 是否为旋转点
 - en: If the value at **mid** is less than the value at the start of the input array
     then search on the left side of **mid**
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 **mid** 的值小于输入数组起始值，则在 **mid** 的左侧进行搜索
 - en: If the value at mid is greater than the value at the start of the input array
     then search on the right side of **mid**
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果 mid 的值大于输入数组的起始值，则在 **mid** 的右侧进行搜索
 - en: '**Program**'
+  id: totrans-24
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是相应的程序。
 - en: '[PRE3]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的 Golang 高级教程。本系列的教程详细且尽力覆盖所有概念和示例。本教程适合那些希望获得专业知识和对 Golang 有深入理解的人
+    - [Golang 高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果您有兴趣了解如何在 Golang 中实现所有设计模式。如果是，那么这篇文章适合您 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

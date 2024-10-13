@@ -1,105 +1,164 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:50:36'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:50:36
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Rotting Oranges Program in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的腐烂橙子程序（Golang）
 - en: 来源：[https://golangbyexample.com/rotting-oranges-program-go/](https://golangbyexample.com/rotting-oranges-program-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/rotting-oranges-program-go/](https://golangbyexample.com/rotting-oranges-program-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "概述")'
 - en: '[Program](#Program "Program")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[程序](#Program "程序")*  *# **概述**'
 - en: An m*n matrix is given where each entry contains three values
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个m*n矩阵，其中每个条目包含三个值
 - en: 0 – Denotes that entry is empty
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 0 – 表示该条目为空
 - en: 1 – Denotes that entry contains fresh orange
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 1 – 表示该条目包含新鲜橙子
 - en: 2 – Denotes that the entry contains rotten orange
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 2 – 表示该条目包含腐烂的橙子
 - en: A rotten orange will rot the neighboring orange in 1 day. For a given orange,
     any orange which lies on top, bottom, left and right is a neighboring orange.
     Diagonal oranges are not counted
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 腐烂的橙子将在1天内腐烂相邻的橙子。对于给定的橙子，位于上、下、左和右的任何橙子都是相邻橙子。对角线的橙子不算在内。
 - en: The objective is to find the number of days when all the oranges will be rotten.
     Written -1 if all oranges cannot be rotten. This will happen if a fresh orange
     is unreachable from a rotten orange
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标是找出所有橙子腐烂的天数。如果所有橙子无法腐烂，则写-1。这种情况发生在新鲜橙子无法从腐烂橙子到达时。
 - en: '**Example 1**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 1**'
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: There is one rotten orange at the top. It will rotten its neighboring two oranges.
     Those rotten neighboring orange will further rotten their neighboring oranges.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 顶部有一个腐烂的橙子。它将腐烂相邻的两个橙子。这些腐烂的橙子将进一步腐烂它们相邻的橙子。
 - en: '**Example 2**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**示例 2**'
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Program**'
+  id: totrans-20
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**程序**'
 - en: Below is the program for the same
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：**查看我们的Golang高级教程。本系列的教程内容详尽，我们试图用示例覆盖所有概念。这个教程是为那些希望获得专业知识和对Golang有扎实理解的人准备的
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you - [All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解所有设计模式如何在Golang中实现。如果是的话，这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: Also, check out our system design tutorial series here - [System Design Tutorial
     Series](https://techbyexample.com/system-design-questions/)
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 同时，查看我们的系统设计教程系列 - [系统设计教程系列](https://techbyexample.com/system-design-questions/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

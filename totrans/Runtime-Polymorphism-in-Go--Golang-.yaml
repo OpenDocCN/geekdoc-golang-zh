@@ -1,93 +1,145 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:01:29'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:01:29
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Runtime Polymorphism in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的运行时多态（Golang）
 - en: 来源：[https://golangbyexample.com/runtime-polymorphism-go/](https://golangbyexample.com/runtime-polymorphism-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/runtime-polymorphism-go/](https://golangbyexample.com/runtime-polymorphism-go/)
 - en: RunTime Polymorphism means that a call is resolved at runtime. It is achieved
     in GO using interfaces.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行时多态意味着一个调用在运行时被解析。它在GO中通过使用接口来实现。
 - en: Let’s understand it with an example. Different countries have different ways
     of calculating the tax. This can be represented by means of an interface.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们通过一个例子来理解。不同国家有不同的计算税的方法。这可以通过接口来表示。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Now different countries can have their own struct and can implement the **calculateTax()**
     method. For eg for **indianTax** struct can be represented as below. It can also
     define a method calculateTax() which can do the actual calculation based on percentage.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在不同国家可以拥有自己的结构体，并且可以实现**calculateTax()**方法。例如，**indianTax**结构可以表示如下。它还可以定义一个方法calculateTax()，根据百分比进行实际计算。
 - en: Similarly, other country’s tax systems can also be represented by a struct and
     they can also implement their own calculateTax() method to give their own value
     of tax.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 类似地，其他国家的税制也可以通过结构体表示，并且它们也可以实现自己的calculateTax()方法，以提供自己的税值。
 - en: Now let’s see how we can use this **taxCalcuator **in****terface to calculate
     tax of a person who is settled in different countries in different parts of the
     year. See the below full program for reference.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们看看如何使用这个**taxCalculator**接口来计算一个人在不同国家的税务，尤其是在一年中的不同时间。请参见下面的完整程序作为参考。
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Now below is the line where run time polymorphism happens.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是运行时多态发生的地方。
 - en: '[PRE3]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The same **calculateTax** is used in different contexts to calculate tax. When
     the compiler sees this call it delays which exact method to be called at run time.
     This magic happens behind the scene. If you are interested in knowing how this
     magic happens then refer to this link.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样的**calculateTax**在不同的上下文中用于计算税。当编译器看到这个调用时，它会延迟决定在运行时调用哪个具体方法。这种魔法在幕后发生。如果你想知道这种魔法是如何发生的，请参考这个链接。
 - en: '**Extension to add more tax systems:**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**扩展以添加更多税制：**'
 - en: Now let’s extend the above program to also include the tax system for USA countries
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们扩展上述程序，以包括美国的税制。
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: We just have to change our main function to add USA tax system.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们只需更改主函数以添加美国税制。
 - en: '[PRE5]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: If you notice in the above program **calculateTotalTax** function doesn’t need
     to be changed to accommodate the USA tax system. That is the benefit of interfaces
     and polymorphism.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你注意到上面的程序，**calculateTotalTax**函数无需更改以适应美国税制。这就是接口和多态的好处。

@@ -1,104 +1,167 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:44:20'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:44:20
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Rotate a symmetric matrix or an image in place in a clockwise direction in Go
     (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang)中顺时针旋转对称矩阵或图像
 - en: 来源：[https://golangbyexample.com/rotate-image-clockwise-golang/](https://golangbyexample.com/rotate-image-clockwise-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/rotate-image-clockwise-golang/](https://golangbyexample.com/rotate-image-clockwise-golang/)
 - en: '**Overview**'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**概述**'
 - en: Given an image represented in the form of a matrix, rotate this matrix or image
     in a clockwise direction.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 给定一个以矩阵形式表示的图像，将该矩阵或图像顺时针旋转。
 - en: For eg
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如
 - en: '**Input:**'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输入：**'
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Idea is to iterate over all the borders one by one and in place swap each side.
     The outer border of the above matrix is
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 思路是逐一遍历所有边界，并就地交换每一侧。上述矩阵的外边界是
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: We can rotate matrix in place in this way
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以这样就地旋转矩阵
 - en: '[PRE3]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: A symmetric matrix of size n*n size will have **n-1** borders. For eg above
     matrix has two borders
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个n*n大小的对称矩阵将有**n-1**个边界。例如，上述矩阵有两个边界
 - en: First border
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个边界
 - en: '[PRE4]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Second border
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 第二个边界
 - en: '[PRE5]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Table of Contents
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Program](#Program "Program")*  *## **Program**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [程序](#Program "Program")*  *## **程序**'
 - en: Below is the program for the same
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是相应的程序
 - en: '[PRE6]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '**Output**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE7]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Note:** Check out our Golang Advanced Tutorial. The tutorials in this series
     are elaborative and we have tried to cover all concepts with examples. This tutorial
     is for those who are looking to gain expertise and a solid understanding of golang
     - [Golang Advance Tutorial](https://golangbyexample.com/golang-comprehensive-tutorial/)'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '**注意：** 请查看我们的Golang高级教程。本系列教程内容详尽，我们尽力用例子覆盖所有概念。这个教程适合那些希望获得专业知识和对Golang有深入理解的人
+    - [Golang高级教程](https://golangbyexample.com/golang-comprehensive-tutorial/)'
 - en: Also if you are interested in understanding how all design patterns can be implemented
     in Golang. If yes, then this post is for you -[All Design Patterns Golang](https://golangbyexample.com/all-design-patterns-golang/)
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你有兴趣了解如何在Golang中实现所有设计模式。如果是，那么这篇文章就是为你准备的 - [所有设计模式 Golang](https://golangbyexample.com/all-design-patterns-golang/)
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

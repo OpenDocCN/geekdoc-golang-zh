@@ -1,83 +1,128 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:23:23'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:23:23
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Select Statement in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的选择语句（Golang）
 - en: 来源：[https://golangbyexample.com/select-statement-golang/](https://golangbyexample.com/select-statement-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/select-statement-golang/](https://golangbyexample.com/select-statement-golang/)
 - en: This is the  chapter 25 of the golang comprehensive tutorial series. Refer to
     this link for other chapters of the series – [Golang Comprehensive Tutorial Series](https://golangbyexample.com/golang-comprehensive-tutorial/)
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是Golang综合教程系列的第25章。有关该系列其他章节，请参考此链接 – [Golang综合教程系列](https://golangbyexample.com/golang-comprehensive-tutorial/)
 - en: '**Next Tutorial** – [Error](https://golangbyexample.com/error-in-golang/)'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一教程** – [错误](https://golangbyexample.com/error-in-golang/)'
 - en: '**Previous Tutorial** – [Channel](https://golangbyexample.com/channel-golang/)'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一教程** – [通道](https://golangbyexample.com/channel-golang/)'
 - en: Now let’s check out the current tutorial. Below is the table of contents for
     current tutorial.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 现在让我们查看当前的教程。以下是当前教程的目录。
 - en: Table of Contents
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Use of  select statement](#Use_of_select_statement "Use of  select statement")'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[选择语句的使用](#Use_of_select_statement "Use of  select statement")'
 - en: '[Select with send operation example](#Select_with_send_operation_example "Select
     with send operation example")'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[带发送操作的选择示例](#Select_with_send_operation_example "Select with send operation
+    example")'
 - en: '[Select with default case](#Select_with_default_case "Select with default case")'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[带默认情况的选择](#Select_with_default_case "Select with default case")'
 - en: '[Select with blocking timeout](#Select_with_blocking_timeout "Select with blocking
     timeout")'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[带阻塞超时的选择](#Select_with_blocking_timeout "Select with blocking timeout")'
 - en: '[Empty select](#Empty_select "Empty select")'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[空选择](#Empty_select "Empty select")'
 - en: '[Select statement with an infinite for loop outside](#Select_statement_with_an_infinite_for_loop_outside
     "Select statement with an infinite for loop outside")'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[带无限for循环的选择语句](#Select_statement_with_an_infinite_for_loop_outside "Select
+    statement with an infinite for loop outside")'
 - en: '[Select statement with a nil channel](#Select_statement_with_a_nil_channel
     "Select statement with a nil channel")'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[带nil通道的选择语句](#Select_statement_with_a_nil_channel "Select statement with a
+    nil channel")'
 - en: '[Break keyword in Select](#Break_keyword_in_Select "Break keyword in Select")'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[选择中的中断关键字](#Break_keyword_in_Select "Break keyword in Select")'
 - en: '[Conclusion](#Conclusion "Conclusion")*  *# **Overview**'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结论](#Conclusion "Conclusion")*  *# **概述**'
 - en: Select is similar to switch statement, the difference being that in select each
     of the case statement waits for a send or receive operation from a channel. Select
     statement will wait until send or receive operation is completed on any one of
@@ -86,39 +131,59 @@
     whereas in switch each of the case statements is an expression.  So a select statement
     lets you wait on multiple send and receive operations from different channels. 
     Two important points to note about set a statement is
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 选择类似于switch语句，区别在于在选择中，每个案例语句等待来自通道的发送或接收操作。选择语句将等待，直到任何一个案例语句上的发送或接收操作完成。它与switch语句的不同之处在于，每个案例语句要么在通道上发送或接收操作，而在switch中，每个案例语句是一个表达式。因此，选择语句允许你等待来自不同通道的多个发送和接收操作。需要注意的关于选择语句的两个重要点是
 - en: The select blocks until any of the case statements are ready.
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 选择会阻塞，直到任何一个案例语句准备就绪。
 - en: If multiple case statements are ready then it selects one at random and proceeds.
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果多个案例语句都准备就绪，则随机选择一个并继续。
 - en: Below is the format of **select**
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是**选择**的格式
 - en: '[PRE0]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Select chooses  the case on which send or receive operation on a channel is
     not blocked and is ready to be executed. If multiple cases are ready to be executed
     then one is choosen at random.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 选择选择未被阻塞且准备执行的通道上的发送或接收操作的案例。如果多个案例准备执行，则随机选择一个。
 - en: Let’s see a simple example. We will study about default case later in this tutorial.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个简单的例子。我们将在本教程中稍后学习默认情况。
 - en: '[PRE1]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above program, we created two channels that are passed to two different
     goroutines. Then each of the goroutines is sending one value to the channel. In
     the select, we have two case statements. Each of the two **case** statements is
@@ -126,102 +191,155 @@
     operation is complete on any of the channels it is executed and **select** exits.
     So as seen from the output, in the above program, it prints the received value
     from one of the channels and exits.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了两个通道，分别传递给两个不同的 goroutine。然后每个 goroutine 向通道发送一个值。在选择中，我们有两个 case
+    语句。每个 case 语句都在等待对其中一个通道的接收操作完成。一旦任何通道的接收操作完成，就会执行相应的语句，**选择**退出。因此，从输出中可以看到，以上程序打印了从某个通道接收到的值并退出。
 - en: So in the above program since it is not deterministic which of the send operation
     will complete earlier that is why you will see different outputs if you run the
     program multiple times. Let's see another program where we will put timeout in
     the goroutine goTwo before sending the value to the **ch2** channel. This will
     make sure that the send operation on **ch1** will be executed earlier than send
     operation to **ch2**.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，由于无法确定哪个发送操作会更早完成，因此如果多次运行程序，您会看到不同的输出。让我们看另一个程序，其中在向 **ch2** 通道发送值之前，我们会在
+    goroutine goTwo 中设置超时。这将确保对 **ch1** 的发送操作会比对 **ch2** 的发送操作先执行。
 - en: '[PRE3]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '**Output**'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE4]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In the above program, in select statement the receive operation on **ch1** is
     completed earlier and hence select will always be executing that case statement
     as also evident from the output
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，选择语句对 **ch1** 的接收操作较早完成，因此选择将始终执行该 case 语句，这也从输出中可以明显看出。
 - en: It is also possible to wait for receive operation to complete on both the channels
     by using a for loop across the select statement. Let's see a program for that
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过在选择语句中使用循环，也可以等待两个通道上的接收操作完成。我们来看一个程序示例。
 - en: '[PRE5]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '**Output**'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE6]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: In the above program, we put a for loop of length two across the select statement.
     Hence the select statement is executed twice and prints the received value from
     each of the case statements.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们在选择语句中设置了长度为二的循环。因此，选择语句执行了两次，并打印了每个 case 语句接收到的值。
 - en: We mentioned earlier that select can block if any of the case statement is not
     ready. Let's see an example for that
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们之前提到，如果任何一个 case 语句没有准备好，选择可能会阻塞。让我们看一个示例。
 - en: '[PRE7]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: '**Output**'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE8]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: In the above program, we created a channel named **ch1**.  We then receive from
     this channel in the select statement.  Since no goroutine  is sending to this
     channel hence it results in a deadlock and select statement blocks indefinitely. 
     That is why it gives  below output
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了一个名为 **ch1** 的通道。然后我们在选择语句中从这个通道接收。由于没有 goroutine 向该通道发送数据，因此会导致死锁，选择语句无限期阻塞。这就是它输出以下内容的原因。
 - en: '[PRE9]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '**Use of  select statement**'
+  id: totrans-48
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**选择语句的使用**'
 - en: The select statement is useful if there are multiple goroutines that are sending
     data to multiple channels concurrently. The select statement can then receive
     the data concurrently from any of one goroutine and execute the statement which
     is ready. So select along with channels and goroutines become a very powerful
     tool for managing synchronization and concurrency.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 当有多个 goroutine 同时向多个通道发送数据时，选择语句非常有用。选择语句可以同时从任何一个 goroutine 接收数据，并执行已准备好的语句。因此，选择结合通道和
+    goroutine 成为管理同步和并发的强大工具。
 - en: '**Select with send operation example**'
+  id: totrans-50
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**带发送操作的选择示例**'
 - en: So far we have seen examples of receive operation in select case statements.
     Let's see an example of send operation as well
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 到目前为止，我们已经看到了选择案例语句中接收操作的示例。现在我们来看一个发送操作的示例。
 - en: '[PRE10]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '**Output**'
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE11]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '**Select with default case**'
+  id: totrans-55
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**带默认案例的选择**'
 - en: Similar to switch select can also have a default case.  This default case will
     be executed if no send it or receive operation is ready on any of the case statements.
     So in a way default statement prevents the select from blocking forever.  So a
@@ -229,53 +347,81 @@
     If the select statement doesn't contain a default case then it can block forever
     until one send or receive operation is ready on any case statement. Let's see
     an example to fully understand it
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 类似于switch，选择也可以有一个默认案例。这个默认案例将在没有任何发送或接收操作准备就绪时执行。因此，从某种意义上说，默认语句防止选择永远阻塞。因此，非常重要的一点是，默认语句使选择变为非阻塞。如果选择语句不包含默认案例，则可能会永远阻塞，直到某个案例语句上的发送或接收操作准备就绪。让我们看一个例子以完全理解它。
 - en: '[PRE12]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '**Output**'
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE13]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: In the above program have a select statement which is waiting for receive operation
     on **ch1** and a default statement. Since no goroutine is sending to channel **ch1**,
     hence the default case is executed and select exits. If default case were not
     there the select would have blocked.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，有一个选择语句正在等待在**ch1**上的接收操作和一个默认语句。由于没有goroutine向通道**ch1**发送数据，因此执行了默认案例，选择退出。如果没有默认案例，选择将会阻塞。
 - en: '**Select with blocking timeout**'
+  id: totrans-61
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**带有阻塞超时的选择语句**'
 - en: Blocking timeout in select can be achieved by using **After()** function of
     **time** package. Below  is the signature of **After()** function.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 在选择中实现阻塞超时可以通过使用**time**包的**After()**函数来完成。下面是**After()**函数的签名。
 - en: '[PRE14]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: The **After** function waits for d duration  to finish and then it returns the
     current time on a channel
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: '**After**函数等待d持续时间完成，然后在一个通道上返回当前时间。'
 - en: '[https://golang.org/pkg/time/#Time.After](https://golang.org/pkg/time/#Time.After)'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/time/#Time.After](https://golang.org/pkg/time/#Time.After)'
 - en: Let's see a program of select with timeout
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个带有超时的选择程序。
 - en: '[PRE15]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: '**Output**'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE16]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: In the above select statement we are waiting for receive operation to complete
     on **ch1**. In other case statement we have **time.After** with the duration of
     1 second. So essentially this select statement will wait for at least 1 second
@@ -283,61 +429,91 @@
     case statement will be executed.  We have put a timeout of more than 1 seconds
     in the **goOne** function and hence we  see the **time.After** statement getting
     executed and
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述选择语句中，我们在等待在**ch1**上的接收操作完成。在其他案例语句中，我们有**time.After**，持续时间为1秒。因此，本质上这个选择语句将至少等待1秒以完成**ch1**上的接收操作，之后**time.After**案例语句将被执行。我们在**goOne**函数中设置了超过1秒的超时，因此我们看到了**time.After**语句被执行。
 - en: '[PRE17]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: getting printed as output
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 被打印为输出。
 - en: '**Empty select**'
+  id: totrans-73
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**空选择**'
 - en: Select block without any case statement is empty select. The empty select will
     block forever as there is no case statement  to execute. It is also one of the
     way for a goroutine to wait indefinitely. But if this empty select is put in the
     main goroutine then it will cause a deadlock. Let's see a program
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 没有任何案例语句的选择块是空选择。空选择将永远阻塞，因为没有案例语句可以执行。这也是goroutine无限期等待的一种方式。但如果这个空选择放在主goroutine中，则会导致死锁。让我们来看一个程序。
 - en: '[PRE18]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: '**Output**'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE19]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: In the above program we have empty select and hence it results in a deadlock
     that is why you see the output as below
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们有一个空的选择语句，因此导致了死锁，这就是你看到如下输出的原因。
 - en: '[PRE20]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: '**Select statement with an infinite for loop outside**'
+  id: totrans-80
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**外部无限循环的选择语句**'
 - en: We can have infinite for loop outside a select statement. This will cause the
     select statement to execute indefinite number of times.So when using for statement
     with infinite loop outside the select statement, we need to have a way yo break
     out of the for loop. One of the use case of having infinite for loop outside select
     statement could be that you are waiting for multiple operations to receive on
     the same channel for a certain time. See below example
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以在选择语句外部有一个无限循环。这将导致选择语句无限次执行。因此，当使用在选择语句外部的无限循环的for语句时，我们需要有一种方式来跳出for循环。在选择语句外部使用无限循环的一个用例可能是你在等待多个操作在同一通道上接收一段时间。请看下面的例子。
 - en: '[PRE21]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE21]'
 - en: '**Output**'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE22]'
+  id: totrans-84
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE22]'
 - en: In the above program, we have created a channel named **news**  which will hold
     data of string type. Then we pass this channel to the **newsfeed** function which
     is pushing the news feed to this channel . In the select statement, we are receiving
@@ -346,12 +522,18 @@
     out of for loop . We also have **time.After** with a duration for 1 second as
     one of the case statements. So this set up will receive all the news from the
     **news** channel for  1  second and then exit.
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了一个名为 **news** 的通道，用于存储字符串类型的数据。然后，我们将此通道传递给 **newsfeed** 函数，该函数将新闻推送到此通道。在选择语句中，我们从
+    **news** 通道接收新闻。这条选择语句位于无限循环中，因此选择语句将被多次执行，直到我们退出循环。我们还使用了 **time.After**，其持续时间为1秒，作为其中一个案例语句。因此，这个设置将在1秒内接收所有来自
+    **news** 通道的新闻，然后退出。
 - en: '**Select statement with a nil channel**'
+  id: totrans-86
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**选择语句与空通道**'
 - en: Send or receive operation on nil channel blocks forever. Hence a use case of
     having a nil channel in the select statement is to disable that case statement
     after the the send or receive operation is completed on that case statement. The
@@ -359,68 +541,106 @@
     the select statement is executed again and receive or send operation will be waited
     on another case statement. So it is meant to ignore that case statement and execute
     the other case statement
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 对空通道的发送或接收操作会永远阻塞。因此，在选择语句中使用空通道的用例是，在该案例语句上的发送或接收操作完成后禁用该案例语句。然后可以将通道简单设置为nil。该案例语句在再次执行选择语句时将被忽略，接收或发送操作将等待另一个案例语句。因此，目的是忽略该案例语句并执行其他案例语句。
 - en: '[PRE23]'
+  id: totrans-88
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE23]'
 - en: '**Output**'
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE24]'
+  id: totrans-90
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE24]'
 - en: The above program is pretty much similar to the program we studied above related
     to having a select statement inside infinite for loop. The only change being that 
     after we receive the first news, we disabled the case statement by setting the
     news channel to nil.
+  id: totrans-91
   prefs: []
   type: TYPE_NORMAL
+  zh: 上述程序与我们研究的程序非常相似，都是在无限循环中包含选择语句。唯一的变化是，在接收到第一条新闻后，我们通过将新闻通道设置为nil来禁用案例语句。
 - en: '[PRE25]'
+  id: totrans-92
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE25]'
 - en: Hence  we only received the first news and after that, it times out.  This is
     the use case of nil channel in the select statement
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，我们只接收到第一条新闻，之后它将超时。这是选择语句中空通道的用例。
 - en: '**Break keyword in Select**'
+  id: totrans-94
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**选择中的 Break 关键字**'
 - en: Below is the **break** keyword example.
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是 **break** 关键字的示例。
 - en: '[PRE26]'
+  id: totrans-96
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE26]'
 - en: '**Output**'
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE27]'
+  id: totrans-98
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE27]'
 - en: '**break** statement will terminate the execution of innermost statement and
     below line below will never be executed'
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: '**break** 语句将终止最内层语句的执行，下面的行将永远不会被执行'
 - en: '[PRE28]'
+  id: totrans-100
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE28]'
 - en: '**Conclusion**'
+  id: totrans-101
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**结论**'
 - en: This is all about the select statement in golang. Hope you have liked this article.
     Please share feedback/improvements/mistakes in comments
+  id: totrans-102
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是golang中选择语句的全部内容。希望你喜欢这篇文章。请在评论中分享反馈/改进/错误。
 - en: '**Next Tutorial** – [Error](https://golangbyexample.com/error-in-golang/)'
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: '**下一教程** – [错误](https://golangbyexample.com/error-in-golang/)'
 - en: '**Previous Tutorial** – [Channel](https://golangbyexample.com/channel-golang/)'
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: '**上一教程** – [通道](https://golangbyexample.com/channel-golang/)'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-105
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)*'

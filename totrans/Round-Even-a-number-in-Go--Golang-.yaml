@@ -1,77 +1,122 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:14:45'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:14:45
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Round Even a number in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中进行偶数舍入
 - en: 来源：[https://golangbyexample.com/round-even-number-golang/](https://golangbyexample.com/round-even-number-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/round-even-number-golang/](https://golangbyexample.com/round-even-number-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code:](#Code "Code:")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码：](#Code "Code:")*  *# **概述**'
 - en: '**math** package of GO provides a **RoundToEven** method that can be used to
     round to even a number. It returns the nearest integer rounding ties to even.'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: GO 的 **math** 包提供了一个 **RoundToEven** 方法，可以用来将数字舍入为偶数。它返回最近的整数，并将平局情况舍入为偶数。
 - en: Here you can read about use case of RoundToEven – [https://mathematica.stackexchange.com/questions/2116/why-round-to-even-integers/2120](https://mathematica.stackexchange.com/questions/2116/why-round-to-even-integers/2120)
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里你可以阅读关于 RoundToEven 的用例 – [https://mathematica.stackexchange.com/questions/2116/why-round-to-even-integers/2120](https://mathematica.stackexchange.com/questions/2116/why-round-to-even-integers/2120)
 - en: Below is the signature of the function. It takes input a float and also returns
     a float.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是该函数的签名。它接受一个浮点数作为输入，并返回一个浮点数。
 - en: '[PRE0]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Some special cases of RoundToEven function are
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: RoundToEven 函数的一些特殊情况是
 - en: RoundToEven(±0) = ±0
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: RoundToEven(±0) = ±0
 - en: RoundToEven(±Inf) = ±Inf
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: RoundToEven(±Inf) = ±Inf
 - en: RoundToEven(NaN) = NaN
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: RoundToEven(NaN) = NaN
 - en: '**Code:**'
+  id: totrans-17
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output:**'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [math](https://golangbyexample.com/tag/math/)*   [round
     even](https://golangbyexample.com/tag/round-even/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [math](https://golangbyexample.com/tag/math/)*   [round
+    even](https://golangbyexample.com/tag/round-even/)*'

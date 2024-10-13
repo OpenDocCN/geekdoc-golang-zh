@@ -1,144 +1,220 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:21:22'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 'date: 2024-10-13 06:21:22'
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Scope of a variable in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的变量作用域
 - en: 来源：[https://golangbyexample.com/scope-of-variable-go/](https://golangbyexample.com/scope-of-variable-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/scope-of-variable-go/](https://golangbyexample.com/scope-of-variable-go/)
 - en: '**Scope of a Variable (Local and Global Variable)**'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: '**变量的作用域（局部变量和全局变量）**'
 - en: A variable declaration can be done at the package level or a function level
     or a block level. The scope of a variable defines from where that variable can
     be accessed and also the lifetime of the variable. Golang variables can be divided
     into two categories based on the scope.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 变量声明可以在包级、函数级或块级进行。变量的作用域定义了从哪里可以访问该变量，以及变量的生命周期。Golang变量可以根据作用域分为两类。
 - en: Local Variable
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 局部变量
 - en: Global Variable
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 全局变量
 - en: '**Local Variable:**'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: '**局部变量：**'
 - en: Local variables are variables which are defined within a block or a function
     level
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 局部变量是在块或函数级别定义的变量。
 - en: An example of a block is a for loop or a range loop etc.
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 块的一个例子是for循环或范围循环等。
 - en: These variables are only be accessed from within their block or function
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这些变量只能在其块或函数内部访问。
 - en: These variables only live till the end of the block or a function in which they
     are declared. After that, they are Garbage Collected.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这些变量仅在声明它们的块或函数结束之前存在。之后，它们将被垃圾回收。
 - en: A local once declared cannot be redeclared within the same block or function.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一旦声明的局部变量不能在同一块或函数内重新声明。
 - en: See below example
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 请见下面的例子。
 - en: Local or loop variable **i** is not available after the for loop
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 循环变量**i**在for循环后不可用。
 - en: Similarly local variable **aaa** is not available outside the function in which
     it is declared.
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 同样，局部变量**aaa**在声明它的函数之外不可用。
 - en: Hence below program will raise a compiler error
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，下面的程序将引发编译错误。
 - en: '[PRE0]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Code:**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**代码：**'
 - en: '[PRE1]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Global Variable**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**全局变量**'
 - en: A variable will be global within a package if it is declared at the top of a
     file outside the scope of any function or block.
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果在文件顶部声明了一个变量，而不在任何函数或块的作用域内，则该变量在包内是全局的。
 - en: If this variable name starts with a lowercase letter then it can be accessed
     from within the package which contains this variable definition.
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果变量名以小写字母开头，则可以在包含该变量定义的包内访问。
 - en: If the variable name starts with an uppercase letter then it can be accessed
     from an outside different package other than which it is declared.
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果变量名以大写字母开头，则可以从声明它的不同包之外访问。
 - en: Global variable are available throughout the lifetime of a program
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 全局变量在程序的生命周期内是可用的。
 - en: For example, in the below program variable aaa will be a global variable available
     throughout the main package. It will be available in any function inside the **main**
     package. Do note that the variable name will not be available outside **main**
     package as its name starts with a lowercase letter.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，在下面的程序中，变量aaa将是一个在主包中可用的全局变量。它将在**main**包内的任何函数中可用。请注意，由于变量名以小写字母开头，因此该变量名在**main**包外不可用。
 - en: '[PRE2]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Important Points
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 重要事项
 - en: A variable declared within an inner scope having the same name as variable declared
     in the outer scope will shadow the variable in the outer scope.
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在内部作用域声明的变量，如果与外部作用域中的变量同名，将会遮蔽外部作用域中的变量。
 - en: '[PRE4]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output:**'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [scope](https://golangbyexample.com/tag/scope/)*   [variable](https://golangbyexample.com/tag/variable/)'
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*   [scope](https://golangbyexample.com/tag/scope/)*   [variable](https://golangbyexample.com/tag/variable/)'

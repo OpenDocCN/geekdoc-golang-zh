@@ -1,88 +1,136 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:06:18'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:06:18
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Selection Sort in Go(Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的选择排序
 - en: 来源：[https://golangbyexample.com/go-selection-sort/](https://golangbyexample.com/go-selection-sort/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/go-selection-sort/](https://golangbyexample.com/go-selection-sort/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Introduction](#Introduction "Introduction")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [介绍](#Introduction "介绍")'
 - en: '[Time Complexity](#Time_Complexity "Time Complexity")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[时间复杂度](#Time_Complexity "时间复杂度")'
 - en: '[Space Complexity](#Space_Complexity "Space Complexity")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[空间复杂度](#Space_Complexity "空间复杂度")'
 - en: '[Implementation:](#Implementation "Implementation:")*  *# **Introduction**'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[实现：](#Implementation "实现：")*  *# **介绍**'
 - en: In selection sort, we maintain two parts
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在选择排序中，我们维护两个部分
 - en: Sorted Part
+  id: totrans-12
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 已排序部分
 - en: Unsorted Part
+  id: totrans-13
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 未排序部分
 - en: In each iteration, the max or min element (depending upon order is asc or desc)
     is picked from the unsorted part and then is put at the end of the sorted part.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在每次迭代中，从未排序部分中选取最大或最小元素（取决于顺序是升序还是降序），然后将其放到已排序部分的末尾。
 - en: Hence the length of the sorted part in each iteration increases by 1\. In the
     end, the entire array is sorted.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 因此，在每次迭代中，已排序部分的长度增加 1。最终，整个数组都被排序。
 - en: '**Time Complexity**'
+  id: totrans-16
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**时间复杂度**'
 - en: O(n*n)
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: O(n*n)
 - en: '**Space Complexity**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**空间复杂度**'
 - en: Space Complexity of selection sort is O(1)
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 选择排序的空间复杂度是 O(1)
 - en: '**Implementation:**'
+  id: totrans-20
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**实现：**'
 - en: '[PRE0]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output:**'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE1]*'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE1]*'

@@ -1,229 +1,337 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:09:11'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:09:11
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Server Error – 500 vs 502 vs 503 vs 504
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 服务器错误 – 500与502、503、504的区别
 - en: 来源：[https://golangbyexample.com/server-error-5xx/](https://golangbyexample.com/server-error-5xx/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/server-error-5xx/](https://golangbyexample.com/server-error-5xx/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[500 (Internal Server Error)](#500_Internal_Server_Error "500 (Internal Server
     Error)")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[500（内部服务器错误）](#500_Internal_Server_Error "500 (Internal Server Error)")'
 - en: '[502 (Bad Gateway Error)](#502_Bad_Gateway_Error "502 (Bad Gateway Error) ")'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[502（错误网关）](#502_Bad_Gateway_Error "502 (Bad Gateway Error) ")'
 - en: '[503 (Service Unavailable )](#503_Service_Unavailable "503 (Service Unavailable
     )")'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[503（服务不可用）](#503_Service_Unavailable "503 (Service Unavailable )")'
 - en: '[504(Gateway Timeout)](#504Gateway_Timeout "504(Gateway Timeout)")*  *# **Overview**'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[504（网关超时）](#504Gateway_Timeout "504(Gateway Timeout)") *  *# **概述**'
 - en: All 5XX errors are server errors. In this article, we will learn about the difference
     between all of them.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有5XX错误都是服务器错误。在本文中，我们将了解它们之间的区别。
 - en: 'In this article, we use the term proxy/gateway server. Some of the examples
     of proxy/gateway server are:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本文中，我们使用代理/网关服务器的术语。一些代理/网关服务器的示例包括：
 - en: nginx
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: nginx
 - en: AWS ELB
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: AWS ELB
 - en: Cloudflare – Security Tool
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Cloudflare – 安全工具
 - en: API Gateway such as kong
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: API网关，例如kong
 - en: '**500 (Internal Server Error)**'
+  id: totrans-18
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**500（内部服务器错误）**'
 - en: 500 means Internal Server Error.  A service can raise a 500 in the case in which
     it ran into an error that was unexpected. Since 500 is purely a server error,
     it is meant to be retried by the client
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 500表示内部服务器错误。当服务遇到意外错误时，可能会引发500。由于500纯粹是服务器错误，客户端应重试。
 - en: '**Some of the cases:**'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '**一些情况：**'
 - en: An unhandled exception was generated at the app layer which was sent as 500.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在应用层生成了未处理的异常，导致返回500。
 - en: App server got an invalid response from the database, due to which it was unable
     to complete the request and raised a 500.
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 应用服务器从数据库获得了无效响应，因此无法完成请求并引发500。
 - en: '**How to resolve:**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**如何解决：**'
 - en: Look at the stack trace of the failing 500 call
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 查看失败的500调用的堆栈跟踪
 - en: '**502 (Bad Gateway Error)**'
+  id: totrans-25
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**502（错误网关）**'
 - en: 502  means that the proxy/gateway server in between the origin server and the
     client got an unexpected response from the origin server.  Do notice that in this
     case proxy/gateway server did get a response but an expected one. An example of
     an unexpected response could be that proxy/gateway server was expecting a JSON
     but instead got an HTML. It can happen in the below case
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 502意味着在源服务器和客户端之间的代理/网关服务器从源服务器收到了意外响应。请注意，在这种情况下，代理/网关服务器确实得到了响应，但并不是预期的。例如，代理/网关服务器期待JSON，但却得到了HTML。这可能发生在以下情况中。
 - en: '**Some of the cases:**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**一些情况：**'
 - en: This could in cases lets say a firewall is blocking the connection between 
     proxy/gateway server and the origin server.  The firewall is returning a response
     which proxy/gateway server is not able to understand
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这种情况可能是由于防火墙阻止了代理/网关服务器与源服务器之间的连接。防火墙返回了代理/网关服务器无法理解的响应。
 - en: Some network errors such as routing problems, DNS errors can also cause a 502.
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一些网络错误，例如路由问题和DNS错误，也可能导致502。
 - en: Some bad programming can also cause a 502\. Let’s origin server returned an
     invalid HTML body which proxy/gateway server is not able to understand and the
     proxy server returns a 502\.
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 一些糟糕的编程也可能导致502。假设源服务器返回了一个无效的HTML主体，代理/网关服务器无法理解，从而返回502。
 - en: '**How to resolve:**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**如何解决：**'
 - en: Go through the logs to find out what was the bad response that was sent upstream
     which caused 502.
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 查看日志以找出导致502的上游错误响应。
 - en: Reload the page
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重新加载页面
 - en: '**503 (Service Unavailable )**'
+  id: totrans-34
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**503（服务不可用）**'
 - en: 503 means that the server is at capacity and it is not able to handle more request
     or it could also mean that the server is unavailable right now because it is under
     maintenance. It is generally a temporary state. Some of the cases can be
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 503表示服务器达到容量，无法处理更多请求，或者服务器当前不可用，因为正在维护。这通常是一种临时状态。一些情况可能是：
 - en: '**Some of the cases:**'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: '**一些情况：**'
 - en: The server is at capacity and it refuses to accept any more connections. The
     traffic at the site is more than it can handle
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 服务器达到容量，拒绝接受更多连接。网站流量超过其处理能力。
 - en: The server has crashed and not able to accept connections.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 服务器崩溃，无法接受连接。
 - en: The server is in maintenance mode.
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 服务器处于维护模式。
 - en: '**How to resolve**'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '**如何解决**'
 - en: Scale your servers as they are at full capacity
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 扩展您的服务器，因为它们已满载
 - en: Check if your servers haven’t crashed
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 检查你的服务器是否崩溃。
 - en: '**504(Gateway Timeout)**'
+  id: totrans-43
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**504（网关超时）**'
 - en: 504 means that the proxy server or gateway did not receive a response from the
     origin server within a specified timeout. Consider for example that an Elastic
     Load Balancer is sitting between your origin server, and the ELB timed out trying
     to receiving the response from your server. Some cases can be
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 504意味着代理服务器或网关在指定超时时间内未收到源服务器的响应。举个例子，假设有一个弹性负载均衡器位于源服务器和ELB之间，ELB在尝试从服务器接收响应时超时。一些情况可能是：
 - en: '**Some of the cases:**'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '**一些情况：**'
 - en: Too many concurrent requests on your origin server can cause some of the requests
     to not complete within the specified time resulting in a 504 error at the proxy
     server end. If you seeing 504 consistently then that would mean a network issue
     between the proxy server and the origin server.
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 源服务器上的过多并发请求可能导致某些请求在指定时间内未完成，从而导致代理服务器端出现504错误。如果你持续看到504错误，这意味着代理服务器和源服务器之间可能存在网络问题。
 - en: A 504 can also come when there was an unhandled exception at the origin server
     and it was not able to correctly return 500 back, instead it did not return anything,
     resulting in timeout at the proxy server end. In this scenario, there might not
     be too many concurrent requests but still
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当源服务器发生未处理的异常且未能正确返回500时，也可能出现504，此时它没有返回任何内容，导致代理服务器超时。在这种情况下，可能没有过多的并发请求，但仍然会发生超时。
 - en: Network error can also cause the 504\. If you consistently getting the 504 and
     there is no anomaly observed at the server end of it the request is not even reaching
     the server, there are good chances that the upstream server is getting timeout
     because of a network error.
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 网络错误也可能导致504。如果你持续收到504，并且在服务器端没有观察到异常，说明请求甚至未到达服务器，有很大可能是上游服务器因网络错误而超时。
 - en: '**How to resolve**'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '**如何解决**'
 - en: Increase the timeout at the proxy server end
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 增加代理服务器端的超时时间。
 - en: Scale your servers as there might be too many concurrent requests and the server
     is not able to handle that.
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 扩展你的服务器，因为可能有过多的并发请求，导致服务器无法处理。
 - en: Check for any errors at your server end in which it is not returning any response.
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 检查你的服务器端是否有错误，导致没有返回任何响应。
 - en: '[500](https://golangbyexample.com/tag/500/)*   [502](https://golangbyexample.com/tag/502/)*   [503](https://golangbyexample.com/tag/503/)*   [504](https://golangbyexample.com/tag/504/)*   [server
     error](https://golangbyexample.com/tag/server-error/)*'
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[500](https://golangbyexample.com/tag/500/)*   [502](https://golangbyexample.com/tag/502/)*   [503](https://golangbyexample.com/tag/503/)*   [504](https://golangbyexample.com/tag/504/)*   [服务器错误](https://golangbyexample.com/tag/server-error/)*'

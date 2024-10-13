@@ -1,33 +1,51 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:23:43'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:23:43
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Select statement with a nil channel in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中使用 nil 通道的 select 语句
 - en: 来源：[https://golangbyexample.com/select-with-nil-channel-golang/](https://golangbyexample.com/select-with-nil-channel-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/select-with-nil-channel-golang/](https://golangbyexample.com/select-with-nil-channel-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: Send or receive operation on nil channel blocks forever. Hence a use case of
     having a nil channel in the select statement is to disable that case statement
     after the the send or receive operation is completed on that case statement. The
@@ -35,21 +53,33 @@
     the select statement is executed again and receive or send operation will be e
     waited on another case statement. So it is meant to ignore that case statement
     and execute the other case statement
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 nil 通道上进行发送或接收操作会永久阻塞。因此，在 select 语句中使用 nil 通道的一个用例是，在该 case 语句上的发送或接收操作完成后禁用该
+    case 语句。然后通道可以简单地设置为 nil。当 select 语句再次执行时，该 case 语句将被忽略，接收或发送操作将会在另一个 case 语句上等待。因此，它的目的是忽略该
+    case 语句并执行其他 case 语句。
 - en: '**Code**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, we have created a channel named **news**  which will hold
     data of string type. Then we pass this channel to the **newsfeed** function which
     is pushing the news feed to this channel . In the select statement, we are receiving
@@ -58,29 +88,48 @@
     out of for loop . We also have **time.After** with a duration for 1 second as
     one of the case statements. So this set up will receive all the news from the
     **news** channel for  1  second and then exit.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个名为 **news** 的通道，该通道将保存字符串类型的数据。然后我们将这个通道传递给 **newsfeed** 函数，该函数将新闻推送到这个通道。在
+    select 语句中，我们正在从 **news** 通道接收新闻。这条 select 语句在一个无限的 for 循环内部，因此 select 语句将被多次执行，直到我们退出
+    for 循环。我们还有 **time.After**，持续时间为 1 秒，作为其中一个 case 语句。因此，这个设置将在 **news** 通道中接收所有新闻，持续
+    1 秒后退出。
 - en: After we receive the first news, we disabled the case statement by setting the
     news channel to nil.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在接收第一条新闻后，我们通过将新闻通道设置为 nil 来禁用该 case 语句。
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Hence we only received the first news and after that, it times out.  This is
     the use case of nil channel in the select statement. If we remove the below line
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，我们只接收到第一条消息，之后就超时了。这是 select 语句中 nil 通道的用例。如果我们移除下面的行
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: then we will receive all the news in the ouput i.e, output will be
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后我们将在输出中接收所有新闻，即输出将是
 - en: '[PRE4]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '[go](https://golangbyexample.com/tag/go/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*'

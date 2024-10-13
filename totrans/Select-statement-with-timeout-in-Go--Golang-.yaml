@@ -1,68 +1,107 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:24:13'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:24:13
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Select statement with timeout in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go（Golang）中的带超时选择语句
 - en: 来源：[https://golangbyexample.com/select-statement-with-timeout-go/](https://golangbyexample.com/select-statement-with-timeout-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/select-statement-with-timeout-go/](https://golangbyexample.com/select-statement-with-timeout-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "Overview")**'
 - en: '[Code](#Code "Code")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[代码](#Code "Code")**'
 - en: '[Timeout with infinite for loop outside select statement](#Timeout_with_infinite_for_loop_outside_select_statement
     "Timeout with infinite for loop outside select statement")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[在选择语句外使用无限循环的超时](#Timeout_with_infinite_for_loop_outside_select_statement
+    "Timeout with infinite for loop outside select statement")*  *# **概述**'
 - en: Timeout in select can be achieved by using **After()** function of time package.
     Below  is the signature of **After()** function.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在选择中，可以通过使用时间包的**After()**函数实现超时。下面是**After()**函数的签名。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The **After** function waits for d duration  to finish and then it returns the
     current time on a channel -
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**After**函数等待持续时间d完成，然后在通道上返回当前时间 -'
 - en: '[https://golang.org/pkg/time/#Time.After](https://golang.org/pkg/time/#Time.After)'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://golang.org/pkg/time/#Time.After](https://golang.org/pkg/time/#Time.After)'
 - en: Let's see a program
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序
 - en: '**Code**'
+  id: totrans-15
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In the above select statement we are waiting for for the receive operation to
     complete on **ch1**. In other case statement we have **time.After** with the duration
     of 1 second. So essentially this select statement will wait for at least 1 second
@@ -70,41 +109,61 @@
     case statement will be executed.  We have put a timeout of more than 1 seconds
     in the **goOne** function and hence we  see the **time.After** statement getting
     executed and
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述选择语句中，我们正在等待**ch1**上的接收操作完成。在其他案例语句中，我们有**time.After**，持续时间为1秒。因此，这个选择语句实际上将等待至少1秒以完成**ch1**上的接收操作，之后**time.After**的案例语句将被执行。我们在**goOne**函数中设置了超过1秒的超时，因此我们看到**time.After**语句被执行，并且
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: getting printed as output.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 被打印为输出。
 - en: So time.After() is a channel operation that gets unblocked after some time.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 所以time.After()是一个通道操作，在一段时间后解除阻塞。
 - en: '**Timeout with infinite for loop outside select statement**'
+  id: totrans-23
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**在选择语句外使用无限循环的超时**'
 - en: We can have infinite for loop outside a select statement. This will cause the
     select statement to execute indefinite number of times.So when using for statement
     with infinite loop outside the select statement, we need to have a way yo break
     out of the for loop. One of the use case of having infinite for look outside select
     statement could be that you are waiting for multiple operations to receive on
     a particular channel for a certain time.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以在选择语句外使用无限循环。这将导致选择语句执行无限次。因此，在选择语句外使用带无限循环的for语句时，我们需要有一种方法来退出循环。选择语句外使用无限循环的一个用例可能是等待多个操作在特定通道上接收一段时间。
 - en: See below example
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 请参见以下示例
 - en: '[PRE4]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-28
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program, we have created a channel named **news**  which will hold
     data of string type. Then we pass this channel to the **newsfeed** function which
     is pushing the news feed to this channel . In the select statement, we are receiving
@@ -113,9 +172,13 @@
     out of for loop . We also have **time.After** with a duration for 1 second as
     one of the case statements. So this set up will receive all the news from the
     **news** channel for  1  second and then exit.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了一个名为**news**的通道，它将保存字符串类型的数据。然后，我们将此通道传递给**newsfeed**函数，该函数将新闻推送到此通道。在选择语句中，我们正在从**news**通道接收新闻。这个选择语句位于无限循环中，因此选择语句将多次执行，直到我们退出循环。我们还有一个持续时间为1秒的**time.After**作为案例语句之一。因此，该设置将在1秒内接收所有来自**news**通道的新闻，然后退出。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

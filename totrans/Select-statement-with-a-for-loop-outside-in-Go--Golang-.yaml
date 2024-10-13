@@ -1,94 +1,144 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 'category: 未分类'
 - en: 'date: 2024-10-13 06:23:28'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:23:28
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Select statement with a for loop outside in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go（Golang）中，选择语句与外部 for 循环的结合
 - en: 来源：[https://golangbyexample.com/select-forloop-outside-go/](https://golangbyexample.com/select-forloop-outside-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/select-forloop-outside-go/](https://golangbyexample.com/select-forloop-outside-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Finite for loop](#Finite_for_loop "Finite for loop")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[有限 for 循环](#Finite_for_loop "Finite for loop")'
 - en: '[Infinite for loop](#Infinite_for_loop "Infinite for loop")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[无限 for 循环](#Infinite_for_loop "Infinite for loop")*  *# **概述**'
 - en: There are two cases of for loop being outside a select statement
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 外部有两种情况下的 for 循环与选择语句
 - en: Finite for loop outside select statement
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 外部选择语句的有限 for 循环
 - en: Infinite for loop outside select statement
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 外部选择语句的无限 for 循环
 - en: Let’s look at each one by one
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们逐一查看
 - en: '**Finite for loop**'
+  id: totrans-14
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**有限 for 循环**'
 - en: In case of finite for loop, the select statement will execute equal to the number
     of iterations in the loop. Let’s see a program for that
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 在有限的 for 循环情况下，选择语句的执行次数等于循环中的迭代次数。我们来看一个程序示例
 - en: '[PRE0]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program  we put a for loop of length two across the select statement.
     Hence  the select statement is executed twice and   prints the received value
     from each of the case statement.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们在选择语句周围放置了一个长度为二的 for 循环。因此，选择语句执行两次，并打印每个 case 语句接收到的值。
 - en: '**Infinite for loop**'
+  id: totrans-20
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**无限 for 循环**'
 - en: We can have infinite for loop outside a select statement. This will cause the
     select statement to execute indefinite number of times.So when using for statement
     with infinite loop outside the select statement, we need to have a way yo break
     out of the for loop. One of the use case of having infinite for loop outside select
     statement could be that you are waiting for multiple operations to receive on
     the same channel for a certain time. See below example
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以在选择语句外有无限的 for 循环。这将导致选择语句执行无限次。因此，在使用外部无限循环的 for 语句时，我们需要有一种方法来跳出 for 循环。将外部无限循环与选择语句结合的一个用例可能是你在等待多个操作在同一通道上接收一段时间。请看下面的例子
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In the above program, we have created a channel named **news**  which will hold
     data of string type. Then we pass this channel to the **newsfeed** function which
     is pushing the news feed to this channel . In the select statement, we are receiving
@@ -97,9 +147,15 @@
     out of for loop . We also have **time.After** with a duration for 1 second as
     one of the case statements. So this set up will receive all the news from the
     **news** channel for  1  second and then exit.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们创建了一个名为 **news** 的通道，用于存放字符串类型的数据。然后我们将这个通道传递给 **newsfeed** 函数，该函数将新闻推送到这个通道。在选择语句中，我们正在从
+    **news** 通道接收新闻。这条选择语句在一个无限的 for 循环中，因此选择语句将被多次执行，直到我们退出 for 循环。我们还在 case 语句中有
+    **time.After**，其持续时间为 1 秒。所以这个设置将在 1 秒内从 **news** 通道接收所有新闻，然后退出。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

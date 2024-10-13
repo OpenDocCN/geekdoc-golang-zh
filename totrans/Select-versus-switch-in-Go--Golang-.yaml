@@ -1,66 +1,101 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:23:48'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:23:48
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Select versus switch in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 中的 Select 与 Switch (Golang)
 - en: 来源：[https://golangbyexample.com/select-versus-switch-in-golang/](https://golangbyexample.com/select-versus-switch-in-golang/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/select-versus-switch-in-golang/](https://golangbyexample.com/select-versus-switch-in-golang/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[概述](#Overview "概述")**'
 - en: '[Example of switch](#Example_of_switch "Example of switch")'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[开关示例](#Example_of_switch "开关示例")'
 - en: '[Example of select](#Example_of_select "Example of select")*  *# **Overview**'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[选择示例](#Example_of_select "选择示例") *  * # **概述**'
 - en: Below are some of the differences between **switch** and **select** statement
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下是 **switch** 和 **select** 语句之间的一些差异。
 - en: In switch each of the case statement is an expression while in select each of
     the case statement is either send or receive operation on a channel.
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在 switch 中，每个 case 语句都是一个表达式，而在 select 中，每个 case 语句都是通道上的发送或接收操作。
 - en: Format of **switch**
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**开关的格式**'
 - en: '[PRE0]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Format of **select**
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '**选择**的格式'
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This is how switch works. Given a **switch expression**, it goes through all
     cases and tries to find the first **case expression** that matches the **switch
     expression** otherwise the default case is executed if present. The order of matching
     is from top to bottom. While with a select statement ,it chooses  the case on
     which send or receive operation on a channel  is not blocked and is ready to be
     executed. If multiple cases are ready to be executed then one is choosen at random.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 这就是 switch 的工作方式。给定一个**switch 表达式**，它会遍历所有 case，尝试找到第一个匹配的**case 表达式**，否则执行默认
+    case（如果存在）。匹配的顺序是从上到下。而在 select 语句中，它选择发送或接收操作在通道上未被阻塞并且准备执行的 case。如果多个 case 准备执行，则随机选择一个。
 - en: Switch statement is non-blocking.  It selects the matching case otherwise default
     case is executed. Even if the default block is not present and none of the case
     matches the switch block ends and the program proceeds. Select statement can block
@@ -69,69 +104,105 @@
     the case statements and default block is not present. Default block makes the
     select non-blocking as default case will be executed if all the other cases are
     blocked
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Switch 语句是非阻塞的。它选择匹配的 case，否则执行默认 case。即使默认块不存在且没有任何 case 匹配，switch 块也会结束，程序继续。Select
+    语句可以阻塞，因为它与通道一起使用，而通道在发送或接收操作时可能会阻塞。如果在所有 case 语句中发送和接收操作都被阻塞，并且默认块不存在，则 select
+    语句将阻塞。默认块使 select 非阻塞，因为如果所有其他 case 都被阻塞，则将执行默认 case。
 - en: A switch will go in sequence to select the matching case. So switch is deterministic.
     You can say lookig at switch statement ad expression, that which of the case is
     going to match. Select will execute a case at random with no sequence. So select
     is non-deterministic. It will randomly choose one of the ready case statements
     to execute.
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Switch 将按顺序选择匹配的 case，因此 switch 是确定性的。你可以通过查看 switch 语句和表达式，知道哪个 case 将匹配。Select
+    将随机执行一个 case，没有顺序，因此 select 是非确定性的。它会随机选择一个准备好的 case 语句来执行。
 - en: Switch allows a fallthrough keyword to select multiple matching cases. Select
     doesn’t allow fallthrough keyword to select multiple cases. Only one case out
     of ready cases will be chosen at random.
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Switch 允许使用 fallthrough 关键字选择多个匹配的 case，而 select 不允许使用 fallthrough 关键字选择多个 case。将随机选择准备好的
+    case 中的一个。
 - en: 'Switch has two forms: expression switches and type switches while select has
     only one form.'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Switch 有两种形式：表达式开关和类型开关，而 select 只有一种形式。
 - en: Please refer to comprehensive tutorial for both
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 请参考全面的教程
 - en: Switch –[https://golangbyexample.com/switch-statement-golang/](https://golangbyexample.com/switch-statement-golang/)
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Switch – [https://golangbyexample.com/switch-statement-golang/](https://golangbyexample.com/switch-statement-golang/)
 - en: Select – [https://golangbyexample.com/select-statement-golang/](https://golangbyexample.com/switch-statement-golang/)
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Select – [https://golangbyexample.com/select-statement-golang/](https://golangbyexample.com/select-statement-golang/)
 - en: '**Example of switch**'
+  id: totrans-24
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**开关示例**'
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output:**'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出：**'
 - en: '[PRE3]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In the above example, the switch case goes in sequence and matches the switch
     expression which is “b” here.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的示例中，switch case 按顺序进行，并匹配此处的 switch 表达式“b”。
 - en: '**Example of select**'
+  id: totrans-29
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**选择示例**'
 - en: '[PRE4]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '**Output**'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE5]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: In the above program we created two channels which are passed to two different
     goroutines. Then each of the  goroutine  is sending one value to the channel.
     In the select  we have two case statement. Each of the two case statement is waiting
@@ -139,14 +210,20 @@
     is complete on any of the channel it is executed and select exits. So as seen
     from output, in the above program it  prints the received value from one of the
     channel and exits.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上述程序中，我们创建了两个通道，并将它们传递给两个不同的goroutine。然后，每个goroutine向通道发送一个值。在select中，我们有两个case语句。两个case语句都在等待某个通道的接收操作完成。一旦任何通道的接收操作完成，它就会执行并退出select。因此，从输出可以看出，在上述程序中，它打印了从某个通道接收到的值并退出。
 - en: So in the above program since it is not deterministic which of the send operation
     will complete earlier that is why you will see different output if you run the
     program different times.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，在上述程序中，由于哪个发送操作会先完成是不可确定的，这就是为什么你在不同时间运行程序时会看到不同输出的原因。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

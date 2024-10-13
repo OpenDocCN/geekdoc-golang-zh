@@ -1,244 +1,377 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 分类：未分类
 - en: 'date: 2024-10-13 06:29:23'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:29:23
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Selection of the version of library or dependency in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go (Golang) 中选择库或依赖项的版本。
 - en: 来源：[https://golangbyexample.com/versiono-module-selection-go/](https://golangbyexample.com/versiono-module-selection-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/versiono-module-selection-go/](https://golangbyexample.com/versiono-module-selection-go/)
 - en: To understand how does GO’s approach while selecting the version of the library
     of which two versions are specified in the **go.mod** file, we have to first understand
     Semantic Versioning
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 要理解Go在选择**go.mod**文件中指定的两个版本的库版本时的做法，我们首先要理解语义版本控制。
 - en: Semantic Versioning is comprised of three parts separated by dots. Below is
     the format for versioning.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 语义版本控制由三个部分组成，以点分隔。以下是版本控制的格式。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: where
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中
 - en: '**v** – it is just an indicator that it is a version'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**v** – 这只是一个指示符，表示这是一个版本。'
 - en: '**major_version** – It represents the incompatible API changes in the library.
     So when there are changes in the library that is not backward compatible, in that
     case, major_version is incremented'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**主要版本** – 它表示库中不兼容的API更改。因此，当库中有不向后兼容的更改时，此时主要版本会递增。'
 - en: '**minor_version** – It represents the change in functionality of the library
     in a backward-compatible manner. So when there are some functionality changes
     in the library but those changes are backward compatible then, in that case, the
     minor version is incremented'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**次要版本** – 它表示库功能的变化是向后兼容的。因此，当库中有一些功能变化但这些变化是向后兼容时，此时次要版本会递增。'
 - en: '**patch_version** – It represents the bug fixes in the library in a backward-compatible
     manner. So when there are bug fixes to the existing functionality of the library,
     then, in that case, patch_version is incremented.'
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**补丁版本** – 它表示库中的错误修复是向后兼容的。因此，当库的现有功能有错误修复时，此时补丁版本会递增。'
 - en: Now there can be two cases while selecting the version of the library
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在选择库的版本时，可以有两种情况。
 - en: Two versions of the same library are used which only differ in the minor and
     patch version. Their major version is the same.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用的同一个库的两个版本仅在次要和补丁版本上有所不同。它们的主要版本相同。
 - en: Two versions of the same library are used which differ in the major.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用的同一个库的两个版本在主要版本上有所不同。
 - en: Let’s see what approach does go follows in the above two cases
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看Go在上述两种情况下遵循什么方法。
 - en: Table of Contents
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Differ in minor or patch version](#Differ_in_minor_or_patch_version "Differ
     in minor or patch version")'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '**[次要或补丁版本的差异](#Differ_in_minor_or_patch_version "次要或补丁版本的差异")**'
 - en: '[Differ in major version](#Differ_in_major_version "Differ in major version")*  *#
     **Differ in minor or patch version**'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[主要版本的差异](#Differ_in_major_version "主要版本的差异")*  *# **次要或补丁版本的差异**'
 - en: Go follows the minimum version policy approach while selecting the version of
     the library of which two versions are specified in the **go.mod** file which differ
     only in their minor or patch version.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: Go在选择库版本时遵循最小版本策略，其中**go.mod**文件中指定的两个版本仅在次要或补丁版本上有所不同。
 - en: For example in case you are using the two versions of same library which are
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，如果你使用同一个库的两个版本，分别是
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: and
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 和
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: then go will choose 1.3.0 as it is the latest version.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后Go将选择1.3.0，因为这是最新版本。
 - en: '**Differ in major version**'
+  id: totrans-27
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**主要版本的差异**'
 - en: Go treats the major version as a different module itself. Now, what does that
     means? This essentially means that the import path will have a major version as
     its suffix. Let’s take the example of any go library. Let’s latest semantic version
     is
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: Go将主要版本视为不同的模块。这意味着什么呢？这基本上意味着导入路径将以主要版本作为后缀。让我们以任何Go库为例。假设最新的语义版本是
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Then the go.mod file will like below
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 此时go.mod文件将如下所示。
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: It has major version in its import path. So any library which is using the go-redis
     have to import it like
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 它在导入路径中有主要版本。因此，任何使用go-redis的库都必须像这样导入。
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: If in future **v9** version is released than it has to be imported in the application
     like
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果将来发布**v9**版本，则必须在应用程序中像这样导入。
 - en: '[PRE6]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Also the library will change its go.mod file to reflect the v9 major version
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，库将更改其go.mod文件以反映v9主要版本。
 - en: '[PRE7]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: What it essentially allows is to use different major version of the same library
     to be used within same go application.  We can also give meaningful names when
     different major version of the same library is imported in the same application.
     For eg
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 这基本上允许在同一个 Go 应用程序中使用同一库的不同主要版本。我们也可以在同一个应用程序中导入同一库的不同主要版本时，给予有意义的名称。例如：
 - en: '[PRE8]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: This is also known as **Semantic Import Versioning**
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 这也被称为 **语义导入版本控制**。
 - en: Also note that
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 还请注意：
 - en: For the first version, it is ok to not specify the version in the go.mod file.
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于第一个版本，可以不在 go.mod 文件中指定版本。
 - en: Also, be careful when importing a different major version of the same library.
     Look out for the new functionality that might be available with new versions.
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 同时，在导入同一库的不同主要版本时要小心。留意可能与新版本一起提供的新功能。
 - en: Also for the same reason when you update a specific module using
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于同样的原因，当你使用以下命令更新特定模块时：
 - en: '[PRE9]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: then it will only upgrade to the latest minor version or patch version whichever
     applicable. For example let’s say the current version used by an application is
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后它将仅升级到最新的次要版本或补丁版本，具体取决于适用情况。例如，假设应用程序当前使用的版本是：
 - en: '[PRE10]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Also let’s say we have below versions available
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们有以下可用版本：
 - en: '[PRE11]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Then when we run
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后当我们运行：
 - en: '[PRE12]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: then it will update to
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 然后它将更新为：
 - en: '[PRE13]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: The reason is because go get will only update the minor or patch version but
     never the major version as go treats the major version of a module as a different
     module entirely.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 原因是因为 `go get` 只会更新次要或补丁版本，而不会更新主要版本，因为 Go 将模块的主要版本视为完全不同的模块。
 - en: To upgrade the major version, specify that  upgraded dependency explicitly 
     in the **go.mod** file or do a go get of that version.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 要升级主要版本，请在 **go.mod** 文件中显式指定该升级的依赖项，或执行该版本的 `go get`。
 - en: Also, a couple of points to note about upgrading module
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 另外，升级模块时需要注意几点：
 - en: To upgrade a dependency to its latest patch version only, use the below command
+  id: totrans-57
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 要将依赖项升级到其最新的补丁版本，只需使用以下命令：
 - en: '[PRE14]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: To upgrade a dependency to a specific version, use the below command
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 要将依赖项升级到特定版本，请使用以下命令：
 - en: '[PRE15]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: To upgrade a dependency to a specific commit, use the below command
+  id: totrans-61
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 要将依赖项升级到特定的提交，请使用以下命令：
 - en: '[PRE16]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: To upgrade all dependency to their latest minor and patch version, use the below
     command
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 要将所有依赖项升级到其最新的次要和补丁版本，请使用以下命令：
 - en: '[PRE17]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/) *   [golang](https://golangbyexample.com/tag/golang/)
+    *'

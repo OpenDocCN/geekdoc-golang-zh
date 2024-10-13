@@ -1,33 +1,51 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:23:33'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:23:33
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Select with default case in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在 Go (Golang) 中的带有默认案例的 select
 - en: 来源：[https://golangbyexample.com/select-default-case-go/](https://golangbyexample.com/select-default-case-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/select-default-case-go/](https://golangbyexample.com/select-default-case-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: Similar to switch  select can also have a default case.  This default case will
     be executed if no send it or receive operation is  ready on any of the case statement.
     So in a way default statement prevent the select from blocking forever.  So a
@@ -35,50 +53,79 @@
     If the select statement doesn’t contain a default case then it can block forever
     until one send or receive operation is ready on any case statement. Let’s see
     a example to fully understand it
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 与 switch 类似，select 也可以有一个默认案例。如果在任何案例语句上没有 send 或 receive 操作准备好，则将执行这个默认案例。因此，默认语句在某种程度上防止了
+    select 永远阻塞。需要注意的一个非常重要的点是，默认语句使得 select 变为非阻塞的。如果 select 语句不包含默认案例，那么它可能会永远阻塞，直到某个案例语句上的
+    send 或 receive 操作准备好。让我们看看一个例子以便完全理解。
 - en: '**Code**'
+  id: totrans-10
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program have a select statement which is waiting for receive operation
     on **ch1** and a default statement. Since no goroutine is sending to channel **ch1**,
     hence the default case is executed and then select exits.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，有一个 select 语句正在等待 **ch1** 上的接收操作和一个默认语句。由于没有 goroutine 向通道 **ch1** 发送，因此执行了默认案例，然后
+    select 退出。
 - en: The select statement checks if the value is available in any of the channels
     in case statements. If it is available  then that case is executed otherwise the
     default case will be executed immediately.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: select 语句检查是否有值在任何案例语句的通道中可用。如果可用，则执行该案例，否则将立即执行默认案例。
 - en: Let's see another example where the value is immediately available in one of
     the channels. We will see that  default case is not executed in this scenario
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看一个例子，在这个例子中，值在其中一个通道中立即可用。我们会看到在这种情况下默认案例不会被执行。
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: '**Output**'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: We can see in the above program that the value was available on the ch1 channel
     that is why that case is executed and the default case is not executed. Same is
     also evident from the output
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以在上面的程序中看到，值在 ch1 通道上可用，这就是为什么执行了该案例而默认案例没有被执行。输出中也同样明显。
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

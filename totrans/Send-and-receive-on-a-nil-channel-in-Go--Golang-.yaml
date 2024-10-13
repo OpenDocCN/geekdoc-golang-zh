@@ -1,70 +1,108 @@
 - en: <!--yml
+  id: totrans-0
   prefs: []
   type: TYPE_NORMAL
+  zh: <!--yml
 - en: 'category: 未分类'
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 类别：未分类
 - en: 'date: 2024-10-13 06:24:23'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 日期：2024-10-13 06:24:23
 - en: -->
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: -->
 - en: Send and receive on a nil channel in Go (Golang)
+  id: totrans-4
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go（Golang）中在空通道上发送和接收
 - en: 来源：[https://golangbyexample.com/send-receive-nil-channel-go/](https://golangbyexample.com/send-receive-nil-channel-go/)
+  id: totrans-5
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 来源：[https://golangbyexample.com/send-receive-nil-channel-go/](https://golangbyexample.com/send-receive-nil-channel-go/)
 - en: Table of Contents
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录
 - en: '**   [Overview](#Overview "Overview")'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: '**   [概述](#Overview "Overview")'
 - en: '[Code](#Code "Code")*  *# **Overview**'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[代码](#Code "Code")*  *# **概述**'
 - en: The zero value of the channel is nil. Hence only declaring a channel creates
     a nil channel as default zero value of the channel is nil. Below is the result
     of send and receive operation on a nil channel
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 通道的零值是nil。因此，仅声明一个通道会创建一个空通道，因为通道的默认零值是nil。以下是对空通道的发送和接收操作的结果
 - en: Sending to a  nil channel blocks forever
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 向空通道发送会永远阻塞
 - en: Receiving from nil channel blocks forever
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 从空通道接收会永远阻塞
 - en: Let’s see a program for it
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们看看一个程序
 - en: '**Code**'
+  id: totrans-13
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: '**代码**'
 - en: '[PRE0]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '**Output**'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**输出**'
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the above program, we are only declaring the channel hence a nil Channel
     was created since the default 0 value of the channel is nil.  After that, we sent
     to the channel in send function and received from the channel in the main function. 
     It results in a deadlock as sending to and receiving from a nil channel block
     forever.  That is why it  gives below output
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 在上面的程序中，我们只是声明了通道，因此创建了一个空通道，因为通道的默认值是零，也就是nil。之后，我们在发送函数中向通道发送数据，并在主函数中从通道接收。这导致了死锁，因为向空通道发送和接收会永远阻塞。因此，它给出的输出如下
 - en: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[go](https://golangbyexample.com/tag/go/)*   [golang](https://golangbyexample.com/tag/golang/)*'

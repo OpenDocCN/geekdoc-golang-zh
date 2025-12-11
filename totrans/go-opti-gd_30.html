@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Tuning DNS Performance in Go Services</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Tuning DNS Performance in Go Services</h1>
+<blockquote>原文：<a href="https://goperf.dev/02-networking/dns_performance/">https://goperf.dev/02-networking/dns_performance/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>DNS resolution tends to fly under the radar, but it can still slow down Go applications. Even brief delays in lookups can stack up in distributed or microservice architectures where components frequently communicate. Understanding how Go resolves DNS under the hood — and how to adjust it — can make your service more responsive and reliable.</p>
+<h2 id="how-dns-resolution-works-in-go-cgo-vs-native-resolver">How DNS Resolution Works in Go: cgo vs. Native Resolver</h2>
+<p>Go supports two different ways of handling DNS queries: the built-in <strong>pure-Go</strong> resolver and the <strong>cgo-based</strong> resolver.</p>
+<p>The <code>pure-Go</code> resolver is fully self-contained and avoids using any external DNS libraries. It reads its configuration from <code>/etc/resolv.conf</code> (on Unix-like systems) and talks directly to the configured nameservers. This makes it simple and generally performant, though it sometimes struggles to handle more exotic or highly customized DNS environments.</p>
+<p>In contrast, the <strong>cgo-based</strong> resolver delegates DNS resolution to the operating system’s own resolver (through the C standard library, <code>libc</code>). This gives better compatibility with complicated or custom DNS environments—like those involving LDAP or multicast DNS—but it also comes with a tradeoff. The cgo resolver adds overhead due to calls into external C libraries, and it can sometimes lead to issues around thread safety or unpredictable latency spikes.</p>
+<p>It's possible to explicitly configure Go to prefer the <strong>pure-Go</strong> resolver using an environment variable:</p>
+<div class="highlight"><pre><span/><code><span class="nb">export</span><span class="w"> </span><span class="nv">GODEBUG</span><span class="o">=</span><span class="nv">netdns</span><span class="o">=</span>go
+</code></pre></div>
+<p>Alternatively, force the use of cgo resolver:</p>
+<div class="highlight"><pre><span/><code><span class="nb">export</span><span class="w"> </span><span class="nv">GODEBUG</span><span class="o">=</span><span class="nv">netdns</span><span class="o">=</span>cgo
+</code></pre></div>
+<h3 id="runtime-dependencies">Runtime Dependencies</h3>
+<p>Enabling cgo changes how the Go binary interacts with the operating system. With cgo turned on, the binary no longer stands alone — it links dynamically to <code>libc</code> and the system loader, which <code>ldd</code> reveals in its output.</p>
+<div class="highlight"><pre><span/><code>$<span class="w"> </span>ldd<span class="w"> </span>./app-cgo
+<span class="w">    </span>linux-vdso.so.1<span class="w"> </span><span class="o">(</span>0x0000fa34ddbad000<span class="o">)</span>
+<span class="w">    </span>libc.so.6<span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span>/lib/aarch64-linux-gnu/libc.so.6<span class="w"> </span><span class="o">(</span>0x0000fa34dd9b0000<span class="o">)</span>
+<span class="w">    </span>/lib/ld-linux-aarch64.so.1<span class="w"> </span><span class="o">(</span>0x0000fa34ddb70000<span class="o">)</span>
+</code></pre></div>
+<p>A cgo-enabled binary relies on the system’s C runtime (<code>libc.so.6</code>) and the dynamic loader (<code>ld-linux</code>). Without these shared libraries available on the host, the binary won’t start — which makes it unsuitable for stripped-down environments like scratch containers.</p>
+<p>By contrast, a pure-Go binary is completely self-contained and statically linked. If you run <code>ldd</code> on it, you’ll simply see:</p>
+<div class="highlight"><pre><span/><code>$<span class="w"> </span>ldd<span class="w"> </span>./app-pure
+<span class="w">    </span>not<span class="w"> </span>a<span class="w"> </span>dynamic<span class="w"> </span>executable
+</code></pre></div>
+<p>This shows that all the code the binary needs is already baked in, with no dependency on shared libraries at runtime. Because of this, pure-Go builds are a good fit for minimal containers or bare environments without a C runtime, offering better portability and fewer operational surprises. The downside is that these binaries can’t take advantage of system-level resolver features that require cgo and the host’s <code>libc</code>.</p>
+<h2 id="dns-caching-why-and-when">DNS Caching: Why and When</h2>
+<p>Caching DNS results prevents the application from sending the same queries over and over, which can eliminate a noticeable amount of latency. Each lookup incurs at least one network round-trip, and when this happens at scale, the cumulative cost can become a serious drag on service performance.</p>
+<p>Many operating systems and hosting environments already include some form of DNS caching. On Windows, the <code>DNS Client</code> service keeps a local cache; on macOS, <code>mDNSResponder</code> handles this; and on most Linux systems, <code>systemd-resolved</code> or <code>nscd</code> often provides a caching layer. In cloud environments, DNS queries are often routed through a nearby caching resolver inside the same data center. These mechanisms do help reduce latency, but they operate transparently to the application and offer little visibility or control over TTLs and policies. On Linux, if <code>systemd-resolved</code> isn’t enabled, no caching happens at all unless you configure it explicitly.</p>
+<p>Since Go itself doesn’t include any DNS caching, you have to implement it yourself if you want fine-grained, application-level control. One option is to run your own caching DNS server nearby; another is to embed a lightweight cache directly in your code, using a third-party library.</p>
+<p>Example using <a href="https://github.com/patrickmn/go-cache">go-cache</a> for a simple DNS cache:</p>
+<div class="highlight"><pre><span/><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">"github.com/patrickmn/go-cache"</span>
+<span class="w">    </span><span class="s">"net"</span>
+<span class="w">    </span><span class="s">"time"</span>
+<span class="p">)</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">dnsCache</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">cache</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Minute</span><span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">LookupWithCache</span><span class="p">(</span><span class="nx">host</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="nx">net</span><span class="p">.</span><span class="nx">IP</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">cachedIPs</span><span class="p">,</span><span class="w"> </span><span class="nx">found</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dnsCache</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="nx">host</span><span class="p">);</span><span class="w"> </span><span class="nx">found</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">cachedIPs</span><span class="p">.([]</span><span class="nx">net</span><span class="p">.</span><span class="nx">IP</span><span class="p">),</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">ips</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">LookupIP</span><span class="p">(</span><span class="nx">host</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">dnsCache</span><span class="p">.</span><span class="nx">Set</span><span class="p">(</span><span class="nx">host</span><span class="p">,</span><span class="w"> </span><span class="nx">ips</span><span class="p">,</span><span class="w"> </span><span class="nx">cache</span><span class="p">.</span><span class="nx">DefaultExpiration</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">ips</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Overdoing DNS caching has its downsides — it can leave you serving stale records and make your service fragile if upstream addresses change. It’s worth tuning your cache expiration times so they reflect how often the domains you rely on actually change.</p>
+<h2 id="using-custom-dialers-and-pre-resolved-ips">Using Custom Dialers and Pre-resolved IPs</h2>
+<p>In latency-sensitive services, it often makes sense to resolve DNS up front or use a custom dialer to control resolution explicitly. Every call to <code>net.Dial</code> or <code>net.DialContext</code> with a hostname triggers a lookup, which can involve syscalls, context switches, and sometimes even a network round-trip if the cache is cold. At high throughput, this overhead adds up.</p>
+<p>To eliminate this overhead, you can resolve hostnames during startup and save the resulting IPs. This approach is particularly effective when dealing with a fixed set of endpoints that rarely change.</p>
+<div class="highlight"><pre><span/><code><span class="kd">var</span><span class="w"> </span><span class="nx">serviceAddr</span><span class="w"> </span><span class="kt">string</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ips</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">LookupIP</span><span class="p">(</span><span class="s">"api.example.com"</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">ips</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="s">"Unable to resolve api.example.com"</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">serviceAddr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">ips</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">String</span><span class="p">()</span><span class="w"> </span><span class="c1">// in real code, consider picking an IP randomly, prefer IPv4 if needed, or iterate over ips with checks as appropriate</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>One drawback is that it fixes the IP for the lifetime of the process, so if the endpoint changes its address, connections may start failing. To handle this gracefully, you can run a background goroutine that refreshes the resolved IP at regular intervals.</p>
+<p>Custom dialers take it one step further: they allow you to control how DNS resolution and socket establishment occur on a per-connection basis. This will enable you to force connections through a specific resolver, hardwire pre-resolved IP addresses, or even bypass DNS completely by dialing IP addresses directly.</p>
+<div class="highlight"><pre><span/><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">"net"</span>
+<span class="w">    </span><span class="s">"context"</span>
+<span class="w">    </span><span class="s">"time"</span>
+<span class="p">)</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">dialer</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">net</span><span class="p">.</span><span class="nx">Dialer</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Timeout</span><span class="p">:</span><span class="w">   </span><span class="mi">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">KeepAlive</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">Resolver</span><span class="p">:</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">net</span><span class="p">.</span><span class="nx">Resolver</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">PreferGo</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Dial</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">network</span><span class="p">,</span><span class="w"> </span><span class="nx">address</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Dial</span><span class="p">(</span><span class="nx">network</span><span class="p">,</span><span class="w"> </span><span class="s">"8.8.8.8:53"</span><span class="p">)</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">ConnectWithCustomDialer</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">address</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">dialer</span><span class="p">.</span><span class="nx">DialContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">"tcp"</span><span class="p">,</span><span class="w"> </span><span class="nx">address</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Custom dialers can also bypass unreliable system resolvers or direct DNS queries through a dedicated, faster nameserver. They give you precise control over how resolution happens, but that control comes with added complexity — you’ll need to handle fallback and refresh logic yourself.</p>
+<h2 id="metrics-and-debugging-real-world-dns-slowdowns">Metrics and Debugging Real-world DNS Slowdowns</h2>
+<p>Identifying and troubleshooting DNS-induced latency requires insightful metrics and targeted debugging techniques. Measuring DNS is not just about seeing how fast it is — it helps answer deeper questions: are lookups hitting OS or provider caches? is the network path to the DNS server flaky? are specific nameservers slower than others? are IPv6 and IPv4 behaving differently? Without visibility, DNS issues can silently degrade performance and reliability.</p>
+<h3 id="metrics">Metrics</h3>
+<p>Make sure to track DNS resolution times in your service metrics so you can see how much time lookups actually add to each request. The simplest way is to wrap your DNS calls with a timer that starts just before the lookup and records the duration after it completes. Over time, these measurements help you identify trends, spot intermittent slowness, and correlate DNS delays with other parts of your system.</p>
+<div class="highlight"><pre><span/><code><span class="nx">start</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">()</span>
+<span class="nx">ips</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">LookupIP</span><span class="p">(</span><span class="s">"example.com"</span><span class="p">)</span>
+<span class="nx">duration</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Since</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
+
+<span class="nx">recordDNSLookupDuration</span><span class="p">(</span><span class="s">"example.com"</span><span class="p">,</span><span class="w"> </span><span class="nx">duration</span><span class="p">)</span>
+</code></pre></div>
+<p>Looking at high-percentile latencies — like the 95th or 99th — can reveal sporadic slowdowns or flaky DNS behavior that averages might hide.</p>
+<h3 id="debugging-tips">Debugging Tips</h3>
+<p>When facing unexplained latency spikes, leverage Go’s built-in debug mode:</p>
+<div class="highlight"><pre><span/><code><span class="nb">export</span><span class="w"> </span><span class="nv">GODEBUG</span><span class="o">=</span><span class="nv">netdns</span><span class="o">=</span><span class="m">2</span>
+</code></pre></div>
+<p>Enabling this produces detailed DNS query logs that show exactly how each request is handled from start to finish. You can see when a server responds slowly, when lookups fail and trigger retries, or when the runtime unexpectedly falls back to the cgo resolver. Such detailed insight makes it much easier to pinpoint elusive DNS problems that standard metrics often miss.</p>
+<h3 id="advanced-dns-performance-tips">Advanced DNS Performance Tips</h3>
+<p>Running a local DNS caching resolver, such as <code>dnsmasq</code> or <code>Unbound</code>, close to your service can eliminate the extra latency of external lookups. If security and privacy are concerns, enabling DNS-over-HTTPS (DoH) or DNS-over-TLS (DoT) is also an option, though it comes with some additional latency due to encryption. Finally, reviewing and tuning your <code>/etc/resolv.conf</code> — adjusting retry counts and timeout settings — helps ensure the resolver behaves predictably under load or failure conditions.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

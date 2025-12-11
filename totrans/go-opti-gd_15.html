@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Efficient Buffering in Go</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Efficient Buffering in Go</h1>
+<blockquote>原文：<a href="https://goperf.dev/01-common-patterns/buffered-io/">https://goperf.dev/01-common-patterns/buffered-io/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>Buffering is a core performance technique in systems programming. In Go, it's especially relevant when working with I/O—file access, network communication, and stream processing. Without buffering, many operations incur excessive system calls or synchronization overhead. Proper buffering reduces the frequency of such interactions, improves throughput, and smooths latency spikes.</p>
+<h2 id="why-buffering-matters">Why Buffering Matters</h2>
+<p>Every time you read from or write to a file or socket, there’s a good chance you’re triggering a system call—and that’s not cheap. System calls move control from user space into kernel space, which means crossing a boundary that comes with overhead: entering kernel mode, possible context switches, interacting with I/O buffers, and sometimes queuing operations behind the scenes. Doing that once in a while is fine. Doing it thousands of times per second? That’s a problem. Buffering helps by batching small reads or writes into larger chunks, reducing how often you cross that boundary and making far better use of each syscall.</p>
+<p>For example, writing to a file in a loop without buffering, like this:</p>
+<div class="highlight"><pre><span/><code><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="s">"output.txt"</span><span class="p">)</span>
+<span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">f</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">"line\n"</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This can easily result in <strong>10,000 separate system calls</strong>, each carrying its own overhead and dragging down performance. On top of that, a flood of small writes tends to fragment disk operations, which puts extra pressure on I/O subsystems and wastes CPU cycles handling what could have been a single, efficient batch.</p>
+<h3 id="with-buffering">With Buffering</h3>
+<div class="highlight"><pre><span/><code><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="s">"output.txt"</span><span class="p">)</span>
+<span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewWriter</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+<span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">10000</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">buf</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="s">"line\n"</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">buf</span><span class="p">.</span><span class="nx">Flush</span><span class="p">()</span><span class="w"> </span><span class="c1">// ensure all buffered data is written</span>
+</code></pre></div>
+<p>This version significantly reduces the number of system calls. The <code>bufio.Writer</code> accumulates writes in an internal memory buffer (typically 4KB or more). It only triggers a syscall when the buffer is full or explicitly flushed. As a result, you achieve faster I/O, reduced CPU usage, and improved performance.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>bufio.Writer</code> does not automatically flush when closed. If you forget to call <code>Flush()</code>, any unwritten data remaining in the buffer will be lost. Always call <code>Flush()</code> before closing or returning from a function, especially if the total written size is smaller than the buffer capacity.</p>
+</div>
+<h3 id="controlling-buffer-capacity">Controlling Buffer Capacity</h3>
+<p>By default, <code>bufio.NewWriter()</code> allocates a 4096-byte (4 KB) buffer. This size aligns with the common block size of file systems and the standard memory page size on most operating systems (such as Linux, BSD, and macOS). Reading or writing in 4 KB increments minimizes page faults, aligns with kernel read-ahead strategies, and maps efficiently onto underlying disk I/O operations.</p>
+<p>While 4 KB is a practical general-purpose default, it might not be optimal for all workloads. For high-throughput scenarios—such as streaming large files or generating extensive logs—a larger buffer can help reduce syscall frequency further:</p>
+<div class="highlight"><pre><span/><code><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Create</span><span class="p">(</span><span class="s">"output.txt"</span><span class="p">)</span>
+<span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewWriterSize</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span><span class="w"> </span><span class="c1">// 16 KB buffer</span>
+</code></pre></div>
+<p>Conversely, if latency is more critical than throughput (e.g., interactive systems or command-line utilities), a smaller buffer may be more appropriate, as it flushes data more frequently.</p>
+<p>Similar logic applies when reading data:</p>
+<div class="highlight"><pre><span/><code><span class="nx">reader</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReaderSize</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span><span class="w"> </span><span class="c1">// 32 KB buffer for input</span>
+</code></pre></div>
+<p>Buffer size isn’t something to guess at—it’s something to measure. The ideal size depends on too many variables to hard-code: whether you’re writing to SSDs or spinning disks, how your filesystem buffers writes, how much CPU cache is available, and what else is competing for resources on the system. Profiling and benchmarking are the only reliable ways to dial it in. What works well on one setup might be suboptimal—or even harmful—on another.</p>
+<h2 id="benchmarking-impact">Benchmarking Impact</h2>
+<p>Buffered writes and reads consistently demonstrate significant performance gains under load. Benchmarks measuring system calls, memory allocations, and CPU usage typically show that buffered I/O operations are faster and more efficient than unbuffered counterparts. For example, writing one million lines to disk might exhibit up to an order-of-magnitude improvement using <code>bufio.Writer</code> compared to direct <code>os.File.Write()</code> calls. The more structured and bursty your I/O operations, the more substantial the benefits from buffering.</p>
+<details class="example">
+<summary>Show the benchmark file</summary>
+<div class="highlight"><pre><span/><code><span class="kn">package</span><span class="w"> </span><span class="nx">perf</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">"bufio"</span>
+<span class="w">    </span><span class="s">"io"</span>
+<span class="w">    </span><span class="s">"os"</span>
+<span class="w">    </span><span class="s">"strconv"</span>
+<span class="w">    </span><span class="s">"sync"</span>
+<span class="w">    </span><span class="s">"testing"</span>
+<span class="p">)</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Data</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Value</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span>
+<span class="p">}</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">dataPool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">New</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kt">any</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Data</span><span class="p">{</span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">)}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">N</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">10000</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">writeNotBuffered</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">count</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dataPool</span><span class="p">.</span><span class="nx">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">Data</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">d</span><span class="p">.</span><span class="nx">Value</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">AppendInt</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Value</span><span class="p">[:</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="nb">int64</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">w</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">w</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">":val\n"</span><span class="p">))</span>
+<span class="w">        </span><span class="nx">dataPool</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">writeBuffered</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewWriterSize</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">count</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">d</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dataPool</span><span class="p">.</span><span class="nx">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">Data</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">d</span><span class="p">.</span><span class="nx">Value</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">strconv</span><span class="p">.</span><span class="nx">AppendInt</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Value</span><span class="p">[:</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="nb">int64</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">buf</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Value</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">buf</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">":val\n"</span><span class="p">))</span>
+<span class="w">        </span><span class="nx">dataPool</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">d</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">buf</span><span class="p">.</span><span class="nx">Flush</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkWriteNotBuffered</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">CreateTemp</span><span class="p">(</span><span class="s">""</span><span class="p">,</span><span class="w"> </span><span class="s">"nobuf"</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">writeNotBuffered</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="nx">N</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">f</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Remove</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">Name</span><span class="p">())</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkWriteBuffered</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">CreateTemp</span><span class="p">(</span><span class="s">""</span><span class="p">,</span><span class="w"> </span><span class="s">"buf"</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">writeBuffered</span><span class="p">(</span><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="nx">N</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">f</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+<span class="w">        </span><span class="nx">os</span><span class="p">.</span><span class="nx">Remove</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">Name</span><span class="p">())</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p>Results:</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Iterations</th>
+<th>Time per op (ns)</th>
+<th>Bytes per op</th>
+<th>Allocs per op</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BenchmarkWriteNotBuffered-14</td>
+<td>49</td>
+<td>23,672,792</td>
+<td>53,773</td>
+<td>10,007</td>
+</tr>
+<tr>
+<td>BenchmarkWriteBuffered-14</td>
+<td>3241</td>
+<td>379,703</td>
+<td>70,127</td>
+<td>10,008</td>
+</tr>
+</tbody>
+</table>
+<h2 id="when-to-buffer">When To Buffer</h2>
+<p><span class="twemoji"><svg viewbox="0 0 24 24"><path d="M20 12a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8c.76 0 1.5.11 2.2.31l1.57-1.57A9.8 9.8 0 0 0 12 2 10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10M7.91 10.08 6.5 11.5 11 16 21 6l-1.41-1.42L11 13.17z"/></svg></span> Use buffering when:</p>
+<ul>
+<li>Performing frequent, small-sized I/O operations. Buffering groups small writes or reads into larger batches, which reduces the overhead of each individual operation.</li>
+<li>Reducing syscall overhead is crucial. Fewer syscalls mean lower context-switching costs and improved performance, especially in I/O-heavy applications.</li>
+<li>High throughput is more important than minimal latency. Buffered I/O can increase total data processed per second, even if it introduces slight delays in delivery.</li>
+</ul>
+<p><span class="twemoji"><svg viewbox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M448 128H270.4c1 5.2 1.6 10.5 1.6 16v16h176c8.8 0 16-7.2 16-16s-7.2-16-16-16m-224 16c0-17.7-14.3-32-32-32h-24c-66.3 0-120 53.7-120 120v48c0 52.5 33.7 97.1 80.7 113.4-.5-3.1-.7-6.2-.7-9.4 0-20 9.2-37.9 23.6-49.7-4.9-9-7.6-19.4-7.6-30.3 0-15.1 5.3-29 14-40-8.8-11-14-24.9-14-40v-40c0-13.3 10.7-24 24-24s24 10.7 24 24v40c0 8.8 7.2 16 16 16s16-7.2 16-16zm-32-80c18 0 34.6 6 48 16h208c35.3 0 64 28.7 64 64s-28.7 64-64 64h-82c1.3 5.1 2 10.5 2 16 0 25.3-14.7 47.2-36 57.6 2.6 7 4 14.5 4 22.4 0 20-9.2 37.9-23.6 49.7 4.9 9 7.6 19.4 7.6 30.3 0 35.3-28.7 64-64 64h-88C75.2 448 0 372.8 0 280v-48C0 139.2 75.2 64 168 64zm64 336c8.8 0 16-7.2 16-16s-7.2-16-16-16h-64c-8.8 0-16 7.2-16 16s7.2 16 16 16zm16-176c0 5.5-.7 10.9-2 16h34c8.8 0 16-7.2 16-16s-7.2-16-16-16h-32zm-24 64h-40c-8.8 0-16 7.2-16 16s7.2 16 16 16h64c8.8 0 16-7.2 16-16s-7.2-16-16-16z"/></svg></span> Avoid buffering when:</p>
+<ul>
+<li>Immediate data availability and low latency are critical. Buffers introduce delays by design, which can be unacceptable in real-time or interactive systems.</li>
+<li>Buffering excessively might lead to uncontrolled memory usage. Without limits or proper flushing, buffers can grow large and put pressure on system memory.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

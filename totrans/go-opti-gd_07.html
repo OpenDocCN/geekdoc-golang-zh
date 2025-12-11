@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Zero-Copy Techniques</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Zero-Copy Techniques</h1>
+<blockquote>原文：<a href="https://goperf.dev/01-common-patterns/zero-copy/">https://goperf.dev/01-common-patterns/zero-copy/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>When writing performance-critical Go code, how memory is managed often has a bigger impact than it first appears. Zero-copy techniques are one of the more effective ways to tighten that control. Instead of moving bytes from buffer to buffer, these techniques work directly on existing memory—avoiding copies altogether. That means less pressure on the CPU, better cache behavior, and fewer GC-triggered pauses. For I/O-heavy systems—whether you’re streaming files, handling network traffic, or parsing large datasets—this can translate into much higher throughput and lower latency without adding complexity.</p>
+<h2 id="understanding-zero-copy">Understanding Zero-Copy</h2>
+<p>In the usual I/O path, data moves back and forth between user space and kernel space—first copied into a kernel buffer, then into your application’s buffer, or the other way around. It works, but it’s wasteful. Every copy burns CPU cycles and clogs up memory bandwidth. Zero-copy changes that. Instead of bouncing data between buffers, it lets applications work directly with what’s already in place—no detours, no extra copies. The result? Lower CPU load, better use of memory, and faster I/O, especially when throughput or latency actually matter.</p>
+<h2 id="common-zero-copy-techniques-in-go">Common Zero-Copy Techniques in Go</h2>
+<h3 id="using-ioreader-and-iowriter-interfaces">Using <code>io.Reader</code> and <code>io.Writer</code> Interfaces</h3>
+<p>Using interfaces like <code>io.Reader</code> and <code>io.Writer</code> gives you fine-grained control over how data flows. Instead of spinning up new buffers every time, you can reuse existing ones and keep memory usage steady. In practice, this avoids unnecessary garbage collection pressure and keeps your I/O paths clean and efficient—especially when you’re dealing with high-throughput or streaming workloads.</p>
+<div class="highlight"><pre><span/><code><span class="kd">func</span><span class="w"> </span><span class="nx">StreamData</span><span class="p">(</span><span class="nx">src</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">,</span><span class="w"> </span><span class="nx">dst</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">4096</span><span class="p">)</span><span class="w"> </span><span class="c1">// Reusable buffer</span>
+<span class="w">    </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">CopyBuffer</span><span class="p">(</span><span class="nx">dst</span><span class="p">,</span><span class="w"> </span><span class="nx">src</span><span class="p">,</span><span class="w"> </span><span class="nx">buf</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>io.CopyBuffer</code> reuses a provided buffer, avoiding repeated allocations and intermediate copies. An in-depth <code>io.CopyBuffer</code> explanation is <a href="https://stackoverflow.com/questions/71082021/what-exactly-is-buffer-last-parameter-in-io-copybuffer">available on SO</a>.</p>
+<h3 id="slicing-for-efficient-data-access">Slicing for Efficient Data Access</h3>
+<p>Slicing large byte arrays or buffers instead of copying data into new slices is a powerful zero-copy strategy:</p>
+<div class="highlight"><pre><span/><code><span class="kd">func</span><span class="w"> </span><span class="nx">process</span><span class="p">(</span><span class="nx">buffer</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">:</span><span class="mi">256</span><span class="p">]</span><span class="w"> </span><span class="c1">// returns a slice reference without copying</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Slices in Go are inherently zero-copy since they reference the underlying array.</p>
+<h3 id="memory-mapping-mmap">Memory Mapping (<code>mmap</code>)</h3>
+<p>Using memory mapping enables direct access to file contents without explicit read operations:</p>
+<div class="highlight"><pre><span/><code><span class="kn">import</span><span class="w"> </span><span class="s">"golang.org/x/exp/mmap"</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">ReadFileZeroCopy</span><span class="p">(</span><span class="nx">path</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mmap</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">path</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+<span class="w">    </span><span class="nx">data</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Len</span><span class="p">())</span>
+<span class="w">    </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">ReadAt</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This approach maps file contents directly into memory, entirely eliminating copying between kernel and user-space.</p>
+<h2 id="benchmarking-impact">Benchmarking Impact</h2>
+<p>Here's a basic benchmark illustrating performance differences between explicit copying and zero-copy slicing:</p>
+<div class="highlight"><pre><span/><code><span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkCopy</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">data</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
+<span class="w">        </span><span class="nb">copy</span><span class="p">(</span><span class="nx">buf</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkSlice</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">data</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">data</span><span class="p">[:]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In <code>BenchmarkCopy</code>, each iteration copies a 64KB buffer into a fresh slice—allocating memory and duplicating data every time. That cost adds up fast. <code>BenchmarkSlice</code>, on the other hand, just re-slices the same buffer—no allocation, no copying, just new view on the same data. The difference is night and day. When performance matters, avoiding copies isn’t just a micro-optimization—it’s fundamental.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>These two functions are not equivalent in behavior—<code>BenchmarkCopy</code> makes an actual deep copy of the buffer, while <code>BenchmarkSlice</code> only creates a new slice header pointing to the same underlying data. This benchmark is not comparing functional correctness but is intentionally contrasting performance characteristics to highlight the cost of unnecessary copying.</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Time per op (ns)</th>
+<th>Bytes per op</th>
+<th>Allocs per op</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BenchmarkCopy</td>
+<td>4,246</td>
+<td>65536</td>
+<td>1</td>
+</tr>
+<tr>
+<td>BenchmarkSlice</td>
+<td>0.592</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="file-io-memory-mapping-vs-standard-read">File I/O: Memory Mapping vs. Standard Read</h3>
+<p>We also benchmarked file reading performance using <code>os.ReadAt</code> versus <code>mmap.Open</code> for a 4MB binary file.</p>
+<div class="highlight"><pre><span/><code><span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkReadWithCopy</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">f</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">"testdata/largefile.bin"</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">b</span><span class="p">.</span><span class="nx">Fatalf</span><span class="p">(</span><span class="s">"failed to open file: %v"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+<span class="w">    </span><span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">)</span><span class="w"> </span><span class="c1">// 4MB buffer</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">f</span><span class="p">.</span><span class="nx">ReadAt</span><span class="p">(</span><span class="nx">buf</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">b</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkReadWithMmap</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">r</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">mmap</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="s">"testdata/largefile.bin"</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">b</span><span class="p">.</span><span class="nx">Fatalf</span><span class="p">(</span><span class="s">"failed to mmap file: %v"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+<span class="w">    </span><span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Len</span><span class="p">())</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">ReadAt</span><span class="p">(</span><span class="nx">buf</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">b</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<details class="info">
+<summary>How to run the benchmark</summary>
+<p>To run the benchmark involving <code>mmap</code>, you’ll need to install the required package and create a test file:</p>
+<div class="highlight"><pre><span/><code>go<span class="w"> </span>get<span class="w"> </span>golang.org/x/exp/mmap
+mkdir<span class="w"> </span>-p<span class="w"> </span>testdata
+dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/urandom<span class="w"> </span><span class="nv">of</span><span class="o">=</span>./testdata/largefile.bin<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>1M<span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="m">4</span>
+</code></pre></div>
+</details>
+<p>Benchmark Results</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Time per op (ns)</th>
+<th>Bytes per op</th>
+<th>Allocs per op</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReadWithCopy</td>
+<td>94,650</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>ReadWithMmap</td>
+<td>50,082</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>The memory-mapped version (<code>mmap</code>) is nearly 2× faster than the standard read call. This illustrates how zero-copy access through memory mapping can substantially reduce read latency and CPU usage for large files.</p>
+<details class="example">
+<summary>Show the complete benchmark file</summary>
+<div class="highlight"><pre><span/><code><span class="kn">package</span><span class="w"> </span><span class="nx">perf</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="s">"testing"</span>
+
+
+<span class="c1">// interface-start</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Worker</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Work</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">LargeJob</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">payload</span><span class="w"> </span><span class="p">[</span><span class="mi">4096</span><span class="p">]</span><span class="kt">byte</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">LargeJob</span><span class="p">)</span><span class="w"> </span><span class="nx">Work</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="c1">// interface-end</span>
+
+<span class="c1">// bench-slice-start</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkBoxedLargeSlice</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="nx">Worker</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">jobs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">jobs</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">job</span><span class="w"> </span><span class="nx">LargeJob</span>
+<span class="w">            </span><span class="nx">jobs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">jobs</span><span class="p">,</span><span class="w"> </span><span class="nx">job</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkPointerLargeSlice</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="nx">Worker</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">jobs</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">job</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">LargeJob</span><span class="p">{}</span>
+<span class="w">            </span><span class="nx">jobs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">jobs</span><span class="p">,</span><span class="w"> </span><span class="nx">job</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// bench-slice-end</span>
+
+<span class="c1">// bench-call-start</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">sink</span><span class="w"> </span><span class="nx">Worker</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">call</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">Worker</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">sink</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">w</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkCallWithValue</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="nx">LargeJob</span>
+<span class="w">        </span><span class="nx">call</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkCallWithPointer</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">LargeJob</span><span class="p">{}</span>
+<span class="w">        </span><span class="nx">call</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// bench-call-end</span>
+</code></pre></div>
+</details>
+<h2 id="when-to-use-zero-copy">When to Use Zero-Copy</h2>
+<p><span class="twemoji"><svg viewbox="0 0 24 24"><path d="M20 12a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8c.76 0 1.5.11 2.2.31l1.57-1.57A9.8 9.8 0 0 0 12 2 10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10M7.91 10.08 6.5 11.5 11 16 21 6l-1.41-1.42L11 13.17z"/></svg></span> Zero-copy techniques are highly beneficial for:</p>
+<ul>
+<li>Network servers handling large amounts of concurrent data streams. Avoiding unnecessary memory copies helps reduce CPU usage and latency, especially under high load.</li>
+<li>Applications with heavy I/O operations like file streaming or real-time data processing. Zero-copy allows data to move through the system efficiently without redundant allocations or copies.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><span class="twemoji"><svg viewbox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M448 128H270.4c1 5.2 1.6 10.5 1.6 16v16h176c8.8 0 16-7.2 16-16s-7.2-16-16-16m-224 16c0-17.7-14.3-32-32-32h-24c-66.3 0-120 53.7-120 120v48c0 52.5 33.7 97.1 80.7 113.4-.5-3.1-.7-6.2-.7-9.4 0-20 9.2-37.9 23.6-49.7-4.9-9-7.6-19.4-7.6-30.3 0-15.1 5.3-29 14-40-8.8-11-14-24.9-14-40v-40c0-13.3 10.7-24 24-24s24 10.7 24 24v40c0 8.8 7.2 16 16 16s16-7.2 16-16zm-32-80c18 0 34.6 6 48 16h208c35.3 0 64 28.7 64 64s-28.7 64-64 64h-82c1.3 5.1 2 10.5 2 16 0 25.3-14.7 47.2-36 57.6 2.6 7 4 14.5 4 22.4 0 20-9.2 37.9-23.6 49.7 4.9 9 7.6 19.4 7.6 30.3 0 35.3-28.7 64-64 64h-88C75.2 448 0 372.8 0 280v-48C0 139.2 75.2 64 168 64zm64 336c8.8 0 16-7.2 16-16s-7.2-16-16-16h-64c-8.8 0-16 7.2-16 16s7.2 16 16 16zm16-176c0 5.5-.7 10.9-2 16h34c8.8 0 16-7.2 16-16s-7.2-16-16-16h-32zm-24 64h-40c-8.8 0-16 7.2-16 16s7.2 16 16 16h64c8.8 0 16-7.2 16-16s-7.2-16-16-16z"/></svg></span> Zero-copy isn’t a free win. Slices share underlying memory, so reusing them means you’re also sharing state. If one part of your code changes the data while another is still reading it, you’re setting yourself up for subtle, hard-to-track bugs. This kind of shared memory requires discipline—clear ownership and tight control. It also adds complexity, which might not be worth it unless the performance gains are real and measurable. Always benchmark before committing to it.</p>
+</div>
+<h3 id="real-world-use-cases-and-libraries">Real-World Use Cases and Libraries</h3>
+<p>Zero-copy strategies aren't just theoretical—they're used in production by performance-critical Go systems:</p>
+<ul>
+<li><a href="https://github.com/valyala/fasthttp">fasthttp</a>: A high-performance HTTP server designed to avoid allocations. It returns slices directly and avoids <code>string</code> conversions to minimize copying.</li>
+<li><a href="https://github.com/grpc/grpc-go">gRPC-Go</a>: Uses internal buffer pools and avoids deep copying of large request/response messages to reduce GC pressure.</li>
+<li><a href="https://github.com/minio/minio">MinIO</a>: An object storage system that streams data directly between disk and network using <code>io.Reader</code> without unnecessary buffer replication.</li>
+<li><a href="https://github.com/protocolbuffers/protobuf">Protobuf</a> and <a href="https://github.com/vmihailenco/msgpack">MsgPack</a> libraries: Efficient serialization frameworks like <code>google.golang.org/protobuf</code> and <code>vmihailenco/msgpack</code> support decoding directly into user-managed buffers.</li>
+<li><a href="https://github.com/influxdata/influxdb">InfluxDB</a> and <a href="https://github.com/hypermodeinc/badger">Badger</a>: These storage engines use <code>mmap</code> extensively for fast, zero-copy access to database files.</li>
+</ul>
+<p>These libraries show how zero-copy techniques help reduce allocations, GC overhead, and system call frequency—all while increasing throughput.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

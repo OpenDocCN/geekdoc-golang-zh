@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Object Pooling</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Object Pooling</h1>
+<blockquote>原文：<a href="https://goperf.dev/01-common-patterns/object-pooling/">https://goperf.dev/01-common-patterns/object-pooling/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>Object pooling helps reduce allocation churn in high-throughput Go programs by reusing objects instead of allocating fresh ones each time. This avoids repeated work for the allocator and eases pressure on the garbage collector, especially when dealing with short-lived or frequently reused structures.</p>
+<p>Go’s <code>sync.Pool</code> provides a built-in way to implement pooling with minimal code. It’s particularly effective for objects that are expensive to allocate or that would otherwise contribute to frequent garbage collection cycles. While not a silver bullet, it’s a low-friction tool that can lead to noticeable gains in latency and CPU efficiency under sustained load.</p>
+<h2 id="how-object-pooling-works">How Object Pooling Works</h2>
+<p>Object pooling allows programs to reuse memory by recycling previously allocated objects instead of creating new ones on every use. Rather than hitting the heap each time, objects are retrieved from a shared pool and returned once they’re no longer needed. This reduces the number of allocations, cuts down on garbage collection workload, and leads to more predictable performance—especially in workloads with high object churn or tight latency requirements.</p>
+<h3 id="using-syncpool-for-object-reuse">Using <code>sync.Pool</code> for Object Reuse</h3>
+<h4 id="without-object-pooling-inefficient-memory-usage">Without Object Pooling (Inefficient Memory Usage)</h4>
+<div class="highlight"><pre><span/><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">"fmt"</span>
+<span class="p">)</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Data</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Value</span><span class="w"> </span><span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">createData</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">Data</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Data</span><span class="p">{</span><span class="nx">Value</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000000</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">obj</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">createData</span><span class="p">()</span><span class="w"> </span><span class="c1">// Allocating a new object every time</span>
+<span class="w">        </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">obj</span><span class="w"> </span><span class="c1">// Simulate usage</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Done"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In the above example, every iteration creates a new <code>Data</code> instance, leading to unnecessary allocations and increased GC pressure.</p>
+<h4 id="with-object-pooling-optimized-memory-usage">With Object Pooling (Optimized Memory Usage)</h4>
+<div class="highlight"><pre><span/><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">"fmt"</span>
+<span class="w">    </span><span class="s">"sync"</span>
+<span class="p">)</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Data</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Value</span><span class="w"> </span><span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">dataPool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">New</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kt">any</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Data</span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000000</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">obj</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dataPool</span><span class="p">.</span><span class="nx">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">Data</span><span class="p">)</span><span class="w"> </span><span class="c1">// Retrieve from pool</span>
+<span class="w">        </span><span class="nx">obj</span><span class="p">.</span><span class="nx">Value</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="c1">// Use the object</span>
+<span class="w">        </span><span class="nx">dataPool</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span><span class="w"> </span><span class="c1">// Return object to pool for reuse</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Done"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="pooling-byte-buffers-for-efficient-io">Pooling Byte Buffers for Efficient I/O</h3>
+<p>Object pooling is especially effective when working with large byte slices that would otherwise lead to high allocation and garbage collection overhead.</p>
+<div class="highlight"><pre><span/><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">"bytes"</span>
+<span class="w">    </span><span class="s">"fmt"</span>
+<span class="w">    </span><span class="s">"sync"</span>
+<span class="p">)</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">bufferPool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">New</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kt">any</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">)</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufferPool</span><span class="p">.</span><span class="nx">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">Buffer</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">buf</span><span class="p">.</span><span class="nx">Reset</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">buf</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="s">"Hello, pooled world!"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">String</span><span class="p">())</span>
+<span class="w">    </span><span class="nx">bufferPool</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span><span class="w"> </span><span class="c1">// Return buffer to pool for reuse</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Using <code>sync.Pool</code> for byte buffers significantly reduces memory pressure when dealing with high-frequency I/O operations.</p>
+<h2 id="benchmarking-impact">Benchmarking Impact</h2>
+<p>To prove that object pooling actually reduces allocations and improves speed, we can use Go's built-in memory profiling tools (<code>pprof</code>) and compare memory allocations between the non-pooled and pooled versions. Simulating a full-scale application that actively uses memory for benchmarking is challenging, so we need a controlled test to evaluate direct heap allocations versus pooled allocations.</p>
+<details class="example">
+<summary>Show the benchmark file</summary>
+<div class="highlight"><pre><span/><code><span class="kn">package</span><span class="w"> </span><span class="nx">perf</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">"sync"</span>
+<span class="w">    </span><span class="s">"testing"</span>
+<span class="p">)</span>
+
+<span class="c1">// Data is a struct with a large fixed-size array to simulate a memory-intensive object.</span>
+<span class="kd">type</span><span class="w"> </span><span class="nx">Data</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Values</span><span class="w"> </span><span class="p">[</span><span class="mi">1024</span><span class="p">]</span><span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="c1">// BenchmarkWithoutPooling measures the performance of direct heap allocations.</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkWithoutPooling</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">data</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Data</span><span class="p">{}</span><span class="w">      </span><span class="c1">// Allocating a new object each time</span>
+<span class="w">        </span><span class="nx">data</span><span class="p">.</span><span class="nx">Values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">42</span><span class="w">  </span><span class="c1">// Simulating some memory activity</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// dataPool is a sync.Pool that reuses instances of Data to reduce memory allocations.</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">dataPool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">New</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kt">any</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Data</span><span class="p">{}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1">// BenchmarkWithPooling measures the performance of using sync.Pool to reuse objects.</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkWithPooling</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">obj</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">dataPool</span><span class="p">.</span><span class="nx">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">Data</span><span class="p">)</span><span class="w"> </span><span class="c1">// Retrieve from pool</span>
+<span class="w">        </span><span class="nx">obj</span><span class="p">.</span><span class="nx">Values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">42</span><span class="w">            </span><span class="c1">// Simulate memory usage</span>
+<span class="w">        </span><span class="nx">dataPool</span><span class="p">.</span><span class="nx">Put</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span><span class="w">             </span><span class="c1">// Return object to pool for reuse</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Iterations</th>
+<th>Time per op (ns)</th>
+<th>Bytes per op</th>
+<th>Allocs per op</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BenchmarkWithoutPooling-14</td>
+<td>1,692,014</td>
+<td>705.4</td>
+<td>8,192</td>
+<td>1</td>
+</tr>
+<tr>
+<td>BenchmarkWithPooling-14</td>
+<td>160,440,506</td>
+<td>7.455</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>The benchmark results highlight the contrast in performance and memory usage between direct allocations and object pooling. In <code>BenchmarkWithoutPooling</code>, each iteration creates a new object on the heap, leading to higher execution time and increased memory consumption. This constant allocation pressure triggers more frequent garbage collection, which adds latency and reduces throughput. The presence of nonzero allocation counts per operation confirms that each iteration contributes to GC load, making this approach less efficient in high-throughput scenarios.</p>
+<h2 id="when-should-you-use-syncpool">When Should You Use <code>sync.Pool</code>?</h2>
+<p><span class="twemoji"><svg viewbox="0 0 24 24"><path d="M20 12a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8c.76 0 1.5.11 2.2.31l1.57-1.57A9.8 9.8 0 0 0 12 2 10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10M7.91 10.08 6.5 11.5 11 16 21 6l-1.41-1.42L11 13.17z"/></svg></span> Use sync.Pool when:</p>
+<ul>
+<li>You have short-lived, reusable objects (e.g., buffers, scratch memory, request state). Pooling avoids repeated allocations and lets you recycle memory efficiently.</li>
+<li>Allocation overhead or GC churn is measurable and significant. Reusing objects reduces the number of heap allocations, which in turn lowers garbage collection frequency and pause times.</li>
+<li>The object’s lifecycle is local and can be reset between uses. When objects don’t need complex teardown and are safe to reuse after a simple reset, pooling is straightforward and effective.</li>
+<li>You want to reduce pressure on the garbage collector in high-throughput systems. In systems handling thousands of requests per second, pooling helps maintain consistent performance and minimizes GC-related latency spikes.</li>
+</ul>
+<p><span class="twemoji"><svg viewbox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M448 128H270.4c1 5.2 1.6 10.5 1.6 16v16h176c8.8 0 16-7.2 16-16s-7.2-16-16-16m-224 16c0-17.7-14.3-32-32-32h-24c-66.3 0-120 53.7-120 120v48c0 52.5 33.7 97.1 80.7 113.4-.5-3.1-.7-6.2-.7-9.4 0-20 9.2-37.9 23.6-49.7-4.9-9-7.6-19.4-7.6-30.3 0-15.1 5.3-29 14-40-8.8-11-14-24.9-14-40v-40c0-13.3 10.7-24 24-24s24 10.7 24 24v40c0 8.8 7.2 16 16 16s16-7.2 16-16zm-32-80c18 0 34.6 6 48 16h208c35.3 0 64 28.7 64 64s-28.7 64-64 64h-82c1.3 5.1 2 10.5 2 16 0 25.3-14.7 47.2-36 57.6 2.6 7 4 14.5 4 22.4 0 20-9.2 37.9-23.6 49.7 4.9 9 7.6 19.4 7.6 30.3 0 35.3-28.7 64-64 64h-88C75.2 448 0 372.8 0 280v-48C0 139.2 75.2 64 168 64zm64 336c8.8 0 16-7.2 16-16s-7.2-16-16-16h-64c-8.8 0-16 7.2-16 16s7.2 16 16 16zm16-176c0 5.5-.7 10.9-2 16h34c8.8 0 16-7.2 16-16s-7.2-16-16-16h-32zm-24 64h-40c-8.8 0-16 7.2-16 16s7.2 16 16 16h64c8.8 0 16-7.2 16-16s-7.2-16-16-16z"/></svg></span> Avoid sync.Pool when:</p>
+<ul>
+<li>Objects are long-lived or shared across multiple goroutines. <code>sync.Pool</code> is optimized for short-lived, single-use objects and doesn’t manage shared ownership or coordination.</li>
+<li>The reuse rate is low and pooled objects are not frequently accessed. If objects sit idle in the pool, you gain little benefit and may even waste memory.</li>
+<li>Predictability or lifecycle control is more important than allocation speed. Pooling makes lifecycle tracking harder and may not be worth the tradeoff.</li>
+<li>Memory savings are negligible or code complexity increases significantly. If pooling doesn’t provide clear benefits, it can add unnecessary complexity to otherwise simple code.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

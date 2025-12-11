@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Avoiding Interface Boxing</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Avoiding Interface Boxing</h1>
+<blockquote>原文：<a href="https://goperf.dev/01-common-patterns/interface-boxing/">https://goperf.dev/01-common-patterns/interface-boxing/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>Go’s interfaces make it easy to write flexible, decoupled code. But behind that convenience is a detail that can trip up performance: when a concrete value is assigned to an interface, Go wraps it in a hidden structure—a process called interface boxing.</p>
+<p>In many cases, boxing is harmless. But in performance-sensitive code—like tight loops, hot paths, or high-throughput services—it can introduce hidden heap allocations, extra memory copying, and added pressure on the garbage collector. These effects often go unnoticed during development, only showing up later as latency spikes or memory bloat.</p>
+<h2 id="what-is-interface-boxing">What is Interface Boxing?</h2>
+<p>Interface boxing refers to the process of converting a concrete value to an interface type. In Go, an interface value is internally represented as two words:</p>
+<ul>
+<li>A <strong>type descriptor</strong>, which holds information about the concrete type (its identity and method set).</li>
+<li>A <strong>data pointer</strong>, which points to the actual value being stored.</li>
+</ul>
+<p>When you assign a value to an interface variable, Go creates this two-part structure. If the value is a non-pointer type—like a struct or primitive—and is not already on the heap, Go <strong>may</strong> allocate a copy of it on the heap to satisfy the interface assignment. This behavior is especially relevant when working with large values or when storing items in a slice of interfaces, where each element gets individually boxed. These implicit allocations can add up and are a common source of hidden memory pressure in Go programs.</p>
+<p>Here’s a simple example:</p>
+<div class="highlight"><pre><span/><code><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span>
+<span class="nx">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">42</span>
+</code></pre></div>
+<p>In this case, the integer <code>42</code> is boxed into an interface: Go stores the type information (<code>int</code>) and a copy of the value <code>42</code>. This is inexpensive for small values like <code>int</code>, but for large structs, the cost becomes non-trivial.</p>
+<p>Another example:</p>
+<div class="highlight"><pre><span/><code><span class="kd">type</span><span class="w"> </span><span class="nx">Shape</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Area</span><span class="p">()</span><span class="w"> </span><span class="kt">float64</span>
+<span class="p">}</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Square</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Size</span><span class="w"> </span><span class="kt">float64</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="nx">Square</span><span class="p">)</span><span class="w"> </span><span class="nx">Area</span><span class="p">()</span><span class="w"> </span><span class="kt">float64</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">Size</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">Size</span><span class="w"> </span><span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">shapes</span><span class="w"> </span><span class="p">[]</span><span class="nx">Shape</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Square</span><span class="p">{</span><span class="nx">Size</span><span class="p">:</span><span class="w"> </span><span class="nb">float64</span><span class="p">(</span><span class="nx">i</span><span class="p">)}</span>
+<span class="w">        </span><span class="nx">shapes</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">shapes</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">)</span><span class="w"> </span><span class="c1">// boxing occurs here</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Pay attention to this code!</strong> In this example, even though <code>shapes</code> is a slice of interfaces, each <code>Square</code> value is copied into an interface when appended to <code>shapes</code>. If <code>Square</code> were a large struct, this would introduce 1000 allocations and large memory copying.</p>
+</div>
+<p>To avoid that, you could pass pointers:</p>
+<div class="highlight"><pre><span/><code><span class="w">        </span><span class="nx">shapes</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">shapes</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">s</span><span class="p">)</span><span class="w"> </span><span class="c1">// avoids large struct copy</span>
+</code></pre></div>
+<p>This way, only an 8-byte pointer is stored in the interface, reducing both allocation size and copying overhead.</p>
+<h2 id="why-it-matters">Why It Matters</h2>
+<p>In tight loops or high-throughput paths, such as unmarshalling JSON, rendering templates, or processing large collections, interface boxing can degrade performance by triggering unnecessary heap allocations and increasing GC pressure. This overhead is especially costly in systems with high concurrency or real-time responsiveness constraints.</p>
+<p>Boxing can also make profiling and benchmarking misleading, since allocations attributed to innocuous-looking lines may actually stem from implicit conversions to interfaces.</p>
+<h2 id="benchmarking-impact">Benchmarking Impact</h2>
+<p>For the benchmarking we will define an interface and a struct with a significant payload that implements the interface.</p>
+<div class="highlight"><pre><span/><code><span class="kd">type</span><span class="w"> </span><span class="nx">Worker</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Work</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">LargeJob</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">payload</span><span class="w"> </span><span class="p">[</span><span class="mi">4096</span><span class="p">]</span><span class="kt">byte</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">LargeJob</span><span class="p">)</span><span class="w"> </span><span class="nx">Work</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+<h3 id="boxing-large-structs">Boxing Large Structs</h3>
+<p>To demonstrate the real impact of boxing large values vs. pointers, we benchmarked the cost of assigning 1,000 large structs to an interface slice:</p>
+<div class="highlight"><pre><span/><code><span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkBoxedLargeSlice</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="nx">Worker</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">jobs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">jobs</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">job</span><span class="w"> </span><span class="nx">LargeJob</span>
+<span class="w">            </span><span class="nx">jobs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">jobs</span><span class="p">,</span><span class="w"> </span><span class="nx">job</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkPointerLargeSlice</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="nx">Worker</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">jobs</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">job</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">LargeJob</span><span class="p">{}</span>
+<span class="w">            </span><span class="nx">jobs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">jobs</span><span class="p">,</span><span class="w"> </span><span class="nx">job</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Benchmark Results</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Time per op (ns)</th>
+<th>Bytes per op</th>
+<th>Allocs per op</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BoxedLargeSliceGrowth</td>
+<td>404,649</td>
+<td>~4.13 MB</td>
+<td>1011</td>
+</tr>
+<tr>
+<td>PointerLargeSliceGrowth</td>
+<td>340,549</td>
+<td>~4.13 MB</td>
+<td>1011</td>
+</tr>
+</tbody>
+</table>
+<p>Boxing large values is significantly slower—about 19% in this case—due to the cost of copying the entire 4KB struct for each interface assignment. Boxing a pointer, however, avoids that cost and keeps the copy small (just 8 bytes). While both approaches allocate the same overall memory (since all values escape to the heap), pointer boxing has clear performance advantages under pressure.</p>
+<h3 id="passing-to-a-function-that-accepts-an-interface">Passing to a Function That Accepts an Interface</h3>
+<p>Another common source of boxing is when a large value is passed directly to a function that accepts an interface. Even without storing to a slice, boxing will occur at the call site.</p>
+<div class="highlight"><pre><span/><code><span class="kd">var</span><span class="w"> </span><span class="nx">sink</span><span class="w"> </span><span class="nx">Worker</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">call</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">Worker</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">sink</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">w</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkCallWithValue</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="nx">LargeJob</span>
+<span class="w">        </span><span class="nx">call</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkCallWithPointer</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">LargeJob</span><span class="p">{}</span>
+<span class="w">        </span><span class="nx">call</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Benchmark Results</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>ns/op</th>
+<th>B/op</th>
+<th>allocs/op</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CallWithValue</td>
+<td>422.5</td>
+<td>4096</td>
+<td>1</td>
+</tr>
+<tr>
+<td>CallWithPointer</td>
+<td>379.9</td>
+<td>4096</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Passing a value to a function expecting an interface causes boxing, copying the full struct and allocating it on the heap. In our benchmark, this results in approximately 11% higher CPU cost compared to using a pointer. Passing a pointer avoids copying the struct, reduces memory movement, and results in smaller, more cache-friendly interface values, making it the more efficient choice in performance-sensitive scenarios.</p>
+<details class="example">
+<summary>Show the complete benchmark file</summary>
+<div class="highlight"><pre><span/><code><span class="kn">package</span><span class="w"> </span><span class="nx">perf</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="s">"testing"</span>
+
+
+<span class="c1">// interface-start</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Worker</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Work</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">LargeJob</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">payload</span><span class="w"> </span><span class="p">[</span><span class="mi">4096</span><span class="p">]</span><span class="kt">byte</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">LargeJob</span><span class="p">)</span><span class="w"> </span><span class="nx">Work</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span>
+<span class="c1">// interface-end</span>
+
+<span class="c1">// bench-slice-start</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkBoxedLargeSlice</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="nx">Worker</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">jobs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">jobs</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">job</span><span class="w"> </span><span class="nx">LargeJob</span>
+<span class="w">            </span><span class="nx">jobs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">jobs</span><span class="p">,</span><span class="w"> </span><span class="nx">job</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkPointerLargeSlice</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="nx">Worker</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">jobs</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">job</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">LargeJob</span><span class="p">{}</span>
+<span class="w">            </span><span class="nx">jobs</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">jobs</span><span class="p">,</span><span class="w"> </span><span class="nx">job</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// bench-slice-end</span>
+
+<span class="c1">// bench-call-start</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">sink</span><span class="w"> </span><span class="nx">Worker</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">call</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">Worker</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">sink</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">w</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkCallWithValue</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="nx">LargeJob</span>
+<span class="w">        </span><span class="nx">call</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkCallWithPointer</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">LargeJob</span><span class="p">{}</span>
+<span class="w">        </span><span class="nx">call</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// bench-call-end</span>
+</code></pre></div>
+</details>
+<h2 id="when-interface-boxing-is-acceptable">When Interface Boxing Is Acceptable</h2>
+<p>Despite its performance implications in some contexts, interface boxing is often perfectly reasonable—and sometimes preferred.</p>
+<h3 id="when-abstraction-is-more-important-than-performance">When abstraction is more important than performance</h3>
+<p>Interfaces enable decoupling and modularity. If you're designing a clean, testable API, the cost of boxing is negligible compared to the benefit of abstraction.</p>
+<div class="highlight"><pre><span/><code><span class="kd">type</span><span class="w"> </span><span class="nx">Storage</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Save</span><span class="p">([]</span><span class="kt">byte</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span>
+<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">Process</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="nx">Storage</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h3 id="when-values-are-small-and-boxing-is-allocation-free">When values are small and boxing is allocation-free</h3>
+<p>Boxing small, copyable values like <code>int</code>, <code>float64</code>, or small structs typically causes no allocations.</p>
+<div class="highlight"><pre><span/><code><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span>
+<span class="nx">i</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">123</span><span class="w"> </span><span class="c1">// safe and cheap</span>
+</code></pre></div>
+<h3 id="when-values-are-short-lived">When values are short-lived</h3>
+<p>If the boxed value is used briefly (e.g. for logging or interface-based sorting), the overhead is minimal.</p>
+<div class="highlight"><pre><span/><code><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"value:"</span><span class="p">,</span><span class="w"> </span><span class="nx">someStruct</span><span class="p">)</span><span class="w"> </span><span class="c1">// implicit boxing is fine</span>
+</code></pre></div>
+<h3 id="when-dynamic-behavior-is-required">When dynamic behavior is required</h3>
+<p>Interfaces allow runtime polymorphism. If you need different types to implement the same behavior, boxing is necessary and idiomatic.</p>
+<div class="highlight"><pre><span/><code><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="p">[]</span><span class="nx">Shape</span><span class="p">{</span><span class="nx">Circle</span><span class="p">{},</span><span class="w"> </span><span class="nx">Square</span><span class="p">{}}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">Area</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Use boxing when it supports clarity, reusability, or design goals—and avoid it only in performance-critical code paths.</p>
+<h2 id="how-to-avoid-interface-boxing">How to Avoid Interface Boxing</h2>
+<ul>
+<li>Use pointers when assigning to interfaces. If the method set requires a pointer receiver or the value is large, explicitly pass a pointer to avoid repeated copying and heap allocation.
+    <div class="highlight"><pre><span/><code><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">tasks</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">result</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">tasks</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span><span class="w"> </span><span class="c1">// Avoids boxing copies</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>Avoid interfaces in hot paths. If the concrete type is known and stable, avoid interface indirection entirely—especially in compute-intensive or allocation-sensitive functions.</li>
+<li>Use type-specific containers. Instead of <code>[]interface{}</code>, prefer generic slices or typed collections where feasible. This preserves static typing and reduces unnecessary allocations.</li>
+<li>Benchmark and inspect with pprof. Use <code>go test -bench</code> and <code>pprof</code> to observe where allocations occur. If the allocation site is in <code>runtime.convT2E</code> (convert T to interface), you're likely boxing.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Goroutine Worker Pools in Go</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Goroutine Worker Pools in Go</h1>
+<blockquote>原文：<a href="https://goperf.dev/01-common-patterns/worker-pool/">https://goperf.dev/01-common-patterns/worker-pool/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>Go’s concurrency model makes it deceptively easy to spin up thousands of goroutines—but that ease can come at a cost. Each goroutine starts small, but under load, unbounded concurrency can cause memory usage to spike, context switches to pile up, and overall performance to become unpredictable.</p>
+<p>A worker pool helps apply backpressure by limiting the number of active goroutines. Instead of spawning one per task, a fixed pool handles work in controlled parallelism—keeping memory usage predictable and avoiding overload. This makes it easier to maintain steady performance even as demand scales.</p>
+<h2 id="why-worker-pools-matter">Why Worker Pools Matter</h2>
+<p>While launching a goroutine for every task is idiomatic and often effective, doing so at scale comes with trade-offs. Each goroutine requires stack space and introduces scheduling overhead. Performance can degrade sharply when the number of active goroutines grows, especially in systems handling unbounded input like HTTP requests, jobs from a queue, or tasks from a channel.</p>
+<p>A worker pool maintains a fixed number of goroutines that pull tasks from a shared job queue. This creates a backpressure mechanism, ensuring the system never processes more work concurrently than it can handle. Worker pools are particularly valuable when the cost of each task is predictable, and the overall system throughput needs to be stable.</p>
+<h2 id="basic-worker-pool-implementation">Basic Worker Pool Implementation</h2>
+<p>Here’s a minimal implementation of a worker pool:</p>
+<div class="highlight"><pre><span/><code><span class="kd">func</span><span class="w"> </span><span class="nx">worker</span><span class="p">(</span><span class="nx">id</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">jobs</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="kd">chan</span><span class="o">&lt;-</span><span class="w"> </span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="kt">byte</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">jobs</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">results</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">doWork</span><span class="p">(</span><span class="nx">j</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">doWork</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="kt">byte</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">data</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">"payload-%d"</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">))</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">sha256</span><span class="p">.</span><span class="nx">Sum256</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="w">                  </span><span class="c1">// (1)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">results</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">w</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">w</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="nx">w</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">go</span><span class="w"> </span><span class="nx">worker</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="nx">jobs</span><span class="p">,</span><span class="w"> </span><span class="nx">results</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">jobs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">j</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nb">close</span><span class="p">(</span><span class="nx">jobs</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"> </span><span class="nx">a</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="o">&lt;-</span><span class="nx">results</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ol>
+<li>Cryptography is for illustration purposes of CPU-bound code</li>
+</ol>
+<p>In this example, five workers pull from the <code>jobs</code> channel and push results to the <code>results</code> channel. The worker pool limits concurrency to five tasks at a time, regardless of how many tasks are sent.</p>
+<h3 id="worker-count-and-cpu-cores">Worker Count and CPU Cores</h3>
+<p>The optimal number of workers in a pool is closely tied to the number of CPU cores, which you can obtain in Go using <code>runtime.NumCPU()</code> or <code>runtime.GOMAXPROCS(0)</code>. For CPU-bound tasks—where each worker consumes substantial CPU time—you generally want the number of workers to be equal to or slightly less than the number of logical CPU cores. This ensures maximum core utilization without excessive overhead.</p>
+<p>If your tasks are I/O-bound (e.g., network calls, disk I/O, database queries), the pool size can be larger than the number of cores. This is because workers will spend much of their time blocked, allowing others to run. In contrast, CPU-heavy workloads benefit from a smaller, tightly bounded pool that avoids contention and context switching.</p>
+<h3 id="why-too-many-workers-hurts-performance">Why Too Many Workers Hurts Performance</h3>
+<p>Adding more workers can seem like a straightforward way to boost throughput, but the benefits taper off quickly past a certain point. Once you exceed the system’s optimal level of concurrency, performance often degrades instead of improving.</p>
+<ul>
+<li>Scheduler contention increases as the Go runtime juggles more runnable goroutines than it has logical CPUs to run them.</li>
+<li>Context switching grows more frequent, burning CPU cycles without doing real work.</li>
+<li>Memory pressure rises because each goroutine holds its own stack, even when idle.</li>
+<li>Cache thrashing becomes more likely as goroutines bounce across cores, disrupting locality and degrading CPU cache performance.</li>
+</ul>
+<p>The result: higher latency, increased GC activity, and reduced throughput—the exact opposite of what a properly tuned worker pool is supposed to deliver.</p>
+<h2 id="benchmarking-impact">Benchmarking Impact</h2>
+<p>Worker pools shine in scenarios where the workload is CPU-bound or where concurrency must be capped to avoid saturating a shared resource (e.g., database connections or file descriptors). Benchmarks comparing unbounded goroutine launches vs. worker pools typically show:</p>
+<ul>
+<li>Lower peak memory usage</li>
+<li>More stable response times under load</li>
+<li>Improved CPU cache locality</li>
+</ul>
+<details class="example">
+<summary>Show the benchmark file</summary>
+<div class="highlight"><pre><span/><code><span class="kn">package</span><span class="w"> </span><span class="nx">perf</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="c1">// "log"</span>
+<span class="w">    </span><span class="s">"fmt"</span>
+<span class="w">    </span><span class="c1">// "os"</span>
+<span class="w">    </span><span class="s">"runtime"</span>
+<span class="w">    </span><span class="s">"sync"</span>
+<span class="w">    </span><span class="s">"testing"</span>
+<span class="w">    </span><span class="s">"crypto/sha256"</span>
+<span class="p">)</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">numJobs</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="mi">10000</span>
+<span class="w">    </span><span class="nx">workerCount</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">10</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">doWork</span><span class="p">(</span><span class="nx">n</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="mi">32</span><span class="p">]</span><span class="kt">byte</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">data</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">"payload-%d"</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="p">))</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">sha256</span><span class="p">.</span><span class="nx">Sum256</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkUnboundedGoroutines</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">wg</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+<span class="w">        </span><span class="nx">wg</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="nx">numJobs</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">numJobs</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">job</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">doWork</span><span class="p">(</span><span class="nx">job</span><span class="p">)</span>
+<span class="w">                </span><span class="nx">wg</span><span class="p">.</span><span class="nx">Done</span><span class="p">()</span>
+<span class="w">            </span><span class="p">}(</span><span class="nx">j</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nx">wg</span><span class="p">.</span><span class="nx">Wait</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">worker</span><span class="p">(</span><span class="nx">jobs</span><span class="w"> </span><span class="o">&lt;-</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">wg</span><span class="w"> </span><span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">job</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">jobs</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">doWork</span><span class="p">(</span><span class="nx">job</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">wg</span><span class="p">.</span><span class="nx">Done</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">BenchmarkWorkerPool</span><span class="p">(</span><span class="nx">b</span><span class="w"> </span><span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">b</span><span class="p">.</span><span class="nx">Loop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">wg</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+<span class="w">        </span><span class="nx">wg</span><span class="p">.</span><span class="nx">Add</span><span class="p">(</span><span class="nx">numJobs</span><span class="p">)</span>
+
+<span class="w">        </span><span class="nx">jobs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">numJobs</span><span class="p">)</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">w</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">w</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">workerCount</span><span class="p">;</span><span class="w"> </span><span class="nx">w</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">go</span><span class="w"> </span><span class="nx">worker</span><span class="p">(</span><span class="nx">jobs</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">numJobs</span><span class="p">;</span><span class="w"> </span><span class="nx">j</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">jobs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nx">j</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="nb">close</span><span class="p">(</span><span class="nx">jobs</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">wg</span><span class="p">.</span><span class="nx">Wait</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p>Results:</p>
+<table>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Iterations</th>
+<th>Time per op (ns)</th>
+<th>Bytes per op</th>
+<th>Allocs per op</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BenchmarkUnboundedGoroutines-14</td>
+<td>2,274</td>
+<td>2,499,213 ns</td>
+<td>639,350</td>
+<td>39,754</td>
+</tr>
+<tr>
+<td>BenchmarkWorkerPool-14</td>
+<td>3,325</td>
+<td>1,791,772 ns</td>
+<td>320,707</td>
+<td>19,762</td>
+</tr>
+</tbody>
+</table>
+<p>In our benchmark, each task performed a CPU-intensive operation (e.g., cryptographic hashing, math, or serialization). With <code>workerCount = 10</code> on an Apple M3 Max machine, the worker pool outperformed the unbounded goroutine model by a significant margin, using fewer resources and completing work faster. Increasing the worker count beyond the number of available cores led to worse performance due to contention.</p>
+<h2 id="when-to-use-worker-pools">When To Use Worker Pools</h2>
+<p><span class="twemoji"><svg viewbox="0 0 24 24"><path d="M20 12a8 8 0 0 1-8 8 8 8 0 0 1-8-8 8 8 0 0 1 8-8c.76 0 1.5.11 2.2.31l1.57-1.57A9.8 9.8 0 0 0 12 2 10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10M7.91 10.08 6.5 11.5 11 16 21 6l-1.41-1.42L11 13.17z"/></svg></span> Use a goroutine worker pool when:</p>
+<ul>
+<li>The workload is unbounded or high volume. A pool prevents uncontrolled goroutine growth, which can lead to memory exhaustion, GC pressure, and unpredictable performance.</li>
+<li>Unbounded concurrency risks resource saturation. Capping the number of concurrent workers helps avoid overwhelming the CPU, network, database, or disk I/O—especially under load.</li>
+<li>You need predictable parallelism for stability. Limiting concurrency smooths out performance spikes and keeps system behavior consistent, even during traffic surges.</li>
+<li>Tasks are relatively uniform and queue-friendly. When task cost is consistent, a fixed pool size provides efficient scheduling with minimal overhead, ensuring good throughput without complex coordination.</li>
+</ul>
+<p><span class="twemoji"><svg viewbox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M448 128H270.4c1 5.2 1.6 10.5 1.6 16v16h176c8.8 0 16-7.2 16-16s-7.2-16-16-16m-224 16c0-17.7-14.3-32-32-32h-24c-66.3 0-120 53.7-120 120v48c0 52.5 33.7 97.1 80.7 113.4-.5-3.1-.7-6.2-.7-9.4 0-20 9.2-37.9 23.6-49.7-4.9-9-7.6-19.4-7.6-30.3 0-15.1 5.3-29 14-40-8.8-11-14-24.9-14-40v-40c0-13.3 10.7-24 24-24s24 10.7 24 24v40c0 8.8 7.2 16 16 16s16-7.2 16-16zm-32-80c18 0 34.6 6 48 16h208c35.3 0 64 28.7 64 64s-28.7 64-64 64h-82c1.3 5.1 2 10.5 2 16 0 25.3-14.7 47.2-36 57.6 2.6 7 4 14.5 4 22.4 0 20-9.2 37.9-23.6 49.7 4.9 9 7.6 19.4 7.6 30.3 0 35.3-28.7 64-64 64h-88C75.2 448 0 372.8 0 280v-48C0 139.2 75.2 64 168 64zm64 336c8.8 0 16-7.2 16-16s-7.2-16-16-16h-64c-8.8 0-16 7.2-16 16s7.2 16 16 16zm16-176c0 5.5-.7 10.9-2 16h34c8.8 0 16-7.2 16-16s-7.2-16-16-16h-32zm-24 64h-40c-8.8 0-16 7.2-16 16s7.2 16 16 16h64c8.8 0 16-7.2 16-16s-7.2-16-16-16z"/></svg></span> Avoid a worker pool when:</p>
+<ul>
+<li>Each task must be processed immediately with minimal latency. Queuing in a worker pool introduces delay. For latency-critical tasks, direct goroutine spawning avoids the scheduling overhead.</li>
+<li>You can rely on Go's scheduler for natural load balancing in low-load scenarios. In light workloads, the overhead of managing a pool may outweigh its benefits. Go’s scheduler can often handle lightweight parallelism efficiently on its own.</li>
+<li>Workload volume is small and bounded. Spinning up goroutines directly keeps code simpler for limited, predictable workloads without risking uncontrolled growth.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

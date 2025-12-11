@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Go Networking Internals</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Go Networking Internals</h1>
+<blockquote>原文：<a href="https://goperf.dev/02-networking/networking-internals/">https://goperf.dev/02-networking/networking-internals/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>Go’s networking model is deceptively simple on the surface—spawn a goroutine, accept a connection, read from it, and write a response. But behind this apparent ease is a highly optimized and finely tuned runtime that handles tens or hundreds of thousands of connections with minimal OS overhead. In this deep dive, we’ll walk through the mechanisms that make this possible: from goroutines and the scheduler to how Go interacts with OS-level pollers like <code>epoll</code>, <code>kqueue</code>, and IOCP.</p>
+<h2 id="goroutines-and-the-runtime-scheduler">Goroutines and the Runtime Scheduler</h2>
+<p>Goroutines are lightweight user-space threads managed by the Go runtime. They’re cheap to create (a few kilobytes of stack) and can scale to millions. But they’re not magic—they rely on the runtime scheduler to multiplex execution across a limited number of OS threads.</p>
+<p>Go’s scheduler is based on an M:N model:</p>
+<ul>
+<li><strong>M (Machine)</strong>: Represents an OS thread.</li>
+<li><strong>G (Goroutine)</strong>: Represents the actual task or coroutine.</li>
+<li><strong>P (Processor)</strong>: Represents the context for scheduling (holding run queues, caches).</li>
+</ul>
+<p>Each P can execute one G at a time using an M. There are as many Ps as GOMAXPROCS. If a goroutine blocks on I/O, another runnable G may park and reuse the thread.</p>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; New : goroutine declared
+    New --&gt; Runnable : go func() invoked
+    Runnable --&gt; Running : scheduled on an available P
+    Running --&gt; Waiting : blocking syscall, channel op, etc.
+    Waiting --&gt; Runnable : event ready, rescheduled
+    Running --&gt; Terminated : function exits or panics
+    Waiting --&gt; Terminated : canceled or panicked
+    Terminated --&gt; [*]
+
+    state "Go Scheduler\n(GOMAXPROCS = N)" as Scheduler {
+        [*] --&gt; P1
+        [*] --&gt; P2
+        ...
+        [*] --&gt; PN
+
+        P1 --&gt; ScheduleGoroutine1 : pick from global/runq
+        P2 --&gt; ScheduleGoroutine2
+        PN --&gt; ScheduleGoroutineN
+    }
+
+    note right of Runnable
+        Ps (Processors) pick Runnable goroutines
+        based on availability up to GOMAXPROCS
+    end note
+
+    note right of Scheduler
+        GOMAXPROCS determines how many Ps
+        can execute goroutines in parallel.
+    end note</code></pre>
+<h2 id="blocking-io-in-goroutines-what-really-happens">Blocking I/O in Goroutines: What Really Happens?</h2>
+<p>Suppose a goroutine calls <code>conn.Read()</code>. This <em>looks</em> blocking—but only from the goroutine's perspective. Internally, Go’s runtime intercepts the call and uses a mechanism known as the <a href="https://go.dev/src/runtime/netpoll.go">netpoller</a>.</p>
+<p>On Unix-based systems, Go uses readiness-based polling (<code>epoll</code> on Linux, <code>kqueue</code> on macOS/BSD). When a goroutine performs a syscall like <code>read(fd)</code>, the runtime checks whether the file descriptor is ready. If not:</p>
+<ol>
+<li>The goroutine is parked.</li>
+<li>The file descriptor is registered with the poller.</li>
+<li>The OS thread is released to run other work.</li>
+<li>When the fd becomes ready, the poller wakes up, and the runtime marks the goroutine as runnable.</li>
+</ol>
+<pre class="mermaid"><code>flowchart TD
+    A["Goroutine: conn.Read()"] --&gt; B[netpoller checks FD]
+    B --&gt; C{FD ready?}
+    C -- No --&gt; D[Park goroutine]
+    D --&gt; E[FD registered with epoll]
+    E --&gt; F[epoll_wait blocks]
+    F --&gt; G[FD ready]
+    G --&gt; H[Wake goroutine]
+    H --&gt; I[Re-schedule]
+    C -- Yes --&gt; H</code></pre>
+<p>This system enables Go to serve a massive number of clients concurrently, using a small number of threads, avoiding the overhead of traditional thread-per-connection models.</p>
+<h2 id="internals-of-the-net-package">Internals of the <code>net</code> Package</h2>
+<p>Let’s take a look at what happens behind <code>net.Listen("tcp", ":8080")</code> and <code>conn.Read()</code>.</p>
+<ul>
+<li><code>net.Listen</code> calls into <code>net.ListenTCP</code>, which constructs a <code>netFD</code> struct wrapping the socket.</li>
+<li>The socket is marked non-blocking via <code>syscall.SetNonblock(fd, true)</code>.</li>
+<li><code>Accept</code> and <code>Read</code> methods on <code>netFD</code> are layered on top of syscalls, but routed through internal pollers and wrapped with logic to yield and resume goroutines.</li>
+</ul>
+<p>Here’s a rough diagram of the call chain:</p>
+<pre class="mermaid"><code>flowchart TD
+    A[net.Listen] --&gt; B[ListenTCP] --&gt; C[listenFD]
+    C --&gt; D["pollDesc (register with netpoll)"]
+    D --&gt; E[runtime-integrated non-blocking syscall wrappers]</code></pre>
+<p>This architecture makes the blocking calls from the developer’s perspective translate into non-blocking interactions with the kernel.</p>
+<h2 id="the-netpoller-polling-with-epollkqueueiocp">The Netpoller: Polling with Epoll/Kqueue/IOCP</h2>
+<p>The <strong>netpoller</strong> is a runtime subsystem that integrates low-level polling mechanisms with Go’s scheduling system. Each fd has an associated <code>pollDesc</code>, which helps coordinate goroutine suspension and resumption.</p>
+<p>The poller operates in a dedicated thread (or threads) that loop over OS wait primitives:</p>
+<ul>
+<li><a href="https://man7.org/linux/man-pages/man2/epoll_wait.2.html">epoll_wait</a> (Linux)</li>
+<li><a href="https://en.wikipedia.org/wiki/Kqueue">kqueue</a> (macOS/BSD)</li>
+<li><a href="https://learn.microsoft.com/en-gb/windows/win32/fileio/i-o-completion-ports">IOCP</a> (Windows)</li>
+</ul>
+<p>When an I/O event fires, the poller finds the associated <code>pollDesc</code>, identifies the parked goroutine, and puts it back into the run queue.</p>
+<p>In the Go source, relevant files include:</p>
+<ul>
+<li><a href="https://go.dev/src/runtime/netpoll_epoll.go">runtime/netpoll_epoll.go</a></li>
+<li><a href="https://go.dev/src/runtime/netpoll_kqueue.go">runtime/netpoll_kqueue.go</a></li>
+<li><a href="https://go.dev/src/runtime/netpoll_windows.go">runtime/netpoll_windows.go</a></li>
+</ul>
+<p>The Go poller is readiness-based (not completion-based, except for Windows IOCP). It handles:</p>
+<ul>
+<li>fd registration</li>
+<li>waking goroutines on readiness</li>
+<li>integration with the run queue (P-local or global)</li>
+</ul>
+<h2 id="example-high-performance-tcp-echo-server">Example: High-Performance TCP Echo Server</h2>
+<p>Let's break down a simple Go TCP echo server and map each part to Go’s internal networking and scheduling mechanisms — including <code>netFD</code>, <code>poll.FD</code>, and goroutines.</p>
+<details class="example">
+<summary>Simple Echo server source code</summary>
+<div class="highlight"><pre><span/><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">"bufio"</span>
+<span class="w">    </span><span class="s">"fmt"</span>
+<span class="w">    </span><span class="s">"net"</span>
+<span class="w">    </span><span class="s">"time"</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Start listening on TCP port 9000</span>
+<span class="w">    </span><span class="nx">listener</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Listen</span><span class="p">(</span><span class="s">"tcp"</span><span class="p">,</span><span class="w"> </span><span class="s">":9000"</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="w"> </span><span class="c1">// Exit if the port can't be bound</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Echo server listening on :9000"</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// Accept incoming connections in a loop</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">listener</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span><span class="w"> </span><span class="c1">// Accept new client connection</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Accept error: %v\n"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">            </span><span class="k">continue</span><span class="w"> </span><span class="c1">// Skip this iteration on error</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// Handle the connection in a new goroutine for concurrency</span>
+<span class="w">        </span><span class="k">go</span><span class="w"> </span><span class="nx">handle</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// handle echoes data back to the client line-by-line</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">handle</span><span class="p">(</span><span class="nx">conn</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span><span class="w"> </span><span class="c1">// Ensure connection is closed on exit</span>
+
+<span class="w">    </span><span class="nx">reader</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span><span class="w"> </span><span class="c1">// Wrap connection with buffered reader</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Set a read deadline to avoid hanging goroutines if client disappears</span>
+<span class="w">        </span><span class="nx">conn</span><span class="p">.</span><span class="nx">SetReadDeadline</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">))</span><span class="w"> </span><span class="c1">// 5 minutes timeout</span>
+
+<span class="w">        </span><span class="c1">// Read input until newline character</span>
+<span class="w">        </span><span class="nx">line</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">ReadString</span><span class="p">(</span><span class="sc">'\n'</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Connection closed: %v\n"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="c1">// Exit on read error (e.g. client disconnect)</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// Echo the received line back to the client</span>
+<span class="w">        </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">line</span><span class="p">))</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Write error: %v\n"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="c1">// Exit on write error</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<h3 id="imports-and-setup">Imports and Setup</h3>
+<div class="highlight"><pre><span/><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">"bufio"</span>
+<span class="w">    </span><span class="s">"fmt"</span>
+<span class="w">    </span><span class="s">"net"</span>
+<span class="w">    </span><span class="s">"time"</span>
+<span class="w">    </span><span class="s">"sync/atomic"</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><strong>Internals Involved</strong>:</p>
+<ul>
+<li>The <code>net</code> package abstracts system-level networking.</li>
+<li>Under the hood:<ul>
+<li>Uses <code>netFD</code> (internal, private struct)</li>
+<li>Wraps <code>poll.FD</code> for non-blocking I/O</li>
+<li>Uses OS features like <code>epoll</code>, <code>kqueue</code>, or <code>IOCP</code> for event notification</li>
+</ul>
+</li>
+</ul>
+<h3 id="listener-setup">Listener Setup</h3>
+<div class="highlight"><pre><span/><code><span class="nx">listener</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Listen</span><span class="p">(</span><span class="s">"tcp"</span><span class="p">,</span><span class="w"> </span><span class="s">":9000"</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Echo server listening on :9000"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Internals Involved</strong>:</p>
+<ul>
+<li><code>net.Listen()</code> returns a <code>TCPListener</code><ul>
+<li>Internally calls <code>syscall.socket</code>, <code>bind</code>, <code>listen</code></li>
+<li>Associates a <code>netFD</code> with the socket</li>
+</ul>
+</li>
+<li>The listener uses Go’s internal poller to enable non-blocking <code>Accept</code></li>
+</ul>
+<h3 id="accept-loop-and-goroutine-scheduling">Accept Loop and Goroutine Scheduling</h3>
+<div class="highlight"><pre><span/><code><span class="k">for</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">listener</span><span class="p">.</span><span class="nx">Accept</span><span class="p">()</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Accept error: %v\n"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">        </span><span class="k">continue</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="nx">handle</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Internals Involved</strong>:</p>
+<ul>
+<li><code>listener.Accept()</code> → <code>netFD.Accept()</code> → <code>poll.FD.Accept()</code> → <code>syscall.accept</code><ul>
+<li>Non-blocking, waits via Go's poller (<code>runtime_pollWait</code>)</li>
+</ul>
+</li>
+<li><code>go handle(conn)</code> spawns a <strong>goroutine (G)</strong><ul>
+<li>Scheduled onto a <strong>P</strong> (Processor)</li>
+<li><code>P</code> is part of Go’s M:N scheduler governed by <code>GOMAXPROCS</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="connection-handler">Connection Handler</h3>
+<div class="highlight"><pre><span/><code><span class="kd">func</span><span class="w"> </span><span class="nx">handle</span><span class="p">(</span><span class="nx">conn</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+<span class="w">    </span><span class="nx">reader</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReader</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">conn</span><span class="p">.</span><span class="nx">SetReadDeadline</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Now</span><span class="p">().</span><span class="nx">Add</span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">))</span>
+
+<span class="w">        </span><span class="nx">line</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">ReadString</span><span class="p">(</span><span class="sc">'\n'</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Connection closed: %v\n"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">line</span><span class="p">))</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"Write error: %v\n"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Internals Involved</strong>:</p>
+<ul>
+<li><code>bufio.NewReader(conn)</code> wraps the <code>net.Conn</code>, which is backed by <code>*TCPConn</code> and <code>netFD</code>.</li>
+<li><code>ReadString()</code> calls <code>conn.Read()</code> under the hood:<ul>
+<li><code>netFD.Read()</code> → <code>poll.FD.Read()</code> → <code>syscall.Read()</code></li>
+<li>Uses <code>runtime_pollWait</code> to yield the goroutine if data isn't ready</li>
+</ul>
+</li>
+<li><code>SetReadDeadline</code> sets a timeout by integrating with the runtime's network poller to prevent indefinite blocking.</li>
+<li><code>conn.Write()</code> → <code>netFD.Write()</code> → <code>poll.FD.Write()</code> → <code>syscall.write</code></li>
+</ul>
+<h3 id="internal-flow-diagram">Internal Flow Diagram</h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant L as Listener Goroutine
+    participant N as netFD
+    participant P as Go Poller
+    participant S as syscall layer
+    participant H as Handler Goroutine
+
+    L-&gt;&gt;N: Accept()
+    N-&gt;&gt;P: Wait for connection (runtime_pollWait)
+    P-&gt;&gt;S: syscall.accept
+    S--&gt;&gt;L: Return net.Conn
+    L-&gt;&gt;H: go handle(conn)
+
+    H-&gt;&gt;N: Read()
+    N-&gt;&gt;P: Wait for data (runtime_pollWait)
+    P-&gt;&gt;S: syscall.read
+    S--&gt;&gt;H: Return data
+    H-&gt;&gt;N: Write()
+    N-&gt;&gt;P: Check readiness
+    P-&gt;&gt;S: syscall.write
+    S--&gt;&gt;H: Confirm write</code></pre>
+<p>This model scales well as long as you:</p>
+<ul>
+<li>Ensure your <code>ulimit -n</code> is high enough</li>
+<li>Avoid shared state and contention</li>
+<li>Tune your GOMAXPROCS for your workload</li>
+</ul>
+<h2 id="observations-at-scale">Observations at Scale</h2>
+<p>As connections scale up (<a href="../gc-endpoint-profiling/">see how it may look like here</a>):</p>
+<ul>
+<li>Per-connection memory and GC pressure grow</li>
+<li>Frequent goroutine context switching may introduce latency</li>
+<li>Coordinating channels, timeouts, and backpressure adds complexity</li>
+</ul>
+<p>Some mitigation strategies:</p>
+<ul>
+<li>Use <code>sync.Pool</code> for buffer reuse</li>
+<li>Minimize GC pauses (avoid per-request allocations)</li>
+<li>Prefer <code>netpoll</code>-friendly designs (avoid long CPU-bound goroutines)</li>
+</ul>
+<hr/>
+<p>Go’s model trades OS-level multiplexing for user-space scheduling and event-driven I/O coordination. It’s not a silver bullet—but when used correctly, it offers a robust platform for building scalable network services. Understanding these internals helps you avoid common traps, optimize at the right layer, and build systems that behave predictably under load.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

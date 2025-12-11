@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Practical Networking Patterns in Go</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Practical Networking Patterns in Go</h1>
+<blockquote>原文：<a href="https://goperf.dev/02-networking/">https://goperf.dev/02-networking/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>A 13-part guide to building scalable, efficient, and resilient networked applications in Go—grounded in real-world benchmarks, low-level optimizations, and practical design patterns.</p>
+<hr/>
+<h2 id="benchmarking-first">Benchmarking First</h2>
+<ul>
+<li>
+<p><a href="bench-and-load/">Benchmarking and Load Testing for Networked Go Apps</a></p>
+<p>Establish performance baselines before optimizing anything. Learn how to simulate realistic traffic using tools like <code>vegeta</code>, <code>wrk</code>, and <code>k6</code>. Covers throughput, latency percentiles, connection concurrency, and profiling under load. Sets the foundation for diagnosing bottlenecks and measuring the impact of every optimization in the series.</p>
+</li>
+</ul>
+<hr/>
+<h2 id="foundations-and-core-concepts">Foundations and Core Concepts</h2>
+<ul>
+<li>
+<p><a href="networking-internals/">How Go Handles Networking: Concurrency, Goroutines, and the net Package</a></p>
+<p>Understand Go’s approach to networking from the ground up. Covers how goroutines, the <code>net</code> package, and the runtime scheduler interact, including blocking I/O behavior, connection handling, and the use of pollers like <code>epoll</code> or <code>kqueue</code> under the hood.</p>
+</li>
+<li>
+<p><a href="efficient-net-use/">Efficient Use of <code>net/http</code>, <code>net.Conn</code>, and UDP</a></p>
+<p>Compare idiomatic and advanced usage of <code>net/http</code> vs raw <code>net.Conn</code>. Dive into connection pooling, custom dialers, stream reuse, and buffer tuning. Demonstrates how to avoid common pitfalls like leaking connections, blocking handlers, or over-allocating buffers.</p>
+</li>
+</ul>
+<hr/>
+<h2 id="scaling-and-performance-engineering">Scaling and Performance Engineering</h2>
+<ul>
+<li>
+<p><a href="10k-connections/">Managing 10K++ Concurrent Connections in Go</a></p>
+<p>Handling massive concurrency requires intentional architecture. Explore how to efficiently serve 10,000+ concurrent sockets using Go’s goroutines, proper resource capping, socket tuning, and runtime configuration. Focuses on connection lifecycles, scaling pitfalls, and real-world tuning.</p>
+</li>
+<li>
+<p><a href="a-bit-more-tuning/">GOMAXPROCS, epoll/kqueue, and Scheduler-Level Tuning</a></p>
+<p>Dive into low-level performance knobs like <code>GOMAXPROCS</code>, <code>GODEBUG</code>, thread pinning, and how Go’s scheduler interacts with epoll/kqueue. Learn when increasing parallelism helps—and when it doesn’t. Includes tools for CPU affinity and benchmarking the effect of these changes.</p>
+</li>
+</ul>
+<hr/>
+<h2 id="diagnostics-and-resilience">Diagnostics and Resilience</h2>
+<ul>
+<li>
+<p><a href="resilient-connection-handling/">Building Resilient Connection Handling with Load Shedding and Backpressure</a></p>
+<p>Learn how to prevent overloads from crashing your system. Covers circuit breakers, passive vs active load shedding, backpressure strategies using channel buffering and timeouts, and how to reject or degrade requests gracefully under pressure.</p>
+</li>
+<li>
+<p><a href="long-lived-connections/">Memory Management and Leak Prevention in Long-Lived Connections</a></p>
+<p>Long-lived connections like WebSockets or TCP streams can slowly leak memory or accumulate goroutines. This post shows how to identify common leaks, enforce read/write deadlines, manage backpressure, and trace heap growth with memory profiles.</p>
+</li>
+</ul>
+<hr/>
+<h2 id="transport-level-optimization">Transport-Level Optimization</h2>
+<ul>
+<li>
+<p><a href="tcp-http2-grpc/">Comparing TCP, HTTP/2, and gRPC Performance in Go</a></p>
+<p>Benchmark and analyze different transport protocols in Go: raw TCP with custom framing, HTTP/2 via <code>net/http</code>, and gRPC. Evaluate latency, throughput, connection reuse, and CPU/memory cost across real scenarios like internal APIs, messaging systems, and microservices.</p>
+</li>
+<li>
+<p><a href="quic-in-go/">QUIC in Go: Building Low-Latency Services with quic-go</a></p>
+<p>Explore QUIC as a next-gen transport for real-time and mobile-first systems. Introduce the <code>quic-go</code> library, demonstrate setup for secure multiplexed streams, and compare performance against HTTP/2 and TCP. Also covers connection migration and 0-RTT for fast startup.</p>
+</li>
+</ul>
+<hr/>
+<h2 id="low-level-and-advanced-tuning">Low-Level and Advanced Tuning</h2>
+<ul>
+<li>
+<p><a href="low-level-optimizations/">Low-Level Network Optimizations: Socket Options That Matter</a></p>
+<p>Explore advanced socket-level tuning options like disabling Nagle’s algorithm (<code>TCP_NODELAY</code>), adjusting <code>SO_REUSEPORT</code>, <code>SO_RCVBUF</code>/<code>SO_SNDBUF</code>, TCP keepalives, and connection backlog (<code>SOMAXCONN</code>). Explain how Go exposes these via <code>syscall</code> and how to wrap them safely. Real-world examples included for latency-sensitive systems and high-throughput services.</p>
+</li>
+<li>
+<p><a href="dns_performance/">Tuning DNS Performance in Go Services</a></p>
+<p>DNS lookups are often overlooked as latency culprits. Learn how Go performs name resolution (cgo vs Go resolver), when to cache results, and how to use custom dialers or pre-resolved IPs to avoid flaky network paths. Includes metrics and debugging tips for real-world DNS slowdowns.</p>
+</li>
+<li>
+<p><a href="tls-for-speed/">Optimizing TLS for Speed: Handshake, Reuse, and Cipher Choice</a></p>
+<p>TLS adds security—but it can also add overhead. Tune your Go service for fast and secure TLS: enable session resumption, choose fast cipher suites, use ALPN negotiation wisely, and minimize cert verification cost. Examples included with <code>tls.Config</code> best practices.</p>
+</li>
+<li>
+<p><a href="connection_observability/">Connection Lifecycle Observability: From Dial to Close</a></p>
+<p>Trace the full lifecycle of a connection with visibility at each stage—DNS, dial, handshake, negotiation, reads/writes, and teardown. Learn how to log connection spans, trace hangs, correlate errors with performance metrics, and build custom observability into network flows.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

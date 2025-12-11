@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Practical Example: Profiling Networked Go Applications with pprof</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Practical Example: Profiling Networked Go Applications with pprof</h1>
+<blockquote>原文：<a href="https://goperf.dev/02-networking/gc-endpoint-profiling/">https://goperf.dev/02-networking/gc-endpoint-profiling/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>This section walks through a demo application instrumented with benchmarking tools and runtime profiling to ground profiling concepts in a real-world context. It covers identifying performance bottlenecks, interpreting flame graphs, and analyzing system behavior under various simulated network conditions.</p>
+<h2 id="cpu-profiling-in-networked-apps">CPU Profiling in Networked Apps</h2>
+<p>The demo application is intentionally designed to be as simple as possible to highlight key profiling concepts without unnecessary complexity. While the code and patterns used in the demo are basic, the profiling insights gained here are highly applicable to more complex, production-grade applications.</p>
+<p>To enable continuous profiling under load, we expose <code>pprof</code> via a dedicated HTTP endpoint:</p>
+<div class="highlight"><pre><span/><code><span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+
+<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">"net/http/pprof"</span>
+
+<span class="p">)</span>
+
+<span class="c1">// ...</span>
+
+<span class="w">    </span><span class="c1">// Start pprof in a separate goroutine.</span>
+<span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"pprof listening on :6060"</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">"localhost:6060"</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatalf</span><span class="p">(</span><span class="s">"pprof server error: %v"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}()</span>
+</code></pre></div>
+<details class="example">
+<summary>full <code>net-app</code>'s source code</summary>
+<div class="highlight"><pre><span/><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="c1">// pprof-start</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="c1">// pprof-end</span>
+<span class="w">    </span><span class="s">"flag"</span>
+<span class="w">    </span><span class="s">"fmt"</span>
+<span class="w">    </span><span class="s">"log"</span>
+<span class="w">    </span><span class="s">"math/rand/v2"</span>
+<span class="w">    </span><span class="s">"net/http"</span>
+<span class="c1">// pprof-start</span>
+<span class="w">    </span><span class="nx">_</span><span class="w"> </span><span class="s">"net/http/pprof"</span>
+<span class="c1">// pprof-end</span>
+<span class="w">    </span><span class="s">"os"</span>
+<span class="w">    </span><span class="s">"os/signal"</span>
+<span class="w">    </span><span class="s">"time"</span>
+<span class="c1">// pprof-start</span>
+<span class="p">)</span>
+<span class="c1">// pprof-end</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="nx">fastDelay</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Duration</span><span class="p">(</span><span class="s">"fast-delay"</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">"Fixed delay for fast handler (if any)"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">slowMin</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Duration</span><span class="p">(</span><span class="s">"slow-min"</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">,</span><span class="w"> </span><span class="s">"Minimum delay for slow handler"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">slowMax</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Duration</span><span class="p">(</span><span class="s">"slow-max"</span><span class="p">,</span><span class="w"> </span><span class="mi">300</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">,</span><span class="w"> </span><span class="s">"Maximum delay for slow handler"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">gcMinAlloc</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Int</span><span class="p">(</span><span class="s">"gc-min-alloc"</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="s">"Minimum number of allocations in GC heavy handler"</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">gcMaxAlloc</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Int</span><span class="p">(</span><span class="s">"gc-max-alloc"</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w"> </span><span class="s">"Maximum number of allocations in GC heavy handler"</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">randRange</span><span class="p">(</span><span class="nx">min</span><span class="p">,</span><span class="w"> </span><span class="nx">max</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">rand</span><span class="p">.</span><span class="nx">IntN</span><span class="p">(</span><span class="nx">max</span><span class="o">-</span><span class="nx">min</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">min</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">fastHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">*</span><span class="nx">fastDelay</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="o">*</span><span class="nx">fastDelay</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintln</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="s">"fast response"</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">slowHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">delayRange</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">int</span><span class="p">((</span><span class="o">*</span><span class="nx">slowMax</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">*</span><span class="nx">slowMin</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">delay</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">(</span><span class="nx">randRange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nx">delayRange</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span>
+<span class="w">    </span><span class="nx">time</span><span class="p">.</span><span class="nx">Sleep</span><span class="p">(</span><span class="nx">delay</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="s">"slow response with delay %d ms\n"</span><span class="p">,</span><span class="w"> </span><span class="nx">delay</span><span class="p">.</span><span class="nx">Milliseconds</span><span class="p">())</span>
+<span class="p">}</span>
+
+<span class="c1">// heavy-start</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">longLivedData</span><span class="w"> </span><span class="p">[][]</span><span class="kt">byte</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">gcHeavyHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">numAllocs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">randRange</span><span class="p">(</span><span class="o">*</span><span class="nx">gcMinAlloc</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">gcMaxAlloc</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">[][]</span><span class="kt">byte</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">numAllocs</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Allocate 10KB slices. Occasionally retain a reference to simulate long-lived objects.</span>
+<span class="w">        </span><span class="nx">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">i</span><span class="o">%</span><span class="mi">100</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// every 100 allocations, keep the data alive</span>
+<span class="w">            </span><span class="nx">longLivedData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">longLivedData</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="s">"allocated %d KB\n"</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// heavy-end</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">flag</span><span class="p">.</span><span class="nx">Parse</span><span class="p">()</span>
+
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">"/fast"</span><span class="p">,</span><span class="w"> </span><span class="nx">fastHandler</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">"/slow"</span><span class="p">,</span><span class="w"> </span><span class="nx">slowHandler</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandleFunc</span><span class="p">(</span><span class="s">"/gc"</span><span class="p">,</span><span class="w"> </span><span class="nx">gcHeavyHandler</span><span class="p">)</span>
+
+<span class="c1">// pprof-start</span>
+<span class="c1">// ...</span>
+
+<span class="w">    </span><span class="c1">// Start pprof in a separate goroutine.</span>
+<span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"pprof listening on :6060"</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">(</span><span class="s">"localhost:6060"</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatalf</span><span class="p">(</span><span class="s">"pprof server error: %v"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}()</span>
+<span class="c1">// pprof-end</span>
+
+<span class="w">    </span><span class="c1">// Create a server to allow for graceful shutdown.</span>
+<span class="w">    </span><span class="nx">server</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Server</span><span class="p">{</span><span class="nx">Addr</span><span class="p">:</span><span class="w"> </span><span class="s">":8080"</span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">go</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"HTTP server listening on :8080"</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">server</span><span class="p">.</span><span class="nx">ListenAndServe</span><span class="p">();</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ErrServerClosed</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatalf</span><span class="p">(</span><span class="s">"HTTP server error: %v"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}()</span>
+
+<span class="w">    </span><span class="c1">// Graceful shutdown on interrupt signal.</span>
+<span class="w">    </span><span class="nx">sigCh</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">chan</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Signal</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">signal</span><span class="p">.</span><span class="nx">Notify</span><span class="p">(</span><span class="nx">sigCh</span><span class="p">,</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nx">Interrupt</span><span class="p">)</span>
+<span class="w">    </span><span class="o">&lt;-</span><span class="nx">sigCh</span>
+<span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Shutting down server..."</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">server</span><span class="p">.</span><span class="nx">Shutdown</span><span class="p">(</span><span class="kc">nil</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatalf</span><span class="p">(</span><span class="s">"Server Shutdown Failed:%+v"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">"Server exited"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p>The next step will be to establish a connection with the profiled app and collect samples:</p>
+<div class="highlight"><pre><span/><code>go<span class="w"> </span>tool<span class="w"> </span>pprof<span class="w"> </span>http://localhost:6060/debug/pprof/profile?seconds<span class="o">=</span><span class="m">30</span>
+</code></pre></div>
+<p>View results interactively:</p>
+<div class="highlight"><pre><span/><code>go<span class="w"> </span>tool<span class="w"> </span>pprof<span class="w"> </span>-http<span class="o">=</span>:7070<span class="w"> </span>cpu.prof<span class="w"> </span><span class="c1"># (1)</span>
+</code></pre></div>
+<ol>
+<li>the actual <code>cpu.prof</code> path will be something like <code>$HOME/pprof/pprof.net-app.samples.cpu.004.pb.gz</code></li>
+</ol>
+<p>or you can save the profiling graph as an <code>svg</code> image.</p>
+<h2 id="cpu-profiling-walkthrough-load-on-the-gc-endpoint">CPU Profiling Walkthrough: Load on the <code>/gc</code> Endpoint</h2>
+<p>We profiled the application during a 30-second load test targeting the <code>/gc</code> endpoint to see what happens under memory pressure. This handler was intentionally designed to trigger allocations and force garbage collection, which makes it a great candidate for observing runtime behavior under stress.</p>
+<p>We used Go’s built-in profiler to capture a CPU trace:</p>
+<details class="example">
+<summary>CPU profiling trace for the <code>/gc</code> endpoint</summary>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/cpu.prof.png" data-desc-position="bottom"><img alt="" src="../Images/7a6a813e3f186af7e41a21bebb8a53e9.png" width="1602" data-original-src="https://goperf.dev/02-networking/img/cpu.prof.png"/></a></p>
+</details>
+<p>This gave us 3.02 seconds of sampled CPU activity out of 30 seconds of wall-clock time—a useful window into what the runtime and application were doing under pressure.</p>
+<h2 id="where-the-time-went">Where the Time Went</h2>
+<h3 id="http-stack-dominates-the-surface">HTTP Stack Dominates the Surface</h3>
+<p>As expected, the majority of CPU time was spent on request handling:</p>
+<ul>
+<li><code>http.(*conn).serve</code> accounted for nearly 58% of sampled time</li>
+<li><code>http.serverHandler.ServeHTTP</code> appeared prominently as well</li>
+</ul>
+<p>This aligns with the fact that we were sustaining constant traffic. The Go HTTP stack is doing the bulk of the work, managing connections and dispatching requests.</p>
+<h3 id="garbage-collection-overhead-is-clearly-visible">Garbage Collection Overhead is Clearly Visible</h3>
+<p>A large portion of CPU time was spent inside the garbage collector:</p>
+<ul>
+<li><code>runtime.gcDrain</code>, <code>runtime.scanobject</code>, and <code>runtime.gcBgMarkWorker</code> were all active</li>
+<li>Combined with memory-related functions like <code>runtime.mallocgc</code>, these accounted for roughly 20% of total CPU time</li>
+</ul>
+<p>This confirms that <code>gcHeavyHandler</code> is achieving its goal. What we care about is whether this kind of allocation pressure leaks into real-world handlers. If it does, we’re paying for it in latency and CPU churn.</p>
+<h3 id="io-and-syscalls-take-a-big-slice">I/O and Syscalls Take a Big Slice</h3>
+<p>We also saw high syscall activity—especially from:</p>
+<ul>
+<li><code>syscall.syscall</code> (linked to <code>poll</code>, <code>Read</code>, and <code>Write</code>)</li>
+<li><code>bufio.Writer.Flush</code> and <code>http.response.finishRequest</code></li>
+</ul>
+<p>These functions reflect the cost of writing responses back to clients. For simple handlers, this is expected. But if your handler logic is lightweight and most of the time is spent just flushing data over TCP, it’s worth asking whether the payloads or buffer strategies could be optimized.</p>
+<h3 id="scheduler-activity-is-non-trivial">Scheduler Activity Is Non-Trivial</h3>
+<p>Functions like <code>runtime.schedule</code>, <code>mcall</code>, and <code>findRunnable</code> were also on the board. These are Go runtime internals responsible for managing goroutines. Seeing them isn’t unusual during high-concurrency tests—but if they dominate, it often points to excessive goroutine churn or blocking behavior.</p>
+<h2 id="memory-profiling-retained-heap-from-the-gc-endpoint">Memory Profiling: Retained Heap from the <code>/gc</code> Endpoint</h2>
+<p>We also captured a memory profile to complement the CPU view while hammering the <code>/gc</code> endpoint. This profile used the <code>inuse_space</code> metric, which shows how much heap memory is actively retained by each function at the time of capture.</p>
+<p>We triggered the profile with:</p>
+<div class="highlight"><pre><span/><code>go<span class="w"> </span>tool<span class="w"> </span>pprof<span class="w"> </span>-http<span class="o">=</span>:7070<span class="w"> </span>http://localhost:6060/debug/pprof/heap
+</code></pre></div>
+<details class="example">
+<summary>Memory profiling for the <code>/gc</code> endpoint</summary>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../img/mem.prof.png" data-desc-position="bottom"><img alt="" src="../Images/8077552e3f37816c102f22210cddd49b.png" width="900" data-original-src="https://goperf.dev/02-networking/img/mem.prof.png"/></a></p>
+</details>
+<p>At the time of capture, the application retained 649MB of heap memory, and almost all of it—99.46%—was attributed to a single function: <code>gcHeavyHandler</code>. This was expected. The handler simulates allocation pressure by creating 10KB slices in a tight loop. Every 100th slice is added to a global variable to simulate long-lived memory.</p>
+<p>Here’s what the handler does:</p>
+<div class="highlight"><pre><span/><code><span class="kd">var</span><span class="w"> </span><span class="nx">longLivedData</span><span class="w"> </span><span class="p">[][]</span><span class="kt">byte</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">gcHeavyHandler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">numAllocs</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">randRange</span><span class="p">(</span><span class="o">*</span><span class="nx">gcMinAlloc</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="nx">gcMaxAlloc</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">[][]</span><span class="kt">byte</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">numAllocs</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Allocate 10KB slices. Occasionally retain a reference to simulate long-lived objects.</span>
+<span class="w">        </span><span class="nx">b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">1024</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">i</span><span class="o">%</span><span class="mi">100</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// every 100 allocations, keep the data alive</span>
+<span class="w">            </span><span class="nx">longLivedData</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">longLivedData</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Fprintf</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="s">"allocated %d KB\n"</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The flamegraph confirmed what we expected:</p>
+<ul>
+<li><code>gcHeavyHandler</code> accounted for nearly all memory in use.</li>
+<li>The path traced cleanly from the HTTP connection, through the Go router stack, into the handler logic.</li>
+<li>No significant allocations came from elsewhere—this was a focused, controlled memory pressure scenario.</li>
+</ul>
+<p>This type of profile is valuable because it reveals what is still being held in memory, not just what was allocated. This view is often the most revealing for diagnosing leaks, retained buffers, or forgotten references.</p>
+<h2 id="summary-cpu-and-memory-profiling-of-the-gc-endpoint">Summary: CPU and Memory Profiling of the <code>/gc</code> Endpoint</h2>
+<p>The <code>/gc</code> endpoint was intentionally built to simulate high allocation pressure and GC activity. Profiling this handler under load gave us a clean, focused view of how the Go runtime behaves when pushed to its memory limits.</p>
+<p>From the <strong>CPU profile</strong>, we saw that:</p>
+<ul>
+<li>As expected, most of the time was spent in the HTTP handler path during sustained load.</li>
+<li>Nearly 20% of CPU samples were attributed to memory allocation and garbage collection.</li>
+<li>Syscall activity was high, mostly from writing responses.</li>
+<li>The Go scheduler was moderately active, managing the concurrent goroutines handling traffic.</li>
+</ul>
+<p>From the <strong>memory profile</strong>, we captured 649MB of live heap usage, with <strong>99.46% of it retained by <code>gcHeavyHandler</code></strong>. This matched our expectations: the handler deliberately retains every 100th 10KB allocation to simulate long-lived data.</p>
+<p>Together, these profiles give us confidence that the <code>/gc</code> endpoint behaves as intended under synthetic pressure:</p>
+<ul>
+<li>It creates meaningful CPU and memory load.</li>
+<li>It exposes the cost of sustained allocations and GC cycles.</li>
+<li>It provides a predictable environment for testing optimizations or GC tuning strategies.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Comparing TCP, HTTP/2, and gRPC Performance in Go</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Comparing TCP, HTTP/2, and gRPC Performance in Go</h1>
+<blockquote>原文：<a href="https://goperf.dev/02-networking/tcp-http2-grpc/">https://goperf.dev/02-networking/tcp-http2-grpc/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>In distributed systems, the choice of communication protocol shapes how services interact under real-world load. It influences not just raw throughput and latency, but also how well the system scales, how much CPU and memory it consumes, and how predictable its behavior remains under pressure. In this article, we dissect three prominent options—raw TCP with custom framing, HTTP/2 via Go's built-in <code>net/http</code> package, and gRPC—and explore their performance characteristics through detailed benchmarks and practical scenarios.</p>
+<h2 id="raw-tcp-with-custom-framing">Raw TCP with Custom Framing</h2>
+<p>Raw TCP provides maximum flexibility with virtually no protocol overhead, but that comes at a cost: all message boundaries, framing logic, and error handling must be implemented manually. Since TCP delivers a continuous byte stream with no inherent notion of messages, applications must explicitly define how to separate and interpret those bytes.</p>
+<h3 id="custom-framing-protocol">Custom Framing Protocol</h3>
+<p>A common way to handle message boundaries over TCP is to use length-prefix framing: each message starts with a 4-byte header that tells the receiver how many bytes to read next. The length is encoded in big-endian format, following the standard network byte order, so it behaves consistently across different systems. This setup solves a core issue with TCP—while it guarantees reliable delivery, it doesn’t preserve message boundaries. Without knowing the size upfront, the receiver has no way to tell where one message ends and the next begins.</p>
+<p>TCP guarantees reliable, in-order delivery of bytes, but it does not preserve or indicate message boundaries. For example, if a client sends three logical messages:</p>
+<div class="highlight"><pre><span/><code>[msg1][msg2][msg3]
+</code></pre></div>
+<p>the server may receive them as a continuous byte stream with arbitrary segmentations, such as:</p>
+<div class="highlight"><pre><span/><code>[msg1_part][msg2][msg3_part]
+</code></pre></div>
+<p>TCP delivers a continuous stream of bytes with no built-in concept of where one message stops and another starts. This means the receiver can’t rely on read boundaries to infer message boundaries—what arrives might be a partial message, multiple messages concatenated, or an arbitrary slice of both. To make sense of structured data over such a stream, the application needs a framing strategy. Length-prefixing does this by including the size of the message up front, so the receiver knows exactly how many bytes to expect before starting to parse the payload.</p>
+<h4 id="protocol-structure">Protocol Structure</h4>
+<p>While length-prefixing is the most common and efficient framing strategy, there are other options depending on the use case. Other framing strategies exist, each with its own trade-offs in terms of simplicity, robustness, and flexibility. Delimiter-based framing uses a specific byte or sequence—like <code>\n</code> or <code>\0</code> to signal the end of a message. It’s easy to implement but fragile if the delimiter can appear in the payload. Fixed-size framing avoids ambiguity by making every message the same length, which simplifies parsing and memory allocation but doesn’t work well when message sizes vary. Self-describing formats like Protobuf or ASN.1 embed length and type information inside the payload itself, allowing for richer structure and evolution over time, but require more sophisticated parsing logic and schema awareness on both ends. Choosing the right approach depends on how much control you need, how predictable your data is, and how much complexity you’re willing to absorb.</p>
+<p>Each frame of length-prefixing implementation consists of:</p>
+<div class="highlight"><pre><span/><code>| Length (4 bytes) | Payload (Length bytes) |
+</code></pre></div>
+<ul>
+<li><strong>Length:</strong> A 4-byte unsigned integer encoded in big-endian format (network byte order), representing the number of bytes in the payload.</li>
+<li><strong>Payload:</strong> Raw binary data of arbitrary length.</li>
+</ul>
+<p class="annotate">The use of <code>binary.BigEndian.PutUint32</code> ensures the frame length is encoded in a standardized format—most significant byte first. This is consistent with Internet protocol standards (1) , allowing for predictable decoding and reliable interoperation between heterogeneous systems.</p>
+<ol>
+<li>Following the established convention of network byte order, which is defined as big-endian in <a href="https://datatracker.ietf.org/doc/html/rfc791#section-3.1">RFC 791, Section 3.1</a> and used consistently in transport and application protocols such as TCP (<a href="https://datatracker.ietf.org/doc/html/rfc793">RFC 793</a>).</li>
+</ol>
+<div class="highlight"><pre><span/><code><span class="kd">func</span><span class="w"> </span><span class="nx">writeFrame</span><span class="p">(</span><span class="nx">conn</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">,</span><span class="w"> </span><span class="nx">payload</span><span class="w"> </span><span class="p">[]</span><span class="kt">byte</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">frameLen</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">uint32</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">payload</span><span class="p">))</span>
+<span class="w">    </span><span class="nx">buf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="nx">payload</span><span class="p">))</span>
+<span class="w">    </span><span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nx">PutUint32</span><span class="p">(</span><span class="nx">buf</span><span class="p">[:</span><span class="mi">4</span><span class="p">],</span><span class="w"> </span><span class="nx">frameLen</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">copy</span><span class="p">(</span><span class="nx">buf</span><span class="p">[</span><span class="mi">4</span><span class="p">:],</span><span class="w"> </span><span class="nx">payload</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">Write</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">err</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">readFrame</span><span class="p">(</span><span class="nx">conn</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span><span class="w"> </span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">lenBuf</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">ReadFull</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">lenBuf</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">frameLen</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">binary</span><span class="p">.</span><span class="nx">BigEndian</span><span class="p">.</span><span class="nx">Uint32</span><span class="p">(</span><span class="nx">lenBuf</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">payload</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nx">frameLen</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">ReadFull</span><span class="p">(</span><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">payload</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">payload</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This approach is straightforward, performant, and predictable, yet it provides no built-in concurrency management, request multiplexing, or flow control—these must be explicitly managed by the developer.</p>
+<h4 id="disadvantages">Disadvantages</h4>
+<p>While the protocol is efficient and minimal, it lacks several features commonly found in more complex transport protocols. The lack of built-in framing features in raw TCP means that key responsibilities shift entirely to the application layer. There’s no support for multiplexing, so only one logical message can be in flight per connection unless additional coordination is built manually—pushing clients to open multiple connections to achieve parallelism. Flow control is also absent; unlike HTTP/2 or gRPC, there’s no way to signal backpressure, making it easy for a fast sender to overwhelm a slow receiver, potentially exhausting memory or triggering a crash. There’s no space for structured metadata like message types, compression flags, or trace context unless you embed them yourself into the payload format. And error handling is purely ad hoc—there’s no protocol-level mechanism for communicating faults, so malformed frames or incorrect lengths often lead to abrupt connection resets or inconsistent state. </p>
+<p>These limitations might be manageable in tightly scoped, high-performance systems where both ends of the connection are under full control and the protocol behavior is well understood. In such environments, the minimal overhead and direct access to the wire can justify the trade-offs. But in broader production contexts—especially those involving multiple teams, evolving requirements, or untrusted clients—they introduce significant risk. Without strict validation, clear framing, and robust error handling, even small inconsistencies can lead to silent corruption, resource leaks, or hard-to-diagnose failures. Building on raw TCP demands both precise engineering and long-term maintenance discipline.</p>
+<h3 id="performance-insights">Performance Insights</h3>
+<ul>
+<li><strong>Latency:</strong> Lowest achievable due to minimal overhead; ideal for latency-critical scenarios like financial trading systems.</li>
+<li><strong>Throughput:</strong> Excellent, constrained only by network and application-layer handling.</li>
+<li><strong>CPU/Memory Cost:</strong> Very low, with negligible overhead from protocol management.</li>
+</ul>
+<h2 id="http2-via-nethttp">HTTP/2 via net/http</h2>
+<p>HTTP/2 brought several protocol-level improvements over HTTP/1.1, including multiplexed streams over a single connection, header compression via HPACK, and support for server push. In Go, these features are integrated directly into the <code>net/http</code> standard library, which handles connection reuse, stream multiplexing, and concurrency without requiring manual intervention. Unlike raw TCP, where applications must explicitly define message boundaries, HTTP/2 defines them at the protocol level: each request and response is framed using structured <code>HEADERS</code> and <code>DATA</code> frames and explicitly closed with an <code>END_STREAM</code> flag. These frames are handled entirely within Go’s HTTP/2 implementation, so developers interact with complete, logically isolated messages using the standard <code>http.Request</code> and <code>http.ResponseWriter</code> interfaces. You don’t have to deal with byte streams or worry about where a message starts or ends—by the time a request hits your handler, it’s already been framed and parsed. When you write a response, the runtime takes care of wrapping it up and signaling completion. That frees you up to focus on the logic, not the plumbing, while still getting the performance benefits of HTTP/2 like multiplexing and connection reuse.</p>
+<h3 id="server-implementation">Server Implementation</h3>
+<p>Beyond framing and multiplexing, HTTP/2 brings a handful of practical advantages that make server code easier to write and faster to run. It handles connection reuse out of the box, applies flow control to avoid overwhelming either side, and compresses headers using <code>HPACK</code> to cut down on overhead. Go’s <code>net/http</code> stack takes care of all of this behind the scenes, so you get the benefits without needing to wire it up yourself. As a result, developers can build concurrent, efficient servers without managing low-level connection or stream state manually.</p>
+<div class="highlight"><pre><span/><code><span class="kd">func</span><span class="w"> </span><span class="nx">handler</span><span class="p">(</span><span class="nx">w</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span><span class="w"> </span><span class="nx">r</span><span class="w"> </span><span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">payload</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">io</span><span class="p">.</span><span class="nx">ReadAll</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">http</span><span class="p">.</span><span class="nx">Error</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span><span class="w"> </span><span class="s">"invalid request"</span><span class="p">,</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusBadRequest</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+
+<span class="w">    </span><span class="c1">// Process payload...</span>
+
+<span class="w">    </span><span class="nx">w</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusOK</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">w</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">"processed"</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">server</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Server</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Addr</span><span class="p">:</span><span class="w">    </span><span class="s">":8080"</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Handler</span><span class="p">:</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">(</span><span class="nx">handler</span><span class="p">),</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">server</span><span class="p">.</span><span class="nx">ListenAndServeTLS</span><span class="p">(</span><span class="s">"server.crt"</span><span class="p">,</span><span class="w"> </span><span class="s">"server.key"</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Even this is not mentioned explisitly, this code serves HTTP/2 because it uses <code>ListenAndServeTLS</code>, which enables TLS-based communication. Go's <code>net/http</code> package automatically upgrades connections to HTTP/2 when a client supports it via ALPN (Application-Layer Protocol Negotiation) during the TLS handshake. Since Go 1.6, this upgrade is implicit—no extra configuration is required. The server transparently handles HTTP/2 requests while remaining compatible with HTTP/1.1 clients.</p>
+</div>
+<p>HTTP/2’s multiplexing capability allows multiple independent streams to share a single TCP connection without blocking each other, which significantly improves connection reuse. This reduces the overhead of establishing and managing parallel connections, especially under high concurrency. As a result, latency is lower and throughput more consistent, even when multiple requests are in flight. These traits make HTTP/2 well-suited for general-purpose web services and internal APIs—places where predictable latency, efficient connection reuse, and solid concurrency handling carry more weight than raw protocol minimalism.</p>
+<h3 id="performance-insights_1">Performance Insights</h3>
+<ul>
+<li><strong>Latency:</strong> Slightly higher than raw TCP because of framing and compression overhead, but stable and consistent thanks to multiplexing and persistent connections.</li>
+<li><strong>Throughput:</strong> High under concurrent load; stream multiplexing and header compression help sustain performance without opening more sockets.</li>
+<li><strong>CPU/Memory Cost:</strong> Moderate overhead, mostly due to header processing, TLS encryption, and flow control mechanisms.</li>
+</ul>
+<h2 id="grpc">gRPC</h2>
+<p>gRPC is a high-performance, contract-first RPC framework built on top of HTTP/2, designed for low-latency, cross-language communication between services. It combines streaming-capable transport with strongly typed APIs defined using Protocol Buffers (Protobuf), enabling compact, efficient message serialization and seamless interoperability across platforms. Unlike traditional HTTP APIs, where endpoints are loosely defined by URL patterns and free-form JSON, gRPC enforces strict interface contracts through <code>.proto</code> definitions, which serve as both schema and implementation spec. The gRPC toolchain generates client and server code for multiple languages, eliminating manual serialization, improving safety, and standardizing interactions across heterogeneous systems.</p>
+<p>gRPC takes advantage of HTTP/2’s core features—stream multiplexing, flow control, and binary framing—to support both one-off RPC calls and full-duplex streaming, all with built-in backpressure. But it goes further than just transport. It bakes in support for deadlines, cancellation, structured metadata, and standardized error reporting, all of which help services communicate clearly and fail predictably. This makes gRPC a solid choice for internal APIs, service meshes, and performance-critical systems where you need efficiency, strong contracts, and reliable behavior under load.</p>
+<h3 id="grpc-service-definition">gRPC Service Definition</h3>
+<p>A minimal <code>.proto</code> file example:</p>
+<div class="highlight"><pre><span/><code><span class="k">syntax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"proto3"</span><span class="p">;</span>
+
+<span class="kd">service</span><span class="w"> </span><span class="n">EchoService</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">rpc</span><span class="w"> </span><span class="n">Echo</span><span class="p">(</span><span class="n">EchoRequest</span><span class="p">)</span><span class="w"> </span><span class="k">returns</span><span class="w"> </span><span class="p">(</span><span class="n">EchoResponse</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">message</span><span class="w"> </span><span class="nc">EchoRequest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="kd">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span><span class="w"> </span><span class="nc">EchoResponse</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kt">string</span><span class="w"> </span><span class="kd">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Generated Go stubs allow developers to easily implement the service:</p>
+<div class="highlight"><pre><span/><code><span class="kd">type</span><span class="w"> </span><span class="nx">server</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">UnimplementedEchoServiceServer</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">server</span><span class="p">)</span><span class="w"> </span><span class="nx">Echo</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">req</span><span class="w"> </span><span class="o">*</span><span class="nx">EchoRequest</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="nx">EchoResponse</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">EchoResponse</span><span class="p">{</span><span class="nx">Message</span><span class="p">:</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">Message</span><span class="p">},</span><span class="w"> </span><span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">lis</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Listen</span><span class="p">(</span><span class="s">"tcp"</span><span class="p">,</span><span class="w"> </span><span class="s">":50051"</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatalf</span><span class="p">(</span><span class="s">"failed to listen: %v"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">grpcServer</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">grpc</span><span class="p">.</span><span class="nx">NewServer</span><span class="p">()</span>
+<span class="w">    </span><span class="nx">RegisterEchoServiceServer</span><span class="p">(</span><span class="nx">grpcServer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">server</span><span class="p">{})</span>
+<span class="w">    </span><span class="nx">grpcServer</span><span class="p">.</span><span class="nx">Serve</span><span class="p">(</span><span class="nx">lis</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="performance-insights_2">Performance Insights</h3>
+<ul>
+<li><strong>Latency:</strong> Slightly higher than raw HTTP/2 due to additional serialization/deserialization steps, yet still performant for most scenarios.</li>
+<li><strong>Throughput:</strong> High throughput thanks to efficient payload serialization (protobuf) and inherent HTTP/2 multiplexing capabilities.</li>
+<li><strong>CPU/Memory Cost:</strong> Higher than HTTP/2 due to protobuf encoding overhead; memory consumption slightly increased due to temporary object allocations.</li>
+</ul>
+<h2 id="choosing-the-right-protocol">Choosing the Right Protocol</h2>
+<ul>
+<li><strong>Internal APIs and microservices</strong>: gRPC usually hits the sweet spot—it’s fast, strongly typed, and easy to work with once the tooling is in place.</li>
+<li><strong>Low-latency systems and trading platforms:</strong> Raw TCP with custom framing gives you the lowest overhead, but you’re on your own for everything else.</li>
+<li><strong>Public APIs or general web services:</strong> HTTP/2 via net/http is a solid choice. You get connection reuse, multiplexing, and good performance without needing to pull in a full RPC stack.</li>
+</ul>
+<p>Raw TCP gives you maximum control and the best performance on paper—but it also means building everything yourself: framing, flow control, error handling. HTTP/2 and gRPC trade some of that raw speed for built-in structure, better connection handling, and less code to maintain. What’s right depends entirely on where performance matters and how much complexity you want to own.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

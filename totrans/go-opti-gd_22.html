@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Efficient Use of net/http, net.Conn, and UDP in High-Traffic Go Services</title>
+<link href="../Styles/Style.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<h1>Efficient Use of net/http, net.Conn, and UDP in High-Traffic Go Services</h1>
+<blockquote>原文：<a href="https://goperf.dev/02-networking/efficient-net-use/">https://goperf.dev/02-networking/efficient-net-use/</a></blockquote>
+                
+                  
+
+
+  
+  
+
+
+
+<p>When we first start building high-traffic services in Go, we often lean heavily on <code>net/http</code>. It’s stable, ergonomic, and remarkably capable for 80% of use cases. But as soon as traffic spikes or latency budgets shrink, the cracks begin to show.</p>
+<p>It’s not that <code>net/http</code> is broken—it’s just that the defaults are tuned for convenience, not for performance under stress. And as we scale backend services to handle millions of requests per second, understanding what happens underneath the abstraction becomes the difference between meeting SLOs and fire-fighting in production.</p>
+<p>This article is a walkthrough of how to make networked Go services truly efficient—what works, what breaks, and how to go beyond idiomatic usage. We’ll start with <code>net/http</code>, drop into raw <code>net.Conn</code>, and finish with real-world patterns for handling UDP in latency-sensitive systems.</p>
+<h2 id="the-hidden-complexity-behind-a-simple-http-call">The Hidden Complexity Behind a Simple HTTP Call</h2>
+<p>Let’s begin where most Go developers do: a simple <code>http.Client</code>.</p>
+<div class="highlight"><pre><span/><code><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nx">resp</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">"http://localhost:8080/data"</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Fatal</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+</code></pre></div>
+<p>This looks harmless. It gets the job done, and in most local tests, it performs reasonably well. But in production, at scale, this innocent-looking code can trigger a surprising range of issues: leaked connections, memory spikes, blocked goroutines, and mysterious latency cliffs.</p>
+<p>One of the most common issues is forgetting to fully read <code>resp.Body</code> before closing it. <a href="https://github.com/google/go-github/pull/317">Go’s HTTP client won’t reuse connections unless the body is drained</a>. And under load, that means you're constantly opening new TCP connections—slamming the kernel with ephemeral ports, exhausting file descriptors, and triggering throttling.</p>
+<p>Here’s the safe pattern:</p>
+<div class="highlight"><pre><span/><code><span class="nx">io</span><span class="p">.</span><span class="nx">Copy</span><span class="p">(</span><span class="nx">io</span><span class="p">.</span><span class="nx">Discard</span><span class="p">,</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+<span class="k">defer</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">Body</span><span class="p">.</span><span class="nx">Close</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="transport-tuning-when-defaults-arent-enough">Transport Tuning: When Defaults Aren’t Enough</h2>
+<p>It’s easy to overlook how much global state hides behind <code>http.DefaultTransport</code>. If you spin up multiple <code>http.Client</code> instances across your app without customizing the transport, you're probably reusing a shared global pool without realizing it.</p>
+<p>This leads to unpredictable behavior under load: idle connections get evicted too quickly, or keep-alive connections linger longer than they should. The fix? Build a tuned <code>Transport</code> that matches your concurrency profile.</p>
+<h3 id="custom-httptransport-fields-to-tune">Custom <code>http.Transport</code> Fields to Tune</h3>
+<p>All the following settings are part of the <code>http.Transport</code> struct:</p>
+<div class="highlight"><pre><span/><code><span class="nx">transport</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Transport</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">MaxIdleConns</span><span class="p">:</span><span class="w">          </span><span class="mi">1000</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">MaxConnsPerHost</span><span class="p">:</span><span class="w">       </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">IdleConnTimeout</span><span class="p">:</span><span class="w">       </span><span class="mi">90</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">ExpectContinueTimeout</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">DialContext</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="nx">net</span><span class="p">.</span><span class="nx">Dialer</span><span class="p">{</span>
+<span class="w">        </span><span class="nx">Timeout</span><span class="p">:</span><span class="w">   </span><span class="mi">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">KeepAlive</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="w">    </span><span class="p">}).</span><span class="nx">DialContext</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Transport</span><span class="p">:</span><span class="w"> </span><span class="nx">transport</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">Timeout</span><span class="p">:</span><span class="w">   </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="more-advanced-optimization-tricks">More Advanced Optimization Tricks</h2>
+<p>These are all tied to key settings in the <code>http.Transport</code>, <code>http.Client</code>, and <code>http.Server</code> structs, or custom wrappers built on top of them:</p>
+<h3 id="set-expectcontinuetimeout-carefully">Set <code>ExpectContinueTimeout</code> Carefully</h3>
+<p>If our clients send large POST requests and the server doesn’t support <code>100-continue</code> properly, we can reduce or eliminate this delay:</p>
+<div class="highlight"><pre><span/><code><span class="nx">transport</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Transport</span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">    </span><span class="nx">ExpectContinueTimeout</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="c1">// if not needed, skip the wait entirely</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="constrain-maxconnsperhost">Constrain <code>MaxConnsPerHost</code></h3>
+<p>Go’s default HTTP client will open an unbounded number of connections to a host. That’s fine until one of your downstreams can’t handle it.</p>
+<div class="highlight"><pre><span/><code><span class="nx">transport</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Transport</span><span class="p">{</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">    </span><span class="nx">MaxConnsPerHost</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This prevents stampedes during spikes and avoids exhausting resources on your backend services.</p>
+<h3 id="use-small-httpclienttimeout">Use Small <code>http.Client.Timeout</code></h3>
+<p>A common mistake is setting a very high timeout (e.g., 30s) for safety. But long timeouts hold onto goroutines, buffers, and sockets under pressure. Prefer tighter control:</p>
+<div class="highlight"><pre><span/><code><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">http</span><span class="p">.</span><span class="nx">Client</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Timeout</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Instead of relying on big timeouts, use retries with backoff (e.g., with go-retryablehttp) to improve resiliency under partial failure.</p>
+<h3 id="explicitly-set-readbuffersize-and-writebuffersize-in-httpserver">Explicitly Set <code>ReadBufferSize</code> and <code>WriteBufferSize</code> in <code>http.Server</code></h3>
+<p>Go's <code>http.Server</code> does not expose <code>ReadBufferSize</code> and <code>WriteBufferSize</code> directly, but when you need to reduce GC pressure and improve syscall efficiency under load, you can pre-size the buffers in custom <code>Conn</code> wrappers. 4KB–8KB is a balanced value for most workloads: it's large enough to handle small headers and bodies efficiently without wasting memory. For example, 4KB covers almost all typical HTTP headers and small JSON payloads.</p>
+<p>You can implement this using <code>bufio.NewReaderSize</code> and <code>NewWriterSize</code> in a wrapped connection that plugs into a custom <code>net.Listener</code> and <code>http.Server.ConnContext</code>.</p>
+<p>If you're using <code>fasthttp</code>, you can configure buffer sizes explicitly:</p>
+<div class="highlight"><pre><span/><code><span class="nx">server</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">fasthttp</span><span class="p">.</span><span class="nx">Server</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">ReadBufferSize</span><span class="p">:</span><span class="w">  </span><span class="mi">4096</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">WriteBufferSize</span><span class="p">:</span><span class="w"> </span><span class="mi">4096</span><span class="p">,</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This avoids dynamic allocations on each request and leads to more predictable memory usage and cache locality under high throughput.</p>
+<h3 id="use-bufioreaderpeek-for-efficient-framing">Use <code>bufio.Reader.Peek()</code> for Efficient Framing</h3>
+<p>When implementing a framed protocol over TCP, like length-prefixed binary messages, naively calling <code>Read()</code> in a loop can lead to fragmented reads and unnecessary syscalls. This adds up, especially under load. Using <code>Peek()</code> gives you a look into the buffered data without advancing the read position, making it easier to detect message boundaries without triggering extra reads. It’s a practical technique in streaming systems or multiplexed connections where tight control over framing is critical.</p>
+<div class="highlight"><pre><span/><code><span class="nx">header</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">reader</span><span class="p">.</span><span class="nx">Peek</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="c1">// Peek without advancing the buffer</span>
+</code></pre></div>
+<h3 id="force-fresh-dns-lookups-with-custom-dialers">Force Fresh DNS Lookups with Custom Dialers</h3>
+<p>Go’s built-in DNS caching lasts for the lifetime of the process. In dynamic environments, like Kubernetes, this can become a problem when service IPs change but clients keep reusing stale ones. To avoid this, you can force fresh DNS lookups by creating a new net.Dialer per request or rotating the HTTP client periodically.</p>
+<p>But you can bypass Go’s internal DNS cache when needed:</p>
+<div class="highlight"><pre><span/><code><span class="nx">DialContext</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">network</span><span class="p">,</span><span class="w"> </span><span class="nx">addr</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">,</span><span class="w"> </span><span class="kt">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="nx">net</span><span class="p">.</span><span class="nx">Dialer</span><span class="p">{}).</span><span class="nx">DialContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="nx">network</span><span class="p">,</span><span class="w"> </span><span class="nx">addr</span><span class="p">)</span>
+<span class="p">},</span>
+</code></pre></div>
+<p>This ensures a fresh DNS lookup per request. While this adds minor overhead, it's necessary in failover-sensitive environments.</p>
+<h3 id="use-syncpool-for-readerswriters">Use <code>sync.Pool</code> for Readers/Writers</h3>
+<p>Most people use <code>sync.Pool</code> to reuse <code>[]byte</code> buffers, but for services that process many requests per second, allocating <code>bufio.Reader</code> and <code>bufio.Writer</code> objects per connection adds up. These objects also maintain their own buffers, so recycling them reduces pressure on both heap allocations and garbage collection.</p>
+<div class="highlight"><pre><span/><code><span class="kd">var</span><span class="w"> </span><span class="nx">readerPool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">New</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">bufio</span><span class="p">.</span><span class="nx">NewReaderSize</span><span class="p">(</span><span class="kc">nil</span><span class="p">,</span><span class="w"> </span><span class="mi">4096</span><span class="p">)</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">getReader</span><span class="p">(</span><span class="nx">conn</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="nx">bufio</span><span class="p">.</span><span class="nx">Reader</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">r</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">readerPool</span><span class="p">.</span><span class="nx">Get</span><span class="p">().(</span><span class="o">*</span><span class="nx">bufio</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">r</span><span class="p">.</span><span class="nx">Reset</span><span class="p">(</span><span class="nx">conn</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">r</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This practice significantly reduces allocation churn and improves latency consistency, especially in systems processing thousands of connections concurrently.</p>
+<h3 id="dont-share-httpclient-across-multiple-hosts">Don’t Share <code>http.Client</code> Across Multiple Hosts</h3>
+<p>While it might seem efficient to reuse a single <code>http.Client</code>, each target host maintains its own internal connection pool within the underlying <code>http.Transport</code>. If you use the same client for multiple base URLs, you end up mixing connection reuse and causing head-of-line blocking across unrelated services. Worse, DNS caching and socket exhaustion become harder to track.</p>
+<p>Instead, create a dedicated <code>http.Client</code> for each upstream service you interact with. This improves connection reuse, avoids cross-talk between services, and usually makes behavior more predictable, especially in environments like service meshes or when dealing with multiple external APIs.</p>
+<h3 id="use-conncontext-and-connstate-hooks-for-debugging">Use <code>ConnContext</code> and <code>ConnState</code> Hooks for Debugging</h3>
+<p>These hooks are useful for tracking the lifecycle of each connection—especially when debugging issues like memory leaks, stuck connections, or resource exhaustion in production. The <code>ConnState</code> callback gives visibility into transitions such as <code>StateNew</code>, <code>StateActive</code>, <code>StateIdle</code>, and <code>StateHijacked</code>, allowing you to log, trace, or apply custom handling per connection state.</p>
+<p>By monitoring these events, you can detect when connections hang, fail to close, or unexpectedly idle out. It also helps when correlating behavior with client IPs or network zones.</p>
+<div class="highlight"><pre><span/><code><span class="nx">ConnState</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">conn</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Conn</span><span class="p">,</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="nx">http</span><span class="p">.</span><span class="nx">ConnState</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">log</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">"conn %v changed state to %v"</span><span class="p">,</span><span class="w"> </span><span class="nx">conn</span><span class="p">.</span><span class="nx">RemoteAddr</span><span class="p">(),</span><span class="w"> </span><span class="nx">state</span><span class="p">)</span>
+<span class="p">},</span>
+</code></pre></div>
+<h2 id="dropping-the-abstraction-when-to-use-netconn">Dropping the Abstraction: When to Use <code>net.Conn</code></h2>
+<p>As we get closer to the limits of what the Go standard library can offer, it’s worth knowing that there are high-performance alternatives built specifically for event-driven, low-latency workloads. Projects like <a href="https://github.com/cloudwego/netpoll"><code>cloudwego/netpoll</code></a> and <a href="https://github.com/tidwall/evio"><code>tidwall/evio</code></a> offer powerful tools for maximizing performance beyond what’s achievable with <code>net.Conn</code> alone.</p>
+<ul>
+<li>
+<p><strong><a href="https://github.com/cloudwego/netpoll"><code>cloudwego/netpoll</code></a></strong> is an epoll-based network library designed for building massive concurrent network services with minimal GC overhead. It uses event-based I/O to eliminate goroutine-per-connection costs, ideal for scenarios like RPC proxies, internal service meshes, or high-frequency messaging systems.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/tidwall/evio"><code>tidwall/evio</code></a></strong> provides a fast, non-blocking event loop for Go based on the <a href="https://en.wikipedia.org/wiki/Reactor_pattern">reactor pattern</a>. It’s well-suited for protocols where latency matters more than per-connection state complexity, such as custom TCP, UDP protocols, or lightweight gateways.</p>
+</li>
+</ul>
+<p>If you're building systems where throughput or connection count exceeds hundreds of thousands, or where tail latency is critical, it's worth exploring these libraries. They come with trade-offs—most notably, less standardization and more manual lifecycle management—but in return, they give you fine-grained control over performance-critical paths.</p>
+<p>Sometimes, even a tuned HTTP stack isn't enough.</p>
+<p>In cases like internal binary protocols or services dealing with hundreds of thousands of requests per second, we may find we're paying for HTTP semantics we don't use. Dropping to <code>net.Conn</code> gives us full control—no pooling surprises, no hidden keep-alives, just a raw socket.</p>
+<div class="highlight"><pre><span/><code><span class="nx">ln</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">Listen</span><span class="p">(</span><span class="s">"tcp"</span><span class="p">,</span><span class="w"> </span><span class="s">":9000"</span><span class="p">)</span>
+<span class="o">...</span>
+</code></pre></div>
+<p>This lets us take over the connection lifecycle, buffering, and concurrency fully. It also opens up opportunities to reduce GC impact via buffer reuse:</p>
+<div class="highlight"><pre><span/><code><span class="kd">var</span><span class="w"> </span><span class="nx">bufPool</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">sync</span><span class="p">.</span><span class="nx">Pool</span><span class="p">{</span>
+<span class="w">    </span><span class="nx">New</span><span class="p">:</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="mi">4096</span><span class="p">)</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Enabling TCP_NODELAY is useful in latency-sensitive systems:</p>
+<div class="highlight"><pre><span/><code><span class="nx">tcpConn</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">conn</span><span class="p">.(</span><span class="o">*</span><span class="nx">net</span><span class="p">.</span><span class="nx">TCPConn</span><span class="p">)</span>
+<span class="nx">tcpConn</span><span class="p">.</span><span class="nx">SetNoDelay</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="beyond-tcp-why-udp-matters">Beyond TCP: Why UDP Matters</h2>
+<p>TCP could be too heavy for workloads like log firehose ingestion, telemetry beacons, or heartbeat messages. We can turn to UDP for low-latency, connectionless data delivery:</p>
+<div class="highlight"><pre><span/><code><span class="nx">conn</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">net</span><span class="p">.</span><span class="nx">ListenUDP</span><span class="p">(</span><span class="s">"udp"</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">net</span><span class="p">.</span><span class="nx">UDPAddr</span><span class="p">{</span><span class="nx">Port</span><span class="p">:</span><span class="w"> </span><span class="mi">9999</span><span class="p">})</span>
+<span class="o">...</span>
+</code></pre></div>
+<p>This skips handshakes and reuses the socket efficiently. But remember—UDP offers no ordering, reliability, or built-in session tracking. It works best in high-volume, low-consequence pipelines.</p>
+<h2 id="choosing-the-right-tool">Choosing the Right Tool</h2>
+<p>Our networking strategy should reflect traffic shape and protocol expectations:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Preferred Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REST/gRPC, general APIs</td>
+<td><code>net/http</code></td>
+</tr>
+<tr>
+<td>HTTP under load</td>
+<td>Tuned <code>http.Transport</code></td>
+</tr>
+<tr>
+<td>Custom TCP protocol</td>
+<td><code>net.Conn</code></td>
+</tr>
+<tr>
+<td>Framed binary data</td>
+<td><code>net.Conn</code> + buffer mgmt</td>
+</tr>
+<tr>
+<td>Fire-and-forget telemetry</td>
+<td><code>UDPConn</code></td>
+</tr>
+<tr>
+<td>Latency-sensitive game updates</td>
+<td><code>UDP</code></td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<p>At scale, network performance is never just about the network. It's also about memory pressure, context lifecycles, kernel behavior, and socket hygiene. We can go far with the Go standard library, but when systems push back, we need to push deeper.</p>
+<p>The good news? Go gives us the tools. We just need to use them wisely.</p>
+<p>If you're experimenting with framed protocols, zero-copy parsing, or custom benchmarking setups, there's a lot more to explore. Let's keep going.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+                  
+</body>
+</html>

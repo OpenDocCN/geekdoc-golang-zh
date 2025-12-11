@@ -1,264 +1,395 @@
 - en: 'Practical Example: Profiling Networked Go Applications with pprof'
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 实际示例：使用pprof剖析网络Go应用程序
 - en: 原文：[https://goperf.dev/02-networking/gc-endpoint-profiling/](https://goperf.dev/02-networking/gc-endpoint-profiling/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/02-networking/gc-endpoint-profiling/](https://goperf.dev/02-networking/gc-endpoint-profiling/)
 - en: This section walks through a demo application instrumented with benchmarking
     tools and runtime profiling to ground profiling concepts in a real-world context.
     It covers identifying performance bottlenecks, interpreting flame graphs, and
     analyzing system behavior under various simulated network conditions.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 本节通过一个使用基准测试工具和运行时剖析的演示应用程序，将剖析概念应用于实际场景。它涵盖了识别性能瓶颈、解释火焰图以及在各种模拟网络条件下的系统行为分析。
 - en: CPU Profiling in Networked Apps
+  id: totrans-3
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 网络应用程序中的CPU剖析
 - en: The demo application is intentionally designed to be as simple as possible to
     highlight key profiling concepts without unnecessary complexity. While the code
     and patterns used in the demo are basic, the profiling insights gained here are
     highly applicable to more complex, production-grade applications.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 演示应用程序被有意设计得尽可能简单，以突出关键剖析概念，而不引入不必要的复杂性。虽然演示中使用的代码和模式很基础，但在这里获得的剖析见解高度适用于更复杂、生产级的应用程序。
 - en: 'To enable continuous profiling under load, we expose `pprof` via a dedicated
     HTTP endpoint:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了在负载下实现连续的剖析，我们通过一个专门的HTTP端点公开了`pprof`：
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: <details class="example"><summary>full `net-app`'s source code</summary>
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>完整的`net-app`源代码</summary>
 - en: '[PRE1]</details>'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE1]</details>'
 - en: 'The next step will be to establish a connection with the profiled app and collect
     samples:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 下一步将是与被剖析的应用程序建立连接并收集样本：
 - en: '[PRE2]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'View results interactively:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 交互式查看结果：
 - en: '[PRE3]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: the actual `cpu.prof` path will be something like `$HOME/pprof/pprof.net-app.samples.cpu.004.pb.gz`
+  id: totrans-13
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 实际的`cpu.prof`路径可能类似于`$HOME/pprof/pprof.net-app.samples.cpu.004.pb.gz`
 - en: or you can save the profiling graph as an `svg` image.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 或者您可以将剖析图保存为`svg`图像。
 - en: 'CPU Profiling Walkthrough: Load on the `/gc` Endpoint'
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: CPU剖析流程：对`/gc`端点的负载
 - en: We profiled the application during a 30-second load test targeting the `/gc`
     endpoint to see what happens under memory pressure. This handler was intentionally
     designed to trigger allocations and force garbage collection, which makes it a
     great candidate for observing runtime behavior under stress.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在针对`/gc`端点的30秒负载测试期间对应用程序进行了剖析，以查看在内存压力下的情况。这个处理器被有意设计为触发分配并强制进行垃圾收集，这使得它成为观察压力下运行时行为的理想候选。
 - en: 'We used Go’s built-in profiler to capture a CPU trace:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们使用了Go的内置剖析器来捕获CPU跟踪：
 - en: <details class="example"><summary>CPU profiling trace for the `/gc` endpoint</summary>
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>`/gc`端点的CPU剖析跟踪</summary>
 - en: '[![](../Images/7a6a813e3f186af7e41a21bebb8a53e9.png)](../img/cpu.prof.png)</details>'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: '[![](../Images/7a6a813e3f186af7e41a21bebb8a53e9.png)](../img/cpu.prof.png)</details>'
 - en: This gave us 3.02 seconds of sampled CPU activity out of 30 seconds of wall-clock
     time—a useful window into what the runtime and application were doing under pressure.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 这为我们提供了3.02秒的样本CPU活动，占用了30秒的墙钟时间——这是一个了解在压力下运行时和应用程序所做事情的有用窗口。
 - en: Where the Time Went
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 时间都花在哪里了
 - en: HTTP Stack Dominates the Surface
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: HTTP堆栈主导了表面
 - en: 'As expected, the majority of CPU time was spent on request handling:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 如预期，大部分CPU时间都花在了请求处理上：
 - en: '`http.(*conn).serve` accounted for nearly 58% of sampled time'
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`http.(*conn).serve`占用了近58%的样本时间'
 - en: '`http.serverHandler.ServeHTTP` appeared prominently as well'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`http.serverHandler.ServeHTTP`也显著出现'
 - en: This aligns with the fact that we were sustaining constant traffic. The Go HTTP
     stack is doing the bulk of the work, managing connections and dispatching requests.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 这与我们的持续流量是一致的。Go HTTP堆栈正在做大部分工作，管理连接和分发请求。
 - en: Garbage Collection Overhead is Clearly Visible
+  id: totrans-27
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 垃圾收集开销明显可见
 - en: 'A large portion of CPU time was spent inside the garbage collector:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 大部分CPU时间都花在了垃圾收集器内部：
 - en: '`runtime.gcDrain`, `runtime.scanobject`, and `runtime.gcBgMarkWorker` were
     all active'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`runtime.gcDrain`、`runtime.scanobject`和`runtime.gcBgMarkWorker`都处于活跃状态'
 - en: Combined with memory-related functions like `runtime.mallocgc`, these accounted
     for roughly 20% of total CPU time
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结合与内存相关的功能，如`runtime.mallocgc`，这些大约占用了总CPU时间的20%
 - en: This confirms that `gcHeavyHandler` is achieving its goal. What we care about
     is whether this kind of allocation pressure leaks into real-world handlers. If
     it does, we’re paying for it in latency and CPU churn.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 这证实了`gcHeavyHandler`达到了其目标。我们关心的是这种分配压力是否会泄漏到现实世界的处理器中。如果确实如此，我们将在延迟和CPU轮换中付出代价。
 - en: I/O and Syscalls Take a Big Slice
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: I/O和系统调用占据了很大一部分
 - en: 'We also saw high syscall activity—especially from:'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还看到了很高的系统调用活动——特别是来自：
 - en: '`syscall.syscall` (linked to `poll`, `Read`, and `Write`)'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`syscall.syscall`（与`poll`、`Read`和`Write`相关联）'
 - en: '`bufio.Writer.Flush` and `http.response.finishRequest`'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`bufio.Writer.Flush`和`http.response.finishRequest`'
 - en: These functions reflect the cost of writing responses back to clients. For simple
     handlers, this is expected. But if your handler logic is lightweight and most
     of the time is spent just flushing data over TCP, it’s worth asking whether the
     payloads or buffer strategies could be optimized.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些函数反映了将响应写回客户端的成本。对于简单的处理程序，这是预期的。但如果你的处理逻辑很轻量级，大部分时间都花在通过TCP刷新数据上，那么优化有效载荷或缓冲区策略就值得考虑。
 - en: Scheduler Activity Is Non-Trivial
+  id: totrans-37
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 调度器活动非同小可
 - en: Functions like `runtime.schedule`, `mcall`, and `findRunnable` were also on
     the board. These are Go runtime internals responsible for managing goroutines.
     Seeing them isn’t unusual during high-concurrency tests—but if they dominate,
     it often points to excessive goroutine churn or blocking behavior.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '`runtime.schedule`、`mcall`和`findRunnable`等函数也出现在列表中。这些是Go运行时内部负责管理goroutines的函数。在高并发测试期间看到它们并不罕见——但如果它们占主导地位，通常表明goroutine
+    churn或阻塞行为过多。'
 - en: 'Memory Profiling: Retained Heap from the `/gc` Endpoint'
+  id: totrans-39
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 内存分析：来自`/gc`端点的保留堆
 - en: We also captured a memory profile to complement the CPU view while hammering
     the `/gc` endpoint. This profile used the `inuse_space` metric, which shows how
     much heap memory is actively retained by each function at the time of capture.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还捕获了一个内存分析，以补充对`/gc`端点的CPU视图。此分析使用了`inuse_space`指标，它显示了在捕获时每个函数实际保留的堆内存量。
 - en: 'We triggered the profile with:'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们通过以下方式触发了分析：
 - en: '[PRE4]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: <details class="example"><summary>Memory profiling for the `/gc` endpoint</summary>
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>`/gc`端点的内存分析</summary>
 - en: '[![](../Images/8077552e3f37816c102f22210cddd49b.png)](../img/mem.prof.png)</details>'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '[![](../Images/8077552e3f37816c102f22210cddd49b.png)](../img/mem.prof.png)</details>'
 - en: 'At the time of capture, the application retained 649MB of heap memory, and
     almost all of it—99.46%—was attributed to a single function: `gcHeavyHandler`.
     This was expected. The handler simulates allocation pressure by creating 10KB
     slices in a tight loop. Every 100th slice is added to a global variable to simulate
     long-lived memory.'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 在捕获时，应用程序保留了649MB的堆内存，其中几乎全部——99.46%——归因于单个函数：`gcHeavyHandler`。这是预期的。处理程序通过在紧密循环中创建10KB的切片来模拟分配压力。每100个切片被添加到一个全局变量中，以模拟长期内存。
 - en: 'Here’s what the handler does:'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是处理程序所做的工作：
 - en: '[PRE5]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'The flamegraph confirmed what we expected:'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 火焰图证实了我们的预期：
 - en: '`gcHeavyHandler` accounted for nearly all memory in use.'
+  id: totrans-49
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`gcHeavyHandler`占用了几乎所有在用的内存。'
 - en: The path traced cleanly from the HTTP connection, through the Go router stack,
     into the handler logic.
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 跟踪的路径从HTTP连接开始，经过Go路由器堆栈，进入处理逻辑。
 - en: No significant allocations came from elsewhere—this was a focused, controlled
     memory pressure scenario.
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 没有显著的分配来自其他地方——这是一个集中、受控的内存压力场景。
 - en: This type of profile is valuable because it reveals what is still being held
     in memory, not just what was allocated. This view is often the most revealing
     for diagnosing leaks, retained buffers, or forgotten references.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种类型的分析很有价值，因为它揭示了内存中仍然保留的内容，而不仅仅是已分配的内容。这种视图通常对于诊断泄漏、保留缓冲区或遗忘的引用最有揭示性。
 - en: 'Summary: CPU and Memory Profiling of the `/gc` Endpoint'
+  id: totrans-53
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 摘要：`/gc`端点的CPU和内存分析
 - en: The `/gc` endpoint was intentionally built to simulate high allocation pressure
     and GC activity. Profiling this handler under load gave us a clean, focused view
     of how the Go runtime behaves when pushed to its memory limits.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '`/gc`端点是故意构建来模拟高分配压力和GC活动的。在负载下对处理程序进行分析，为我们提供了一个清晰、集中的视角，展示了Go运行时在内存极限被推到时的行为。'
 - en: 'From the **CPU profile**, we saw that:'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 从**CPU分析**中，我们看到了以下情况：
 - en: As expected, most of the time was spent in the HTTP handler path during sustained
     load.
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如预期的那样，在持续负载期间，大部分时间都花在了HTTP处理路径上。
 - en: Nearly 20% of CPU samples were attributed to memory allocation and garbage collection.
+  id: totrans-57
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 近20%的CPU样本归因于内存分配和垃圾回收。
 - en: Syscall activity was high, mostly from writing responses.
+  id: totrans-58
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 系统调用活动很高，主要来自写入响应。
 - en: The Go scheduler was moderately active, managing the concurrent goroutines handling
     traffic.
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Go调度器适度活跃，管理处理流量的并发goroutines。
 - en: 'From the **memory profile**, we captured 649MB of live heap usage, with **99.46%
     of it retained by `gcHeavyHandler`**. This matched our expectations: the handler
     deliberately retains every 100th 10KB allocation to simulate long-lived data.'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 从 **内存配置文件** 中，我们捕捉到了649MB的活跃堆使用量，其中 **99.46% 被由 `gcHeavyHandler` 保留**。这符合我们的预期：处理程序故意保留每100个10KB分配，以模拟长期数据。
 - en: 'Together, these profiles give us confidence that the `/gc` endpoint behaves
     as intended under synthetic pressure:'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些配置文件共同让我们有信心，在合成压力下 `/gc` 端点表现如预期：
 - en: It creates meaningful CPU and memory load.
+  id: totrans-62
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它创造了有意义的CPU和内存负载。
 - en: It exposes the cost of sustained allocations and GC cycles.
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它揭示了持续分配和垃圾回收周期的成本。
 - en: It provides a predictable environment for testing optimizations or GC tuning
     strategies.
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它提供了一个可预测的环境来测试优化或垃圾回收调整策略。

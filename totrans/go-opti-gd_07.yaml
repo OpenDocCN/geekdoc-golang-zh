@@ -1,11 +1,15 @@
 - en: Zero-Copy Techniques
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 零拷贝技术
 - en: 原文：[https://goperf.dev/01-common-patterns/zero-copy/](https://goperf.dev/01-common-patterns/zero-copy/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/01-common-patterns/zero-copy/](https://goperf.dev/01-common-patterns/zero-copy/)
 - en: When writing performance-critical Go code, how memory is managed often has a
     bigger impact than it first appears. Zero-copy techniques are one of the more
     effective ways to tighten that control. Instead of moving bytes from buffer to
@@ -14,12 +18,16 @@
     pauses. For I/O-heavy systems—whether you’re streaming files, handling network
     traffic, or parsing large datasets—this can translate into much higher throughput
     and lower latency without adding complexity.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 当编写性能关键型的Go代码时，内存管理的影响往往比最初看起来更大。零拷贝技术是加强这种控制的有效方法之一。这些技术不是在缓冲区之间移动字节，而是直接在现有内存上工作——完全避免复制。这意味着对CPU的压力更小，缓存行为更好，以及更少的GC触发的暂停。对于I/O密集型系统——无论是流式传输文件、处理网络流量还是解析大型数据集——这可以转化为更高的吞吐量和更低的延迟，而不会增加复杂性。
 - en: Understanding Zero-Copy
+  id: totrans-3
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 理解零拷贝
 - en: In the usual I/O path, data moves back and forth between user space and kernel
     space—first copied into a kernel buffer, then into your application’s buffer,
     or the other way around. It works, but it’s wasteful. Every copy burns CPU cycles
@@ -27,215 +35,322 @@
     between buffers, it lets applications work directly with what’s already in place—no
     detours, no extra copies. The result? Lower CPU load, better use of memory, and
     faster I/O, especially when throughput or latency actually matter.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 在通常的I/O路径中，数据在用户空间和内核空间之间来回移动——首先复制到一个内核缓冲区，然后到你的应用程序的缓冲区，或者反过来。它有效，但效率低下。每次复制都会消耗CPU周期并阻塞内存带宽。零拷贝改变了这一点。它不是在缓冲区之间弹跳数据，而是让应用程序直接与现有的内容工作——没有绕路，没有额外的复制。结果是？更低的CPU负载，更好的内存使用，以及更快的I/O，尤其是在吞吐量或延迟真正重要的时候。
 - en: Common Zero-Copy Techniques in Go
+  id: totrans-5
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: Go中的常见零拷贝技术
 - en: Using `io.Reader` and `io.Writer` Interfaces
+  id: totrans-6
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用`io.Reader`和`io.Writer`接口
 - en: Using interfaces like `io.Reader` and `io.Writer` gives you fine-grained control
     over how data flows. Instead of spinning up new buffers every time, you can reuse
     existing ones and keep memory usage steady. In practice, this avoids unnecessary
     garbage collection pressure and keeps your I/O paths clean and efficient—especially
     when you’re dealing with high-throughput or streaming workloads.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用像`io.Reader`和`io.Writer`这样的接口可以让你对数据流动有更精细的控制。不必每次都启动新的缓冲区，你可以重用现有的缓冲区并保持内存使用稳定。在实践中，这可以避免不必要的垃圾回收压力，并保持你的I/O路径清洁高效——尤其是在处理高吞吐量或流式工作负载时。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: '`io.CopyBuffer` reuses a provided buffer, avoiding repeated allocations and
     intermediate copies. An in-depth `io.CopyBuffer` explanation is [available on
     SO](https://stackoverflow.com/questions/71082021/what-exactly-is-buffer-last-parameter-in-io-copybuffer).'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: '`io.CopyBuffer`重用提供的缓冲区，避免重复分配和中间复制。关于`io.CopyBuffer`的深入解释[可在SO上找到](https://stackoverflow.com/questions/71082021/what-exactly-is-buffer-last-parameter-in-io-copybuffer)。'
 - en: Slicing for Efficient Data Access
+  id: totrans-10
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 高效数据访问的切片
 - en: 'Slicing large byte arrays or buffers instead of copying data into new slices
     is a powerful zero-copy strategy:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 将大型字节数组或缓冲区切片而不是将数据复制到新的切片中是一种强大的零拷贝策略：
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Slices in Go are inherently zero-copy since they reference the underlying array.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: Go中的切片天生就是零拷贝，因为它们引用了底层的数组。
 - en: Memory Mapping (`mmap`)
+  id: totrans-14
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 内存映射（`mmap`）
 - en: 'Using memory mapping enables direct access to file contents without explicit
     read operations:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用内存映射可以在不进行显式读取操作的情况下直接访问文件内容：
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: This approach maps file contents directly into memory, entirely eliminating
     copying between kernel and user-space.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种方法直接将文件内容映射到内存中，完全消除了内核空间和用户空间之间的复制。
 - en: Benchmarking Impact
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 基准测试影响
 - en: 'Here''s a basic benchmark illustrating performance differences between explicit
     copying and zero-copy slicing:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 下面是一个基本的基准测试，展示了显式复制和零拷贝切片之间的性能差异：
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: In `BenchmarkCopy`, each iteration copies a 64KB buffer into a fresh slice—allocating
     memory and duplicating data every time. That cost adds up fast. `BenchmarkSlice`,
     on the other hand, just re-slices the same buffer—no allocation, no copying, just
     new view on the same data. The difference is night and day. When performance matters,
     avoiding copies isn’t just a micro-optimization—it’s fundamental.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 `BenchmarkCopy` 中，每次迭代将64KB缓冲区拷贝到一个新的切片中——每次都分配内存和复制数据。这种成本很快就会累积。另一方面，`BenchmarkSlice`
+    只是对相同的缓冲区进行切片——没有分配，没有拷贝，只是对相同数据的新的视图。这种差异是巨大的。当性能很重要时，避免拷贝不仅仅是一个微优化——这是基础。
 - en: Info
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: Info
 - en: These two functions are not equivalent in behavior—`BenchmarkCopy` makes an
     actual deep copy of the buffer, while `BenchmarkSlice` only creates a new slice
     header pointing to the same underlying data. This benchmark is not comparing functional
     correctness but is intentionally contrasting performance characteristics to highlight
     the cost of unnecessary copying.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 这两个函数在行为上并不等价——`BenchmarkCopy` 对缓冲区进行实际的深度拷贝，而 `BenchmarkSlice` 只创建一个新的切片头，指向相同的基本数据。这个基准测试并不是比较功能正确性，而是有意对比性能特性，以突出不必要的拷贝成本。
 - en: '| Benchmark | Time per op (ns) | Bytes per op | Allocs per op |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| Benchmark | 每次操作时间（ns） | 每次操作字节数 | 每次操作分配数 |'
 - en: '| --- | --- | --- | --- |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '| BenchmarkCopy | 4,246 | 65536 | 1 |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkCopy | 4,246 | 65536 | 1 |'
 - en: '| BenchmarkSlice | 0.592 | 0 | 0 |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkSlice | 0.592 | 0 | 0 |'
 - en: 'File I/O: Memory Mapping vs. Standard Read'
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 文件I/O：内存映射与标准读取
 - en: We also benchmarked file reading performance using `os.ReadAt` versus `mmap.Open`
     for a 4MB binary file.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还使用 `os.ReadAt` 与 `mmap.Open` 对一个4MB的二进制文件进行了文件读取性能的基准测试。
 - en: '[PRE4]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: <details class="info"><summary>How to run the benchmark</summary>
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="info"><summary>如何运行基准测试</summary>
 - en: 'To run the benchmark involving `mmap`, you’ll need to install the required
     package and create a test file:'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 要运行涉及 `mmap` 的基准测试，你需要安装所需的包并创建一个测试文件：
 - en: '[PRE5]</details>'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE5]</details>'
 - en: Benchmark Results
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 基准测试结果
 - en: '| Benchmark | Time per op (ns) | Bytes per op | Allocs per op |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| Benchmark | 每次操作时间（ns） | 每次操作字节数 | 每次操作分配数 |'
 - en: '| --- | --- | --- | --- |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '| ReadWithCopy | 94,650 | 0 | 0 |'
+  id: totrans-37
   prefs: []
   type: TYPE_TB
+  zh: '| ReadWithCopy | 94,650 | 0 | 0 |'
 - en: '| ReadWithMmap | 50,082 | 0 | 0 |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| ReadWithMmap | 50,082 | 0 | 0 |'
 - en: The memory-mapped version (`mmap`) is nearly 2× faster than the standard read
     call. This illustrates how zero-copy access through memory mapping can substantially
     reduce read latency and CPU usage for large files.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 内存映射版本（`mmap`）比标准读取调用快近2倍。这说明了通过内存映射实现的零拷贝访问如何显著降低大文件的读取延迟和CPU使用率。
 - en: <details class="example"><summary>Show the complete benchmark file</summary>
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>显示完整的基准测试文件</summary>
 - en: '[PRE6]</details>'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE6]</details>'
 - en: When to Use Zero-Copy
+  id: totrans-42
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 何时使用零拷贝
 - en: 'Zero-copy techniques are highly beneficial for:'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 零拷贝技术在以下方面高度有益：
 - en: Network servers handling large amounts of concurrent data streams. Avoiding
     unnecessary memory copies helps reduce CPU usage and latency, especially under
     high load.
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 网络服务器处理大量并发数据流。避免不必要的内存拷贝有助于降低 CPU 使用率和延迟，尤其是在高负载下。
 - en: Applications with heavy I/O operations like file streaming or real-time data
     processing. Zero-copy allows data to move through the system efficiently without
     redundant allocations or copies.
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 拥有大量I/O操作的应用程序，如文件流或实时数据处理。零拷贝允许数据在系统中高效地移动，无需冗余分配或拷贝。
 - en: Warning
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: Warning
 - en: Zero-copy isn’t a free win. Slices share underlying memory, so reusing them
     means you’re also sharing state. If one part of your code changes the data while
     another is still reading it, you’re setting yourself up for subtle, hard-to-track
     bugs. This kind of shared memory requires discipline—clear ownership and tight
     control. It also adds complexity, which might not be worth it unless the performance
     gains are real and measurable. Always benchmark before committing to it.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 零拷贝并非免费的胜利。切片共享基本内存，因此重用它们意味着你也在共享状态。如果你的代码的一部分在另一部分仍在读取数据时更改数据，你将为自己设置微妙且难以追踪的bug。这种共享内存需要纪律——清晰的拥有权和严格控制。它还增加了复杂性，除非性能提升是真实且可衡量的，否则可能不值得。在做出承诺之前，始终进行基准测试。
 - en: Real-World Use Cases and Libraries
+  id: totrans-48
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 实际应用案例和库
 - en: 'Zero-copy strategies aren''t just theoretical—they''re used in production by
     performance-critical Go systems:'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 零拷贝策略不仅停留在理论层面——它们被性能关键型的 Go 系统在生产环境中使用：
 - en: '[fasthttp](https://github.com/valyala/fasthttp): A high-performance HTTP server
     designed to avoid allocations. It returns slices directly and avoids `string`
     conversions to minimize copying.'
+  id: totrans-50
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[fasthttp](https://github.com/valyala/fasthttp)：一个设计用来避免分配的高性能HTTP服务器。它直接返回切片，并避免`string`转换以最小化拷贝。'
 - en: '[gRPC-Go](https://github.com/grpc/grpc-go): Uses internal buffer pools and
     avoids deep copying of large request/response messages to reduce GC pressure.'
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[gRPC-Go](https://github.com/grpc/grpc-go)：使用内部缓冲池，避免对大型请求/响应消息进行深度复制，以减少GC压力。'
 - en: '[MinIO](https://github.com/minio/minio): An object storage system that streams
     data directly between disk and network using `io.Reader` without unnecessary buffer
     replication.'
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[MinIO](https://github.com/minio/minio): 一个对象存储系统，它使用 `io.Reader` 直接在磁盘和网络之间传输数据，无需不必要的缓冲区复制。'
 - en: '[Protobuf](https://github.com/protocolbuffers/protobuf) and [MsgPack](https://github.com/vmihailenco/msgpack)
     libraries: Efficient serialization frameworks like `google.golang.org/protobuf`
     and `vmihailenco/msgpack` support decoding directly into user-managed buffers.'
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Protobuf](https://github.com/protocolbuffers/protobuf) 和 [MsgPack](https://github.com/vmihailenco/msgpack)
+    库：高效的序列化框架，如 `google.golang.org/protobuf` 和 `vmihailenco/msgpack`，支持直接解码到用户管理的缓冲区。'
 - en: '[InfluxDB](https://github.com/influxdata/influxdb) and [Badger](https://github.com/hypermodeinc/badger):
     These storage engines use `mmap` extensively for fast, zero-copy access to database
     files.'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[InfluxDB](https://github.com/influxdata/influxdb) 和 [Badger](https://github.com/hypermodeinc/badger)：这些存储引擎广泛使用
+    `mmap` 以实现快速、零拷贝访问数据库文件。'
 - en: These libraries show how zero-copy techniques help reduce allocations, GC overhead,
     and system call frequency—all while increasing throughput.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些库展示了零拷贝技术如何帮助减少分配、GC开销和系统调用频率，同时提高吞吐量。

@@ -1,250 +1,365 @@
 - en: Efficient Context Management
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 高效的上下文管理
 - en: 原文：[https://goperf.dev/01-common-patterns/context/](https://goperf.dev/01-common-patterns/context/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/01-common-patterns/context/](https://goperf.dev/01-common-patterns/context/)
 - en: Whether you're handling HTTP requests, coordinating worker goroutines, or querying
     external services, there's often a need to cancel in-flight operations or enforce
     execution deadlines. Go’s `context` package is designed for precisely that—it
     provides a consistent and thread-safe way to manage operation lifecycles, propagate
     metadata, and ensure resources are cleaned up promptly.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 不论是处理 HTTP 请求、协调工作 goroutine 还是查询外部服务，通常都需要取消正在进行的操作或强制执行执行截止日期。Go 的 `context`
+    包正是为此而设计的——它提供了一种一致且线程安全的方式来管理操作生命周期、传播元数据和确保资源及时清理。
 - en: Why Context Matters
+  id: totrans-3
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 上下文的重要性
 - en: 'Go provides two base context constructors: `context.Background()` and `context.TODO()`.'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 提供了两个基本上下文构造函数：`context.Background()` 和 `context.TODO()`。
 - en: '`context.Background()` is the root context typically used at the top level
     of your application—such as in `main`, `init`, or server setup—where no existing
     context is available.'
+  id: totrans-5
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`context.Background()` 是通常用于应用程序顶层（如 `main`、`init` 或服务器设置）的根上下文，在这些地方没有现有的上下文可用。'
 - en: '`context.TODO()` is a placeholder used when it’s unclear which context to use,
     or when the surrounding code hasn’t yet been fully wired for context propagation.
     It serves as a reminder that the context logic needs to be filled in later.'
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`context.TODO()` 是一个占位符，用于不清楚使用哪个上下文时，或者当周围的代码尚未完全配置上下文传播时。它作为一个提醒，表示上下文逻辑需要在稍后填充。'
 - en: The `context` package in Go is designed to carry deadlines, cancellation signals,
     and other request-scoped values across API boundaries. It's especially useful
     in concurrent programs where operations need to be coordinated and canceled cleanly.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 中的 `context` 包旨在携带截止日期、取消信号和其他请求范围值跨越 API 边界。它在需要协调操作和干净取消的并发程序中特别有用。
 - en: 'A typical context workflow begins at the entry point of a program or request—like
     an HTTP handler, main function, or RPC server. From there, a base context is created
     using `context.Background()` or `context.TODO()`. This context can then be extended
     using constructors like:'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 典型的上下文工作流程从程序的入口点或请求的入口点开始——例如 HTTP 处理程序、主函数或 RPC 服务器。从那里，使用 `context.Background()`
+    或 `context.TODO()` 创建一个基本上下文。然后可以使用以下构造函数扩展此上下文：
 - en: '`context.WithCancel(parent)` to create a cancelable context.'
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 `context.WithCancel(parent)` 创建一个可取消的上下文。
 - en: '`context.WithTimeout(parent, duration)` to cancel automatically after a specific
     time.'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 `context.WithTimeout(parent, duration)` 在指定时间后自动取消。
 - en: '`context.WithDeadline(parent, time)` for cancelling at a fixed moment.'
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 `context.WithDeadline(parent, time)` 在固定时刻取消。
 - en: '`context.WithValue(parent, key, value)` to attach request-scoped data.'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 `context.WithValue(parent, key, value)` 来附加请求范围的数据。
 - en: Each of these functions returns a new context that wraps its parent. Cancellation
     signals, deadlines, and values are automatically propagated down the call stack.
     When a context is canceled—either manually or by timeout—any goroutines or functions
     listening on `<-ctx.Done()` are immediately notified.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些函数中的每一个都返回一个新的上下文，该上下文封装了其父上下文。取消信号、截止日期和值会自动传播到调用栈。当一个上下文被取消——无论是手动还是超时——监听
+    `<-ctx.Done()` 的任何 goroutine 或函数都会立即得到通知。
 - en: By passing context explicitly through function parameters, you avoid hidden
     dependencies and gain fine-grained control over the execution lifecycle of concurrent
     operations.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过显式通过函数参数传递上下文，你可以避免隐藏依赖，并获得对并发操作执行生命周期的精细控制。
 - en: Practical Examples of Context Usage
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 上下文使用的实际示例
 - en: The following examples show how `context.Context` enables better control, observability,
     and resource management across a variety of real-world scenarios.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 以下示例展示了 `context.Context` 如何在各种实际场景中实现更好的控制、可观察性和资源管理。
 - en: HTTP Server Request Cancellation
+  id: totrans-17
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: HTTP 服务器请求取消
 - en: 'Contexts help gracefully handle cancellations when clients disconnect early.
     Every incoming HTTP request in Go carries a context that gets canceled if the
     client closes the connection. By checking `<-ctx.Done()`, you can exit early instead
     of doing unnecessary work:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 上下文帮助优雅地处理客户端提前断开连接时的取消操作。Go 中的每个传入 HTTP 请求都携带一个上下文，如果客户端关闭连接，则该上下文会被取消。通过检查
+    `<-ctx.Done()`，你可以提前退出而不是执行不必要的操作：
 - en: '[PRE0]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In this example, the handler waits for either a simulated delay or cancellation.
     If the client closes the connection before the timeout, `ctx.Done()` is triggered,
     allowing the handler to clean up without writing a response.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，处理器等待模拟延迟或取消。如果客户端在超时之前关闭连接，`ctx.Done()`会被触发，允许处理器在不写入响应的情况下进行清理。
 - en: Database Operations with Timeouts
+  id: totrans-21
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 带有超时的数据库操作
 - en: 'Contexts provide a straightforward way to enforce timeouts on database queries.
     Many drivers support `QueryContext` or similar methods that respect cancellation:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 上下文提供了一种简单的方法来对数据库查询强制执行超时。许多驱动程序支持`QueryContext`或类似方法，这些方法尊重取消操作：
 - en: '[PRE1]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In this case, the context is automatically canceled if the database does not
     respond within two seconds. The query is aborted, and the application doesn’t
     hang indefinitely. This helps manage resources and avoids cascading failures in
     high-load environments.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，如果数据库在两秒内没有响应，上下文将被自动取消。查询被终止，应用程序不会无限期地挂起。这有助于管理资源，并在高负载环境中避免级联故障。
 - en: Propagating Request IDs for Distributed Tracing
+  id: totrans-25
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 在分布式跟踪中传播请求ID
 - en: 'Contexts allow passing tracing information across different layers of a distributed
     system. For example, a request ID generated at the edge can be attached to the
     context and logged or used throughout the application:'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 上下文允许在不同层之间传递分布式系统的跟踪信息。例如，在边缘生成的请求ID可以附加到上下文中，并在整个应用程序中进行记录或使用：
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In this example, `WithValue` attaches a request ID to the context. The function
     `handleRequest` retrieves it using `ctx.Value`, enabling consistent logging and
     observability without modifying function signatures. This approach is common in
     middleware, logging, and tracing pipelines.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，`WithValue`将一个请求ID附加到上下文中。函数`handleRequest`使用`ctx.Value`检索它，从而在不修改函数签名的情况下实现一致的日志记录和可观察性。这种方法在中件、日志和跟踪管道中很常见。
 - en: Concurrent Worker Management
+  id: totrans-29
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 并发工作管理
 - en: 'Context provides control over multiple worker goroutines. By using `WithCancel`,
     you can propagate a stop signal to all workers from a central point:'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 上下文可以控制多个工作goroutine。通过使用`WithCancel`，你可以从中央点向所有工作器传播停止信号：
 - en: '[PRE3]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Each worker function should check for `<-ctx.Done()` and return immediately
     when the context is canceled. This keeps the system responsive, avoids dangling
     goroutines, and allows graceful termination of parallel work.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个工作函数都应该检查`<-ctx.Done()`，并在上下文被取消时立即返回。这使系统保持响应性，避免悬挂的goroutine，并允许并行工作的优雅终止。
 - en: Graceful Shutdown in CLI Tools
+  id: totrans-33
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: CLI工具中的优雅关闭
 - en: 'In command-line applications or long-running background processes, context
     simplifies OS signal handling and graceful shutdown:'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 在命令行应用程序或长时间运行的后台进程中，上下文简化了操作系统信号处理和优雅关闭：
 - en: '[PRE4]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: In this pattern, `signal.NotifyContext` returns a context that is canceled automatically
     when an interrupt signal (e.g., Ctrl+C) is received. Listening on `<-ctx.Done()`
     allows the application to perform cleanup and exit gracefully instead of terminating
     abruptly.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个模式中，`signal.NotifyContext`返回一个在接收到中断信号（例如，Ctrl+C）时自动取消的上下文。监听`<-ctx.Done()`允许应用程序执行清理并优雅地退出，而不是突然终止。
 - en: Streaming and Real-Time Data Pipelines
+  id: totrans-37
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 流式和实时数据处理管道
 - en: 'Context is ideal for coordinating readers in streaming systems like Kafka consumers,
     WebSocket readers, or custom pub/sub pipelines:'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 上下文对于协调像Kafka消费者、WebSocket读取器或自定义pub/sub管道等流式系统中的读取者来说非常理想：
 - en: '[PRE5]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Here, the function processes incoming data from a channel. If the context is
     canceled (e.g., during shutdown or timeout), the loop breaks and the goroutine
     exits cleanly. This makes the system more responsive to control signals and easier
     to manage under load.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里，该函数处理来自通道的传入数据。如果上下文被取消（例如，在关闭或超时期间），循环会中断，goroutine会干净地退出。这使得系统对控制信号更敏感，并在负载下更容易管理。
 - en: Middleware and Rate Limiting
+  id: totrans-41
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 中件和速率限制
 - en: Contexts are often used in middleware chains to enforce quotas, trace requests,
     or carry rate-limit decisions between layers. In a typical HTTP stack, middleware
     can determine whether a request is allowed based on custom logic (e.g., IP-based
     rate limiting or user quota checks), and attach that decision to the context so
     that downstream handlers can inspect it.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 上下文通常在中件链中用于强制执行配额、跟踪请求或在层之间携带速率限制决策。在一个典型的HTTP堆栈中，中件可以根据自定义逻辑（例如基于IP的速率限制或用户配额检查）确定是否允许请求，并将该决策附加到上下文中，以便下游处理器可以检查它。
 - en: 'Here''s a simplified example of how that might work:'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里有一个简化的例子说明这可能如何工作：
 - en: '[PRE6]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: 'In a downstream handler, you might inspect that value like so:'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 在下游处理器中，你可能可以这样检查该值：
 - en: '[PRE7]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: This pattern avoids the need for shared state between middleware and handlers.
     Instead, the context acts as a lightweight channel for passing metadata between
     layers of the request pipeline in a safe and composable way.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 此模式避免了在中间件和处理器之间共享状态的需求。相反，上下文充当一个轻量级的通道，以安全且可组合的方式在请求管道的各个层之间传递元数据。
 - en: Benchmarking Impact
+  id: totrans-48
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 基准测试影响
 - en: There's usually nothing to benchmark directly in terms of raw performance when
     using `context.Context`. Its real benefit lies in improving responsiveness, avoiding
     wasted computation, and enabling clean cancellations. The impact shows up in reduced
     memory leaks, fewer stuck goroutines, and more predictable resource lifetimes—metrics
     best observed through real-world profiling and observability tools.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 当使用 `context.Context` 时，通常没有直接用于基准测试的原始性能。它的真正好处在于提高响应速度，避免浪费计算，并实现干净的取消。影响体现在减少内存泄漏、减少卡住的
+    goroutine 以及更可预测的资源生命周期——这些指标最好通过实际的剖析和可观察性工具来观察。
 - en: Best Practices for Context Usage
+  id: totrans-50
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 上下文使用最佳实践
 - en: Always pass `context.Context` explicitly, typically as the first argument to
     a function. This makes context propagation transparent and traceable, especially
     across API boundaries or service layers. Don’t store contexts in struct fields
     or global variables. Doing so can lead to stale contexts being reused unintentionally
     and make cancellation logic harder to reason about.
+  id: totrans-51
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 总是显式传递 `context.Context`，通常作为函数的第一个参数。这使得上下文传播变得透明且可追踪，尤其是在跨 API 边界或服务层时。不要在结构体字段或全局变量中存储上下文。这样做可能导致无意中重复使用过时的上下文，并使取消逻辑更难理解。
 - en: Use 1 only for request-scoped metadata, not to pass business logic or application
     state. Overusing context for general-purpose data storage leads to tight coupling
     and makes testing and tracing harder.
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 仅使用 1 传递请求范围元数据，而不是传递业务逻辑或应用程序状态。过度使用上下文进行通用数据存储会导致紧密耦合，并使测试和跟踪更困难。
 - en: Check `ctx.Err()` to differentiate between `context.Canceled` and `context.DeadlineExceeded`
     where needed. This allows your application to respond appropriately—for example,
     distinguishing between user-initiated cancellation and timeouts.
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当需要区分 `context.Canceled` 和 `context.DeadlineExceeded` 时，检查 `ctx.Err()`。这允许你的应用程序做出适当的响应——例如，区分用户发起的取消和超时。
 - en: Following these practices helps keep context usage predictable and idiomatic.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 遵循这些实践有助于保持上下文使用的可预测性和地道性。

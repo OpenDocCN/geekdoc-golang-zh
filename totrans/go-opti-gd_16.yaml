@@ -1,23 +1,31 @@
 - en: Batching Operations in Go
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的批处理操作
 - en: 原文：[https://goperf.dev/01-common-patterns/batching-ops/](https://goperf.dev/01-common-patterns/batching-ops/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: '[原文链接](https://goperf.dev/01-common-patterns/batching-ops/)'
 - en: Batching is one of those techniques that’s easy to overlook but incredibly useful
     when performance starts to matter. Instead of handling one operation at a time,
     you group them together—cutting down on the overhead of repeated calls, whether
     that’s hitting the network, writing to disk, or making a database commit. It’s
     a practical, low-complexity approach that can reduce latency and stretch your
     system’s throughput further than you’d expect.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 批处理是那些容易被忽视但非常有用的技术之一，当性能开始变得重要时。与其一次处理一个操作，不如将它们组合在一起——减少重复调用的开销，无论是击中网络、写入磁盘还是进行数据库提交。这是一个实用、低复杂度的方法，可以降低延迟并使你的系统吞吐量超出预期。
 - en: Why Batching Matters
+  id: totrans-3
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 为什么批处理很重要
 - en: 'Most systems don’t struggle because individual operations are too slow—they
     struggle because they do too many of them. Every call out to a database, API,
     or filesystem adds some fixed cost: a system call, a network round trip, maybe
@@ -25,62 +33,92 @@
     the impact is hard to ignore. Batching helps by collapsing those calls into fewer,
     more efficient units of work, which often leads to measurable gains in both performance
     and resource usage.'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 大多数系统不是因为单个操作太慢而挣扎——它们挣扎是因为它们做了太多的操作。每次调用数据库、API 或文件系统都会增加一些固定成本：一个系统调用、一个网络往返，可能是一个锁或上下文切换。当这些成本在高负载工作负载中累积时，其影响很难忽视。批处理通过将这些调用合并成更少、更高效的单元工作来帮助，这通常会导致性能和资源使用方面的可测量收益。
 - en: 'Consider a logging service writing to disk:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 考虑一个写入磁盘的日志服务：
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'When invoked thousands of times per second, the file system is inundated with
     individual write system calls, significantly degrading performance. A better approach
     could be aggregates log entries and flushes them in bulk:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 当每秒被调用数千次时，文件系统会被单个写系统调用淹没，这会显著降低性能。一个更好的方法是将日志条目聚合起来，然后批量刷新：
 - en: '[PRE1]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: With batching, each write operation handles multiple entries simultaneously,
     reducing syscall overhead and improving disk I/O efficiency.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用批处理，每个写操作可以同时处理多个条目，减少系统调用开销并提高磁盘I/O效率。
 - en: Warning
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 警告
 - en: While batching offers substantial performance advantages, it also introduces
     the risk of data loss. If an application crashes before a batch is flushed, the
     in-memory data can be lost. Systems dealing with critical or transactional data
     must incorporate safeguards such as periodic flushes, persistent storage buffers,
     or recovery mechanisms to mitigate this risk.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然批处理提供了实质性的性能优势，但它也引入了数据丢失的风险。如果一个应用程序在批处理刷新之前崩溃，内存中的数据可能会丢失。处理关键或事务性数据的系统必须采用定期刷新、持久化存储缓冲区或恢复机制等安全措施来减轻这种风险。
 - en: How generic Batcher may looks like
+  id: totrans-12
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 通用批处理器的样子可能是什么样的
 - en: 'We can implement a generic batcher in very straight forward manner:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以非常直接地实现一个通用批处理器：
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Warning
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 警告
 - en: This batcher implementation expects that you will never call `Batcher.Add(...)`
     from your `flush()` function. We have this limitation because Go mutexes are [**not**
     recursive](https://stackoverflow.com/questions/14670979/recursive-locking-in-go).
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个批处理器实现期望你永远不会从你的 `flush()` 函数中调用 `Batcher.Add(...)`。我们有限制是因为 Go 锁不是递归的 [**不是**](https://stackoverflow.com/questions/14670979/recursive-locking-in-go)。
 - en: This batcher works with any data type, making it a flexible solution for aggregating
     logs, metrics, database writes, or other grouped operations. Internally, the buffer
     acts as a queue that accumulates items until a flush threshold is reached. The
     use of `sync.Mutex` ensures that `Add()` and `flushNow()` are safe for concurrent
     access, which is necessary in most real-world systems where multiple goroutines
     may write to the batcher.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个批处理器可以与任何数据类型一起工作，使其成为聚合日志、指标、数据库写入或其他分组操作的灵活解决方案。内部，缓冲区充当一个队列，积累项目直到达到刷新阈值。使用
+    `sync.Mutex` 确保了 `Add()` 和 `flushNow()` 对并发访问是安全的，这在大多数现实世界的系统中是必要的，在这些系统中，多个
+    goroutine 可能会写入批处理器。
 - en: From a performance standpoint, it's true that a lock-free implementation—using
     atomic operations or concurrent ring buffers—could reduce contention and improve
     throughput under heavy load. However, such designs are more complex, harder to
@@ -88,123 +126,181 @@
     or low-latency boundaries. For most practical workloads, the simplicity and safety
     of a `sync.Mutex`-based design offers a great balance between performance and
     maintainability.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 从性能角度来看，确实，无锁实现（使用原子操作或并发环形缓冲区）可以在高负载下减少竞争并提高吞吐量。然而，这种设计更复杂，更难维护，通常只有在极端高并发或低延迟边界的情况下才是合理的。对于大多数实际工作负载，基于`sync.Mutex`的设计在性能和可维护性之间提供了很好的平衡。
 - en: Benchmarking Impact
+  id: totrans-19
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 基准测试影响
 - en: 'To validate batching performance, we tested six scenarios across three categories:
     in-memory processing, file I/O, and CPU-intensive hashing. Each category included
     both unbatched and batched variants, with all benchmarks running over 10,000 items
     per operation.'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了验证批处理性能，我们在三个类别中测试了六个场景：内存处理、文件I/O和CPU密集型哈希。每个类别都包括未批处理和批处理变体，所有基准测试每个操作运行超过10,000项。
 - en: <details class="example"><summary>Show the benchmark file</summary>
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>显示基准测试文件</summary>
 - en: '[PRE3]</details>'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE3]</details>'
 - en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
     |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '| Benchmark | 迭代次数 | 每次操作时间（纳秒） | 每次操作字节数 | 每次操作分配数 |'
 - en: '| --- | --- | --- | --- | --- |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| BenchmarkUnbatchedProcessing-14 | 530 | 2,028,492 | 1,279,850 | 10,000 |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkUnbatchedProcessing-14 | 530 | 2,028,492 | 1,279,850 | 10,000 |'
 - en: '| BenchmarkBatchedProcessing-14 | 573 | 2,094,168 | 2,457,603 | 200 |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkBatchedProcessing-14 | 573 | 2,094,168 | 2,457,603 | 200 |'
 - en: In-memory string manipulation showed a modest performance delta. While the batched
     variant reduced memory allocations by 50x, the execution time was only marginally
     slower due to the cost of joining large strings. This highlights that batching
     isn’t always faster in raw throughput, but it consistently reduces pressure on
     the garbage collector.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 内存中的字符串操作显示了适度的性能差异。虽然批处理变体将内存分配减少了50倍，但由于连接大型字符串的成本，执行时间仅略有减慢。这表明批处理并不总是能提高原始吞吐量，但它始终能减轻垃圾收集器的压力。
 - en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
     |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| Benchmark | 迭代次数 | 每次操作时间（纳秒） | 每次操作字节数 | 每次操作分配数 |'
 - en: '| --- | --- | --- | --- | --- |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| BenchmarkUnbatchedIO-14 | 87 | 12,766,433 | 1,280,424 | 10,007 |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkUnbatchedIO-14 | 87 | 12,766,433 | 1,280,424 | 10,007 |'
 - en: '| BenchmarkBatchedIO-14 | 1324 | 993,912 | 2,458,026 | 207 |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkBatchedIO-14 | 1324 | 993,912 | 2,458,026 | 207 |'
 - en: File I/O benchmarks showed the most dramatic gains. The batched version was
     over 12 times faster than the unbatched one, with far fewer syscalls and significantly
     lower execution time. Grouping disk writes amortized the I/O cost, leading to
     a huge efficiency boost despite temporarily using more memory.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 文件I/O基准测试显示了最显著的增长。批处理版本比未批处理版本快12倍以上，系统调用显著减少，执行时间也大幅降低。将磁盘写入分组可以分摊I/O成本，尽管暂时使用更多内存，但效率得到了巨大提升。
 - en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
     |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| Benchmark | 迭代次数 | 每次操作时间（纳秒） | 每次操作字节数 | 每次操作分配数 |'
 - en: '| --- | --- | --- | --- | --- |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| BenchmarkUnbatchedCrypto-14 | 978 | 1,232,242 | 2,559,840 | 30,000 |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkUnbatchedCrypto-14 | 978 | 1,232,242 | 2,559,840 | 30,000 |'
 - en: '| BenchmarkBatchedCrypto-14 | 1760 | 675,303 | 2,470,406 | 400 |'
+  id: totrans-36
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkBatchedCrypto-14 | 1760 | 675,303 | 2,470,406 | 400 |'
 - en: The cryptographic benchmarks demonstrated batching’s value in CPU-bound scenarios.
     Batched hashing nearly halved the total processing time while reducing allocation
     count by more than 70x. This reinforces batching as an effective strategy even
     in CPU-intensive workloads where fewer operations yield better locality and cache
     behavior.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 加密基准测试展示了批处理在CPU密集型场景中的价值。批处理哈希将总处理时间几乎减半，同时将分配计数减少了70多倍。这强化了批处理作为一种有效策略，即使在CPU密集型的工作负载中，减少操作也能带来更好的局部性和缓存行为。
 - en: When To Use Batching
+  id: totrans-38
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 何时使用批处理
 - en: 'Use batching when:'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 在以下情况下使用批处理：
 - en: Individual operations are expensive (e.g., I/O, RPC, DB writes). Grouping multiple
     operations into a single batch reduces the overhead of repeated calls and improves
     efficiency.
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 单个操作成本较高（例如，I/O、RPC、数据库写入）。将多个操作组合成一个批次可以减少重复调用的开销，并提高效率。
 - en: The system benefits from reducing the frequency of external interactions. Fewer
     external calls can ease load on downstream systems and reduce contention or rate-limiting
     issues.
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 系统通过减少外部交互的频率受益。更少的对外调用可以减轻下游系统的负载，并减少竞争或速率限制问题。
 - en: You have some tolerance for per-item latency in favor of higher throughput.
     Batching introduces slight delays but can significantly increase overall system
     throughput.
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 您对每项延迟有一定的容忍度，以换取更高的吞吐量。批处理会引入轻微的延迟，但可以显著提高整体系统吞吐量。
 - en: 'Avoid batching when:'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 避免批处理的情况：
 - en: Immediate action is required for each individual input. Delaying processing
     to build a batch may violate time-sensitive requirements.
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个单独的输入都需要立即采取行动。延迟处理以构建批处理可能会违反对时间敏感的要求。
 - en: Holding data introduces risk (e.g., crash before flush). If data must be processed
     or persisted immediately to avoid loss, batching can be unsafe.
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 保留数据会引入风险（例如，在刷新前崩溃）。如果必须立即处理或持久化数据以避免损失，批处理可能是不安全的。
 - en: Predictable latency is more important than throughput. Batching adds variability
     in timing, which may not be acceptable in systems with strict latency expectations.
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可预测的延迟比吞吐量更重要。批处理会增加时间上的变化性，这可能在对延迟有严格要求的系统中不可接受。

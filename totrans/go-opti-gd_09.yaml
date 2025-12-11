@@ -1,251 +1,380 @@
 - en: Stack Allocations and Escape Analysis
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 栈分配和逃逸分析
 - en: 原文：[https://goperf.dev/01-common-patterns/stack-alloc/](https://goperf.dev/01-common-patterns/stack-alloc/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/01-common-patterns/stack-alloc/](https://goperf.dev/01-common-patterns/stack-alloc/)
 - en: When writing performance-critical Go applications, one of the subtle but significant
     optimizations you can make is encouraging values to be allocated on the stack
     rather than the heap. Stack allocations are cheaper, faster, and garbage-free—but
     Go doesn't always put your variables there automatically. That decision is made
     by the Go compiler during **escape analysis**.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 当编写性能关键型 Go 应用程序时，您可以进行的微妙但重要的优化之一是鼓励值在栈上而不是在堆上进行分配。栈分配更便宜、更快且无垃圾回收——但 Go 并不总是自动将变量放在那里。这个决定是由
+    Go 编译器在 **逃逸分析** 期间做出的。
 - en: In this article, we’ll explore what escape analysis is, how to read the compiler’s
     escape diagnostics, what causes values to escape, and how to structure your code
     to minimize unnecessary heap allocations. We'll also benchmark different scenarios
     to show the real-world impact.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本文中，我们将探讨逃逸分析是什么，如何阅读编译器的逃逸诊断，什么原因会导致值逃逸，以及如何构建代码以最小化不必要的堆分配。我们还将基准测试不同的场景以展示其对现实世界的影响。
 - en: What Is Escape Analysis?
+  id: totrans-4
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 逃逸分析是什么？
 - en: Escape analysis is a static analysis performed by the Go compiler to determine
     whether a variable can be safely allocated on the stack or if it must be moved
     ("escape") to the heap.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 逃逸分析是 Go 编译器执行的一种静态分析，用于确定变量是否可以安全地分配在栈上，或者是否必须移动（“逃逸”）到堆上。
 - en: Why does it matter?
+  id: totrans-6
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 这为什么很重要？
 - en: '**Stack allocations** are cheap: the memory is automatically freed when the
     function returns.'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**栈分配** 便宜：当函数返回时，内存会自动释放。'
 - en: '**Heap allocations** are more expensive: they involve garbage collection overhead.'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**堆分配** 更昂贵：它们涉及垃圾回收开销。'
 - en: The compiler decides where to place each variable based on how it's used. If
     a variable can be guaranteed to not outlive its declaring function, it can stay
     on the stack. If not, it escapes to the heap.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 编译器根据变量的使用方式来决定其位置。如果一个变量可以保证不会超出其声明函数的作用域，它就可以留在栈上。如果不能，它就会逃逸到堆上。
 - en: 'Example: Stack vs Heap'
+  id: totrans-10
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 示例：栈与堆
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In `allocate`, `x` is returned as a pointer. Since the pointer escapes the function,
     the Go compiler places `x` on the heap. In `noEscape`, `x` is a plain value and
     doesn’t escape.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 `allocate` 中，`x` 作为指针返回。由于指针逃出了函数，Go 编译器将 `x` 放在堆上。在 `noEscape` 中，`x` 是一个普通值，没有逃逸。
 - en: How to View Escape Analysis Output
+  id: totrans-13
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 如何查看逃逸分析输出
 - en: 'You can inspect escape analysis with the `-gcflags` compiler option:'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 您可以使用 `-gcflags` 编译器选项来检查逃逸分析：
 - en: '[PRE1]'
+  id: totrans-15
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'Or for a specific file:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 或者对于特定的文件：
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'This will print lines like:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 这将打印出类似以下内容的行：
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Look for messages like `moved to heap` to identify escape points.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 寻找类似 `moved to heap` 的消息来识别逃逸点。
 - en: What Causes Variables to Escape?
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 导致变量逃逸的原因是什么？
 - en: 'Here are common scenarios that force heap allocation:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是一些强制进行堆分配的常见场景：
 - en: Returning Pointers to Local Variables
+  id: totrans-23
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 返回局部变量的指针
 - en: '[PRE4]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Capturing Variables in Closures
+  id: totrans-25
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 在闭包中捕获变量
 - en: '[PRE5]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Interface Conversions
+  id: totrans-27
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 接口转换
 - en: 'When a value is stored in an interface, it may escape:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 当一个值存储在接口中时，它可能会逃逸：
 - en: '[PRE6]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Assignments to Global Variables or Struct Fields
+  id: totrans-30
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 将值赋给全局变量或结构体字段
 - en: '[PRE7]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Large Composite Literals
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 大型复合字面量
 - en: Go may allocate large structs or slices on the heap even if they don’t strictly
     escape.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 即使它们没有严格逃逸，Go 也可能在堆上分配大的结构体或切片。
 - en: '[PRE8]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Benchmarking Stack vs Heap Allocations
+  id: totrans-35
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 基准测试栈与堆分配
 - en: Let’s run a benchmark to explore when heap allocations actually occur—and when
     they don’t, even if we return a pointer.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们运行一个基准测试来探索堆分配实际上何时发生——以及即使我们返回一个指针，它们何时不会发生。
 - en: '[PRE9]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: Benchmark Results
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 基准测试结果
 - en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
     |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '| Benchmark | 迭代次数 | 每次操作时间 (ns) | 每次操作字节数 | 每次操作分配数 |'
 - en: '| --- | --- | --- | --- | --- |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| BenchmarkStackAlloc-14 | 1,000,000,000 | 0.2604 ns | 0 B | 0 |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkStackAlloc-14 | 1,000,000,000 | 0.2604 ns | 0 B | 0 |'
 - en: '| BenchmarkHeapAlloc-14 | 1,000,000,000 | 0.2692 ns | 0 B | 0 |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkHeapAlloc-14 | 1,000,000,000 | 0.2692 ns | 0 B | 0 |'
 - en: 'You might expect `HeapAlloc` to always allocate memory on the heap—but it doesn’t
     here. That’s because the compiler is smart: in this isolated benchmark, the pointer
     returned by `HeapAlloc` doesn’t escape the function in any meaningful way. The
     compiler can see it’s only used within the benchmark and short-lived, so it safely
     places it on the stack too.'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 您可能期望 `HeapAlloc` 总是分配内存到堆上——但在这里不是。这是因为编译器很聪明：在这个隔离的基准测试中，`HeapAlloc` 返回的指针以任何有意义的方式都没有逃出函数。编译器可以看到它只用于基准测试，并且是短命的，因此它也安全地将它放在栈上。
 - en: Forcing a Heap Allocation
+  id: totrans-44
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 强制堆分配
 - en: '[PRE10]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
     |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '| 基准 | 迭代次数 | 每次操作时间（ns） | 每次操作字节 | 每次操作分配 |'
 - en: '| --- | --- | --- | --- | --- |'
+  id: totrans-47
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| BenchmarkHeapAllocEscape-14 | 331,469,049 | 10.55 ns | 24 B | 1 |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '| 基准HeapAllocEscape-14 | 331,469,049 | 10.55 ns | 24 B | 1 |'
 - en: 'As shown in `BenchmarkHeapAllocEscape`, assigning the pointer to a global variable
     causes a real heap escape. This introduces real overhead: a 40x slower call, a
     24-byte allocation, and one garbage-collected object per call.'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 如`BenchmarkHeapAllocEscape`所示，将指针分配给全局变量会导致真正的堆逃逸。这引入了真正的开销：40倍更慢的调用、24字节的分配以及每次调用一个垃圾回收对象。
 - en: <details class="example"><summary>Show the benchmark file</summary>
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>显示基准文件</summary>
 - en: '[PRE11]</details>'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE11]</details>'
 - en: When to Optimize for Stack Allocation
+  id: totrans-52
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 当优化栈分配时
 - en: Not all escapes are worth preventing. Here’s when it makes sense to focus on
     stack allocation—and when it’s better to let values escape.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 并非所有的逃逸都值得防止。以下是在关注栈分配时合理的情况，以及何时最好让值逃逸。
 - en: When to Avoid Escape
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 避免逃逸的时机
 - en: In performance-critical paths. Reducing heap usage in tight loops or latency-sensitive
     code lowers GC pressure and speeds up execution.
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在性能关键路径上。在紧密循环或延迟敏感的代码中减少堆使用可以降低垃圾回收压力并加快执行速度。
 - en: For short-lived, small objects. These can be efficiently stack-allocated without
     involving the garbage collector, reducing memory churn.
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于短暂存在的小对象。这些对象可以有效地进行栈分配，而不涉及垃圾回收器，从而减少内存碎片。
 - en: When you control the full call chain. If the object stays within your code and
     you can restructure it to avoid escape, it’s often worth the small refactor.
+  id: totrans-57
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当你控制完整的调用链。如果对象保持在你的代码中，并且你可以重构它以避免逃逸，那么进行小的重构通常是值得的。
 - en: If profiling reveals GC bottlenecks. Escape analysis helps you target and shrink
     memory-heavy allocations identified in real-world traces.
+  id: totrans-58
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果分析显示存在垃圾回收瓶颈。逃逸分析可以帮助你针对并缩小在现实世界跟踪中识别出的内存密集型分配。
 - en: When It’s Fine to Let Values Escape
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 当允许值逃逸是可行的
 - en: When returning values from constructors or factories. Returning a pointer from
     `NewThing()` is idiomatic Go—even if it causes an escape, it improves clarity
     and usability.
+  id: totrans-60
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当从构造函数或工厂返回值时。从`NewThing()`返回指针是Go的惯用做法——即使它会导致逃逸，但它提高了清晰度和可用性。
 - en: When objects must outlive the function. If you're storing data in a global,
     sending to a goroutine, or saving it in a struct, escaping is necessary and correct.
+  id: totrans-61
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当对象必须超出函数的生命周期。如果你在全局存储数据、发送到goroutine或将其保存在结构体中，逃逸是必要且正确的。
 - en: When allocation size is small and infrequent. If the heap allocation isn’t in
     a hot path, the benefit of avoiding it is often negligible.
+  id: totrans-62
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当分配大小小且不频繁。如果堆分配不在热点路径上，避免它的好处通常可以忽略不计。
 - en: When preventing escape hurts readability. Writing awkward code to keep everything
     on the stack can reduce maintainability for a micro-optimization that won’t matter.
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当防止逃逸损害可读性。为了微优化而编写不自然的代码，将所有内容保持在栈上，可能会降低可维护性，而这种微优化可能并不重要。

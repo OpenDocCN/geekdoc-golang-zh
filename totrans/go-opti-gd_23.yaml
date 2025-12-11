@@ -1,21 +1,29 @@
 - en: Managing 10K+ Concurrent Connections in Go
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在Go中管理10K+并发连接
 - en: 原文：[https://goperf.dev/02-networking/10k-connections/](https://goperf.dev/02-networking/10k-connections/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: '[https://goperf.dev/02-networking/10k-connections/](https://goperf.dev/02-networking/10k-connections/)'
 - en: <details class="info"><summary>Why not 100K+ or 1 Mill connection?</summary>
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="info"><summary>为什么不是100K+或1百万连接？</summary>
 - en: 'While framing the challenge in terms of “100K concurrent connections” is tempting,
     practical engineering often begins with a more grounded target: 10K to 20K stable,
     performant connections. This isn’t a limitation of Go itself but a reflection
     of real-world constraints: ulimit settings, ephemeral port availability, TCP stack
     configuration, and the nature of the application workload all set hard boundaries.'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然将挑战定位为“100K并发连接”很有吸引力，但实际工程通常从一个更实际的靶标开始：10K到20K稳定、高性能的连接。这并不是Go本身的限制，而是现实世界约束的反映：ulimit设置、临时端口的可用性、TCP堆栈配置以及应用程序工作负载的性质都设定了硬边界。
 - en: Cloud environments introduce their own considerations. For instance, AWS Fargate
     explicitly sets both the soft and hard nofile (number of open files) limit to
     65,535, which provides more headroom for socket-intensive applications but still
@@ -25,35 +33,45 @@
     cap is lower than required to handle 100,000 open connections in a single process.
     Reaching higher limits requires kernel-level tuning, container runtime overrides,
     and multi-process strategies to distribute file descriptor load.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 云环境引入了它们自己的考虑因素。例如，AWS Fargate明确地将软限制和硬限制（打开文件数）都设置为65,535，这为socket密集型应用提供了更多的空间，但仍然低于100K+的阈值。在EC2实例上，实际限制取决于基础操作系统和用户配置。默认情况下，许多Linux发行版为nofile设置了1024的软限制和65535的硬限制。即使这个硬限制也低于单个进程中处理10万个打开连接所需的限制。达到更高的限制需要内核级别的调整、容器运行时覆盖和多进程策略来分配文件描述符负载。
 - en: A server handling simple echo logic behaves very differently from one performing
     CPU-bound processing, structured logging, or real-time transformation. Additionally,
     platform-level tunability varies—Linux exposes granular control through sysctl,
     epoll, and reuseport, while macOS lacks many of these mechanisms. In that context,
     achieving and sustaining 10K+ concurrent connections with real workloads is a
     demanding, yet practical, benchmark.</details>
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 处理简单回声逻辑的服务器与执行CPU密集型处理、结构化日志记录或实时转换的服务器行为非常不同。此外，平台级别的可调整性各不相同——Linux通过sysctl、epoll和reuseport提供了细粒度控制，而macOS缺乏许多这些机制。在这种情况下，在真实工作负载中实现并维持10K+并发连接是一个具有挑战性但实用的基准。</details>
 - en: Handling massive concurrency in Go is often romanticized—*"goroutines are cheap,
     just spawn them!"*—but reality gets harsher as we push towards six-digit concurrency
     levels. Serving over 10,000 concurrent sockets isn’t something you solve by scaling
     hardware alone—it requires an architecture that works with the OS, the Go runtime,
     and the network stack, not against them.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Go中处理大量并发通常被浪漫化——“goroutines很便宜，只需创建它们！”——但随着我们向六位数并发级别推进，现实变得更加严峻。仅通过扩展硬件来服务超过10,000个并发套接字并不是解决问题的方法——它需要一个与操作系统、Go运行时和网络堆栈协同工作的架构，而不是与之对抗。
 - en: Embracing Go’s Concurrency Model
+  id: totrans-7
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 接受Go的并发模型
 - en: Go’s lightweight goroutines and its powerful runtime scheduler make it an excellent
     choice for scaling network applications. Goroutines consume only a few kilobytes
     of stack space, which, in theory, makes them ideal for handling tens of thousands
     of concurrent connections. However, reality forces us to think beyond just spinning
     up goroutines. While the language’s abstraction makes concurrency almost “magical,”
     achieving true efficiency at this scale demands intentional design.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: Go的轻量级goroutines和其强大的运行时调度器使其成为扩展网络应用的绝佳选择。Goroutines仅消耗几KB的堆栈空间，从理论上讲，这使得它们非常适合处理数万个并发连接。然而，现实迫使我们必须超越仅仅启动goroutines。虽然语言的抽象使并发几乎“神奇”，但要在这个规模上实现真正的效率需要有意的设计。
 - en: Running a server that spawns one goroutine per connection means you’re leaning
     heavily on the runtime scheduler to juggle thousands of concurrent execution paths.
     While goroutines are lightweight, they’re not free—each one adds to memory consumption
@@ -61,119 +79,168 @@
     design pattern that should be adopted is to ensure that each connection follows
     a clearly defined lifecycle and that every goroutine performs its task as efficiently
     as possible.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 运行一个为每个连接创建一个goroutine的服务器意味着你过度依赖运行时调度器来处理数千个并发执行路径。虽然goroutine很轻量级，但它们不是免费的——每个goroutine都会增加内存消耗，并引入与并发性成比例的调度开销。因此，应该首先采用的设计模式是确保每个连接遵循一个明确定义的生命周期，并且每个goroutine都能尽可能高效地完成任务。
 - en: 'Let’s consider a basic model where we accept connections and delegate their
     handling to separate goroutines:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们考虑一个基本模型，其中我们接受连接并将它们的处理委托给单独的goroutine：
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Each connection is assigned its own goroutine. That approach works fine at low
     concurrency and fits Go’s model well. But once you’re dealing with tens of thousands
     of connections, the design has to account for system limits. Goroutines are cheap—but
     not free.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个连接都分配了自己的goroutine。这种方法在低并发性下效果很好，并且很好地符合Go的模式。但是一旦你处理的是成千上万的连接，设计就必须考虑到系统限制。Goroutine很便宜——但不是免费的。
 - en: Managing Concurrency at Scale
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 大规模管理并发
 - en: It’s not enough to just accept connections; you need to control what happens
     after. Unbounded goroutine creation leads to memory growth and increased scheduler
     load. To keep the system stable, concurrency must be capped—typically using a
     semaphore or similar construct to limit how many goroutines handle active work
     at any given time.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 仅接受连接是不够的；你需要控制之后发生的事情。无限制地创建goroutine会导致内存增长和调度器负载增加。为了保持系统稳定，并发性必须受到限制——通常使用信号量或类似的结构来限制在任何给定时间内处理活动工作的goroutine数量。
 - en: 'For example, you might limit the number of simultaneous active connections
     before spinning up a new goroutine for each incoming connection. This strategy
     might involve a buffered channel acting as a semaphore:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，你可能会在为每个传入连接启动新的goroutine之前限制同时活跃的连接数。这种策略可能涉及一个充当信号量的缓冲通道：
 - en: '[PRE1]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This pattern not only helps prevent resource exhaustion but also gracefully
     degrades service under high load. Adjusting these limits according to your hardware
     and workload characteristics is a continuous tuning process.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种模式不仅有助于防止资源耗尽，而且在高负载下也能优雅地降低服务质量。根据你的硬件和工作负载特征调整这些限制是一个持续调整的过程。
 - en: Info
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 信息
 - en: We use the `connLimiter` approach here for purely illustrative purposes, as
     it clarifies the idea. In real life, you will most likely use [errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup)
     to manage the goroutines amount and some `SIGINT,` and `SIGTERM` signal handling
     for graceful process termination.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们在这里使用`connLimiter`方法纯粹是为了说明目的，因为它阐明了这个想法。在现实生活中，你很可能会使用[errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup)来管理goroutine的数量，以及一些`SIGINT`和`SIGTERM`信号处理，以实现优雅的过程终止。
 - en: OS-Level and Socket Tuning
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 操作系统和套接字调整
 - en: Before your Go application can handle more than 10,000 simultaneous connections,
     the operating system has to be prepared for that scale. On Linux, this usually
     starts with raising the limit on open file descriptors. The TCP stack also needs
     tuning—default settings often aren’t designed for high-connection workloads. Without
     these adjustments, the application will hit OS-level ceilings long before Go becomes
     the bottleneck.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在你的Go应用程序能够处理超过10,000个并发连接之前，操作系统必须为这种规模做好准备。在Linux上，这通常从提高打开文件描述符的限制开始。TCP堆栈也需要调整——默认设置通常不是为高连接负载设计的。没有这些调整，应用程序将在Go成为瓶颈之前很久就会遇到操作系统级别的限制。
 - en: '[PRE2]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'But it doesn’t stop there. You’ll also need:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 但这还没有结束。你还需要：
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '`net.core.somaxconn=65535`: This controls the size of the pending connection
     queue (the backlog) for listening sockets. A small value here will cause connection
     drops when many clients attempt to connect simultaneously.'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`net.core.somaxconn=65535`：这控制了监听套接字的挂起连接队列（回压）的大小。这里的值较小会导致当许多客户端同时尝试连接时连接丢失。'
 - en: '`net.ipv4.ip_local_port_range="10000 65535"`: Defines the ephemeral port range
     used for outbound connections. A wider range prevents port exhaustion when you’re
     making many outbound connections from the same machine.'
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`net.ipv4.ip_local_port_range="10000 65535"`：定义了用于出站连接的临时端口范围。更宽的范围可以防止从同一台机器发出大量出站连接时端口耗尽。'
 - en: '`net.ipv4.tcp_tw_reuse=1`: Allows reuse of sockets in `TIME_WAIT` state for
     new connections if safe. Helps reduce socket exhaustion, especially in short-lived
     TCP connections.'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`net.ipv4.tcp_tw_reuse=1`: 如果安全，允许在 `TIME_WAIT` 状态下重用套接字以建立新的连接。有助于减少套接字耗尽，尤其是在短期TCP连接中。'
 - en: '`net.ipv4.tcp_fin_timeout=15`: Reduces the time the kernel holds sockets in
     `FIN_WAIT2` after a connection is closed. Shorter timeout means faster resource
     reclamation, crucial when thousands of sockets churn per minute.'
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`net.ipv4.tcp_fin_timeout=15`: 减少了内核在连接关闭后保持套接字在 `FIN_WAIT2` 状态的时间。更短的超时时间意味着更快的资源回收，这对于每分钟有数千个套接字频繁切换的情况至关重要。'
 - en: Tuning these parameters helps prevent the OS from becoming the bottleneck as
     connection counts grow. On top of that, setting socket options like `TCP_NODELAY`
     can reduce latency by disabling [Nagle’s algorithm](https://en.wikipedia.org/wiki/Nagle%27s_algorithm),
     which buffers small packets by default. In Go, these options can be applied through
     the net package, or more directly via the syscall package if lower-level control
     is needed.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 调整这些参数有助于防止操作系统成为瓶颈，随着连接数的增加。除此之外，设置如 `TCP_NODELAY` 这样的套接字选项可以通过禁用默认情况下缓冲小数据包的
+    [Nagle算法](https://en.wikipedia.org/wiki/Nagle%27s_algorithm) 来减少延迟。在Go中，这些选项可以通过net包应用，或者在需要更底层控制时，通过syscall包直接应用。
 - en: 'In some cases, using Go’s `net.ListenConfig` allows you to inject custom control
     over socket creation. This is particularly useful when you need to set options
     at the time of listener creation:'
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 在某些情况下，使用Go的 `net.ListenConfig` 允许你在创建监听器时注入自定义的套接字创建控制。这在需要设置监听器创建时的选项时特别有用：
 - en: '[PRE4]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Go Scheduler and Memory Pressure
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: Go调度器和内存压力
 - en: Spawning 10,000 goroutines might look impressive on paper, but what matters
     is how those goroutines behave. If they’re mostly idle—blocked on I/O like network
     or disk—Go’s scheduler handles them efficiently, parking and resuming with little
@@ -181,246 +248,366 @@
     constantly contend on channels and mutexes, things get expensive. You’ll start
     to see increased garbage collection pressure and scheduler thrashing, both of
     which erode performance.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 在纸上看起来启动10,000个goroutines可能很令人印象深刻，但重要的是这些goroutines的行为。如果它们大部分是空闲的——例如在网络或磁盘I/O上阻塞——Go的调度器会高效地处理它们，以最小的开销进行挂起和恢复。但是，当goroutines积极分配内存、在紧密循环中旋转，或者不断在通道和互斥锁上竞争时，事情就会变得昂贵。你将开始看到垃圾收集压力增加和调度器抖动，这两者都会降低性能。
 - en: Go’s garbage collector handles short-lived allocations well, but it doesn’t
     come for free. If you’re spawning goroutines that churn through memory—allocating
     per request, per message, or worse, per loop—GC pressure builds fast. The result
     isn’t just more frequent collections, but higher latency and lost CPU cycles.
     Throughput drops, and the system spends more time cleaning up than doing real
     work.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: Go的垃圾回收器很好地处理了短期分配，但这并非没有代价。如果你正在创建通过内存进行频繁切换的goroutines——按请求、按消息，或者更糟糕的是按循环分配——GC压力会迅速增加。结果不仅仅是更频繁的收集，还有更高的延迟和丢失的CPU周期。吞吐量下降，系统花费更多时间清理而不是进行实际工作。
 - en: 'To manage this, you can explicitly tune the GC aggressiveness:'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了管理这一点，你可以显式地调整GC的积极性：
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'Or directly within your codebase:'
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 或者直接在你的代码库中：
 - en: '[PRE6]'
+  id: totrans-38
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: The default value for `GOGC` is 100, meaning the GC triggers when the heap size
     doubles compared to the previous GC cycle. Lower values (like 50) mean more frequent
     but shorter GC cycles, helping control memory growth at the cost of increased
     CPU overhead.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: '`GOGC` 的默认值是 100，这意味着当堆大小与前一个GC周期相比翻倍时，GC会触发。较低的值（如50）意味着更频繁但更短的GC周期，以增加CPU开销为代价来帮助控制内存增长。'
 - en: Info
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 信息
 - en: In some cases, you may need an opposite – [to increase the `GOGC` value, turn
     the GC off completely](../../01-common-patterns/gc/#gc-tuning-gogc), or prefer
     [GOMEMLIMIT=X and GOGC=off](../../01-common-patterns/gc/#gomemlimitx-and-gogcoff-configuration)
     configuration. **Do not make a decision before careful profiling!**
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 在某些情况下，你可能需要相反的操作——[增加 `GOGC` 值，完全关闭GC](../../01-common-patterns/gc/#gc-tuning-gogc)，或者更喜欢
+    [GOMEMLIMIT=X 和 GOGC=off](../../01-common-patterns/gc/#gomemlimitx-and-gogcoff-configuration)
+    配置。**在仔细分析之前不要做出决定！**
 - en: Optimizing Goroutine Behavior
+  id: totrans-42
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 优化Goroutine行为
 - en: 'Consider structuring your application so that goroutines block naturally rather
     than actively waiting or spinning. For example, instead of polling channels in
     tight loops, use select statements efficiently:'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 考虑将你的应用程序结构化，以便goroutines自然阻塞，而不是积极等待或旋转。例如，而不是在紧密循环中轮询通道，使用select语句高效地处理：
 - en: '[PRE7]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: If your goroutines must wait, prefer blocking on channels or synchronization
     primitives provided by Go, like mutexes or condition variables, instead of actively
     polling.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果goroutines必须等待，则优先选择在Go提供的通道或同步原语上阻塞，如互斥锁或条件变量，而不是积极轮询。
 - en: Pooling and Reusing Objects
+  id: totrans-46
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 对象池化和复用
 - en: 'Another crucial technique to reduce memory allocations and GC overhead [is
     using `sync.Pool`](../../01-common-patterns/object-pooling/):'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一种减少内存分配和GC开销的关键技术[是使用`sync.Pool`]：
 - en: '[PRE8]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Be careful here! It's strictly workflow-dependant, when you must return an object
     to the pool!
+  id: totrans-49
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 注意这里！它严格依赖于工作流程，当你必须将对象返回到池中时！
 - en: Reusing objects through pools reduces memory churn. With fewer allocations,
     the garbage collector runs less often and with less impact. This translates directly
     into lower latency and more predictable performance under load.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过池化复用对象减少内存波动。由于分配较少，垃圾收集器运行得更少，影响也更小。这直接转化为更低的延迟和更可预测的性能：
 - en: Connection Lifecycle Management
+  id: totrans-51
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 连接生命周期管理
 - en: 'A connection isn’t just accepted and forgotten—it moves through a full lifecycle:
     setup, data exchange, teardown. Problems usually show up in the quiet phases.
     Idle connections that aren’t cleaned up can tie up memory and block goroutines
     indefinitely. Enforcing read and write deadlines is essential. Heartbeat messages
     help too—they give you a way to detect dead peers without waiting for the OS to
     time out.'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 连接不仅仅是被接受然后被遗忘——它经历了一个完整的生命周期：设置、数据交换、拆除。问题通常出现在安静阶段。未清理的空闲连接可能会占用内存并无限期地阻塞goroutines。强制执行读写截止日期是至关重要的。心跳消息也有帮助——它们为你提供了一种在不等待操作系统超时的情况下检测死对等体的方法。
 - en: In one production case, slow client responses left goroutines blocked in reads.
     Over time, they built up until the system started degrading. Adding deadlines
     and lightweight health checks fixed the leak. Goroutines no longer lingered, and
     resource usage stayed flat under load.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 在一个生产案例中，客户端响应缓慢导致goroutines在读取操作中被阻塞。随着时间的推移，这种情况逐渐累积，直到系统开始退化。添加截止日期和轻量级健康检查修复了泄漏问题。goroutines不再滞留，资源使用在负载下保持平稳。
 - en: Each connection still runs in its own goroutine—but with proper lifecycle management
     in place, scale doesn’t come at the cost of stability.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个连接仍然在自己的goroutine中运行——但是有了适当的生命周期管理，扩展并不以稳定性为代价。
 - en: '[PRE9]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: 'Inside the handler, a ticker is used to fire every few seconds, triggering
     a periodic heartbeat that keeps the connection active and responsive:'
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 在处理程序内部，使用计时器每几秒钟触发一次，触发定期心跳以保持连接活跃和响应：
 - en: '[PRE10]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: 'Before reading from the client, the server sets a read deadline—if no data
     is received within that time, the operation fails, and the connection is cleaned
     up. This prevents a blocked read from stalling the goroutine indefinitely:'
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 在从客户端读取之前，服务器设置了一个读取截止日期——如果在那个时间内没有接收到数据，操作将失败，连接将被清理。这防止了阻塞读取无限期地阻塞goroutine：
 - en: '[PRE11]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: 'Likewise, before sending the heartbeat, the server sets a write deadline. If
     the client is unresponsive or the network is slow, the write will fail promptly,
     avoiding resource leakage:'
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样，在发送心跳之前，服务器设置了一个写入截止日期。如果客户端无响应或网络缓慢，写入将立即失败，避免资源泄漏：
 - en: '[PRE12]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: The loop handles incoming messages and sends periodic heartbeats, with read
     and write deadlines enforcing boundaries on both sides. This setup keeps each
     connection under active supervision. Silent failures don’t linger, and the system
     avoids trading stability for performance.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 循环处理传入的消息并定期发送心跳，读写截止日期在双方都设定了边界。这种设置使每个连接都处于活跃监督之下。静默故障不会滞留，系统避免了以稳定性换取性能。
 - en: Real-World Tuning and Scaling Pitfalls
+  id: totrans-63
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 实际调优和扩展陷阱
 - en: Scaling to 10K+ connections is not just a matter of code—it requires anticipating
     and mitigating potential pitfalls across many layers of the stack. Beyond addressing
     memory footprint, file descriptor limits, and blocking I/O, a series of high-concurrency
     echo server tests revealed additional performance considerations under real load.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 扩展到10K+个连接不仅仅是代码问题——它需要预测和缓解堆栈多层中的潜在陷阱。除了解决内存占用、文件描述符限制和阻塞I/O之外，一系列高并发回声服务器测试在真实负载下揭示了额外的性能考虑因素。
 - en: 'One experiment began with a simple line-based echo server. The baseline handler
     was straightforward:'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个实验从一个简单的基于行的回声服务器开始。基线处理程序很简单：
 - en: '[PRE13]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: 'Using a tool like `tcpkali`:'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用像`tcpkali`这样的工具：
 - en: '[PRE14]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: The test ramped up to 10'000 concurrent connections. Over the 60-second run,
     it sent 2.4 MiB and received 210.3 MiB of data. Each connection averaged around
     0.4 kBps, with an aggregate throughput of 29.40 Mbps downstream and 0.33 Mbps
     upstream. This result highlighted the server’s limited responsiveness to outgoing
     data under sustained high concurrency, with substantial backpressure on `fd.Read`.
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 测试将并发连接数提升至10,000个。在60秒的运行过程中，它发送了2.4 MiB的数据，接收了210.3 MiB的数据。每个连接的平均速度约为0.4
+    kBps，总吞吐量为29.40 Mbps下行和0.33 Mbps上行。这一结果突显了服务器在高并发持续压力下对外出数据的有限响应能力，`fd.Read`上存在大量背压。
 - en: Instrumenting and Benchmarking the Server
+  id: totrans-70
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 服务器监控和基准测试
 - en: Info
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 信息
 - en: We use `c5.2xlarge` (8 CPU, 16 GiB) AWS instance for all these tests.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们使用`c5.2xlarge`（8 CPU，16 GiB）的AWS实例进行所有这些测试。
 - en: 'To better understand system behavior under high load, Go’s built-in tracing
     facilities were enabled:'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了更好地理解系统在高负载下的行为，启用了Go内置的跟踪功能：
 - en: '[PRE15]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: After running the server and collecting traces, the command
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 在运行服务器并收集跟踪后，命令
 - en: '[PRE16]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: revealed that a significant portion of runtime was spent blocked in `fd.Read`
     and `fd.Write`, suggesting an opportunity to balance I/O operations more effectively.
     Trace analysis revealed that `fd.Read` accounted for 23% of runtime, while `fd.Write`
     consumed 75%, indicating significant write-side backpressure during echoing. Although
     `ulimit -n` was set to 65535 (AWS EC2 instance's hard limit), the system still
     encountered bottlenecks due to I/O blocking and ephemeral port range limitations.
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 发现运行时的大部分时间被阻塞在`fd.Read`和`fd.Write`中，这表明有机会更有效地平衡I/O操作。跟踪分析显示，`fd.Read`占运行时的23%，而`fd.Write`消耗了75%，表明在回显期间存在显著的写端背压。尽管`ulimit
+    -n`被设置为65535（AWS EC2实例的硬限制），但由于I/O阻塞和临时端口范围限制，系统仍然遇到了瓶颈。
 - en: Reducing Write Blocking with Buffered Writes
+  id: totrans-78
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过缓冲写入减少写阻塞
 - en: 'Connection writes were wrapped in a `bufio.Writer` with periodic flushing instead
     of flushing after each write. The updated snippet:'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 将连接写入包裹在`bufio.Writer`中，并定期刷新，而不是每次写入后刷新。更新的代码片段：
 - en: '[PRE17]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: 'Benchmarking with:'
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用以下基准测试：
 - en: '[PRE18]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: showed dramatic improvements—throughput increased from about 33.8 MiB to over
     1661 MiB received and 1369 MiB sent across 10,000 connections, with per-connection
     bandwidth reaching 5.3 kBps. Aggregate throughput rose to 232.28 Mbps downstream
     and 191.41 Mbps upstream. The tracing profile confirmed more balanced I/O wait
     times, even under a much heavier concurrent load.
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 显示了显著的改进——吞吐量从大约33.8 MiB增加到超过1661 MiB接收和1369 MiB发送，在10,000个连接中，每个连接的带宽达到5.3
+    kBps。总吞吐量上升到232.28 Mbps下行和191.41 Mbps上行。跟踪配置文件确认了在更重的并发负载下，I/O等待时间更加平衡。
 - en: Handling Burst Loads and CPU-Bound Workloads
+  id: totrans-84
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 处理突发负载和CPU密集型工作负载
 - en: 'To evaluate the server''s behavior under extreme connection pressure, a burst
     test was executed with 30,000 connections ramping up at 5,000 per second:'
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了评估服务器在极端连接压力下的行为，执行了一个突发测试，以每秒5,000个连接的速度将连接数提升至30,000个：
 - en: '[PRE19]'
+  id: totrans-86
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: The server ramped up cleanly to 30,000 concurrent connections and sustained
     them for the full 60 seconds. It handled a total of 2580.3 MiB sent and 1250.9
     MiB received, maintaining an aggregate throughput of 360.75 Mbps upstream and
     174.89 Mbps downstream. Per-channel bandwidth naturally decreased to about 1.2
     kBps, but the stability across all channels and the lack of dropped connections
     pointed to effective load distribution and solid I/O handling even at scale.
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 服务器干净利落地将并发连接数提升至30,000个，并持续了整整60秒。它处理了总共2580.3 MiB发送和1250.9 MiB接收的数据，保持了360.75
+    Mbps的上行总吞吐量和174.89 Mbps的下行总吞吐量。每通道带宽自然下降到大约1.2 kBps，但所有通道的稳定性以及未丢失的连接表明，即使在规模扩大时，也能有效地分配负载和稳健地处理I/O。
 - en: 'To simulate CPU-bound workloads, the server was modified to compute a SHA256
     hash for each incoming line:'
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了模拟CPU密集型工作负载，服务器被修改为对每行输入计算SHA256哈希：
 - en: '[PRE20]'
+  id: totrans-89
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: In this configuration, using the same 30,000-connection setup, throughput dropped
     to 1068.3 MiB sent and 799.3 MiB received. Aggregate bandwidth fell to 149.35
     Mbps upstream and 111.74 Mbps downstream, and per-connection bandwidth declined
@@ -429,50 +616,79 @@
     GC-related functions. This clearly demonstrated the impact of compute-heavy tasks
     on overall throughput and reinforced the need for careful balance between I/O
     and CPU workload when operating at high concurrency.
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 在此配置中，使用相同的30,000个连接设置，吞吐量下降到1068.3 MiB发送和799.3 MiB接收。聚合带宽下降到上游149.35 Mbps和下游111.74
+    Mbps，每连接带宽下降到大约0.7 kBps。虽然服务器保持了完整的连接数和正常运行时间，但跟踪分析揭示了在runtime.systemstack_switch和GC相关函数中花费的时间增加。这清楚地展示了计算密集型任务对整体吞吐量的影响，并加强了在高并发操作时在I/O和CPU工作负载之间进行仔细平衡的必要性。
 - en: Summarizing the Technical Gains
+  id: totrans-91
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 总结技术收益
 - en: 'Benchmarking across four distinct server configurations revealed how buffering,
     concurrency scaling, and CPU-bound tasks influence performance under load:'
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 在四个不同的服务器配置中进行基准测试，揭示了缓冲、并发扩展和CPU密集型任务如何在负载下影响性能：
 - en: '| Feature | Baseline (10K, no buffer) | 10K Buffered Connections | 30K Buffered
     Connections | 30K + CPU Load (SHA256) |'
+  id: totrans-93
   prefs: []
   type: TYPE_TB
+  zh: '| 功能 | 基准（10K，无缓冲） | 10K 缓冲连接 | 30K 缓冲连接 | 30K + CPU 负载（SHA256） |'
 - en: '| --- | --- | --- | --- | --- |'
+  id: totrans-94
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| Connections handled | 10,000 | 10,000 | 30,000 | 30,000 |'
+  id: totrans-95
   prefs: []
   type: TYPE_TB
+  zh: '| 处理的连接数 | 10,000 | 10,000 | 30,000 | 30,000 |'
 - en: '| Data sent (60s) | 2.4 MiB | 1369.1 MiB | 2580.3 MiB | 1068.3 MiB |'
+  id: totrans-96
   prefs: []
   type: TYPE_TB
+  zh: '| 发送的数据（60秒） | 2.4 MiB | 1369.1 MiB | 2580.3 MiB | 1068.3 MiB |'
 - en: '| Data received (60s) | 210.3 MiB | 1661.4 MiB | 1250.9 MiB | 799.3 MiB |'
+  id: totrans-97
   prefs: []
   type: TYPE_TB
+  zh: '| 接收到的数据（60秒） | 210.3 MiB | 1661.4 MiB | 1250.9 MiB | 799.3 MiB |'
 - en: '| Per-channel bandwidth | ~0.4 kBps | ~5.3 kBps | ~1.2 kBps | ~0.7 kBps |'
+  id: totrans-98
   prefs: []
   type: TYPE_TB
+  zh: '| 每通道带宽 | ~0.4 kBps | ~5.3 kBps | ~1.2 kBps | ~0.7 kBps |'
 - en: '| Aggregate bandwidth (↓/↑) | 29.40 / 0.33 Mbps | 232.28 / 191.41 Mbps | 174.89
     / 360.75 Mbps | 111.74 / 149.35 Mbps |'
+  id: totrans-99
   prefs: []
   type: TYPE_TB
+  zh: '| 聚合带宽（↓/↑） | 29.40 / 0.33 Mbps | 232.28 / 191.41 Mbps | 174.89 / 360.75 Mbps
+    | 111.74 / 149.35 Mbps |'
 - en: '| Packet rate estimate (↓/↑) | 329K / 29 pkt/s | 278K / 16K pkt/s | 135K /
     32K pkt/s | 136K / 13K pkt/s |'
+  id: totrans-100
   prefs: []
   type: TYPE_TB
+  zh: '| 数据包速率估计（↓/↑） | 329K / 29 数据包/秒 | 278K / 16K 数据包/秒 | 135K / 32K 数据包/秒 | 136K
+    / 13K 数据包/秒 |'
 - en: '| I/O characteristics | Severe write backpressure | Balanced read/write | Efficient
     under scale | Latency from CPU contention |'
+  id: totrans-101
   prefs: []
   type: TYPE_TB
+  zh: '| I/O 特性 | 严重的写回压 | 读写平衡 | 规模下高效 | 来自 CPU 竞争的延迟 |'
 - en: '| CPU and GC pressure | Low | Low | Moderate | High (GC + hash compute) |'
+  id: totrans-102
   prefs: []
   type: TYPE_TB
+  zh: '| CPU 和 GC 压力 | 低 | 低 | 中等 | 高（GC + 哈希计算） |'
 - en: Starting from the baseline of 10,000 unbuffered connections, the server showed
     limited throughput—just 2.4 MiB sent and 210.3 MiB received over 60 seconds—with
     clear signs of write-side backpressure. Introducing buffered writes with the same
@@ -483,22 +699,31 @@
     message, total throughput dropped significantly, confirming the expected CPU bottleneck
     and reinforcing the need to factor in compute latency when designing high-concurrency,
     I/O-heavy services.
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: 从10,000个无缓冲连接的基准开始，服务器显示的吞吐量有限——在60秒内仅发送了2.4 MiB，接收了210.3 MiB，并显示出明显的写回压迹象。引入相同连接数的缓冲写入解锁了超过1369
+    MiB的发送和1661 MiB的接收，将吞吐量提高了超过一个数量级，并平衡了I/O等待时间。进一步扩展到30,000个连接保持了稳定性并提高了整体吞吐量，尽管每个连接的带宽有所减少。当每条消息添加SHA256哈希时，总吞吐量显著下降，证实了预期的CPU瓶颈，并加强了在设计高并发、I/O密集型服务时考虑计算延迟的必要性。
 - en: These profiles serve as a concrete reference for performance-aware development,
     where transport, memory, and compute must be co-optimized for real-world scalability.
+  id: totrans-104
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些配置文件作为性能感知开发的实际参考，其中传输、内存和计算必须协同优化以实现现实世界的可扩展性。
 - en: As you can see, achieving even 30,000 concurrent connections with reliable performance
     is a non-trivial task. The test results demonstrated that once a workload deviates
     from a trivial echo server—for example, by adding logging, CPU-bound processing,
     or more complex read/write logic—throughput and stability can degrade rapidly.
     Performance at scale is highly dependent on workflow characteristics, such as
     I/O patterns, synchronization frequency, and memory pressure.
+  id: totrans-105
   prefs: []
   type: TYPE_NORMAL
+  zh: 正如您所看到的，即使实现30,000个并发连接并保持可靠性能也是一个非同小可的任务。测试结果证明，一旦工作负载偏离了简单的回声服务器——例如，通过添加日志记录、CPU密集型处理或更复杂的读写逻辑——吞吐量和稳定性会迅速下降。在规模上的性能高度依赖于工作流程特征，如I/O模式、同步频率和内存压力。
 - en: Taken together, these tests reinforce the need for workload-aware tuning and
     platform-specific adjustments when building high-performance, scalable networking
     systems.
+  id: totrans-106
   prefs: []
   type: TYPE_NORMAL
+  zh: 综合来看，这些测试强调了在构建高性能、可扩展的网络系统时进行工作负载感知调优和平台特定调整的必要性。

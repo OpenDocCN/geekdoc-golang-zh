@@ -1,142 +1,210 @@
 - en: Patterns and Techniques for Writing High-Performance Applications with Go
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 编写高性能应用程序的模式和技术
 - en: 原文：[https://goperf.dev/](https://goperf.dev/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/](https://goperf.dev/)
 - en: The **Go App Optimization Guide** is a series of in-depth, technical articles
     for developers who want to get more performance out of their Go code without relying
     on guesswork or cargo cult patterns. If you’re building services that need to
     handle real load—APIs, backend pipelines, or distributed systems—this guide focuses
     on the kind of low-level behavior and tuning opportunities that actually matter
     in production.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Go 应用优化指南**是一系列深入的技术文章，旨在帮助开发者从他们的Go代码中获得更多性能，而不依赖于猜测或货船文化模式。如果你正在构建需要处理真实负载的服务——API、后端管道或分布式系统——本指南专注于实际生产中真正重要的底层行为和调整机会。'
 - en: Go doesn’t give you the kind of fine-grained control you’d find in C++ or Rust,
     but it does give you just enough visibility to reason about performance—and just
     enough tooling to do something about it. From understanding allocation patterns
     and reducing GC overhead to building efficient network services and managing concurrency
     at scale, the series focuses on optimizations that are both practical and measurable.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: Go没有给你在C++或Rust中找到的那种细粒度控制，但它确实给你足够的可见性来推理性能——以及足够的工具来采取行动。从理解分配模式、减少GC开销到构建高效的网络服务和大规模管理并发，本系列专注于既实用又可衡量的优化。
 - en: The goal isn’t to write clever code—it’s to write fast, predictable code that
     holds up under pressure. Everything in this guide is backed by real use cases,
     stripped of theory, and aimed at what you can apply right now.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 目标不是编写巧妙的代码——而是编写快速、可预测的代码，在压力下也能保持稳定。本指南中的每一项内容都基于真实案例，去除了理论，旨在让你现在就能应用。
 - en: '[Common Go Patterns for Performance](01-common-patterns/)'
+  id: totrans-5
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '[性能的常见Go模式](01-common-patterns/)'
 - en: 'This first article series covers a set of performance patterns that come up
     again and again when writing real-world Go code. It’s not an exhaustive list,
     but it hits the areas where small changes tend to make a noticeable difference:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 这第一篇文章系列涵盖了在编写真实世界Go代码时反复出现的性能模式。这不是一个详尽的列表，但它触及了小改动往往能带来明显差异的领域：
 - en: Making proper use of `sync.Pool`
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 正确使用 `sync.Pool`
 - en: Cutting down on unnecessary allocations
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 减少不必要的分配
 - en: Struct layout and memory alignment details that affect cache performance
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 影响缓存性能的结构布局和内存对齐细节
 - en: Error handling that doesn’t drag down the fast path
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 不拖慢快速路径的错误处理
 - en: Using interfaces without paying for them
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用接口而不付费
 - en: Reusing slices and sorting in-place
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重复使用切片和在原地排序
 - en: Each pattern includes real code and numbers you can apply directly—no theory,
     no fluff.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个模式都包括你可以直接应用的真正代码和数字——没有理论，没有冗余。
 - en: '* * *'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: '***'
 - en: '[High-Performance Networking in Go](02-networking/)'
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '[Go中的高性能网络](02-networking/)'
 - en: This section takes a focused look at what it takes to build fast, reliable network
     services in Go. It covers not just how to use the standard library, but how to
     push it further when you’re dealing with real load.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 本节重点探讨了在Go中构建快速、可靠的网络服务所需的内容。它不仅涵盖了如何使用标准库，还涵盖了在处理真实负载时如何进一步推动它。
 - en: 'Topics include:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 包括以下主题：
 - en: Efficient use of `net/http`, `net.Conn`, and connection pooling
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 有效使用 `net/http`、`net.Conn` 和连接池
 - en: Serving thousands of concurrent connections without collapsing
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在不崩溃的情况下服务数千个并发连接
 - en: Tuning Go’s scheduler and system-level settings (GOMAXPROCS, epoll, kqueue)
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 调整 Go 的调度器和系统级设置（GOMAXPROCS, epoll, kqueue）
 - en: Building resilient services with load shedding and backpressure
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用负载 shedding 和 backpressure 构建弹性的服务
 - en: Preventing memory leaks in long-lived connections
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 防止长期连接中的内存泄漏
 - en: 'Choosing and tuning transport protocols: TCP, HTTP/2, gRPC, QUIC'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 选择和调整传输协议：TCP、HTTP/2、gRPC、QUIC
 - en: While the goal is to keep everything grounded in practical examples, this part
     leans more theoretical for now due to the exploratory nature of the networking
     topics being developed.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然目标是保持一切基于实际示例，但这一部分由于正在开发的网络主题的探索性，目前更偏向于理论。
 - en: '* * *'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '***'
 - en: Who This Is For
+  id: totrans-26
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 适用于谁
 - en: 'This series is ideal for:'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个系列非常适合：
 - en: Engineers working on backend systems where Go’s performance actually matters
+  id: totrans-28
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在Go性能真正重要的后端系统上工作的工程师
 - en: Developers building latency-sensitive services or handling high-throughput traffic
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 构建对延迟敏感的服务或处理高吞吐量流量的开发者
 - en: Teams moving critical paths to Go and needing to understand the trade-offs
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将关键路径移动到Go并需要理解权衡
 - en: Anyone who wants a clearer picture of how Go behaves under load
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 任何想要更清晰地了解Go在负载下表现的人
 - en: '* * *'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: More content is coming soon—additional articles, practical code examples, and
     tooling insights. Bookmark this page to keep up as the series grows.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 更多内容即将到来——包括额外的文章、实用的代码示例和工具见解。将此页面加入书签，以便随着系列的增长而保持更新。

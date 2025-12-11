@@ -1,162 +1,238 @@
 - en: Efficient Use of net/http, net.Conn, and UDP in High-Traffic Go Services
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 在高流量Go服务中高效使用 net/http、net.Conn 和 UDP
 - en: 原文：[https://goperf.dev/02-networking/efficient-net-use/](https://goperf.dev/02-networking/efficient-net-use/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/02-networking/efficient-net-use/](https://goperf.dev/02-networking/efficient-net-use/)
 - en: When we first start building high-traffic services in Go, we often lean heavily
     on `net/http`. It’s stable, ergonomic, and remarkably capable for 80% of use cases.
     But as soon as traffic spikes or latency budgets shrink, the cracks begin to show.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 当我们最初在Go中使用构建高流量服务时，我们通常会大量依赖 `net/http`。它是稳定的，人体工程学设计，对于80%的使用案例来说非常出色。但是，一旦流量激增或延迟预算减少，问题就开始显现。
 - en: It’s not that `net/http` is broken—it’s just that the defaults are tuned for
     convenience, not for performance under stress. And as we scale backend services
     to handle millions of requests per second, understanding what happens underneath
     the abstraction becomes the difference between meeting SLOs and fire-fighting
     in production.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 并非 `net/http` 出了问题——只是默认设置是为了方便而调整的，而不是为了在压力下的性能。随着我们扩展后端服务以处理每秒数百万个请求，理解抽象背后的发生情况成为满足SLO和在生产环境中灭火之间的区别。
 - en: This article is a walkthrough of how to make networked Go services truly efficient—what
     works, what breaks, and how to go beyond idiomatic usage. We’ll start with `net/http`,
     drop into raw `net.Conn`, and finish with real-world patterns for handling UDP
     in latency-sensitive systems.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 本文将指导如何使网络化的Go服务真正高效——哪些有效，哪些无效，以及如何超越惯用用法。我们将从 `net/http` 开始，深入到原始的 `net.Conn`，并以处理具有延迟敏感性的系统中的UDP的实际模式结束。
 - en: The Hidden Complexity Behind a Simple HTTP Call
+  id: totrans-5
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 简单HTTP调用背后的隐藏复杂性
 - en: 'Let’s begin where most Go developers do: a simple `http.Client`.'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们从大多数Go开发者开始的地方开始：一个简单的 `http.Client`。
 - en: '[PRE0]'
+  id: totrans-7
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'This looks harmless. It gets the job done, and in most local tests, it performs
     reasonably well. But in production, at scale, this innocent-looking code can trigger
     a surprising range of issues: leaked connections, memory spikes, blocked goroutines,
     and mysterious latency cliffs.'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 这看起来是无害的。它完成了工作，并且在大多数本地测试中表现合理。但在生产环境中，当规模扩大时，这种看似无害的代码可能会引发一系列令人惊讶的问题：连接泄漏、内存峰值、阻塞的goroutines以及神秘的延迟悬崖。
 - en: One of the most common issues is forgetting to fully read `resp.Body` before
     closing it. [Go’s HTTP client won’t reuse connections unless the body is drained](https://github.com/google/go-github/pull/317).
     And under load, that means you're constantly opening new TCP connections—slamming
     the kernel with ephemeral ports, exhausting file descriptors, and triggering throttling.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 最常见的问题之一是忘记在关闭它之前完全读取 `resp.Body`。[Go的HTTP客户端除非将主体耗尽，否则不会重用连接](https://github.com/google/go-github/pull/317)。在负载下，这意味着你不断地打开新的TCP连接——对内核施加临时端口，耗尽文件描述符，并触发节流。
 - en: 'Here’s the safe pattern:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是安全的模式：
 - en: '[PRE1]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'Transport Tuning: When Defaults Aren’t Enough'
+  id: totrans-12
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 传输调整：当默认设置不足时
 - en: It’s easy to overlook how much global state hides behind `http.DefaultTransport`.
     If you spin up multiple `http.Client` instances across your app without customizing
     the transport, you're probably reusing a shared global pool without realizing
     it.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 很容易忽视 `http.DefaultTransport` 后面隐藏了多少全局状态。如果你在应用程序中启动多个 `http.Client` 实例而没有自定义传输，你可能在没有意识到的情况下重复使用共享的全局池。
 - en: 'This leads to unpredictable behavior under load: idle connections get evicted
     too quickly, or keep-alive connections linger longer than they should. The fix?
     Build a tuned `Transport` that matches your concurrency profile.'
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 这导致在负载下的行为不可预测：空闲连接被太快地移除，或者保持连接的时间比应该的要长。解决方案？构建一个与你的并发配置相匹配的调整过的 `Transport`。
 - en: Custom `http.Transport` Fields to Tune
+  id: totrans-15
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 可调整的 `http.Transport` 字段
 - en: 'All the following settings are part of the `http.Transport` struct:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有的以下设置都是 `http.Transport` 结构体的一部分：
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: More Advanced Optimization Tricks
+  id: totrans-18
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 更高级的优化技巧
 - en: 'These are all tied to key settings in the `http.Transport`, `http.Client`,
     and `http.Server` structs, or custom wrappers built on top of them:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些都与 `http.Transport`、`http.Client` 和 `http.Server` 结构体中的关键设置，或者在其之上构建的自定义包装器有关：
 - en: Set `ExpectContinueTimeout` Carefully
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 仔细设置 `ExpectContinueTimeout`
 - en: 'If our clients send large POST requests and the server doesn’t support `100-continue`
     properly, we can reduce or eliminate this delay:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们的客户端发送大的POST请求，而服务器没有正确支持 `100-continue`，我们可以减少或消除这种延迟：
 - en: '[PRE3]'
+  id: totrans-22
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Constrain `MaxConnsPerHost`
+  id: totrans-23
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 限制 `MaxConnsPerHost`
 - en: Go’s default HTTP client will open an unbounded number of connections to a host.
     That’s fine until one of your downstreams can’t handle it.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: Go的默认HTTP客户端会向一个主机打开无限数量的连接。这很好，直到你的某个下游无法处理。
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: This prevents stampedes during spikes and avoids exhausting resources on your
     backend services.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 这可以防止在高峰期间发生拥挤，并避免耗尽后端服务的资源。
 - en: Use Small `http.Client.Timeout`
+  id: totrans-27
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用小的`http.Client.Timeout`
 - en: 'A common mistake is setting a very high timeout (e.g., 30s) for safety. But
     long timeouts hold onto goroutines, buffers, and sockets under pressure. Prefer
     tighter control:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 常见的错误是设置一个很高的超时时间（例如，30秒）以确保安全。但是，长时间的超时会在压力下保留goroutines、缓冲区和套接字。更倾向于更紧密的控制：
 - en: '[PRE5]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Instead of relying on big timeouts, use retries with backoff (e.g., with go-retryablehttp)
     to improve resiliency under partial failure.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 而不是依赖大的超时，使用带有回退的重试（例如，使用go-retryablehttp）来提高部分失败情况下的弹性。
 - en: Explicitly Set `ReadBufferSize` and `WriteBufferSize` in `http.Server`
+  id: totrans-31
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 在`http.Server`中明确设置`ReadBufferSize`和`WriteBufferSize`
 - en: 'Go''s `http.Server` does not expose `ReadBufferSize` and `WriteBufferSize`
     directly, but when you need to reduce GC pressure and improve syscall efficiency
     under load, you can pre-size the buffers in custom `Conn` wrappers. 4KB–8KB is
     a balanced value for most workloads: it''s large enough to handle small headers
     and bodies efficiently without wasting memory. For example, 4KB covers almost
     all typical HTTP headers and small JSON payloads.'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: Go的`http.Server`没有直接暴露`ReadBufferSize`和`WriteBufferSize`，但在需要减少GC压力和提高负载下的系统调用效率时，你可以在自定义`Conn`包装器中预先设置缓冲区的大小。对于大多数工作负载，4KB-8KB是一个平衡的值：它足够大，可以有效地处理小的头和体，而不会浪费内存。例如，4KB几乎覆盖了所有典型的HTTP头和小的JSON负载。
 - en: You can implement this using `bufio.NewReaderSize` and `NewWriterSize` in a
     wrapped connection that plugs into a custom `net.Listener` and `http.Server.ConnContext`.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可以通过在包装连接中使用`bufio.NewReaderSize`和`NewWriterSize`来实现这一点，该连接连接到自定义的`net.Listener`和`http.Server.ConnContext`。
 - en: 'If you''re using `fasthttp`, you can configure buffer sizes explicitly:'
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你使用`fasthttp`，你可以显式配置缓冲区大小：
 - en: '[PRE6]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: This avoids dynamic allocations on each request and leads to more predictable
     memory usage and cache locality under high throughput.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 这避免了在每个请求上进行动态分配，并在高吞吐量下导致更可预测的内存使用和缓存局部性。
 - en: Use `bufio.Reader.Peek()` for Efficient Framing
+  id: totrans-37
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用`bufio.Reader.Peek()`进行高效的帧处理
 - en: When implementing a framed protocol over TCP, like length-prefixed binary messages,
     naively calling `Read()` in a loop can lead to fragmented reads and unnecessary
     syscalls. This adds up, especially under load. Using `Peek()` gives you a look
@@ -164,203 +240,307 @@
     detect message boundaries without triggering extra reads. It’s a practical technique
     in streaming systems or multiplexed connections where tight control over framing
     is critical.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 当在TCP上实现帧协议时，例如长度预置的二进制消息，在循环中天真地调用`Read()`会导致分段读取和不必要的系统调用。这会累积起来，尤其是在负载下。使用`Peek()`让你可以查看缓冲区中的数据，而不需要前进读取位置，这使得在没有触发额外读取的情况下更容易检测消息边界。这在需要严格控制帧的流系统或复用连接中是一个实用的技术。
 - en: '[PRE7]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Force Fresh DNS Lookups with Custom Dialers
+  id: totrans-40
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用自定义拨号器强制进行新的DNS查找
 - en: Go’s built-in DNS caching lasts for the lifetime of the process. In dynamic
     environments, like Kubernetes, this can become a problem when service IPs change
     but clients keep reusing stale ones. To avoid this, you can force fresh DNS lookups
     by creating a new net.Dialer per request or rotating the HTTP client periodically.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: Go内置的DNS缓存在整个进程的生命周期内有效。在动态环境中，如Kubernetes，当服务IP更改但客户端继续重用旧的IP时，这可能会成为问题。为了避免这种情况，你可以通过为每个请求创建一个新的net.Dialer或定期轮换HTTP客户端来强制进行新的DNS查找。
 - en: 'But you can bypass Go’s internal DNS cache when needed:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 但在需要时，你可以绕过Go的内部DNS缓存：
 - en: '[PRE8]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: This ensures a fresh DNS lookup per request. While this adds minor overhead,
     it's necessary in failover-sensitive environments.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 这确保每个请求都进行一次新的DNS查找。虽然这会增加一些开销，但在故障转移敏感的环境中这是必要的。
 - en: Use `sync.Pool` for Readers/Writers
+  id: totrans-45
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用`sync.Pool`进行读写操作
 - en: Most people use `sync.Pool` to reuse `[]byte` buffers, but for services that
     process many requests per second, allocating `bufio.Reader` and `bufio.Writer`
     objects per connection adds up. These objects also maintain their own buffers,
     so recycling them reduces pressure on both heap allocations and garbage collection.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 大多数人使用`sync.Pool`来重用`[]byte`缓冲区，但对于每秒处理许多请求的服务，为每个连接分配`bufio.Reader`和`bufio.Writer`对象会累积起来。这些对象还维护自己的缓冲区，因此回收它们可以减少堆分配和垃圾收集的压力。
 - en: '[PRE9]'
+  id: totrans-47
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: This practice significantly reduces allocation churn and improves latency consistency,
     especially in systems processing thousands of connections concurrently.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种做法显著减少了分配的波动，并提高了延迟一致性，尤其是在处理数千个并发连接的系统中。
 - en: Don’t Share `http.Client` Across Multiple Hosts
+  id: totrans-49
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 不要在多个主机间共享`http.Client`
 - en: While it might seem efficient to reuse a single `http.Client`, each target host
     maintains its own internal connection pool within the underlying `http.Transport`.
     If you use the same client for multiple base URLs, you end up mixing connection
     reuse and causing head-of-line blocking across unrelated services. Worse, DNS
     caching and socket exhaustion become harder to track.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然重复使用单个 `http.Client` 可能看起来效率更高，但每个目标主机在底层的 `http.Transport` 中都维护着自己的内部连接池。如果你为多个基本
+    URL 使用相同的客户端，最终会导致连接重用混合，并在无关服务之间造成首部阻塞。更糟糕的是，DNS 缓存和套接字耗尽变得难以追踪。
 - en: Instead, create a dedicated `http.Client` for each upstream service you interact
     with. This improves connection reuse, avoids cross-talk between services, and
     usually makes behavior more predictable, especially in environments like service
     meshes or when dealing with multiple external APIs.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 相反，为每个你交互的上游服务创建一个专门的 `http.Client`。这提高了连接的重用性，避免了服务之间的串扰，并且通常使得行为更加可预测，尤其是在服务网格或处理多个外部
+    API 的环境中。
 - en: Use `ConnContext` and `ConnState` Hooks for Debugging
+  id: totrans-52
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用 `ConnContext` 和 `ConnState` 钩子进行调试
 - en: These hooks are useful for tracking the lifecycle of each connection—especially
     when debugging issues like memory leaks, stuck connections, or resource exhaustion
     in production. The `ConnState` callback gives visibility into transitions such
     as `StateNew`, `StateActive`, `StateIdle`, and `StateHijacked`, allowing you to
     log, trace, or apply custom handling per connection state.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些钩子对于跟踪每个连接的生命周期非常有用——尤其是在调试生产环境中的内存泄漏、挂起的连接或资源耗尽等问题时。`ConnState` 回调提供了对 `StateNew`、`StateActive`、`StateIdle`
+    和 `StateHijacked` 等转换的可见性，允许你针对每个连接状态进行记录、跟踪或应用自定义处理。
 - en: By monitoring these events, you can detect when connections hang, fail to close,
     or unexpectedly idle out. It also helps when correlating behavior with client
     IPs or network zones.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过监控这些事件，你可以检测到连接挂起、无法关闭或意外空闲的情况。这也有助于将行为与客户端 IP 或网络区域相关联。
 - en: '[PRE10]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: 'Dropping the Abstraction: When to Use `net.Conn`'
+  id: totrans-56
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 放弃抽象：何时使用 `net.Conn`
 - en: As we get closer to the limits of what the Go standard library can offer, it’s
     worth knowing that there are high-performance alternatives built specifically
     for event-driven, low-latency workloads. Projects like [`cloudwego/netpoll`](https://github.com/cloudwego/netpoll)
     and [`tidwall/evio`](https://github.com/tidwall/evio) offer powerful tools for
     maximizing performance beyond what’s achievable with `net.Conn` alone.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 随着我们接近 Go 标准库所能提供的极限，了解存在专门为事件驱动、低延迟工作负载构建的高性能替代品是值得的。例如，`[`cloudwego/netpoll`](https://github.com/cloudwego/netpoll)`
+    和 `[`tidwall/evio`](https://github.com/tidwall/evio)` 项目提供了强大的工具，可以超越仅使用 `net.Conn`
+    所能达到的性能。
 - en: '**[`cloudwego/netpoll`](https://github.com/cloudwego/netpoll)** is an epoll-based
     network library designed for building massive concurrent network services with
     minimal GC overhead. It uses event-based I/O to eliminate goroutine-per-connection
     costs, ideal for scenarios like RPC proxies, internal service meshes, or high-frequency
     messaging systems.'
+  id: totrans-58
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[`cloudwego/netpoll`](https://github.com/cloudwego/netpoll)** 是一个基于 epoll
+    的网络库，旨在以最小的 GC 开销构建大规模并发网络服务。它使用基于事件的网络 I/O 来消除每个连接的 goroutine 成本，非常适合 RPC 代理、内部服务网格或高频消息系统等场景。'
 - en: '**[`tidwall/evio`](https://github.com/tidwall/evio)** provides a fast, non-blocking
     event loop for Go based on the [reactor pattern](https://en.wikipedia.org/wiki/Reactor_pattern).
     It’s well-suited for protocols where latency matters more than per-connection
     state complexity, such as custom TCP, UDP protocols, or lightweight gateways.'
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**[`tidwall/evio`](https://github.com/tidwall/evio)** 提供了一个基于反应器模式（[reactor
+    pattern](https://en.wikipedia.org/wiki/Reactor_pattern)）的快速、非阻塞的事件循环，适用于对延迟敏感而每连接状态复杂性较低的协议，例如自定义
+    TCP、UDP 协议或轻量级网关。'
 - en: If you're building systems where throughput or connection count exceeds hundreds
     of thousands, or where tail latency is critical, it's worth exploring these libraries.
     They come with trade-offs—most notably, less standardization and more manual lifecycle
     management—but in return, they give you fine-grained control over performance-critical
     paths.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你正在构建吞吐量或连接数超过数十万，或尾延迟至关重要的系统，探索这些库是值得的。它们有权衡之处——最明显的是标准化程度较低和更多手动生命周期管理——但作为回报，它们让你能够对性能关键路径进行精细控制。
 - en: Sometimes, even a tuned HTTP stack isn't enough.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 有时，即使调整过的 HTTP 栈也不够。
 - en: In cases like internal binary protocols or services dealing with hundreds of
     thousands of requests per second, we may find we're paying for HTTP semantics
     we don't use. Dropping to `net.Conn` gives us full control—no pooling surprises,
     no hidden keep-alives, just a raw socket.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 在类似内部二进制协议或每秒处理数十万请求的服务中，我们可能会发现我们正在为不使用的HTTP语义付费。降低到`net.Conn`让我们有了完全的控制权——没有池化惊喜，没有隐藏的保活，只是一个原始套接字。
 - en: '[PRE11]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: 'This lets us take over the connection lifecycle, buffering, and concurrency
     fully. It also opens up opportunities to reduce GC impact via buffer reuse:'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 这使我们能够完全接管连接生命周期、缓冲和并发。它还开辟了通过缓冲区重用减少GC影响的机会：
 - en: '[PRE12]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: 'Enabling TCP_NODELAY is useful in latency-sensitive systems:'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 在对延迟敏感的系统启用TCP_NODELAY很有用：
 - en: '[PRE13]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: 'Beyond TCP: Why UDP Matters'
+  id: totrans-68
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 超越TCP：为什么UDP很重要
 - en: 'TCP could be too heavy for workloads like log firehose ingestion, telemetry
     beacons, or heartbeat messages. We can turn to UDP for low-latency, connectionless
     data delivery:'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: TCP对于像日志火 hoses 摄入、遥测信标或心跳消息这样的工作负载可能过于沉重。我们可以转向UDP来实现低延迟、无连接的数据传输：
 - en: '[PRE14]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: This skips handshakes and reuses the socket efficiently. But remember—UDP offers
     no ordering, reliability, or built-in session tracking. It works best in high-volume,
     low-consequence pipelines.
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 这跳过了握手并有效地重用了套接字。但记住——UDP不提供排序、可靠性或内置会话跟踪。它在高流量、低后果的管道中表现最佳。
 - en: Choosing the Right Tool
+  id: totrans-72
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 选择正确的工具
 - en: 'Our networking strategy should reflect traffic shape and protocol expectations:'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的网络策略应该反映流量形状和协议预期：
 - en: '| Scenario | Preferred Tool |'
+  id: totrans-74
   prefs: []
   type: TYPE_TB
+  zh: '| 场景 | 优先工具 |'
 - en: '| --- | --- |'
+  id: totrans-75
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '| REST/gRPC, general APIs | `net/http` |'
+  id: totrans-76
   prefs: []
   type: TYPE_TB
+  zh: '| REST/gRPC，通用API | `net/http` |'
 - en: '| HTTP under load | Tuned `http.Transport` |'
+  id: totrans-77
   prefs: []
   type: TYPE_TB
+  zh: '| 带负载的HTTP | 调优的`http.Transport` |'
 - en: '| Custom TCP protocol | `net.Conn` |'
+  id: totrans-78
   prefs: []
   type: TYPE_TB
+  zh: '| 自定义TCP协议 | `net.Conn` |'
 - en: '| Framed binary data | `net.Conn` + buffer mgmt |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '| 帧二进制数据 | `net.Conn` + 缓冲区管理 |'
 - en: '| Fire-and-forget telemetry | `UDPConn` |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '| 一触即发的遥测 | `UDPConn` |'
 - en: '| Latency-sensitive game updates | `UDP` |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '| 延迟敏感的游戏更新 | `UDP` |'
 - en: '* * *'
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: At scale, network performance is never just about the network. It's also about
     memory pressure, context lifecycles, kernel behavior, and socket hygiene. We can
     go far with the Go standard library, but when systems push back, we need to push
     deeper.
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 在规模上，网络性能永远不仅仅是关于网络。它还关乎内存压力、上下文生命周期、内核行为和套接字卫生。我们可以利用Go标准库走得很远，但当系统反推时，我们需要深入挖掘。
 - en: The good news? Go gives us the tools. We just need to use them wisely.
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 好消息是？Go为我们提供了工具。我们只需要明智地使用它们。
 - en: If you're experimenting with framed protocols, zero-copy parsing, or custom
     benchmarking setups, there's a lot more to explore. Let's keep going.
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你正在尝试帧协议、零拷贝解析或自定义基准测试设置，还有更多东西可以探索。让我们继续前进。

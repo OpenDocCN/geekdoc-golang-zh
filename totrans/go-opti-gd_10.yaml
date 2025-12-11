@@ -1,210 +1,302 @@
 - en: Goroutine Worker Pools in Go
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go中的Goroutine工作池
 - en: 原文：[https://goperf.dev/01-common-patterns/worker-pool/](https://goperf.dev/01-common-patterns/worker-pool/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: '[原文：https://goperf.dev/01-common-patterns/worker-pool/](https://goperf.dev/01-common-patterns/worker-pool/)'
 - en: Go’s concurrency model makes it deceptively easy to spin up thousands of goroutines—but
     that ease can come at a cost. Each goroutine starts small, but under load, unbounded
     concurrency can cause memory usage to spike, context switches to pile up, and
     overall performance to become unpredictable.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: Go的并发模型使得启动成千上万的goroutines变得容易，但这种容易可能会带来代价。每个goroutine开始时很小，但在负载下，无界的并发可能会导致内存使用激增，上下文切换堆积，整体性能变得不可预测。
 - en: A worker pool helps apply backpressure by limiting the number of active goroutines.
     Instead of spawning one per task, a fixed pool handles work in controlled parallelism—keeping
     memory usage predictable and avoiding overload. This makes it easier to maintain
     steady performance even as demand scales.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 工作池通过限制活动goroutines的数量来帮助应用背压。而不是为每个任务启动一个，一个固定的池以受控的并行方式处理工作——保持内存使用可预测并避免过载。这使得即使在需求扩大的情况下，也能更容易地维持稳定的性能。
 - en: Why Worker Pools Matter
+  id: totrans-4
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 为什么工作池很重要
 - en: While launching a goroutine for every task is idiomatic and often effective,
     doing so at scale comes with trade-offs. Each goroutine requires stack space and
     introduces scheduling overhead. Performance can degrade sharply when the number
     of active goroutines grows, especially in systems handling unbounded input like
     HTTP requests, jobs from a queue, or tasks from a channel.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然为每个任务启动一个goroutine是惯例并且通常有效，但在规模上这样做会带来权衡。每个goroutine都需要堆栈空间并引入调度开销。当活动goroutine的数量增加时，性能可能会急剧下降，尤其是在处理无界输入的系统（如HTTP请求、队列中的作业或通道中的任务）时。
 - en: A worker pool maintains a fixed number of goroutines that pull tasks from a
     shared job queue. This creates a backpressure mechanism, ensuring the system never
     processes more work concurrently than it can handle. Worker pools are particularly
     valuable when the cost of each task is predictable, and the overall system throughput
     needs to be stable.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 工作池维护一定数量的goroutines，它们从共享的工作队列中提取任务。这创建了一个背压机制，确保系统不会同时处理超过其处理能力的更多工作。当每个任务的成本可预测，并且整个系统的吞吐量需要稳定时，工作池特别有价值。
 - en: Basic Worker Pool Implementation
+  id: totrans-7
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 基本工作池实现
 - en: 'Here’s a minimal implementation of a worker pool:'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里是一个工作池的最小实现：
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Cryptography is for illustration purposes of CPU-bound code
+  id: totrans-10
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 密码学用于说明CPU密集型代码
 - en: In this example, five workers pull from the `jobs` channel and push results
     to the `results` channel. The worker pool limits concurrency to five tasks at
     a time, regardless of how many tasks are sent.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，五个工作者从`jobs`通道中提取任务，并将结果推送到`results`通道。工作池将并发限制为每次五项任务，无论发送了多少任务。
 - en: Worker Count and CPU Cores
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 工作者数量和CPU核心
 - en: The optimal number of workers in a pool is closely tied to the number of CPU
     cores, which you can obtain in Go using `runtime.NumCPU()` or `runtime.GOMAXPROCS(0)`.
     For CPU-bound tasks—where each worker consumes substantial CPU time—you generally
     want the number of workers to be equal to or slightly less than the number of
     logical CPU cores. This ensures maximum core utilization without excessive overhead.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 池中最佳的工作者数量与CPU核心数紧密相关，您可以在Go中使用`runtime.NumCPU()`或`runtime.GOMAXPROCS(0)`获取CPU核心数。对于每个工作者消耗大量CPU时间的CPU密集型任务——您通常希望工作者的数量等于或略少于逻辑CPU核心数。这确保了最大核心利用率而没有过多的开销。
 - en: If your tasks are I/O-bound (e.g., network calls, disk I/O, database queries),
     the pool size can be larger than the number of cores. This is because workers
     will spend much of their time blocked, allowing others to run. In contrast, CPU-heavy
     workloads benefit from a smaller, tightly bounded pool that avoids contention
     and context switching.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你的任务是I/O密集型（例如，网络调用、磁盘I/O、数据库查询），池的大小可以大于核心数。这是因为工作者将花费大量时间处于阻塞状态，允许其他人运行。相比之下，CPU密集型工作负载受益于更小、紧密限定的池，这避免了竞争和上下文切换。
 - en: Why Too Many Workers Hurts Performance
+  id: totrans-15
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 为什么过多的工作者会损害性能
 - en: Adding more workers can seem like a straightforward way to boost throughput,
     but the benefits taper off quickly past a certain point. Once you exceed the system’s
     optimal level of concurrency, performance often degrades instead of improving.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 添加更多的工作者似乎是一种提高吞吐量的简单方法，但超过某个点后，其好处会迅速减少。一旦超过系统的最佳并发水平，性能通常会下降而不是提高。
 - en: Scheduler contention increases as the Go runtime juggles more runnable goroutines
     than it has logical CPUs to run them.
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 随着Go运行时需要处理比逻辑CPU更多的可运行goroutine，调度器竞争增加。
 - en: Context switching grows more frequent, burning CPU cycles without doing real
     work.
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 上下文切换变得更加频繁，消耗CPU周期而不进行实际工作。
 - en: Memory pressure rises because each goroutine holds its own stack, even when
     idle.
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 由于每个goroutine在空闲时也持有自己的栈，因此内存压力上升。
 - en: Cache thrashing becomes more likely as goroutines bounce across cores, disrupting
     locality and degrading CPU cache performance.
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 随着goroutine在核心之间弹跳，缓存冲突的可能性增加，这会破坏局部性并降低CPU缓存性能。
 - en: 'The result: higher latency, increased GC activity, and reduced throughput—the
     exact opposite of what a properly tuned worker pool is supposed to deliver.'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 结果：更高的延迟，增加的垃圾收集活动，以及降低的吞吐量——这与正确调优的工作池应该提供的效果正好相反。
 - en: Benchmarking Impact
+  id: totrans-22
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 基准测试影响
 - en: 'Worker pools shine in scenarios where the workload is CPU-bound or where concurrency
     must be capped to avoid saturating a shared resource (e.g., database connections
     or file descriptors). Benchmarks comparing unbounded goroutine launches vs. worker
     pools typically show:'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 在工作负载是CPU密集型或必须限制并发以避免耗尽共享资源（例如数据库连接或文件描述符）的场景中，工作池表现出色。比较无界goroutine启动与工作池的基准测试通常显示：
 - en: Lower peak memory usage
+  id: totrans-24
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 降低峰值内存使用
 - en: More stable response times under load
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在负载下的更稳定响应时间
 - en: Improved CPU cache locality
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 改进的CPU缓存局部性
 - en: <details class="example"><summary>Show the benchmark file</summary>
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>显示基准文件</summary>
 - en: '[PRE1]</details>'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE1]</details>'
 - en: 'Results:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 结果：
 - en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
     |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
+    |'
 - en: '| --- | --- | --- | --- | --- |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| BenchmarkUnboundedGoroutines-14 | 2,274 | 2,499,213 ns | 639,350 | 39,754
     |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkUnboundedGoroutines-14 | 2,274 | 2,499,213 ns | 639,350 | 39,754
+    |'
 - en: '| BenchmarkWorkerPool-14 | 3,325 | 1,791,772 ns | 320,707 | 19,762 |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkWorkerPool-14 | 3,325 | 1,791,772 ns | 320,707 | 19,762 |'
 - en: In our benchmark, each task performed a CPU-intensive operation (e.g., cryptographic
     hashing, math, or serialization). With `workerCount = 10` on an Apple M3 Max machine,
     the worker pool outperformed the unbounded goroutine model by a significant margin,
     using fewer resources and completing work faster. Increasing the worker count
     beyond the number of available cores led to worse performance due to contention.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们的基准测试中，每个任务执行了CPU密集型操作（例如，加密散列、数学或序列化）。在Apple M3 Max机器上，`workerCount = 10`时，工作池比无界goroutine模型显著优于，使用更少的资源并更快地完成工作。将工作计数增加到可用核心数量以上会导致由于竞争而性能变差。
 - en: When To Use Worker Pools
+  id: totrans-35
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 何时使用工作池
 - en: 'Use a goroutine worker pool when:'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在以下情况下使用goroutine工作池：
 - en: The workload is unbounded or high volume. A pool prevents uncontrolled goroutine
     growth, which can lead to memory exhaustion, GC pressure, and unpredictable performance.
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 工作负载是无界的或高容量的。池可以防止goroutine无控制地增长，这可能导致内存耗尽、垃圾收集压力和不可预测的性能。
 - en: Unbounded concurrency risks resource saturation. Capping the number of concurrent
     workers helps avoid overwhelming the CPU, network, database, or disk I/O—especially
     under load.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 无界并发可能导致资源饱和。限制并发工作者的数量有助于避免CPU、网络、数据库或磁盘I/O（尤其是在负载下）过载。
 - en: You need predictable parallelism for stability. Limiting concurrency smooths
     out performance spikes and keeps system behavior consistent, even during traffic
     surges.
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 您需要可预测的并行性以保持稳定性。限制并发可以平滑性能峰值并保持系统行为的一致性，即使在流量激增期间也是如此。
 - en: Tasks are relatively uniform and queue-friendly. When task cost is consistent,
     a fixed pool size provides efficient scheduling with minimal overhead, ensuring
     good throughput without complex coordination.
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 任务相对均匀且适合排队。当任务成本一致时，固定池大小可以提供高效的调度，最小化开销，确保良好的吞吐量而无需复杂的协调。
 - en: 'Avoid a worker pool when:'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 在以下情况下避免使用工作池：
 - en: Each task must be processed immediately with minimal latency. Queuing in a worker
     pool introduces delay. For latency-critical tasks, direct goroutine spawning avoids
     the scheduling overhead.
+  id: totrans-42
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个任务都必须立即处理，以最小化延迟。在工作池中排队会引入延迟。对于延迟关键的任务，直接创建goroutine可以避免调度开销。
 - en: You can rely on Go's scheduler for natural load balancing in low-load scenarios.
     In light workloads, the overhead of managing a pool may outweigh its benefits.
     Go’s scheduler can often handle lightweight parallelism efficiently on its own.
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在低负载场景下，您可以依赖Go的调度器进行自然负载平衡。在轻负载中，管理池的开销可能超过了其带来的好处。Go的调度器通常可以独立高效地处理轻量级并行。
 - en: Workload volume is small and bounded. Spinning up goroutines directly keeps
     code simpler for limited, predictable workloads without risking uncontrolled growth.
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 工作负载量小且有限。对于有限且可预测的工作负载，直接启动goroutines可以使代码更简单，而不会冒着无序增长的风险。

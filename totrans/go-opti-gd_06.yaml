@@ -1,41 +1,57 @@
 - en: Avoiding Interface Boxing
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 避免接口装箱
 - en: 原文：[https://goperf.dev/01-common-patterns/interface-boxing/](https://goperf.dev/01-common-patterns/interface-boxing/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/01-common-patterns/interface-boxing/](https://goperf.dev/01-common-patterns/interface-boxing/)
 - en: 'Go’s interfaces make it easy to write flexible, decoupled code. But behind
     that convenience is a detail that can trip up performance: when a concrete value
     is assigned to an interface, Go wraps it in a hidden structure—a process called
     interface boxing.'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: Go的接口使得编写灵活、解耦的代码变得容易。但在这便利性背后有一个细节可能会影响性能：当一个具体值被赋给接口时，Go会将其包裹在一个隐藏的结构中——这个过程称为接口装箱。
 - en: In many cases, boxing is harmless. But in performance-sensitive code—like tight
     loops, hot paths, or high-throughput services—it can introduce hidden heap allocations,
     extra memory copying, and added pressure on the garbage collector. These effects
     often go unnoticed during development, only showing up later as latency spikes
     or memory bloat.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 在许多情况下，装箱是无害的。但在性能敏感的代码中——如紧密循环、热点路径或高吞吐量服务——它可能会引入隐藏的堆分配、额外的内存复制，并增加垃圾收集器的压力。这些影响在开发过程中往往不易察觉，只有在出现延迟峰值或内存膨胀时才会显现。
 - en: What is Interface Boxing?
+  id: totrans-4
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 什么是接口装箱？
 - en: 'Interface boxing refers to the process of converting a concrete value to an
     interface type. In Go, an interface value is internally represented as two words:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 接口装箱是指将具体值转换为接口类型的过程。在Go语言中，接口值内部表示为两个词：
 - en: A **type descriptor**, which holds information about the concrete type (its
     identity and method set).
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**类型描述符**，它包含有关具体类型（其身份和方法集）的信息。'
 - en: A **data pointer**, which points to the actual value being stored.
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**数据指针**，它指向实际存储的值。'
 - en: When you assign a value to an interface variable, Go creates this two-part structure.
     If the value is a non-pointer type—like a struct or primitive—and is not already
     on the heap, Go **may** allocate a copy of it on the heap to satisfy the interface
@@ -43,230 +59,346 @@
     or when storing items in a slice of interfaces, where each element gets individually
     boxed. These implicit allocations can add up and are a common source of hidden
     memory pressure in Go programs.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 当你将值赋给接口变量时，Go会创建这个两部分的结构。如果值是非指针类型——如结构体或原始类型——并且尚未在堆上，Go**可能**会在堆上分配它的副本以满足接口赋值。当处理大值或在接口切片中存储项时，这种行为尤其相关，其中每个元素都会单独装箱。这些隐式分配可能会累积起来，并且是Go程序中隐藏内存压力的常见来源。
 - en: 'Here’s a simple example:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里有一个简单的例子：
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'In this case, the integer `42` is boxed into an interface: Go stores the type
     information (`int`) and a copy of the value `42`. This is inexpensive for small
     values like `int`, but for large structs, the cost becomes non-trivial.'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这种情况下，整数`42`被装箱到接口中：Go存储了类型信息（`int`）和值的副本`42`。对于像`int`这样的小值来说，这并不昂贵，但对于大型结构体，成本就变得相当可观了。
 - en: 'Another example:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个例子：
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Warning
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 警告
 - en: '**Pay attention to this code!** In this example, even though `shapes` is a
     slice of interfaces, each `Square` value is copied into an interface when appended
     to `shapes`. If `Square` were a large struct, this would introduce 1000 allocations
     and large memory copying.'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '**请注意这段代码**！在这个例子中，尽管`shapes`是一个接口切片，但每个`Square`值在追加到`shapes`时都会被复制到接口中。如果`Square`是一个大型结构体，这将引入1000个分配和大量的内存复制。'
 - en: 'To avoid that, you could pass pointers:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了避免这种情况，你可以传递指针：
 - en: '[PRE2]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: This way, only an 8-byte pointer is stored in the interface, reducing both allocation
     size and copying overhead.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 这样，接口中只存储了一个8字节的指针，减少了分配大小和复制开销。
 - en: Why It Matters
+  id: totrans-19
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 为什么这很重要
 - en: In tight loops or high-throughput paths, such as unmarshalling JSON, rendering
     templates, or processing large collections, interface boxing can degrade performance
     by triggering unnecessary heap allocations and increasing GC pressure. This overhead
     is especially costly in systems with high concurrency or real-time responsiveness
     constraints.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 在紧密循环或高吞吐量路径中，例如反序列化JSON、渲染模板或处理大型集合，接口装箱可能会通过触发不必要的堆分配和增加GC压力来降低性能。这种开销在高并发或实时响应约束的系统中的成本尤其高昂。
 - en: Boxing can also make profiling and benchmarking misleading, since allocations
     attributed to innocuous-looking lines may actually stem from implicit conversions
     to interfaces.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 装箱也可能使分析和基准测试产生误导，因为归因于看似无害的行的分配实际上可能源于接口的隐式转换。
 - en: Benchmarking Impact
+  id: totrans-22
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 基准测试影响
 - en: For the benchmarking we will define an interface and a struct with a significant
     payload that implements the interface.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于基准测试，我们将定义一个接口和一个具有显著负载的结构体，该结构体实现了接口。
 - en: '[PRE3]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Boxing Large Structs
+  id: totrans-25
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 装箱大结构体
 - en: 'To demonstrate the real impact of boxing large values vs. pointers, we benchmarked
     the cost of assigning 1,000 large structs to an interface slice:'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了展示装箱大值与指针的实际影响，我们基准测试了将1,000个大结构体分配给接口切片的成本：
 - en: '[PRE4]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Benchmark Results
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 基准结果
 - en: '| Benchmark | Time per op (ns) | Bytes per op | Allocs per op |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| 基准 | 每操作时间（ns） | 每操作字节（B） | 每操作分配 |'
 - en: '| --- | --- | --- | --- |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '| BoxedLargeSliceGrowth | 404,649 | ~4.13 MB | 1011 |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| BoxedLargeSliceGrowth | 404,649 | ~4.13 MB | 1011 |'
 - en: '| PointerLargeSliceGrowth | 340,549 | ~4.13 MB | 1011 |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| PointerLargeSliceGrowth | 340,549 | ~4.13 MB | 1011 |'
 - en: Boxing large values is significantly slower—about 19% in this case—due to the
     cost of copying the entire 4KB struct for each interface assignment. Boxing a
     pointer, however, avoids that cost and keeps the copy small (just 8 bytes). While
     both approaches allocate the same overall memory (since all values escape to the
     heap), pointer boxing has clear performance advantages under pressure.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 装箱大值明显较慢——在这个例子中大约19%——因为每个接口分配都要复制整个4KB的结构体。然而，装箱指针避免了这种成本，并保持复制小（仅8字节）。虽然两种方法分配的总内存相同（因为所有值都逃逸到堆上），但在压力下指针装箱有明显的性能优势。
 - en: Passing to a Function That Accepts an Interface
+  id: totrans-34
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 传递给接受接口的函数
 - en: Another common source of boxing is when a large value is passed directly to
     a function that accepts an interface. Even without storing to a slice, boxing
     will occur at the call site.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个常见的装箱来源是当将大值直接传递给接受接口的函数时。即使没有存储到切片中，在调用位置也会发生装箱。
 - en: '[PRE5]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Benchmark Results
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 基准结果
 - en: '| Benchmark | ns/op | B/op | allocs/op |'
+  id: totrans-38
   prefs: []
   type: TYPE_TB
+  zh: '| 基准 | ns/op | B/op | allocs/op |'
 - en: '| --- | --- | --- | --- |'
+  id: totrans-39
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '| CallWithValue | 422.5 | 4096 | 1 |'
+  id: totrans-40
   prefs: []
   type: TYPE_TB
+  zh: '| CallWithValue | 422.5 | 4096 | 1 |'
 - en: '| CallWithPointer | 379.9 | 4096 | 1 |'
+  id: totrans-41
   prefs: []
   type: TYPE_TB
+  zh: '| CallWithPointer | 379.9 | 4096 | 1 |'
 - en: Passing a value to a function expecting an interface causes boxing, copying
     the full struct and allocating it on the heap. In our benchmark, this results
     in approximately 11% higher CPU cost compared to using a pointer. Passing a pointer
     avoids copying the struct, reduces memory movement, and results in smaller, more
     cache-friendly interface values, making it the more efficient choice in performance-sensitive
     scenarios.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 将值传递给期望接口的函数会导致装箱，复制整个结构体并在堆上分配。在我们的基准测试中，这导致与使用指针相比大约11%的CPU成本增加。传递指针避免了复制结构体，减少了内存移动，并导致更小、更缓存友好的接口值，使其在性能敏感场景中成为更有效的选择。
 - en: <details class="example"><summary>Show the complete benchmark file</summary>
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>显示完整的基准文件</summary>
 - en: '[PRE6]</details>'
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE6]</details>'
 - en: When Interface Boxing Is Acceptable
+  id: totrans-45
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 当接口装箱可接受时
 - en: Despite its performance implications in some contexts, interface boxing is often
     perfectly reasonable—and sometimes preferred.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管在某些情况下接口装箱的性能影响，但接口装箱通常是完全合理的——有时甚至更受欢迎。
 - en: When abstraction is more important than performance
+  id: totrans-47
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 当抽象比性能更重要时
 - en: Interfaces enable decoupling and modularity. If you're designing a clean, testable
     API, the cost of boxing is negligible compared to the benefit of abstraction.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 接口允许解耦和模块化。如果你正在设计一个干净、可测试的API，装箱的成本与抽象的好处相比是可以忽略不计的。
 - en: '[PRE7]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: When values are small and boxing is allocation-free
+  id: totrans-50
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 当值小且装箱无分配时
 - en: Boxing small, copyable values like `int`, `float64`, or small structs typically
     causes no allocations.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 将小的、可复制的值如 `int`、`float64` 或小的结构体装箱通常不会引起分配。
 - en: '[PRE8]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: When values are short-lived
+  id: totrans-53
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 当值短暂存在时
 - en: If the boxed value is used briefly (e.g. for logging or interface-based sorting),
     the overhead is minimal.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果装箱的值被短暂使用（例如用于日志记录或基于接口的排序），开销是最小的。
 - en: '[PRE9]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: When dynamic behavior is required
+  id: totrans-56
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 当需要动态行为时
 - en: Interfaces allow runtime polymorphism. If you need different types to implement
     the same behavior, boxing is necessary and idiomatic.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 接口允许运行时多态。如果你需要不同类型实现相同的行为，装箱是必要的且是惯用的。
 - en: '[PRE10]'
+  id: totrans-58
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Use boxing when it supports clarity, reusability, or design goals—and avoid
     it only in performance-critical code paths.
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 当装箱支持清晰性、可重用性或设计目标时使用装箱，仅在性能关键代码路径中避免使用。
 - en: How to Avoid Interface Boxing
+  id: totrans-60
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 如何避免接口装箱
 - en: Use pointers when assigning to interfaces. If the method set requires a pointer
     receiver or the value is large, explicitly pass a pointer to avoid repeated copying
     and heap allocation.
+  id: totrans-61
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在赋值给接口时使用指针。如果方法集需要一个指针接收器或值很大，显式传递一个指针以避免重复复制和堆分配。
 - en: '[PRE11]'
+  id: totrans-62
   prefs:
   - PREF_IND
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: Avoid interfaces in hot paths. If the concrete type is known and stable, avoid
     interface indirection entirely—especially in compute-intensive or allocation-sensitive
     functions.
+  id: totrans-63
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 避免在热点路径中使用接口。如果已知具体类型且稳定，应完全避免接口间接引用——尤其是在计算密集型或分配敏感的函数中。
 - en: Use type-specific containers. Instead of `[]interface{}`, prefer generic slices
     or typed collections where feasible. This preserves static typing and reduces
     unnecessary allocations.
+  id: totrans-64
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用特定类型的容器。在可行的情况下，优先选择泛型切片或类型化集合，而不是使用`[]interface{}`。这样可以保留静态类型并减少不必要的分配。
 - en: Benchmark and inspect with pprof. Use `go test -bench` and `pprof` to observe
     where allocations occur. If the allocation site is in `runtime.convT2E` (convert
     T to interface), you're likely boxing.
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用pprof进行基准测试和检查。使用`go test -bench`和`pprof`来观察分配发生的位置。如果分配点在`runtime.convT2E`（将T转换为接口）中，你很可能是进行了装箱操作。

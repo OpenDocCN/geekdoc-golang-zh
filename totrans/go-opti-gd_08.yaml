@@ -1,0 +1,423 @@
+- en: 'Memory Efficiency: Mastering Go’s Garbage Collector'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/gc/](https://goperf.dev/01-common-patterns/gc/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Memory management in Go is automated—but it’s not invisible. Every allocation
+    you make contributes to GC workload. The more frequently objects are created and
+    discarded, the more work the runtime has to do reclaiming memory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This becomes especially relevant in systems prioritizing low latency, predictable
+    resource usage, or high throughput. Tuning your allocation patterns and leveraging
+    newer features like weak references can help reduce pressure on the GC without
+    adding complexity to your code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: How Go's Garbage Collector Works
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Info
+  prefs: []
+  type: TYPE_NORMAL
+- en: Highly encourage you to read the official [A Guide to the Go Garbage Collector](https://go.dev/doc/gc-guide)!
+    The document provides a detailed description of multiple Go's GC internals.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go uses a **non-generational, concurrent, tri-color mark-and-sweep** garbage
+    collector. Here's what that means in practice and how it's implemented.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Non-generational
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Many modern GCs, like those in the JVM or .NET CLR, divide memory into *generations*
+    (young and old) under the assumption that most objects die young. These collectors
+    focus on the young generation, which leads to shorter collection cycles.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go’s GC takes a different approach. It treats all objects equally—no generational
+    segmentation—not because generational GC conflicts with short pause times or concurrent
+    scanning, but because it hasn’t shown clear, consistent benefits in real-world
+    Go programs with the designs tried so far. This choice avoids the complexity of
+    promotion logic and specialized memory regions. While it can mean scanning more
+    objects overall, this cost is mitigated by concurrent execution and efficient
+    write barriers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Concurrent
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Go’s GC runs concurrently with your application, which means it does most of
+    its work without stopping the world. Concurrency is implemented using multiple
+    phases that interleave with normal program execution:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Even though Go’s garbage collector is mostly concurrent, it still requires brief
+    Stop-The-World (STW) pauses at several points to maintain correctness. These pauses
+    are kept extremely short—typically under 100 microseconds—even with large heaps
+    and hundreds of goroutines.
+  prefs: []
+  type: TYPE_NORMAL
+- en: STW is essential for ensuring that memory structures are not mutated while the
+    GC analyzes them. In most applications, these pauses are imperceptible. However,
+    even sub-millisecond pauses in latency-sensitive systems can be significant—so
+    understanding and monitoring STW behavior becomes important when optimizing for
+    tail latencies or jitter.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**STW Start Phase:** The application is briefly paused to initiate GC. The
+    runtime scans stacks, globals, and root objects.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Concurrent Mark Phase:** The garbage collector traverses the heap, marking
+    all reachable objects while the program continues running. This is the heaviest
+    phase in terms of work but runs concurrently to avoid long stop-the-world pauses.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**STW Mark Termination:** Once marking is mostly complete, the GC briefly pauses
+    the program to finish any remaining work and ensure the heap is in a consistent
+    state before sweeping begins. This pause is typically very short—measured in microseconds.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Concurrent Sweep Phase:** The GC reclaims memory from unreachable (white)
+    objects and returns it to the heap for reuse, all while your program continues
+    running.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Write barriers ensure correctness while the application mutates objects during
+    concurrent marking. These barriers help track references created or modified mid-scan
+    so the GC doesn’t miss them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Tri-color Mark and Sweep
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The tri-color algorithm breaks the heap into three working sets during garbage
+    collection:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**White:** Objects that haven’t been reached—if they stay white, they’ll be
+    collected.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Grey:** Objects that have been discovered (i.e., marked as reachable) but
+    haven’t had their references scanned yet.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Black:** Objects that are both reachable and fully scanned—they’re retained
+    and don’t need further processing.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Garbage collection starts by marking all root objects (stack, globals, etc.)
+    grey. It then walks the grey set: for each object, it scans its fields. Any referenced
+    objects that are still white are added to the grey set. Once an object’s references
+    are fully processed, it’s marked black.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When no grey objects remain, anything still white is unreachable and gets cleaned
+    up during the sweep phase. This model ensures that no live object is accidentally
+    collected—even if references change mid-scan—thanks to Go’s write barriers that
+    maintain the algorithm’s core invariants.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A key optimization is **incremental marking**: Go spreads out GC work to avoid
+    long pauses, supported by precise stack scanning and conservative write barriers.
+    The use of concurrent sweeping further reduces latency, allowing memory to be
+    reclaimed without halting execution.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This design gives Go a GC that’s safe, fast, and friendly to server workloads
+    with large heaps and many cores.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'GC Tuning: GOGC'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go’s garbage collector is tuned to deliver good performance without manual configuration.
+    The default `GOGC` setting typically strikes the right balance between memory
+    consumption and CPU effort, adapting well across a wide range of workloads. In
+    most cases, manually tweaking it offers little benefit—and in many, it actually
+    makes things worse by increasing either pause times or memory pressure. Unless
+    you’ve profiled a specific bottleneck and understand the trade-offs, it’s usually
+    best to leave `GOGC` alone.
+  prefs: []
+  type: TYPE_NORMAL
+- en: That said, there are specific cases where tuning `GOGC` can yield significant
+    gains. For example, [Uber implemented dynamic GC tuning](https://www.uber.com/en-GB/blog/how-we-saved-70k-cores-across-30-mission-critical-services/)
+    across their Go services to reduce CPU usage and saved tens of thousands of cores
+    in the process. Their approach relied on profiling, metric collection, and automation
+    to safely adjust GC behavior based on actual memory pressure and workload characteristics.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another unusual case is from Cloudflare. They [profiled a high-concurrency cryptographic
+    workload](https://blog.cloudflare.com/go-dont-collect-my-garbage/) and found that
+    Go’s GC became a bottleneck as goroutines increased. Their application produced
+    minimal garbage, yet GC overhead grew with concurrency. By tuning GOGC to a much
+    higher value—specifically 11300—they significantly reduced GC frequency and improved
+    throughput, achieving over 22× performance gains compared to the single-core baseline.
+    This case highlights how allowing more heap growth in CPU-bound and low-allocation
+    scenarios can yield major improvements.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'So, if you decide to tune the garbage collector, be methodical:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Always profile first. Use tools like `pprof` to confirm that GC activity is
+    a bottleneck.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Change settings incrementally. For example, increasing `GOGC` from 100 to 150
+    means the GC will run less frequently, using less CPU but more memory.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Verify impact. After tuning, validate with profiling data that the change had
+    a positive effect. Without that confirmation, it's easy to make things worse.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Memory Limiting with `GOMEMLIMIT`
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In addition to `GOGC`, Go provides `GOMEMLIMIT`—a soft memory limit that caps
+    the total heap size the runtime will try to stay under. This allows you to explicitly
+    control memory growth, especially useful in environments like containers or systems
+    with strict memory budgets.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why is this helpful? In containerized environments (like Kubernetes), memory
+    limits are typically enforced at the OS or orchestrator level. If your application
+    exceeds its memory quota, the OOM killer may abruptly terminate the container.
+    Go's GC isn't aware of those limits by default.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Setting a `GOMEMLIMIT` helps prevent this. For example, if your container has
+    a 512MiB memory limit, you might set:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: This buffer gives the Go runtime room to act before reaching the hard system-imposed
+    memory cap. It allows the garbage collector to become more aggressive as total
+    memory usage grows, reducing the chances of the process being killed due to an
+    out-of-memory condition. It also leaves space for non-heap allocations—like goroutine
+    stacks, OS threads, and other internal runtime structures—which don’t count toward
+    heap size but still consume real memory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'You can also set the limit programmatically:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: The GC will become more aggressive as heap usage nears the limit, which can
+    increase CPU load. Be careful not to set the limit too low—especially if your
+    application maintains a large live set of objects—or you may trigger excessive
+    GC cycles.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'While `GOGC` controls how frequently the GC runs based on heap growth, `GOMEMLIMIT`
+    constrains the heap size itself. The two can be combined for more precise control:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: This tells the GC to operate with the default growth ratio and to start collecting
+    sooner if heap usage nears 4 GiB.
+  prefs: []
+  type: TYPE_NORMAL
+- en: GOMEMLIMIT=X and GOGC=off configuration
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In scenarios where memory availability is fixed and predictable—such as within
+    containers or VMs, you can use these two variables together:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`GOMEMLIMIT=X` tells the runtime to aim for a specific memory ceiling. For
+    example, `GOMEMLIMIT=2GiB` will trigger garbage collection when total memory usage
+    nears 2 GiB.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`GOGC=off` disables the default GC pacing algorithm, so garbage collection
+    only runs when the memory limit is hit.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This configuration maximizes memory usage efficiency and avoids the overhead
+    of frequent GC cycles. It's especially effective in high-throughput or latency-sensitive
+    systems where predictable memory usage matters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Example:**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: With this setup, memory usage grows freely until the 2 GiB threshold is reached.
+    At that point, Go performs a full garbage collection pass.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Warning
+  prefs: []
+  type: TYPE_NORMAL
+- en: Always benchmark with your real workload. Disabling automatic GC can backfire
+    if your application produces a lot of short-lived allocations.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Monitor memory pressure and GC pause times using `runtime.ReadMemStats` or `pprof`.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This approach works best when your memory usage patterns are well understood
+    and stable.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Practical Strategies for Reducing GC Pressure
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Prefer Stack Allocation
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Go allocates variables on the stack whenever possible. Avoid escaping variables
+    to the heap:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Use `go build -gcflags="-m"` to view escape analysis diagnostics. See [Stack
+    Allocations and Escape Analysis](../stack-alloc/) for more details.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use sync.Pool for Short-Lived Objects
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '`sync.Pool` is ideal for temporary, reusable allocations that are expensive
+    to GC.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: See [Object Pooling](../object-pooling/) for more details.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Batch Allocations
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Group allocations into fewer objects to reduce GC pressure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: See [Memory Preallocation](../mem-prealloc/) for more details.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Weak References in Go
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Go 1.24 added the `weak` package, providing a standardized way to create weak
+    references—pointers that don’t keep their target objects alive. In garbage-collected
+    systems like Go, strong references extend an object’s lifetime: as long as something
+    points to it, it won’t be collected. That’s usually what you want, but in structures
+    like caches, deduplication maps, or object graphs, this can lead to memory staying
+    alive much longer than intended. Weak references solve that by allowing you to
+    refer to an object without blocking the GC from reclaiming it when nothing else
+    is using it.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A weak reference, by contrast, tells the garbage collector: “you can collect
+    this object if nothing else is strongly referencing it.” This pattern is important
+    for building memory-sensitive data structures that should not interfere with garbage
+    collection.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this example, `wp` holds a weak reference to a `Data` object. After the strong
+    reference (`data`) goes out of scope and the garbage collector runs, the `Data`
+    may be collected—at which point `wp.Value()` will return nil. This pattern is
+    especially useful in memory-sensitive contexts like caches or canonicalization
+    maps, where you want to avoid artificially extending object lifetimes. Always
+    check the result of `Value()` before using it, since the target may have been
+    reclaimed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Benchmarking Impact
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: It's tempting to rely on synthetic benchmarks to evaluate the performance of
+    Go's garbage collector, but generic benchmarks rarely capture the nuances of real-world
+    workloads. Memory behavior is highly dependent on allocation patterns, object
+    lifetimes, concurrency, and how frequently short-lived versus long-lived data
+    structures are used.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For example, the impact of GC in a CPU-bound microservice that maintains large
+    in-memory indexes will differ dramatically from an I/O-heavy API server with minimal
+    heap usage. As such, tuning decisions should always be informed by your application's
+    profiling data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We cover targeted use cases and their GC performance trade-offs in more focused
+    articles:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Object Pooling](../object-pooling/): Reducing allocation churn using `sync.Pool`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Stack Allocations and Escape Analysis](../stack-alloc/): Minimizing heap usage
+    by keeping values on the stack'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Memory Preallocation](../mem-prealloc/): Avoiding unnecessary growth of slices
+    and maps'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When applied to the right context, these techniques can make a measurable difference,
+    but they don’t lend themselves to one-size-fits-all benchmarks.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,164 @@
+- en: Object Pooling
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/object-pooling/](https://goperf.dev/01-common-patterns/object-pooling/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Object pooling helps reduce allocation churn in high-throughput Go programs
+    by reusing objects instead of allocating fresh ones each time. This avoids repeated
+    work for the allocator and eases pressure on the garbage collector, especially
+    when dealing with short-lived or frequently reused structures.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go’s `sync.Pool` provides a built-in way to implement pooling with minimal code.
+    It’s particularly effective for objects that are expensive to allocate or that
+    would otherwise contribute to frequent garbage collection cycles. While not a
+    silver bullet, it’s a low-friction tool that can lead to noticeable gains in latency
+    and CPU efficiency under sustained load.
+  prefs: []
+  type: TYPE_NORMAL
+- en: How Object Pooling Works
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Object pooling allows programs to reuse memory by recycling previously allocated
+    objects instead of creating new ones on every use. Rather than hitting the heap
+    each time, objects are retrieved from a shared pool and returned once they’re
+    no longer needed. This reduces the number of allocations, cuts down on garbage
+    collection workload, and leads to more predictable performance—especially in workloads
+    with high object churn or tight latency requirements.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using `sync.Pool` for Object Reuse
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Without Object Pooling (Inefficient Memory Usage)
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the above example, every iteration creates a new `Data` instance, leading
+    to unnecessary allocations and increased GC pressure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: With Object Pooling (Optimized Memory Usage)
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Pooling Byte Buffers for Efficient I/O
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Object pooling is especially effective when working with large byte slices that
+    would otherwise lead to high allocation and garbage collection overhead.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Using `sync.Pool` for byte buffers significantly reduces memory pressure when
+    dealing with high-frequency I/O operations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Benchmarking Impact
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: To prove that object pooling actually reduces allocations and improves speed,
+    we can use Go's built-in memory profiling tools (`pprof`) and compare memory allocations
+    between the non-pooled and pooled versions. Simulating a full-scale application
+    that actively uses memory for benchmarking is challenging, so we need a controlled
+    test to evaluate direct heap allocations versus pooled allocations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: <details class="example"><summary>Show the benchmark file</summary>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]</details>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkWithoutPooling-14 | 1,692,014 | 705.4 | 8,192 | 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkWithPooling-14 | 160,440,506 | 7.455 | 0 | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: The benchmark results highlight the contrast in performance and memory usage
+    between direct allocations and object pooling. In `BenchmarkWithoutPooling`, each
+    iteration creates a new object on the heap, leading to higher execution time and
+    increased memory consumption. This constant allocation pressure triggers more
+    frequent garbage collection, which adds latency and reduces throughput. The presence
+    of nonzero allocation counts per operation confirms that each iteration contributes
+    to GC load, making this approach less efficient in high-throughput scenarios.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When Should You Use `sync.Pool`?
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Use sync.Pool when:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You have short-lived, reusable objects (e.g., buffers, scratch memory, request
+    state). Pooling avoids repeated allocations and lets you recycle memory efficiently.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Allocation overhead or GC churn is measurable and significant. Reusing objects
+    reduces the number of heap allocations, which in turn lowers garbage collection
+    frequency and pause times.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The object’s lifecycle is local and can be reset between uses. When objects
+    don’t need complex teardown and are safe to reuse after a simple reset, pooling
+    is straightforward and effective.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You want to reduce pressure on the garbage collector in high-throughput systems.
+    In systems handling thousands of requests per second, pooling helps maintain consistent
+    performance and minimizes GC-related latency spikes.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Avoid sync.Pool when:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Objects are long-lived or shared across multiple goroutines. `sync.Pool` is
+    optimized for short-lived, single-use objects and doesn’t manage shared ownership
+    or coordination.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The reuse rate is low and pooled objects are not frequently accessed. If objects
+    sit idle in the pool, you gain little benefit and may even waste memory.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Predictability or lifecycle control is more important than allocation speed.
+    Pooling makes lifecycle tracking harder and may not be worth the tradeoff.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Memory savings are negligible or code complexity increases significantly. If
+    pooling doesn’t provide clear benefits, it can add unnecessary complexity to otherwise
+    simple code.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

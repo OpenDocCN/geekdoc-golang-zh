@@ -1,0 +1,210 @@
+- en: Batching Operations in Go
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/batching-ops/](https://goperf.dev/01-common-patterns/batching-ops/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Batching is one of those techniques that’s easy to overlook but incredibly useful
+    when performance starts to matter. Instead of handling one operation at a time,
+    you group them together—cutting down on the overhead of repeated calls, whether
+    that’s hitting the network, writing to disk, or making a database commit. It’s
+    a practical, low-complexity approach that can reduce latency and stretch your
+    system’s throughput further than you’d expect.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why Batching Matters
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Most systems don’t struggle because individual operations are too slow—they
+    struggle because they do too many of them. Every call out to a database, API,
+    or filesystem adds some fixed cost: a system call, a network round trip, maybe
+    a lock or a context switch. When those costs add up across high-volume workloads,
+    the impact is hard to ignore. Batching helps by collapsing those calls into fewer,
+    more efficient units of work, which often leads to measurable gains in both performance
+    and resource usage.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Consider a logging service writing to disk:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'When invoked thousands of times per second, the file system is inundated with
+    individual write system calls, significantly degrading performance. A better approach
+    could be aggregates log entries and flushes them in bulk:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: With batching, each write operation handles multiple entries simultaneously,
+    reducing syscall overhead and improving disk I/O efficiency.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Warning
+  prefs: []
+  type: TYPE_NORMAL
+- en: While batching offers substantial performance advantages, it also introduces
+    the risk of data loss. If an application crashes before a batch is flushed, the
+    in-memory data can be lost. Systems dealing with critical or transactional data
+    must incorporate safeguards such as periodic flushes, persistent storage buffers,
+    or recovery mechanisms to mitigate this risk.
+  prefs: []
+  type: TYPE_NORMAL
+- en: How generic Batcher may looks like
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'We can implement a generic batcher in very straight forward manner:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Warning
+  prefs: []
+  type: TYPE_NORMAL
+- en: This batcher implementation expects that you will never call `Batcher.Add(...)`
+    from your `flush()` function. We have this limitation because Go mutexes are [**not**
+    recursive](https://stackoverflow.com/questions/14670979/recursive-locking-in-go).
+  prefs: []
+  type: TYPE_NORMAL
+- en: This batcher works with any data type, making it a flexible solution for aggregating
+    logs, metrics, database writes, or other grouped operations. Internally, the buffer
+    acts as a queue that accumulates items until a flush threshold is reached. The
+    use of `sync.Mutex` ensures that `Add()` and `flushNow()` are safe for concurrent
+    access, which is necessary in most real-world systems where multiple goroutines
+    may write to the batcher.
+  prefs: []
+  type: TYPE_NORMAL
+- en: From a performance standpoint, it's true that a lock-free implementation—using
+    atomic operations or concurrent ring buffers—could reduce contention and improve
+    throughput under heavy load. However, such designs are more complex, harder to
+    maintain, and generally not justified unless you're pushing extremely high concurrency
+    or low-latency boundaries. For most practical workloads, the simplicity and safety
+    of a `sync.Mutex`-based design offers a great balance between performance and
+    maintainability.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Benchmarking Impact
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'To validate batching performance, we tested six scenarios across three categories:
+    in-memory processing, file I/O, and CPU-intensive hashing. Each category included
+    both unbatched and batched variants, with all benchmarks running over 10,000 items
+    per operation.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <details class="example"><summary>Show the benchmark file</summary>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]</details>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkUnbatchedProcessing-14 | 530 | 2,028,492 | 1,279,850 | 10,000 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkBatchedProcessing-14 | 573 | 2,094,168 | 2,457,603 | 200 |'
+  prefs: []
+  type: TYPE_TB
+- en: In-memory string manipulation showed a modest performance delta. While the batched
+    variant reduced memory allocations by 50x, the execution time was only marginally
+    slower due to the cost of joining large strings. This highlights that batching
+    isn’t always faster in raw throughput, but it consistently reduces pressure on
+    the garbage collector.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkUnbatchedIO-14 | 87 | 12,766,433 | 1,280,424 | 10,007 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkBatchedIO-14 | 1324 | 993,912 | 2,458,026 | 207 |'
+  prefs: []
+  type: TYPE_TB
+- en: File I/O benchmarks showed the most dramatic gains. The batched version was
+    over 12 times faster than the unbatched one, with far fewer syscalls and significantly
+    lower execution time. Grouping disk writes amortized the I/O cost, leading to
+    a huge efficiency boost despite temporarily using more memory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkUnbatchedCrypto-14 | 978 | 1,232,242 | 2,559,840 | 30,000 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkBatchedCrypto-14 | 1760 | 675,303 | 2,470,406 | 400 |'
+  prefs: []
+  type: TYPE_TB
+- en: The cryptographic benchmarks demonstrated batching’s value in CPU-bound scenarios.
+    Batched hashing nearly halved the total processing time while reducing allocation
+    count by more than 70x. This reinforces batching as an effective strategy even
+    in CPU-intensive workloads where fewer operations yield better locality and cache
+    behavior.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When To Use Batching
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Use batching when:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Individual operations are expensive (e.g., I/O, RPC, DB writes). Grouping multiple
+    operations into a single batch reduces the overhead of repeated calls and improves
+    efficiency.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The system benefits from reducing the frequency of external interactions. Fewer
+    external calls can ease load on downstream systems and reduce contention or rate-limiting
+    issues.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You have some tolerance for per-item latency in favor of higher throughput.
+    Batching introduces slight delays but can significantly increase overall system
+    throughput.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Avoid batching when:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Immediate action is required for each individual input. Delaying processing
+    to build a batch may violate time-sensitive requirements.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Holding data introduces risk (e.g., crash before flush). If data must be processed
+    or persisted immediately to avoid loss, batching can be unsafe.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Predictable latency is more important than throughput. Batching adds variability
+    in timing, which may not be acceptable in systems with strict latency expectations.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

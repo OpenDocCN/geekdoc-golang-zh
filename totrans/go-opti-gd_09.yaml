@@ -1,0 +1,251 @@
+- en: Stack Allocations and Escape Analysis
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/stack-alloc/](https://goperf.dev/01-common-patterns/stack-alloc/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: When writing performance-critical Go applications, one of the subtle but significant
+    optimizations you can make is encouraging values to be allocated on the stack
+    rather than the heap. Stack allocations are cheaper, faster, and garbage-free—but
+    Go doesn't always put your variables there automatically. That decision is made
+    by the Go compiler during **escape analysis**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In this article, we’ll explore what escape analysis is, how to read the compiler’s
+    escape diagnostics, what causes values to escape, and how to structure your code
+    to minimize unnecessary heap allocations. We'll also benchmark different scenarios
+    to show the real-world impact.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What Is Escape Analysis?
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Escape analysis is a static analysis performed by the Go compiler to determine
+    whether a variable can be safely allocated on the stack or if it must be moved
+    ("escape") to the heap.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why does it matter?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '**Stack allocations** are cheap: the memory is automatically freed when the
+    function returns.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Heap allocations** are more expensive: they involve garbage collection overhead.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The compiler decides where to place each variable based on how it's used. If
+    a variable can be guaranteed to not outlive its declaring function, it can stay
+    on the stack. If not, it escapes to the heap.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Example: Stack vs Heap'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In `allocate`, `x` is returned as a pointer. Since the pointer escapes the function,
+    the Go compiler places `x` on the heap. In `noEscape`, `x` is a plain value and
+    doesn’t escape.
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to View Escape Analysis Output
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'You can inspect escape analysis with the `-gcflags` compiler option:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Or for a specific file:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'This will print lines like:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Look for messages like `moved to heap` to identify escape points.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What Causes Variables to Escape?
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Here are common scenarios that force heap allocation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Returning Pointers to Local Variables
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Capturing Variables in Closures
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Interface Conversions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'When a value is stored in an interface, it may escape:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Assignments to Global Variables or Struct Fields
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Large Composite Literals
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Go may allocate large structs or slices on the heap even if they don’t strictly
+    escape.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Benchmarking Stack vs Heap Allocations
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s run a benchmark to explore when heap allocations actually occur—and when
+    they don’t, even if we return a pointer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: Benchmark Results
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkStackAlloc-14 | 1,000,000,000 | 0.2604 ns | 0 B | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkHeapAlloc-14 | 1,000,000,000 | 0.2692 ns | 0 B | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'You might expect `HeapAlloc` to always allocate memory on the heap—but it doesn’t
+    here. That’s because the compiler is smart: in this isolated benchmark, the pointer
+    returned by `HeapAlloc` doesn’t escape the function in any meaningful way. The
+    compiler can see it’s only used within the benchmark and short-lived, so it safely
+    places it on the stack too.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Forcing a Heap Allocation
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkHeapAllocEscape-14 | 331,469,049 | 10.55 ns | 24 B | 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: 'As shown in `BenchmarkHeapAllocEscape`, assigning the pointer to a global variable
+    causes a real heap escape. This introduces real overhead: a 40x slower call, a
+    24-byte allocation, and one garbage-collected object per call.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <details class="example"><summary>Show the benchmark file</summary>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]</details>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When to Optimize for Stack Allocation
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Not all escapes are worth preventing. Here’s when it makes sense to focus on
+    stack allocation—and when it’s better to let values escape.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When to Avoid Escape
+  prefs: []
+  type: TYPE_NORMAL
+- en: In performance-critical paths. Reducing heap usage in tight loops or latency-sensitive
+    code lowers GC pressure and speeds up execution.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: For short-lived, small objects. These can be efficiently stack-allocated without
+    involving the garbage collector, reducing memory churn.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When you control the full call chain. If the object stays within your code and
+    you can restructure it to avoid escape, it’s often worth the small refactor.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If profiling reveals GC bottlenecks. Escape analysis helps you target and shrink
+    memory-heavy allocations identified in real-world traces.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When It’s Fine to Let Values Escape
+  prefs: []
+  type: TYPE_NORMAL
+- en: When returning values from constructors or factories. Returning a pointer from
+    `NewThing()` is idiomatic Go—even if it causes an escape, it improves clarity
+    and usability.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When objects must outlive the function. If you're storing data in a global,
+    sending to a goroutine, or saving it in a struct, escaping is necessary and correct.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When allocation size is small and infrequent. If the heap allocation isn’t in
+    a hot path, the benefit of avoiding it is often negligible.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When preventing escape hurts readability. Writing awkward code to keep everything
+    on the stack can reduce maintainability for a micro-optimization that won’t matter.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

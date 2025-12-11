@@ -1,0 +1,183 @@
+- en: Memory Preallocation
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/mem-prealloc/](https://goperf.dev/01-common-patterns/mem-prealloc/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Memory preallocation is a simple but effective way to improve performance in
+    Go programs that work with slices or maps that grow over time. Instead of letting
+    the runtime resize these structures as they fill up—often at unpredictable points—you
+    allocate the space you need upfront. This avoids the cost of repeated allocations,
+    internal copying, and extra GC pressure as intermediate objects are created and
+    discarded.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In high-throughput or latency-sensitive systems, preallocating memory makes
+    execution more predictable and helps avoid performance cliffs that show up under
+    load. If the workload size is known or can be reasonably estimated, there’s no
+    reason to let the allocator do the guessing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why Preallocation Matters
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go’s slices and maps grow automatically as new elements are added, but that
+    convenience comes with a cost. When capacity is exceeded, the runtime allocates
+    a larger backing array or hash table and copies the existing data over. This reallocation
+    adds memory pressure, burns CPU cycles, and can stall tight loops in high-throughput
+    paths. In performance-critical code—especially where the size is known or can
+    be estimated—frequent resizing is unnecessary overhead. Preallocating avoids these
+    penalties by giving the runtime enough room to work without interruption.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go uses a hybrid growth strategy for slices to balance speed and memory efficiency.
+    Early on, capacities double with each expansion—2, 4, 8, 16—minimizing the number
+    of allocations. But once a slice exceeds around 1024 elements, the growth rate
+    slows to roughly 25%. So instead of jumping from 1024 to 2048, the next allocation
+    might grow to about 1280.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This shift reduces memory waste on large slices but increases the frequency
+    of allocations if the final size is known but not preallocated. In those cases,
+    using make([]T, 0, expectedSize) is the more efficient choice—it avoids repeated
+    resizing and cuts down on unnecessary copying.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Output illustrating typical growth:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Practical Preallocation Examples
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Slice Preallocation
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Without preallocation, each append operation might trigger new allocations:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'This pattern causes Go to allocate larger underlying arrays repeatedly as the
+    slice grows, resulting in memory copying and GC pressure. We can avoid that by
+    using `make` with a specified capacity:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'If it is known that the slice will be fully populated, we can be even more
+    efficient by avoiding bounds checks:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Map Preallocation
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Maps grow similarly. By default, Go doesn’t know how many elements you’ll add,
+    so it resizes the underlying structure as needed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Starting with Go 1.11, you can preallocate `map` capacity too:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: This helps the runtime allocate enough internal storage upfront, avoiding rehashing
+    and resizing costs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Benchmarking Impact
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Here’s a simple benchmark comparing appending to a preallocated slice vs. a
+    zero-capacity slice:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: <details class="example"><summary>Show the benchmark file</summary>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]</details>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: You’ll typically observe that preallocation reduces allocations to a single
+    one per operation and significantly improves throughput.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkAppendNoPrealloc-14 | 41,727 | 28,539 | 357,626 | 19 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkAppendWithPrealloc-14 | 170,154 | 7,093 | 81,920 | 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: When To Preallocate
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Preallocate when:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The number of elements in slices or maps is known or reasonably predictable.
+    Allocating memory up front avoids the cost of repeated resizing as the data structure
+    grows.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Your application involves tight loops or high-throughput data processing. Preallocation
+    reduces per-iteration overhead and helps maintain steady performance under load.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Minimizing garbage collection overhead is crucial for your application's performance.
+    Fewer allocations mean less work for the garbage collector, resulting in lower
+    latency and more consistent behavior.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Avoid preallocation when:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The data size is highly variable and unpredictable. If input sizes fluctuate
+    widely, any fixed-size preallocation risks being either too small (leading to
+    reallocations) or too large (wasting memory).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Over-allocation risks significant memory waste. Reserving more memory than needed
+    increases your application’s footprint and can negatively impact cache locality
+    or trigger unnecessary GC activity.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You’re prematurely optimizing. Always verify with profiling. Preallocation is
+    effective, but only when it addresses a real bottleneck or allocation hotspot
+    in your workload.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

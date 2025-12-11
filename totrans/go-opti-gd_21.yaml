@@ -1,0 +1,392 @@
+- en: Go Networking Internals
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/02-networking/networking-internals/](https://goperf.dev/02-networking/networking-internals/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Go’s networking model is deceptively simple on the surface—spawn a goroutine,
+    accept a connection, read from it, and write a response. But behind this apparent
+    ease is a highly optimized and finely tuned runtime that handles tens or hundreds
+    of thousands of connections with minimal OS overhead. In this deep dive, we’ll
+    walk through the mechanisms that make this possible: from goroutines and the scheduler
+    to how Go interacts with OS-level pollers like `epoll`, `kqueue`, and IOCP.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Goroutines and the Runtime Scheduler
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Goroutines are lightweight user-space threads managed by the Go runtime. They’re
+    cheap to create (a few kilobytes of stack) and can scale to millions. But they’re
+    not magic—they rely on the runtime scheduler to multiplex execution across a limited
+    number of OS threads.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Go’s scheduler is based on an M:N model:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**M (Machine)**: Represents an OS thread.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**G (Goroutine)**: Represents the actual task or coroutine.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**P (Processor)**: Represents the context for scheduling (holding run queues,
+    caches).'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each P can execute one G at a time using an M. There are as many Ps as GOMAXPROCS.
+    If a goroutine blocks on I/O, another runnable G may park and reuse the thread.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Blocking I/O in Goroutines: What Really Happens?'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Suppose a goroutine calls `conn.Read()`. This *looks* blocking—but only from
+    the goroutine's perspective. Internally, Go’s runtime intercepts the call and
+    uses a mechanism known as the [netpoller](https://go.dev/src/runtime/netpoll.go).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'On Unix-based systems, Go uses readiness-based polling (`epoll` on Linux, `kqueue`
+    on macOS/BSD). When a goroutine performs a syscall like `read(fd)`, the runtime
+    checks whether the file descriptor is ready. If not:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The goroutine is parked.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The file descriptor is registered with the poller.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The OS thread is released to run other work.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: When the fd becomes ready, the poller wakes up, and the runtime marks the goroutine
+    as runnable.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: This system enables Go to serve a massive number of clients concurrently, using
+    a small number of threads, avoiding the overhead of traditional thread-per-connection
+    models.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Internals of the `net` Package
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let’s take a look at what happens behind `net.Listen("tcp", ":8080")` and `conn.Read()`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`net.Listen` calls into `net.ListenTCP`, which constructs a `netFD` struct
+    wrapping the socket.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The socket is marked non-blocking via `syscall.SetNonblock(fd, true)`.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`Accept` and `Read` methods on `netFD` are layered on top of syscalls, but
+    routed through internal pollers and wrapped with logic to yield and resume goroutines.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Here’s a rough diagram of the call chain:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: This architecture makes the blocking calls from the developer’s perspective
+    translate into non-blocking interactions with the kernel.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The Netpoller: Polling with Epoll/Kqueue/IOCP'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The **netpoller** is a runtime subsystem that integrates low-level polling mechanisms
+    with Go’s scheduling system. Each fd has an associated `pollDesc`, which helps
+    coordinate goroutine suspension and resumption.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The poller operates in a dedicated thread (or threads) that loop over OS wait
+    primitives:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[epoll_wait](https://man7.org/linux/man-pages/man2/epoll_wait.2.html) (Linux)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[kqueue](https://en.wikipedia.org/wiki/Kqueue) (macOS/BSD)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[IOCP](https://learn.microsoft.com/en-gb/windows/win32/fileio/i-o-completion-ports)
+    (Windows)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When an I/O event fires, the poller finds the associated `pollDesc`, identifies
+    the parked goroutine, and puts it back into the run queue.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In the Go source, relevant files include:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[runtime/netpoll_epoll.go](https://go.dev/src/runtime/netpoll_epoll.go)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[runtime/netpoll_kqueue.go](https://go.dev/src/runtime/netpoll_kqueue.go)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[runtime/netpoll_windows.go](https://go.dev/src/runtime/netpoll_windows.go)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'The Go poller is readiness-based (not completion-based, except for Windows
+    IOCP). It handles:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: fd registration
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: waking goroutines on readiness
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: integration with the run queue (P-local or global)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Example: High-Performance TCP Echo Server'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Let's break down a simple Go TCP echo server and map each part to Go’s internal
+    networking and scheduling mechanisms — including `netFD`, `poll.FD`, and goroutines.
+  prefs: []
+  type: TYPE_NORMAL
+- en: <details class="example"><summary>Simple Echo server source code</summary>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]</details>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Imports and Setup
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Internals Involved**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `net` package abstracts system-level networking.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Under the hood:'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Uses `netFD` (internal, private struct)
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Wraps `poll.FD` for non-blocking I/O
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Uses OS features like `epoll`, `kqueue`, or `IOCP` for event notification
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Listener Setup
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Internals Involved**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`net.Listen()` returns a `TCPListener`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Internally calls `syscall.socket`, `bind`, `listen`
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Associates a `netFD` with the socket
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The listener uses Go’s internal poller to enable non-blocking `Accept`
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Accept Loop and Goroutine Scheduling
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Internals Involved**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`listener.Accept()` → `netFD.Accept()` → `poll.FD.Accept()` → `syscall.accept`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Non-blocking, waits via Go's poller (`runtime_pollWait`)
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`go handle(conn)` spawns a **goroutine (G)**'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Scheduled onto a **P** (Processor)
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`P` is part of Go’s M:N scheduler governed by `GOMAXPROCS`'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Connection Handler
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: '**Internals Involved**:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`bufio.NewReader(conn)` wraps the `net.Conn`, which is backed by `*TCPConn`
+    and `netFD`.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`ReadString()` calls `conn.Read()` under the hood:'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`netFD.Read()` → `poll.FD.Read()` → `syscall.Read()`'
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Uses `runtime_pollWait` to yield the goroutine if data isn't ready
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`SetReadDeadline` sets a timeout by integrating with the runtime''s network
+    poller to prevent indefinite blocking.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`conn.Write()` → `netFD.Write()` → `poll.FD.Write()` → `syscall.write`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Internal Flow Diagram
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'This model scales well as long as you:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Ensure your `ulimit -n` is high enough
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Avoid shared state and contention
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Tune your GOMAXPROCS for your workload
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Observations at Scale
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'As connections scale up ([see how it may look like here](../gc-endpoint-profiling/)):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Per-connection memory and GC pressure grow
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Frequent goroutine context switching may introduce latency
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Coordinating channels, timeouts, and backpressure adds complexity
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Some mitigation strategies:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Use `sync.Pool` for buffer reuse
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Minimize GC pauses (avoid per-request allocations)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Prefer `netpoll`-friendly designs (avoid long CPU-bound goroutines)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '* * *'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go’s model trades OS-level multiplexing for user-space scheduling and event-driven
+    I/O coordination. It’s not a silver bullet—but when used correctly, it offers
+    a robust platform for building scalable network services. Understanding these
+    internals helps you avoid common traps, optimize at the right layer, and build
+    systems that behave predictably under load.
+  prefs: []
+  type: TYPE_NORMAL

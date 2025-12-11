@@ -1,0 +1,142 @@
+- en: Patterns and Techniques for Writing High-Performance Applications with Go
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/](https://goperf.dev/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: The **Go App Optimization Guide** is a series of in-depth, technical articles
+    for developers who want to get more performance out of their Go code without relying
+    on guesswork or cargo cult patterns. If you’re building services that need to
+    handle real load—APIs, backend pipelines, or distributed systems—this guide focuses
+    on the kind of low-level behavior and tuning opportunities that actually matter
+    in production.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go doesn’t give you the kind of fine-grained control you’d find in C++ or Rust,
+    but it does give you just enough visibility to reason about performance—and just
+    enough tooling to do something about it. From understanding allocation patterns
+    and reducing GC overhead to building efficient network services and managing concurrency
+    at scale, the series focuses on optimizations that are both practical and measurable.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The goal isn’t to write clever code—it’s to write fast, predictable code that
+    holds up under pressure. Everything in this guide is backed by real use cases,
+    stripped of theory, and aimed at what you can apply right now.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Common Go Patterns for Performance](01-common-patterns/)'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'This first article series covers a set of performance patterns that come up
+    again and again when writing real-world Go code. It’s not an exhaustive list,
+    but it hits the areas where small changes tend to make a noticeable difference:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Making proper use of `sync.Pool`
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Cutting down on unnecessary allocations
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Struct layout and memory alignment details that affect cache performance
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Error handling that doesn’t drag down the fast path
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Using interfaces without paying for them
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Reusing slices and sorting in-place
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each pattern includes real code and numbers you can apply directly—no theory,
+    no fluff.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '* * *'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[High-Performance Networking in Go](02-networking/)'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: This section takes a focused look at what it takes to build fast, reliable network
+    services in Go. It covers not just how to use the standard library, but how to
+    push it further when you’re dealing with real load.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Topics include:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Efficient use of `net/http`, `net.Conn`, and connection pooling
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Serving thousands of concurrent connections without collapsing
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Tuning Go’s scheduler and system-level settings (GOMAXPROCS, epoll, kqueue)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Building resilient services with load shedding and backpressure
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Preventing memory leaks in long-lived connections
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Choosing and tuning transport protocols: TCP, HTTP/2, gRPC, QUIC'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: While the goal is to keep everything grounded in practical examples, this part
+    leans more theoretical for now due to the exploratory nature of the networking
+    topics being developed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '* * *'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Who This Is For
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'This series is ideal for:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Engineers working on backend systems where Go’s performance actually matters
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Developers building latency-sensitive services or handling high-throughput traffic
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Teams moving critical paths to Go and needing to understand the trade-offs
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Anyone who wants a clearer picture of how Go behaves under load
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '* * *'
+  prefs: []
+  type: TYPE_NORMAL
+- en: More content is coming soon—additional articles, practical code examples, and
+    tooling insights. Bookmark this page to keep up as the series grows.
+  prefs: []
+  type: TYPE_NORMAL

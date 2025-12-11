@@ -1,0 +1,183 @@
+- en: Common Go Patterns for Performance
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/](https://goperf.dev/01-common-patterns/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Optimizing Go applications requires understanding common patterns that help
+    reduce latency, improve memory efficiency, and enhance concurrency. This guide
+    organizes 15 key techniques into four practical categories.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '* * *'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Memory Management & Efficiency
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: These strategies help reduce memory churn, avoid excessive allocations, and
+    improve cache behavior.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Object Pooling](object-pooling/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Reuse objects to reduce GC pressure and allocation overhead.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Memory Preallocation](mem-prealloc/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Allocate slices and maps with capacity upfront to avoid costly resizes.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Struct Field Alignment](fields-alignment/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Optimize memory layout to minimize padding and improve locality.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Avoiding Interface Boxing](interface-boxing/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Prevent hidden allocations by avoiding unnecessary interface conversions.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Zero-Copy Techniques](zero-copy/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Minimize data copying with slicing and buffer tricks.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Memory Efficiency and Go’s Garbage Collector](gc/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Reduce GC overhead by minimizing heap usage and reusing memory.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Stack Allocations and Escape Analysis](stack-alloc/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Use escape analysis to help values stay on the stack where possible.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '* * *'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Concurrency and Synchronization
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Manage goroutines, shared resources, and coordination efficiently.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Goroutine Worker Pools](worker-pool/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Control concurrency with a fixed-size pool to limit resource usage.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Atomic Operations and Synchronization Primitives](atomic-ops/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Use atomic operations or lightweight locks to manage shared state.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Lazy Initialization (`sync.Once`)](lazy-init/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Delay expensive setup logic until it's actually needed.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Immutable Data Sharing](immutable-data/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Share data safely between goroutines without locks by making it immutable.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Efficient Context Management](context/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Use `context` to propagate timeouts and cancel signals across goroutines.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '* * *'
+  prefs: []
+  type: TYPE_NORMAL
+- en: I/O Optimization and Throughput
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Reduce system call overhead and increase data throughput for I/O-heavy workloads.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Efficient Buffering](buffered-io/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Use buffered readers/writers to minimize I/O calls.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Batching Operations](batching-ops/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Combine multiple small operations to reduce round trips and improve throughput.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '* * *'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Compiler-Level Optimization and Tuning
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Tap into Go’s compiler and linker to further optimize your application.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Leveraging Compiler Optimization Flags](comp-flags/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Use build flags like `-gcflags` and `-ldflags` for performance tuning.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '[Stack Allocations and Escape Analysis](stack-alloc/)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Analyze which values escape to the heap to help the compiler optimize memory
+    placement.
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL

@@ -1,0 +1,343 @@
+- en: Atomic Operations and Synchronization Primitives¶
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/atomic-ops/](https://goperf.dev/01-common-patterns/atomic-ops/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: In high-concurrency systems, performance isn't just about what you do—it's about
+    what you avoid. Lock contention, cache line bouncing and memory fences quietly
+    shape throughput long before you hit your scaling ceiling. Atomic operations are
+    among the leanest tools Go offers to sidestep these pitfalls.
+  prefs: []
+  type: TYPE_NORMAL
+- en: While Go provides the full suite of synchronization primitives, there's a class
+    of problems where locks feel like overkill. Atomics offers clarity and speed for
+    low-level coordination—counters, flags, and simple state machines, especially
+    under pressure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Understanding Atomic Operations[¶](#understanding-atomic-operations "Permanent
+    link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Atomic operations allow safe concurrent access to shared data without explicit
+    locking mechanisms like mutexes. The `sync/atomic` package provides low-level
+    atomic memory primitives ideal for counters, flags, or simple state transitions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The key benefit of atomic operations is performance under contention. Locking
+    introduces coordination overhead—when many goroutines contend for a mutex, performance
+    can degrade due to context switching and lock queue management. Atomics avoids
+    this by operating directly at the hardware level using CPU instructions like `CAS`
+    (compare-and-swap). This makes them particularly useful for:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: High-throughput counters and flags
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Lock-free queues and freelists
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Low-latency paths where locks are too expensive
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Memory Model and Comparison to C++[¶](#memory-model-and-comparison-to-c "Permanent
+    link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Understanding memory models is crucial when reasoning about concurrency. In
+    C++, developers have fine-grained control over atomic operations via memory orderings,
+    which allows them to trade-off between performance and consistency. By default,
+    Go''s atomic operations enforce sequential consistency, which means they behave
+    like `std::memory_order_seq_cst` in C++. This is the strongest and safest memory
+    ordering:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: All threads observe atomic operations in the same order.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Full memory barrier are applied before and after each operation.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Reads and writes are not reordered across atomic operations.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '| C++ Memory Order | Go Equivalent | Notes |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `memory_order_seq_cst` | All `atomic.*` ops | Full sequential consistency
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `memory_order_acquire` | Not exposed | Not available in Go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `memory_order_release` | Not exposed | Not available in Go |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `memory_order_relaxed` | Not exposed | Not available in Go |'
+  prefs: []
+  type: TYPE_TB
+- en: Go does not expose weaker memory models like `relaxed`, `acquire`, or `release`.
+    This is an intentional simplification to promote safety and reduce the risk of
+    subtle data races. All atomic operations in Go imply synchronization across goroutines,
+    ensuring correct behavior without manual memory fencing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This means you don’t have to reason about instruction reordering or memory visibility
+    at a low level—but it also means you can’t fine-tune for performance in the way
+    C++ or Rust developers might use relaxed atomics.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Low-level access to relaxed memory ordering in Go exists internally (e.g., in
+    the runtime or through `go:linkname`), but it’s not safe or supported for use
+    in application-level code.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Common Atomic Operations[¶](#common-atomic-operations "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '`atomic.AddInt64`, `atomic.AddUint32`, etc.: Adds values atomically.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`atomic.LoadInt64`, `atomic.LoadPointer`: Reads values atomically.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`atomic.StoreInt64`, `atomic.StorePointer`: Writes values atomically.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`atomic.CompareAndSwapInt64`: Conditionally updates a value atomically.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When to Use Atomic Operations in Real Life[¶](#when-to-use-atomic-operations-in-real-life
+    "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: High-throughput metrics and Counters[¶](#high-throughput-metrics-and-counters
+    "Permanent link")
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Tracking request counts, dropped packets, or other lightweight stats:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This code allows multiple goroutines to safely increment a shared counter without
+    using locks. `atomic.AddInt64` ensures each addition is performed atomically,
+    preventing race conditions and keeping performance high under heavy load.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Fast, Lock-Free Flags[¶](#fast-lock-free-flags "Permanent link")
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Simple boolean state shared across threads:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: This pattern allows one goroutine to signal another to stop. `atomic.LoadInt32`
+    reads the flag with synchronization guarantees, and `atomic.StoreInt32` sets the
+    flag in a way visible to all goroutines. It helps implement safe shutdown signals.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Once-Only Initialization[¶](#once-only-initialization "Permanent link")
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'For scenarios where `sync.Once` isn’t flexible enough—such as needing retryable
+    or restartable initialization – a more precise control can be achieved using atomic
+    operations:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'This pattern uses an explicit three-state protocol:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`0` = uninitialized'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`1` = initialization in progress'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`2` = initialized'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The first goroutine that successfully flips the state from `0` to `1` takes
+    charge of the initialization. The rest wait in a lightweight spin loop, briefly
+    yielding with `runtime.Gosched()` until initialization completes. Once the state
+    flips to `2`, they read the resource and continue.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Unlike `sync.Once`, this approach avoids mutex overhead and gives you full control
+    over how and when initialization happens. It’s well-suited for high-performance
+    paths or systems where partial or retryable initialization is necessary.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Lock-Free Queues or Freelist Structures[¶](#lock-free-queues-or-freelist-structures
+    "Permanent link")
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'Building high-performance data structures:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: This implements a lock-free stack (LIFO queue). It repeatedly tries to insert
+    a node at the head of the list by atomically replacing the head pointer only if
+    it hasn't changed—a classic `CAS` loop. It's commonly used in object pools and
+    work-stealing queues.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reducing Lock Contention[¶](#reducing-lock-contention "Permanent link")
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: This approach is common in real-world systems to reduce unnecessary lock contention,
+    such as feature toggles, one-time initialization paths, or conditional caching
+    mechanisms. Atomics serves as a fast-path filter before acquiring a more expensive
+    lock.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Combining atomics with mutexes to gate expensive work:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: This pattern is effective when `someFlag` is set by another goroutine, and the
+    current goroutine only uses it as a read-only signal to determine if it should
+    proceed. It avoids unnecessary lock acquisition in high-throughput paths, such
+    as short-circuiting when a feature is disabled or a task has already been completed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, if the same goroutine is also responsible forsetting the flag, a simple
+    load followed by a lock is not safe. Another goroutine could interleave between
+    the check and the lock, leading to inconsistent behavior.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To make the operation safe and atomic, use `CompareAndSwap`:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: This version guarantees that only one goroutine proceeds and others exit early.
+    It ensures both the check and the update to `someFlag` happen atomically.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Here, the atomic read acts as a fast gatekeeper. If the flag is unset, acquiring
+    the mutex is unnecessary. This avoids unnecessary locking in high-frequency code
+    paths, improving responsiveness under load.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Synchronization Primitives[¶](#synchronization-primitives "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: This section is intentionally kept minimal. Go's synchronization primitives—such
+    as `sync.Mutex`, `sync.RWMutex`, and `sync.Cond`—are already thoroughly documented
+    and widely understood. They are essential tools for managing shared memory and
+    coordinating goroutines, but they are not the focus here.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In the context of this article, we reference them only as a **performance comparison
+    baseline** against atomic operations. When appropriate, these primitives offer
+    clarity and correctness, but they often come at a higher cost in high-contention
+    scenarios, where atomics can provide leaner alternatives.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ll use them as contrast points to highlight when and why atomic operations
+    might offer performance advantages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Benchmarking Impact[¶](#benchmarking-impact "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: To understand the impact of atomic operations versus mutex locks, we can compare
+    the time taken to increment a shared counter across goroutines using a simple
+    benchmark.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Benchmark results:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
+    |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkAtomicIncrement-14 | 39,910,514 | 80.40 | 0 | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkMutexIncrement-14 | 32,629,298 | 110.7 | 0 | 0 |'
+  prefs: []
+  type: TYPE_TB
+- en: Atomic operations outperform mutex-based increments in both throughput and latency.
+    The difference becomes more significant under higher contention, where avoiding
+    lock acquisition helps reduce context switching and scheduler overhead.
+  prefs: []
+  type: TYPE_NORMAL
+- en: <details class="example"><summary>Show the complete benchmark file</summary>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]</details>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When to Use Atomic Operations vs. Mutexes[¶](#when-to-use-atomic-operations-vs-mutexes
+    "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Atomic operations shine in simple, high-frequency scenarios—counters, flags,
+    coordination signals—where the cost of a lock would be disproportionate. They
+    avoid lock queues and reduce context switching. But they come with limitations:
+    no grouping of multiple operations, no rollback, and increased complexity when
+    applied beyond their niche.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Mutexes remain the right tool for managing complex shared state, protecting
+    multi-step critical sections, and maintaining invariants. They're easier to reason
+    and generally safer when logic grows beyond a few lines.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Choosing between atomics and locks isn't about ideology but scope. When the
+    job is simple, atomics get out of the way. When the job gets complex, locks keep
+    you safe.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,268 @@
+- en: Immutable Data Sharing¶
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/immutable-data/](https://goperf.dev/01-common-patterns/immutable-data/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'One common source of slowdown in high-performance Go programs is the way shared
+    data is accessed under concurrency. The usual tools—mutexes and channels—work
+    well, but they’re not free. Mutexes can become choke points if many goroutines
+    try to grab the same lock. Channels, while elegant for coordination, can introduce
+    blocking and make control flow harder to reason about. Both require careful use:
+    it’s easy to introduce subtle bugs or unexpected performance issues if synchronization
+    isn’t tight.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A powerful alternative is immutable data sharing. Instead of protecting data
+    with locks, you design your system so that shared data is never mutated after
+    it's created. This minimizes contention and simplifies reasoning about your program.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why Immutable Data?[¶](#why-immutable-data "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Immutability brings several advantages to concurrent programs:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'No locks needed: Multiple goroutines can safely read immutable data without
+    synchronization.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Easier reasoning: If data can''t change, you avoid entire classes of race conditions.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Copy-on-write optimizations: You can create new versions of a structure without
+    altering the original, which is useful for config reloading or versioning a state.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Practical Example: Shared Config[¶](#practical-example-shared-config "Permanent
+    link")'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Imagine you have a long-running service that periodically reloads its configuration
+    from a disk or a remote source. Multiple goroutines read this configuration to
+    make decisions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here''s how immutable data helps:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 1: Define the Config Struct[¶](#step-1-define-the-config-struct "Permanent
+    link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Step 2: Ensure Deep Immutability[¶](#step-2-ensure-deep-immutability "Permanent
+    link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Maps and slices in Go are reference types. Even if the Config struct isn''t
+    changed, someone could accidentally mutate a shared map. To prevent this, we make
+    defensive copies:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now, every config instance is self-contained and safe to share.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 3: Atomic Swapping[¶](#step-3-atomic-swapping "Permanent link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Use `atomic.Value` to store and safely update the current config.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now all goroutines can safely call `GetConfig()` with no locks. When the config
+    is reloaded, you just `Store` a new immutable copy.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 4: Using It in Handlers[¶](#step-4-using-it-in-handlers "Permanent link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Practical Example: Immutable Routing Table[¶](#practical-example-immutable-routing-table
+    "Permanent link")'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Suppose you're building a lightweight reverse proxy or API gateway and must
+    route incoming requests based on path or host. The routing table is read thousands
+    of times per second and updated only occasionally (e.g., from a config file or
+    service discovery).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Step 1: Define Route Structs[¶](#step-1-define-route-structs "Permanent link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Step 2: Build Immutable Version[¶](#step-2-build-immutable-version "Permanent
+    link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: To ensure immutability, we deep-copy the slice of routes when constructing a
+    new routing table.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Step 3: Store It Atomically[¶](#step-3-store-it-atomically "Permanent link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Step 4: Route Requests Concurrently[¶](#step-4-route-requests-concurrently
+    "Permanent link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Now, your routing logic can scale safely under load with zero locking overhead.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Scaling Immutable Routing Tables[¶](#scaling-immutable-routing-tables "Permanent
+    link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: As systems grow, routing tables can expand to hundreds or even thousands of
+    entries. While immutability brings clear benefits—safe concurrent access, predictable
+    behavior—it becomes costly if every update means copying the entire structure.
+    At some point, rebuilding the whole table for each minor change doesn’t scale.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To keep immutability without paying for full reconstruction on every update,
+    the design needs to evolve. There are several ways to do this—each preserving
+    the core benefits while reducing overhead.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Scenario 1: Segmented Routing[¶](#scenario-1-segmented-routing "Permanent link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Imagine a multi-tenant system where each customer has their own set of routing
+    rules. Instead of one giant slice of routes, you can split them into a map:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: If only customer "acme" updates their rules, you clone just that slice and update
+    the map. Then you atomically swap in a new version of the full map. All other
+    tenants continue using their existing, untouched routing tables.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This approach reduces memory pressure and speeds up updates without losing
+    immutability. It also isolates blast radius: a broken rule set in one segment
+    doesn’t affect others.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Scenario 2: Indexed Routing Table[¶](#scenario-2-indexed-routing-table "Permanent
+    link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s say your router matches by exact path, and lookup speed is critical.
+    You can use a `map[string]RouteHandler` as an index:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: When a new path is added, clone the current map, add the new route, and publish
+    the new version. Because maps are shallow, this is fast for moderate numbers of
+    routes. Reads are constant time, and updates are efficient because only a small
+    part of the structure changes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Scenario 3: Hybrid Staging and Publishing[¶](#scenario-3-hybrid-staging-and-publishing
+    "Permanent link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Suppose you’re doing a batch update — maybe reading hundreds of routes from
+    a database. Instead of rebuilding live, you keep a mutable staging area:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: You load and manipulate data in staging under a mutex, then convert to an immutable
+    `RoutingTable` and store it atomically. This lets you safely prepare complex changes
+    without locking readers or affecting live traffic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Benchmarking Impact[¶](#benchmarking-impact "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Benchmarking immutable data sharing in real-world systems is difficult to do
+    in a generic, meaningful way. Factors like structure size, read/write ratio, and
+    memory layout all heavily influence results.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Rather than presenting artificial benchmarks here, we recommend reviewing the
+    results in the [Atomic Operations and Synchronization Primitives](../atomic-ops/#benchmarking-impact)
+    article. Those benchmarks clearly illustrate the potential performance benefits
+    of using atomic.Value over traditional synchronization primitives like sync.RWMutex,
+    especially in highly concurrent read scenarios.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When to Use This Pattern[¶](#when-to-use-this-pattern "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Immutable data sharing is ideal when:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The data is read-heavy and write-light (e.g., configuration, feature flags,
+    global mappings). This works well because the cost of creating new immutable versions
+    is amortized over many reads, and avoiding locks provides a performance boost.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You want to minimize locking without sacrificing safety. By sharing read-only
+    data, you remove the need for mutexes or coordination, reducing the chances of
+    deadlocks or race conditions.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: You can tolerate minor delays between update and read (eventual consistency).
+    Since data updates are not coordinated with readers, there might be a small delay
+    before all goroutines see the new version. If exact timing isn't critical, this
+    tradeoff simplifies your concurrency model.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It’s less suitable when updates must be transactional across multiple pieces
+    of data or happen frequently. In those cases, the cost of repeated copying or
+    lack of coordination can outweigh the benefits.
+  prefs: []
+  type: TYPE_NORMAL

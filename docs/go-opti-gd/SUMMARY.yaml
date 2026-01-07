@@ -1,0 +1,132 @@
+- en: '[Go 优化指南](README.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Go 编写高性能应用程序的模式和技术](go-opti-gd_01.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[性能的常见 Go 模式](go-opti-gd_02.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[对象池化](go-opti-gd_03.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[内存预分配](go-opti-gd_04.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[结构体字段对齐](go-opti-gd_05.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[避免接口装箱](go-opti-gd_06.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[零拷贝技术](go-opti-gd_07.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[内存效率：掌握 Go 的垃圾回收器](go-opti-gd_08.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[栈分配和逃逸分析](go-opti-gd_09.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Go 中的 Goroutine 工作池](go-opti-gd_10.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[原子操作与同步原语](go-opti-gd_11.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[懒初始化](go-opti-gd_12.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[不可变数据共享](go-opti-gd_13.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[高效的上下文管理](go-opti-gd_14.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Efficient Buffering in Go](go-opti-gd_15.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Go 中的批处理操作](go-opti-gd_16.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[在 Go 中利用编译器优化标志](go-opti-gd_17.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Go 中的实用网络模式](go-opti-gd_18.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[网络化 Go 应用程序的基准测试和负载测试](go-opti-gd_19.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[实际示例：使用 pprof 剖析网络 Go 应用程序](go-opti-gd_20.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[Go 网络内部结构](go-opti-gd_21.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[在高流量 Go 服务中高效使用 net/http、net.Conn 和 UDP](go-opti-gd_22.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[在 Go 中管理 10K+并发连接](go-opti-gd_23.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[GOMAXPROCS、epoll/kqueue 和调度器级别的调整](go-opti-gd_24.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[使用负载减轻和背压构建弹性连接处理](go-opti-gd_25.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[长连接中的内存管理和泄漏预防](go-opti-gd_26.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[在 Go 中比较 TCP、HTTP/2 和 gRPC 性能](go-opti-gd_27.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[在 Go 中使用 QUIC：使用 quic-go 构建低延迟服务](go-opti-gd_28.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[低级网络优化：重要的套接字选项](go-opti-gd_29.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[调整 Go 服务中的 DNS 性能](go-opti-gd_30.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[优化 TLS 以提高速度：握手、重用和加密套件选择](go-opti-gd_31.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[连接生命周期可观察性：从拨号到关闭](go-opti-gd_32.md)'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

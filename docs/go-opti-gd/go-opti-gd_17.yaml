@@ -1,0 +1,257 @@
+- en: Efficient Context Management¶
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/context/](https://goperf.dev/01-common-patterns/context/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Whether you're handling HTTP requests, coordinating worker goroutines, or querying
+    external services, there's often a need to cancel in-flight operations or enforce
+    execution deadlines. Go’s `context` package is designed for precisely that—it
+    provides a consistent and thread-safe way to manage operation lifecycles, propagate
+    metadata, and ensure resources are cleaned up promptly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why Context Matters[¶](#why-context-matters "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Go provides two base context constructors: `context.Background()` and `context.TODO()`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`context.Background()` is the root context typically used at the top level
+    of your application—such as in `main`, `init`, or server setup—where no existing
+    context is available.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`context.TODO()` is a placeholder used when it’s unclear which context to use,
+    or when the surrounding code hasn’t yet been fully wired for context propagation.
+    It serves as a reminder that the context logic needs to be filled in later.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The `context` package in Go is designed to carry deadlines, cancellation signals,
+    and other request-scoped values across API boundaries. It's especially useful
+    in concurrent programs where operations need to be coordinated and canceled cleanly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A typical context workflow begins at the entry point of a program or request—like
+    an HTTP handler, main function, or RPC server. From there, a base context is created
+    using `context.Background()` or `context.TODO()`. This context can then be extended
+    using constructors like:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`context.WithCancel(parent)` to create a cancelable context.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`context.WithTimeout(parent, duration)` to cancel automatically after a specific
+    time.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`context.WithDeadline(parent, time)` for cancelling at a fixed moment.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`context.WithValue(parent, key, value)` to attach request-scoped data.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each of these functions returns a new context that wraps its parent. Cancellation
+    signals, deadlines, and values are automatically propagated down the call stack.
+    When a context is canceled—either manually or by timeout—any goroutines or functions
+    listening on `<-ctx.Done()` are immediately notified.
+  prefs: []
+  type: TYPE_NORMAL
+- en: By passing context explicitly through function parameters, you avoid hidden
+    dependencies and gain fine-grained control over the execution lifecycle of concurrent
+    operations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Practical Examples of Context Usage[¶](#practical-examples-of-context-usage
+    "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The following examples show how `context.Context` enables better control, observability,
+    and resource management across a variety of real-world scenarios.
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP Server Request Cancellation[¶](#http-server-request-cancellation "Permanent
+    link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Contexts help gracefully handle cancellations when clients disconnect early.
+    Every incoming HTTP request in Go carries a context that gets canceled if the
+    client closes the connection. By checking `<-ctx.Done()`, you can exit early instead
+    of doing unnecessary work:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this example, the handler waits for either a simulated delay or cancellation.
+    If the client closes the connection before the timeout, `ctx.Done()` is triggered,
+    allowing the handler to clean up without writing a response.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Database Operations with Timeouts[¶](#database-operations-with-timeouts "Permanent
+    link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Contexts provide a straightforward way to enforce timeouts on database queries.
+    Many drivers support `QueryContext` or similar methods that respect cancellation:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this case, the context is automatically canceled if the database does not
+    respond within two seconds. The query is aborted, and the application doesn’t
+    hang indefinitely. This helps manage resources and avoids cascading failures in
+    high-load environments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Propagating Request IDs for Distributed Tracing[¶](#propagating-request-ids-for-distributed-tracing
+    "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Contexts allow passing tracing information across different layers of a distributed
+    system. For example, a request ID generated at the edge can be attached to the
+    context and logged or used throughout the application:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this example, `WithValue` attaches a request ID to the context. The function
+    `handleRequest` retrieves it using `ctx.Value`, enabling consistent logging and
+    observability without modifying function signatures. This approach is common in
+    middleware, logging, and tracing pipelines.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Concurrent Worker Management[¶](#concurrent-worker-management "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Context provides control over multiple worker goroutines. By using `WithCancel`,
+    you can propagate a stop signal to all workers from a central point:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Each worker function should check for `<-ctx.Done()` and return immediately
+    when the context is canceled. This keeps the system responsive, avoids dangling
+    goroutines, and allows graceful termination of parallel work.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Graceful Shutdown in CLI Tools[¶](#graceful-shutdown-in-cli-tools "Permanent
+    link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'In command-line applications or long-running background processes, context
+    simplifies OS signal handling and graceful shutdown:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this pattern, `signal.NotifyContext` returns a context that is canceled automatically
+    when an interrupt signal (e.g., Ctrl+C) is received. Listening on `<-ctx.Done()`
+    allows the application to perform cleanup and exit gracefully instead of terminating
+    abruptly.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Streaming and Real-Time Data Pipelines[¶](#streaming-and-real-time-data-pipelines
+    "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Context is ideal for coordinating readers in streaming systems like Kafka consumers,
+    WebSocket readers, or custom pub/sub pipelines:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here, the function processes incoming data from a channel. If the context is
+    canceled (e.g., during shutdown or timeout), the loop breaks and the goroutine
+    exits cleanly. This makes the system more responsive to control signals and easier
+    to manage under load.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Middleware and Rate Limiting[¶](#middleware-and-rate-limiting "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Contexts are often used in middleware chains to enforce quotas, trace requests,
+    or carry rate-limit decisions between layers. In a typical HTTP stack, middleware
+    can determine whether a request is allowed based on custom logic (e.g., IP-based
+    rate limiting or user quota checks), and attach that decision to the context so
+    that downstream handlers can inspect it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here''s a simplified example of how that might work:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In a downstream handler, you might inspect that value like so:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: This pattern avoids the need for shared state between middleware and handlers.
+    Instead, the context acts as a lightweight channel for passing metadata between
+    layers of the request pipeline in a safe and composable way.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Benchmarking Impact[¶](#benchmarking-impact "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: There's usually nothing to benchmark directly in terms of raw performance when
+    using `context.Context`. Its real benefit lies in improving responsiveness, avoiding
+    wasted computation, and enabling clean cancellations. The impact shows up in reduced
+    memory leaks, fewer stuck goroutines, and more predictable resource lifetimes—metrics
+    best observed through real-world profiling and observability tools.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Best Practices for Context Usage[¶](#best-practices-for-context-usage "Permanent
+    link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Always pass `context.Context` explicitly, typically as the first argument to
+    a function. This makes context propagation transparent and traceable, especially
+    across API boundaries or service layers. Don’t store contexts in struct fields
+    or global variables. Doing so can lead to stale contexts being reused unintentionally
+    and make cancellation logic harder to reason about.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Use 1 only for request-scoped metadata, not to pass business logic or application
+    state. Overusing context for general-purpose data storage leads to tight coupling
+    and makes testing and tracing harder.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Check `ctx.Err()` to differentiate between `context.Canceled` and `context.DeadlineExceeded`
+    where needed. This allows your application to respond appropriately—for example,
+    distinguishing between user-initiated cancellation and timeouts.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Following these practices helps keep context usage predictable and idiomatic.
+  prefs: []
+  type: TYPE_NORMAL

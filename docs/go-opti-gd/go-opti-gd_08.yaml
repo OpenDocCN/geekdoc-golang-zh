@@ -1,0 +1,277 @@
+- en: Avoiding Interface Boxing¶
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/interface-boxing/](https://goperf.dev/01-common-patterns/interface-boxing/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'Go’s interfaces make it easy to write flexible, decoupled code. But behind
+    that convenience is a detail that can trip up performance: when a concrete value
+    is assigned to an interface, Go wraps it in a hidden structure—a process called
+    interface boxing.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: In many cases, boxing is harmless. But in performance-sensitive code—like tight
+    loops, hot paths, or high-throughput services—it can introduce hidden heap allocations,
+    extra memory copying, and added pressure on the garbage collector. These effects
+    often go unnoticed during development, only showing up later as latency spikes
+    or memory bloat.
+  prefs: []
+  type: TYPE_NORMAL
+- en: What is Interface Boxing?[¶](#what-is-interface-boxing "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Interface boxing refers to the process of converting a concrete value to an
+    interface type. In Go, an interface value is internally represented as two words:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A **type descriptor**, which holds information about the concrete type (its
+    identity and method set).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A **data pointer**, which points to the actual value being stored.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When you assign a value to an interface variable, Go creates this two-part structure.
+    If the value is a non-pointer type—like a struct or primitive—and is not already
+    on the heap, Go **may** allocate a copy of it on the heap to satisfy the interface
+    assignment. This behavior is especially relevant when working with large values
+    or when storing items in a slice of interfaces, where each element gets individually
+    boxed. These implicit allocations can add up and are a common source of hidden
+    memory pressure in Go programs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here’s a simple example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'In this case, the integer `42` is boxed into an interface: Go stores the type
+    information (`int`) and a copy of the value `42`. This is inexpensive for small
+    values like `int`, but for large structs, the cost becomes non-trivial.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Another example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Warning
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Pay attention to this code!** In this example, even though `shapes` is a
+    slice of interfaces, each `Square` value is copied into an interface when appended
+    to `shapes`. If `Square` were a large struct, this would introduce 1000 allocations
+    and large memory copying.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To avoid that, you could pass pointers:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: This way, only an 8-byte pointer is stored in the interface, reducing both allocation
+    size and copying overhead.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why It Matters[¶](#why-it-matters "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: In tight loops or high-throughput paths, such as unmarshalling JSON, rendering
+    templates, or processing large collections, interface boxing can degrade performance
+    by triggering unnecessary heap allocations and increasing GC pressure. This overhead
+    is especially costly in systems with high concurrency or real-time responsiveness
+    constraints.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Boxing can also make profiling and benchmarking misleading, since allocations
+    attributed to innocuous-looking lines may actually stem from implicit conversions
+    to interfaces.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Benchmarking Impact[¶](#benchmarking-impact "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: For the benchmarking we will define an interface and a struct with a significant
+    payload that implements the interface.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Boxing Large Structs[¶](#boxing-large-structs "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'To demonstrate the real impact of boxing large values vs. pointers, we benchmarked
+    the cost of assigning 1,000 large structs to an interface slice:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Benchmark Results
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | Time per op (ns) | Bytes per op | Allocs per op |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BoxedLargeSliceGrowth | 404,649 | ~4.13 MB | 1011 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| PointerLargeSliceGrowth | 340,549 | ~4.13 MB | 1011 |'
+  prefs: []
+  type: TYPE_TB
+- en: Boxing large values is significantly slower—about 19% in this case—due to the
+    cost of copying the entire 4KB struct for each interface assignment. Boxing a
+    pointer, however, avoids that cost and keeps the copy small (just 8 bytes). While
+    both approaches allocate the same overall memory (since all values escape to the
+    heap), pointer boxing has clear performance advantages under pressure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Passing to a Function That Accepts an Interface[¶](#passing-to-a-function-that-accepts-an-interface
+    "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Another common source of boxing is when a large value is passed directly to
+    a function that accepts an interface. Even without storing to a slice, boxing
+    will occur at the call site.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Benchmark Results
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | ns/op | B/op | allocs/op |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| CallWithValue | 422.5 | 4096 | 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| CallWithPointer | 379.9 | 4096 | 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: Passing a value to a function expecting an interface causes boxing, copying
+    the full struct and allocating it on the heap. In our benchmark, this results
+    in approximately 11% higher CPU cost compared to using a pointer. Passing a pointer
+    avoids copying the struct, reduces memory movement, and results in smaller, more
+    cache-friendly interface values, making it the more efficient choice in performance-sensitive
+    scenarios.
+  prefs: []
+  type: TYPE_NORMAL
+- en: <details class="example"><summary>Show the complete benchmark file</summary>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]</details>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: When Interface Boxing Is Acceptable[¶](#when-interface-boxing-is-acceptable
+    "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Despite its performance implications in some contexts, interface boxing is often
+    perfectly reasonable—and sometimes preferred.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When abstraction is more important than performance[¶](#when-abstraction-is-more-important-than-performance
+    "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Interfaces enable decoupling and modularity. If you're designing a clean, testable
+    API, the cost of boxing is negligible compared to the benefit of abstraction.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: When values are small and boxing is allocation-free[¶](#when-values-are-small-and-boxing-is-allocation-free
+    "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Boxing small, copyable values like `int`, `float64`, or small structs typically
+    causes no allocations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: When values are short-lived[¶](#when-values-are-short-lived "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: If the boxed value is used briefly (e.g. for logging or interface-based sorting),
+    the overhead is minimal.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: When dynamic behavior is required[¶](#when-dynamic-behavior-is-required "Permanent
+    link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Interfaces allow runtime polymorphism. If you need different types to implement
+    the same behavior, boxing is necessary and idiomatic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Use boxing when it supports clarity, reusability, or design goals—and avoid
+    it only in performance-critical code paths.
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to Avoid Interface Boxing[¶](#how-to-avoid-interface-boxing "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Use pointers when assigning to interfaces. If the method set requires a pointer
+    receiver or the value is large, explicitly pass a pointer to avoid repeated copying
+    and heap allocation.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs:
+  - PREF_IND
+  type: TYPE_PRE
+- en: Avoid interfaces in hot paths. If the concrete type is known and stable, avoid
+    interface indirection entirely—especially in compute-intensive or allocation-sensitive
+    functions.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Use type-specific containers. Instead of `[]interface{}`, prefer generic slices
+    or typed collections where feasible. This preserves static typing and reduces
+    unnecessary allocations.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Benchmark and inspect with pprof. Use `go test -bench` and `pprof` to observe
+    where allocations occur. If the allocation site is in `runtime.convT2E` (convert
+    T to interface), you're likely boxing.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

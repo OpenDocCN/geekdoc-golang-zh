@@ -1,0 +1,174 @@
+- en: Lazy Initialization
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/lazy-init/](https://goperf.dev/01-common-patterns/lazy-init/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: Lazy Initialization for Performance in Go[¶](#lazy-initialization-for-performance-in-go
+    "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'In Go, some resources are expensive to initialize, or simply unnecessary unless
+    certain code paths are triggered. That’s where lazy initialization becomes useful:
+    it defers the construction of a value until the moment it’s actually needed. This
+    pattern can improve performance, reduce startup overhead, and avoid unnecessary
+    work—especially in high-concurrency applications.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why Lazy Initialization Matters[¶](#why-lazy-initialization-matters "Permanent
+    link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Initializing heavy resources like database connections, caches, or large in-memory
+    structures at startup can slow down application launch and consume memory before
+    it’s actually needed. Lazy initialization defers this work until the first time
+    the resource is used, keeping startup fast and memory usage lean.
+  prefs: []
+  type: TYPE_NORMAL
+- en: It’s also a practical pattern when you have logic that might be triggered multiple
+    times but should only run once—ensuring that expensive operations aren’t repeated
+    and that initialization remains safe and idempotent across concurrent calls.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using `sync.Once` for Thread-Safe Initialization[¶](#using-synconce-for-thread-safe-initialization
+    "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Go provides the `sync.Once` type to implement lazy initialization safely in
+    concurrent environments:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In this example, the function `expensiveInit()` executes exactly once, no matter
+    how many goroutines invoke `getResource()` concurrently. This ensures thread-safe
+    initialization without additional synchronization overhead.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Using `sync.OnceValue` and `sync.OnceValues` for Initialization with Output
+    Values[¶](#using-synconcevalue-and-synconcevalues-for-initialization-with-output-values
+    "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Since Go 1.21, if your initialization logic returns a value, you might prefer
+    using `sync.OnceValue` (single value) or `sync.OnceValues` (multiple values) for
+    simpler, more expressive code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Here, `sync.OnceValue` provides a concise way to wrap one-time initialization
+    logic and access the result without managing flags or mutexes manually. It simplifies
+    lazy loading by directly returning the computed value on demand.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For cases where the initializer returns more than one value—such as a resource
+    and an error—`sync.OnceValues` extends the same idea. It ensures the function
+    runs exactly once and cleanly unpacks the results, keeping the code readable and
+    thread-safe without boilerplate.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Choosing `sync.OnceValue` or `sync.OnceValues` helps you clearly express initialization
+    logic with direct value returns, whereas `sync.Once` remains best suited for general
+    scenarios requiring flexible initialization logic without immediate value returns.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Custom Lazy Initialization with Atomic Operations[¶](#custom-lazy-initialization-with-atomic-operations
+    "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Yes, it’s technically possible to replace `sync.Once`, `sync.OnceValue`, or
+    `sync.OnceFunc` with custom logic using low-level atomic operations like `atomic.CompareAndSwap`
+    or `atomic.Load/Store`. In rare, performance-critical paths, this can avoid the
+    small overhead or allocations that come with the standard types.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, the trade-off is complexity. You lose the safety guarantees and clarity
+    of the standard primitives, and it becomes easier to introduce subtle bugs—especially
+    under concurrency. Unless profiling shows that sync.Once is a bottleneck, the
+    standard versions are almost always the better choice.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**That said, it’s rarely worth the tradeoff.**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Manual atomic-based initialization is more error-prone, harder to read, and
+    easier to get wrong—especially when concurrency and memory visibility guarantees
+    are involved. For the vast majority of cases, `sync.Once*` is safer, clearer,
+    and performant enough.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Info
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'If you’re convinced that atomic-based lazy initialization is justified in your
+    case, this blog post walks through the details and caveats:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[Lazy initialization in Go using atomics](https://goperf.dev/blog/2025/04/03/lazy-initialization-in-go-using-atomics/)'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Performance Considerations[¶](#performance-considerations "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: While lazy initialization can offer clear benefits, it also brings added complexity.
+    It’s important to handle initialization carefully to avoid subtle issues like
+    race conditions or concurrency bugs. Using built-in tools like `sync.Once` or
+    `atomic` operations typically ensures thread-safety without much hassle. Still,
+    it’s always a good idea to measure actual improvements through profiling, confirming
+    lazy initialization truly enhances startup speed, reduces memory usage, or boosts
+    your application's responsiveness.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Benchmarking Impact[¶](#benchmarking-impact "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: There is typically nothing specific to benchmark with lazy initialization itself,
+    as the main benefit is deferring expensive resource creation. The performance
+    gains are inherently tied to the avoided cost of unnecessary initialization, startup
+    speed improvements, and reduced memory consumption, rather than direct runtime
+    throughput differences.
+  prefs: []
+  type: TYPE_NORMAL
+- en: When to Choose Lazy Initialization[¶](#when-to-choose-lazy-initialization "Permanent
+    link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: When resource initialization is costly or involves I/O. Delaying construction
+    avoids paying the cost of setup—like opening files, querying databases, or loading
+    large structures—unless it’s actually needed.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: To improve startup performance and memory efficiency. Deferring work until first
+    use allows your application to start faster and avoid allocating memory for resources
+    that may never be used.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When not all resources are needed immediately or at all during runtime. Lazy
+    initialization helps you avoid initializing fields or services that only apply
+    in specific code paths.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: To guarantee a block of code executes exactly once despite repeated calls. Using
+    tools like `sync.Once` ensures thread-safe, one-time setup in concurrent environments.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

@@ -1,0 +1,239 @@
+- en: Leveraging Compiler Optimization Flags in Go¶
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/01-common-patterns/comp-flags/](https://goperf.dev/01-common-patterns/comp-flags/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: 'When tuning Go applications for performance, most of the attention goes to
+    runtime behavior—profiling hot paths, trimming allocations, improving concurrency.
+    But there’s another layer that’s easy to miss: what the Go compiler does with
+    your code before it ever runs. The build process includes several optimization
+    passes, and understanding how to surface or influence them can give you clearer
+    insights into what’s actually happening under the hood. It’s not about tweaking
+    obscure flags to squeeze out extra instructions—it’s about knowing how the compiler
+    treats your code so you’re not working against it.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: While Go doesn’t expose the same granular set of compiler flags as C or Rust,
+    it still provides useful ways to influence how your code is built—especially when
+    targeting performance, binary size, or specific environments.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Why Compiler Flags Matter[¶](#why-compiler-flags-matter "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Go''s compiler (specifically `cmd/compile` and `cmd/link`) performs several
+    default optimizations: inlining, escape analysis, dead code elimination, and more.
+    However, there are scenarios where you can squeeze more performance or control
+    from your build using the right flags.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Use cases include:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reducing binary size for minimal containers or embedded systems
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Building for specific architectures or OSes
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Removing debug information for release builds
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Disabling optimizations temporarily for easier debugging
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Enabling experimental or unsafe performance tricks (carefully)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Key Compiler and Linker Flags[¶](#key-compiler-and-linker-flags "Permanent link")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '`-ldflags="-s -w"` — Strip Debug Info[¶](#-ldflags-s-w-strip-debug-info "Permanent
+    link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'When you want to shrink binary size, especially in production or containers:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`-s`: Omit the symbol table'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`-w`: Omit DWARF debugging information'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Why it matters: This can reduce binary size by up to 30-40%, depending on your
+    codebase. It is useful in Docker images or when distributing binaries.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`-gcflags` — Control Compiler Optimizations[¶](#-gcflags-control-compiler-optimizations
+    "Permanent link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The `-gcflags` flag allows you to control how the compiler treats specific
+    packages. For example, you can disable optimizations for debugging:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`-N`: Disable optimizations'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`-l`: Disable inlining'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'When to use: During debugging sessions with Delve or similar tools. Turning
+    off inlining and optimizations make stack traces and breakpoints more reliable.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Cross-Compilation Flags[¶](#cross-compilation-flags "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Need to build for another OS or architecture?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`GOOS`, `GOARCH`: Set target OS and architecture'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Common values: `windows`, `darwin`, `linux`, `amd64`, `arm64`, `386`, `wasm`'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Build Tags[¶](#build-tags "Permanent link")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Build tags allow conditional compilation. Use `//go:build` or `// +build` in
+    your source code to control what gets compiled in.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Then build with:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`-ldflags="-X ..."` — Inject Build-Time Variables[¶](#-ldflags-x-inject-build-time-variables
+    "Permanent link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'You can inject version numbers or metadata into your binary at build time:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Then build with:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: This sets the `version` variable at link time without modifying your source
+    code. It's useful for embedding release versions, commit hashes, or build dates.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`-extldflags=''-static''` — Build Fully Static Binaries[¶](#-extldflags-static-build-fully-static-binaries
+    "Permanent link")'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The `-extldflags '-static'` option passes the `-static` flag to the external
+    system linker, instructing it to produce a **fully statically linked binary**.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'This is especially useful when you''re using CGO and want to avoid runtime
+    dynamic library dependencies:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'What it does:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Statically links all C libraries into the binary
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Produces a portable, self-contained executable
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Ideal for minimal containers (like `scratch` or `distroless`)
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'To go further and ensure your binary avoids relying on C library DNS resolution
+    (such as `glibc`''s `getaddrinfo`), you can use the `netgo` build tag. This forces
+    Go to use its pure Go implementation of the DNS resolver:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: This step is especially important when building for minimal container environments,
+    where dynamic libc dependencies may not be available.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note
+  prefs: []
+  type: TYPE_NORMAL
+- en: Static linking requires static versions (`.a`) of the libraries you're using,
+    and may not work with all C libraries by default.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Example: Static Build with libcurl via CGO[¶](#example-static-build-with-libcurl-via-cgo
+    "Permanent link")'
+  prefs:
+  - PREF_H4
+  type: TYPE_NORMAL
+- en: 'If you’re using libcurl via CGO, here’s how you can create a statically linked
+    Go binary:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Static Build Command:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Ensure the static version of libcurl (`libcurl.a`) is available on your system.
+    You may need to install development packages or build libcurl from source with
+    `--enable-static`.
+  prefs: []
+  type: TYPE_NORMAL

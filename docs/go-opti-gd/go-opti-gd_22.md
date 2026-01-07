@@ -1,6 +1,6 @@
 # 利用 Go 中的编译器优化标志
 
-> 原文：[https://goperf.dev/01-common-patterns/comp-flags/](https://goperf.dev/01-common-patterns/comp-flags/)
+> 原文：[`goperf.dev/01-common-patterns/comp-flags/`](https://goperf.dev/01-common-patterns/comp-flags/)
 
 当调整 Go 应用程序以获得性能时，大部分注意力都集中在运行时行为上——分析热点路径、减少分配、提高并发性。但还有一个容易被忽视的层面：Go 编译器在代码运行之前对代码做了什么。构建过程包括几个优化步骤，了解如何揭示或影响它们可以为您提供更清晰的洞察，了解底层实际发生了什么。这不仅仅是调整晦涩的标志来挤出额外的指令——这是了解编译器如何处理您的代码，以便您不会与之作对。
 

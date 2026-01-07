@@ -1,6 +1,6 @@
 # 实际示例：使用 pprof 分析网络化 Go 应用程序
 
-> 原文：[https://goperf.dev/02-networking/gc-endpoint-profiling/](https://goperf.dev/02-networking/gc-endpoint-profiling/)
+> 原文：[`goperf.dev/02-networking/gc-endpoint-profiling/`](https://goperf.dev/02-networking/gc-endpoint-profiling/)
 
 本节通过一个使用基准测试工具和运行时分析进行配置的演示应用程序，将分析概念应用于实际场景。它涵盖了识别性能瓶颈、解释火焰图以及在各种模拟网络条件下的系统行为分析。
 
@@ -160,7 +160,7 @@ go tool pprof -http=:7070 cpu.prof # (1)
 
 <details class="example"><summary>`/gc` 端点的 CPU 分析跟踪</summary>
 
-![图片](../Images/7a6a813e3f186af7e41a21bebb8a53e9.png)(../img/cpu.prof.png)</details>
+![图片](img/7a6a813e3f186af7e41a21bebb8a53e9.png)(../img/cpu.prof.png)</details>
 
 这为我们提供了 3.02 秒的样本 CPU 活动，占 30 秒墙钟时间的 10.07%——这是一个有用的窗口，可以看到在压力下运行时和应用程序都在做什么。
 
@@ -212,7 +212,7 @@ go tool pprof -http=:7070 http://localhost:6060/debug/pprof/heap
 
 <details class="example"><summary>对 `/gc` 端点的内存分析</summary>
 
-[![](../Images/8077552e3f37816c102f22210cddd49b.png)](../img/mem.prof.png)</details>
+![](img/mem.prof.png)</details>
 
 在捕获时，应用程序保留了 649MB 的堆内存，其中几乎全部——99.46%——归因于单个函数：`gcHeavyHandler`。这是预期的。处理器通过在紧密循环中创建 10KB 的切片来模拟分配压力。每 100 个切片被添加到一个全局变量中，以模拟长期内存。
 
@@ -248,24 +248,24 @@ func gcHeavyHandler(w http.ResponseWriter, r *http.Request) {
 
 ## 摘要：`/gc` 端点的 CPU 和内存分析
 
-`/gc`端点是故意构建来模拟高分配压力和GC活动的。在负载下对处理程序进行性能分析，让我们对Go运行时在内存极限被推到时的行为有了清晰、专注的观察。
+`/gc`端点是故意构建来模拟高分配压力和 GC 活动的。在负载下对处理程序进行性能分析，让我们对 Go 运行时在内存极限被推到时的行为有了清晰、专注的观察。
 
-从**CPU分析**中，我们看到：
+从**CPU 分析**中，我们看到：
 
-+   如预期的那样，在持续负载的大部分时间都花在了HTTP处理程序路径上。
++   如预期的那样，在持续负载的大部分时间都花在了 HTTP 处理程序路径上。
 
-+   几乎20%的CPU样本归因于内存分配和垃圾回收。
++   几乎 20%的 CPU 样本归因于内存分配和垃圾回收。
 
 +   系统调用活动很高，主要来自写入响应。
 
-+   Go调度器适度活跃，管理处理流量的并发goroutine。
++   Go 调度器适度活跃，管理处理流量的并发 goroutine。
 
-从**内存分析**中，我们捕捉到了649MB的活跃堆使用量，其中**99.46%由`gcHeavyHandler`保留**。这符合我们的预期：处理程序故意保留每100个10KB的分配来模拟长期数据。
+从**内存分析**中，我们捕捉到了 649MB 的活跃堆使用量，其中**99.46%由`gcHeavyHandler`保留**。这符合我们的预期：处理程序故意保留每 100 个 10KB 的分配来模拟长期数据。
 
 一起，这些分析让我们有信心，在合成压力下`/gc`端点表现如预期：
 
-+   它产生了有意义的CPU和内存负载。
++   它产生了有意义的 CPU 和内存负载。
 
-+   它揭示了持续分配和GC周期的成本。
++   它揭示了持续分配和 GC 周期的成本。
 
-+   它提供了一个可预测的环境来测试优化或GC调整策略。
++   它提供了一个可预测的环境来测试优化或 GC 调整策略。

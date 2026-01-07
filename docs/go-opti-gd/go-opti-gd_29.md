@@ -1,6 +1,6 @@
 # 高流量 Go 服务中 net/http、net.Conn 和 UDP 的有效使用[]
 
-> 原文：[https://goperf.dev/02-networking/efficient-net-use/](https://goperf.dev/02-networking/efficient-net-use/)
+> 原文：[`goperf.dev/02-networking/efficient-net-use/`](https://goperf.dev/02-networking/efficient-net-use/)
 
 当我们最初在 Go 中构建高流量服务时，我们通常会大量依赖 `net/http`。它稳定、易用，对于 80% 的用例来说非常出色。但是，一旦流量激增或延迟预算减少，问题就开始显现。
 
@@ -185,7 +185,7 @@ ConnState: func(conn net.Conn, state http.ConnState) {
 
 ## 放弃抽象：何时使用`net.Conn`
 
-随着我们接近 Go 标准库所能提供的极限，了解存在专门为事件驱动、低延迟工作负载构建的高性能替代品是很有价值的。例如，`cloudwego/netpoll`（[GitHub链接](https://github.com/cloudwego/netpoll)）和`tidwall/evio`（[GitHub链接](https://github.com/tidwall/evio)）等项目提供了超越仅使用`net.Conn`所能实现性能的强大工具。
+随着我们接近 Go 标准库所能提供的极限，了解存在专门为事件驱动、低延迟工作负载构建的高性能替代品是很有价值的。例如，`cloudwego/netpoll`（[GitHub 链接](https://github.com/cloudwego/netpoll)）和`tidwall/evio`（[GitHub 链接](https://github.com/tidwall/evio)）等项目提供了超越仅使用`net.Conn`所能实现性能的强大工具。
 
 +   **[`cloudwego/netpoll`](https://github.com/cloudwego/netpoll)** 是一个基于 epoll 的网络库，旨在以最小的 GC 开销构建大规模并发网络服务。它使用基于事件的 I/O 来消除每个连接的 goroutine 成本，非常适合像 RPC 代理、内部服务网格或高频消息系统这样的场景。
 

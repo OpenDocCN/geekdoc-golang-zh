@@ -1,6 +1,6 @@
 # 内存预分配
 
-> [https://goperf.dev/01-common-patterns/mem-prealloc/](https://goperf.dev/01-common-patterns/mem-prealloc/)
+> [`goperf.dev/01-common-patterns/mem-prealloc/`](https://goperf.dev/01-common-patterns/mem-prealloc/)
 
 内存预分配是提高 Go 程序性能的一种简单但有效的方法，这些程序处理随时间增长的切片或映射。而不是让运行时在结构填满时——通常在不可预测的点——调整这些结构的大小，你可以预先分配所需的空间。这避免了重复分配、内部复制以及创建和丢弃中间对象时额外的 GC 压力。
 

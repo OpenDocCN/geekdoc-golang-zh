@@ -1,6 +1,6 @@
 # 栈分配和逃逸分析
 
-> 原文：[https://goperf.dev/01-common-patterns/stack-alloc/](https://goperf.dev/01-common-patterns/stack-alloc/)
+> 原文：[`goperf.dev/01-common-patterns/stack-alloc/`](https://goperf.dev/01-common-patterns/stack-alloc/)
 
 当编写性能关键型的 Go 应用程序时，您可以进行的微妙但重要的优化之一是鼓励值在栈上而不是在堆上分配。栈分配更便宜、更快，且无垃圾回收——但 Go 并不总是自动将您的变量放在那里。这个决定是在 **逃逸分析** 期间由 Go 编译器做出的。
 

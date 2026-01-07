@@ -1,6 +1,6 @@
 # 避免接口封装[]
 
-> 原文：[https://goperf.dev/01-common-patterns/interface-boxing/](https://goperf.dev/01-common-patterns/interface-boxing/)
+> 原文：[`goperf.dev/01-common-patterns/interface-boxing/`](https://goperf.dev/01-common-patterns/interface-boxing/)
 
 Go 的接口使得编写灵活、解耦的代码变得容易。但在这便利的背后，有一个可能会影响性能的细节：当一个具体值被赋给接口时，Go 会将其封装在一个隐藏的结构体中——这个过程称为接口封装。
 
@@ -83,7 +83,7 @@ func (LargeJob) Work() {}
 
 ### 装箱大结构体
 
-为了展示装箱大值与指针的实际影响，我们基准测试了将1000个大结构体赋值给接口切片的成本：
+为了展示装箱大值与指针的实际影响，我们基准测试了将 1000 个大结构体赋值给接口切片的成本：
 
 ```go
 func BenchmarkBoxedLargeSlice(b *testing.B) {
@@ -116,7 +116,7 @@ func BenchmarkPointerLargeSlice(b *testing.B) {
 | BoxedLargeSliceGrowth | 404,649 | ~4.13 MB | 1011 |
 | PointerLargeSliceGrowth | 340,549 | ~4.13 MB | 1011 |
 
-装箱大值要慢得多——在这个例子中大约19%——因为每个接口赋值都要复制整个4KB的结构体。然而，装箱指针避免了这种成本，并保持复制小（仅8字节）。虽然两种方法分配的总内存相同（因为所有值都逃逸到堆上），但在压力下指针装箱具有明显的性能优势。
+装箱大值要慢得多——在这个例子中大约 19%——因为每个接口赋值都要复制整个 4KB 的结构体。然而，装箱指针避免了这种成本，并保持复制小（仅 8 字节）。虽然两种方法分配的总内存相同（因为所有值都逃逸到堆上），但在压力下指针装箱具有明显的性能优势。
 
 ### 将值传递给接受接口的函数时
 
@@ -151,7 +151,7 @@ func BenchmarkCallWithPointer(b *testing.B) {
 | CallWithValue | 422.5 | 4096 | 1 |
 | CallWithPointer | 379.9 | 4096 | 1 |
 
-将值传递给期望接口的函数会导致装箱，复制整个结构体并在堆上分配。在我们的基准测试中，这导致与使用指针相比大约11%的CPU成本增加。传递指针避免了复制结构体，减少了内存移动，并导致更小、更缓存友好的接口值，使其在性能敏感的场景中成为更有效的选择。
+将值传递给期望接口的函数会导致装箱，复制整个结构体并在堆上分配。在我们的基准测试中，这导致与使用指针相比大约 11%的 CPU 成本增加。传递指针避免了复制结构体，减少了内存移动，并导致更小、更缓存友好的接口值，使其在性能敏感的场景中成为更有效的选择。
 
 <details class="example"><summary>显示完整的基准测试文件</summary>
 
@@ -226,7 +226,7 @@ func BenchmarkCallWithPointer(b *testing.B) {
 
 ### 当抽象比性能更重要时
 
-接口可以实现解耦和模块化。如果你正在设计一个干净、可测试的API，装箱的成本与抽象的好处相比可以忽略不计。
+接口可以实现解耦和模块化。如果你正在设计一个干净、可测试的 API，装箱的成本与抽象的好处相比可以忽略不计。
 
 ```go
 type Storage interface {
@@ -278,4 +278,4 @@ for _, s := range []Shape{Circle{}, Square{}} {
 
 +   使用特定类型的容器。在可行的情况下，而不是使用`[]interface{}`，更倾向于使用泛型切片或类型化集合。这保留了静态类型并减少了不必要的分配。
 
-+   使用pprof进行基准测试和检查。使用`go test -bench`和`pprof`来观察分配发生的位置。如果分配点在`runtime.convT2E`（将T转换为接口），你很可能是进行了装箱。
++   使用 pprof 进行基准测试和检查。使用`go test -bench`和`pprof`来观察分配发生的位置。如果分配点在`runtime.convT2E`（将 T 转换为接口），你很可能是进行了装箱。

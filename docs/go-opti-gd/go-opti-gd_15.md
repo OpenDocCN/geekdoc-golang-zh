@@ -1,6 +1,6 @@
 # 懒加载
 
-> 原文：[https://goperf.dev/01-common-patterns/lazy-init/](https://goperf.dev/01-common-patterns/lazy-init/)
+> 原文：[`goperf.dev/01-common-patterns/lazy-init/`](https://goperf.dev/01-common-patterns/lazy-init/)
 
 ## Go 中性能优化的懒加载
 
@@ -81,7 +81,7 @@ func processData() {
 
 如果您确信在您的案例中基于原子的延迟初始化是合理的，这篇博客文章将详细介绍细节和注意事项：
 
-[使用原子操作在Go中进行延迟初始化](https://goperf.dev/blog/2025/04/03/lazy-initialization-in-go-using-atomics/)
+[使用原子操作在 Go 中进行延迟初始化](https://goperf.dev/blog/2025/04/03/lazy-initialization-in-go-using-atomics/)
 
 ### 性能考虑
 
@@ -91,9 +91,9 @@ func processData() {
 
 通常情况下，与延迟初始化本身相关的基准测试并不具体，因为其主要好处是推迟昂贵的资源创建。性能提升本质上与避免不必要的初始化成本、启动速度提升和减少内存消耗相关，而不是直接运行时吞吐量的差异。
 
-## [何时选择延迟初始化](#when-to-choose-lazy-initialization "永久链接")
+## 何时选择延迟初始化
 
-+   当资源初始化成本高昂或涉及I/O时。延迟构建可以避免支付设置成本——如打开文件、查询数据库或加载大型结构——除非实际上需要。
++   当资源初始化成本高昂或涉及 I/O 时。延迟构建可以避免支付设置成本——如打开文件、查询数据库或加载大型结构——除非实际上需要。
 
 +   为了提高启动性能和内存效率。将工作推迟到首次使用，可以让您的应用程序启动更快，并避免为可能永远不会使用的资源分配内存。
 

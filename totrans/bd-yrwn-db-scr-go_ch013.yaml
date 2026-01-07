@@ -1,385 +1,587 @@
 - en: 12\. Concurrency Control
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 12. 并发控制
 - en: 12.1 Levels of concurrency
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 12.1 并发级别
 - en: 'The problem: interleaved readers and writers'
+  id: totrans-2
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 问题：交错读取者和写入者
 - en: Concurrent clients can enter and exit transactions at will, requesting reads
     and writes in between. To simplify the analysis, let’s assume that enter/exit/read/write
     are atomic steps, so that concurrent TXs are just interleaved steps.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 并发客户端可以随意进入和退出事务，在之间请求读取和写入。为了简化分析，让我们假设进入/退出/读取/写入是原子步骤，因此并发TXs只是交错步骤。
 - en: We’ll also distinguish read-only TXs from read-write TXs. This is because …
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还将区分只读TXs和读写TXs。这是因为……
 - en: Concurrent readers are a much easier problem than concurrent writers.
+  id: totrans-5
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 并发读取者比并发写入者的问题容易得多。
 - en: Many apps are read-heavy, where read performance is more important.
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 许多应用程序是读密集型，其中读取性能更重要。
 - en: Readers-writer lock (RWLock)
+  id: totrans-7
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 读取-写入锁 (RWLock)
 - en: Without knowing how to do concurrency, you can always add a mutex (lock) to
     serialize any data access. For read performance, you can use a *readers-writer
     lock* instead. It allows multiple concurrent readers, but only a single writer.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果不知道如何进行并发，你总是可以添加互斥锁（锁）来序列化任何数据访问。对于读取性能，你可以使用*读取-写入锁*。它允许多个并发读取者，但只有一个写入者。
 - en: If there’s no writer, nothing can be changed, concurrent readers are OK.
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果没有写入者，则无法进行更改，并发读取者是允许的。
 - en: When a writer wants to enter, it waits until all readers have left.
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当写入者想要进入时，它会等待所有读取者都离开。
 - en: Readers are blocked by a writer, but not by other readers.
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 读取者被写入者阻塞，但不会被其他读取者阻塞。
 - en: The usefulness of this is limited; there is no concurrency between writers,
     and long-running TXs are bad because readers and writers block each other.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种方法的实用性有限；写入者之间没有并发，长时间运行的TXs不好，因为读取者和写入者会相互阻塞。
 - en: Read-copy-update (RCU)
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 读取-复制-更新 (RCU)
 - en: To prevent readers and writers from blocking each other, we can make readers
     and writers work on their own version of the data.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了防止读取者和写入者相互阻塞，我们可以让读取者和写入者各自在自己的数据版本上工作。
 - en: There is a pointer to the *immutable* data, readers just grab it as a snapshot.
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 有一个指向*不可变*数据的指针，读取者只需将其作为快照抓取。
 - en: A single writer updates its own *copy*, then flips the pointer to it.
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 单个写入者更新自己的*副本*，然后翻转指向它的指针。
 - en: We get this level of concurrency for free since we are copy-on-write. But a
     single writer is still insufficient because the lifetime of a TX is controlled
     by the client, which can be arbitrarily long.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于我们是写时复制，我们免费获得这种级别的并发。但单个写入者仍然不足，因为TX的生命周期由客户端控制，可以是任意长的。
 - en: Optimistic concurrency control
+  id: totrans-18
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 乐观并发控制
 - en: 'Concurrent writers lead to conflicts, for example:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 并发写入者会导致冲突，例如：
 - en: '| Seq | TX1 | TX2 |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '| Seq | TX1 | TX2 |'
 - en: '| --- | --- | --- |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- |'
 - en: '| 1 | read `a` |  |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '| 1 | 读取 `a` |  |'
 - en: '| 2 |  | write `a := 1` |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '| 2 |  | 写入 `a := 1` |'
 - en: '| 3 | write `b := a` |  |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| 3 | 写入 `b := a` |  |'
 - en: '| 4 | commit |  |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| 4 | 提交 |  |'
 - en: '| 5 |  | commit |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| 5 |  | 提交 |'
 - en: TX1 depends on the same key that TX2 modifies, so they cannot both succeed.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: TX1依赖于TX2修改的相同键，因此它们不能同时成功。
 - en: Note that some seemingly “write-only” operations actually have a read dependency.
     For example, our update/delete interface reports whether the key is updated/deleted,
     which depends on the previous state of the key. So the following scenario is also
     a conflict.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，一些看似“只写”的操作实际上有读取依赖。例如，我们的更新/删除接口报告键是否被更新/删除，这取决于键的先前状态。因此，以下场景也是一个冲突。
 - en: '| Seq | TX1 | TX2 |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| Seq | TX1 | TX2 |'
 - en: '| --- | --- | --- |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- |'
 - en: '| 1 | write `a := 1` |  |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| 1 | 写入 `a := 1` |  |'
 - en: '| 2 |  | delete `a` |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| 2 |  | 删除 `a` |'
 - en: '| 3 | commit |  |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| 3 | 提交 |  |'
 - en: '| 4 |  | commit |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| 4 |  | 提交 |'
 - en: One way to deal with conflicts is to just abort TX when a conflict is detected.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 处理冲突的一种方法是在检测到冲突时简单地中止TX。
 - en: TX starts.
+  id: totrans-36
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: TX开始。
 - en: Reads are on the snapshot, but writes are buffered locally.
+  id: totrans-37
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 读取在快照上，但写入在本地缓冲。
 - en: Before committing, verify that there are no conflicts with committed TXs.
+  id: totrans-38
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 在提交之前，验证是否存在与已提交TXs的冲突。
 - en: TX ends.
+  id: totrans-39
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: TX结束。
 - en: If there’s a conflict, abort and rollback.
+  id: totrans-40
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果发生冲突，则中止并回滚。
 - en: Otherwise, transfer buffered writes to the DB.
+  id: totrans-41
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 否则，将缓冲的写入操作转移到数据库。
 - en: Note that *verify and commit* is an atomic step. This is called *optimistic*
     concurrency control, because it assumes conflicts are rare and does nothing to
     prevent them. We’ll implement this, but there are alternatives to know about.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，*验证和提交*是一个原子步骤。这被称为*乐观*并发控制，因为它假设冲突很少，并没有采取措施来防止它们。我们将实现这个方案，但还有其他替代方案需要了解。
 - en: 'Alternative: pessimistic concurrency control'
+  id: totrans-43
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 替代方案：悲观并发控制
 - en: With optimistic concurrency control, TXs cannot progress in case of a conflict,
     which isn’t very helpful from the application’s PoV because all they can do is
     retry in a loop. Another way to deal with conflicts is to prevent them via locking.
     TXs will acquire locks on their dependencies so that potentially conflicting TXs
     will wait for each other.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 在乐观并发控制中，如果发生冲突，事务无法进行，这对应用程序的视角来说并不很有帮助，因为它们所能做的就是循环重试。处理冲突的另一种方式是通过锁定来防止它们。事务将对其依赖项获取锁，这样可能冲突的事务将相互等待。
 - en: This sounds much nicer, especially in the last example where write/delete can
     progress without problems. However, this still doesn’t guarantee progress because
     TXs can now fail with *deadlocks*.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 这听起来要好得多，尤其是在最后一个例子中，写入/删除操作可以无问题地进行。然而，这仍然不能保证进度，因为事务（TXs）现在可能会因为**死锁**而失败。
 - en: A deadlock is when 2 parties are waiting for each other to release a (different)
     lock that they own. This also happens for more than 2 parties as long as there
     is a cycle in the dependency graph. In concurrent programming, locks should be
     acquired in a predefined order to avoid cycles. This isn’t the case for DBs as
     the client can grab locks in any order, so a DB must detect and resolve deadlocks,
     which is a graph problem.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 死锁是当两个当事人都在等待对方释放他们拥有的（不同的）锁时。只要依赖关系图中存在循环，这种情况也会发生在两个以上当事人之间。在并发编程中，应该按照预定义的顺序获取锁以避免循环。对于数据库来说这不是这种情况，因为客户端可以以任何顺序获取锁，所以数据库必须检测和解决死锁，这是一个图问题。
 - en: Comparison of concurrency controls
+  id: totrans-47
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 并发控制的比较
 - en: '|  | reader-reader | reader-writer | writer-writer | conflict |'
+  id: totrans-48
   prefs: []
   type: TYPE_TB
+  zh: '|  | 读取器-读取器 | 读取器-写入器 | 写入器-写入器 | 冲突 |'
 - en: '| --- | --- | --- | --- | --- |'
+  id: totrans-49
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| RWLock | pass | block | block | - |'
+  id: totrans-50
   prefs: []
   type: TYPE_TB
+  zh: '| RWLock | 通过 | 阻塞 | 阻塞 | - |'
 - en: '| RCU | pass | pass | block | - |'
+  id: totrans-51
   prefs: []
   type: TYPE_TB
+  zh: '| RCU | 通过 | 通过 | 阻塞 | - |'
 - en: '| Optimistic | pass | pass | pass | abort |'
+  id: totrans-52
   prefs: []
   type: TYPE_TB
+  zh: '| 乐观锁 | 通过 | 通过 | 通过 | 中断 |'
 - en: '| Pessimistic | pass | lock | lock | prevent |'
+  id: totrans-53
   prefs: []
   type: TYPE_TB
+  zh: '| 悲观锁 | 通过 | 锁定 | 锁定 | 防止 |'
 - en: 12.2 Snapshot isolation for readers
+  id: totrans-54
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 12.2 读取者的快照隔离
 - en: Isolation level refers to how a TX sees changes from other TXs. This is not
     an issue with copy-on-write since a TX operates on a *snapshot* of the B+tree.
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 隔离级别指的是事务如何看待其他事务的更改。在写时复制（copy-on-write）的情况下这不是一个问题，因为事务是在B+树的**快照**上操作的。
 - en: Capture local updates
+  id: totrans-56
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 捕获本地更新
 - en: A transaction keeps a snapshot of the DB and local updates.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 事务保留DB的快照和本地更新。
 - en: The snapshot is just a root pointer with copy-on-write.
+  id: totrans-58
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 快照只是一个带有写时复制的根指针。
 - en: The local updates are held in an in-memory B+tree.
+  id: totrans-59
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 本地更新保存在内存中的B+树中。
 - en: '[PRE0]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Both trees are initialized at the start of the TX.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 两个树在事务开始时初始化。
 - en: '[PRE1]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: To represent deleted keys, values in `KVTX.pending` are prefixed by a 1-byte
     flag.
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了表示已删除的键，`KVTX.pending`中的值前面有一个1字节的标志。
 - en: '[PRE2]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Read back your own write
+  id: totrans-65
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 读取自己的写入
 - en: Within a TX, the client should be able to read back what it has just written,
     even if it has not been committed, so queries should consult `KVTX.pending` before
     `KVTX.snapshot`. That’s why writes are held in a B+tree instead of just a list.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 在事务（TX）内部，客户端应该能够读取它刚刚写入的内容，即使它尚未提交，因此查询应该在`KVTX.snapshot`之前咨询`KVTX.pending`。这就是为什么写入被保存在B+树中而不是仅仅是一个列表。
 - en: '[PRE3]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: For range queries, a new iterator type is added to combine both trees.
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于范围查询，添加了一个新的迭代器类型来结合两个树。
 - en: '[PRE4]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Version numbers in the free list
+  id: totrans-70
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 自由列表中的版本号
 - en: Since readers can hold old versions of the DB, the free list cannot give away
     pages from those versions. We’ll solve this by assigning a monotonically increasing
     version number to each version. This is also called a *timestamp* (logically).
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于读取者可以持有DB的旧版本，自由列表不能放弃这些版本的页面。我们将通过为每个版本分配单调递增的版本号来解决这个问题。这也可以称为一个**时间戳**（逻辑上）。
 - en: We keep track of ongoing TXs and the version numbers they’re based on.
+  id: totrans-72
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们跟踪进行中的事务及其基于的版本号。
 - en: Each page added to the free list is associated with the version number.
+  id: totrans-73
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个添加到自由列表的页面都与版本号相关联。
 - en: The list never gives away pages that are newer than the oldest TX.
+  id: totrans-74
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 列表永远不会放弃比最老事务更新的页面。
 - en: This works by checking the version when consuming from the list head. Remember
     that the free list is a FILO (first-in-last-out), so pages from the oldest version
     will be consumed first.
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 这通过在从列表头部消费时检查版本号来实现。记住，自由列表是一个FILO（先进后出），所以最老版本的页面将首先被消费。
 - en: 'Modification 1: Version numbers in `KVTX` and `KV`.'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 修改1：`KVTX`和`KV`中的版本号
 - en: '[PRE5]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'Modification 2: Free list augmentation.'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 修改2：自由列表增强。
 - en: '[PRE6]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '`maxVer` is maintained as the oldest version in `KV.ongoing` when a TX exits.
     It prevents page reuse in addition to the existing `maxSeq`.'
+  id: totrans-80
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当事务退出时，`maxVer` 被维护为 `KV.ongoing` 中的最老版本。除了现有的 `maxSeq`，它还防止页面重用。
 - en: '`curVar` is set to the next version by the writer on commit.'
+  id: totrans-81
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在提交时，`curVar` 被作者设置为下一个版本。
 - en: 12.3 Handle conflicts for writers
+  id: totrans-82
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 12.3 处理作者间的冲突
 - en: Detect conflicts with history
+  id: totrans-83
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 检测与历史记录的冲突
 - en: 'Modification 1: All reads are added to `KVTX.reads` (point and range queries).'
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 修改1：所有读取操作都添加到 `KVTX.reads`（指针和范围查询）中。
 - en: '[PRE7]'
+  id: totrans-85
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: 'Modification 2: Each successful commit is added to `KV.history`.'
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 修改2：每个成功的提交都添加到 `KV.history` 中。
 - en: '[PRE8]'
+  id: totrans-87
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Conflict detection works by checking for overlaps between its dependency and
     the history that are newer than its base version.
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 冲突检测通过检查其依赖与比其基础版本更新的历史之间的重叠来工作。
 - en: '[PRE9]'
+  id: totrans-89
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: The history is trimmed when the oldest TX exits.
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 当最老的事务退出时，历史将被裁剪。
 - en: Serialize internal data structures
+  id: totrans-91
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 序列化内部数据结构
 - en: In the analysis, TXs are simplified as interleaved steps, in reality, these
     steps can run in parallel threads, which should be serialized as they share the
     `KV` structure.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 在分析中，事务（TX）被简化为交错步骤，实际上，这些步骤可以在并行线程中运行，因此应该按顺序执行，因为它们共享 `KV` 结构。
 - en: '[PRE10]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: We can use this lock for all `KVTX` methods. But there are ways to reduce the
     locking. For example, we don’t have to serialize read/write methods because …
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以使用这个锁来处理所有 `KVTX` 方法。但有一些方法可以减少锁定。例如，我们不需要序列化读写方法，因为……
 - en: Writes only work on `KVTX.pending`, they never touch `KV`.
+  id: totrans-95
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 写操作仅在 `KVTX.pending` 上工作，它们永远不会触及 `KV`。
 - en: Reads only touch `KV.mmap.chunks`, which are the slices returned by `mmap`.
+  id: totrans-96
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 读取仅触及 `KV.mmap.chunks`，这是 `mmap` 返回的片段。
 - en: The commit step may modify `KV.mmap.chunks` by appending, so we’ll use a local
     copy for each TX. This slice is append-only, so a shallow copy is enough.
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: 提交步骤可能会通过追加修改 `KV.mmap.chunks`，因此我们将为每个事务（TX）使用一个本地副本。这个片段是只追加的，所以浅拷贝就足够了。
 - en: '[PRE11]'
+  id: totrans-98
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: This way, read/write methods do not require the lock and can run in parallel.
     That’s good, because reads can trigger page faults and block the thread.
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: 这样，读写方法不需要锁，并且可以并行运行。这很好，因为读取可能会触发页面错误并阻塞线程。
 - en: So far, only `Begin`, `Commit`, and `Abort` are serialized. But considering
     that `Commit` involves IO, we can go further by releasing the lock while waiting
     for IO to allow other TXs to enter and read-only TXs to exit. The commit step
     should still be serialized with other commit steps via another lock. This is left
     as an exercise.
+  id: totrans-100
   prefs: []
   type: TYPE_NORMAL
+  zh: 到目前为止，只有 `Begin`、`Commit` 和 `Abort` 被序列化。但考虑到 `Commit` 涉及 I/O，我们可以在等待 I/O 的同时释放锁，以允许其他事务进入并允许只读事务退出。提交步骤应该通过另一个锁与其他提交步骤一起序列化。这留作练习。

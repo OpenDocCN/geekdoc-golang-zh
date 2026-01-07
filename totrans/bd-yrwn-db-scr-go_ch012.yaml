@@ -1,155 +1,231 @@
 - en: 11\. Atomic Transactions
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 11. 原子事务
 - en: 11.1 The all-or-nothing effect
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 11.1 全或无效应
 - en: The secondary indexes from the last chapter require atomic multi-key updates.
     This is not only necessary for internal DB consistency, but also useful for application
     data consistency, think of account balances vs. account transactions.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 上一章的二级索引需要原子多键更新。这不仅对于内部数据库一致性是必要的，而且对于应用程序数据一致性也是有用的，想想账户余额与账户交易。
 - en: We’ll drop the get-set-del interface and add a new one to allow atomic execution
     of a group of operations. Concurrency is discussed in the next chapter.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将取消get-set-del接口，并添加一个新的接口以允许原子执行一组操作。并发将在下一章讨论。
 - en: Commit and rollback
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 提交和回滚
 - en: We’ll add interfaces to mark the beginning and end of the transaction. At the
     end, updates either take effect (commit) or are discarded (rollback) due to errors
     or user request (`Abort`).
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将添加接口来标记事务的开始和结束。在结束时，由于错误或用户请求（`Abort`），更新要么生效（提交）要么被丢弃（回滚）。
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Atomicity via copy-on-write
+  id: totrans-7
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过写时复制实现原子性
 - en: With copy-on-write, both commit and rollback are just updating the root pointer.
     This is already implemented as error handling in chapter 06.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用写时复制，提交和回滚只是更新根指针。这已经在第06章中作为错误处理实现。
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Previously, `updateOrRevert()` was called after a single key update. Now it’s
     moved to `KVTX.Commit()`. The B+tree can be updated as many times as needed, it’s
     the root pointer that matters.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 之前，`updateOrRevert()`在单个键更新后被调用。现在它被移动到`KVTX.Commit()`。B+树可以更新所需次数，重要的是根指针。
 - en: '[PRE2]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'Alternative: atomicity via logging'
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 替代方案：通过日志实现原子性
 - en: In a copy-on-write tree, updates are captured by the root pointer, as opposed
     to in-place updates where a log is required to capture updates.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 在写时复制的树中，更新由根指针捕获，而不是需要日志来捕获更新的原地更新。
 - en: The log is used to rollback updates if a transaction is aborted. The problem
     is that IO errors prevent further updates, so rollback is left to the recovery
     mechanism, this is also true with copy-on-write (see `updateOrRevert`).
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 日志用于在事务被中止时回滚更新。问题是IO错误阻止了进一步的更新，因此回滚留给恢复机制，这在写时复制（见`updateOrRevert`）中也同样适用。
 - en: Updates are considered durable once `fsync`’ed in the log. So the DB can return
     success to the client after only 1 `fsync`, as long as the log is considered for
     queries and eventually merged into the main datastore.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 更新一旦在日志中`fsync`后就被认为是持久的。因此，数据库可以在仅进行一次`fsync`后向客户端返回成功，只要日志被认为用于查询，并最终合并到主数据存储中。
 - en: 11.2 Transactional interfaces
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 11.2 事务性接口
 - en: Move tree operations to transactions
+  id: totrans-17
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 将树操作移动到事务中
 - en: Tree operations are now associated with a transaction, so they are moved to
     `KVTX`.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 树操作现在与事务相关联，因此它们被移动到`KVTX`。
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Note that these functions no longer return errors because the actual disk update
     is moved to `KVTX.Commit()`.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，这些函数不再返回错误，因为实际的磁盘更新被移动到`KVTX.Commit()`。
 - en: Transactional table operations
+  id: totrans-21
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 事务性表操作
 - en: For the table-based interfaces, just add a wrapper type to `KVTX`.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于基于表的接口，只需向`KVTX`添加一个包装器类型。
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: And move the table operations to that wrapper.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 将表操作移动到那个包装器中。
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: These operations no longer deal with IO errors, so there is no error handling
     for updating secondary indexes.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些操作不再处理IO错误，因此没有更新二级索引的错误处理。
 - en: 11.3 Optional optimizations
+  id: totrans-27
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 11.3 可选优化
 - en: A working relational DB is a major milestone, although it only supports sequential
     operations. For further challenges, there are some optimizations to consider.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个工作关系数据库是一个重要的里程碑，尽管它只支持顺序操作。对于进一步的挑战，有一些优化可以考虑。
 - en: Reduce copying on multi-key updates
+  id: totrans-29
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 减少多键更新的复制
 - en: Copy-on-write copies nodes from leaf to root in a single update, this is suboptimal
     for multi-key updates because nodes in intermediate trees are allocated, updated
     once, and then deleted within a transaction.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 写时复制在单个更新中将节点从叶节点复制到根节点，这对于多键更新来说是不太理想的，因为中间树中的节点在事务中分配、更新一次然后被删除。
 - en: The optimization is to copy a node only once within a transaction and use in-place
     updates on copied nodes.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 优化是在事务中只复制一次节点，并在复制的节点上使用原地更新。
 - en: Range delete
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 范围删除
 - en: Although we can now do multi-key updates. Deleting a large number of keys, such
     as dropping a table, is still problematic w.r.t. resource usage. The naive approach
     to dropping a table is to iterate and delete keys one by one. This reads the entire
     table into memory and does useless work as nodes are updated repeatedly before
     being deleted.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管我们现在可以进行多键更新，但删除大量键，例如删除表，在资源使用方面仍然存在问题。删除表的一种简单方法是迭代并逐个删除键。这会将整个表读入内存，并在删除前反复更新节点，从而进行无用的工作。
 - en: Some DBs use separate files for each table, so this is not a problem. In our
     case, a single B+tree is used for everything, so we can implement a *range delete*
     operation that frees all leaf nodes with a range without even looking at them.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些数据库为每个表使用单独的文件，因此这不是问题。在我们的情况下，我们使用单个B+树来处理所有内容，因此我们可以实现一个*范围删除*操作，该操作释放了具有范围的全部叶节点，甚至不需要查看它们。
 - en: Compress common prefixes
+  id: totrans-35
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 压缩公共前缀
 - en: In any sorted data, nearby keys are likely to share a common prefix. And in
     typical relational DB usages, multi-column keys also result in shared prefixes.
     So there’s an opportunity to compress keys within a node.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 在任何排序数据中，相邻键很可能共享一个公共前缀。在典型的关系型数据库使用中，多列键也会导致共享前缀。因此，在节点内压缩键存在一个机会。
 - en: Prefix compression makes implementation more difficult (fun), especially when
     the node size is not easily predictable for merge and split.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 前缀压缩使得实现变得更加困难（有趣），尤其是在节点大小不易预测合并和拆分时。

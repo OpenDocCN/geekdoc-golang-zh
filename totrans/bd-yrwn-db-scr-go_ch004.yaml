@@ -1,371 +1,552 @@
 - en: 03\. B-Tree & Crash Recovery
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 03. B-树与崩溃恢复
 - en: 3.1 B-tree as a balanced n-ary tree
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 3.1 B树作为平衡n叉树
 - en: Height-balanced tree
+  id: totrans-2
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 高度平衡树
 - en: Many practical binary trees, such as the [AVL tree](https://build-your-own.org/redis/10_avltree)
     or the RB tree, are called *height-balanced trees*, meaning that the height of
     the tree (from root to leaves) is limited to *O*(log *N*), so a lookup is *O*(log *N*).
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 许多实际的二叉树，如[AVL树](https://build-your-own.org/redis/10_avltree)或RB树，被称为*高度平衡树*，这意味着树的高度（从根到叶子）限制为*O*(log(*N*))，因此查找是*O*(log(*N*))。
 - en: A B-tree is also height-balanced; the height is the same for all leaf nodes.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: B树也是高度平衡的；所有叶子节点的高度相同。
 - en: Generalizing binary trees
+  id: totrans-5
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通用二叉树
 - en: n-ary trees can be generalized from binary trees (and vice versa). An example
     is the 2-3-4 tree, which is a B-tree where each node can have either 2, 3, or
     4 children. The 2-3-4 tree is equivalent to the RB tree. However, we won’t go
     into the details because they are not necessary for understanding B-trees.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: n叉树可以从二叉树（反之亦然）泛化。一个例子是2-3-4树，它是一种每个节点可以有2、3或4个子节点的B树。2-3-4树与RB树等价。然而，我们不会深入探讨细节，因为它们对于理解B树不是必要的。
 - en: Visualizing a 2-level B+tree of a sorted sequence [1, 2, 3, 4, 6, 9, 11, 12].
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 可视化一个排序序列[1, 2, 3, 4, 6, 9, 11, 12]的2级B+树。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In a B+tree, only leaf nodes contain value, keys are duplicated in internal
     nodes to indicate the key range of the subtree. In this example, node [1, 4, 9]
     indicates that its 3 subtrees are within intervals [1, 4), [4, 9), and [9, +∞).
     However, only 2 keys are needed for 3 intervals, so the first key (1) can be omitted
     and the 3 intervals become (-∞, 4), [4, 9), and (9, +∞).
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在B+树中，只有叶子节点包含值，键在内部节点中重复以指示子树的关键范围。在这个例子中，节点[1, 4, 9]表示其3个子树位于区间[1, 4)，[4,
+    9)，和[9, +∞)内。然而，对于3个区间只需要2个键，所以第一个键（1）可以省略，3个区间变为(-∞, 4)，[4, 9)，和(9, +∞)。
 - en: 3.2 B-tree as nest arrays
+  id: totrans-10
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 3.2 B树作为嵌套数组
 - en: Two-level nested arrays
+  id: totrans-11
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 两级嵌套数组
 - en: Without knowing the details of the RB tree or the 2-3-4 tree, the B-tree can
     be understood from sorted arrays.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 在不知道RB树或2-3-4树的具体细节的情况下，可以从排序数组理解B树。
 - en: The problem with sorted arrays is the *O*(*N*) update. If we split the array
     into *m* smaller non-overlapping ones, the update becomes *O*(*N*/*m*). But we
     have to find out which small array to update/query first. So we need another sorted
     array of references to smaller arrays, that’s the internal nodes in a B+tree.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 排序数组的问题在于*O*(N)更新。如果我们把数组分成*m*个更小的非重叠数组，更新变为*O*(N/*m*)。但我们必须首先找出哪个小数组需要更新/查询。因此，我们需要另一个指向较小数组的引用的排序数组，这就是B+树中的内部节点。
 - en: '[PRE1]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: The lookup cost is still *O*(log *N*) with 2 binary searches. If we choose *m*
     as √*N*, update become *O*(√*N*), that’s as good as 2-level sorted arrays can
     be.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 查找成本仍然是*O*(log(*N*))，使用两次二分搜索。如果我们选择*m*为√*N*，更新变为*O*(√*N*)，这和2级排序数组一样好。
 - en: Multiple levels of nested arrays
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 多级嵌套数组
 - en: '*O*(√*N*) is unacceptable for databases, but if we add more levels by splitting
     arrays even more, the cost is further reduced.'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: '*O*(√*N*)对于数据库是不可接受的，但如果我们通过进一步分割数组来添加更多层级，成本会进一步降低。'
 - en: Let’s say we keep splitting levels until all arrays are no larger than a constant
     *s*, we end up with log (*N*/*s*) levels, and the lookup cost is *O*(log (*N*/*s*) + log (*s*)),
     which is still *O*(log *N*).
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们继续分割层级，直到所有数组都不大于一个常数*s*，我们最终会有log(*N*/*s*)个层级，查找成本是*O*(log(*N*/*s*) + log(*s*))，这仍然是*O*(log(*N*))。
 - en: For insertion and deletion, after finding the leaf node, updating the leaf node
     is constant *O*(*s*) most of the time. The remaining problem is to maintain the
     invariants that nodes are not larger than *s* and are not empty.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于插入和删除，在找到叶子节点后，更新叶子节点大多数情况下是常数*O*(s*)。剩下的问题是维护节点不大于*s*且不为空的不变量。
 - en: 3.3 Maintaining a B+tree
+  id: totrans-20
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 3.3 维护B+树
 - en: '3 invariants to preserve when updating a B+tree:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 更新B+树时需要保持的3个不变量：
 - en: Same height for all leaf nodes.
+  id: totrans-22
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 所有叶子节点具有相同的高度。
 - en: Node size is bounded by a constant.
+  id: totrans-23
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 节点大小由一个常数限制。
 - en: Node is not empty.
+  id: totrans-24
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 节点不为空。
 - en: Growing a B-tree by splitting nodes
+  id: totrans-25
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过分割节点来增长B树
 - en: The 2nd invariant is violated by inserting into a leaf node, which is restored
     by splitting the node into smaller ones.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 在插入到叶子节点时违反了第二个不变量，通过将节点分割成更小的节点来恢复。
 - en: '[PRE2]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: After splitting a leaf node, its parent node gets a new branch, which may also
     exceed the size limit, so it may need to be split as well. Node splitting can
     propagate to the root node, increasing the height by 1.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在分割一个叶子节点后，其父节点会得到一个新的分支，这个分支也可能超过大小限制，因此它可能也需要分割。节点分割可以传播到根节点，增加1的高度。
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This preserves the 1st invariant, since all leaves gain height by 1 simultaneously.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 这保留了第1个不变量，因为所有叶子同时增加高度1。
 - en: Shrinking a B-tree by merging nodes
+  id: totrans-31
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过合并节点缩小B树
 - en: Deleting may result in empty nodes. The 3rd invariant is restored by merging
     empty nodes into a sibling node. Merging is the opposite of splitting. It can
     also propagate to the root node, so the tree height can decrease.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 删除可能会导致空节点。第3个不变量通过将空节点合并到兄弟节点中得以恢复。合并是分割的反义词。它也可以传播到根节点，因此树的高度可以降低。
 - en: 'When coding a B-tree, merging can be done earlier to reduce wasted space: you
     can merge a non-empty node when its size reaches a lower bound.'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 当编码B树时，可以在减少浪费空间之前进行合并：可以在节点大小达到下限时合并非空节点。
 - en: 3.4 B-Tree on disk
+  id: totrans-34
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 3.4 磁盘上的B树
 - en: You can already code an in-memory B-tree using these principles. But B-tree
     on disk requires extra considerations.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 您可以使用这些原则编码内存中的B树。但磁盘上的B树需要额外的考虑。
 - en: Block-based allocation
+  id: totrans-36
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 基于块的分配
 - en: One missing detail is how to limit node size. For in-memory B+tree, you can
     limit the maximum number of keys in a node, the node size in bytes is not a concern,
     because you can allocate as many bytes as needed.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个缺失的细节是如何限制节点大小。对于内存中的B+树，您可以限制节点中的最大键数，节点大小以字节为单位不是问题，因为您可以分配所需的任何字节。
 - en: For disk-based data structures, there are no `malloc/free` or garbage collectors
     to rely on; space allocation and reuse is entirely up to us.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于基于磁盘的数据结构，没有`malloc/free`或垃圾回收器可以依赖；空间分配和重用完全取决于我们。
 - en: Space reuse can be done with a *free list* if all allocations are of the *same
     size*, which we’ll implement later. For now, all B-tree nodes are the same size.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果所有分配都是**相同大小**的，可以使用*空闲列表*来重用空间，我们将在稍后实现。目前，所有B树节点都是相同大小。
 - en: Copy-on-write B-tree for safe updates
+  id: totrans-40
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 写时复制B树的安全更新
 - en: 'We’ve seen 3 crash-resistant ways to update disk data: renaming files, logs,
     LSM-trees. The lesson is **not to destroy any old data during an update**. This
     idea can be applied to trees: make a copy of the node and modify the copy instead.'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们已经看到了3种抗崩溃的磁盘数据更新方法：重命名文件、日志、LSM树。教训是**在更新过程中不要破坏任何旧数据**。这个想法可以应用于树：复制节点并修改副本。
 - en: Insertion or deletion starts at a leaf node; after making a copy with the modification,
     its parent node must be updated to point to the new node, which is also done on
     its copy. The copying propagates to the root node, resulting in a new tree root.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 插入或删除从叶节点开始；在修改后制作副本后，其父节点必须更新以指向新节点，这也在其副本上完成。复制会传播到根节点，导致新的树根。
 - en: The original tree remains intact and is accessible from the old root.
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 原始树保持完整，并且可以从旧根访问。
 - en: The new root, with the updated copies all the way to the leaf, shares all other
     nodes with the original tree.
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 新根，从更新的副本到叶子，与原始树共享所有其他节点。
 - en: '[PRE4]'
+  id: totrans-45
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: This is a visualization of updating the leaf c. The copied nodes are in uppercase
     (D, B, C), while the shared subtrees are in lowercase (a, e).
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是更新叶节点c的可视化。复制的节点为大写（D，B，C），而共享的子树为小写（a，e）。
 - en: This is called a *copy-on-write* data structure. It’s also described as *immutable*,
     *append-only* (not literally), or *persistent* (not related to durability). Be
     aware that database jargon does not have consistent meanings.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 这被称为*写时复制*数据结构。它也被描述为*不可变*、*追加-only*（不是字面意思）、或*持久*（与耐用性无关）。请注意，数据库术语没有一致的含义。
 - en: '2 more problems remain for the copy-on-write B-tree:'
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: 写时复制B树还有2个问题待解决
 - en: How to find the tree root, as it changes after each update? The crash safety
     problem is reduced to a single pointer update, which we’ll solve later.
+  id: totrans-49
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 如何找到树根，因为它在每次更新后都会改变？崩溃安全性问题简化为单个指针更新，我们将在稍后解决。
 - en: How to reuse nodes from old versions? That’s the job of a free list.
+  id: totrans-50
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 如何重用旧版本的节点？这是空闲列表的工作。
 - en: Copy-on-write B-tree advantages
+  id: totrans-51
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 写时复制B树的优点
 - en: One advantage of keeping old versions around is that we got *snapshot isolation*
     for free. A transaction starts with a version of the tree, and won’t see changes
     from other versions.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 保留旧版本的一个优点是我们可以免费获得*快照隔离*。事务从一个树版本开始，不会看到其他版本的变化。
 - en: And crash recovery is effortless; just use the last old version.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 并且崩溃恢复毫不费力；只需使用最后一个旧版本。
 - en: Another one is that it fits the multi-reader-single-writer concurrency model,
     and readers do not block the writer. We’ll explore these later.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个优点是它适合多读单写并发模型，并且读者不会阻塞写者。我们将在稍后探讨这些。
 - en: 'Alternative: In-place update with double-write'
+  id: totrans-55
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 替代方案：使用双重写入的就地更新
 - en: While crash recovery is obvious in copy-on-write data structures, they can be
     undesirable due to the high write amplification. Each update copies the whole
     path (*O*(log *N*)), while most in-place updates touch only 1 leaf node.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 在基于写时复制的数据结构中，虽然崩溃恢复是显而易见的，但由于写放大率高，它们可能并不理想。每次更新都会复制整个路径（*O*(log *N*）），而大多数就地更新只需触及一个叶子节点。
 - en: 'It’s possible to do in-place updates with crash recovery without copy-on-write:'
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 可以在不使用写时复制的情况下进行就地更新并实现崩溃恢复：
 - en: Save a copy of the entire updated nodes somewhere. This is like copy-on-write,
     but without copying the parent node.
+  id: totrans-58
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 在某处保存整个更新节点的副本。这类似于写时复制，但不需要复制父节点。
 - en: '`fsync` the saved copies. (Can respond to the client at this point.)'
+  id: totrans-59
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 对保存的副本执行`fsync`。（此时可以响应用户。）
 - en: Actually update the data structure in-place.
+  id: totrans-60
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 实际上就地更新数据结构。
 - en: '`fsync` the updates.'
+  id: totrans-61
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 对更新执行`fsync`。
 - en: After a crash, the data structure may be half updated, but we don’t really know.
     What we do is blindly apply the saved copies, so that the data structure ends
     with the updated state, regardless of the current state.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 崩溃后，数据结构可能只更新了一半，但我们实际上并不知道。我们做的事情是盲目地应用保存的副本，这样数据结构最终会以更新状态结束，而不管当前状态如何。
 - en: '[PRE5]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'The saved updated copies are called [double-write](https://www.percona.com/blog/innodb-double-write/)
     in MySQL jargon. But what if the double-write is corrupted? It’s handled the same
     way as logs: checksum.'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 在MySQL术语中，保存的更新副本被称为[双重写入](https://www.percona.com/blog/innodb-double-write/)。但如果双重写入被损坏怎么办？它将以与日志相同的方式处理：校验和。
 - en: If the checksum detects a bad double-write, ignore it. It’s before the 1st `fsync`,
     so the main data is in a good and old state.
+  id: totrans-65
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果校验和检测到不良的双重写入，则忽略它。因为它在第一次`fsync`之前，所以主要数据处于良好且古老的状态。
 - en: If the double-write is good, applying it will always yield good main data.
+  id: totrans-66
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果双重写入是好的，应用它将始终产生良好的主要数据。
 - en: 'Some DBs actually store the double-writes in logs, called [physical logging](https://wiki.postgresql.org/wiki/Full_page_writes).
     There are 2 kinds of logging: *logical* and *physical*. Logical logging describes
     high-level operations such as inserting a key, such operations can only be applied
     to the DB when it’s in a good state, so only physical logging (low-level disk
     page updates) is useful for recovery.'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些数据库实际上将双重写入存储在日志中，称为[物理日志](https://wiki.postgresql.org/wiki/Full_page_writes)。有两种类型的日志：*逻辑*和*物理*。逻辑日志描述了高级操作，如插入键，这些操作只能在数据库处于良好状态时应用于数据库，因此只有物理日志（低级磁盘页面更新）对恢复有用。
 - en: The crash recovery principle
+  id: totrans-68
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 崩溃恢复原则
 - en: 'Let’s compare double-write with copy-on-write:'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们比较双重写入和写时复制：
 - en: Double-write makes updates *idempotent*; the DB can retry the update by applying
     the saved copies since they are full nodes.
+  id: totrans-70
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 双重写入使更新*幂等*；数据库可以通过应用保存的副本来重试更新，因为它们是完整节点。
 - en: Copy-on-write *atomically* switches everything to the new version.
+  id: totrans-71
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 写时复制*原子性地*将所有内容切换到新版本。
 - en: 'They are based on different ideas:'
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 它们基于不同的理念：
 - en: Double-write ensures enough information to produce the new version.
+  id: totrans-73
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 双重写入确保有足够的信息来生成新版本。
 - en: Copy-on-write ensures that the old version is preserved.
+  id: totrans-74
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 写时复制确保旧版本被保留。
 - en: 'What if we save the *original* nodes instead of the updated nodes with double-write?
     That’s the 3rd way to recover from corruption, and it recovers to the old version
     like copy-on-write. We can combine the 3 ways into 1 idea: **there is enough information
     for either the old state or the new state at any point**.'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果我们保存原始节点而不是带有双重写入的更新节点会怎样？这是从损坏中恢复的第三种方法，它像写时复制一样恢复到旧版本。我们可以将这三种方法结合成一个想法：**在任何时刻都有足够的信息来表示旧状态或新状态**。
 - en: Also, some copying is always required, so larger tree nodes are slower to update.
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 此外，一些复制始终是必需的，因此较大的树节点更新较慢。
 - en: We’ll use copy-on-write because it’s simpler, but you can deviate here.
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将使用写时复制，因为它更简单，但你可以在这里偏离。
 - en: 3.5 What we learned
+  id: totrans-78
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 3.5 我们学到了什么
 - en: 'B+tree principles:'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: B+树原则：
 - en: n-ary tree, node size is limited by a constant.
+  id: totrans-80
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: n-叉树，节点大小受一个常数的限制。
 - en: Same height for all leaves.
+  id: totrans-81
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 所有叶子的高度相同。
 - en: Split and merge for insertion and deletion.
+  id: totrans-82
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 插入和删除时的拆分和合并。
 - en: 'Disk-based data structures:'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 基于磁盘的数据结构：
 - en: Copy-on-write data structures.
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 写时复制数据结构。
 - en: Crash recovery with double-write.
+  id: totrans-85
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 基于双重写入的崩溃恢复。
 - en: 'We can start coding now. 3 steps to create a persistent KV based on B+tree:'
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们现在可以开始编码了。基于B+树创建持久化KV的3个步骤：
 - en: Code the B+tree data structure.
+  id: totrans-87
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 编码B+树数据结构。
 - en: Move the B+tree to disk.
+  id: totrans-88
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 将B+树移动到磁盘。
 - en: Add a free list.
+  id: totrans-89
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 添加一个空闲列表。

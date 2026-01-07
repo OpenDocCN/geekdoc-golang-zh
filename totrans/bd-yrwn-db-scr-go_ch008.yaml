@@ -1,385 +1,580 @@
 - en: '07\. Free List: Recyle & Reuse'
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 07. 自由列表：回收与重用
 - en: The last step of the KV store is to reuse deleted pages, which is also a problem
     for in-memory data structures.
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: KV存储的最后一步是重用已删除的页面，这也是内存数据结构的一个问题。
 - en: 7.1 Memory management techniques
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.1 内存管理技术
 - en: What we will do
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 我们将要做什么
 - en: Memory (space) management can be either manual or automatic. A garbage collector
     is automatic, it detects unused objects without any help from the programmer.
     The next problem is how to deal with (reuse) unused objects.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 内存（空间）管理可以是手动或自动的。垃圾收集器是自动的，它不需要程序员的任何帮助就能检测到未使用的对象。下一个问题是如何处理（重用）未使用的对象。
 - en: We don’t need a GC, because in a tree data structure, detecting unused nodes
     is trivial, as we have already done with the `BTree.del` callback. What we’ll
     do is reimplement those callbacks.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们不需要GC，因为在树形数据结构中，检测未使用节点是微不足道的，就像我们已经用`BTree.del`回调函数所做的那样。我们将重新实现这些回调函数。
 - en: List of unused objects
+  id: totrans-6
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 未使用对象列表
 - en: One of the reasons that disk space is managed in *pages* of the same size is
     that they become *interchangeable* after they are deleted; the DB can reuse any
     of them when it needs a page. This is simpler than generic memory management routines
     such as `malloc`, which deal with arbitrary sizes.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 管理磁盘空间以相同大小的*页面*进行的原因之一是，它们在被删除后变得*可交换*；数据库在需要页面时可以重用任何一个。这比处理任意大小的通用内存管理例程，如`malloc`，要简单。
 - en: We need to store a list of unused pages, called a *free list* or *object pool*.
     For in-memory data, this can simply be an array of pointers, or a linked list
     embedded in objects.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们需要存储一个未使用页面的列表，称为*自由列表*或*对象池*。对于内存数据，这可以简单地是一个指针数组，或者嵌入在对象中的链表。
 - en: Embedded linked list
+  id: totrans-9
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 内嵌链表
 - en: The simplest scheme is to use an embedded (intrusive) linked list. The list
     pointer sits inside the object itself; it borrows space from the object, so no
     extra space is needed for the data structure.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 最简单的方案是使用内嵌（侵入式）链表。链表指针位于对象本身内部；它借用对象的空间，因此不需要为数据结构额外空间。
 - en: '[PRE0]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: However, this conflicts with copy-on-write, as it overwrites *during* an update.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，这与写时复制冲突，因为它在更新期间会覆盖。
 - en: External list
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 外部列表
 - en: The other scheme is to store pointers to unused pages in an external data structure.
     The external data structure itself takes up space, which is a problem we’ll solve.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一种方案是将未使用页面的指针存储在外部数据结构中。外部数据结构本身占用空间，这是我们将在后面解决的问题。
 - en: Let’s say our free list is just a log of unused page numbers; adding items is
     just appending. The problem is how to remove items so that it doesn’t grow infinitely.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设我们的自由列表只是一个未使用页面编号的日志；添加项只是追加。问题是如何删除项，使其不会无限增长。
 - en: 7.2 Linked list on disk
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.2 磁盘上的链表
 - en: Free list requirements
+  id: totrans-17
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 自由列表需求
 - en: Let’s image the free list as a sequence of items, like a log. In a copy-on-write
     tree, each update requires new nodes and deletes old nodes, so the free list is
     both added to and removed from per update. If items are removed from the end,
     then the added items *overwrite* old data, requiring extra crash recovery mechanisms
     discussed in chapter 03.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们想象自由列表是一个项目序列，就像一个日志。在写时复制树中，每次更新都需要新节点并删除旧节点，因此自由列表在每个更新中都会被添加和删除。如果从末尾删除项，则添加的项会*覆盖*旧数据，需要额外的崩溃恢复机制，这在第03章中讨论过。
 - en: If items are removed from the beginning, how do you reclaim the space from the
     removed items? We’re back to the original problem.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果从开始删除项，如何回收被删除项的空间？我们又回到了原始问题。
 - en: To solve the problem, the free list should also be page-based, so that it can
     manage itself. A page-based list is just a linked list, except that a page can
     hold multiple items, like a B+tree node. This is also called an *unrolled linked
     list*.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了解决这个问题，自由列表也应该基于页面，这样它就可以自我管理。基于页面的列表只是一个链表，除了一个页面可以持有多个项，就像B+树节点一样。这也被称为*展开链表*。
 - en: 'In summary:'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 总结：
 - en: 'Our free list is a standalone data structure: a linked list of pages.'
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们的自由列表是一个独立的数据结构：页面的链表。
 - en: It will try to get a page from itself when it grows a new node.
+  id: totrans-23
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当它生长一个新节点时，它将尝试从自身获取一个页面。
 - en: Removed list nodes are added to itself for reuse.
+  id: totrans-24
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 被删除的列表节点被添加到自身以供重用。
 - en: Each page can contain multiple items (page numbers).
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 每个页面可以包含多个项（页面编号）。
 - en: Pages are updated in-place, but it’s still *append-only* within a page.
+  id: totrans-26
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 页面在原地更新，但页面内仍然是*追加只读*。
 - en: Items are appended to the tail node and consumed from the head.
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 项目被添加到尾节点，并从头部消费。
 - en: It’s easier to make the tail node append-only this way.
+  id: totrans-28
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这样更容易使尾节点只允许追加。
 - en: Free list disk layout
+  id: totrans-29
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 自由列表磁盘布局
 - en: Each node starts with a pointer to the next node. Items are appended next to
     it.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个节点都以指向下一个节点的指针开始。项目被附加到它的旁边。
 - en: '[PRE1]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: We also store pointers to both the head node and the tail node in the meta page.
     The pointer to the tail node is needed for O(1) insertion.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还在元页面中存储了头节点和尾节点的指针。尾节点的指针对于O(1)插入是必需的。
 - en: '[PRE2]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Update free list nodes
+  id: totrans-34
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 更新自由列表节点
 - en: 'Without the free list, the meta page is the only page that is updated *in-place*,
     which is how copy-on-write made crash recovery easy. Now there are 2 more in-place
     page updates in list nodes: the next pointer and the appended items.'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 没有自由列表，元页面是唯一一个进行就地更新的页面，这就是为什么写时复制使得崩溃恢复变得容易。现在在列表节点中还有2个就地页面更新：下一个指针和附加的项目。
 - en: Although list nodes are updated in-place, no data is overwritten within a page.
     So if an update is interrupted, the meta page still points to the same data; no
     extra crash recovery is needed. And unlike the meta page, atomicity is not required.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然列表节点是在就地更新的，但页面内没有数据被覆盖。所以如果更新被中断，元页面仍然指向相同的数据；不需要额外的崩溃恢复。而且与元页面不同，不需要原子性。
 - en: Following this analysis, the embedded list can also work iff the next pointer
     is *reserved* in the B+tree node. Here you can deviate from the book. Although
     this doubles write amplification.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过这次分析，嵌入式列表也可以工作，如果B+树节点中保留下一个指针的话。这里你可以偏离书本。尽管这加倍了写放大。
 - en: 7.3 Free list implementation
+  id: totrans-38
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.3 自由列表实现
 - en: Free list interface
+  id: totrans-39
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 自由列表接口
 - en: '[PRE3]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '`FreeList` is the extra data structure in `KV`.'
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: '`FreeList` 是 `KV` 中的额外数据结构。'
 - en: '[PRE4]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 'Like `BTree`, page management is isolated via 3 callbacks:'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 就像 `BTree` 一样，页面管理通过3个回调进行隔离：
 - en: '`get` reads a page; same as before,'
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`get` 读取一个页面；与之前相同，'
 - en: '`new` appends a page; previously used for `BTree`.'
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`new` 添加一个页面；之前用于 `BTree`。'
 - en: '`set` returns a writable buffer to capture in-place updates.'
+  id: totrans-46
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`set` 返回一个可写缓冲区以捕获就地更新。'
 - en: '`del` is not there because the free list manages free pages itself.'
+  id: totrans-47
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`del` 不存在，因为自由列表自己管理空闲页面。'
 - en: '[PRE5]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Free list data structure
+  id: totrans-49
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 自由列表数据结构
 - en: Since a node contains a variable number of items up to `FREE_LIST_CAP`, we need
     to know where the 1st item is in the head node (`headSeq`), and where the items
     end in the tail node (`tailSeq`).
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于一个节点包含的项目数量可变，最多到 `FREE_LIST_CAP`，我们需要知道第一个项目在头节点中的位置（`headSeq`），以及项目在尾节点中的结束位置（`tailSeq`）。
 - en: '[PRE6]'
+  id: totrans-51
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: '`headSeq`, `tailSeq` are indexes into the head and tail nodes, except that
     they are monotonically increasing. So the wrapped-around index is:'
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: '`headSeq`、`tailSeq` 是头节点和尾节点的索引，除了它们是单调递增的。所以循环索引是：'
 - en: '[PRE7]'
+  id: totrans-53
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: We make them monotonically increasing so that they become a unique identifier
     of the list position; to prevent the list head from overrunning the list tail,
     simply compare the 2 sequence numbers.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们使它们单调递增，这样它们就成为了列表位置的唯一标识符；为了防止列表头超过列表尾，只需比较两个序列号。
 - en: During an update, the list is both added to and removed from, and when we remove
     from the head, we cannot remove what we just added to the tail. So we need to
     …
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 在更新期间，列表既被添加也被移除，当我们从头部移除时，我们不能移除刚刚添加到尾部的项目。所以我们需要 …
 - en: At the beginning of the update, save the original `tailSeq` to `maxSeq`.
+  id: totrans-56
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 在更新的开始，将原始的 `tailSeq` 保存到 `maxSeq`。
 - en: During the update, `headSeq` cannot overrun `maxSeq`.
+  id: totrans-57
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 在更新期间，`headSeq` 不能超过 `maxSeq`。
 - en: At the beginning of the next update, `maxSeq` is advanced to `tailSeq`.
+  id: totrans-58
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 在下一次更新的开始，`maxSeq` 被推进到 `tailSeq`。
 - en: …
+  id: totrans-59
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: …
 - en: '[PRE8]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Consuming from the free list
+  id: totrans-61
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 从自由列表中消费
 - en: Removing an item from the head node is simply advancing `headSeq`. And when
     the head node becomes empty, move to the next node.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 从头节点移除一个项目只是简单地前进 `headSeq`。当头节点变为空时，移动到下一个节点。
 - en: '[PRE9]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: The free list self-manages; the removed head node is fed back to itself.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 自由列表自我管理；被移除的头节点被反馈给自己。
 - en: '[PRE10]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: What if the last node is removed? A linked list with 0 nodes implies nasty special
     cases. In practice, it’s easier to **design the linked list to have at least 1
     node** than to deal with special cases. That’s why we `assert(fl.headPage != 0)`.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果最后一个节点被移除怎么办？一个包含0个节点的链表意味着讨厌的特殊情况。在实践中，**设计链表至少有1个节点**比处理特殊情况更容易。这就是为什么我们
+    `assert(fl.headPage != 0)`。
 - en: Pushing into the free list
+  id: totrans-67
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 将项目推入自由列表
 - en: Appending an item to the tail node is simply advancing `tailSeq`. And when the
     tail node is full, we immediately add a new empty tail node to ensure that there
     is at least 1 node in case the previous tail node is removed as a head node.
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 将一个项目添加到尾节点只是简单地前进 `tailSeq`。当尾节点满时，我们立即添加一个新的空尾节点，以确保至少有1个节点，以防先前的尾节点被移除作为头节点。
 - en: '[PRE11]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: 'Again, the free list is self-managing: it will try to get a node from itself
     for the new tail node before resorting to appending.'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 再次，空闲列表是自我管理的：在求助于追加之前，它将尝试从自身获取新尾节点。
 - en: 7.4 KV with a free list
+  id: totrans-71
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.4 带空闲列表的键值存储
 - en: Page management
+  id: totrans-72
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 页面管理
 - en: Now that pages can be reused, reused pages are overwritten in-place, so a map
     is used to capture pending updates.
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 既然页面可以被重用，重用的页面将就地覆盖，因此使用映射来捕获挂起的更新。
 - en: '[PRE12]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: '`BTree.new` is now `KV.pageAlloc`, it uses the free list before resorting to
     appending.'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: '`BTree.new` 现在是 `KV.pageAlloc`，它在求助于追加之前使用空闲列表。'
 - en: '[PRE13]'
+  id: totrans-76
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: '`KV.pageWrite` returns a writable page copy to capture in-place updates.'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: '`KV.pageWrite` 返回一个可写页面副本以捕获就地更新。'
 - en: '[PRE14]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Another change is that we may read a page again after it has been updated, so
     `KV.pageRead` should consult the pending updates map first.
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个变化是我们可能在更新页面之后再次读取它，因此 `KV.pageRead` 应首先咨询挂起的更新映射。
 - en: '[PRE15]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: Update the meta page
+  id: totrans-81
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 更新元数据页面
 - en: The meta page now includes free list pointers (head and tail) that are updated
     atomically along with the tree root.
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 元数据页面现在包括空闲列表指针（头和尾），它们与树根一起原子性地更新。
 - en: '[PRE16]'
+  id: totrans-83
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: Remember that the free list always contains at least 1 node, we’ll assign an
     empty node to it when initializing an empty DB.
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: 记住，空闲列表始终包含至少 1 个节点，我们在初始化空数据库时将分配一个空节点给它。
 - en: '[PRE17]'
+  id: totrans-85
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Since `headSeq` is blocked by `maxSeq`, `maxSeq` is updated to `tailSeq` *between*
     updates to allow reuse of pages from the last version.
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于 `headSeq` 被阻塞在 `maxSeq` 上，`maxSeq` 在更新之间更新为 `tailSeq` 以允许重用最后版本的页面。
 - en: '[PRE18]'
+  id: totrans-87
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: We still assume sequential access in this chapter. When we add concurrency later,
     `headSeq` will be blocked by the oldest reader instead.
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们仍然假设顺序访问。当我们稍后添加并发性时，`headSeq` 将被最早的读者阻塞。
 - en: 7.5 Conclusion of the KV store
+  id: totrans-89
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 7.5 键值存储的结论
 - en: 'What we have done:'
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们所做的工作：
 - en: File layout for a copy-on-write B+tree.
+  id: totrans-91
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 可写复制 B+ 树的文件布局。
 - en: Durability and atomicity with `fsync`.
+  id: totrans-92
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 `fsync` 的持久性和原子性。
 - en: Managing disk pages with a free list.
+  id: totrans-93
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用空闲列表管理磁盘页面。
 - en: 'That’s enough for a KV store with `get`, `set`, `del`. But there is more in
     part II:'
+  id: totrans-94
   prefs: []
   type: TYPE_NORMAL
+  zh: 这对于具有 `get`、`set`、`del` 的键值存储已经足够了。但在第二部分中还有更多：
 - en: Relational DB on KV store.
+  id: totrans-95
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在键值存储上的关系数据库。
 - en: Concurrent transactions.
+  id: totrans-96
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 并发事务。

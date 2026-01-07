@@ -1,374 +1,587 @@
 - en: 08\. Tables on KV
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 08. 基于KV的表
 - en: 8.1 Encode rows as KVs
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 8.1 将行编码为KVs
 - en: 'Indexed queries: point and range'
+  id: totrans-2
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 索引查询：点查询和范围查询
 - en: In a relational DB, data is modeled as 2D tables consisting of rows and columns.
     Users speak their *intent* in SQL and the DB magically delivers results. What’s
     less magic is that while a DB can execute arbitrary queries, not all queries are
     practical (efficient & scalable) in OLTP workloads, and OLTP always requires users
     to control *how* queries are executed via proper schema and index design.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 在关系型数据库中，数据被建模为包含行和列的二维表。用户通过SQL表达他们的*意图*，数据库神奇地返回结果。不那么神奇的是，虽然数据库可以执行任意查询，但并非所有查询在OLTP工作负载中都是实际可行的（高效且可扩展），OLTP总是要求用户通过适当的模式设计来控制查询的执行方式。
 - en: 'How an indexed query is executed boils down to 2 operations:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 索引查询的执行过程归结为两个操作：
 - en: 'Point query: Find a row by a given key.'
+  id: totrans-5
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 点查询：通过给定的键查找一行。
 - en: 'Range query: Find rows by a range; iterate the result in sorted order.'
+  id: totrans-6
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 范围查询：通过范围查找行；按排序顺序迭代结果。
 - en: That’s why B+trees and LSM-trees are considered, while hashtables are not.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 那就是为什么B+树和LSM树被考虑，而哈希表则不被考虑。
 - en: The primary key as the “key”
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 主键作为“键”
 - en: Let’s consider point queries first. To find a row, there must be a way to uniquely
     identify the row, that’s the primary key, which is a subset of the columns.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们先考虑点查询。要找到一行，必须有唯一标识该行的方法，那就是主键，它是列的一个子集。
 - en: '[PRE0]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Intuitively, primary key columns go in the “key” and the rest go in the “value”.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 直观地，主键列放在“键”中，其余的放在“值”中。
 - en: '|  | key | value |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '|  | 键 | 值 |'
 - en: '| --- | --- | --- |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- |'
 - en: '| t1 | k1, k2 | v1, v2 |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '| t1 | k1, k2 | v1, v2 |'
 - en: Some DBs allow tables without a primary key, what they do is add a hidden, auto-generated
     primary key.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些数据库允许没有主键的表，它们所做的是添加一个隐藏的、自动生成的主键。
 - en: The secondary indexes as separate tables
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 作为独立表的二级索引
 - en: 'Besides the primary key, a table can be indexed in more than 1 way. This is
     solved by an extra indirection: the secondary indexes.'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了主键之外，一个表可以通过多种方式索引。这是通过额外的间接引用解决的：二级索引。
 - en: '[PRE1]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'Logically, each index is like a separate table:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 逻辑上，每个索引就像一个独立的表：
 - en: '[PRE2]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Which adds an extra key to find the unique row identifier (primary key).
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 这会增加一个额外的键来查找唯一的行标识符（主键）。
 - en: '|  | key | value |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '|  | 键 | 值 |'
 - en: '| --- | --- | --- |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- |'
 - en: '| t1 | k1, k2 | v1, v2 |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| t1 | k1, k2 | v1, v2 |'
 - en: '| idx1 | v1 | k1, k2 |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| idx1 | v1 | k1, k2 |'
 - en: '| idx2 | v2, v1 | k1, k2 |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| idx2 | v2, v1 | k1, k2 |'
 - en: The primary key is also an index, but with the unique constraint.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 主键也是一个索引，但具有唯一约束。
 - en: 'Alternative: auto-generated row ID'
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 替代方案：自动生成的行ID
 - en: Some DBs use an auto-generated ID as the “true” primary key, as opposed to the
     user-selected primary key. In this case, there is no distinction between primary
     and secondaries; the user primary key is also an indirection.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些数据库使用自动生成的ID作为“真正的”主键，而不是用户选择的主键。在这种情况下，主键和二级索引之间没有区别；用户主键也是一个间接引用。
 - en: '|  | key | value |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '|  | 键 | 值 |'
 - en: '| --- | --- | --- |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- |'
 - en: '| t1 | ID | k1, k2, v1, v2 |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| t1 | ID | k1, k2, v1, v2 |'
 - en: '| primary key | k1, k2 | ID |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| 主键 | k1, k2 | ID |'
 - en: '| idx1 | v1 | ID |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| idx1 | v1 | ID |'
 - en: '| idx2 | v2, v1 | ID |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| idx2 | v2, v1 | ID |'
 - en: The advantage is that the auto-generated ID can be a small, fixed-width integer,
     while the user primary key can be arbitrarily long. This means that …
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 优点是自动生成的ID可以是一个小的、固定宽度的整数，而用户主键可以任意长。这意味着……
 - en: For ID keys, internal nodes can store more keys (shorter tree).
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 对于ID键，内部节点可以存储更多的键（更短的树）。
 - en: Secondary indexes are smaller as they don’t duplicate the user primary key.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 二级索引较小，因为它们不重复用户主键。
 - en: 8.2 Databases schemas
+  id: totrans-39
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 8.2 数据库模式
 - en: The table prefix
+  id: totrans-40
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 表前缀
 - en: A DB can contain multiple tables and indexes. We’ll prepend an auto-generated
     prefix to the keys so that they can share a single B+tree. This is less work than
     keeping multiple trees.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个数据库可以包含多个表和索引。我们将为键添加一个自动生成的前缀，以便它们可以共享一个单一的B+树。这比维护多个树要少做很多工作。
 - en: '|  | key | value |'
+  id: totrans-42
   prefs: []
   type: TYPE_TB
+  zh: '|  | 键 | 值 |'
 - en: '| --- | --- | --- |'
+  id: totrans-43
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- |'
 - en: '| table1 | prefix1 + columns… | columns… |'
+  id: totrans-44
   prefs: []
   type: TYPE_TB
+  zh: '| table1 | prefix1 + 列… | 列… |'
 - en: '| table2 | prefix2 + columns… | columns… |'
+  id: totrans-45
   prefs: []
   type: TYPE_TB
+  zh: '| table2 | prefix2 + 列… | 列… |'
 - en: '| index1 | prefix3 + columns… | columns… |'
+  id: totrans-46
   prefs: []
   type: TYPE_TB
+  zh: '| index1 | prefix3 + 列… | 列… |'
 - en: The prefix is a 32-bit auto-incrementing integer, you can also use the table
     name instead, with the drawback that it can be arbitrarily long.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 前缀是一个32位的自增整数，你也可以用表名代替，但缺点是它可以任意长。
 - en: Data types
+  id: totrans-48
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 数据类型
 - en: 'One advantage of relational DB over KV is that they support more data types.
     To reflect this aspect, we’ll support 2 data types: string and integer.'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 关系型数据库相对于键值数据库的一个优点是它们支持更多的数据类型。为了反映这一方面，我们将支持两种数据类型：字符串和整数。
 - en: '[PRE3]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: The cell `Value` is a tagged union of a particular type.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 单元格`Value`是特定类型的标记联合。
 - en: Records
+  id: totrans-52
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 记录
 - en: A `Record` represents a list of column names and values.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: '`Record`表示列名和值的列表。'
 - en: '[PRE4]'
+  id: totrans-54
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Schemas
+  id: totrans-55
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 模式
 - en: We’ll only consider the primary key in this chapter, leaving indexes for later.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 在本章中，我们只考虑主键，将索引留到以后。
 - en: '[PRE5]'
+  id: totrans-57
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Internal tables
+  id: totrans-58
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 内部表
 - en: Where to store table schemas? Since we’re coding a DB, we know how to store
     stuff; we’ll store them in a predefined internal table.
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 表模式存储在哪里？因为我们正在编写数据库，我们知道如何存储东西；我们将它们存储在预定义的内部表中。
 - en: '[PRE6]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: 'The `def` column is JSON serialized `TableDef`. This is like:'
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: '`def`列是JSON序列化的`TableDef`。这就像：'
 - en: '[PRE7]'
+  id: totrans-62
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: We’ll also need to keep some extra information, such as an auto-incrementing
     counter for generating table prefixes. Let’s define another internal table for
     this.
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们还需要保留一些额外信息，例如用于生成表前缀的自动递增计数器。让我们为此定义另一个内部表。
 - en: '[PRE8]'
+  id: totrans-64
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: 8.3 Get, update, insert, delete, create
+  id: totrans-65
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 8.3 获取、更新、插入、删除、创建
 - en: Point query and update interfaces
+  id: totrans-66
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 点查询和更新接口
 - en: 'Interfaces for reading and writing a single row:'
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 读取和写入单行的接口：
 - en: '[PRE9]'
+  id: totrans-68
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '`DB` is a wrapper of `KV`:'
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: '`DB`是`KV`的包装器：'
 - en: '[PRE10]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Query by primary key
+  id: totrans-71
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过主键查询
 - en: The `rec` argument is the input primary key. It’s also the output row.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: '`rec`参数是输入主键。它也是输出行。'
 - en: '[PRE11]'
+  id: totrans-73
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: The code to handle the columns is just mandane, we’ll skip it.
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 处理列的代码只是平凡的，我们将跳过它。
 - en: '[PRE12]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: The next step is encoding and decoding, which can be any serialization scheme.
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 下一步是编码和解码，可以是任何序列化方案。
 - en: '[PRE13]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Read the schema
+  id: totrans-78
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 读取模式
 - en: User-facing interfaces refer to tables by name, so we must get its schema first.
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 用户接口通过名称引用表，因此我们必须首先获取其模式。
 - en: '[PRE14]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Which is just a query to the internal table `@table` of JSON-encoded `TableDef`s.
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 这只是一个查询内部表`@table`的JSON编码的`TableDef`。
 - en: '[PRE15]'
+  id: totrans-82
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: We can cache table schemas in memory to reduce the number of queries, since
     no sane application needs a huge number of tables.
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以在内存中缓存表模式以减少查询次数，因为没有任何理智的应用程序需要大量的表。
 - en: Insert or update a row
+  id: totrans-84
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 插入或更新一行
 - en: 'There are 3 SQL update statements that differ in how they treat an existing
     row:'
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 有3个SQL更新语句，它们在处理现有行的方式上有所不同：
 - en: '`INSERT` only adds new rows (identified by the primary key).'
+  id: totrans-86
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`INSERT`仅添加新行（由主键标识）。'
 - en: '`UPDATE` only modifies existing rows.'
+  id: totrans-87
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`UPDATE`仅修改现有行。'
 - en: '`UPSERT` adds new rows or modifies existing rows.'
+  id: totrans-88
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`UPSERT`添加新行或修改现有行。'
 - en: '(Note: `UPSERT` is PostgreSQL specific. In MySQL it’s `ON DUPLICATED KEY UPDATE`.
     In SQLite it’s `INSERT OR REPLACE`).'
+  id: totrans-89
   prefs: []
   type: TYPE_NORMAL
+  zh: （注意：`UPSERT`是PostgreSQL特定的。在MySQL中它是`ON DUPLICATED KEY UPDATE`。在SQLite中它是`INSERT
+    OR REPLACE`）。
 - en: This is implemented by extending `BTree.Insert` with a mode flag.
+  id: totrans-90
   prefs: []
   type: TYPE_NORMAL
+  zh: 这通过扩展`BTree.Insert`并使用模式标志来实现。
 - en: '[PRE16]'
+  id: totrans-91
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: The update function here only deals with a complete row. Partial updates (read-modify-write)
     are implemented at a higher level (query language).
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 此处的更新函数仅处理完整行。部分更新（读取-修改-写入）在更高级别（查询语言）中实现。
 - en: '[PRE17]'
+  id: totrans-93
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Create a table
+  id: totrans-94
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 创建一个表
 - en: 'The process of creating a table is rather boring:'
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: 创建表的过程相当无聊：
 - en: Read `@table` to check for duplicate names.
+  id: totrans-96
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 读取`@table`以检查重复的名称。
 - en: Read the table prefix counter from `@meta`.
+  id: totrans-97
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 从`@meta`读取表前缀计数器。
 - en: Increase and update the table prefix counter in `@meta`.
+  id: totrans-98
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 在`@meta`中增加和更新表前缀计数器。
 - en: Insert the schema to `@table`.
+  id: totrans-99
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 将模式插入到`@table`。
 - en: '[PRE18]'
+  id: totrans-100
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: This process involves updating 2 keys, so we’re losing atomicity here. This
     will be fixed later when we add transactions.
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: 此过程涉及更新2个键，所以我们在这里失去了原子性。这将在我们添加事务时得到解决。
 - en: 8.4 Conclusion of tables on KV
+  id: totrans-102
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 8.4 KV上表的结论
 - en: 'Tables on KV is not fundamentally different, it’s just extra steps of data
     serialization and keeping schemas. However, the work is not done yet. The next
     steps are:'
+  id: totrans-103
   prefs: []
   type: TYPE_NORMAL
+  zh: 在KV上的表本质上没有区别，它只是数据序列化和保留模式的一些额外步骤。然而，工作还没有完成。下一步是：
 - en: Range queries.
+  id: totrans-104
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 范围查询。
 - en: Secondary indexes.
+  id: totrans-105
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 二级索引。

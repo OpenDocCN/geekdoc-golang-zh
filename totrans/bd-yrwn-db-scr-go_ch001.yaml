@@ -1,228 +1,342 @@
 - en: 00\. Introduction
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 00. 简介
 - en: Master fundamentals by building your own DB
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 通过构建自己的数据库来掌握基础知识
 - en: What to learn?
+  id: totrans-2
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 要学习什么？
 - en: Complex systems like databases are built on a few simple principles.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 复杂系统如数据库是建立在几个简单原则之上的。
 - en: '**Atomicity & durability**. A DB is more than files!'
+  id: totrans-4
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**原子性和持久性**。数据库不仅仅是文件！'
 - en: Persist data with `fsync`.
+  id: totrans-5
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用`fsync`持久化数据。
 - en: Crash recovery.
+  id: totrans-6
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 故障恢复。
 - en: '**KV store** based on **B-tree**.'
+  id: totrans-7
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 基于**B树**的**键值存储**。
 - en: Disk-based data structures.
+  id: totrans-8
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 基于磁盘的数据结构。
 - en: Space management with a free list.
+  id: totrans-9
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用自由列表进行空间管理。
 - en: '**Relational DB** on top of KV.'
+  id: totrans-10
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**关系型数据库**建立在键值对之上。'
 - en: How tables and indexes are mapped to low-level B-trees.
+  id: totrans-11
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 表和索引如何映射到底层的B树。
 - en: SQL-like **query language**; parser & interpreter.
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 类SQL **查询语言**；解析器和解释器。
 - en: '**Concurrency control** for transactions.'
+  id: totrans-13
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '**并发控制**事务。'
 - en: Code a database in 3000 LoC, incrementally
+  id: totrans-14
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 用3000行代码逐步编写数据库
 - en: It’s amazing that an interesting and broad topic can be captured in 3000 LoC.
     You may have experience with larger projects, but not all experience is equal.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 令人惊讶的是，一个有趣且广泛的话题可以包含在3000行代码中。你可能有过更大的项目经验，但并非所有经验都是平等的。
 - en: '| LoC | Step |'
+  id: totrans-16
   prefs: []
   type: TYPE_TB
+  zh: '| LoC | Step |'
 - en: '| --- | --- |'
+  id: totrans-17
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '| 366 | B+tree data structure. |'
+  id: totrans-18
   prefs: []
   type: TYPE_TB
+  zh: '| 366 | B+树数据结构。 |'
 - en: '| 601 | Append-only KV. |'
+  id: totrans-19
   prefs: []
   type: TYPE_TB
+  zh: '| 601 | 只追加键值对。 |'
 - en: '| 731 | Practical KV with a free list. |'
+  id: totrans-20
   prefs: []
   type: TYPE_TB
+  zh: '| 731 | 带有自由列表的实用键值对。 |'
 - en: '| 1107 | Tables on KV. |'
+  id: totrans-21
   prefs: []
   type: TYPE_TB
+  zh: '| 1107 | 基于键值对的表。 |'
 - en: '| 1294 | Range queries. |'
+  id: totrans-22
   prefs: []
   type: TYPE_TB
+  zh: '| 1294 | 范围查询。 |'
 - en: '| 1438 | Secondary indexes. |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '| 1438 | 二级索引。 |'
 - en: '| 1461 | Transactional interfaces. |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| 1461 | 事务性接口。 |'
 - en: '| 1702 | Concurrency control. |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| 1702 | 并发控制。 |'
 - en: '| 2795 | SQL-like query language. |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| 2795 | 类SQL查询语言。 |'
 - en: 'Learn by doing: principles instead of jargon'
+  id: totrans-27
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过实践学习：原则而非术语
 - en: Database literature is full of confusing, overloaded jargon with no consistent
     meaning. It’s easy to get lost when reading about it. On the other hand, Feymann
     once said, “what I can’t build, I don’t understand”. Can you build a database
     by reading about databases? Test your understanding!
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 数据库文献充满了令人困惑、含义重叠的术语，没有一致的意义。阅读时很容易迷失方向。另一方面，费曼曾经说过：“我不会构建的，我不理解”。你能通过阅读数据库来构建数据库吗？测试你的理解！
 - en: While there is a lot to learn, not all knowledge is equally important, **it
     takes only a few principles to build a DB**, so anyone can try.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然有很多东西要学习，但并非所有知识都同等重要，**构建数据库只需要几个原则**，所以任何人都可以尝试。
 - en: 'Topic 1: durability and atomicity'
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 主题1：持久性和原子性
 - en: More than a data format
+  id: totrans-31
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 不仅仅是一种数据格式
 - en: Smartphones use SQLite (a file-based DB) heavily. Why store data in SQLite instead
     of some other format, say JSON? Because you risk data loss if it crashes during
     an update. The file can end up half-written, truncated, or even missing.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 智能手机大量使用SQLite（基于文件的数据库）。为什么用SQLite存储数据而不是其他格式，比如JSON？因为如果在更新过程中崩溃，你会面临数据丢失的风险。文件可能最终是半写状态、截断，甚至丢失。
 - en: There are techniques to fix this, and they lead to databases.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 有技术可以解决这个问题，它们导致了数据库的出现。
 - en: Durability and atomicity with `fsync`
+  id: totrans-34
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用`fsync`实现持久性和原子性
 - en: Atomicity means that data is either updated or not, not in between. Durability
     means that data is guaranteed to exist after a certain point. They are not separate
     concerns, because we must achieved both.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 原子性意味着数据要么被更新，要么没有被更新，不会处于中间状态。持久性意味着数据在某个点之后有保证存在。它们不是独立的问题，因为我们必须同时实现它们。
 - en: The first thing to learn is the `fsync` syscall. A file write doesn’t reach
     disk synchronously, there are multiple levels of buffering (OS page cache and
     on-device RAM). `fsync` flushes pending data and waits until it’s done. This makes
     writes durable, but what about atomicity?
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 首先要学习的是`fsync`系统调用。文件写入不会同步到达磁盘，有多个级别的缓冲（操作系统页面缓存和设备上的RAM）。`fsync`刷新挂起的数据并等待完成。这使得写入持久，但原子性怎么办？
 - en: 'Topic 2: indexing data structures'
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 主题2：索引数据结构
 - en: Control latency and cost with indexes
+  id: totrans-38
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过索引控制延迟和成本
 - en: A DB turns a query into a result without the user knowing how. But the result
     is not the only concern, *latency* and *cost* (memory, IO, computation) are also
     relevant, hence the distinction between analytical (OLAP) and transactional (OLTP).
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 数据库将查询转换为结果，而用户并不知道如何做到。但结果并非唯一关注点，*延迟*和*成本*（内存、I/O、计算）也很相关，因此区分了分析型（OLAP）和事务型（OLTP）。
 - en: OLAP can involve large amounts of data, with aggregation or join operations.
     Indexing can be limited or non-existent.
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: OLAP可能涉及大量数据，包括聚合或连接操作。索引可能有限或不存在。
 - en: OLTP touches small amounts of data using indexes. Low latency & cost.
+  id: totrans-41
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: OLTP通过索引触及少量数据。低延迟和成本。
 - en: The word “transactional” is not about DB transactions, it’s just a funny jargon.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: “事务性”这个词并不是指数据库事务，它只是一个有趣的术语。
 - en: In-memory data structures vs. on-disk data structures
+  id: totrans-43
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 内存数据结构 vs. 磁盘数据结构
 - en: There are extra challenges when putting an indexing data structure on disk.
     (See my book “Build Your Own Redis” for a much easier in-memory DB).
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 在磁盘上放置索引数据结构时会有额外的挑战。（关于更简单的内存数据库，请参阅我的书籍《构建自己的 Redis》）。
 - en: One of the problems is updating disk data *in-place*, because you have to deal
     with corrupted states after a crash. Disks are not just slower RAM.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 其中一个问题是在磁盘上**就地**更新数据，因为崩溃后你必须处理损坏的状态。磁盘不仅仅是比 RAM 慢。
 - en: The R in RAM stands for “random”, which is another problem for disk-based data
     because random access is much slower than sequential access, even on SSDs. So
     data structures like binary trees are not viable while B-trees and LSM-trees are
     OK. *Concurrent* access to data structures is also a topic.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: RAM 中的 R 代表“随机”，这对于基于磁盘的数据来说又是一个问题，因为随机访问比顺序访问慢得多，即使在 SSD 上也是如此。所以像二叉树这样的数据结构不可行，而
+    B 树和 LSM 树是可行的。**并发**访问数据结构也是一个话题。
 - en: 'Topic 3: Relational DB on KV'
+  id: totrans-47
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 主题 3：基于键值对的关系型数据库
 - en: Two layers of DB interfaces
+  id: totrans-48
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 两层数据库接口
 - en: SQL is almost a synonym for database. But SQL is just a user interface, it’s
     not fundamental to a DB. What’s important is the **functionalities** underneath.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: SQL 几乎是数据库的同义词。但 SQL 只是一个用户界面，它不是数据库的基本组成部分。重要的是其底层的**功能**。
 - en: Another much simpler interface is key-value (KV). You can get, set, and delete
     a single key, and most importantly, list a range of keys in sorted order. KV is
     simpler than SQL because it’s one layer lower. Relational DBs are built on top
     of KV-like interfaces called *storage engines*.
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个更简单的接口是键值（KV）。你可以获取、设置和删除单个键，最重要的是，可以按顺序列出键的范围。KV 比 SQL 简单，因为它低一层。关系型数据库建立在类似于
+    KV 的接口之上，称为**存储引擎**。
 - en: 'Query languages: parsers and interpreters'
+  id: totrans-51
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 查询语言：解析器和解释器
 - en: The last step is easy, despite the larger LoC. Both the parser and the interpreter
     are coded with nothing but *recursion*! The lesson can be applied to almost any
     computer language, or creating your own programming language or DSL (See my book
     “From Source Code To Machine Code” for more challenges).
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后一步虽然代码行数较多，但很容易，因为解析器和解释器都是用**递归**编写的！这个教训可以应用到几乎任何计算机语言，或者创建自己的编程语言或领域特定语言（更多挑战请参阅我的书籍《从源代码到机器代码》）。
 - en: '*Build Your Own X* book series'
+  id: totrans-53
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '*构建自己的 X* 书系'
 - en: X includes Redis, web server and compiler. Read the web version on the website.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: X 包括 Redis、Web 服务器和编译器。在网站上阅读网页版。
 - en: '[https://build-your-own.org](https://build-your-own.org)'
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: '[https://build-your-own.org](https://build-your-own.org)'

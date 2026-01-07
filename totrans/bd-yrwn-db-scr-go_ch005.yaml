@@ -1,337 +1,511 @@
 - en: 04\. B+Tree Node and Insertion
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 04\. B+树节点和插入
 - en: 4.1 Design B+tree nodes
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 4.1 设计B+树节点
 - en: What we will do
+  id: totrans-2
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 我们将要做什么
 - en: The first big step is just the B+tree data structures, other DB concerns will
     be covered in later chapters. We’ll do it from the bottom up.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个大步骤只是B+树数据结构，其他数据库关注点将在后面的章节中介绍。我们将从下往上做。
 - en: Design a node format that contains all the necessary bits.
+  id: totrans-4
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 设计一个包含所有必要位的节点格式。
 - en: Manipulate nodes in a copy-on-write fashion (insert and delete keys).
+  id: totrans-5
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 以写时复制的方式操作节点（插入和删除键）。
 - en: Split and merge nodes.
+  id: totrans-6
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 分裂和合并节点。
 - en: Tree insertion and deletion.
+  id: totrans-7
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 树的插入和删除。
 - en: The node format
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 节点格式
 - en: All B+tree nodes are the same size for later use of the free list. Although
     we won’t deal with disk data at this point, a concrete node format is needed because
     it decides the node size in bytes and *when to split a node*.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有B+树节点的大小相同，以便稍后使用空闲列表。虽然我们目前不会处理磁盘数据，但需要一个具体的节点格式，因为它决定了节点的大小（以字节为单位）和*何时分裂节点*。
 - en: 'A node includes:'
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个节点包括：
 - en: 'A fixed-size header, which contains:'
+  id: totrans-11
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 一个固定大小的标头，它包含：
 - en: The type of node (leaf or internal).
+  id: totrans-12
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 节点的类型（叶节点或内部节点）。
 - en: The number of keys.
+  id: totrans-13
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 键的数量。
 - en: A list of pointers to child nodes for internal nodes.
+  id: totrans-14
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 内部节点指向子节点的指针列表。
 - en: A list of KV pairs.
+  id: totrans-15
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: KVs对列表。
 - en: A list of offsets to KVs, which can be used to binary search KVs.
+  id: totrans-16
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: KVs的偏移量列表，可用于二分搜索KVs。
 - en: '[PRE0]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This is the format of each KV pair. Lengths followed by data.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是每个KV对的格式。长度后跟数据。
 - en: '[PRE1]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Simplifications and limits
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 简化和限制
 - en: Our goal is to learn the basics, not to create a real DB. So some simplifications
     are made.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的目标是学习基础知识，而不是创建一个真正的数据库。所以做了一些简化。
 - en: 'The same format is used for both leaf nodes and internal nodes. This wastes
     some space: leaf nodes don’t need pointers and internal nodes don’t need values.'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 同样的格式用于叶节点和内部节点。这浪费了一些空间：叶节点不需要指针，内部节点不需要值。
 - en: An internal node of *n* branches contains *n* keys, each key is duplicated from
     the minimum key of the corresponding subtree. However, only *n* − 1 keys are needed
     for *n* branches, as you’ll see in other B-tree introductions. The extra key makes
     the visualization easier.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个包含*n*个分支的内部节点包含*n*个键，每个键都是从对应子树的最小键复制的。然而，对于*n*个分支，只需要*n* − 1个键，正如你将在其他B树介绍中看到的那样。额外的键使得可视化更容易。
 - en: We’ll set the node size to 4K, which is the typical OS page size. However, keys
     and values can be arbitrarily large, exceeding a single node. There should be
     a way to store large KVs outside of nodes, or to make the node size variable.
     This problem is solvable, but not fundamental. So we’ll skip it by limiting the
     KV size so that they always fit inside a node.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将设置节点大小为4K，这是典型的操作系统页面大小。然而，键和值可以是任意大的，超过单个节点。应该有一种方法来存储大型KVs，或者使节点大小可变。这个问题是可解决的，但不是根本性的。所以我们将通过限制KV大小来跳过它，使它们始终适合节点内部。
 - en: '[PRE2]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: The key size limit also ensures that an internal node can always host 2 keys.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 键大小限制还确保内部节点可以始终容纳2个键。
 - en: In-memory data types
+  id: totrans-27
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 内存中的数据类型
 - en: In our code, a node is just a chunk of bytes interpreted by this format. Moving
     data from memory to disk is simpler without a serialization step.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在我们的代码中，一个节点只是由这个格式解释的字节数据块。在没有序列化步骤的情况下，从内存到磁盘的数据移动更简单。
 - en: '[PRE3]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Decouple data structure from IO
+  id: totrans-30
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 解耦数据结构从IO
 - en: Space allocation/deallocation is required for both in-memory and on-disk data
     structures. We can abstract this away with callbacks, which is a boundary between
     the data structure and the rest of the DB.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 需要对内存和磁盘上的数据结构进行空间分配/释放。我们可以通过回调来抽象化这一点，这是数据结构与其他数据库之间的边界。
 - en: '[PRE4]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: 'For an on-disk B+tree, the database file is an array of pages (nodes) referenced
     by page numbers (pointers). We’ll implement these callbacks as follows:'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于磁盘上的B+树，数据库文件是由页面（节点）组成的数组，这些页面通过页面号（指针）引用。我们将如下实现这些回调：
 - en: '`get` reads a page from disk.'
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`get`从磁盘读取一个页面。'
 - en: '`new` allocates and writes a new page (copy-on-write).'
+  id: totrans-35
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`new`分配并写入一个新的页面（写时复制）。'
 - en: '`del` deallocates a page.'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`del`释放一个页面。'
 - en: We can use fake callbacks (mocks) to test the data structure in memory without
     the rest of the DB.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以使用假的回调（模拟）来测试内存中的数据结构，而不需要数据库的其他部分。
 - en: 4.2 Decode the node format
+  id: totrans-38
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 4.2 解码节点格式
 - en: Since the node type is just a chunk of bytes, we’ll define some helper functions
     to access it.
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于节点类型只是字节数据块，我们将定义一些辅助函数来访问它。
 - en: '[PRE5]'
+  id: totrans-40
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Header
+  id: totrans-41
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 标头
 - en: '[PRE6]'
+  id: totrans-42
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Child pointers
+  id: totrans-43
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 子指针
 - en: '[PRE7]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: KV offsets and pairs
+  id: totrans-45
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: KV偏移量和对
 - en: The format packs everything back to back. Finding the nth KV can be done by
     reading each KV pair one by one. To make it easier, we have included an offset
     list to locate the nth KV in *O*(1). This also allows binary searches within a
     node.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 格式将所有内容紧凑地打包在一起。找到第n个KV可以通过逐个读取每个KV对来实现。为了使其更简单，我们包含了一个偏移量列表，以在*O*(1)时间内定位第n个KV。这也允许在节点内进行二分搜索。
 - en: Each offset is the *end* of the KV pair relative to the start of the 1st KV.
     The start offset of the 1st KV is just 0, so we use the end offset instead, which
     is the start offset of the next KV.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个偏移量是KV对相对于第一个KV的**结束**位置。第一个KV的起始偏移量是0，所以我们使用结束偏移量，它是下一个KV的起始偏移量。
 - en: '[PRE8]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '`kvPos` returns the position of the nth KV pair relative to the whole node.'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '`kvPos`返回第n个KV对相对于整个节点的位置。'
 - en: '[PRE9]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: It also conveniently returns the node size (used space) with an off-by-one lookup.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 它还方便地通过偏移量查找返回节点大小（使用空间）。
 - en: '[PRE10]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: KV lookups within a node
+  id: totrans-53
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 节点内的KV查找
 - en: The “seek” operation is used for both range and point queries. So they are fundamentally
     the same.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: “seek”操作用于范围查询和点查询。因此，它们在本质上是一样的。
 - en: '[PRE11]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: The function is called `nodeLookupLE` because it uses the **L**ess-than-or-**E**qual
     operator. For point queries, we should use the equal operator instead, which is
     a step we can add later.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 该函数被命名为`nodeLookupLE`因为它使用了**小于或等于**运算符。对于点查询，我们应该使用等于运算符，这是我们稍后可以添加的一步。
 - en: 4.2 Update B+tree nodes
+  id: totrans-57
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 4.2 更新B+树节点
 - en: Insert into leaf nodes
+  id: totrans-58
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 插入到叶节点
 - en: Let’s consider inserting a key into a leaf node. The 1st step is to use `nodeLookupLE`
     to get the insert position. Then copy everything to a new node with the extra
     key. That’s copy-on-write.
+  id: totrans-59
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们考虑将一个键插入到叶节点。第一步是使用`nodeLookupLE`获取插入位置。然后将所有内容复制到一个新的节点，并添加额外的键。这就是写时复制。
 - en: '[PRE12]'
+  id: totrans-60
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: Node copying functions
+  id: totrans-61
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 节点复制函数
 - en: '`nodeAppendRange` copies a range of KVs and `nodeAppendKV` copies a KV pair.
     This must be done in order because these functions rely on the previous offset.'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '`nodeAppendRange`复制一个KV范围，`nodeAppendKV`复制一个KV对。这必须按顺序进行，因为这些函数依赖于之前的偏移量。'
 - en: '[PRE13]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Update internal nodes
+  id: totrans-64
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 更新内部节点
 - en: For internal nodes, the link to the child node is always updated with the copy-on-write
     scheme, which can become multiple links if the child node is split.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于内部节点，子节点的链接总是使用写时复制方案进行更新，如果子节点被拆分，则可以成为多个链接。
 - en: '[PRE14]'
+  id: totrans-66
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: Note that the `tree.new` callback is used to allocate the child nodes.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，`tree.new`回调用于分配子节点。
 - en: 4.3 Split B+tree nodes
+  id: totrans-68
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 4.3 拆分B+树节点
 - en: Due to the size limits we imposed, a node can host at least 1 KV pair. In the
     worst case, an oversized node will be split into 3 nodes, with a large KV in the
     middle. So we may have to split it 2 times.
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于我们施加的大小限制，一个节点可以至少容纳1个KV对。在最坏的情况下，过大的节点将被拆分为3个节点，中间有一个大的KV。因此，我们可能需要拆分两次。
 - en: '[PRE15]'
+  id: totrans-70
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: Note that the returned nodes are allocated from memory; they are just temporary
     data until `nodeReplaceKidN` actually allocates them.
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，返回的节点是从内存中分配的；它们只是直到`nodeReplaceKidN`实际分配它们的临时数据。
 - en: 4.4 B+tree insertion
+  id: totrans-72
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 4.4 B+树插入
 - en: 'We’ve implemented 3 node operations:'
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们已经实现了3种节点操作：
 - en: '`leafInsert` updates a leaf node.'
+  id: totrans-74
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`leafInsert`更新叶节点。'
 - en: '`nodeReplaceKidN` updates an internal node.'
+  id: totrans-75
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`nodeReplaceKidN`更新内部节点。'
 - en: '`nodeSplit3` splits an oversized node.'
+  id: totrans-76
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '`nodeSplit3`拆分过大的节点。'
 - en: Let’s put them together for a full B+tree insertion, which starts with key lookups
     in the root node until it reaches a leaf.
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们将它们组合起来进行完整的B+树插入，这从根节点中的键查找开始，直到达到叶节点。
 - en: '[PRE16]'
+  id: totrans-78
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: '`leafUpdate` is similar to `leafInsert`; it updates an existing key instead
     of inserting a duplicate key.'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: '`leafUpdate`与`leafInsert`类似；它更新现有的键而不是插入重复的键。'
 - en: '[PRE17]'
+  id: totrans-80
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: Internal nodes are handled recursively, each call returns an updated node, and
     the caller will split it if it’s oversized and handle the allocation/deallocation.
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: 内部节点是递归处理的，每次调用都返回一个更新的节点，如果节点过大，调用者将对其进行拆分并处理分配/释放。
 - en: 4.5 What’s next?
+  id: totrans-82
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 4.5 接下来是什么？
 - en: 'The work is almost done. We just need to add these in the next chapter:'
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: 工作几乎完成。我们只需在下一章中添加这些内容：
 - en: Node merging and tree deletion.
+  id: totrans-84
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 节点合并和树删除。
 - en: A high-level interface.
+  id: totrans-85
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 这是一个高级接口。
 - en: Fake node callbacks for tests.
+  id: totrans-86
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 测试的假节点回调。

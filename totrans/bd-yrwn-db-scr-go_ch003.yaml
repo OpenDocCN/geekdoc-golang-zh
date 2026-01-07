@@ -1,293 +1,429 @@
 - en: 02\. Indexing Data Structures
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 02. 索引数据结构
 - en: 2.1 Types of queries
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 2.1 查询类型
 - en: 'Most SQL queries can be broken down into 3 types:'
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 大多数SQL查询可以分为3种类型：
 - en: Scan the whole data set. (No index is used).
+  id: totrans-3
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 扫描整个数据集。（不使用索引）。
 - en: 'Point query: Query the index by a specific key.'
+  id: totrans-4
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 点查询：通过特定的键查询索引。
 - en: 'Range query: Query the index by a range. (The index is sorted).'
+  id: totrans-5
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 范围查询：通过范围查询索引。（索引是排序的）。
 - en: There are ways to make scanning fast, such as column-based storage. But a scan
     is *O*(*N*) no matter how fast it is; our focus is on queries that can be served
     in *O*(log *N*) using data structures.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 有方法可以使扫描变得快速，例如基于列的存储。但无论速度有多快，扫描都是 *O*(*N*)；我们的重点是使用数据结构在 *O*(log *N*) 时间内提供查询。
 - en: 'A range query consists of 2 phases:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 范围查询由两个阶段组成：
 - en: 'Seek: find the starting key.'
+  id: totrans-8
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 查找：找到起始键。
 - en: 'Iterate: find the previous/next key in sorted order.'
+  id: totrans-9
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 迭代：在排序顺序中找到前一个/下一个键。
 - en: A point query is just seek without iterate; a sorting data structure is all
     we need.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 点查询只是不带迭代的查找；排序数据结构就是我们需要的所有。
 - en: 2.2 Hashtables
+  id: totrans-11
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 2.2 哈希表
 - en: Hashtables are viable if you only consider point queries (get, set, del), so
     we will not bother with them because of the lack of ordering.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果只考虑点查询（获取、设置、删除），哈希表是可行的，所以我们不会因为缺乏排序而烦恼。
 - en: 'However, coding a hashtable, even an in-memory one, is still a valuable exercise.
     It’s far easier than the B-tree we’ll code later, though some challenges remain:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，编写哈希表，即使是内存中的哈希表，仍然是一项有价值的练习。它比我们稍后要编写的B树容易得多，尽管仍然存在一些挑战：
 - en: How to grow a hashtable? Keys must be moved to a larger hashtable when the load
     factor is too high. Moving everything at once is prohibitively *O*(*N*). Rehashing
     must be done progressively, even for in-memory apps like Redis.
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如何扩展哈希表？当负载因子太高时，必须将键移动到更大的哈希表中。一次性移动所有内容是过于 *O*(*N*) 的。即使是像Redis这样的内存应用程序，也需要逐步进行重新哈希。
 - en: 'Other things mentioned before: in-place updates, space reuse, and etc.'
+  id: totrans-15
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 其他之前提到的事情：原地更新、空间重用等。
 - en: 2.3 Sorted arrays
+  id: totrans-16
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 2.3 排序数组
 - en: 'Ruling out hashtables, let’s start with the simplest sorting data structure:
     the sorted array. You can binary search on it in *O*(log *N*). For variable-length
     data such as strings (KV), use an array of pointers (offsets) to do binary searches.'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 排除哈希表，让我们从最简单的排序数据结构开始：排序数组。你可以在 *O*(log *N*) 的时间内对其进行二分搜索。对于如字符串（KV）这样的变长数据，使用指针数组（偏移量）进行二分搜索。
 - en: Updating a sorted array is *O*(*N*), either in-place or not. So it’s not practical,
     but it can be extended to other updatable data structures.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 更新排序数组是 *O*(*N*)，无论是原地还是非原地。所以这并不实用，但它可以扩展到其他可更新的数据结构。
 - en: One way to reduce the update cost is to split the array into several smaller
     non-overlapping arrays — nested sorted arrays. This extension leads to B+tree
     (multi-level n-ary tree), with the additional challenge of maintaining these small
     arrays (tree nodes).
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 减少更新成本的一种方法是将数组分割成几个较小的非重叠数组——嵌套排序数组。这种扩展导致了B+树（多级n叉树），同时还需要维护这些小数组（树节点）的额外挑战。
 - en: Another form of “updatable array” is the log-structured merge tree (LSM-tree).
     Updates are first buffered in a smaller array (or other sorting data structures),
     then merged into the main array when it becomes too large. The update cost is
     amortized by propagating smaller arrays into larger arrays.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: “可更新数组”的另一种形式是日志结构合并树（LSM-tree）。更新首先在较小的数组（或其他排序数据结构）中缓冲，然后当它变得太大时合并到主数组中。通过将较小的数组传播到较大的数组中，更新成本被摊销。
 - en: 2.4 B-tree
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 2.4 B树
 - en: A B-tree is a balanced n-ary tree, comparable to balanced binary trees. Each
     node stores variable number of keys (and branches) up to *n* and *n* > 2.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: B树是一个平衡的n叉树，类似于平衡的二叉树。每个节点存储可变数量的键（和分支），最多为 *n* 且 *n* > 2。
 - en: Reducing random access with shorter trees
+  id: totrans-23
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用更短的树减少随机访问
 - en: A disk can only perform a limited number of IOs per second (IOPS), which is
     the limiting factor for tree lookups. Each level of the tree is a disk read in
     a lookup, and n-ary trees are shorter than binary trees for the same number of
     keys (log[*n*]*N* vs. log[2]*N*), thus n-ary trees are used for fewer disk reads
     per lookup.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 磁盘每秒只能执行有限数量的I/O操作（IOPS），这是树查找的限制因素。树的每一层在查找时都是磁盘读取，对于相同数量的键，n叉树比二叉树短（log[*n*]*N*
+    与 log[2]*N*），因此n叉树在每次查找中需要更少的磁盘读取。
 - en: 'How is the *n* chosen? There is a trade-off:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '*n* 如何选择？这里有一个权衡：'
 - en: Larger *n* means fewer disk reads per lookup (better latency and throughput).
+  id: totrans-26
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 较大的 *n* 意味着每次查找的磁盘读取较少（更好的延迟和吞吐量）。
 - en: Larger *n* means larger nodes, which are slower to update (discussed later).
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 较大的 *n* 意味着更大的节点，更新速度较慢（稍后讨论）。
 - en: IO in the unit of pages
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 以页面为单位的I/O
 - en: While you can read any number of bytes at any offset from a file, disks do not
     work that way. The basic unit of disk IO is not bytes, but sectors, which are
     512-byte contiguous blocks on old HDDs.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然你可以从文件中的任何偏移量读取任意数量的字节，但磁盘并不是这样工作的。磁盘I/O的基本单位不是字节，而是扇区，在旧硬盘上，扇区是512字节的连续块。
 - en: However, disk sectors are not an application’s concern because regular file
     IOs do not interact directly with the disk. The OS caches/buffers disk reads/writes
     in the *page cache*, which consists of 4K-byte memory blocks called *pages*.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，磁盘扇区不是应用程序需要关心的，因为常规文件I/O并不直接与磁盘交互。操作系统在 *页面缓存* 中缓存/缓冲磁盘的读取/写入，页面缓存由称为 *页面*
+    的4K字节内存块组成。
 - en: In any way, there is a minimum unit of IO. DBs can also define their own unit
     of IO (also called a page), which can be larger than an OS page.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 无论如何，都有一个最小的I/O单元。数据库也可以定义它们自己的I/O单元（也称为页面），它可能比操作系统的页面大。
 - en: The minimum IO unit implies that tree nodes should be allocated in multiples
     of the unit; a half used unit is half wasted IO. Another reason against small
     *n*!
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 最小I/O单元意味着树节点应该以单元的倍数分配；半用单元是半浪费I/O。反对小 *n* 的另一个原因！
 - en: The B+tree variant
+  id: totrans-33
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: B+tree变体
 - en: In the context of databases, B-tree means a variant of B-tree called B+tree.
     In a B+tree, internal nodes do not store values, values exist only in leaf nodes.
     This leads to shorter tree because internal nodes have more space for branches.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 在数据库的上下文中，B-tree指的是B-tree的一个变体，称为B+tree。在B+树中，内部节点不存储值，值只存在于叶节点中。这导致树变得更短，因为内部节点有更多的空间用于分支。
 - en: B+tree as an in-memory data structure also makes sense because the minimum IO
     unit between RAM and CPU caches is 64 bytes (cache line). The performance benefit
     is not as great as on disk because not much can fit in 64 bytes.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: B+tree作为一个内存中的数据结构也是有意义的，因为RAM和CPU缓存之间的最小I/O单元是64字节（缓存行）。由于64字节中能放入的内容不多，因此在内存中的性能提升不如在磁盘上那么大。
 - en: Data structure space overhead
+  id: totrans-36
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 数据结构空间开销
 - en: Another reason why binary trees are impractical is the number of pointers; each
     key has at least 1 incoming pointer from the parent node, whereas in a B+tree,
     multiple keys in a leaf node share 1 incoming pointer.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个为什么二叉树不实用是因为指针的数量；每个键至少从父节点有一个进入指针，而在B+树中，叶节点中的多个键共享一个进入指针。
 - en: Keys in a leaf node can also be packed in a compact format or compressed to
     further reduce the space.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 叶节点中的键也可以以紧凑的格式打包或压缩，以进一步减少空间。
 - en: 2.5 Log-structured storage
+  id: totrans-39
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 2.5 日志结构化存储
 - en: 'Update by merge: amortize cost'
+  id: totrans-40
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过合并更新：分摊成本
 - en: The most common example of log-structured storage is log-structure merge tree
     (LSM-tree). Its main idea is neither log nor tree; it’s “merge” instead!
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 日志结构化存储最常见的一个例子是日志结构合并树（LSM-tree）。它的主要思想既不是日志也不是树；而是“合并”！
 - en: 'Let’s start with 2 files: a small file holding the recent updates, and a large
     file holding the rest of the data. Updates go to the small file first, but it
     cannot grow forever; it will be merged into the large file when it reaches a threshold.'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们从两个文件开始：一个小文件用于存储最近的更新，一个大文件用于存储其余数据。更新首先写入小文件，但小文件不能无限增长；当它达到阈值时，它将被合并到大型文件中。
 - en: '[PRE0]'
+  id: totrans-43
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Merging 2 sorted files results in a newer, larger file that replaces the old
     large file and shrinks the small file.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 合并两个排序文件会产生一个较新、较大的文件，它替换了旧的大文件并缩小了小文件。
 - en: Merging is *O*(*N*), but can be done concurrently with readers and writers.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 合并操作是 *O*(*N*)，但可以与读取者和写入者并发进行。
 - en: Reduce write amplification with multiple levels
+  id: totrans-46
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过多级减少写放大
 - en: Buffering updates is better than rewriting the whole dataset every time. What
     if we extend this scheme to multiple levels?
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 缓存更新比每次重写整个数据集要好。如果我们把这个方案扩展到多个级别会怎样呢？
 - en: '[PRE1]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: In the 2-level scheme, the large file is rewritten every time the small file
     reaches a threshold, the excess disk write is called *write amplification*, and
     it gets worse as the large file gets larger. If we use more levels, we can keep
     the 2nd level small by merging it into the 3rd level, similar to how we keep the
     1st level small.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 在两级方案中，每当小文件达到阈值时，大文件就会被重写，额外的磁盘写入称为 *写放大*，随着大文件变大，这种情况会变得更糟。如果我们使用更多级别，可以通过将其合并到第三级来保持第二级较小，类似于我们保持第一级较小的做法。
 - en: Intuitively, levels grow exponentially, and the power of two growth (merging
     similarly sized levels) results in the least write amplification. But there is
     a trade-off between write amplification and the number of levels (query performance).
+  id: totrans-50
   prefs: []
   type: TYPE_NORMAL
+  zh: 直观地说，级别呈指数增长，两个级别的增长（合并相似大小的级别）会导致最小的写放大。但是，写放大和级别数量（查询性能）之间存在权衡。
 - en: LSM-tree indexes
+  id: totrans-51
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: LSM-tree索引
 - en: Each level contains indexing data structures, which could simply be a sorted
     array, since levels are never updated (except for the 1st level). But binary search
     is not much better than binary tree in terms of random access, so a sensible choice
     is to use B-tree inside a level, that’s the “tree” part of LSM-tree. Anyway, data
     structures are much simpler because of the lack of updates.
+  id: totrans-52
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个级别包含索引数据结构，这些结构可以简单地是一个排序数组，因为级别永远不会更新（除了第一级）。但是，在随机访问方面，二分搜索并不比二叉树好多少，因此，在级别内部使用B树是一个合理的选择，这就是LSM树中的“树”部分。无论如何，由于缺乏更新，数据结构要简单得多。
 - en: To better understand the idea of “merge”, you can try to apply it to hashtables,
     a.k.a. log-structured hashtables.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了更好地理解“合并”的概念，你可以尝试将其应用于哈希表，即日志结构化哈希表。
 - en: LSM-tree queries
+  id: totrans-54
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: LSM树查询
 - en: Keys can be in any levels, so to query an LSM-tree, the results from each level
     are combined (n-way merge for range queries).
+  id: totrans-55
   prefs: []
   type: TYPE_NORMAL
+  zh: 键可以存在于任何级别，因此查询LSM树时，需要将每个级别的结果合并（对于范围查询，进行n路合并）。
 - en: For point queries, Bloom filters can be used as an optimization to reduce the
     number of searched levels.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于点查询，可以使用布隆过滤器作为优化，以减少搜索的级别数量。
 - en: Since levels are never updated, there can be old versions of keys in older levels,
     and deleted keys are marked with a special flag in newer levels (called tombstones).
     Thus, newer levels have priority in queries.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 由于级别永远不会更新，旧级别中可能会有旧版本的键，而新级别中删除的键会使用特殊标志标记（称为墓碑）。因此，在查询中，新级别具有优先级。
 - en: The merge process naturally reclaims space from old or deleted keys. Thus, it’s
     also called *compaction*.
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: 合并过程自然会回收旧或已删除键的空间。因此，它也被称为*压缩*。
 - en: 'Real-world LSM-tree: SSTable, MemTable and log'
+  id: totrans-59
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 真实世界的LSM树：SSTable、MemTable和日志
 - en: These are jargons about LSM-tree implementation details. You don’t need to know
     them to build one from principles, but they do solve some real problems.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些是关于LSM树实现细节的术语。你不需要了解它们就可以从原理上构建一个，但它们确实解决了某些实际问题。
 - en: Levels are split into multiple non-overlapping files called SSTables, rather
     than one large file, so that merging can be done gradually. This reduces the free
     space requirement when merging large levels, and the merging process is spread
     out over time.
+  id: totrans-61
   prefs: []
   type: TYPE_NORMAL
+  zh: 级别被分割成多个非重叠文件，称为SSTables，而不是一个大型文件，这样就可以逐步进行合并。这减少了合并大型级别时的空闲空间需求，并且合并过程被分散到一段时间内。
 - en: The 1st level is updated directly, a log becomes a viable choice because the
     1st level is bounded in size. This is the “log” part of the LSM-tree, an example
     of combining a log with other indexing data structures.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一级直接更新，日志成为可行的选择，因为第一级的大小是有限的。这是LSM树的“日志”部分，是结合日志与其他索引数据结构的一个例子。
 - en: But even if the log is small, a proper indexing data structure is still needed.
     The log data is *duplicated* in an in-memory index called MemTable, which can
     be a B-tree, skiplist, or whatever. It’s a small, bounded amount of in-memory
     data, and has the added benefit of accelerating the read-the-recent-updates scenario.
+  id: totrans-63
   prefs: []
   type: TYPE_NORMAL
+  zh: 即使日志很小，仍然需要一个合适的索引数据结构。日志数据在内存索引MemTable中被*复制*，这可以是B树、跳表或任何其他结构。这是一小部分有界内存数据，并且具有加速读取最近更新的场景的附加好处。
 - en: 2.6 Summary of indexing data structures
+  id: totrans-64
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 2.6 索引数据结构总结
 - en: 'There are 2 options: B+tree and LSM-tree.'
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 有两种选项：B+树和LSM树。
 - en: LSM-tree solves many of the challenges from the last chapter, such as how to
     update disk-based data structures and resue space. While these challenges remain
     for B+tree, which will be explored later.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: LSM树解决了上一章中的一些挑战，例如如何更新基于磁盘的数据结构和回收空间。虽然这些挑战对于B+树仍然存在，这将在稍后探讨。

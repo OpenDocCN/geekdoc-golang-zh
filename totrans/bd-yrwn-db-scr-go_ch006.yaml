@@ -1,139 +1,211 @@
 - en: 05\. B+Tree Deletion and Testing
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 05\. B+树删除和测试
 - en: 5.1 High-level interfaces
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 5.1 高级接口
 - en: We’ll add the interfaces to use the B+tree as a KV.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将添加使用B+树作为KV的接口。
 - en: '[PRE0]'
+  id: totrans-3
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Most of the details are introduced with the tree insertion, so there’s not much
     more to learn from the deletion. Skip this chapter if you know the principle.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 大多数细节都是在树插入时介绍的，所以从删除中学习的内容并不多。如果你已经知道原理，可以跳过这一章。
 - en: Keep the root node
+  id: totrans-5
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 保留根节点
 - en: There is some extra work in maintaining the root node for tree insertions.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 在树插入时维护根节点有一些额外的工作。
 - en: Create the root node if the tree is empty.
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果树为空，则创建根节点。
 - en: Add a new root if the root node is split.
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 如果根节点被分割，添加一个新的根节点。
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Sentinel value
+  id: totrans-10
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 哨兵值
 - en: 'There is a trick when creating the first root: we inserted an empty key. This
     is called a sentinel value, it’s used to remove an edge case.'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 在创建第一个根节点时有一个技巧：我们插入了一个空键。这被称为哨兵值，它用于消除一个边缘情况。
 - en: If you examine the lookup function `nodeLookupLE`, you’ll see that it won’t
     work if the key is out of the node range. This is fixed by inserting an empty
     key into the tree, which is the lowest possible key by sort order, so that `nodeLookupLE`
     will always find a position.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果你检查查找函数`nodeLookupLE`，你会看到如果键不在节点范围内，它将不起作用。这是通过在树中插入一个空键来修复的，这是按排序顺序最低的可能键，这样`nodeLookupLE`总能找到一个位置。
 - en: 5.2 Merge nodes
+  id: totrans-13
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 5.2 合并节点
 - en: Node update functions
+  id: totrans-14
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 节点更新函数
 - en: We’ll need some new functions for the tree deletion.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将需要一些新的函数来进行树删除。
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Merge conditions
+  id: totrans-17
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 合并条件
 - en: Deleting may result in empty nodes, which can be merged with a sibling if it
     has one. `shouldMerge` returns which sibling (left or right) to merge with.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 删除可能会导致空节点，如果它有一个兄弟节点，则可以与其合并。`shouldMerge`函数返回要合并的兄弟节点（左或右）。
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Deleted keys mean unused space within nodes. In the worst case, a mostly empty
     tree can still retain a large number of nodes. We can improve this by triggering
     merges earlier — using 1/4 of a page as a threshold instead of the empty node,
     which is a soft limit on the minimum node size.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 被删除的键意味着节点内的未使用空间。在最坏的情况下，一个大部分为空的树仍然可以保留大量的节点。我们可以通过提前触发合并来改进这一点——使用1/4页作为阈值而不是空节点，这是对最小节点大小的软限制。
 - en: 5.3 B+tree deletion
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 5.3 B+树删除
 - en: This is similar to insertion, just replace splitting with merging.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这与插入类似，只是用合并替换分割。
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: Even if a node becomes empty, it may not be merged if it has no siblings. In
     this case, the empty node is propagated to its parent and merged later.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 即使一个节点变为空，如果没有兄弟节点，它可能不会被合并。在这种情况下，空节点将被传播到其父节点，并在稍后合并。
 - en: 5.4 Test the B+tree
+  id: totrans-25
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 5.4 测试B+树
 - en: The data structure only interacts with the rest of the DB via the 3 page management
     callbacks. To test the B+tree, we can simulate pages in memory.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 数据结构只通过3个页面管理回调与数据库的其余部分交互。为了测试B+树，我们可以在内存中模拟页面。
 - en: '[PRE5]'
+  id: totrans-27
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: '`C.pages` is a map of allocated pages. It’s used to validate pointers and read
     pages. The pointers are actually in-memory pointers, and the B+tree code doesn’t
     care.'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: '`C.pages`是一个已分配页面的映射。它用于验证指针和读取页面。指针实际上是内存指针，B+树代码并不关心。'
 - en: 'To test the B+tree, we first need to update it under various scenarios and
     then verify the result. The verification is generic, there are 2 things to verify:'
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 要测试B+树，我们首先需要在各种场景下更新它，然后验证结果。验证是通用的，有两件事需要验证：
 - en: The structure is valid.
+  id: totrans-30
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 结构是有效的。
 - en: Keys are sorted.
+  id: totrans-31
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 键是有序的。
 - en: Node sizes are within limits.
+  id: totrans-32
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 节点大小在限制范围内。
 - en: The data matches a reference. We used a map to capture each update.
+  id: totrans-33
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 数据与参考匹配。我们使用映射来捕获每个更新。
 - en: '[PRE6]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: The test cases are left as an exercise. The next thing is B+tree on disk.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 测试案例留作练习。接下来是磁盘上的B+树。

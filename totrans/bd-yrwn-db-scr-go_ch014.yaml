@@ -1,307 +1,481 @@
 - en: 13\. SQL Parser
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 13\. SQL解析器
 - en: SQL is easily parsed by computers while still looking like English.
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: SQL易于计算机解析，同时看起来像英语。
 - en: 13.1 Syntax, parser, and interpreter
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 13.1 语法、解析器和解释器
 - en: Tree representation of computer languages
+  id: totrans-3
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 计算语言树表示
 - en: A query language is a string parsed into a tree structure for further processing.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 查询语言是将字符串解析为树结构以进行进一步处理的语言。
 - en: 'Example 1: `SELECT ... FROM foo WHERE a > b AND a < c`:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例1：`SELECT ... FROM foo WHERE a > b AND a < c`：
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'Example 2: Expression `a + b * c`:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 示例2：表达式`a + b * c`：
 - en: '[PRE1]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: SQL is just a particular syntax; there are easier alternatives, such as the
     pipeline-based [PRQL](https://prql-lang.org/), or even just [S-expression](https://en.wikipedia.org/wiki/S-expression).
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: SQL只是特定的语法；有更简单的替代方案，例如基于管道的[PRQL](https://prql-lang.org/)，或者甚至是[S表达式](https://en.wikipedia.org/wiki/S-expression)。
 - en: The S-expression is just nested parentheses, it’s the simplest syntax for arbitrary
     tree structures. You can skip this chapter if you choose S-expression, but SQL
     isn’t much harder, because everything is handled with nothing but top-down recursion.
     The lesson in this chapter also applies to most computer languages.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: S表达式只是嵌套的括号，它是任意树结构的简单语法。如果你选择S表达式，可以跳过这一章，但SQL并不难，因为所有的事情都是通过无上递归来处理的。本章的教训也适用于大多数计算机语言。
 - en: Evaluate by visiting tree nodes
+  id: totrans-11
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过访问树节点进行评估
 - en: Both `SELECT` and `UPDATE` can contain arithmetic expressions on columns, which
     are parsed into trees in the last example. Each tree node is an operator, and
     its subtrees are operands. To evaluate a tree node, first evaluate its subtrees.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '`SELECT`和`UPDATE`都可以包含列上的算术表达式，这在最后一个示例中被解析为树。每个树节点是一个运算符，其子树是操作数。要评估树节点，首先评估其子树。'
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: In retrospect, this is the reason why trees are relevant, because trees represent
     the evaluation order. A programming language also has control flows, variables,
     etc., but once you represent it with a tree, the rest should be obvious.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 回顾起来，这就是为什么树相关的理由，因为树表示评估顺序。编程语言也有控制流、变量等，但一旦用树表示，其余的应该很明显。
 - en: 13.2 Query language specification
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 13.2 查询语言规范
 - en: Statements
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 语句
 - en: Not exactly SQL, just a look-alike.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 这并不完全是SQL，只是看起来相似。
 - en: '[PRE3]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Conditions
+  id: totrans-19
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 条件
 - en: A SQL DB will choose an index based on the `WHERE` clause if possible, and/or
     fetch and filter the rows if the condition is not fully covered by the index.
     This is automatic without any direct user control.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果可能，SQL数据库将根据`WHERE`子句选择索引，并且/或者如果条件没有被索引完全覆盖，则检索和过滤行。这是自动的，无需任何直接用户控制。
 - en: 'Here we’ll deviate from SQL: Instead of `WHERE`, we’ll use separate clauses
     for indexing conditions and filtering conditions,'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，我们将偏离SQL：我们将使用单独的子句来表示索引条件和过滤条件，
 - en: The `INDEX BY` clause selects an index and controls the sort order.
+  id: totrans-22
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '`INDEX BY`子句选择索引并控制排序顺序。'
 - en: '[PRE4]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The `FILTER` clause then filters the rows.
+  id: totrans-24
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 然后`FILTER`子句过滤行。
 - en: '[PRE5]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: Both are optional. And the primary key is selected if the `INDEX BY` is missing.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 这两个都是可选的。如果缺少`INDEX BY`，则选择主键。
 - en: OLTP workloads often expect predictable performance; a sudden change in the
     query plan is a production hazard. That’s why we make the index selection explicit
     to save the DB from guessing.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: OLTP工作负载通常期望可预测的性能；查询计划的突然变化是生产中的风险。这就是为什么我们使索引选择明确，以避免数据库猜测。
 - en: Expressions
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 表达式
 - en: An expression is either a …
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 一个表达式可以是……
 - en: column name,
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 列名，
 - en: literal value like numbers or strings,
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文字值，如数字或字符串，
 - en: binary or unary operator,
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 二元或一元运算符，
 - en: tuple.
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 元组。
 - en: '[PRE6]'
+  id: totrans-34
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Which is represented as a tree node.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 这被表示为一个树节点。
 - en: '[PRE7]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Different operators have different priorities (precedence), as listed above.
     This complication is avoided in simpler grammars like S-expression. But operator
     precedence can be handled with simple recursion, as you’ll see.
+  id: totrans-37
   prefs: []
   type: TYPE_NORMAL
+  zh: 不同的运算符有不同的优先级（优先级），如上所述。这种复杂性在像S表达式这样的简单语法中被避免。但运算符优先级可以通过简单的递归来处理，正如你将看到的。
 - en: 13.3 Recursive descent
+  id: totrans-38
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 13.3 递归下降
 - en: Tree node structures
+  id: totrans-39
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 树节点结构
 - en: Each statement is divided into smaller parts including the expression node `QLNode`,
     so they are trees of components.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个语句被分成更小的部分，包括表达式节点`QLNode`，因此它们是组件的树。
 - en: '[PRE8]'
+  id: totrans-41
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Split the input into smaller parts
+  id: totrans-42
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 将输入拆分为更小的部分
 - en: All parsing is *top-down*. The topmost part is a statement, we’ll first determine
     its type, then dispatch the work to the concrete function.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 所有解析都是自顶向下的。最顶层是一个语句，我们首先确定其类型，然后分配具体的工作到具体函数。
 - en: '[PRE9]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: '`pKeyword` matches and consumes keywords from the input to determine the next
     part. Take a look at `pSelect`, its 3 parts are consumed by 3 functions.'
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: '`pKeyword` 匹配并消耗输入中的关键字以确定下一个部分。看看 `pSelect`，它的3个部分被3个函数消耗。'
 - en: '[PRE10]'
+  id: totrans-46
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: '`pSelectExprList` is the comma-separated expression list. Each list item is
     dispatched to `pSelectExpr`. The comma determines where the list ends.'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '`pSelectExprList` 是逗号分隔的表达式列表。每个列表项都分配给 `pSelectExpr`。逗号决定了列表的结束。'
 - en: '[PRE11]'
+  id: totrans-48
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '`pScan` is the last part of `SELECT`. It’s further divided into 3 smaller parts.'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '`pScan` 是 `SELECT` 的最后一部分。它进一步分为3个更小的部分。'
 - en: '[PRE12]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: 'Without looking at every function, we’ve already got the idea of parsing:'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 不看每个函数，我们已经有了解析的想法：
 - en: Split the input into smaller and smaller parts until it ends as either an operator,
     a name, or a literal value.
+  id: totrans-52
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 将输入拆分为越来越小的部分，直到它结束为一个运算符、一个名称或一个字面值。
 - en: Determine the next part by looking at the next keywords.
+  id: totrans-53
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 通过查看下一个关键字来确定下一个部分。
 - en: '`SELECT` decomposed into smaller and smaller parts.'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: '`SELECT` 分解成越来越小的部分。'
 - en: '| `SELELT a, b` | `FROM` | `foo` | `INDEX BY x` | `FILTER y` | `LIMIT z` |'
+  id: totrans-55
   prefs: []
   type: TYPE_TB
+  zh: '| `SELELT a, b` | `FROM` | `foo` | `INDEX BY x` | `FILTER y` | `LIMIT z` |'
 - en: '| --- | --- | --- | --- | --- | --- |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- | --- |'
 - en: '| `pSelectExprList` | `pExpect` | `pMustSym` | `pScan` |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '| `pSelectExprList` | `pExpect` | `pMustSym` | `pScan` |'
 - en: '| `pSelectExpr` |  | `pIndexBy` | `pExprOr` | `pLimit` |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '| `pSelectExpr` |  | `pIndexBy` | `pExprOr` | `pLimit` |'
 - en: '| `pExprOr` |  | … | … | `pNum` |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '| `pExprOr` |  | … | … | `pNum` |'
 - en: '| … |  |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '| … |  |'
 - en: Convert infix operators into a binary tree
+  id: totrans-61
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 将中缀运算符转换为二叉树
 - en: '`pExprOr` parses an arbitrary expression. Turning `1+2*3-4` into a tree regarding
     operator precedence is not obvious, as it’s just an interleaved list of numbers
     and operators. So let’s start with a simpler problem: only the `+` operator.'
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: '`pExprOr` 解析任意表达式。将 `1+2*3-4` 转换为考虑运算符优先级的树并不明显，因为它只是一个数字和运算符的交错列表。所以让我们从一个更简单的问题开始：只有
+    `+` 运算符。'
 - en: '[PRE13]'
+  id: totrans-63
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: 'The expression `left + right` is represented as:'
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 表达式 `left + right` 表示为：
 - en: '[PRE14]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: 'The *left* subtree can also represent an expression, so `LL + LR + R` becomes:'
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: 左子树也可以表示一个表达式，所以 `LL + LR + R` 变为：
 - en: '[PRE15]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: 'We can add more terms, and it’s still a binary tree. Pseudo-code:'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以添加更多项，它仍然是一个二叉树。伪代码：
 - en: '[PRE16]'
+  id: totrans-69
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: 'This is described by a simple rule:'
+  id: totrans-70
   prefs: []
   type: TYPE_NORMAL
+  zh: 这由一个简单的规则描述：
 - en: '[PRE17]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE17]'
 - en: The *left* subrule `expr` can expand to the rule itself, but the right subrule
     `term` is the bottommost part that cannot expand any further.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 左子规则 `expr` 可以扩展到规则本身，但右子规则 `term` 是不能进一步扩展的底部部分。
 - en: Operator precedence with recursion
+  id: totrans-73
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 递归运算符优先级
 - en: 'Next problem: add the `*` operator. It has a higher priority, so `term` is
     now expanded by a similar rule, and the bottommost part is now `factor`.'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: 下一个问题：添加 `*` 运算符。它具有更高的优先级，因此 `term` 现在通过类似的规则扩展，底部部分现在是 `factor`。
 - en: '[PRE18]'
+  id: totrans-75
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE18]'
 - en: 'Pseudo-code:'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: 伪代码：
 - en: '[PRE19]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE19]'
 - en: Visualization of the 2-rule expansion.
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: 2规则的扩展可视化。
 - en: '|  | a | + | b | × | c | - | d |'
+  id: totrans-79
   prefs: []
   type: TYPE_TB
+  zh: '|  | a | + | b | × | c | - | d |'
 - en: '| --- | --- | --- | --- | --- | --- | --- | --- |'
+  id: totrans-80
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- | --- | --- | --- |'
 - en: '| 1 | term | + |  | term |  | - | term |'
+  id: totrans-81
   prefs: []
   type: TYPE_TB
+  zh: '| 1 | term | + |  | term |  | - | term |'
 - en: '| 2 | factor |  | factor | × | factor |  | factor |'
+  id: totrans-82
   prefs: []
   type: TYPE_TB
+  zh: '| 2 | factor |  | factor | × | factor |  | factor |'
 - en: The `OR` operator has the lowest priority, so `pExprOr` is the topmost function
     for parsing an expression. It calls `pExprAnd` to handle the next priority, all
     the way down to the highest priority `pExprUnop`, which calls `pExprAtom` to parse
     a bottommost part (a name or a literal value).
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: '`OR` 运算符具有最低优先级，因此 `pExprOr` 是解析表达式的最高函数。它调用 `pExprAnd` 来处理下一个优先级，一直到底部优先级
+    `pExprUnop`，它调用 `pExprAtom` 来解析最底层的部分（一个名称或一个字面值）。'
 - en: '[PRE20]'
+  id: totrans-84
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE20]'
 - en: This is called *recursive descent*. In retrospect, it’s just divide and conquer,
     where the “divide” is just checking for the next keyword.
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 这被称为 *递归下降*。回顾起来，它只是分而治之，其中“分”只是检查下一个关键字。

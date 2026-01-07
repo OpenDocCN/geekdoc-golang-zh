@@ -1,193 +1,295 @@
 - en: 10\. Secondary Indexes
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 10. Secondary Indexes
 - en: 10.1 Secondary indexes as extra keys
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 10.1 作为额外键的二级索引
 - en: Table schema
+  id: totrans-2
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 表模式
 - en: As mentioned in chapter 08, secondary indexes are just extra KV pairs containing
     the primary key. Each index is distinguished by a key prefix in the B+tree.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 如第08章所述，二级索引只是包含主键的额外KV对。每个索引都通过B+树中的键前缀来区分。
 - en: '[PRE0]'
+  id: totrans-4
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: The first index is used as the primary key as it’s also an index.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 第一个索引被用作主键，因为它也是一个索引。
 - en: KV structures
+  id: totrans-6
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: KV结构
 - en: For a secondary index, we could put the primary key in B+tree value, which is
     used to find the full row. However, unlike the primary key, secondary indexes
     don’t have the unique constraint, so there can be duplicate B+tree keys.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于二级索引，我们可以将主键放在B+树值中，用于查找完整行。然而，与主键不同，二级索引没有唯一约束，因此可以有重复的B+树键。
 - en: Instead of modifying our B+tree to support duplicates, we can also add the primary
     key to the B+tree key to make it unique and leave the value empty.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们可以不修改我们的B+树以支持重复项，也可以将主键添加到B+树键中，使其唯一，并留空值。
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: '|  | key | value |'
+  id: totrans-10
   prefs: []
   type: TYPE_TB
+  zh: '|  | key | value |'
 - en: '| --- | --- | --- |'
+  id: totrans-11
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- |'
 - en: '| t1 | prefix1, k1, k2 | v1, v2 |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '| t1 | prefix1, k1, k2 | v1, v2 |'
 - en: '| idx1 | prefix2, v1, k1, k2 | (empty) |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '| idx1 | prefix2, v1, k1, k2 | (empty) |'
 - en: '| idx2 | prefix3, v2, k2, k1 | (empty) |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '| idx2 | prefix3, v2, k2, k1 | (empty) |'
 - en: 10.2 Using secondary indexes
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 10.2 使用二级索引
 - en: Select an index by matching columns
+  id: totrans-16
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过匹配列选择索引
 - en: To do a range query, we must select an index that matches the query keys, which
     is stored in the `Scanner` type so that `Scanner.Deref()` can use it.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 要执行范围查询，我们必须选择与查询键匹配的索引，该索引存储在`Scanner`类型中，以便`Scanner.Deref()`可以使用它。
 - en: '[PRE2]'
+  id: totrans-18
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: An index can be multiple columns. For example, index (*a*, *b*) can serve the
     query (*a*, *b*) > (1, 2). It can also serve the query *a* > 1, because this is
     the same as (*a*, *b*) > (1, +∞). The index selection is just matching the columns.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 索引可以是多个列。例如，索引(*a*, *b*)可以服务于查询(*a*, *b*) > (1, 2)。它也可以服务于查询*a* > 1，因为这与(*a*, *b*) > (1, +∞)相同。索引选择只是匹配列。
 - en: '[PRE3]'
+  id: totrans-20
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Encode missing columns as infinity
+  id: totrans-21
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 将缺失的列编码为无穷大
 - en: In the last example, the query *a* > 1 with the index (*a*, *b*) uses only 1
     of the columns, so we need to encode the rest as infinity.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在最后一个例子中，使用索引(*a*, *b*)的查询*a* > 1只使用了1个列，因此我们需要将剩余的列编码为无穷大。
 - en: '| Input query | Using the index |'
+  id: totrans-23
   prefs: []
   type: TYPE_TB
+  zh: '| 输入查询 | 使用索引 |'
 - en: '| --- | --- |'
+  id: totrans-24
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '| *a* > 1 | (*a*, *b*) > (1, +∞) |'
+  id: totrans-25
   prefs: []
   type: TYPE_TB
+  zh: '| *a* > 1 | (*a*, *b*) > (1, +∞) |'
 - en: '| *a* ≤ 1 | (*a*, *b*) < (1, +∞) |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| *a* ≤ 1 | (*a*, *b*) < (1, +∞) |'
 - en: '| *a* ≥ 1 | (*a*, *b*) > (1, −∞) |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| *a* ≥ 1 | (*a*, *b*) > (1, −∞) |'
 - en: '| *a* < 1 | (*a*, *b*) < (1, −∞) |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| *a* < 1 | (*a*, *b*) < (1, −∞) |'
 - en: This can be done by modifying our order-preserving encoding. First, we’ll choose
     `"\xff"` as +∞ and `""` as -∞. As no columns are encoded as empty strings, we
     can just ignore the missing columns in the -∞ cases. In the +∞ cases, we’ll prepend
     a tag to each encoded column so that they don’t start with `"\xff"`.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 这可以通过修改我们的有序编码来完成。首先，我们将`"\xff"`选择为+∞，`""`为-∞。由于没有列被编码为空字符串，我们可以在-∞情况下忽略缺失的列。在+∞情况下，我们将为每个编码列添加一个标签，这样它们就不会以`"\xff"`开头。
 - en: '[PRE4]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: We’ll prepend the column type code as the tag. This also makes debugging easier
     since we can now decode stuff by looking at the hexdump.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将列类型代码作为标签添加到前面。这也使得调试更容易，因为我们现在可以通过查看十六进制转储来解码内容。
 - en: This is a small extra step to support range queries on prefix columns.
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 这是一个小步骤，用于支持前缀列上的范围查询。
 - en: '[PRE5]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 10.3 Maintaining secondary indexes
+  id: totrans-34
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 10.3 维护二级索引
 - en: Sync with the primary data
+  id: totrans-35
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 与主数据同步
 - en: An update may involve multiple B+tree keys with secondary indexes. When a row
     is changed, we must remove old index keys and insert new ones. To do this, the
     B+tree interface is extended to return the old value.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 更新可能涉及多个带有二级索引的B+树键。当一行被更改时，我们必须删除旧的索引键并插入新的键。为此，B+树接口被扩展以返回旧值。
 - en: '[PRE6]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: 'Use the new information:'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用新信息：
 - en: '[PRE7]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: Atomicity of multi-key updates
+  id: totrans-40
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 多键更新的原子性
 - en: Atomicity is not composable! We lost atomicity when multiple keys are involved,
     even if individual KV operations are atomic. If the DB crashed or an error occurred
     while updating a secondary index, it should revert to the previous state.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 原子性不可组合！当涉及多个键时，我们失去了原子性，即使单个KV操作是原子的。如果数据库崩溃或在更新二级索引时发生错误，它应该回滚到之前的状态。
 - en: Achieving this with just get, set, del is tricky, which is why simple KV interfaces
     are very limiting. Our next step is a *transactional* KV interface to allow atomic
     operations on multiple keys or even concurrent readers.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 仅使用get、set、del来实现这一点很棘手，这就是为什么简单的KV接口非常有限。我们的下一步是一个*事务性*的KV接口，允许对多个键或甚至并发读取器执行原子操作。
 - en: 10.4 Summary of tables and indexes on KV
+  id: totrans-43
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 10.4 KV 表和索引的总结
 - en: Rows and columns as KVs.
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 行和列作为 KVs。
 - en: Range queries.
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 范围查询。
 - en: B+tree iterators.
+  id: totrans-46
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: B+树迭代器。
 - en: Order-preserving encoding.
+  id: totrans-47
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 顺序保持编码。
 - en: Secondary indexes.
+  id: totrans-48
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 二级索引。
 - en: Index selection.
+  id: totrans-49
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 索引选择。
 - en: A transactional interface is needed.
+  id: totrans-50
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 需要一个事务性接口。

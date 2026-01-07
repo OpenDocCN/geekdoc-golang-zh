@@ -1,214 +1,331 @@
 - en: 09\. Range Queries
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 09. 范围查询
 - en: 9.1 B+tree iterator
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 9.1 B+树迭代器
 - en: The iterator interface
+  id: totrans-2
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 迭代器接口
 - en: The basic operations are *seek* and *iterate* for a range query. A B+tree position
     is represented by the stateful iterator `BIter`.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 基本操作是范围查询的*seek*和*iterate*。B+树的位置由状态迭代器`BIter`表示。
 - en: '[PRE0]'
+  id: totrans-4
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'For example, the query for `a <= key` looks like this:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，查询`a <= key`看起来像这样：
 - en: '[PRE1]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Navigate a tree
+  id: totrans-7
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 导航树
 - en: The position of the current key is needed to find its sibling key inside a node.
     And if the sibling key is in the sibling node, we need to backtrack to the parent
     node. Since we don’t use parent pointers, we need the entire path from root to
     leaf.
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: 需要当前位置来在节点内找到其兄弟键。如果兄弟键在兄弟节点中，我们需要回溯到父节点。由于我们不使用父指针，我们需要从根到叶子的整个路径。
 - en: '[PRE2]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Moving the iterator is like carrying when incrementing a number digit by digit.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 移动迭代器就像在逐位增加数字时携带一样。
 - en: '[PRE3]'
+  id: totrans-11
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: Seek to a key
+  id: totrans-12
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 寻找键
 - en: Seeking to a key is like a point query, with the path recorded.
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 寻找键就像是一个点查询，记录了路径。
 - en: '[PRE4]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: '`nodeLookupLE` is for less-than-and-equal, you’ll also need other operators.'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: '`nodeLookupLE`用于小于等于，你还需要其他运算符。'
 - en: '[PRE5]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 9.2 Order-preserving encoding
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 9.2 顺序保持编码
 - en: Sort arbitrary data as byte strings
+  id: totrans-18
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 将任意数据按字节字符串排序
 - en: Our B+tree deals with string keys of arbitrary bytes. But a column can be of
     other types, such as numbers, and keys can be multiple columns. To support range
     queries, serialized keys must be compared w.r.t. their data type.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的B+树处理任意字节的字符串键。但列可以是其他类型，例如数字，键也可以是多列。为了支持范围查询，序列化键必须根据其数据类型进行比较。
 - en: The obvious way is to replace `bytes.Compare` with a callback that decodes and
     compares keys according to the table schema.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 显然的方法是将`bytes.Compare`替换为一个回调，该回调根据表模式解码和比较键。
 - en: Another way is to **choose a special serialization format so that the resulting
     bytes reflect the sort order**. This is the shortcut we’ll take.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一种方法是**选择一种特殊的序列化格式，使得生成的字节反映排序顺序**。这是我们将会采取的捷径。
 - en: Numbers
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 数字
 - en: 'Let’s start with a simple problem: how to encode *unsigned integers* so that
     they can be compared by `bytes.Compare`? `bytes.Compare` works byte by byte until
     a difference is met. So the 1st byte is most significant in a comparison, if we
     put the most significant (higher) bits of an integer first, they can be compared
     byte-wise. That’s just big-endian integers.'
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们从简单的问题开始：如何编码*无符号整数*，以便它们可以通过`bytes.Compare`进行比较？`bytes.Compare`按字节逐个比较，直到遇到差异。因此，在比较中，第一个字节是最重要的，如果我们把整数的最高位（较高的位）放在前面，它们就可以按字节比较。这正好是大端整数。
 - en: '[PRE6]'
+  id: totrans-24
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Next, we’ll consider *signed integers*, which are represented by [two’s complement](https://en.wikipedia.org/wiki/Signed_number_representations#Two's_complement).
     In two’s complement representation, the upper half of unsigned values is simply
     offset to negative values. To ensure the correct order, the positive half is swapped
     with the negative half, which is just flipping the most significant bit.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 接下来，我们将考虑*有符号整数*，它们由[二进制补码](https://en.wikipedia.org/wiki/Signed_number_representations#Two's_complement)表示。在二进制补码表示中，无符号值的上半部分简单地偏移到负值。为了确保正确的顺序，正半部分与负半部分交换，这正好是翻转最高位。
 - en: '[PRE7]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: 'Some examples:'
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些示例：
 - en: '| `int64` | Encoded bytes |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| `int64` | 编码的字节 |'
 - en: '| --- | --- |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- |'
 - en: '| `MinInt64` | `00 00 00 00 00 00 00 00` |'
+  id: totrans-30
   prefs: []
   type: TYPE_TB
+  zh: '| `MinInt64` | `00 00 00 00 00 00 00 00` |'
 - en: '| -2 | `7f ff ff ff ff ff ff fe` |'
+  id: totrans-31
   prefs: []
   type: TYPE_TB
+  zh: '| -2 | `7f ff ff ff ff ff ff fe` |'
 - en: '| -1 | `7f ff ff ff ff ff ff ff` |'
+  id: totrans-32
   prefs: []
   type: TYPE_TB
+  zh: '| -1 | `7f ff ff ff ff ff ff ff` |'
 - en: '| 0 | `80 00 00 00 00 00 00 00` |'
+  id: totrans-33
   prefs: []
   type: TYPE_TB
+  zh: '| 0 | `80 00 00 00 00 00 00 00` |'
 - en: '| 1 | `80 00 00 00 00 00 00 01` |'
+  id: totrans-34
   prefs: []
   type: TYPE_TB
+  zh: '| 1 | `80 00 00 00 00 00 00 01` |'
 - en: '| `MaxInt64` | `ff ff ff ff ff ff ff ff` |'
+  id: totrans-35
   prefs: []
   type: TYPE_TB
+  zh: '| `MaxInt64` | `ff ff ff ff ff ff ff ff` |'
 - en: 'So the general ideas are:'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，一般思路是：
 - en: Arranging bits so that more significant bits come first (big-endian).
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将位按顺序排列，使得更重要的位先出现（大端序）。
 - en: Remapping bits to unsigned integers in the correct order.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 按正确顺序将位重新映射到无符号整数。
 - en: 'Exercise for the reader: Apply this to floats (sign + magnitude + exponent).'
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 读者练习：将此应用于浮点数（符号 + 幅度 + 指数）。
 - en: Strings
+  id: totrans-40
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 字符串
 - en: The key can be multiple columns. But `bytes.Compare` only works with a single
     string column, because it needs the length. We cannot simply concatenate string
     columns, because this creates ambiguity. E.g., `("a", "bc")` vs. `("ab", "c")`.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 键可以是多列。但`bytes.Compare`只能与单个字符串列一起使用，因为它需要长度。我们不能简单地将字符串列连接起来，因为这会创建歧义。例如，`("a",
+    "bc")`与`("ab", "c")`。
 - en: There are 2 ways to encode strings with lengths, one way is to prepend the length,
     this requires decoding. Another way is to put a delimiter at the end, such as
     a null byte. The previous example is encoded as `"a\x00bc\x00"` and `"ab\x00c\x00"`.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 有两种方式可以编码带长度的字符串，一种是在前面添加长度，这需要解码。另一种是在末尾放置一个分隔符，例如空字节。前面的例子编码为`"a\x00bc\x00"`和`"ab\x00c\x00"`。
 - en: 'The problem with delimiters is that the input cannot contain the delimiter,
     this is solved by *escaping* the delimiter. We’ll use byte 0x01 as the escaping
     byte, and the escaping byte itself must be escaped. So we’ll need 2 transformations:'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 分隔符的问题在于输入不能包含分隔符，这个问题通过*转义*分隔符来解决。我们将使用字节0x01作为转义字节，而转义字节本身也必须被转义。因此，我们需要进行2次转换：
 - en: '[PRE8]'
+  id: totrans-44
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Note that the escape sequences still preserve the sort order.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意，转义序列仍然保留了排序顺序。
 - en: Tuples
+  id: totrans-46
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 元组
 - en: A multi-column comparison (tuple) is done column by column until a difference
     is met. This is like a string comparison, except that each item is a typed value
     instead of a byte. We can simply concatenate the encoded bytes of each column
     as long as there is no ambiguity.
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: 多列比较（元组）是逐列进行的，直到遇到差异。这就像字符串比较一样，只不过每个项是一个类型值而不是字节。只要没有歧义，我们可以简单地连接每列的编码字节。
 - en: 9.3 Range query
+  id: totrans-48
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 9.3 范围查询
 - en: '`Scanner` is a wrapper of the B+tree iterator. It decodes KVs into rows.'
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: '`Scanner`是B+树迭代器的包装器。它将KVs解码为行。'
 - en: '[PRE9]'
+  id: totrans-50
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: The input is an interval of the primary key.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 输入是主键的区间。
 - en: '[PRE10]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: For open-ended intervals, simply set `Key2` to the maximum/minimum value.
+  id: totrans-53
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于开放区间，只需将`Key2`设置为最大/最小值。
 - en: 9.4 What we learned
+  id: totrans-54
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 9.4 我们学到了什么
 - en: B+tree iterators.
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: B+树迭代器。
 - en: Order-preserving encoding.
+  id: totrans-56
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 顺序保持编码。
 - en: The next step is to add secondary indexes, which are just extra tables.
+  id: totrans-57
   prefs: []
   type: TYPE_NORMAL
+  zh: 下一步是添加二级索引，这些只是额外的表。

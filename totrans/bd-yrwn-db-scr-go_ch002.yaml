@@ -1,251 +1,369 @@
 - en: 01\. From Files To Databases
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 01. 从文件到数据库
 - en: Let’s start with files, and examine the challenges we face.
+  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
+  zh: 让我们从文件开始，检查我们面临的挑战。
 - en: 1.1 Updating files in-place
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 1.1 就地更新文件
 - en: 'Let’s say you need to save some data to disk; this is a typical way to do it:'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 假设你需要将一些数据保存到磁盘上；这是典型的做法：
 - en: '[PRE0]'
+  id: totrans-4
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This code creates the file if it does not exist, or truncates the existing one
     before writing the content. And most importantly, the data is not persistent unless
     you call `fsync` (`fp.Sync()` in Go).
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 这段代码如果文件不存在则创建文件，或者在写入内容之前截断现有文件。最重要的是，除非你调用`fsync`（在Go中为`fp.Sync()`），否则数据不是持久的。
 - en: 'It has some serious limitations:'
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 它有一些严重的限制：
 - en: It updates the content as a whole; only usable for tiny data. This is why you
     don’t use Excel as a database.
+  id: totrans-7
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 它作为整体更新内容；仅适用于小型数据。这就是为什么你不使用Excel作为数据库。
 - en: If you need to update the old file, you must read and modify it in memory, then
     overwrite the old file. What if the app crashes while overwriting the old file?
+  id: totrans-8
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 如果你需要更新旧文件，你必须读取并修改它内存中的内容，然后覆盖旧文件。如果在覆盖旧文件时应用程序崩溃怎么办？
 - en: If the app needs concurrent access to the data, how do you prevent readers from
     getting mixed data and writers from conflicting operations? That’s why most databases
     are client-server, you need a server to coordinate concurrent clients. (Concurrency
     is more complicated without a server, see SQLite).
+  id: totrans-9
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 如果应用程序需要并发访问数据，你如何防止读者获得混合数据，以及写者发生冲突操作？这就是为什么大多数数据库都是客户端-服务器架构，你需要一个服务器来协调并发客户端。（没有服务器，并发会更复杂，参见SQLite）。
 - en: 1.2 Atomic renaming
+  id: totrans-10
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 1.2 原子性重命名
 - en: Replacing data atomically by renaming files
+  id: totrans-11
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过重命名文件原子性地替换数据
 - en: Many problems are solved by not updating data *in-place*. You can write a new
     file and delete the old file.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过不就地更新数据解决了许多问题。你可以写一个新的文件并删除旧文件。
 - en: 'Not touching the old file data means:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 不接触旧文件数据意味着：
 - en: If the update is interrupted, you can recover from the old file since it remains
     intact.
+  id: totrans-14
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 如果更新被中断，你可以从旧文件中恢复，因为它保持完好无损。
 - en: Concurrent readers won’t get half written data.
+  id: totrans-15
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 并发读者不会获得半写数据。
 - en: The problem is how readers will find the new file. A common pattern is to rename
     the new file to the old file path.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 问题在于读者将如何找到新文件。一个常见的模式是将新文件重命名为旧文件路径。
 - en: '[PRE1]'
+  id: totrans-17
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Renaming a file to an existing one replaces it *atomically*; deleting the old
     file is not needed (and not correct).
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 将文件重命名为现有文件是*原子性*的替换；删除旧文件是不必要的（也是不正确的）。
 - en: 'Pay attention to the meaning of the jargon, whenever you see “X is atomic”,
     you should ask “X is atomic *with respect to* what?” In this case:'
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意术语的含义，无论何时看到“X是原子的”，你应该问“X相对于什么是原子的？”在这种情况下：
 - en: Rename is atomic w.r.t. concurrent readers; a reader opens either the old or
     the new file.
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重命名相对于并发读者是原子的；读者打开的是旧文件或新文件。
 - en: Rename is NOT atomic w.r.t. power loss; it’s not even durable. You need an extra
     `fsync` on the parent *directory*, which is discussed later.
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重命名在断电方面不是原子的；它甚至不是持久的。你需要对父*目录*进行额外的`fsync`，这将在后面讨论。
 - en: Why does renaming work?
+  id: totrans-22
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 为什么重命名会起作用？
 - en: Filesystems keep a mapping from file names to file data, so replacing a file
     by renaming simply points the file name to the new data without touching the old
     data. That’s why atomic renaming is possible in filesystems. And the operation
     cost is constant regardless of the data size.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 文件系统维护从文件名到文件数据的映射，因此通过重命名替换文件只是将文件名指向新数据而不接触旧数据。这就是为什么在文件系统中原子性重命名是可能的。并且操作成本是常数，无论数据大小如何。
 - en: On Linux, the replaced old file may still exist if it’s still being opened by
     a reader; it’s just not accessible from a file name. Readers can safely work on
     whatever version of the data it got, while writer won’t be blocked by readers.
     However, there must be a way to prevent concurrent writers. The level of concurrency
     is multi-reader-single-writer, which is what we will implement.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 在Linux上，如果旧文件仍然被读者打开，那么替换后的旧文件可能仍然存在；只是无法通过文件名访问。读者可以安全地处理他们获取的数据的任何版本，而写者则不会被读者阻塞。然而，必须有一种方法来防止并发写者。并发级别是多读单写，这是我们将会实现的。
 - en: 1.3 Append-only logs
+  id: totrans-25
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 1.3 只追加日志
 - en: Safe incremental updates with logs
+  id: totrans-26
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用日志进行安全的增量更新
 - en: One way to do incremental updates is to just append the updates to a file. This
     is called a “log” because it’s append-only. It’s safer than in-place updates because
     no data is overwritten; you can always recover the old data after a crash.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 增量更新的一个方法是将更新追加到文件中。这被称为“日志”，因为它只允许追加。这比就地更新更安全，因为没有数据被覆盖；在崩溃后，你总是可以恢复旧数据。
 - en: 'The reader must consider all log entries when using the log. For example, here
     is a log-based KV with 4 entries:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 读者在使用日志时必须考虑所有日志条目。例如，这里有一个基于日志的KV，有4个条目：
 - en: '[PRE2]'
+  id: totrans-29
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: The final state is `a=3`.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 最终状态是`a=3`。
 - en: 'Logs are an essential component of many databases. However, a log is only a
     description of each update, which means:'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 日志是许多数据库的一个基本组件。然而，日志只是每个更新的描述，这意味着：
 - en: It’s not an indexing data structure; readers must read all entries.
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它不是一个索引数据结构；读者必须阅读所有条目。
 - en: It has no way to reclaim space from deleted data.
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 它没有从已删除数据中回收空间的方法。
 - en: So logs alone are not enough to build a DB, they must be combined with other
     indexing data structures.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，仅日志本身不足以构建数据库，它们必须与其他索引数据结构结合。
 - en: Atomic log updates with checksums
+  id: totrans-35
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 带校验和的原子日志更新
 - en: 'While a log won’t corrupt old data, you still have to deal with the last entry
     if it gets corrupted after a crash. Many possibilities:'
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然日志不会损坏旧数据，但如果在崩溃后最后一条条目被损坏，你仍然需要处理。许多可能性：
 - en: The last append simply does not happen; the log is still good.
+  id: totrans-37
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 最后的追加根本就没有发生；日志仍然是好的。
 - en: The last entry is half written.
+  id: totrans-38
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 最后一条条目只写了一半。
 - en: The size of the log is increased but the last entry is not there.
+  id: totrans-39
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 日志的大小增加了，但最后一条条目不在那里。
 - en: The way to deal with these cases is to add a checksum to each log entry. If
     the checksum is wrong, the update did not happen, making log updates atomic (w.r.t.
     both readers and durability).
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 处理这些情况的方法是为每个日志条目添加校验和。如果校验和错误，则更新没有发生，使得日志更新原子化（相对于读者和持久性）。
 - en: This scenario is about incomplete writes (*torn writes* in DB jargon) that occur
     before a successful `fsync`. Checksums can also detect other forms of corruption
     after `fsync`, but that’s not something a DB can recover from.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个场景是关于在成功的`fsync`之前发生的未完成写入（数据库术语中的*torn writes*）。校验和也可以检测`fsync`之后的其他形式的损坏，但这不是数据库可以恢复的情况。
 - en: 1.4 `fsync` gotchas
+  id: totrans-42
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 1.4 `fsync`的注意事项
 - en: After renaming files or creating new files, you must call `fsync` on the parent
     directory. A directory is a mapping from file names to files, and like file data,
     it’s not durable unless you use `fsync`. See [this example](https://www.usenix.org/sites/default/files/conference/protected-files/osdi14_slides_pillai.pdf#page=31)
     of `fsync` on the directory.
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: 在重命名文件或创建新文件后，你必须对父目录调用`fsync`。目录是从文件名到文件的映射，就像文件数据一样，除非你使用`fsync`，否则它不是持久的。参见[这个`fsync`示例](https://www.usenix.org/sites/default/files/conference/protected-files/osdi14_slides_pillai.pdf#page=31)。
 - en: Another issue with `fsync` is error handling. If `fsync` fails, the DB update
     fails, but what if you read the file afterwards? You may get the new data even
     if `fsync` failed (because of the OS page cache)! This behavior is [filesystem
     dependent](https://www.usenix.org/conference/atc20/presentation/rebello).
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: '`fsync`的另一个问题是错误处理。如果`fsync`失败，数据库更新也会失败，但之后你读取文件会怎样？即使`fsync`失败（因为操作系统页面缓存），你也可能得到新数据！这种行为[取决于文件系统](https://www.usenix.org/conference/atc20/presentation/rebello)。'
 - en: 1.5 Summary of database challenges
+  id: totrans-45
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 1.5 数据库挑战的总结
 - en: 'What we have learned:'
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们学到的东西：
 - en: Problems with in-place updates.
+  id: totrans-47
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 原地更新的问题。
 - en: Avoid in-place updates by renaming files.
+  id: totrans-48
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 通过重命名文件来避免原地更新。
 - en: Avoid in-place updates using logs.
+  id: totrans-49
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用日志避免原地更新。
 - en: Append-only logs.
+  id: totrans-50
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 只追加日志。
 - en: Incremental updates.
+  id: totrans-51
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 增量更新。
 - en: Not a full solution; no indexing and space reuse.
+  id: totrans-52
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 不是一个完整的解决方案；没有索引和空间重用。
 - en: '`fsync` usage.'
+  id: totrans-53
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '`fsync`的使用。'
 - en: 'What remains a question:'
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 剩下的一个问题：
 - en: Indexing data structures and how to update them.
+  id: totrans-55
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 索引数据结构及其更新方法。
 - en: Reuse space from append-only files.
+  id: totrans-56
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 从只追加文件中重用空间。
 - en: Combining a log with an indexing data structure.
+  id: totrans-57
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 将日志与索引数据结构结合。
 - en: Concurrency.
+  id: totrans-58
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 并发。

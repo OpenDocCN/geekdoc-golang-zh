@@ -1,449 +1,690 @@
 - en: 06\. Append-Only KV Store
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 06\. 只追加键值存储
 - en: 6.1 What we will do
+  id: totrans-1
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.1 我们将要做的事情
 - en: We’ll create a KV store with a copy-on-write B+tree backed by a file.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将创建一个基于文件支持的写时复制B+树的键值存储。
 - en: '[PRE0]'
+  id: totrans-3
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: 'The scope of this chapter is durability + atomicity:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 本章的范围是持久性和原子性：
 - en: The file is append-only; space reuse is left to the next chapter.
+  id: totrans-5
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 文件是只追加的；空间重用留到下一章讨论。
 - en: We will ignore concurrency and assume sequential access within 1 process.
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 我们将忽略并发，并假设在1个进程内进行顺序访问。
 - en: 'We’ll implement the 3 B+tree callbacks that deal with disk pages:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将实现3个处理磁盘页面的B+树回调：
 - en: '[PRE1]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 6.2 Two-phase update
+  id: totrans-9
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.2 两阶段更新
 - en: Atomicity + durability
+  id: totrans-10
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 原子性 + 持久性
 - en: As discussed in chapter 03, for a copy-on-write tree, the root pointer is updated
     atomically. Then `fsync` is used to *request* and *confirm* durability.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 如第03章所述，对于写时复制的树，根指针是原子更新的。然后使用`fsync`来*请求*和*确认*持久性。
 - en: The atomicity of the root pointer itself is insufficient; to make the whole
     tree atomic, new nodes must be persisted *before* the root pointer. And **the
     write order is not the order in which the data is persisted**, due to factors
     like caching. So another `fsync` is used to ensure the order.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 根指针本身的原子性不足；为了使整个树原子化，必须在根指针之前持久化新节点。而且**写入顺序不是数据持久化的顺序**，这是由于缓存等因素。因此，又使用了另一个`fsync`来确保顺序。
 - en: '[PRE2]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'Alternative: durability with a log'
+  id: totrans-14
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 替代方案：带日志的持久性
 - en: 'The alternative double-write scheme also has 2 `fsync`’ed phases:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 替代的双重写入方案也有2个`fsync`阶段：
 - en: Write the updated pages with checksum.
+  id: totrans-16
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 使用校验和编写更新后的页面。
 - en: '`fsync` to make the update persistent (for crash recovery).'
+  id: totrans-17
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 使用`fsync`使更新持久化（用于崩溃恢复）。
 - en: Update the data in-place (apply the double-writes).
+  id: totrans-18
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 在原地更新数据（应用双重写入）。
 - en: '`fsync` for the order between 3 and 1 (reuse or delete the double-writes).'
+  id: totrans-19
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 用于3和1之间顺序的`fsync`（重用或删除双重写入）。
 - en: 'A difference with copy-on-write is the order of the phases: the data is persistent
     after the 1st `fsync`; the DB can return success and do the rest in the background.'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 与写时复制不同，阶段顺序是：数据在第一个`fsync`后持久化；数据库可以返回成功并在后台完成其余操作。
 - en: The double-write is comparable to a log, which also needs only 1 `fsync` for
     an update. And it can be an actual log to buffer multiple updates, which improves
     performance. This is another example of logs in DBs, besides the LSM-tree.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 双重写入与日志类似，更新也只需要1个`fsync`。它还可以是一个实际的日志来缓冲多个更新，这提高了性能。这是数据库中日志的另一个例子，除了LSM树。
 - en: We won’t use a log as copy-on-write doesn’t need it. But a log still offers
     the benefits discussed above; it’s one of the reasons logs are ubiquitous in databases.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们不会使用日志，因为写时复制不需要它。但日志仍然提供了上述讨论的好处；这是日志在数据库中无处不在的原因之一。
 - en: Concurrency of in-memory data
+  id: totrans-23
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 内存数据的并发性
 - en: 'Atomicity for in-memory data (w.r.t. concurrency) can be achieved with a mutex
     (lock) or some atomic CPU instructions. There is a similar problem: memory reads/writes
     may not appear in order due to factors like out-of-order execution.'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 内存数据（关于并发）的原子性可以通过互斥锁（锁定）或某些原子CPU指令来实现。存在一个类似的问题：由于乱序执行等因素，内存读取/写入可能不会按顺序出现。
 - en: For an in-memory copy-on-write tree, new nodes must be made visible to concurrent
     readers *before* the root pointer is updated. This is called a *memory barrier*
     and is analogous to `fsync`, although `fsync` is more than enforcing order.
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于内存中的写时复制树，必须在更新根指针之前使新节点对并发读取者可见。这被称为*内存屏障*，它与`fsync`类似，尽管`fsync`不仅仅是强制执行顺序。
 - en: Synchronization primitives such as mutexes, or any OS syscalls, will enforce
     memory ordering in a portable way, so you don’t have to mess with CPU-specific
     atomics or barriers (which are inadequate for concurrency anyway).
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 同步原语，如互斥锁，或任何操作系统系统调用，将以可移植的方式强制执行内存排序，因此你不必与特定于CPU的原子操作或屏障（这些对于并发来说根本不足够）纠缠。
 - en: 6.3 Database on a file
+  id: totrans-27
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.3 文件上的数据库
 - en: The file layout
+  id: totrans-28
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 文件布局
 - en: Our DB is a single file divided into “pages”. Each page is a B+tree node, except
     for the 1st page; the 1st page contains the pointer to the latest root node and
     other auxiliary data, we call this the *meta page*.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们的数据库是一个分为“页面”的单个文件。每个页面是一个B+树节点，除了第一个页面；第一个页面包含指向最新根节点的指针和其他辅助数据，我们称这个为*元页面*。
 - en: '[PRE3]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: New nodes are simply appended like a log, but we cannot use the file size to
     count the number of pages, because after a power loss the file size (metadata)
     may become inconsistent with the file data. This is filesystem dependent, we can
     avoid this by storing the number of pages in the meta page.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 新节点就像日志一样简单追加，但我们不能使用文件大小来计算页数，因为断电后文件大小（元数据）可能与文件数据不一致。这取决于文件系统，我们可以通过在元页面中存储页数来避免这种情况。
 - en: '`fsync` on directory'
+  id: totrans-32
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 在目录上执行 `fsync`
 - en: 'As mentioned in chapter 01, `fsync` must be used on the parent directory after
     a `rename`. This is also true when creating new files, because there are 2 things
     to be made persistent: the file data, and the directory that references the file.'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 如第 01 章所述，在 `rename` 之后必须在父目录上使用 `fsync`。在创建新文件时也是如此，因为有两个东西需要持久化：文件数据和引用文件的目录。
 - en: We’ll preemptively `fsync` after potentially creating a new file with `O_CREATE`.
     To `fsync` a directory, `open` the directory in `O_RDONLY` mode.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将在使用 `O_CREATE` 可能创建新文件后预先执行 `fsync`。要执行目录上的 `fsync`，请以 `O_RDONLY` 模式打开目录。
 - en: '[PRE4]'
+  id: totrans-35
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: The directory fd can be used by `openat` to open the target file, which guarantees
     that the file is from the same directory we opened before, in case the directory
     path is replaced in between (race condition). Although this is not our concern
     as we don’t expect multi-process operations.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 目录文件描述符可以被 `openat` 使用来打开目标文件，这保证了文件来自我们之前打开的同一目录，以防目录路径在之间被替换（竞争条件）。尽管这不是我们的关注点，因为我们不期望有多个进程的操作。
 - en: '`mmap`, page cache and IO'
+  id: totrans-37
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '`mmap`、页面缓存和 I/O'
 - en: '`mmap` is a way to read/write a file as if it’s an in-memory buffer. Disk IO
     is implicit and automatic with `mmap`.'
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: '`mmap` 是一种将文件读写操作当作内存缓冲区来处理的方法。使用 `mmap` 时，磁盘 I/O 是隐式和自动的。'
 - en: '[PRE5]'
+  id: totrans-39
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'To understand `mmap`, let’s review some operating system basics. An OS page
     is the minimum unit for mapping between virtual address and physical address.
     However, the virtual address space of a process is not fully backed by physical
     memory all the time; part of the process memory can be swapped to disk, and when
     the process tries to access it:'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 要理解 `mmap`，让我们回顾一些操作系统的基础知识。操作系统中的页面是虚拟地址和物理地址映射的最小单位。然而，进程的虚拟地址空间并不总是完全由物理内存支持；进程的一部分内存可以被交换到磁盘上，当进程尝试访问它时：
 - en: The CPU triggers a *page fault*, which hands control to the OS.
+  id: totrans-41
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: CPU 触发一个 *页面错误*，然后将控制权交给操作系统。
 - en: The OS then …
+  id: totrans-42
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 然后，操作系统 ...
 - en: Reads the swapped data into physical memory.
+  id: totrans-43
   prefs:
   - PREF_IND
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 将交换的数据读入物理内存。
 - en: Remaps the virtual address to it.
+  id: totrans-44
   prefs:
   - PREF_IND
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 将虚拟地址重新映射到它。
 - en: Hands control back to the process.
+  id: totrans-45
   prefs:
   - PREF_IND
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 将控制权交还给进程。
 - en: The process resumes with the virtual address mapped to real RAM.
+  id: totrans-46
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 进程以映射到真实 RAM 的虚拟地址恢复。
 - en: '`mmap` works in a similar way, the process gets an address range from `mmap`
     and when it touches a page in it, it page faults and the OS reads the data into
     a cache and remaps the page to the cache. That’s the automatic IO in a read-only
     scenario.'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: '`mmap` 的工作方式类似，进程从 `mmap` 获取一个地址范围，当它访问其中的一个页面时，会发生页面错误，操作系统将数据读入缓存并将页面重新映射到缓存。这就是只读场景中的自动
+    I/O。'
 - en: The CPU also takes note (called a dirty bit) when the process modifies a page
     so the OS can write the page back to disk later. `fsync` is used to request and
     wait for the IO. This is writing data via `mmap`, it is not very different from
     `write` on Linux because `write` goes to the same page cache.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: CPU 也会记录（称为脏位）进程修改页面时的信息，以便操作系统可以在稍后将其写回磁盘。`fsync` 用于请求并等待 I/O。这是通过 `mmap` 写入数据，它与
+    Linux 中的 `write` 操作没有太大区别，因为 `write` 也是写入相同的页面缓存。
 - en: You don’t have to `mmap`, but it’s important to understand the basics.
+  id: totrans-49
   prefs: []
   type: TYPE_NORMAL
+  zh: 你不必使用 `mmap`，但理解其基础很重要。
 - en: 6.4 Manage disk pages
+  id: totrans-50
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.4 管理磁盘页面
 - en: We’ll use `mmap` to implement these page management callbacks. because it’s
     just convenient.
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们将使用 `mmap` 来实现这些页面管理回调，因为它很方便。
 - en: '[PRE6]'
+  id: totrans-52
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: Invoke `mmap`
+  id: totrans-53
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 调用 `mmap`
 - en: A file-backed `mmap` can be either read-only, read-write, or copy-on-write.
     To create a read-only `mmap`, use the `PROT_READ` and `MAP_SHARED` flags.
+  id: totrans-54
   prefs: []
   type: TYPE_NORMAL
+  zh: 文件支持的 `mmap` 可以是只读、读写或写时复制。要创建只读 `mmap`，请使用 `PROT_READ` 和 `MAP_SHARED` 标志。
 - en: '[PRE7]'
+  id: totrans-55
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: The mapped range can be larger than the current file size, which is a fact that
     we can exploit because the file will grow.
+  id: totrans-56
   prefs: []
   type: TYPE_NORMAL
+  zh: 映射的范围可以大于当前文件大小，这是一个我们可以利用的事实，因为文件会增长。
 - en: '`mmap` a growing file'
+  id: totrans-57
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: '`mmap` 一个正在增长的文件'
 - en: '`mremap` remaps a mapping to a larger range, it’s like `realloc`. That’s one
     way to deal with the growing file. However, the address may change, which can
     hinder concurrent readers in later chapters. Our solution is to add new mappings
     to cover the expanded file.'
+  id: totrans-58
   prefs: []
   type: TYPE_NORMAL
+  zh: '`mremap` remaps a mapping to a larger range, it’s like `realloc`. That’s one
+    way to deal with the growing file. However, the address may change, which can
+    hinder concurrent readers in later chapters. Our solution is to add new mappings
+    to cover the expanded file.'
 - en: '[PRE8]'
+  id: totrans-59
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: Adding a new mapping each time the file is expanded results in lots of mappings,
     which is bad for performance because the OS has to keep track of them. This is
     avoided with exponential growth, since `mmap` can go beyond the file size.
+  id: totrans-60
   prefs: []
   type: TYPE_NORMAL
+  zh: Adding a new mapping each time the file is expanded results in lots of mappings,
+    which is bad for performance because the OS has to keep track of them. This is
+    avoided with exponential growth, since `mmap` can go beyond the file size.
 - en: '[PRE9]'
+  id: totrans-61
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE9]'
 - en: You may wonder why not just create a very large mapping (say, 1TB) and forget
     about the growing file, since an unrealized virtual address costs nothing. This
     is OK for a toy DB in 64-bit systems.
+  id: totrans-62
   prefs: []
   type: TYPE_NORMAL
+  zh: 你可能会 wonder 为什么不 just create a very large mapping (say, 1TB) and forget about
+    the growing file, since an unrealized virtual address costs nothing. This is OK
+    for a toy DB in 64-bit systems.
 - en: Capture page updates
+  id: totrans-63
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: Capture page updates
 - en: The `BTree.new` callback collects new pages from B+tree updates, and allocates
     the page number from the end of DB.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: The `BTree.new` callback collects new pages from B+tree updates, and allocates
+    the page number from the end of DB.
 - en: '[PRE10]'
+  id: totrans-65
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE10]'
 - en: Which are written (appended) to the file after B+tree updates.
+  id: totrans-66
   prefs: []
   type: TYPE_NORMAL
+  zh: Which are written (appended) to the file after B+tree updates.
 - en: '[PRE11]'
+  id: totrans-67
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE11]'
 - en: '`pwritev` is variant of `write` with an offset and multiple input buffers.
     We have to control the offset because we also need to write the meta page later.
     Multiple input buffers are combined by the kernel.'
+  id: totrans-68
   prefs: []
   type: TYPE_NORMAL
+  zh: '`pwritev` is variant of `write` with an offset and multiple input buffers.
+    We have to control the offset because we also need to write the meta page later.
+    Multiple input buffers are combined by the kernel.'
 - en: 6.5 The meta page
+  id: totrans-69
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.5 元数据页
 - en: Read the meta page
+  id: totrans-70
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: Read the meta page
 - en: We’ll also add some magic bytes to the meta page to identify the file type.
+  id: totrans-71
   prefs: []
   type: TYPE_NORMAL
+  zh: We’ll also add some magic bytes to the meta page to identify the file type.
 - en: '[PRE12]'
+  id: totrans-72
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE12]'
 - en: The meta page is reserved if the file is empty.
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: The meta page is reserved if the file is empty.
 - en: '[PRE13]'
+  id: totrans-74
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE13]'
 - en: Update the meta page
+  id: totrans-75
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: Update the meta page
 - en: Writing a small amount of page-aligned data to a real disk, modifying only a
     single sector, is likely power-loss-atomic at the hardware level. Some [real databases](https://www.postgresql.org/message-id/flat/17064-bb0d7904ef72add3%40postgresql.org)
     depend on this. That’s how we update the meta page too.
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: Writing a small amount of page-aligned data to a real disk, modifying only a
+    single sector, is likely power-loss-atomic at the hardware level. Some [real databases](https://www.postgresql.org/message-id/flat/17064-bb0d7904ef72add3%40postgresql.org)
+    depend on this. That’s how we update the meta page too.
 - en: '[PRE14]'
+  id: totrans-77
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE14]'
 - en: However, atomicity means different things at different levels, as you’ve seen
     with `rename`. `write` is not atomic w.r.t. concurrent readers at the [system
     call level](https://stackoverflow.com/questions/35595685/). This is likely how
     the page cache works.
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: However, atomicity means different things at different levels, as you’ve seen
+    with `rename`. `write` is not atomic w.r.t. concurrent readers at the [system
+    call level](https://stackoverflow.com/questions/35595685/). This is likely how
+    the page cache works.
 - en: 'We’ll consider read/write atomicity when we add concurrent transations, but
     we have already seen a solution: In an LSM-tree, the 1st level is the only thing
     that is updated, and it’s duplicated as a MemTable, which moves the concurrency
     problem to memory. We can keep an in-memory copy of the meta page and synchronize
     it with a mutex, thus avoiding concurrent disk reads/writes.'
+  id: totrans-79
   prefs: []
   type: TYPE_NORMAL
+  zh: 'We’ll consider read/write atomicity when we add concurrent transactions, but
+    we have already seen a solution: In an LSM-tree, the 1st level is the only thing
+    that is updated, and it’s duplicated as a MemTable, which moves the concurrency
+    problem to memory. We can keep an in-memory copy of the meta page and synchronize
+    it with a mutex, thus avoiding concurrent disk reads/writes.'
 - en: Even if the hardware is not atomic w.r.t. power loss. Atomicity is achievable
     with log + checksum. We could switch between 2 checksumed meta pages for each
     update, to ensure that one of them is good after a power loss. This is called
     *double buffering*, which is a rotating log with 2 entries.
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: Even if the hardware is not atomic w.r.t. power loss. Atomicity is achievable
+    with log + checksum. We could switch between 2 checksumed meta pages for each
+    update, to ensure that one of them is good after a power loss. This is called
+    *double buffering*, which is a rotating log with 2 entries.
 - en: 6.6 Error handling
+  id: totrans-81
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.6 错误处理
 - en: Scenarios after IO errors
+  id: totrans-82
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: IO 错误后的场景
 - en: The bare minimum of error handling is to propagate errors with `if err != nil`.
     Next, consider the possibility of using the DB after an IO error (`fsync` or `write`).
+  id: totrans-83
   prefs: []
   type: TYPE_NORMAL
+  zh: The bare minimum of error handling is to propagate errors with `if err != nil`.
+    Next, consider the possibility of using the DB after an IO error (`fsync` or `write`).
 - en: Read after a failed update?
+  id: totrans-84
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 更新失败后读取？
 - en: The reasonable choice is to behave as if nothing happened.
+  id: totrans-85
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: The reasonable choice is to behave as if nothing happened.
 - en: Update it again after a failure?
+  id: totrans-86
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: Update it again after a failure?
 - en: If the error persists, it’s expected to fail again.
+  id: totrans-87
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: If the error persists, it’s expected to fail again.
 - en: If the error is temporary, can we recover from the previous error?
+  id: totrans-88
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: If the error is temporary, can we recover from the previous error?
 - en: Restart the DB after the problem is resolved?
+  id: totrans-89
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 问题解决后重启数据库？
 - en: This is just crash recovery; discussed in chapter 03.
+  id: totrans-90
   prefs:
   - PREF_IND
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 这只是崩溃恢复；在第 03 章中讨论。
 - en: Revert to the previous version
+  id: totrans-91
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 回滚到上一个版本
 - en: There is a [survey](https://www.usenix.org/system/files/atc20-rebello.pdf) on
     the handling of `fsync` failures. From which we can learn that the topic is filesystem
     dependent. If we read after an `fsync` failure, some filesystems return the failed
     data as the page cache doesn’t match the disk. So reading back failed writes is
     problematic.
+  id: totrans-92
   prefs: []
   type: TYPE_NORMAL
+  zh: 有关于处理 `fsync` 失败的[调查](https://www.usenix.org/system/files/atc20-rebello.pdf)。从中我们可以了解到，这个话题是依赖于文件系统的。如果我们读取
+    `fsync` 失败后的数据，一些文件系统会返回失败的数据，因为页面缓存与磁盘不匹配。所以读取失败的写入数据是有问题的。
 - en: But since we’re copy-on-write, this is not a problem; we can revert to the old
     tree root to avoid the problematic data. The tree root is stored in the meta page,
     but we never read the meta page from disk after opening a DB, so we’ll just revert
     the *in-memory* root pointer.
+  id: totrans-93
   prefs: []
   type: TYPE_NORMAL
+  zh: 但由于我们是副本写入，这不是问题；我们可以回滚到旧的树根以避免有问题的数据。树根存储在元页中，但我们一旦打开数据库后，就永远不会从磁盘读取元页，所以我们只需回滚到*内存中的*根指针。
 - en: '[PRE15]'
+  id: totrans-94
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE15]'
 - en: So after a write failure, it’s still possible to use the DB in read-only mode.
     Reads can also fail, but we’re using `mmap`, on a read error the process is just
     killed by `SIGBUS`. That’s one of the drawbacks of `mmap`.
+  id: totrans-95
   prefs: []
   type: TYPE_NORMAL
+  zh: 因此，在写入失败后，仍然可以使用数据库的只读模式。读取也可能失败，但我们使用 `mmap`，在读取错误时，进程会被 `SIGBUS` 终止。这是 `mmap`
+    的一个缺点。
 - en: Recover from temporary write errors
+  id: totrans-96
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 从临时写入错误中恢复
 - en: 'Some write errors are temporary, such as “no space left”. If an update fails
     and then the next succeeds, the end state is still good. The problem is the intermediate
     state: between the 2 updates, the content of the meta page *on disk* is unknown!'
+  id: totrans-97
   prefs: []
   type: TYPE_NORMAL
+  zh: 一些写入错误是临时的，例如“空间不足”。如果更新失败然后下一个成功，最终状态仍然是好的。问题是中间状态：在两次更新之间，磁盘上的元页内容是未知的！
 - en: If `fsync` fails on the meta page, the meta page on disk can be either the new
     or the old version, while the in-memory tree root is the old version. So the 2nd
     successful update will overwrite the data pages of the newer version, which can
     be left in a corrupted intermediate state if crashed.
+  id: totrans-98
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果 `fsync` 在元页上失败，磁盘上的元页可以是新版本或旧版本，而内存中的树根是旧版本。所以第二次成功的更新将覆盖新版本的数据库页，如果崩溃，可能会留下损坏的中间状态。
 - en: The solution is to rewrite the last known meta page on recovery.
+  id: totrans-99
   prefs: []
   type: TYPE_NORMAL
+  zh: 解决方案是在恢复时重写最后已知的元页。
 - en: '[PRE16]'
+  id: totrans-100
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE16]'
 - en: We rely on filesystems to report errors correctly, but there is [evidence](https://danluu.com/filesystem-errors/)
     that they don’t. So can the system as a whole handle errors is still doubtful.
+  id: totrans-101
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们依赖于文件系统正确报告错误，但有[证据](https://danluu.com/filesystem-errors/)表明它们并不总是这样做。所以整个系统能否处理错误仍然是个疑问。
 - en: 6.7 Summary of the append-only KV store
+  id: totrans-102
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 6.7 只追加 KV 存储的总结
 - en: File layout for a copy-on-write B+tree.
+  id: totrans-103
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: B+树副本写入的文件布局。
 - en: Durability and atomicity with `fsync`.
+  id: totrans-104
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用 `fsync` 的持久性和原子性。
 - en: Error handling.
+  id: totrans-105
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 错误处理。
 - en: B+tree on disk is a major step. We just have to add a free list to make it practical.
+  id: totrans-106
   prefs: []
   type: TYPE_NORMAL
+  zh: 磁盘上的 B+树是一个重要的步骤。我们只需添加一个空闲列表使其变得实用。

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <title>ch008.xhtml</title>
+  <style>
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {  background-color: #fffadf; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #008080; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #556622; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #008080; font-style: italic; } /* Comment */
+    code span.cv { color: #008080; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #008080; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #008080; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" type="text/css" href="../styles/stylesheet1.css" />
+</head>
+<body epub:type="bodymatter">
+<section id="free-list-recyle-reuse" class="level1">
+<h1>07. Free List: Recyle &amp; Reuse</h1>
+<p>The last step of the KV store is to reuse deleted pages, which is also a problem for in-memory data structures.</p>
+<section id="memory-management-techniques" class="level2">
+<h2>7.1 Memory management techniques</h2>
+<section id="what-we-will-do-2" class="level3">
+<h3>What we will do</h3>
+<p>Memory (space) management can be either manual or automatic. A garbage collector is automatic, it detects unused objects without any help from the programmer. The next problem is how to deal with (reuse) unused objects.</p>
+<p>We don’t need a GC, because in a tree data structure, detecting unused nodes is trivial, as we have already done with the <code>BTree.del</code> callback. What we’ll do is reimplement those callbacks.</p>
+</section>
+<section id="list-of-unused-objects" class="level3">
+<h3>List of unused objects</h3>
+<p>One of the reasons that disk space is managed in <em>pages</em> of the same size is that they become <em>interchangeable</em> after they are deleted; the DB can reuse any of them when it needs a page. This is simpler than generic memory management routines such as <code>malloc</code>, which deal with arbitrary sizes.</p>
+<p>We need to store a list of unused pages, called a <em>free list</em> or <em>object pool</em>. For in-memory data, this can simply be an array of pointers, or a linked list embedded in objects.</p>
+</section>
+<section id="embedded-linked-list" class="level3">
+<h3>Embedded linked list</h3>
+<p>The simplest scheme is to use an embedded (intrusive) linked list. The list pointer sits inside the object itself; it borrows space from the object, so no extra space is needed for the data structure.</p>
+<pre><code>  head
+   ↓
+[ next | space... ] (unused object 1)
+   ↓
+[ next | space... ] (unused object 2)
+   ↓
+  ...</code></pre>
+<p>However, this conflicts with copy-on-write, as it overwrites <em>during</em> an update.</p>
+</section>
+<section id="external-list" class="level3">
+<h3>External list</h3>
+<p>The other scheme is to store pointers to unused pages in an external data structure. The external data structure itself takes up space, which is a problem we’ll solve.</p>
+<p>Let’s say our free list is just a log of unused page numbers; adding items is just appending. The problem is how to remove items so that it doesn’t grow infinitely.</p>
+</section>
+</section>
+<section id="linked-list-on-disk" class="level2">
+<h2>7.2 Linked list on disk</h2>
+<section id="free-list-requirements" class="level3">
+<h3>Free list requirements</h3>
+<p>Let’s image the free list as a sequence of items, like a log. In a copy-on-write tree, each update requires new nodes and deletes old nodes, so the free list is both added to and removed from per update. If items are removed from the end, then the added items <em>overwrite</em> old data, requiring extra crash recovery mechanisms discussed in chapter 03.</p>
+<p>If items are removed from the beginning, how do you reclaim the space from the removed items? We’re back to the original problem.</p>
+<p>To solve the problem, the free list should also be page-based, so that it can manage itself. A page-based list is just a linked list, except that a page can hold multiple items, like a B+tree node. This is also called an <em>unrolled linked list</em>.</p>
+<p>In summary:</p>
+<ul>
+<li>Our free list is a standalone data structure: a linked list of pages.
+<ul>
+<li>It will try to get a page from itself when it grows a new node.</li>
+<li>Removed list nodes are added to itself for reuse.</li>
+</ul></li>
+<li>Each page can contain multiple items (page numbers).
+<ul>
+<li>Pages are updated in-place, but it’s still <em>append-only</em> within a page.</li>
+</ul></li>
+<li>Items are appended to the tail node and consumed from the head.
+<ul>
+<li>It’s easier to make the tail node append-only this way.</li>
+</ul></li>
+</ul>
+</section>
+<section id="free-list-disk-layout" class="level3">
+<h3>Free list disk layout</h3>
+<p>Each node starts with a pointer to the next node. Items are appended next to it.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// node format:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">// | next | pointers | unused |</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">// |  8B  |   n*8B   |   ...  |</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> LNode <span class="op">[]</span><span class="dt">byte</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> FREE_LIST_HEADER <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> FREE_LIST_CAP <span class="op">=</span> <span class="op">(</span>BTREE_PAGE_SIZE <span class="op">-</span> FREE_LIST_HEADER<span class="op">)</span> <span class="op">/</span> <span class="dv">8</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">// getters &amp; setters</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>node LNode<span class="op">)</span> getNext<span class="op">()</span> <span class="dt">uint64</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>node LNode<span class="op">)</span> setNext<span class="op">(</span>next <span class="dt">uint64</span><span class="op">)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>node LNode<span class="op">)</span> getPtr<span class="op">(</span>idx <span class="dt">int</span><span class="op">)</span> <span class="dt">uint64</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>node LNode<span class="op">)</span> setPtr<span class="op">(</span>idx <span class="dt">int</span><span class="op">,</span> ptr <span class="dt">uint64</span><span class="op">)</span></span></code></pre></div>
+<p>We also store pointers to both the head node and the tail node in the meta page. The pointer to the tail node is needed for O(1) insertion.</p>
+<pre><code>                     first_item
+                         ↓
+head_page -&gt; [ next |    xxxxx ]
+                ↓
+             [ next | xxxxxxxx ]
+                ↓
+tail_page -&gt; [ NULL | xxxx     ]
+                         ↑
+                     last_item</code></pre>
+</section>
+<section id="update-free-list-nodes" class="level3">
+<h3>Update free list nodes</h3>
+<p>Without the free list, the meta page is the only page that is updated <em>in-place</em>, which is how copy-on-write made crash recovery easy. Now there are 2 more in-place page updates in list nodes: the next pointer and the appended items.</p>
+<p>Although list nodes are updated in-place, no data is overwritten within a page. So if an update is interrupted, the meta page still points to the same data; no extra crash recovery is needed. And unlike the meta page, atomicity is not required.</p>
+<p>Following this analysis, the embedded list can also work iff the next pointer is <em>reserved</em> in the B+tree node. Here you can deviate from the book. Although this doubles write amplification.</p>
+</section>
+</section>
+<section id="free-list-implementation" class="level2">
+<h2>7.3 Free list implementation</h2>
+<section id="free-list-interface" class="level3">
+<h3>Free list interface</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> KV <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    Path   <span class="dt">string</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// internals</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    fd   <span class="dt">int</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    tree BTree</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    free FreeList <span class="co">// added</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><code>FreeList</code> is the extra data structure in <code>KV</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> FreeList <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// callbacks for managing on-disk pages</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    get <span class="kw">func</span><span class="op">(</span><span class="dt">uint64</span><span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="co">// read a page</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">new</span> <span class="kw">func</span><span class="op">([]</span><span class="dt">byte</span><span class="op">)</span> <span class="dt">uint64</span> <span class="co">// append a new page</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    set <span class="kw">func</span><span class="op">(</span><span class="dt">uint64</span><span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="co">// update an existing page</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// persisted data in the meta page</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    headPage <span class="dt">uint64</span> <span class="co">// pointer to the list head node</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    headSeq  <span class="dt">uint64</span> <span class="co">// monotonic sequence number to index into the list head</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    tailPage <span class="dt">uint64</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    tailSeq  <span class="dt">uint64</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// in-memory states</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    maxSeq <span class="dt">uint64</span> <span class="co">// saved `tailSeq` to prevent consuming newly added items</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">// get 1 item from the list head. return 0 on failure.</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>fl <span class="op">*</span>FreeList<span class="op">)</span> PopHead<span class="op">()</span> <span class="dt">uint64</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">// add 1 item to the tail</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>fl <span class="op">*</span>FreeList<span class="op">)</span> PushTail<span class="op">(</span>ptr <span class="dt">uint64</span><span class="op">)</span></span></code></pre></div>
+<p>Like <code>BTree</code>, page management is isolated via 3 callbacks:</p>
+<ul>
+<li><code>get</code> reads a page; same as before,</li>
+<li><code>new</code> appends a page; previously used for <code>BTree</code>.</li>
+<li><code>set</code> returns a writable buffer to capture in-place updates.</li>
+<li><code>del</code> is not there because the free list manages free pages itself.</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>KV<span class="op">)</span> Open<span class="op">()</span> <span class="dt">error</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// B+tree callbacks</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>tree<span class="op">.</span>get <span class="op">=</span> db<span class="op">.</span>pageRead      <span class="co">// read a page</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>tree<span class="op">.</span><span class="bu">new</span> <span class="op">=</span> db<span class="op">.</span>pageAlloc     <span class="co">// (new) reuse from the free list or append</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>tree<span class="op">.</span>del <span class="op">=</span> db<span class="op">.</span>free<span class="op">.</span>PushTail <span class="co">// (new) freed pages go to the free list</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// free list callbacks</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>free<span class="op">.</span>get <span class="op">=</span> db<span class="op">.</span>pageRead      <span class="co">// read a page</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>free<span class="op">.</span><span class="bu">new</span> <span class="op">=</span> db<span class="op">.</span>pageAppend    <span class="co">// append a page</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>free<span class="op">.</span>set <span class="op">=</span> db<span class="op">.</span>pageWrite     <span class="co">// (new) in-place updates</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="free-list-data-structure" class="level3">
+<h3>Free list data structure</h3>
+<p>Since a node contains a variable number of items up to <code>FREE_LIST_CAP</code>, we need to know where the 1st item is in the head node (<code>headSeq</code>), and where the items end in the tail node (<code>tailSeq</code>).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> FreeList <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// persisted data in the meta page</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    headPage <span class="dt">uint64</span> <span class="co">// pointer to the list head node</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    headSeq  <span class="dt">uint64</span> <span class="co">// monotonic sequence number to index into the list head</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    tailPage <span class="dt">uint64</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    tailSeq  <span class="dt">uint64</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// in-memory states</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    maxSeq <span class="dt">uint64</span> <span class="co">// saved `tailSeq` to prevent consuming newly added items</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><code>headSeq</code>, <code>tailSeq</code> are indexes into the head and tail nodes, except that they are monotonically increasing. So the wrapped-around index is:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> seq2idx<span class="op">(</span>seq <span class="dt">uint64</span><span class="op">)</span> <span class="dt">int</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dt">int</span><span class="op">(</span>seq <span class="op">%</span> FREE_LIST_CAP<span class="op">)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>We make them monotonically increasing so that they become a unique identifier of the list position; to prevent the list head from overrunning the list tail, simply compare the 2 sequence numbers.</p>
+<p>During an update, the list is both added to and removed from, and when we remove from the head, we cannot remove what we just added to the tail. So we need to …</p>
+<ol type="1">
+<li>At the beginning of the update, save the original <code>tailSeq</code> to <code>maxSeq</code>.</li>
+<li>During the update, <code>headSeq</code> cannot overrun <code>maxSeq</code>.</li>
+<li>At the beginning of the next update, <code>maxSeq</code> is advanced to <code>tailSeq</code>.</li>
+<li>…</li>
+</ol>
+<div class="sourceCode" id="cb9"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// make the newly added items available for consumption</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>fl <span class="op">*</span>FreeList<span class="op">)</span> SetMaxSeq<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    fl<span class="op">.</span>maxSeq <span class="op">=</span> fl<span class="op">.</span>tailSeq</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="consuming-from-the-free-list" class="level3">
+<h3>Consuming from the free list</h3>
+<p>Removing an item from the head node is simply advancing <code>headSeq</code>. And when the head node becomes empty, move to the next node.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">// remove 1 item from the head node, and remove the head node if empty.</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> flPop<span class="op">(</span>fl <span class="op">*</span>FreeList<span class="op">)</span> <span class="op">(</span>ptr <span class="dt">uint64</span><span class="op">,</span> head <span class="dt">uint64</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> fl<span class="op">.</span>headSeq <span class="op">==</span> fl<span class="op">.</span>maxSeq <span class="op">{</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span> <span class="co">// cannot advance</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    node <span class="op">:=</span> LNode<span class="op">(</span>fl<span class="op">.</span>get<span class="op">(</span>fl<span class="op">.</span>headPage<span class="op">))</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    ptr <span class="op">=</span> node<span class="op">.</span>getPtr<span class="op">(</span>seq2idx<span class="op">(</span>fl<span class="op">.</span>headSeq<span class="op">))</span> <span class="co">// item</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    fl<span class="op">.</span>headSeq<span class="op">++</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// move to the next one if the head node is empty</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> seq2idx<span class="op">(</span>fl<span class="op">.</span>headSeq<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        head<span class="op">,</span> fl<span class="op">.</span>headPage <span class="op">=</span> fl<span class="op">.</span>headPage<span class="op">,</span> node<span class="op">.</span>getNext<span class="op">()</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        assert<span class="op">(</span>fl<span class="op">.</span>headPage <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The free list self-manages; the removed head node is fed back to itself.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">// get 1 item from the list head. return 0 on failure.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>fl <span class="op">*</span>FreeList<span class="op">)</span> PopHead<span class="op">()</span> <span class="dt">uint64</span> <span class="op">{</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    ptr<span class="op">,</span> head <span class="op">:=</span> flPop<span class="op">(</span>fl<span class="op">)</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> head <span class="op">!=</span> <span class="dv">0</span> <span class="op">{</span> <span class="co">// the empty head node is recycled</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        fl<span class="op">.</span>PushTail<span class="op">(</span>head<span class="op">)</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ptr</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>What if the last node is removed? A linked list with 0 nodes implies nasty special cases. In practice, it’s easier to <strong>design the linked list to have at least 1 node</strong> than to deal with special cases. That’s why we <code>assert(fl.headPage != 0)</code>.</p>
+</section>
+<section id="pushing-into-the-free-list" class="level3">
+<h3>Pushing into the free list</h3>
+<p>Appending an item to the tail node is simply advancing <code>tailSeq</code>. And when the tail node is full, we immediately add a new empty tail node to ensure that there is at least 1 node in case the previous tail node is removed as a head node.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>fl <span class="op">*</span>FreeList<span class="op">)</span> PushTail<span class="op">(</span>ptr <span class="dt">uint64</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// add it to the tail node</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    LNode<span class="op">(</span>fl<span class="op">.</span>set<span class="op">(</span>fl<span class="op">.</span>tailPage<span class="op">)).</span>setPtr<span class="op">(</span>seq2idx<span class="op">(</span>fl<span class="op">.</span>tailSeq<span class="op">),</span> ptr<span class="op">)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    fl<span class="op">.</span>tailSeq<span class="op">++</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// add a new tail node if it&#39;s full (the list is never empty)</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> seq2idx<span class="op">(</span>fl<span class="op">.</span>tailSeq<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// try to reuse from the list head</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        next<span class="op">,</span> head <span class="op">:=</span> flPop<span class="op">(</span>fl<span class="op">)</span> <span class="co">// may remove the head node</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> next <span class="op">==</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>            <span class="co">// or allocate a new node by appending</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>            next <span class="op">=</span> fl<span class="op">.</span><span class="bu">new</span><span class="op">(</span><span class="bu">make</span><span class="op">([]</span><span class="dt">byte</span><span class="op">,</span> BTREE_PAGE_SIZE<span class="op">))</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">// link to the new tail node</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        LNode<span class="op">(</span>fl<span class="op">.</span>set<span class="op">(</span>fl<span class="op">.</span>tailPage<span class="op">)).</span>setNext<span class="op">(</span>next<span class="op">)</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        fl<span class="op">.</span>tailPage <span class="op">=</span> next</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="co">// also add the head node if it&#39;s removed</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> head <span class="op">!=</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>            LNode<span class="op">(</span>fl<span class="op">.</span>set<span class="op">(</span>fl<span class="op">.</span>tailPage<span class="op">)).</span>setPtr<span class="op">(</span><span class="dv">0</span><span class="op">,</span> head<span class="op">)</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>            fl<span class="op">.</span>tailSeq<span class="op">++</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Again, the free list is self-managing: it will try to get a node from itself for the new tail node before resorting to appending.</p>
+</section>
+</section>
+<section id="kv-with-a-free-list" class="level2">
+<h2>7.4 KV with a free list</h2>
+<section id="page-management" class="level3">
+<h3>Page management</h3>
+<p>Now that pages can be reused, reused pages are overwritten in-place, so a map is used to capture pending updates.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> KV <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    page <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        flushed <span class="dt">uint64</span>            <span class="co">// database size in number of pages</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        nappend <span class="dt">uint64</span>            <span class="co">// number of pages to be appended</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        updates <span class="kw">map</span><span class="op">[</span><span class="dt">uint64</span><span class="op">][]</span><span class="dt">byte</span> <span class="co">// pending updates, including appended pages</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><code>BTree.new</code> is now <code>KV.pageAlloc</code>, it uses the free list before resorting to appending.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// `BTree.new`, allocate a new page.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>KV<span class="op">)</span> pageAlloc<span class="op">(</span>node <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> <span class="dt">uint64</span> <span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ptr <span class="op">:=</span> db<span class="op">.</span>free<span class="op">.</span>PopHead<span class="op">();</span> ptr <span class="op">!=</span> <span class="dv">0</span> <span class="op">{</span> <span class="co">// try the free list</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        db<span class="op">.</span>page<span class="op">.</span>updates<span class="op">[</span>ptr<span class="op">]</span> <span class="op">=</span> node</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ptr</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> db<span class="op">.</span>pageAppend<span class="op">(</span>node<span class="op">)</span> <span class="co">// append</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><code>KV.pageWrite</code> returns a writable page copy to capture in-place updates.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">// `FreeList.set`, update an existing page.</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>KV<span class="op">)</span> pageWrite<span class="op">(</span>ptr <span class="dt">uint64</span><span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="op">{</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> node<span class="op">,</span> ok <span class="op">:=</span> db<span class="op">.</span>page<span class="op">.</span>updates<span class="op">[</span>ptr<span class="op">];</span> ok <span class="op">{</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> node <span class="co">// pending update</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    node <span class="op">:=</span> <span class="bu">make</span><span class="op">([]</span><span class="dt">byte</span><span class="op">,</span> BTREE_PAGE_SIZE<span class="op">)</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">copy</span><span class="op">(</span>node<span class="op">,</span> db<span class="op">.</span>pageReadFile<span class="op">(</span>ptr<span class="op">))</span> <span class="co">// initialized from the file</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>page<span class="op">.</span>updates<span class="op">[</span>ptr<span class="op">]</span> <span class="op">=</span> node</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> node</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Another change is that we may read a page again after it has been updated, so <code>KV.pageRead</code> should consult the pending updates map first.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">// `BTree.get`, read a page.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>KV<span class="op">)</span> pageRead<span class="op">(</span>ptr <span class="dt">uint64</span><span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="op">{</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> node<span class="op">,</span> ok <span class="op">:=</span> db<span class="op">.</span>page<span class="op">.</span>updates<span class="op">[</span>ptr<span class="op">];</span> ok <span class="op">{</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> node <span class="co">// pending update</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> db<span class="op">.</span>pageReadFile<span class="op">(</span>ptr<span class="op">)</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>KV<span class="op">)</span> pageReadFile<span class="op">(</span>ptr <span class="dt">uint64</span><span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="op">{</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// same as `KV.pageRead` in the last chapter ...</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="update-the-meta-page-1" class="level3">
+<h3>Update the meta page</h3>
+<p>The meta page now includes free list pointers (head and tail) that are updated atomically along with the tree root.</p>
+<pre><code>| sig | root_ptr | page_used | head_page | head_seq | tail_page | tail_seq |
+| 16B |    8B    |     8B    |     8B    |    8B    |     8B    |    8B    |</code></pre>
+<p>Remember that the free list always contains at least 1 node, we’ll assign an empty node to it when initializing an empty DB.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> readRoot<span class="op">(</span>db <span class="op">*</span>KV<span class="op">,</span> fileSize <span class="dt">int64</span><span class="op">)</span> <span class="dt">error</span> <span class="op">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> fileSize <span class="op">==</span> <span class="dv">0</span> <span class="op">{</span> <span class="co">// empty file</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">// reserve 2 pages: the meta page and a free list node</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        db<span class="op">.</span>page<span class="op">.</span>flushed <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">// add an initial node to the free list so it&#39;s never empty</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        db<span class="op">.</span>free<span class="op">.</span>headPage <span class="op">=</span> <span class="dv">1</span> <span class="co">// the 2nd page</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        db<span class="op">.</span>free<span class="op">.</span>tailPage <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ot">nil</span> <span class="co">// the meta page will be written in the 1st update</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Since <code>headSeq</code> is blocked by <code>maxSeq</code>, <code>maxSeq</code> is updated to <code>tailSeq</code> <em>between</em> updates to allow reuse of pages from the last version.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> updateFile<span class="op">(</span>db <span class="op">*</span>KV<span class="op">)</span> <span class="dt">error</span> <span class="op">{</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// prepare the free list for the next update</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>free<span class="op">.</span>SetMaxSeq<span class="op">()</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ot">nil</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>We still assume sequential access in this chapter. When we add concurrency later, <code>headSeq</code> will be blocked by the oldest reader instead.</p>
+</section>
+</section>
+<section id="conclusion-of-the-kv-store" class="level2">
+<h2>7.5 Conclusion of the KV store</h2>
+<p>What we have done:</p>
+<ul>
+<li>File layout for a copy-on-write B+tree.</li>
+<li>Durability and atomicity with <code>fsync</code>.</li>
+<li>Managing disk pages with a free list.</li>
+</ul>
+<p>That’s enough for a KV store with <code>get</code>, <code>set</code>, <code>del</code>. But there is more in part II:</p>
+<ul>
+<li>Relational DB on KV store.</li>
+<li>Concurrent transactions.</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <title>ch013.xhtml</title>
+  <style>
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {  background-color: #fffadf; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #008080; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #556622; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #008080; font-style: italic; } /* Comment */
+    code span.cv { color: #008080; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #008080; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #008080; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" type="text/css" href="../styles/stylesheet1.css" />
+</head>
+<body epub:type="bodymatter">
+<section id="concurrency-control" class="level1">
+<h1>12. Concurrency Control</h1>
+<section id="levels-of-concurrency" class="level2">
+<h2>12.1 Levels of concurrency</h2>
+<!-- Different levels of concurrency, from low to high, for us to consider. -->
+<section id="the-problem-interleaved-readers-and-writers" class="level3">
+<h3>The problem: interleaved readers and writers</h3>
+<p>Concurrent clients can enter and exit transactions at will, requesting reads and writes in between. To simplify the analysis, let’s assume that enter/exit/read/write are atomic steps, so that concurrent TXs are just interleaved steps.</p>
+<p>We’ll also distinguish read-only TXs from read-write TXs. This is because …</p>
+<ul>
+<li>Concurrent readers are a much easier problem than concurrent writers.</li>
+<li>Many apps are read-heavy, where read performance is more important.</li>
+</ul>
+</section>
+<section id="readers-writer-lock-rwlock" class="level3">
+<h3>Readers-writer lock (RWLock)</h3>
+<p>Without knowing how to do concurrency, you can always add a mutex (lock) to serialize any data access. For read performance, you can use a <em>readers-writer lock</em> instead. It allows multiple concurrent readers, but only a single writer.</p>
+<ul>
+<li>If there’s no writer, nothing can be changed, concurrent readers are OK.</li>
+<li>When a writer wants to enter, it waits until all readers have left.</li>
+<li>Readers are blocked by a writer, but not by other readers.</li>
+</ul>
+<p>The usefulness of this is limited; there is no concurrency between writers, and long-running TXs are bad because readers and writers block each other.</p>
+</section>
+<section id="read-copy-update-rcu" class="level3">
+<h3>Read-copy-update (RCU)</h3>
+<p>To prevent readers and writers from blocking each other, we can make readers and writers work on their own version of the data.</p>
+<ul>
+<li>There is a pointer to the <em>immutable</em> data, readers just grab it as a snapshot.</li>
+<li>A single writer updates its own <em>copy</em>, then flips the pointer to it.</li>
+</ul>
+<p>We get this level of concurrency for free since we are copy-on-write. But a single writer is still insufficient because the lifetime of a TX is controlled by the client, which can be arbitrarily long.</p>
+</section>
+<section id="optimistic-concurrency-control" class="level3">
+<h3>Optimistic concurrency control</h3>
+<p>Concurrent writers lead to conflicts, for example:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Seq</th>
+<th>TX1</th>
+<th>TX2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>read <code>a</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td></td>
+<td>write <code>a := 1</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>write <code>b := a</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>commit</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td></td>
+<td>commit</td>
+</tr>
+</tbody>
+</table>
+<p>TX1 depends on the same key that TX2 modifies, so they cannot both succeed.</p>
+<p>Note that some seemingly “write-only” operations actually have a read dependency. For example, our update/delete interface reports whether the key is updated/deleted, which depends on the previous state of the key. So the following scenario is also a conflict.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Seq</th>
+<th>TX1</th>
+<th>TX2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>write <code>a := 1</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td></td>
+<td>delete <code>a</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>commit</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td></td>
+<td>commit</td>
+</tr>
+</tbody>
+</table>
+<p>One way to deal with conflicts is to just abort TX when a conflict is detected.</p>
+<ol type="1">
+<li>TX starts.</li>
+<li>Reads are on the snapshot, but writes are buffered locally.</li>
+<li>Before committing, verify that there are no conflicts with committed TXs.</li>
+<li>TX ends.
+<ul>
+<li>If there’s a conflict, abort and rollback.</li>
+<li>Otherwise, transfer buffered writes to the DB.</li>
+</ul></li>
+</ol>
+<p>Note that <em>verify and commit</em> is an atomic step. This is called <em>optimistic</em> concurrency control, because it assumes conflicts are rare and does nothing to prevent them. We’ll implement this, but there are alternatives to know about.</p>
+</section>
+<section id="alternative-pessimistic-concurrency-control" class="level3">
+<h3>Alternative: pessimistic concurrency control</h3>
+<p>With optimistic concurrency control, TXs cannot progress in case of a conflict, which isn’t very helpful from the application’s PoV because all they can do is retry in a loop. Another way to deal with conflicts is to prevent them via locking. TXs will acquire locks on their dependencies so that potentially conflicting TXs will wait for each other.</p>
+<p>This sounds much nicer, especially in the last example where write/delete can progress without problems. However, this still doesn’t guarantee progress because TXs can now fail with <em>deadlocks</em>.</p>
+<p>A deadlock is when 2 parties are waiting for each other to release a (different) lock that they own. This also happens for more than 2 parties as long as there is a cycle in the dependency graph. In concurrent programming, locks should be acquired in a predefined order to avoid cycles. This isn’t the case for DBs as the client can grab locks in any order, so a DB must detect and resolve deadlocks, which is a graph problem.</p>
+</section>
+<section id="comparison-of-concurrency-controls" class="level3">
+<h3>Comparison of concurrency controls</h3>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>reader-reader</th>
+<th>reader-writer</th>
+<th>writer-writer</th>
+<th>conflict</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RWLock</td>
+<td>pass</td>
+<td>block</td>
+<td>block</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>RCU</td>
+<td>pass</td>
+<td>pass</td>
+<td>block</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>Optimistic</td>
+<td>pass</td>
+<td>pass</td>
+<td>pass</td>
+<td>abort</td>
+</tr>
+<tr class="even">
+<td>Pessimistic</td>
+<td>pass</td>
+<td>lock</td>
+<td>lock</td>
+<td>prevent</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="snapshot-isolation-for-readers" class="level2">
+<h2>12.2 Snapshot isolation for readers</h2>
+<p>Isolation level refers to how a TX sees changes from other TXs. This is not an issue with copy-on-write since a TX operates on a <em>snapshot</em> of the B+tree.</p>
+<section id="capture-local-updates" class="level3">
+<h3>Capture local updates</h3>
+<p>A transaction keeps a snapshot of the DB and local updates.</p>
+<ul>
+<li>The snapshot is just a root pointer with copy-on-write.</li>
+<li>The local updates are held in an in-memory B+tree.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> KVTX <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// a read-only snapshot</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    snapshot BTree</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// captured KV updates:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// values are prefixed by a 1-byte flag to indicate deleted keys.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    pending BTree</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Both trees are initialized at the start of the TX.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// begin a transaction</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>kv <span class="op">*</span>KV<span class="op">)</span> Begin<span class="op">(</span>tx <span class="op">*</span>KVTX<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// read-only snapshot, just the tree root and the page read callback</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    tx<span class="op">.</span>snapshot<span class="op">.</span>root <span class="op">=</span> kv<span class="op">.</span>tree<span class="op">.</span>root</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    tx<span class="op">.</span>snapshot<span class="op">.</span>get <span class="op">=</span> <span class="op">...</span> <span class="co">// read from mmap&#39;ed pages ...</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// in-memory tree to capture updates</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    pages <span class="op">:=</span> <span class="op">[][]</span><span class="dt">byte</span><span class="op">(</span><span class="ot">nil</span><span class="op">)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    tx<span class="op">.</span>pending<span class="op">.</span>get <span class="op">=</span> <span class="kw">func</span><span class="op">(</span>ptr <span class="dt">uint64</span><span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="op">{</span> <span class="cf">return</span> pages<span class="op">[</span>ptr<span class="op">-</span><span class="dv">1</span><span class="op">]</span> <span class="op">}</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    tx<span class="op">.</span>pending<span class="op">.</span><span class="bu">new</span> <span class="op">=</span> <span class="kw">func</span><span class="op">(</span>node <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> <span class="dt">uint64</span> <span class="op">{</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        pages <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>pages<span class="op">,</span> node<span class="op">)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dt">uint64</span><span class="op">(</span><span class="bu">len</span><span class="op">(</span>pages<span class="op">))</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    tx<span class="op">.</span>pending<span class="op">.</span>del <span class="op">=</span> <span class="kw">func</span><span class="op">(</span><span class="dt">uint64</span><span class="op">)</span> <span class="op">{}</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>To represent deleted keys, values in <code>KVTX.pending</code> are prefixed by a 1-byte flag.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    FLAG_DELETED <span class="op">=</span> <span class="dt">byte</span><span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    FLAG_UPDATED <span class="op">=</span> <span class="dt">byte</span><span class="op">(</span><span class="dv">2</span><span class="op">)</span></span></code></pre></div>
+</section>
+<section id="read-back-your-own-write" class="level3">
+<h3>Read back your own write</h3>
+<p>Within a TX, the client should be able to read back what it has just written, even if it has not been committed, so queries should consult <code>KVTX.pending</code> before <code>KVTX.snapshot</code>. That’s why writes are held in a B+tree instead of just a list.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// point query. combines captured updates with the snapshot</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>tx <span class="op">*</span>KVTX<span class="op">)</span> Get<span class="op">(</span>key <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> <span class="op">([]</span><span class="dt">byte</span><span class="op">,</span> <span class="dt">bool</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    val<span class="op">,</span> ok <span class="op">:=</span> tx<span class="op">.</span>pending<span class="op">.</span>Get<span class="op">(</span>key<span class="op">)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">switch</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> ok <span class="op">&amp;&amp;</span> val<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">==</span> FLAG_UPDATED<span class="op">:</span> <span class="co">// updated in this TX</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> val<span class="op">[</span><span class="dv">1</span><span class="op">:],</span> <span class="ot">true</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> ok <span class="op">&amp;&amp;</span> val<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">==</span> FLAG_DELETED<span class="op">:</span> <span class="co">// deleted in this TX</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ot">nil</span><span class="op">,</span> <span class="ot">false</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> <span class="op">!</span>ok<span class="op">:</span> <span class="co">// read from the snapshot</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> tx<span class="op">.</span>snapshot<span class="op">.</span>Get<span class="op">(</span>key<span class="op">)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">panic</span><span class="op">(</span><span class="st">&quot;unreachable&quot;</span><span class="op">)</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>For range queries, a new iterator type is added to combine both trees.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// an iterator that combines pending updates and the snapshot</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> CombinedIter <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    top <span class="op">*</span>BIter <span class="co">// KVTX.pending</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    bot <span class="op">*</span>BIter <span class="co">// KVTX.snapshot</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="version-numbers-in-the-free-list" class="level3">
+<h3>Version numbers in the free list</h3>
+<p>Since readers can hold old versions of the DB, the free list cannot give away pages from those versions. We’ll solve this by assigning a monotonically increasing version number to each version. This is also called a <em>timestamp</em> (logically).</p>
+<ul>
+<li>We keep track of ongoing TXs and the version numbers they’re based on.</li>
+<li>Each page added to the free list is associated with the version number.</li>
+<li>The list never gives away pages that are newer than the oldest TX.</li>
+</ul>
+<p>This works by checking the version when consuming from the list head. Remember that the free list is a FILO (first-in-last-out), so pages from the oldest version will be consumed first.</p>
+<p>Modification 1: Version numbers in <code>KVTX</code> and <code>KV</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> KVTX <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// a read-only snapshot</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    snapshot BTree</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    version  <span class="dt">uint64</span> <span class="co">// based on KV.version</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> KV <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    version <span class="dt">uint64</span>    <span class="co">// monotonic version number; persisted in the meta page</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    ongoing <span class="op">[]</span><span class="dt">uint64</span>  <span class="co">// version numbers of concurrent TXs</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Modification 2: Free list augmentation.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">// | next | pointer + version | unused |</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">// |  8B  |     n*(8B+8B)     |   ...  |</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> FreeList <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    maxSeq <span class="dt">uint64</span> <span class="co">// saved `tailSeq` to prevent consuming newly added items</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    maxVer <span class="dt">uint64</span> <span class="co">// the oldest reader version</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    curVer <span class="dt">uint64</span> <span class="co">// version number when committing</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li><code>maxVer</code> is maintained as the oldest version in <code>KV.ongoing</code> when a TX exits. It prevents page reuse in addition to the existing <code>maxSeq</code>.</li>
+<li><code>curVar</code> is set to the next version by the writer on commit.</li>
+</ul>
+</section>
+</section>
+<section id="handle-conflicts-for-writers" class="level2">
+<h2>12.3 Handle conflicts for writers</h2>
+<section id="detect-conflicts-with-history" class="level3">
+<h3>Detect conflicts with history</h3>
+<p>Modification 1: All reads are added to <code>KVTX.reads</code> (point and range queries).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">// start &lt;= key &lt;= stop</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> KeyRange <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    start <span class="op">[]</span><span class="dt">byte</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    stop  <span class="op">[]</span><span class="dt">byte</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> KVTX <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    reads <span class="op">[]</span>KeyRange</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>tx <span class="op">*</span>KVTX<span class="op">)</span> Get<span class="op">(</span>key <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> <span class="op">([]</span><span class="dt">byte</span><span class="op">,</span> <span class="dt">bool</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    tx<span class="op">.</span>reads <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>tx<span class="op">.</span>reads<span class="op">,</span> KeyRange<span class="op">{</span>key<span class="op">,</span> key<span class="op">})</span> <span class="co">// dependency</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Modification 2: Each successful commit is added to <code>KV.history</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> KV <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    history <span class="op">[]</span>CommittedTX <span class="co">// chanages keys; for detecting conflicts</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> CommittedTX <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    version <span class="dt">uint64</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    writes  <span class="op">[]</span>KeyRange <span class="co">// sorted</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>kv <span class="op">*</span>KV<span class="op">)</span> Commit<span class="op">(</span>tx <span class="op">*</span>KVTX<span class="op">)</span> <span class="dt">error</span> <span class="op">{</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span><span class="op">(</span>writes<span class="op">)</span> <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        kv<span class="op">.</span>history <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>kv<span class="op">.</span>history<span class="op">,</span> CommittedTX<span class="op">{</span>kv<span class="op">.</span>version<span class="op">,</span> writes<span class="op">})</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ot">nil</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Conflict detection works by checking for overlaps between its dependency and the history that are newer than its base version.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> detectConflicts<span class="op">(</span>kv <span class="op">*</span>KV<span class="op">,</span> tx <span class="op">*</span>KVTX<span class="op">)</span> <span class="dt">bool</span> <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="op">:=</span> <span class="bu">len</span><span class="op">(</span>kv<span class="op">.</span>history<span class="op">)</span> <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">--</span> <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">!</span>versionBefore<span class="op">(</span>tx<span class="op">.</span>version<span class="op">,</span> kv<span class="op">.</span>history<span class="op">[</span>i<span class="op">].</span>version<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span> <span class="co">// sorted</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> rangesOverlap<span class="op">(</span>tx<span class="op">.</span>reads<span class="op">,</span> kv<span class="op">.</span>history<span class="op">[</span>i<span class="op">].</span>writes<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="ot">true</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ot">false</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The history is trimmed when the oldest TX exits.</p>
+</section>
+<section id="serialize-internal-data-structures" class="level3">
+<h3>Serialize internal data structures</h3>
+<p>In the analysis, TXs are simplified as interleaved steps, in reality, these steps can run in parallel threads, which should be serialized as they share the <code>KV</code> structure.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> KV <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    mutex   sync<span class="op">.</span>Mutex    <span class="co">// serialize TX methods</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>kv <span class="op">*</span>KV<span class="op">)</span> Begin<span class="op">(</span>tx <span class="op">*</span>KVTX<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    kv<span class="op">.</span>mutex<span class="op">.</span>Lock<span class="op">()</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">defer</span> kv<span class="op">.</span>mutex<span class="op">.</span>Unlock<span class="op">()</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>kv <span class="op">*</span>KV<span class="op">)</span> Commit<span class="op">(</span>tx <span class="op">*</span>KVTX<span class="op">)</span>  <span class="co">// same</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>kv <span class="op">*</span>KV<span class="op">)</span> Abort<span class="op">(</span>tx <span class="op">*</span>KVTX<span class="op">)</span>   <span class="co">// same</span></span></code></pre></div>
+<p>We can use this lock for all <code>KVTX</code> methods. But there are ways to reduce the locking. For example, we don’t have to serialize read/write methods because …</p>
+<ul>
+<li>Writes only work on <code>KVTX.pending</code>, they never touch <code>KV</code>.</li>
+<li>Reads only touch <code>KV.mmap.chunks</code>, which are the slices returned by <code>mmap</code>.</li>
+</ul>
+<p>The commit step may modify <code>KV.mmap.chunks</code> by appending, so we’ll use a local copy for each TX. This slice is append-only, so a shallow copy is enough.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>kv <span class="op">*</span>KV<span class="op">)</span> Begin<span class="op">(</span>tx <span class="op">*</span>KVTX<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    kv<span class="op">.</span>mutex<span class="op">.</span>Lock<span class="op">()</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">defer</span> kv<span class="op">.</span>mutex<span class="op">.</span>Unlock<span class="op">()</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// read-only snapshot, just the tree root and the page read callback</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    tx<span class="op">.</span>snapshot<span class="op">.</span>root <span class="op">=</span> kv<span class="op">.</span>tree<span class="op">.</span>root</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    chunks <span class="op">:=</span> kv<span class="op">.</span>mmap<span class="op">.</span>chunks <span class="co">// copied to avoid updates from writers</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    tx<span class="op">.</span>snapshot<span class="op">.</span>get <span class="op">=</span> <span class="kw">func</span><span class="op">(</span>ptr <span class="dt">uint64</span><span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="op">{</span> <span class="cf">return</span> mmapRead<span class="op">(</span>ptr<span class="op">,</span> chunks<span class="op">)</span> <span class="op">}</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>This way, read/write methods do not require the lock and can run in parallel. That’s good, because reads can trigger page faults and block the thread.</p>
+<p>So far, only <code>Begin</code>, <code>Commit</code>, and <code>Abort</code> are serialized. But considering that <code>Commit</code> involves IO, we can go further by releasing the lock while waiting for IO to allow other TXs to enter and read-only TXs to exit. The commit step should still be serialized with other commit steps via another lock. This is left as an exercise.</p>
+<!-- ## 12.4 Summary of build your own DB
+
+All major aspects of databases have been explored:
+
+- Simple KV store.
+    - B+tree data structure.
+    - Durability and atomicity with `fsync`.
+    - Managing disk pages with a free list.
+- Tables on KV.
+    - Rows and columns as KVs.
+    - Range queries.
+        - B+tree iterators.
+        - Order-preserving encoding.
+    - Secondary indexes.
+- Transactional interface.
+- Concurrency control.
+
+The next step is to add a user interface: a SQL-like query language. -->
+</section>
+</section>
+</section>
+</body>
+</html>

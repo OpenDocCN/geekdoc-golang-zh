@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <title>ch011.xhtml</title>
+  <style>
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {  background-color: #fffadf; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #008080; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #556622; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #008080; font-style: italic; } /* Comment */
+    code span.cv { color: #008080; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #008080; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #008080; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" type="text/css" href="../styles/stylesheet1.css" />
+</head>
+<body epub:type="bodymatter">
+<section id="secondary-indexes" class="level1">
+<h1>10. Secondary Indexes</h1>
+<!-- Queries are not limited to the primary key, that's why we need columns instead of just KVs. -->
+<section id="secondary-indexes-as-extra-keys" class="level2">
+<h2>10.1 Secondary indexes as extra keys</h2>
+<section id="table-schema" class="level3">
+<h3>Table schema</h3>
+<p>As mentioned in chapter 08, secondary indexes are just extra KV pairs containing the primary key. Each index is distinguished by a key prefix in the B+tree.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> TableDef <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// user defined</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    Name    <span class="dt">string</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    Types   <span class="op">[]</span><span class="dt">uint32</span>   <span class="co">// column types</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    Cols    <span class="op">[]</span><span class="dt">string</span>   <span class="co">// column names</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    Indexes <span class="op">[][]</span><span class="dt">string</span> <span class="co">// the first index is the primary key</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// auto-assigned B-tree key prefixes for different tables and indexes</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    Prefixes <span class="op">[]</span><span class="dt">uint32</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The first index is used as the primary key as it’s also an index.</p>
+</section>
+<section id="kv-structures" class="level3">
+<h3>KV structures</h3>
+<p>For a secondary index, we could put the primary key in B+tree value, which is used to find the full row. However, unlike the primary key, secondary indexes don’t have the unique constraint, so there can be duplicate B+tree keys.</p>
+<p>Instead of modifying our B+tree to support duplicates, we can also add the primary key to the B+tree key to make it unique and leave the value empty.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> t1 (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    k1 string,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    k2 <span class="dt">int</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    v1 string,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    v2 string,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">primary</span> <span class="kw">key</span> (k1, k2),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">index</span> idx1 (v1),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">index</span> idx2 (v2, k2)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">key</th>
+<th style="text-align: left;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>t1</td>
+<td style="text-align: left;">prefix1, k1, k2</td>
+<td style="text-align: left;">v1, v2</td>
+</tr>
+<tr class="even">
+<td>idx1</td>
+<td style="text-align: left;">prefix2, v1, k1, k2</td>
+<td style="text-align: left;">(empty)</td>
+</tr>
+<tr class="odd">
+<td>idx2</td>
+<td style="text-align: left;">prefix3, v2, k2, k1</td>
+<td style="text-align: left;">(empty)</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="using-secondary-indexes" class="level2">
+<h2>10.2 Using secondary indexes</h2>
+<section id="select-an-index-by-matching-columns" class="level3">
+<h3>Select an index by matching columns</h3>
+<p>To do a range query, we must select an index that matches the query keys, which is stored in the <code>Scanner</code> type so that <code>Scanner.Deref()</code> can use it.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Scanner <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the range, from Key1 to Key2</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    Cmp1 <span class="dt">int</span> <span class="co">// CMP_??</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    Cmp2 <span class="dt">int</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    Key1 Record</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    Key2 Record</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// internal</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    db     <span class="op">*</span>DB</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    tdef   <span class="op">*</span>TableDef</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    index  <span class="dt">int</span>    <span class="co">// which index?</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    iter   <span class="op">*</span>BIter <span class="co">// the underlying B-tree iterator</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    keyEnd <span class="op">[]</span><span class="dt">byte</span> <span class="co">// the encoded Key2</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>An index can be multiple columns. For example, index <span class="math inline">(<em>a</em>, <em>b</em>)</span> can serve the query <span class="math inline">(<em>a</em>, <em>b</em>) &gt; (1, 2)</span>. It can also serve the query <span class="math inline"><em>a</em> &gt; 1</span>, because this is the same as <span class="math inline">(<em>a</em>, <em>b</em>) &gt; (1, +∞)</span>. The index selection is just matching the columns.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> dbScan<span class="op">(</span>db <span class="op">*</span>DB<span class="op">,</span> tdef <span class="op">*</span>TableDef<span class="op">,</span> req <span class="op">*</span>Scanner<span class="op">)</span> <span class="dt">error</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    isCovered <span class="op">:=</span> <span class="kw">func</span><span class="op">(</span>index <span class="op">[]</span><span class="dt">string</span><span class="op">)</span> <span class="dt">bool</span> <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        key <span class="op">:=</span> req<span class="op">.</span>Key1<span class="op">.</span>Cols</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">len</span><span class="op">(</span>index<span class="op">)</span> <span class="op">&gt;=</span> <span class="bu">len</span><span class="op">(</span>key<span class="op">)</span> <span class="op">&amp;&amp;</span> slices<span class="op">.</span>Equal<span class="op">(</span>index<span class="op">[:</span><span class="bu">len</span><span class="op">(</span>key<span class="op">)],</span> key<span class="op">)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    req<span class="op">.</span>index <span class="op">=</span> slices<span class="op">.</span>IndexFunc<span class="op">(</span>tdef<span class="op">.</span>Indexes<span class="op">,</span> isCovered<span class="op">)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="encode-missing-columns-as-infinity" class="level3">
+<h3>Encode missing columns as infinity</h3>
+<p>In the last example, the query <span class="math inline"><em>a</em> &gt; 1</span> with the index <span class="math inline">(<em>a</em>, <em>b</em>)</span> uses only 1 of the columns, so we need to encode the rest as infinity.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Input query</th>
+<th>Using the index</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline"><em>a</em> &gt; 1</span></td>
+<td><span class="math inline">(<em>a</em>, <em>b</em>) &gt; (1, +∞)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline"><em>a</em> ≤ 1</span></td>
+<td><span class="math inline">(<em>a</em>, <em>b</em>) &lt; (1, +∞)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline"><em>a</em> ≥ 1</span></td>
+<td><span class="math inline">(<em>a</em>, <em>b</em>) &gt; (1, −∞)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline"><em>a</em> &lt; 1</span></td>
+<td><span class="math inline">(<em>a</em>, <em>b</em>) &lt; (1, −∞)</span></td>
+</tr>
+</tbody>
+</table>
+<p>This can be done by modifying our order-preserving encoding. First, we’ll choose <code>"\xff"</code> as +∞ and <code>""</code> as -∞. As no columns are encoded as empty strings, we can just ignore the missing columns in the -∞ cases. In the +∞ cases, we’ll prepend a tag to each encoded column so that they don’t start with <code>"\xff"</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// order-preserving encoding</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> encodeValues<span class="op">(</span>out <span class="op">[]</span><span class="dt">byte</span><span class="op">,</span> vals <span class="op">[]</span>Value<span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _<span class="op">,</span> v <span class="op">:=</span> <span class="kw">range</span> vals <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        out <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>out<span class="op">,</span> <span class="dt">byte</span><span class="op">(</span>v<span class="op">.</span>Type<span class="op">))</span> <span class="co">// *added*: doesn&#39;t start with 0xff</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">switch</span> v<span class="op">.</span>Type <span class="op">{</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> TYPE_INT64<span class="op">:</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">var</span> buf <span class="op">[</span><span class="dv">8</span><span class="op">]</span><span class="dt">byte</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            u <span class="op">:=</span> <span class="dt">uint64</span><span class="op">(</span>v<span class="op">.</span>I64<span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">63</span><span class="op">)</span>        <span class="co">// flip the sign bit</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>            binary<span class="op">.</span>BigEndian<span class="op">.</span>PutUint64<span class="op">(</span>buf<span class="op">[:],</span> u<span class="op">)</span> <span class="co">// big endian</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            out <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>out<span class="op">,</span> buf<span class="op">[:]...)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> TYPE_BYTES<span class="op">:</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            out <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>out<span class="op">,</span> escapeString<span class="op">(</span>v<span class="op">.</span>Str<span class="op">)...)</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            out <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>out<span class="op">,</span> <span class="dv">0</span><span class="op">)</span> <span class="co">// null-terminated</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">default</span><span class="op">:</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            <span class="bu">panic</span><span class="op">(</span><span class="st">&quot;what?&quot;</span><span class="op">)</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>We’ll prepend the column type code as the tag. This also makes debugging easier since we can now decode stuff by looking at the hexdump.</p>
+<p>This is a small extra step to support range queries on prefix columns.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// for primary keys and indexes</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> encodeKey<span class="op">(</span>out <span class="op">[]</span><span class="dt">byte</span><span class="op">,</span> prefix <span class="dt">uint32</span><span class="op">,</span> vals <span class="op">[]</span>Value<span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 4-byte table prefix</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> buf <span class="op">[</span><span class="dv">4</span><span class="op">]</span><span class="dt">byte</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    binary<span class="op">.</span>BigEndian<span class="op">.</span>PutUint32<span class="op">(</span>buf<span class="op">[:],</span> prefix<span class="op">)</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>out<span class="op">,</span> buf<span class="op">[:]...)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// order-preserving encoded keys</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> encodeValues<span class="op">(</span>out<span class="op">,</span> vals<span class="op">)</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">// for the input range, which can be a prefix of the index key.</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> encodeKeyPartial<span class="op">(</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    out <span class="op">[]</span><span class="dt">byte</span><span class="op">,</span> prefix <span class="dt">uint32</span><span class="op">,</span> vals <span class="op">[]</span>Value<span class="op">,</span> cmp <span class="dt">int</span><span class="op">,</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="op">{</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> encodeKey<span class="op">(</span>out<span class="op">,</span> prefix<span class="op">,</span> vals<span class="op">)</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> cmp <span class="op">==</span> CMP_GT <span class="op">||</span> cmp <span class="op">==</span> CMP_LE <span class="op">{</span> <span class="co">// encode missing columns as infinity</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        out <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>out<span class="op">,</span> <span class="bn">0xff</span><span class="op">)</span> <span class="co">// unreachable +infinity</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="co">// else: -infinity is the empty string</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+</section>
+<section id="maintaining-secondary-indexes" class="level2">
+<h2>10.3 Maintaining secondary indexes</h2>
+<section id="sync-with-the-primary-data" class="level3">
+<h3>Sync with the primary data</h3>
+<p>An update may involve multiple B+tree keys with secondary indexes. When a row is changed, we must remove old index keys and insert new ones. To do this, the B+tree interface is extended to return the old value.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> UpdateReq <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">*</span>BTree</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// out</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    Added   <span class="dt">bool</span>   <span class="co">// added a new key</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    Updated <span class="dt">bool</span>   <span class="co">// added a new key or an old key was changed</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    Old     <span class="op">[]</span><span class="dt">byte</span> <span class="co">// the value before the update</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// in</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    Key  <span class="op">[]</span><span class="dt">byte</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    Val  <span class="op">[]</span><span class="dt">byte</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    Mode <span class="dt">int</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Use the new information:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> dbUpdate<span class="op">(</span>db <span class="op">*</span>DB<span class="op">,</span> tdef <span class="op">*</span>TableDef<span class="op">,</span> rec Record<span class="op">,</span> mode <span class="dt">int</span><span class="op">)</span> <span class="op">(</span><span class="dt">bool</span><span class="op">,</span> <span class="dt">error</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// insert the row</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    req <span class="op">:=</span> UpdateReq<span class="op">{</span>Key<span class="op">:</span> key<span class="op">,</span> Val<span class="op">:</span> val<span class="op">,</span> Mode<span class="op">:</span> mode<span class="op">}</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> _<span class="op">,</span> err <span class="op">=</span> db<span class="op">.</span>kv<span class="op">.</span>Update<span class="op">(&amp;</span>req<span class="op">);</span> err <span class="op">!=</span> <span class="ot">nil</span> <span class="op">{</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ot">false</span><span class="op">,</span> err</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// maintain secondary indexes</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> req<span class="op">.</span>Updated <span class="op">&amp;&amp;</span> <span class="op">!</span>req<span class="op">.</span>Added <span class="op">{</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">// use `req.Old` to delete the old indexed keys ...</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> req<span class="op">.</span>Updated <span class="op">{</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">// add the new indexed keys ...</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> req<span class="op">.</span>Updated<span class="op">,</span> <span class="ot">nil</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="atomicity-of-multi-key-updates" class="level3">
+<h3>Atomicity of multi-key updates</h3>
+<p>Atomicity is not composable! We lost atomicity when multiple keys are involved, even if individual KV operations are atomic. If the DB crashed or an error occurred while updating a secondary index, it should revert to the previous state.</p>
+<p>Achieving this with just get, set, del is tricky, which is why simple KV interfaces are very limiting. Our next step is a <em>transactional</em> KV interface to allow atomic operations on multiple keys or even concurrent readers.</p>
+</section>
+</section>
+<section id="summary-of-tables-and-indexes-on-kv" class="level2">
+<h2>10.4 Summary of tables and indexes on KV</h2>
+<ul>
+<li>Rows and columns as KVs.</li>
+<li>Range queries.
+<ul>
+<li>B+tree iterators.</li>
+<li>Order-preserving encoding.</li>
+</ul></li>
+<li>Secondary indexes.
+<ul>
+<li>Index selection.</li>
+<li>A transactional interface is needed.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</body>
+</html>

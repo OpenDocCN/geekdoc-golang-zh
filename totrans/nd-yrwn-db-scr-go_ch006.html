@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <title>ch006.xhtml</title>
+  <style>
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {  background-color: #fffadf; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #008080; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #556622; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #008080; font-style: italic; } /* Comment */
+    code span.cv { color: #008080; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #008080; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #008080; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" type="text/css" href="../styles/stylesheet1.css" />
+</head>
+<body epub:type="bodymatter">
+<section id="btree-deletion-and-testing" class="level1">
+<h1>05. B+Tree Deletion and Testing</h1>
+<section id="high-level-interfaces" class="level2">
+<h2>5.1 High-level interfaces</h2>
+<p>We’ll add the interfaces to use the B+tree as a KV.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// insert a new key or update an existing key</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>tree <span class="op">*</span>BTree<span class="op">)</span> Insert<span class="op">(</span>key <span class="op">[]</span><span class="dt">byte</span><span class="op">,</span> val <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// delete a key and returns whether the key was there</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>tree <span class="op">*</span>BTree<span class="op">)</span> Delete<span class="op">(</span>key <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> <span class="dt">bool</span></span></code></pre></div>
+<p>Most of the details are introduced with the tree insertion, so there’s not much more to learn from the deletion. Skip this chapter if you know the principle.</p>
+<section id="keep-the-root-node" class="level3">
+<h3>Keep the root node</h3>
+<p>There is some extra work in maintaining the root node for tree insertions.</p>
+<ul>
+<li>Create the root node if the tree is empty.</li>
+<li>Add a new root if the root node is split.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>tree <span class="op">*</span>BTree<span class="op">)</span> Insert<span class="op">(</span>key <span class="op">[]</span><span class="dt">byte</span><span class="op">,</span> val <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tree<span class="op">.</span>root <span class="op">==</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">// create the first node</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        root <span class="op">:=</span> BNode<span class="op">(</span><span class="bu">make</span><span class="op">([]</span><span class="dt">byte</span><span class="op">,</span> BTREE_PAGE_SIZE<span class="op">))</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        root<span class="op">.</span>setHeader<span class="op">(</span>BNODE_LEAF<span class="op">,</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">// a dummy key, this makes the tree cover the whole key space.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// thus a lookup can always find a containing node.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        nodeAppendKV<span class="op">(</span>root<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="ot">nil</span><span class="op">,</span> <span class="ot">nil</span><span class="op">)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        nodeAppendKV<span class="op">(</span>root<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> key<span class="op">,</span> val<span class="op">)</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        tree<span class="op">.</span>root <span class="op">=</span> tree<span class="op">.</span><span class="bu">new</span><span class="op">(</span>root<span class="op">)</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    node <span class="op">:=</span> treeInsert<span class="op">(</span>tree<span class="op">,</span> tree<span class="op">.</span>get<span class="op">(</span>tree<span class="op">.</span>root<span class="op">),</span> key<span class="op">,</span> val<span class="op">)</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    nsplit<span class="op">,</span> split <span class="op">:=</span> nodeSplit3<span class="op">(</span>node<span class="op">)</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    tree<span class="op">.</span>del<span class="op">(</span>tree<span class="op">.</span>root<span class="op">)</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> nsplit <span class="op">&gt;</span> <span class="dv">1</span> <span class="op">{</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">// the root was split, add a new level.</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        root <span class="op">:=</span> BNode<span class="op">(</span><span class="bu">make</span><span class="op">([]</span><span class="dt">byte</span><span class="op">,</span> BTREE_PAGE_SIZE<span class="op">))</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        root<span class="op">.</span>setHeader<span class="op">(</span>BNODE_NODE<span class="op">,</span> nsplit<span class="op">)</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i<span class="op">,</span> knode <span class="op">:=</span> <span class="kw">range</span> split<span class="op">[:</span>nsplit<span class="op">]</span> <span class="op">{</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            ptr<span class="op">,</span> key <span class="op">:=</span> tree<span class="op">.</span><span class="bu">new</span><span class="op">(</span>knode<span class="op">),</span> knode<span class="op">.</span>getKey<span class="op">(</span><span class="dv">0</span><span class="op">)</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            nodeAppendKV<span class="op">(</span>root<span class="op">,</span> <span class="dt">uint16</span><span class="op">(</span>i<span class="op">),</span> ptr<span class="op">,</span> key<span class="op">,</span> <span class="ot">nil</span><span class="op">)</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        tree<span class="op">.</span>root <span class="op">=</span> tree<span class="op">.</span><span class="bu">new</span><span class="op">(</span>root<span class="op">)</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        tree<span class="op">.</span>root <span class="op">=</span> tree<span class="op">.</span><span class="bu">new</span><span class="op">(</span>split<span class="op">[</span><span class="dv">0</span><span class="op">])</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="sentinel-value" class="level3">
+<h3>Sentinel value</h3>
+<p>There is a trick when creating the first root: we inserted an empty key. This is called a sentinel value, it’s used to remove an edge case.</p>
+<p>If you examine the lookup function <code>nodeLookupLE</code>, you’ll see that it won’t work if the key is out of the node range. This is fixed by inserting an empty key into the tree, which is the lowest possible key by sort order, so that <code>nodeLookupLE</code> will always find a position.</p>
+</section>
+</section>
+<section id="merge-nodes" class="level2">
+<h2>5.2 Merge nodes</h2>
+<section id="node-update-functions" class="level3">
+<h3>Node update functions</h3>
+<p>We’ll need some new functions for the tree deletion.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// remove a key from a leaf node</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> leafDelete<span class="op">(</span><span class="bu">new</span> BNode<span class="op">,</span> old BNode<span class="op">,</span> idx <span class="dt">uint16</span><span class="op">)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">// merge 2 nodes into 1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> nodeMerge<span class="op">(</span><span class="bu">new</span> BNode<span class="op">,</span> left BNode<span class="op">,</span> right BNode<span class="op">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">// replace 2 adjacent links with 1</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> nodeReplace2Kid<span class="op">(</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">new</span> BNode<span class="op">,</span> old BNode<span class="op">,</span> idx <span class="dt">uint16</span><span class="op">,</span> ptr <span class="dt">uint64</span><span class="op">,</span> key <span class="op">[]</span><span class="dt">byte</span><span class="op">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span></code></pre></div>
+</section>
+<section id="merge-conditions" class="level3">
+<h3>Merge conditions</h3>
+<p>Deleting may result in empty nodes, which can be merged with a sibling if it has one. <code>shouldMerge</code> returns which sibling (left or right) to merge with.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// should the updated kid be merged with a sibling?</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> shouldMerge<span class="op">(</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">*</span>BTree<span class="op">,</span> node BNode<span class="op">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    idx <span class="dt">uint16</span><span class="op">,</span> updated BNode<span class="op">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">)</span> <span class="op">(</span><span class="dt">int</span><span class="op">,</span> BNode<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> updated<span class="op">.</span>nbytes<span class="op">()</span> <span class="op">&gt;</span> BTREE_PAGE_SIZE<span class="op">/</span><span class="dv">4</span> <span class="op">{</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">,</span> BNode<span class="op">{}</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> idx <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        sibling <span class="op">:=</span> BNode<span class="op">(</span>tree<span class="op">.</span>get<span class="op">(</span>node<span class="op">.</span>getPtr<span class="op">(</span>idx <span class="op">-</span> <span class="dv">1</span><span class="op">)))</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        merged <span class="op">:=</span> sibling<span class="op">.</span>nbytes<span class="op">()</span> <span class="op">+</span> updated<span class="op">.</span>nbytes<span class="op">()</span> <span class="op">-</span> HEADER</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> merged <span class="op">&lt;=</span> BTREE_PAGE_SIZE <span class="op">{</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">,</span> sibling <span class="co">// left</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> idx<span class="op">+</span><span class="dv">1</span> <span class="op">&lt;</span> node<span class="op">.</span>nkeys<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        sibling <span class="op">:=</span> BNode<span class="op">(</span>tree<span class="op">.</span>get<span class="op">(</span>node<span class="op">.</span>getPtr<span class="op">(</span>idx <span class="op">+</span> <span class="dv">1</span><span class="op">)))</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        merged <span class="op">:=</span> sibling<span class="op">.</span>nbytes<span class="op">()</span> <span class="op">+</span> updated<span class="op">.</span>nbytes<span class="op">()</span> <span class="op">-</span> HEADER</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> merged <span class="op">&lt;=</span> BTREE_PAGE_SIZE <span class="op">{</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">+</span><span class="dv">1</span><span class="op">,</span> sibling <span class="co">// right</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">,</span> BNode<span class="op">{}</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Deleted keys mean unused space within nodes. In the worst case, a mostly empty tree can still retain a large number of nodes. We can improve this by triggering merges earlier — using 1/4 of a page as a threshold instead of the empty node, which is a soft limit on the minimum node size.</p>
+</section>
+</section>
+<section id="btree-deletion" class="level2">
+<h2>5.3 B+tree deletion</h2>
+<p>This is similar to insertion, just replace splitting with merging.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// delete a key from the tree</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> treeDelete<span class="op">(</span>tree <span class="op">*</span>BTree<span class="op">,</span> node BNode<span class="op">,</span> key <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> BNode</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">// delete a key from an internal node; part of the treeDelete()</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> nodeDelete<span class="op">(</span>tree <span class="op">*</span>BTree<span class="op">,</span> node BNode<span class="op">,</span> idx <span class="dt">uint16</span><span class="op">,</span> key <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> BNode <span class="op">{</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// recurse into the kid</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    kptr <span class="op">:=</span> node<span class="op">.</span>getPtr<span class="op">(</span>idx<span class="op">)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    updated <span class="op">:=</span> treeDelete<span class="op">(</span>tree<span class="op">,</span> tree<span class="op">.</span>get<span class="op">(</span>kptr<span class="op">),</span> key<span class="op">)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span><span class="op">(</span>updated<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> BNode<span class="op">{}</span> <span class="co">// not found</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    tree<span class="op">.</span>del<span class="op">(</span>kptr<span class="op">)</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">new</span> <span class="op">:=</span> BNode<span class="op">(</span><span class="bu">make</span><span class="op">([]</span><span class="dt">byte</span><span class="op">,</span> BTREE_PAGE_SIZE<span class="op">))</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// check for merging</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    mergeDir<span class="op">,</span> sibling <span class="op">:=</span> shouldMerge<span class="op">(</span>tree<span class="op">,</span> node<span class="op">,</span> idx<span class="op">,</span> updated<span class="op">)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">switch</span> <span class="op">{</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> mergeDir <span class="op">&lt;</span> <span class="dv">0</span><span class="op">:</span> <span class="co">// left</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        merged <span class="op">:=</span> BNode<span class="op">(</span><span class="bu">make</span><span class="op">([]</span><span class="dt">byte</span><span class="op">,</span> BTREE_PAGE_SIZE<span class="op">))</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        nodeMerge<span class="op">(</span>merged<span class="op">,</span> sibling<span class="op">,</span> updated<span class="op">)</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        tree<span class="op">.</span>del<span class="op">(</span>node<span class="op">.</span>getPtr<span class="op">(</span>idx <span class="op">-</span> <span class="dv">1</span><span class="op">))</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        nodeReplace2Kid<span class="op">(</span><span class="bu">new</span><span class="op">,</span> node<span class="op">,</span> idx<span class="op">-</span><span class="dv">1</span><span class="op">,</span> tree<span class="op">.</span><span class="bu">new</span><span class="op">(</span>merged<span class="op">),</span> merged<span class="op">.</span>getKey<span class="op">(</span><span class="dv">0</span><span class="op">))</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> mergeDir <span class="op">&gt;</span> <span class="dv">0</span><span class="op">:</span> <span class="co">// right</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        merged <span class="op">:=</span> BNode<span class="op">(</span><span class="bu">make</span><span class="op">([]</span><span class="dt">byte</span><span class="op">,</span> BTREE_PAGE_SIZE<span class="op">))</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        nodeMerge<span class="op">(</span>merged<span class="op">,</span> updated<span class="op">,</span> sibling<span class="op">)</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        tree<span class="op">.</span>del<span class="op">(</span>node<span class="op">.</span>getPtr<span class="op">(</span>idx <span class="op">+</span> <span class="dv">1</span><span class="op">))</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        nodeReplace2Kid<span class="op">(</span><span class="bu">new</span><span class="op">,</span> node<span class="op">,</span> idx<span class="op">,</span> tree<span class="op">.</span><span class="bu">new</span><span class="op">(</span>merged<span class="op">),</span> merged<span class="op">.</span>getKey<span class="op">(</span><span class="dv">0</span><span class="op">))</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> mergeDir <span class="op">==</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> updated<span class="op">.</span>nkeys<span class="op">()</span> <span class="op">==</span> <span class="dv">0</span><span class="op">:</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        assert<span class="op">(</span>node<span class="op">.</span>nkeys<span class="op">()</span> <span class="op">==</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> idx <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="co">// 1 empty child but no sibling</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="bu">new</span><span class="op">.</span>setHeader<span class="op">(</span>BNODE_NODE<span class="op">,</span> <span class="dv">0</span><span class="op">)</span>          <span class="co">// the parent becomes empty too</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> mergeDir <span class="op">==</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> updated<span class="op">.</span>nkeys<span class="op">()</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">:</span> <span class="co">// no merge</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        nodeReplaceKidN<span class="op">(</span>tree<span class="op">,</span> <span class="bu">new</span><span class="op">,</span> node<span class="op">,</span> idx<span class="op">,</span> updated<span class="op">)</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">new</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Even if a node becomes empty, it may not be merged if it has no siblings. In this case, the empty node is propagated to its parent and merged later.</p>
+</section>
+<section id="test-the-btree" class="level2">
+<h2>5.4 Test the B+tree</h2>
+<p>The data structure only interacts with the rest of the DB via the 3 page management callbacks. To test the B+tree, we can simulate pages in memory.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> C <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    tree  BTree</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    ref   <span class="kw">map</span><span class="op">[</span><span class="dt">string</span><span class="op">]</span><span class="dt">string</span> <span class="co">// the reference data</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    pages <span class="kw">map</span><span class="op">[</span><span class="dt">uint64</span><span class="op">]</span>BNode  <span class="co">// in-memory pages</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> newC<span class="op">()</span> <span class="op">*</span>C <span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    pages <span class="op">:=</span> <span class="kw">map</span><span class="op">[</span><span class="dt">uint64</span><span class="op">]</span>BNode<span class="op">{}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">&amp;</span>C<span class="op">{</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        tree<span class="op">:</span> BTree<span class="op">{</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            get<span class="op">:</span> <span class="kw">func</span><span class="op">(</span>ptr <span class="dt">uint64</span><span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span> <span class="op">{</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                node<span class="op">,</span> ok <span class="op">:=</span> pages<span class="op">[</span>ptr<span class="op">]</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                assert<span class="op">(</span>ok<span class="op">)</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> node</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">},</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>            <span class="bu">new</span><span class="op">:</span> <span class="kw">func</span><span class="op">(</span>node <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> <span class="dt">uint64</span> <span class="op">{</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                assert<span class="op">(</span>BNode<span class="op">(</span>node<span class="op">).</span>nbytes<span class="op">()</span> <span class="op">&lt;=</span> BTREE_PAGE_SIZE<span class="op">)</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                ptr <span class="op">:=</span> <span class="dt">uint64</span><span class="op">(</span><span class="dt">uintptr</span><span class="op">(</span>unsafe<span class="op">.</span>Pointer<span class="op">(&amp;</span>node<span class="op">[</span><span class="dv">0</span><span class="op">])))</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>                assert<span class="op">(</span>pages<span class="op">[</span>ptr<span class="op">]</span> <span class="op">==</span> <span class="ot">nil</span><span class="op">)</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>                pages<span class="op">[</span>ptr<span class="op">]</span> <span class="op">=</span> node</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> ptr</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>            <span class="op">},</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>            del<span class="op">:</span> <span class="kw">func</span><span class="op">(</span>ptr <span class="dt">uint64</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>                assert<span class="op">(</span>pages<span class="op">[</span>ptr<span class="op">]</span> <span class="op">!=</span> <span class="ot">nil</span><span class="op">)</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>                <span class="bu">delete</span><span class="op">(</span>pages<span class="op">,</span> ptr<span class="op">)</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            <span class="op">},</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">},</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        ref<span class="op">:</span>   <span class="kw">map</span><span class="op">[</span><span class="dt">string</span><span class="op">]</span><span class="dt">string</span><span class="op">{},</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        pages<span class="op">:</span> pages<span class="op">,</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><code>C.pages</code> is a map of allocated pages. It’s used to validate pointers and read pages. The pointers are actually in-memory pointers, and the B+tree code doesn’t care.</p>
+<p>To test the B+tree, we first need to update it under various scenarios and then verify the result. The verification is generic, there are 2 things to verify:</p>
+<ol type="1">
+<li>The structure is valid.
+<ul>
+<li>Keys are sorted.</li>
+<li>Node sizes are within limits.</li>
+</ul></li>
+<li>The data matches a reference. We used a map to capture each update.</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>c <span class="op">*</span>C<span class="op">)</span> add<span class="op">(</span>key <span class="dt">string</span><span class="op">,</span> val <span class="dt">string</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    c<span class="op">.</span>tree<span class="op">.</span>Insert<span class="op">([]</span><span class="dt">byte</span><span class="op">(</span>key<span class="op">),</span> <span class="op">[]</span><span class="dt">byte</span><span class="op">(</span>val<span class="op">))</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    c<span class="op">.</span>ref<span class="op">[</span>key<span class="op">]</span> <span class="op">=</span> val <span class="co">// reference data</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The test cases are left as an exercise. The next thing is B+tree on disk.</p>
+</section>
+</section>
+</body>
+</html>

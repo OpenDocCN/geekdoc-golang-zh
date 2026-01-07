@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <title>ch009.xhtml</title>
+  <style>
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {  background-color: #fffadf; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #008080; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #556622; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #008080; font-style: italic; } /* Comment */
+    code span.cv { color: #008080; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #008080; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #008080; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" type="text/css" href="../styles/stylesheet1.css" />
+</head>
+<body epub:type="bodymatter">
+<section id="tables-on-kv" class="level1">
+<h1>08. Tables on KV</h1>
+<section id="encode-rows-as-kvs" class="level2">
+<h2>8.1 Encode rows as KVs</h2>
+<section id="indexed-queries-point-and-range" class="level3">
+<h3>Indexed queries: point and range</h3>
+<p>In a relational DB, data is modeled as 2D tables consisting of rows and columns. Users speak their <em>intent</em> in SQL and the DB magically delivers results. What’s less magic is that while a DB can execute arbitrary queries, not all queries are practical (efficient &amp; scalable) in OLTP workloads, and OLTP always requires users to control <em>how</em> queries are executed via proper schema and index design.</p>
+<p>How an indexed query is executed boils down to 2 operations:</p>
+<ol type="1">
+<li>Point query: Find a row by a given key.</li>
+<li>Range query: Find rows by a range; iterate the result in sorted order.</li>
+</ol>
+<p>That’s why B+trees and LSM-trees are considered, while hashtables are not.</p>
+</section>
+<section id="the-primary-key-as-the-key" class="level3">
+<h3>The primary key as the “key”</h3>
+<p>Let’s consider point queries first. To find a row, there must be a way to uniquely identify the row, that’s the primary key, which is a subset of the columns.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> t1 (</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    k1 string,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    k2 <span class="dt">int</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    v1 string,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    v2 string,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">primary</span> <span class="kw">key</span> (k1, k2)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<p>Intuitively, primary key columns go in the “key” and the rest go in the “value”.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">key</th>
+<th style="text-align: left;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>t1</td>
+<td style="text-align: left;">k1, k2</td>
+<td style="text-align: left;">v1, v2</td>
+</tr>
+</tbody>
+</table>
+<p>Some DBs allow tables without a primary key, what they do is add a hidden, auto-generated primary key.</p>
+</section>
+<section id="the-secondary-indexes-as-separate-tables" class="level3">
+<h3>The secondary indexes as separate tables</h3>
+<p>Besides the primary key, a table can be indexed in more than 1 way. This is solved by an extra indirection: the secondary indexes.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> t1 (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    k1 string,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    k2 <span class="dt">int</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    v1 string,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    v2 string,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">primary</span> <span class="kw">key</span> (k1, k2),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">index</span> idx1 (v1),</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">index</span> idx2 (v2, v1)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<p>Logically, each index is like a separate table:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> idx1 (</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- indexed key (v1)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    v1 string,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- primary key (k1, k2)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    k1 string,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    k2 <span class="dt">int</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> idx2 (</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- indexed key (v2, v1)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    v2 string,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    v1 string,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- primary key (k1, k2)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    k1 string,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    k2 <span class="dt">int</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<p>Which adds an extra key to find the unique row identifier (primary key).</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">key</th>
+<th style="text-align: left;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>t1</td>
+<td style="text-align: left;">k1, k2</td>
+<td style="text-align: left;">v1, v2</td>
+</tr>
+<tr class="even">
+<td>idx1</td>
+<td style="text-align: left;">v1</td>
+<td style="text-align: left;">k1, k2</td>
+</tr>
+<tr class="odd">
+<td>idx2</td>
+<td style="text-align: left;">v2, v1</td>
+<td style="text-align: left;">k1, k2</td>
+</tr>
+</tbody>
+</table>
+<p>The primary key is also an index, but with the unique constraint.</p>
+</section>
+<section id="alternative-auto-generated-row-id" class="level3">
+<h3>Alternative: auto-generated row ID</h3>
+<p>Some DBs use an auto-generated ID as the “true” primary key, as opposed to the user-selected primary key. In this case, there is no distinction between primary and secondaries; the user primary key is also an indirection.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">key</th>
+<th style="text-align: left;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>t1</td>
+<td style="text-align: left;">ID</td>
+<td style="text-align: left;">k1, k2, v1, v2</td>
+</tr>
+<tr class="even">
+<td>primary key</td>
+<td style="text-align: left;">k1, k2</td>
+<td style="text-align: left;">ID</td>
+</tr>
+<tr class="odd">
+<td>idx1</td>
+<td style="text-align: left;">v1</td>
+<td style="text-align: left;">ID</td>
+</tr>
+<tr class="even">
+<td>idx2</td>
+<td style="text-align: left;">v2, v1</td>
+<td style="text-align: left;">ID</td>
+</tr>
+</tbody>
+</table>
+<p>The advantage is that the auto-generated ID can be a small, fixed-width integer, while the user primary key can be arbitrarily long. This means that …</p>
+<ul>
+<li>For ID keys, internal nodes can store more keys (shorter tree).</li>
+<li>Secondary indexes are smaller as they don’t duplicate the user primary key.</li>
+</ul>
+</section>
+</section>
+<section id="databases-schemas" class="level2">
+<h2>8.2 Databases schemas</h2>
+<!-- Databases schemas are extra structures on top of KV. -->
+<section id="the-table-prefix" class="level3">
+<h3>The table prefix</h3>
+<p>A DB can contain multiple tables and indexes. We’ll prepend an auto-generated prefix to the keys so that they can share a single B+tree. This is less work than keeping multiple trees.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">key</th>
+<th style="text-align: left;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>table1</td>
+<td style="text-align: left;">prefix1 + columns…</td>
+<td style="text-align: left;">columns…</td>
+</tr>
+<tr class="even">
+<td>table2</td>
+<td style="text-align: left;">prefix2 + columns…</td>
+<td style="text-align: left;">columns…</td>
+</tr>
+<tr class="odd">
+<td>index1</td>
+<td style="text-align: left;">prefix3 + columns…</td>
+<td style="text-align: left;">columns…</td>
+</tr>
+</tbody>
+</table>
+<p>The prefix is a 32-bit auto-incrementing integer, you can also use the table name instead, with the drawback that it can be arbitrarily long.</p>
+</section>
+<section id="data-types" class="level3">
+<h3>Data types</h3>
+<p>One advantage of relational DB over KV is that they support more data types. To reflect this aspect, we’ll support 2 data types: string and integer.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> <span class="op">(</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    TYPE_BYTES <span class="op">=</span> <span class="dv">1</span> <span class="co">// string (of arbitrary bytes)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    TYPE_INT64 <span class="op">=</span> <span class="dv">2</span> <span class="co">// integer; 64-bit signed</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">// table cell</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Value <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    Type <span class="dt">uint32</span> <span class="co">// tagged union</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    I64  <span class="dt">int64</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    Str  <span class="op">[]</span><span class="dt">byte</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The cell <code>Value</code> is a tagged union of a particular type.</p>
+</section>
+<section id="records" class="level3">
+<h3>Records</h3>
+<p>A <code>Record</code> represents a list of column names and values.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// table row</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Record <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    Cols <span class="op">[]</span><span class="dt">string</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    Vals <span class="op">[]</span>Value</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>rec <span class="op">*</span>Record<span class="op">)</span> AddStr<span class="op">(</span>col <span class="dt">string</span><span class="op">,</span> val <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> <span class="op">*</span>Record <span class="op">{</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    rec<span class="op">.</span>Cols <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>rec<span class="op">.</span>Cols<span class="op">,</span> col<span class="op">)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    rec<span class="op">.</span>Vals <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>rec<span class="op">.</span>Vals<span class="op">,</span> Value<span class="op">{</span>Type<span class="op">:</span> TYPE_BYTES<span class="op">,</span> Str<span class="op">:</span> val<span class="op">})</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> rec</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>rec <span class="op">*</span>Record<span class="op">)</span> AddInt64<span class="op">(</span>col <span class="dt">string</span><span class="op">,</span> val <span class="dt">int64</span><span class="op">)</span> <span class="op">*</span>Record</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>rec <span class="op">*</span>Record<span class="op">)</span> Get<span class="op">(</span>col <span class="dt">string</span><span class="op">)</span> <span class="op">*</span>Value</span></code></pre></div>
+</section>
+<section id="schemas" class="level3">
+<h3>Schemas</h3>
+<p>We’ll only consider the primary key in this chapter, leaving indexes for later.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> TableDef <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// user defined</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    Name  <span class="dt">string</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    Types <span class="op">[]</span><span class="dt">uint32</span> <span class="co">// column types</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    Cols  <span class="op">[]</span><span class="dt">string</span> <span class="co">// column names</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    PKeys <span class="dt">int</span>      <span class="co">// the first `PKeys` columns are the primary key</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// auto-assigned B-tree key prefixes for different tables</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    Prefix <span class="dt">uint32</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="internal-tables" class="level3">
+<h3>Internal tables</h3>
+<p>Where to store table schemas? Since we’re coding a DB, we know how to store stuff; we’ll store them in a predefined internal table.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> TDEF_TABLE <span class="op">=</span> <span class="op">&amp;</span>TableDef<span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    Prefix<span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    Name<span class="op">:</span>   <span class="st">&quot;@table&quot;</span><span class="op">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    Types<span class="op">:</span>  <span class="op">[]</span><span class="dt">uint32</span><span class="op">{</span>TYPE_BYTES<span class="op">,</span> TYPE_BYTES<span class="op">},</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    Cols<span class="op">:</span>   <span class="op">[]</span><span class="dt">string</span><span class="op">{</span><span class="st">&quot;name&quot;</span><span class="op">,</span> <span class="st">&quot;def&quot;</span><span class="op">},</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    PKeys<span class="op">:</span>  <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The <code>def</code> column is JSON serialized <code>TableDef</code>. This is like:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> `@table` (</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    `name` string,  <span class="co">-- table name</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    `def` string,   <span class="co">-- schema</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">primary</span> <span class="kw">key</span> (`name`)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div>
+<p>We’ll also need to keep some extra information, such as an auto-incrementing counter for generating table prefixes. Let’s define another internal table for this.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> TDEF_META <span class="op">=</span> <span class="op">&amp;</span>TableDef<span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    Prefix<span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    Name<span class="op">:</span>   <span class="st">&quot;@meta&quot;</span><span class="op">,</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    Types<span class="op">:</span>  <span class="op">[]</span><span class="dt">uint32</span><span class="op">{</span>TYPE_BYTES<span class="op">,</span> TYPE_BYTES<span class="op">},</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    Cols<span class="op">:</span>   <span class="op">[]</span><span class="dt">string</span><span class="op">{</span><span class="st">&quot;key&quot;</span><span class="op">,</span> <span class="st">&quot;val&quot;</span><span class="op">},</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    PKeys<span class="op">:</span>  <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+</section>
+<section id="get-update-insert-delete-create" class="level2">
+<h2>8.3 Get, update, insert, delete, create</h2>
+<section id="point-query-and-update-interfaces" class="level3">
+<h3>Point query and update interfaces</h3>
+<p>Interfaces for reading and writing a single row:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>DB<span class="op">)</span> Get<span class="op">(</span>table <span class="dt">string</span><span class="op">,</span> rec <span class="op">*</span>Record<span class="op">)</span> <span class="op">(</span><span class="dt">bool</span><span class="op">,</span> <span class="dt">error</span><span class="op">)</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>DB<span class="op">)</span> Insert<span class="op">(</span>table <span class="dt">string</span><span class="op">,</span> rec Record<span class="op">)</span> <span class="op">(</span><span class="dt">bool</span><span class="op">,</span> <span class="dt">error</span><span class="op">)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>DB<span class="op">)</span> Update<span class="op">(</span>table <span class="dt">string</span><span class="op">,</span> rec Record<span class="op">)</span> <span class="op">(</span><span class="dt">bool</span><span class="op">,</span> <span class="dt">error</span><span class="op">)</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>DB<span class="op">)</span> Upsert<span class="op">(</span>table <span class="dt">string</span><span class="op">,</span> rec Record<span class="op">)</span> <span class="op">(</span><span class="dt">bool</span><span class="op">,</span> <span class="dt">error</span><span class="op">)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>DB<span class="op">)</span> Delete<span class="op">(</span>table <span class="dt">string</span><span class="op">,</span> rec Record<span class="op">)</span> <span class="op">(</span><span class="dt">bool</span><span class="op">,</span> <span class="dt">error</span><span class="op">)</span></span></code></pre></div>
+<p><code>DB</code> is a wrapper of <code>KV</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> DB <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    Path <span class="dt">string</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    kv KV</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="query-by-primary-key" class="level3">
+<h3>Query by primary key</h3>
+<p>The <code>rec</code> argument is the input primary key. It’s also the output row.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">// get a single row by the primary key</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> dbGet<span class="op">(</span>db <span class="op">*</span>DB<span class="op">,</span> tdef <span class="op">*</span>TableDef<span class="op">,</span> rec <span class="op">*</span>Record<span class="op">)</span> <span class="op">(</span><span class="dt">bool</span><span class="op">,</span> <span class="dt">error</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 1. reorder the input columns according to the schema</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    values<span class="op">,</span> err <span class="op">:=</span> checkRecord<span class="op">(</span>tdef<span class="op">,</span> <span class="op">*</span>rec<span class="op">,</span> tdef<span class="op">.</span>PKeys<span class="op">)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> err <span class="op">!=</span> <span class="ot">nil</span> <span class="op">{</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ot">false</span><span class="op">,</span> err</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 2. encode the primary key</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    key <span class="op">:=</span> encodeKey<span class="op">(</span><span class="ot">nil</span><span class="op">,</span> tdef<span class="op">.</span>Prefix<span class="op">,</span> values<span class="op">[:</span>tdef<span class="op">.</span>PKeys<span class="op">])</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 3. query the KV store</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    val<span class="op">,</span> ok <span class="op">:=</span> db<span class="op">.</span>kv<span class="op">.</span>Get<span class="op">(</span>key<span class="op">)</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">!</span>ok <span class="op">{</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ot">false</span><span class="op">,</span> <span class="ot">nil</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 4. decode the value into columns</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="op">:=</span> tdef<span class="op">.</span>PKeys<span class="op">;</span> i <span class="op">&lt;</span> <span class="bu">len</span><span class="op">(</span>tdef<span class="op">.</span>Cols<span class="op">);</span> i<span class="op">++</span> <span class="op">{</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        values<span class="op">[</span>i<span class="op">].</span>Type <span class="op">=</span> tdef<span class="op">.</span>Types<span class="op">[</span>i<span class="op">]</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    decodeValues<span class="op">(</span>val<span class="op">,</span> values<span class="op">[</span>tdef<span class="op">.</span>PKeys<span class="op">:])</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    rec<span class="op">.</span>Cols <span class="op">=</span> tdef<span class="op">.</span>Cols</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    rec<span class="op">.</span>Vals <span class="op">=</span> values</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ot">true</span><span class="op">,</span> <span class="ot">nil</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The code to handle the columns is just mandane, we’ll skip it.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// reorder a record and check for missing columns.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">// n == tdef.PKeys: record is exactly a primary key</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">// n == len(tdef.Cols): record contains all columns</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> checkRecord<span class="op">(</span>tdef <span class="op">*</span>TableDef<span class="op">,</span> rec Record<span class="op">,</span> n <span class="dt">int</span><span class="op">)</span> <span class="op">([]</span>Value<span class="op">,</span> <span class="dt">error</span><span class="op">)</span></span></code></pre></div>
+<p>The next step is encoding and decoding, which can be any serialization scheme. <!-- For range queries, the sorting order of the keys matters, which is explained in the next chapter. --></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">// encode columns for the &quot;key&quot; of the KV</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> encodeKey<span class="op">(</span>out <span class="op">[]</span><span class="dt">byte</span><span class="op">,</span> prefix <span class="dt">uint32</span><span class="op">,</span> vals <span class="op">[]</span>Value<span class="op">)</span> <span class="op">[]</span><span class="dt">byte</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">// decode columns from the &quot;value&quot; of the KV</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> decodeValues<span class="op">(</span>in <span class="op">[]</span><span class="dt">byte</span><span class="op">,</span> out <span class="op">[]</span>Value<span class="op">)</span></span></code></pre></div>
+</section>
+<section id="read-the-schema" class="level3">
+<h3>Read the schema</h3>
+<p>User-facing interfaces refer to tables by name, so we must get its schema first.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">// get a single row by the primary key</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>DB<span class="op">)</span> Get<span class="op">(</span>table <span class="dt">string</span><span class="op">,</span> rec <span class="op">*</span>Record<span class="op">)</span> <span class="op">(</span><span class="dt">bool</span><span class="op">,</span> <span class="dt">error</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    tdef <span class="op">:=</span> getTableDef<span class="op">(</span>db<span class="op">,</span> table<span class="op">)</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> tdef <span class="op">==</span> <span class="ot">nil</span> <span class="op">{</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ot">false</span><span class="op">,</span> fmt<span class="op">.</span>Errorf<span class="op">(</span><span class="st">&quot;table not found: %s&quot;</span><span class="op">,</span> table<span class="op">)</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dbGet<span class="op">(</span>db<span class="op">,</span> tdef<span class="op">,</span> rec<span class="op">)</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Which is just a query to the internal table <code>@table</code> of JSON-encoded <code>TableDef</code>s.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> getTableDef<span class="op">(</span>db <span class="op">*</span>DB<span class="op">,</span> name <span class="dt">string</span><span class="op">)</span> <span class="op">*</span>TableDef <span class="op">{</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    rec <span class="op">:=</span> <span class="op">(&amp;</span>Record<span class="op">{}).</span>AddStr<span class="op">(</span><span class="st">&quot;name&quot;</span><span class="op">,</span> <span class="op">[]</span><span class="dt">byte</span><span class="op">(</span>name<span class="op">))</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    ok<span class="op">,</span> err <span class="op">:=</span> dbGet<span class="op">(</span>db<span class="op">,</span> TDEF_TABLE<span class="op">,</span> rec<span class="op">)</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">(</span>err <span class="op">==</span> <span class="ot">nil</span><span class="op">)</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">!</span>ok <span class="op">{</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ot">nil</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    tdef <span class="op">:=</span> <span class="op">&amp;</span>TableDef<span class="op">{}</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    err <span class="op">=</span> json<span class="op">.</span>Unmarshal<span class="op">(</span>rec<span class="op">.</span>Get<span class="op">(</span><span class="st">&quot;def&quot;</span><span class="op">).</span>Str<span class="op">,</span> tdef<span class="op">)</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">(</span>err <span class="op">==</span> <span class="ot">nil</span><span class="op">)</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tdef</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>We can cache table schemas in memory to reduce the number of queries, since no sane application needs a huge number of tables.</p>
+</section>
+<section id="insert-or-update-a-row" class="level3">
+<h3>Insert or update a row</h3>
+<p>There are 3 SQL update statements that differ in how they treat an existing row:</p>
+<ul>
+<li><code>INSERT</code> only adds new rows (identified by the primary key).</li>
+<li><code>UPDATE</code> only modifies existing rows.</li>
+<li><code>UPSERT</code> adds new rows or modifies existing rows.</li>
+</ul>
+<p>(Note: <code>UPSERT</code> is PostgreSQL specific. In MySQL it’s <code>ON DUPLICATED KEY UPDATE</code>. In SQLite it’s <code>INSERT OR REPLACE</code>).</p>
+<p>This is implemented by extending <code>BTree.Insert</code> with a mode flag.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">// update modes</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> <span class="op">(</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    MODE_UPSERT      <span class="op">=</span> <span class="dv">0</span> <span class="co">// insert or replace</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    MODE_UPDATE_ONLY <span class="op">=</span> <span class="dv">1</span> <span class="co">// update existing keys</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    MODE_INSERT_ONLY <span class="op">=</span> <span class="dv">2</span> <span class="co">// only add new keys</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> UpdateReq <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">*</span>BTree</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// out</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    Added   <span class="dt">bool</span>   <span class="co">// added a new key</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// in</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    Key  <span class="op">[]</span><span class="dt">byte</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    Val  <span class="op">[]</span><span class="dt">byte</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    Mode <span class="dt">int</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>tree <span class="op">*</span>BTree<span class="op">)</span> Update<span class="op">(</span>req <span class="op">*</span>UpdateReq<span class="op">)</span></span></code></pre></div>
+<p>The update function here only deals with a complete row. Partial updates (read-modify-write) are implemented at a higher level (query language).</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> dbUpdate<span class="op">(</span>db <span class="op">*</span>DB<span class="op">,</span> tdef <span class="op">*</span>TableDef<span class="op">,</span> rec Record<span class="op">,</span> mode <span class="dt">int</span><span class="op">)</span> <span class="op">(</span><span class="dt">bool</span><span class="op">,</span> <span class="dt">error</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    values<span class="op">,</span> err <span class="op">:=</span> checkRecord<span class="op">(</span>tdef<span class="op">,</span> rec<span class="op">,</span> <span class="bu">len</span><span class="op">(</span>tdef<span class="op">.</span>Cols<span class="op">))</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> err <span class="op">!=</span> <span class="ot">nil</span> <span class="op">{</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="ot">false</span><span class="op">,</span> err</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    key <span class="op">:=</span> encodeKey<span class="op">(</span><span class="ot">nil</span><span class="op">,</span> tdef<span class="op">.</span>Prefix<span class="op">,</span> values<span class="op">[:</span>tdef<span class="op">.</span>PKeys<span class="op">])</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    val <span class="op">:=</span> encodeValues<span class="op">(</span><span class="ot">nil</span><span class="op">,</span> values<span class="op">[</span>tdef<span class="op">.</span>PKeys<span class="op">:])</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> db<span class="op">.</span>kv<span class="op">.</span>Update<span class="op">(</span>key<span class="op">,</span> val<span class="op">,</span> mode<span class="op">)</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="create-a-table" class="level3">
+<h3>Create a table</h3>
+<p>The process of creating a table is rather boring:</p>
+<ol type="1">
+<li>Read <code>@table</code> to check for duplicate names.</li>
+<li>Read the table prefix counter from <code>@meta</code>.</li>
+<li>Increase and update the table prefix counter in <code>@meta</code>.</li>
+<li>Insert the schema to <code>@table</code>.</li>
+</ol>
+<div class="sourceCode" id="cb19"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>DB<span class="op">)</span> TableNew<span class="op">(</span>tdef <span class="op">*</span>TableDef<span class="op">)</span> <span class="dt">error</span></span></code></pre></div>
+<p>This process involves updating 2 keys, so we’re losing atomicity here. This will be fixed later when we add transactions.</p>
+</section>
+</section>
+<section id="conclusion-of-tables-on-kv" class="level2">
+<h2>8.4 Conclusion of tables on KV</h2>
+<p>Tables on KV is not fundamentally different, it’s just extra steps of data serialization and keeping schemas. However, the work is not done yet. The next steps are:</p>
+<ul>
+<li>Range queries.</li>
+<li>Secondary indexes.</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

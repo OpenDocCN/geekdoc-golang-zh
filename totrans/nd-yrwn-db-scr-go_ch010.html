@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en-US" xml:lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <title>ch010.xhtml</title>
+  <style>
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {  background-color: #fffadf; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #008080; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #556622; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #008080; font-style: italic; } /* Comment */
+    code span.cv { color: #008080; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #008080; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #008080; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" type="text/css" href="../styles/stylesheet1.css" />
+</head>
+<body epub:type="bodymatter">
+<section id="range-queries" class="level1">
+<h1>09. Range Queries</h1>
+<section id="btree-iterator" class="level2">
+<h2>9.1 B+tree iterator</h2>
+<section id="the-iterator-interface" class="level3">
+<h3>The iterator interface</h3>
+<p>The basic operations are <em>seek</em> and <em>iterate</em> for a range query. A B+tree position is represented by the stateful iterator <code>BIter</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// find the closest position that is less or equal to the input key</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>tree <span class="op">*</span>BTree<span class="op">)</span> SeekLE<span class="op">(</span>key <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> <span class="op">*</span>BIter</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// get the current KV pair</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>iter <span class="op">*</span>BIter<span class="op">)</span> Deref<span class="op">()</span> <span class="op">([]</span><span class="dt">byte</span><span class="op">,</span> <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">// precondition of the Deref()</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>iter <span class="op">*</span>BIter<span class="op">)</span> Valid<span class="op">()</span> <span class="dt">bool</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">// moving backward and forward</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>iter <span class="op">*</span>BIter<span class="op">)</span> Prev<span class="op">()</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>iter <span class="op">*</span>BIter<span class="op">)</span> Next<span class="op">()</span></span></code></pre></div>
+<p>For example, the query for <code>a &lt;= key</code> looks like this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> iter <span class="op">:=</span> tree<span class="op">.</span>SeekLE<span class="op">(</span>key<span class="op">);</span> iter<span class="op">.</span>Valid<span class="op">();</span> iter<span class="op">.</span>Prev<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    k<span class="op">,</span> v <span class="op">:=</span> iter<span class="op">.</span>Deref<span class="op">()</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="navigate-a-tree" class="level3">
+<h3>Navigate a tree</h3>
+<p>The position of the current key is needed to find its sibling key inside a node. And if the sibling key is in the sibling node, we need to backtrack to the parent node. Since we don’t use parent pointers, we need the entire path from root to leaf.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> BIter <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">*</span>BTree</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    path <span class="op">[]</span>BNode  <span class="co">// from root to leaf</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    pos  <span class="op">[]</span><span class="dt">uint16</span> <span class="co">// indexes into nodes</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Moving the iterator is like carrying when incrementing a number digit by digit.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>iter <span class="op">*</span>BIter<span class="op">)</span> Next<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    iterNext<span class="op">(</span>iter<span class="op">,</span> <span class="bu">len</span><span class="op">(</span>iter<span class="op">.</span>path<span class="op">)-</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> iterNext<span class="op">(</span>iter <span class="op">*</span>BIter<span class="op">,</span> level <span class="dt">int</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> iter<span class="op">.</span>pos<span class="op">[</span>level<span class="op">]+</span><span class="dv">1</span> <span class="op">&lt;</span> iter<span class="op">.</span>path<span class="op">[</span>level<span class="op">].</span>nkeys<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        iter<span class="op">.</span>pos<span class="op">[</span>level<span class="op">]++</span> <span class="co">// move within this node</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> level <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">{</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        iterNext<span class="op">(</span>iter<span class="op">,</span> level<span class="op">-</span><span class="dv">1</span><span class="op">)</span> <span class="co">// move to a sibling node</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        iter<span class="op">.</span>pos<span class="op">[</span><span class="bu">len</span><span class="op">(</span>iter<span class="op">.</span>pos<span class="op">)-</span><span class="dv">1</span><span class="op">]++</span> <span class="co">// past the last key</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> level<span class="op">+</span><span class="dv">1</span> <span class="op">&lt;</span> <span class="bu">len</span><span class="op">(</span>iter<span class="op">.</span>pos<span class="op">)</span> <span class="op">{</span> <span class="co">// update the child node</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        node <span class="op">:=</span> iter<span class="op">.</span>path<span class="op">[</span>level<span class="op">]</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        kid <span class="op">:=</span> BNode<span class="op">(</span>iter<span class="op">.</span>tree<span class="op">.</span>get<span class="op">(</span>node<span class="op">.</span>getPtr<span class="op">(</span>iter<span class="op">.</span>pos<span class="op">[</span>level<span class="op">])))</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        iter<span class="op">.</span>path<span class="op">[</span>level<span class="op">+</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> kid</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        iter<span class="op">.</span>pos<span class="op">[</span>level<span class="op">+</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</section>
+<section id="seek-to-a-key" class="level3">
+<h3>Seek to a key</h3>
+<p>Seeking to a key is like a point query, with the path recorded.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// find the closest position that is less or equal to the input key</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>tree <span class="op">*</span>BTree<span class="op">)</span> SeekLE<span class="op">(</span>key <span class="op">[]</span><span class="dt">byte</span><span class="op">)</span> <span class="op">*</span>BIter <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    iter <span class="op">:=</span> <span class="op">&amp;</span>BIter<span class="op">{</span>tree<span class="op">:</span> tree<span class="op">}</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ptr <span class="op">:=</span> tree<span class="op">.</span>root<span class="op">;</span> ptr <span class="op">!=</span> <span class="dv">0</span><span class="op">;</span> <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        node <span class="op">:=</span> tree<span class="op">.</span>get<span class="op">(</span>ptr<span class="op">)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        idx <span class="op">:=</span> nodeLookupLE<span class="op">(</span>node<span class="op">,</span> key<span class="op">)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        iter<span class="op">.</span>path <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>iter<span class="op">.</span>path<span class="op">,</span> node<span class="op">)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        iter<span class="op">.</span>pos <span class="op">=</span> <span class="bu">append</span><span class="op">(</span>iter<span class="op">.</span>pos<span class="op">,</span> idx<span class="op">)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        ptr <span class="op">=</span> node<span class="op">.</span>getPtr<span class="op">(</span>idx<span class="op">)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> iter</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><code>nodeLookupLE</code> is for less-than-and-equal, you’ll also need other operators.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> <span class="op">(</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    CMP_GE <span class="op">=</span> <span class="op">+</span><span class="dv">3</span> <span class="co">// &gt;=</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    CMP_GT <span class="op">=</span> <span class="op">+</span><span class="dv">2</span> <span class="co">// &gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    CMP_LT <span class="op">=</span> <span class="op">-</span><span class="dv">2</span> <span class="co">// &lt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    CMP_LE <span class="op">=</span> <span class="op">-</span><span class="dv">3</span> <span class="co">// &lt;=</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>tree <span class="op">*</span>BTree<span class="op">)</span> Seek<span class="op">(</span>key <span class="op">[]</span><span class="dt">byte</span><span class="op">,</span> cmp <span class="dt">int</span><span class="op">)</span> <span class="op">*</span>BIter</span></code></pre></div>
+</section>
+</section>
+<section id="order-preserving-encoding" class="level2">
+<h2>9.2 Order-preserving encoding</h2>
+<section id="sort-arbitrary-data-as-byte-strings" class="level3">
+<h3>Sort arbitrary data as byte strings</h3>
+<p>Our B+tree deals with string keys of arbitrary bytes. But a column can be of other types, such as numbers, and keys can be multiple columns. To support range queries, serialized keys must be compared w.r.t. their data type.</p>
+<p>The obvious way is to replace <code>bytes.Compare</code> with a callback that decodes and compares keys according to the table schema.</p>
+<p>Another way is to <strong>choose a special serialization format so that the resulting bytes reflect the sort order</strong>. This is the shortcut we’ll take.</p>
+</section>
+<section id="numbers" class="level3">
+<h3>Numbers</h3>
+<p>Let’s start with a simple problem: how to encode <em>unsigned integers</em> so that they can be compared by <code>bytes.Compare</code>? <code>bytes.Compare</code> works byte by byte until a difference is met. So the 1st byte is most significant in a comparison, if we put the most significant (higher) bits of an integer first, they can be compared byte-wise. That’s just big-endian integers.</p>
+<pre><code>0x0000000000000001 -&gt; 00 00 00 00 00 00 00 01
+0x0000000000000002 -&gt; 00 00 00 00 00 00 00 02
+                  ...
+0x00000000000000ff -&gt; 00 00 00 00 00 00 00 ff
+0x0000000000000100 -&gt; 00 00 00 00 00 00 01 00</code></pre>
+<p>Next, we’ll consider <em>signed integers</em>, which are represented by <a href="https://en.wikipedia.org/wiki/Signed_number_representations#Two&#39;s_complement">two’s complement</a>. In two’s complement representation, the upper half of unsigned values is simply offset to negative values. To ensure the correct order, the positive half is swapped with the negative half, which is just flipping the most significant bit.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>            <span class="kw">var</span> buf <span class="op">[</span><span class="dv">8</span><span class="op">]</span><span class="dt">byte</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>            u <span class="op">:=</span> <span class="dt">uint64</span><span class="op">(</span>v<span class="op">.</span>I64<span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">63</span><span class="op">)</span>        <span class="co">// flip the sign bit</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>            binary<span class="op">.</span>BigEndian<span class="op">.</span>PutUint64<span class="op">(</span>buf<span class="op">[:],</span> u<span class="op">)</span> <span class="co">// big endian</span></span></code></pre></div>
+<p>Some examples:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;"><code>int64</code></th>
+<th style="text-align: left;">Encoded bytes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><code>MinInt64</code></td>
+<td style="text-align: left;"><code>00 00 00 00 00 00 00 00</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-2</td>
+<td style="text-align: left;"><code>7f ff ff ff ff ff ff fe</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-1</td>
+<td style="text-align: left;"><code>7f ff ff ff ff ff ff ff</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;"><code>80 00 00 00 00 00 00 00</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;"><code>80 00 00 00 00 00 00 01</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>MaxInt64</code></td>
+<td style="text-align: left;"><code>ff ff ff ff ff ff ff ff</code></td>
+</tr>
+</tbody>
+</table>
+<p>So the general ideas are:</p>
+<ul>
+<li>Arranging bits so that more significant bits come first (big-endian).</li>
+<li>Remapping bits to unsigned integers in the correct order.</li>
+</ul>
+<p>Exercise for the reader: Apply this to floats (sign + magnitude + exponent).</p>
+</section>
+<section id="strings" class="level3">
+<h3>Strings</h3>
+<p>The key can be multiple columns. But <code>bytes.Compare</code> only works with a single string column, because it needs the length. We cannot simply concatenate string columns, because this creates ambiguity. E.g., <code>("a", "bc")</code> vs. <code>("ab", "c")</code>.</p>
+<p>There are 2 ways to encode strings with lengths, one way is to prepend the length, this requires decoding. Another way is to put a delimiter at the end, such as a null byte. The previous example is encoded as <code class="sourceCode go"><span class="st">&quot;a</span><span class="ch">\x00</span><span class="st">bc</span><span class="ch">\x00</span><span class="st">&quot;</span></code> and <code class="sourceCode go"><span class="st">&quot;ab</span><span class="ch">\x00</span><span class="st">c</span><span class="ch">\x00</span><span class="st">&quot;</span></code>.</p>
+<p>The problem with delimiters is that the input cannot contain the delimiter, this is solved by <em>escaping</em> the delimiter. We’ll use byte 0x01 as the escaping byte, and the escaping byte itself must be escaped. So we’ll need 2 transformations:</p>
+<pre><code>00 -&gt; 01 01
+01 -&gt; 01 02</code></pre>
+<p>Note that the escape sequences still preserve the sort order.</p>
+</section>
+<section id="tuples" class="level3">
+<h3>Tuples</h3>
+<p>A multi-column comparison (tuple) is done column by column until a difference is met. This is like a string comparison, except that each item is a typed value instead of a byte. We can simply concatenate the encoded bytes of each column as long as there is no ambiguity.</p>
+</section>
+</section>
+<section id="range-query" class="level2">
+<h2>9.3 Range query</h2>
+<p><code>Scanner</code> is a wrapper of the B+tree iterator. It decodes KVs into rows.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">// within the range or not?</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>sc <span class="op">*</span>Scanner<span class="op">)</span> Valid<span class="op">()</span> <span class="dt">bool</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">// move the underlying B-tree iterator</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>sc <span class="op">*</span>Scanner<span class="op">)</span> Next<span class="op">()</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">// fetch the current row</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>sc <span class="op">*</span>Scanner<span class="op">)</span> Deref<span class="op">(</span>rec <span class="op">*</span>Record<span class="op">)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="kw">func</span> <span class="op">(</span>db <span class="op">*</span>DB<span class="op">)</span> Scan<span class="op">(</span>table <span class="dt">string</span><span class="op">,</span> req <span class="op">*</span>Scanner<span class="op">)</span> <span class="dt">error</span></span></code></pre></div>
+<p>The input is an interval of the primary key.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode go"><code class="sourceCode go"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Scanner <span class="kw">struct</span> <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the range, from Key1 to Key2</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    Cmp1 <span class="dt">int</span> <span class="co">// CMP_??</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    Cmp2 <span class="dt">int</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    Key1 Record</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    Key2 Record</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>For open-ended intervals, simply set <code>Key2</code> to the maximum/minimum value.</p>
+<!-- This can also do the point queries (`a == key`) with `key <= a && a <= key`.
+
+```go
+// get a single row by the primary key
+func dbGet(db *DB, tdef *TableDef, rec *Record) (bool, error) {
+    // just a shortcut for the scan operation
+    sc := Scanner{
+        Cmp1: CMP_GE, // >=
+        Cmp2: CMP_LE, // <=
+        Key1: *rec,
+        Key2: *rec,
+    }
+    if err := dbScan(db, tdef, &sc); err != nil || !sc.Valid() {
+        return false, err
+    }
+    sc.Deref(rec)
+    return true, nil
+}
+``` -->
+</section>
+<section id="what-we-learned-1" class="level2">
+<h2>9.4 What we learned</h2>
+<ul>
+<li>B+tree iterators.</li>
+<li>Order-preserving encoding.</li>
+</ul>
+<p>The next step is to add secondary indexes, which are just extra tables.</p>
+</section>
+</section>
+</body>
+</html>

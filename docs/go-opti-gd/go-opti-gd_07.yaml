@@ -1,11 +1,15 @@
 - en: Struct Field Alignment¶
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 结构体字段对齐¶
 - en: 原文：[https://goperf.dev/01-common-patterns/fields-alignment/](https://goperf.dev/01-common-patterns/fields-alignment/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/01-common-patterns/fields-alignment/](https://goperf.dev/01-common-patterns/fields-alignment/)
 - en: When optimizing Go programs for performance, struct layout and memory alignment
     often go unnoticed—yet they have a measurable impact on memory usage and cache
     efficiency. Go automatically aligns struct fields based on platform-specific rules,
@@ -14,12 +18,17 @@
     your Go programs perform, especially in tight loops or high-throughput systems.
     Proper alignment can reduce the overall memory footprint, make better use of CPU
     caches, and eliminate subtle performance penalties that add up under load.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 在优化 Go 程序以获得性能时，结构体布局和内存对齐往往被忽视——然而，它们对内存使用和缓存效率有可测量的影响。Go 会根据平台特定的规则自动对齐结构体字段，插入填充以满足对齐约束。理解和控制内存对齐不仅是一个低级细节——它可以对您的
+    Go 程序的性能产生实际影响，尤其是在紧密循环或高吞吐量系统中。适当的对齐可以减少整体内存占用，更好地利用 CPU 缓存，并消除在负载下累积的微妙性能惩罚。
 - en: Why Alignment Matters[¶](#why-alignment-matters "Permanent link")
+  id: totrans-3
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 为什么对齐很重要[¶](#why-alignment-matters "永久链接")
 - en: Modern CPUs are tuned for predictable memory access. When struct fields are
     misaligned or split across cache lines, the processor often has to do extra work
     to fetch the data. That can mean additional memory cycles, more cache misses,
@@ -29,66 +38,99 @@
     inserts padding bytes to meet these constraints. If fields are arranged without
     care, unnecessary padding may inflate struct size significantly, affecting memory
     use and bandwidth.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 现代处理器针对可预测的内存访问进行了优化。当结构体字段未对齐或跨越缓存行时，处理器通常需要做额外的工作来获取数据。这可能意味着额外的内存周期、更多的缓存未命中，以及整体性能的降低。在日常代码中，这些成本很容易被忽视，但在对吞吐量或延迟敏感的代码中会迅速显现。在
+    Go 中，结构体字段根据其类型要求进行对齐，编译器会插入填充字节以满足这些约束。如果字段排列不当，不必要的填充可能会显著增加结构体的大小，影响内存使用和带宽。
 - en: 'Consider the following two structs:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 考虑以下两个结构体：
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: On a 64-bit system, `PoorlyAligned` requires 24 bytes due to the padding between
     fields, whereas `WellAligned` fits into 16 bytes by ordering fields from largest
     to smallest alignment requirement.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 64 位系统上，`PoorlyAligned` 由于字段之间的填充需要 24 字节，而 `WellAligned` 通过按从大到小的对齐要求排序字段，可以适应
+    16 字节的空间。
 - en: Benchmarking Impact[¶](#benchmarking-impact "Permanent link")
+  id: totrans-8
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 基准测试影响[¶](#benchmarking-impact "永久链接")
 - en: 'We benchmarked both struct layouts by allocating 10 million instances of each
     and measuring allocation time and memory usage:'
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 我们通过分配每种结构体类型的 1000 万个实例，并测量分配时间和内存使用来对两种结构体布局进行了基准测试：
 - en: '[PRE1]'
+  id: totrans-10
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Benchmark Results
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 基准测试结果
 - en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
     |'
+  id: totrans-12
   prefs: []
   type: TYPE_TB
+  zh: '| 基准测试 | 迭代次数 | 每次操作时间 (ns) | 每次操作字节数 | 每次操作分配数 |'
 - en: '| --- | --- | --- | --- | --- |'
+  id: totrans-13
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| PoorlyAligned-14 | 177 | 20,095,621 | 240,001,029 | 1 |'
+  id: totrans-14
   prefs: []
   type: TYPE_TB
+  zh: '| 差对齐-14 | 177 | 20,095,621 | 240,001,029 | 1 |'
 - en: '| WellAligned-14 | 186 | 19,265,714 | 160,006,148 | 1 |'
+  id: totrans-15
   prefs: []
   type: TYPE_TB
+  zh: '| WellAligned-14 | 186 | 19,265,714 | 160,006,148 | 1 |'
 - en: In a test with 10 million structs, the `WellAligned` version used 80MB less
     memory than its poorly aligned counterpart—and it also ran a bit faster. This
     isn’t just about saving RAM; it shows how struct layout directly affects allocation
     behavior and memory bandwidth. When you’re working with large volumes of data
     or performance-critical paths, reordering fields for better alignment can lead
     to measurable gains with minimal effort.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 在一个包含 1000 万个结构体的测试中，`WellAligned` 版本比其差对齐版本少使用了 80MB 的内存，并且运行速度也略快。这不仅仅关乎节省
+    RAM；它展示了结构体布局如何直接影响分配行为和内存带宽。当您处理大量数据或性能关键路径时，重新排列字段以获得更好的对齐可以带来可测量的收益，而所需的工作量却很小。
 - en: Avoiding False Sharing in Concurrent Workloads[¶](#avoiding-false-sharing-in-concurrent-workloads
     "Permanent link")
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 避免并发工作负载中的伪共享[¶](#avoiding-false-sharing-in-concurrent-workloads "永久链接")
 - en: In addition to memory layout efficiency, struct alignment also plays a crucial
     role in concurrent systems. When multiple goroutines access different fields of
     the same struct that reside on the same CPU cache line, they may suffer from false
     sharing—where changes to one field cause invalidations in the other, even if logically
     unrelated.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 除了内存布局效率外，结构体对齐在并发系统中也起着至关重要的作用。当多个goroutine访问同一结构体上同一CPU缓存行的不同字段时，它们可能会遭受假共享——即对一个字段的更改会导致另一个字段的无效化，即使它们在逻辑上无关。
 - en: On modern CPUs, a typical cache line is 64 bytes wide. When a struct is accessed
     in memory, the CPU loads the entire cache line that contains it, not just the
     specific field. This means that two unrelated fields within the same 64-byte block
@@ -96,90 +138,134 @@
     goroutines. If one goroutine writes to its field, the cache line becomes invalidated
     and must be reloaded on the other core, leading to degraded performance due to
     false sharing.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 在现代CPU上，典型的缓存行宽度为64字节。当在内存中访问结构体时，CPU会加载包含它的整个缓存行，而不仅仅是特定的字段。这意味着同一64字节块内的两个无关字段都将位于同一行——即使它们被不同的goroutine独立使用。如果一个goroutine向其字段写入，缓存行就会失效，必须在其他核心上重新加载，导致由于假共享而性能下降。
 - en: 'To illustrate, we compared two structs—one vulnerable to false sharing, and
     another with padding to separate fields across cache lines:'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了说明，我们比较了两个结构体——一个容易受到假共享的影响，另一个通过填充来分隔缓存行之间的字段：
 - en: '[PRE2]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: 'Each field is incremented by a separate goroutine 1 million times:'
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个字段由一个单独的goroutine增加一百万次：
 - en: '[PRE3]'
+  id: totrans-23
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: '`FalseSharing` and `NoFalseSharing` benchmarks are identical, except we will
     use `SharedCounterGood` for the `NoFalseSharing` benchmark.'
+  id: totrans-24
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: '`FalseSharing`和`NoFalseSharing`基准测试是相同的，除了我们将使用`SharedCounterGood`作为`NoFalseSharing`基准测试。'
 - en: 'Benchmark Results:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 基准测试结果：
 - en: '| Benchmark | Time per op (ns) | Bytes per op | Allocs per op |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| 基准测试 | 每次操作时间（ns） | 每次操作字节数 | 每次操作分配数 |'
 - en: '| --- | --- | --- | --- |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- |'
 - en: '| FalseSharing | 996,234 | 55 | 2 |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| FalseSharing | 996,234 | 55 | 2 |'
 - en: '| NoFalseSharing | 958,180 | 58 | 2 |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| NoFalseSharing | 958,180 | 58 | 2 |'
 - en: Placing padding between the two fields prevented false sharing, resulting in
     a measurable performance improvement. The version with padding completed ~3.8%
     faster (the value could vary between re-runs from 3% to 6%), which can make a
     difference in tight concurrent loops or high-frequency counters. It also shows
     how false sharing may unpredictably affect memory use due to invalidation overhead.
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 在两个字段之间添加填充可以防止假共享，从而带来可测量的性能提升。带有填充的版本完成速度提高了约~3.8%（该值可能在重新运行之间变化，从3%到6%），这在紧密的并发循环或高频计数器中可能带来差异。这也展示了假共享可能由于无效化开销而不规则地影响内存使用。
 - en: <details class="example"><summary>Show the complete benchmark file</summary>
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>显示完整的基准测试文件</summary>
 - en: '[PRE4]</details>'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE4]</details>'
 - en: When To Align Structs[¶](#when-to-align-structs "Permanent link")
+  id: totrans-33
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 当对齐结构体[¶](#when-to-align-structs "永久链接")
 - en: Always align structs. It's free to implement and often leads to better memory
     efficiency without changing any logic—only field order needs to be adjusted.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 总是使结构体对齐。实现起来是免费的，并且通常会导致更好的内存效率，而无需更改任何逻辑——只需调整字段顺序即可。
 - en: 'Guidelines for struct alignment:'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 结构体对齐的指南：
 - en: Order fields from largest to smallest. Starting with larger fields helps the
     compiler avoid inserting padding to meet alignment requirements. Smaller fields
     can fill in the gaps naturally.
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 按照从大到小的顺序排列字段。从较大的字段开始可以帮助编译器避免插入填充以满足对齐要求。较小的字段可以自然地填补空隙。
 - en: Group fields of the same size together. This lets the compiler pack them more
     efficiently and minimizes wasted space.
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将相同大小的字段分组。这可以让编译器更有效地打包它们，并最小化浪费的空间。
 - en: Insert padding intentionally when needed. In concurrent code, separating fields
     that are accessed by different goroutines can prevent false sharing—a subtle but
     costly issue where multiple goroutines compete over the same cache line.
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当需要时有意添加填充。在并发代码中，将不同goroutine访问的字段分开可以防止假共享——这是一个微妙但代价高昂的问题，多个goroutine会争夺相同的缓存行。
 - en: Avoid interleaving small and large fields. Mixing sizes leads to inefficient
     memory usage due to extra alignment padding between fields.
+  id: totrans-39
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 避免混合大小不同的字段。混合大小会导致由于字段之间的额外对齐填充而造成内存使用效率低下。
 - en: Use the [fieldalignment](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment)
     linter to verify. This tool helps catch suboptimal layouts automatically during
     development.
+  id: totrans-40
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 使用[fieldalignment](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment)代码检查工具进行验证。此工具有助于在开发过程中自动捕获次优布局。

@@ -1,191 +1,273 @@
 - en: Memory Management and Leak Prevention in Long-Lived Connections¶
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 长连接中的内存管理和泄漏预防
 - en: 原文：[https://goperf.dev/02-networking/long-lived-connections/](https://goperf.dev/02-networking/long-lived-connections/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/02-networking/long-lived-connections/](https://goperf.dev/02-networking/long-lived-connections/)
 - en: Long-lived connections—such as WebSockets or TCP streams—are critical for real-time
     systems but also prone to gradual degradation. When connections persist, any failure
     to clean up buffers, goroutines, or timeouts can quietly consume memory over time.
     These leaks often evade unit tests or staging environments but surface under sustained
     load in production.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 长连接——如WebSockets或TCP流——对于实时系统至关重要，但也容易逐渐退化。当连接持续存在时，任何清理缓冲区、goroutines或超时的失败都会随着时间的推移悄悄消耗内存。这些泄漏通常在单元测试或预发布环境中逃避，但在生产环境下的持续负载下会暴露出来。
 - en: This article focuses on memory management strategies tailored to long-lived
     connections in Go. It outlines patterns that cause leaks, techniques for enforcing
     resource bounds, and tools to identify hidden retention through profiling.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 本文重点介绍针对Go中长连接的内存管理策略。它概述了导致泄漏的模式、强制资源界限的技术以及通过分析识别隐藏保留的工具。
 - en: Identifying Common Leak Patterns[¶](#identifying-common-leak-patterns "Permanent
     link")
+  id: totrans-4
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 识别常见泄漏模式[¶](#identifying-common-leak-patterns "永久链接")
 - en: In garbage-collected languages like Go, memory leaks typically involve lingering
     references—objects that are no longer needed but remain reachable. The most common
     culprits in connection-heavy services include goroutines that don’t exit, buffered
     channels that accumulate data, and slices that retain large backing arrays.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在像Go这样的垃圾回收语言中，内存泄漏通常涉及持久引用——不再需要的对象但仍然可访问。在连接密集型服务中最常见的罪魁祸首包括未退出的goroutines、累积数据的缓冲通道和保留大型支持数组的切片。
 - en: Goroutine Leaks[¶](#goroutine-leaks "Permanent link")
+  id: totrans-6
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: Goroutine 泄漏[¶](#goroutine-leaks "永久链接")
 - en: Handlers for persistent connections often run in their own goroutines. If the
     control flow within a handler blocks indefinitely—whether due to I/O operations,
     nested goroutines, or external dependencies—those goroutines can remain active
     even after the connection is no longer useful.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 持久连接的处理程序通常在它们自己的goroutines中运行。如果处理程序内的控制流程无限期阻塞——无论是由于I/O操作、嵌套goroutines还是外部依赖——即使连接不再有用，这些goroutines也可以保持活跃。
 - en: '[PRE0]'
+  id: totrans-8
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Here, if `process(message)` internally spawns goroutines without proper cancellation,
     or if `conn.ReadMessage()` blocks indefinitely after a network interruption, the
     handler goroutine can hang forever, retaining references to stacks and heap objects.
     Blocking reads prevent the loop from exiting, and unbounded goroutine spawning
     within `process` can accumulate if upstream errors aren’t handled. Now multiply
     by 10,000 connections.
+  id: totrans-9
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，如果`process(message)`在内部没有适当取消goroutines，或者如果`conn.ReadMessage()`在网络中断后无限期阻塞，处理goroutines可以永久挂起，保留对堆栈和堆对象的引用。阻塞读取会阻止循环退出，并且如果未处理上游错误，`process`内部无界地创建goroutines可能会累积。现在乘以10,000个连接。
 - en: Buffer and Channel Accumulation[¶](#buffer-and-channel-accumulation "Permanent
     link")
+  id: totrans-10
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 缓冲区和通道累积[¶](#buffer-and-channel-accumulation "永久链接")
 - en: 'Buffered channels and pooled buffers offer performance advantages, but misuse
     can lead to retained memory that outlives its usefulness. A typical example involves
     `sync.Pool` combined with I/O:'
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 缓冲通道和池化缓冲区提供了性能优势，但误用可能导致超出其有用寿命的保留内存。一个典型的例子涉及`sync.Pool`与I/O的结合：
 - en: '[PRE1]'
+  id: totrans-12
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: 'This version correctly isolates the active portion of the buffer using a copy.
     Problems arise when the copy is skipped:'
+  id: totrans-13
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个版本通过复制正确地隔离了缓冲区的活动部分。当跳过复制时会出现问题：
 - en: '[PRE2]'
+  id: totrans-14
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Although `data` appears small, it still points to the original 4 KB buffer.
     If `process` stores that slice in a log queue, cache, or channel, the entire backing
     array remains in memory. Over time, this pattern can hold onto hundreds of megabytes
     of heap space across thousands of connections.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 尽管`data`看起来很小，但它仍然指向原始的4 KB缓冲区。如果`process`将这个片段存储在日志队列、缓存或通道中，整个支持数组仍然保留在内存中。随着时间的推移，这种模式可以在数千个连接中保留数百兆字节的堆空间。
 - en: To prevent this, always create a new slice with just the required data length
     before handing it off to any code that might retain it. Copying a slice may seem
     inefficient, but it ensures the larger buffer is no longer indirectly referenced.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了防止这种情况，在将其传递给任何可能保留它的代码之前，始终创建一个新的切片，只包含所需的数据长度。复制切片可能看起来效率低下，但它确保较大的缓冲区不再间接引用。
 - en: Enforcing Read/Write Deadlines[¶](#enforcing-readwrite-deadlines "Permanent
     link")
+  id: totrans-17
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 强制读写截止日期[¶](#enforcing-readwrite-deadlines "永久链接")
 - en: Network I/O without deadlines introduces an unbounded wait time. If a client
     stalls or a network failure interrupts a connection, read and write operations
     may block indefinitely. In a high-connection environment, even a few such blocked
     goroutines can accumulate and exhaust memory over time.
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 没有截止日期的网络I/O引入了无界等待时间。如果客户端停滞或网络故障中断连接，读取和写入操作可能会无限期地阻塞。在高连接环境中，即使是一些这样的阻塞goroutine也可能随着时间的推移积累并耗尽内存。
 - en: Deadlines solve this by imposing a strict upper bound on how long any read or
     write can take. Once the deadline passes, the operation returns with a timeout
     error, allowing the connection handler to proceed with cleanup.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 截止日期通过强制任何读取或写入操作的最长时间上限来解决此问题。一旦截止日期通过，操作将返回超时错误，允许连接处理程序继续清理。
 - en: Setting Deadlines[¶](#setting-deadlines "Permanent link")
+  id: totrans-20
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 设置截止日期[¶](#setting-deadlines "永久链接")
 - en: '[PRE3]'
+  id: totrans-21
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: This approach ensures that each read and write completes—or fails—within a known
     time window. It prevents handlers from hanging due to slow or unresponsive peers
     and contributes directly to keeping goroutine count and memory usage stable under
     load.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 这种方法确保每个读取和写入操作在已知的时间窗口内完成或失败。它防止处理程序由于慢速或不响应的对等方而挂起，并直接有助于在负载下保持goroutine计数和内存使用稳定。
 - en: Context-Based Cancellation[¶](#context-based-cancellation "Permanent link")
+  id: totrans-23
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 基于上下文的取消[¶](#context-based-cancellation "永久链接")
 - en: 'For more coordinated shutdowns, contexts provide a way to propagate cancellation
     signals across multiple goroutines and resources:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 为了更协调的关闭，上下文提供了一种在多个goroutine和资源之间传播取消信号的方法：
 - en: '[PRE4]'
+  id: totrans-25
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: With this pattern, the handler exits cleanly even if the read or write blocks.
     Closing the connection from a context cancellation path ensures dependent routines
     terminate in a timely manner.
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 使用这种模式，即使读取或写入阻塞，处理程序也会干净地退出。从上下文取消路径关闭连接确保相关例程及时终止。
 - en: Managing Backpressure[¶](#managing-backpressure "Permanent link")
+  id: totrans-27
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 管理回压[¶](#managing-backpressure "永久链接")
 - en: When input arrives faster than it can be processed or sent downstream, backpressure
     is necessary to avoid unbounded memory growth. Systems that ingest data without
     applying pressure controls can suffer from memory spikes, GC churn, or latency
     cliffs under load.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 当输入到达速度超过其处理或发送到下游的速度时，需要回压以避免内存无界增长。未应用压力控制的数据摄取系统可能会在负载下出现内存峰值、GC碎片或延迟悬崖。
 - en: Rate Limiting and Queuing[¶](#rate-limiting-and-queuing "Permanent link")
+  id: totrans-29
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 速率限制和队列[¶](#rate-limiting-and-queuing "永久链接")
 - en: Rate limiters constrain processing throughput to match downstream capacity.
     Token-bucket implementations are common and provide burst-friendly rate control
+  id: totrans-30
   prefs: []
   type: TYPE_NORMAL
+  zh: 速率限制器将处理吞吐量限制在与下游容量匹配。令牌桶实现是常见的，并提供对突发友好的速率控制
 - en: '[PRE5]'
+  id: totrans-31
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 'This limiter can be used per connection or across the system:'
+  id: totrans-32
   prefs: []
   type: TYPE_NORMAL
+  zh: 此限制器可以按连接或跨系统使用：
 - en: '[PRE6]'
+  id: totrans-33
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE6]'
 - en: By limiting processing rates, the system avoids overwhelming internal queues
     or consumers. When capacity is reached, the limiter naturally applies backpressure
     by blocking.
+  id: totrans-34
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过限制处理速率，系统可以避免内部队列或消费者过载。当容量达到时，限制器会自然地通过阻塞应用回压。
 - en: Flow Control via TCP[¶](#flow-control-via-tcp "Permanent link")
+  id: totrans-35
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 通过TCP进行流量控制[¶](#flow-control-via-tcp "永久链接")
 - en: For TCP streams, it’s often better to leverage kernel-level flow control rather
     than building large user-space buffers. This is especially important when sending
     data to slow or unpredictable clients.
+  id: totrans-36
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于TCP流，通常最好利用内核级别的流量控制而不是构建大型用户空间缓冲区。当向缓慢或不稳定的客户端发送数据时，这一点尤为重要。
 - en: '[PRE7]'
+  id: totrans-37
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE7]'
 - en: By flushing early and using small buffers, the application shifts pressure back
     to the TCP stack. If the peer can’t keep up, send calls will block instead of
     buffering excessive data in memory.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过提前刷新和使用小缓冲区，应用程序将压力转移回TCP堆栈。如果对等方跟不上去，发送调用将阻塞而不是在内存中缓冲过多数据。
 - en: Warning
+  id: totrans-39
   prefs: []
   type: TYPE_NORMAL
+  zh: 警告
 - en: While relying on TCP’s built-in flow control simplifies the memory model and
     offloads queuing to the kernel, this approach comes with tradeoffs. Flushing small
     buffers aggressively forces the application to send many small TCP segments. This
     increases system call frequency, consumes more CPU per byte, and fragments data
     on the wire. In high-throughput systems or over high-latency links, this can underutilize
     the TCP congestion window and cap throughput well below the link’s capacity.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然依赖于TCP的内置流量控制简化了内存模型并将队列卸载到内核，但这种方法也有权衡。积极刷新小缓冲区迫使应用程序发送许多小的TCP段。这增加了系统调用频率，每字节消耗更多CPU，并在线路上分片数据。在高吞吐量系统或高延迟链路上，这可能导致TCP拥塞窗口利用率不足，并将吞吐量限制在链路容量以下。
 - en: Another risk lies in how TCP flow control applies uniformly to the socket, without
     application-level context. A slow-reading client can cause Write calls to block
     indefinitely, holding up goroutines and potentially stalling outbound flows. In
@@ -194,26 +276,36 @@
     While TCP ensures fairness and correctness, it doesn’t help with per-client pacing,
     prioritization, or partial delivery strategies that might be required in real-world
     systems.
+  id: totrans-41
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个风险在于TCP流控制如何统一应用于套接字，而没有应用级别的上下文。慢速读取的客户端可能导致写调用无限期阻塞，从而挂起goroutines并可能使出站流停滞。在扇出场景中——例如向多个WebSocket客户端广播——这意味着一个慢速接收者可能会备份其他接收者，除非应用额外的超时或缓冲逻辑。虽然TCP确保了公平性和正确性，但它并不能帮助实现针对每个客户端的节流、优先级或可能在实际系统中需要的部分交付策略。
 - en: For low-concurrency or control-plane connections, TCP backpressure alone might
     be sufficient. But at scale, especially when dealing with mixed client speeds,
     it’s often necessary to combine TCP-level backpressure with bounded user-space
     queues, write timeouts, or selective message drops to keep latency predictable
     and memory usage under control.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于低并发或控制平面连接，仅TCP背压可能就足够了。但在规模较大的情况下，尤其是在处理混合客户端速度时，通常需要结合TCP级别的背压与有限用户空间队列、写超时或选择性消息丢弃，以保持延迟可预测并控制内存使用。
 - en: '* * *'
+  id: totrans-43
   prefs: []
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: Persistent connections introduce long-lived resources that must be managed explicitly.
     Without deadlines, bounded queues, and cleanup coordination, even well-intentioned
     code can gradually degrade. Apply these patterns consistently and validate them
     under load with memory profiles.
+  id: totrans-44
   prefs: []
   type: TYPE_NORMAL
+  zh: 持久连接引入了必须显式管理的长期资源。没有截止日期、有限队列和清理协调，即使是好意的代码也可能逐渐退化。持续应用这些模式，并在负载下通过内存配置文件验证它们。
 - en: Memory leaks are easier to prevent than to detect. Defensive design around goroutines,
     buffers, and timeouts ensures services remain stable even under sustained connection
     load.
+  id: totrans-45
   prefs: []
   type: TYPE_NORMAL
+  zh: 内存泄漏比检测更容易预防。围绕goroutines、缓冲区和超时进行的防御性设计确保服务即使在持续连接负载下也能保持稳定。

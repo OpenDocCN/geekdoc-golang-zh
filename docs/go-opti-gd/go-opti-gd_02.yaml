@@ -1,154 +1,224 @@
 - en: Patterns and Techniques for Writing High-Performance Applications with Go¶
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 使用 Go 编写高性能应用程序的模式和技巧
 - en: 原文：[https://goperf.dev/](https://goperf.dev/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/](https://goperf.dev/)
 - en: The **Go App Optimization Guide** is a long-form series about making Go services
     faster in ways that actually translate to production. No folklore. No “best practices”
     without numbers. The focus is on understanding what the runtime is doing, where
     the costs come from, and how to reduce them without turning your codebase into
     a science experiment.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: '**Go 应用优化指南**是一系列关于如何使 Go 服务更快，并且这些方法真正在生产中起作用的长期系列文章。没有传说。没有不带数字的“最佳实践”。重点是理解运行时在做什么，成本从何而来，以及如何在不将你的代码库变成科学实验的情况下减少它们。 '
 - en: This guide is written for people running real systems. APIs under sustained
     traffic, background pipelines that move serious volume, and distributed services
     where tail latency matters. If your Go code runs only in benchmarks or toy projects,
     most of this will feel unnecessary. If it runs under load, it probably won’t.
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 本指南是为运行真实系统的人编写的。在持续流量下的 API、移动大量数据的后台管道以及尾部延迟重要的分布式服务。如果你的 Go 代码只在基准测试或玩具项目中运行，那么大部分内容都会觉得不必要。如果它在负载下运行，那么它可能不会。
 - en: Go deliberately hides much of its low-level control. You don’t get explicit
     memory management, and you don’t get to micromanage threads. What you do get is
     enough visibility to reason about allocations, scheduling, and I/O behavior. Combined
     with solid tooling, that’s usually sufficient to build fast, predictable systems.
     The articles in this series stay in that space. Practical leverage, not theoretical
     perfection.
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 故意隐藏了其大部分底层控制。你不会得到显式的内存管理，也无法微观管理线程。你得到的是足够的可见性来推理分配、调度和I/O行为。结合良好的工具，这通常足以构建快速、可预测的系统。本系列文章就停留在这一领域。实用杠杆，而非理论完美。
 - en: The goal here is not cleverness. It’s boring code that stays fast when traffic
     spikes and doesn’t fall apart six months later.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 这里的目标不是巧妙，而是编写在流量激增时保持快速且六个月后不会崩溃的枯燥代码。
 - en: Part 1\. [Common Go Patterns for Performance](01-common-patterns/)[¶](#part-1-common-go-patterns-for-performance
     "Permanent link")
+  id: totrans-6
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 第1部分。[Go性能常见模式](01-common-patterns/)[¶](#part-1-common-go-patterns-for-performance
+    "永久链接")
 - en: 'This section covers performance patterns that show up repeatedly in real Go
     codebases. Not exhaustive, not academic. Just the areas where small, disciplined
     changes tend to pay off:'
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 本节涵盖了在真实 Go 代码库中反复出现的性能模式。不是详尽的，也不是学术性的。只是那些小而有序的改变往往能带来回报的区域：
 - en: Using `sync.Pool` where it actually helps, not everywhere
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在真正有帮助的地方使用 `sync.Pool`，而不是无处不在
 - en: Reducing allocation pressure on hot paths
+  id: totrans-9
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 减少热点路径上的分配压力
 - en: Struct layout, padding, and why cache behavior still matters
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 结构布局、填充以及为什么缓存行为仍然很重要
 - en: Keeping error handling off the fast path
+  id: totrans-11
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将错误处理从快速路径中移除
 - en: Interfaces without accidental indirection costs
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 没有意外间接成本接口
 - en: Reusing slices and sorting in place instead of reallocating
+  id: totrans-13
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 重复使用切片和在原地排序，而不是重新分配
 - en: Concrete examples and measurements back each pattern. If there’s no observable
     impact, it doesn’t belong here.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 每个模式都有具体的示例和测量结果。如果没有可观察的影响，它就不属于这里。
 - en: Part 2\. [High-Performance Networking in Go](02-networking/)[¶](#part-2-high-performance-networking-in-go
     "Permanent link")
+  id: totrans-15
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 第2部分。[Go中的高性能网络](02-networking/)[¶](#part-2-high-performance-networking-in-go
+    "永久链接")
 - en: This part focuses on networked services and the constraints that show up once
     concurrency stops being theoretical. The standard library gets you surprisingly
     far, but defaults are not magic. At scale, details matter.
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: 本部分重点介绍网络服务以及一旦并发不再是理论上的约束就会出现的限制。标准库可以让你走得很远，但默认设置并非魔法。在规模上，细节很重要。
 - en: 'Topics include:'
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 包括以下主题：
 - en: Efficient use of `net/http`, `net.Conn`, and connection pools
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 高效使用 `net/http`, `net.Conn` 和连接池
 - en: Handling thousands of concurrent connections without resource collapse
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在不资源崩溃的情况下处理数千个并发连接
 - en: Scheduler behavior, `GOMAXPROCS`, and OS-level mechanics like epoll and kqueue
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 调度器行为、`GOMAXPROCS` 和操作系统级别的机制，如 epoll 和 kqueue
 - en: Backpressure, load shedding, and failure containment
+  id: totrans-21
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 反压、负载减轻和故障遏制
 - en: Avoiding memory leaks in long-lived connections
+  id: totrans-22
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 避免在长期连接中发生内存泄漏
 - en: Trade-offs between TCP, HTTP/2, gRPC, and QUIC
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: TCP、HTTP/2、gRPC 和 QUIC 之间的权衡
 - en: This section is intentionally more theoretical, but still grounded in tests
     and measurements where that’s possible. Networking behavior depends heavily on
     workload shape and environmental details, including kernel settings, network topology,
     deployment model, and hardware. Universal rules are rare. When conclusions rely
     on assumptions rather than guarantees, those assumptions are stated explicitly.
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 本节故意更加理论化，但仍然基于可能的情况下的测试和测量。网络行为高度依赖于工作负载形状和环境细节，包括内核设置、网络拓扑、部署模式和硬件。通用规则很少。当结论依赖于假设而非保证时，这些假设会被明确地陈述。
 - en: Part 3\. TBD[¶](#part-3-tbd "Permanent link")
+  id: totrans-25
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 第 3 部分。待定[¶](#part-3-tbd "永久链接")
 - en: 'The scope is still being defined, but the direction is clear: runtime behavior
     under sustained load, profiling and observability that work in real systems, and
     failure modes that don’t show up in benchmarks. As with the rest of the guide,
     the emphasis will be on measured behavior and trade-offs, not generic advice.'
+  id: totrans-26
   prefs: []
   type: TYPE_NORMAL
+  zh: 范围仍在定义中，但方向是明确的：在持续负载下的运行时行为、在真实系统中工作的剖析和可观察性，以及不在基准测试中出现的故障模式。与指南的其余部分一样，重点将放在可测量的行为和权衡上，而不是通用的建议。
 - en: Who This Is For[¶](#who-this-is-for "Permanent link")
+  id: totrans-27
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '[本指南面向的对象](#who-this-is-for "永久链接")'
 - en: 'This guide is aimed at engineers who care about how their Go programs behave
     after deployment:'
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 本指南旨在针对那些关心其 Go 程序部署后行为的工程师：
 - en: Backend engineers running services where latency and throughput matter
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在服务中运行后端工程师，其中延迟和吞吐量很重要
 - en: Teams pushing Go into performance-critical paths
+  id: totrans-30
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 将 Go 推向性能关键路径的团队
 - en: Developers who want to understand Go’s trade-offs instead of guessing
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 想要理解 Go 的权衡而非猜测的开发者
 - en: Anyone tired of profiling after incidents instead of before them
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 在事故发生后而不是之前对性能进行剖析感到厌倦的人
 - en: More articles are coming. At the end, this is one of my favorite pet projects.
     As the series grows, it will stay focused on applied performance work rather than
     abstract tuning advice. If that’s useful to you, bookmark it and come back later.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 将会有更多文章。最后，这是我最喜欢的宠物项目之一。随着系列的成长，它将保持专注于应用性能工作，而不是抽象的调优建议。如果您觉得这有用，请将其收藏并稍后回来。

@@ -1,22 +1,30 @@
 - en: Efficient Buffering in Go¶
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go 中的高效缓冲
 - en: 原文：[https://goperf.dev/01-common-patterns/buffered-io/](https://goperf.dev/01-common-patterns/buffered-io/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/01-common-patterns/buffered-io/](https://goperf.dev/01-common-patterns/buffered-io/)
 - en: Buffering is a core performance technique in systems programming. In Go, it's
     especially relevant when working with I/O—file access, network communication,
     and stream processing. Without buffering, many operations incur excessive system
     calls or synchronization overhead. Proper buffering reduces the frequency of such
     interactions, improves throughput, and smooths latency spikes.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 缓冲是系统编程中的核心性能技术。在 Go 中，它与处理 I/O（文件访问、网络通信和流处理）特别相关。没有缓冲，许多操作会引发过多的系统调用或同步开销。适当的缓冲可以减少此类交互的频率，提高吞吐量，并平滑延迟峰值。
 - en: Why Buffering Matters[¶](#why-buffering-matters "Permanent link")
+  id: totrans-3
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 为什么缓冲很重要[¶](#why-buffering-matters "永久链接")
 - en: 'Every time you read from or write to a file or socket, there’s a good chance
     you’re triggering a system call—and that’s not cheap. System calls move control
     from user space into kernel space, which means crossing a boundary that comes
@@ -25,85 +33,127 @@
     in a while is fine. Doing it thousands of times per second? That’s a problem.
     Buffering helps by batching small reads or writes into larger chunks, reducing
     how often you cross that boundary and making far better use of each syscall.'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 每次你从文件或套接字读取或写入时，都有很大可能触发系统调用——而这并不便宜。系统调用将控制从用户空间移动到内核空间，这意味着跨越一个带有开销的边界：进入内核模式、可能的上下文切换、与
+    I/O 缓冲区交互，有时在后台排队操作。偶尔这样做是可以的。每秒做几千次？那就成问题了。缓冲通过将小读取或写入批处理到更大的块中，减少了你跨越该边界的频率，并使每个系统调用得到更好的利用。
 - en: 'For example, writing to a file in a loop without buffering, like this:'
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 例如，在不使用缓冲的情况下循环写入文件，如下所示：
 - en: '[PRE0]'
+  id: totrans-6
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: This can easily result in **10,000 separate system calls**, each carrying its
     own overhead and dragging down performance. On top of that, a flood of small writes
     tends to fragment disk operations, which puts extra pressure on I/O subsystems
     and wastes CPU cycles handling what could have been a single, efficient batch.
+  id: totrans-7
   prefs: []
   type: TYPE_NORMAL
+  zh: 这很容易导致 **10,000 次单独的系统调用**，每个调用都有自己的开销，并拖慢性能。除此之外，大量的小写入操作往往会碎片化磁盘操作，这给 I/O
+    子系统带来额外的压力，并浪费 CPU 周期来处理本可以作为一个高效批次的操作。
 - en: With Buffering[¶](#with-buffering "Permanent link")
+  id: totrans-8
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用缓冲[¶](#with-buffering "永久链接")
 - en: '[PRE1]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: This version significantly reduces the number of system calls. The `bufio.Writer`
     accumulates writes in an internal memory buffer (typically 4KB or more). It only
     triggers a syscall when the buffer is full or explicitly flushed. As a result,
     you achieve faster I/O, reduced CPU usage, and improved performance.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 这个版本显著减少了系统调用的次数。`bufio.Writer` 在内部内存缓冲区（通常是 4KB 或更多）中累积写入操作。只有当缓冲区满或显式刷新时，才会触发系统调用。因此，你可以实现更快的
+    I/O、降低 CPU 使用率，并提高性能。
 - en: Note
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: 注意
 - en: '`bufio.Writer` does not automatically flush when closed. If you forget to call
     `Flush()`, any unwritten data remaining in the buffer will be lost. Always call
     `Flush()` before closing or returning from a function, especially if the total
     written size is smaller than the buffer capacity.'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: '`bufio.Writer` 在关闭时不会自动刷新。如果你忘记调用 `Flush()`，缓冲区中剩余的任何未写入数据都将丢失。在关闭或从函数返回之前，始终调用
+    `Flush()`，特别是如果总写入大小小于缓冲区容量时。'
 - en: Controlling Buffer Capacity[¶](#controlling-buffer-capacity "Permanent link")
+  id: totrans-13
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 控制缓冲区容量[¶](#controlling-buffer-capacity "永久链接")
 - en: By default, `bufio.NewWriter()` allocates a 4096-byte (4 KB) buffer. This size
     aligns with the common block size of file systems and the standard memory page
     size on most operating systems (such as Linux, BSD, and macOS). Reading or writing
     in 4 KB increments minimizes page faults, aligns with kernel read-ahead strategies,
     and maps efficiently onto underlying disk I/O operations.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 默认情况下，`bufio.NewWriter()` 分配一个 4096 字节（4 KB）的缓冲区。这个大小与文件系统的常见块大小以及大多数操作系统（如
+    Linux、BSD 和 macOS）的标准内存页面大小相匹配。以 4 KB 为增量进行读写可以最小化页面错误，与内核预读策略相匹配，并有效地映射到底层的磁盘
+    I/O 操作。
 - en: 'While 4 KB is a practical general-purpose default, it might not be optimal
     for all workloads. For high-throughput scenarios—such as streaming large files
     or generating extensive logs—a larger buffer can help reduce syscall frequency
     further:'
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然 4 KB 是一个实用的通用默认值，但它可能不是所有工作负载的最佳选择。对于高吞吐量场景——例如流式传输大文件或生成大量日志——更大的缓冲区可以帮助进一步减少系统调用频率：
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Conversely, if latency is more critical than throughput (e.g., interactive systems
     or command-line utilities), a smaller buffer may be more appropriate, as it flushes
     data more frequently.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 相反，如果延迟比吞吐量更重要（例如，交互式系统或命令行工具），则较小的缓冲区可能更合适，因为它更频繁地刷新数据。
 - en: 'Similar logic applies when reading data:'
+  id: totrans-18
   prefs: []
   type: TYPE_NORMAL
+  zh: 当读取数据时，类似的逻辑也适用：
 - en: '[PRE3]'
+  id: totrans-19
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 'Buffer size isn’t something to guess at—it’s something to measure. The ideal
     size depends on too many variables to hard-code: whether you’re writing to SSDs
     or spinning disks, how your filesystem buffers writes, how much CPU cache is available,
     and what else is competing for resources on the system. Profiling and benchmarking
     are the only reliable ways to dial it in. What works well on one setup might be
     suboptimal—or even harmful—on another.'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 缓冲区大小不是猜测的事情——它是需要测量的。理想的大小取决于太多的变量，无法硬编码：你是在写入SSD还是旋转磁盘，你的文件系统如何缓冲写入，有多少CPU缓存可用，以及系统上还有哪些资源在竞争。分析和基准测试是唯一可靠的调整方法。在一个设置上效果很好的方法可能在另一个设置上不是最优的——甚至可能是有害的。
 - en: Benchmarking Impact[¶](#benchmarking-impact "Permanent link")
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '[基准测试影响](#benchmarking-impact "永久链接")'
 - en: Buffered writes and reads consistently demonstrate significant performance gains
     under load. Benchmarks measuring system calls, memory allocations, and CPU usage
     typically show that buffered I/O operations are faster and more efficient than
@@ -111,62 +161,94 @@
     exhibit up to an order-of-magnitude improvement using `bufio.Writer` compared
     to direct `os.File.Write()` calls. The more structured and bursty your I/O operations,
     the more substantial the benefits from buffering.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 在负载下，缓冲的读写操作始终显示出显著的性能提升。衡量系统调用、内存分配和CPU使用的基准测试通常显示，缓冲I/O操作比非缓冲操作更快、更高效。例如，将一百万行写入磁盘可能比直接调用`os.File.Write()`快一个数量级。你的I/O操作越有结构和突发性，缓冲带来的好处就越大。
 - en: <details class="example"><summary>Show the benchmark file</summary>
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>显示基准测试文件</summary>
 - en: '[PRE4]</details>'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE4]'
 - en: 'Results:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 结果：
 - en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
     |'
+  id: totrans-26
   prefs: []
   type: TYPE_TB
+  zh: '| 基准测试 | 迭代次数 | 每次操作时间 (ns) | 每次操作字节数 | 每次操作分配数 |'
 - en: '| --- | --- | --- | --- | --- |'
+  id: totrans-27
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- | --- | --- |'
 - en: '| BenchmarkWriteNotBuffered-14 | 49 | 23,672,792 | 53,773 | 10,007 |'
+  id: totrans-28
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkWriteNotBuffered-14 | 49 | 23,672,792 | 53,773 | 10,007 |'
 - en: '| BenchmarkWriteBuffered-14 | 3241 | 379,703 | 70,127 | 10,008 |'
+  id: totrans-29
   prefs: []
   type: TYPE_TB
+  zh: '| BenchmarkWriteBuffered-14 | 3241 | 379,703 | 70,127 | 10,008 |'
 - en: When To Buffer[¶](#when-to-buffer "Permanent link")
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '[何时进行缓冲](#when-to-buffer "永久链接")'
 - en: 'Use buffering when:'
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 在以下情况下使用缓冲：
 - en: Performing frequent, small-sized I/O operations. Buffering groups small writes
     or reads into larger batches, which reduces the overhead of each individual operation.
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 执行频繁的小型I/O操作。缓冲区将小的写入或读取分组到更大的批次中，从而减少了每个单独操作的开销。
 - en: Reducing syscall overhead is crucial. Fewer syscalls mean lower context-switching
     costs and improved performance, especially in I/O-heavy applications.
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 降低系统调用开销至关重要。系统调用越少，上下文切换成本越低，性能也越好，尤其是在I/O密集型应用中。
 - en: High throughput is more important than minimal latency. Buffered I/O can increase
     total data processed per second, even if it introduces slight delays in delivery.
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 高吞吐量比最小延迟更重要。缓冲I/O可以增加每秒处理的总数据量，即使它引入了轻微的交付延迟。
 - en: 'Avoid buffering when:'
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 在以下情况下避免缓冲：
 - en: Immediate data availability and low latency are critical. Buffers introduce
     delays by design, which can be unacceptable in real-time or interactive systems.
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 立即的数据可用性和低延迟至关重要。缓冲区通过设计引入延迟，这在实时或交互式系统中可能是不可以接受的。
 - en: Buffering excessively might lead to uncontrolled memory usage. Without limits
     or proper flushing, buffers can grow large and put pressure on system memory.
+  id: totrans-37
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 过度缓冲可能会导致内存使用不受控制。如果没有限制或适当的刷新，缓冲区可能会变得很大，从而对系统内存造成压力。

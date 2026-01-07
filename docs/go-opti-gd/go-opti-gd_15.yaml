@@ -1,129 +1,186 @@
 - en: Lazy Initialization
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 懒加载
 - en: 原文：[https://goperf.dev/01-common-patterns/lazy-init/](https://goperf.dev/01-common-patterns/lazy-init/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/01-common-patterns/lazy-init/](https://goperf.dev/01-common-patterns/lazy-init/)
 - en: Lazy Initialization for Performance in Go[¶](#lazy-initialization-for-performance-in-go
     "Permanent link")
+  id: totrans-2
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: Go 中性能优化的懒加载[¶](#lazy-initialization-for-performance-in-go "永久链接")
 - en: 'In Go, some resources are expensive to initialize, or simply unnecessary unless
     certain code paths are triggered. That’s where lazy initialization becomes useful:
     it defers the construction of a value until the moment it’s actually needed. This
     pattern can improve performance, reduce startup overhead, and avoid unnecessary
     work—especially in high-concurrency applications.'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中，一些资源初始化成本高昂，或者除非触发某些代码路径，否则根本不必要。这就是懒加载变得有用的地方：它将值的构建推迟到实际需要的时候。这种模式可以提高性能、减少启动开销，并避免不必要的操作——尤其是在高并发应用程序中。
 - en: Why Lazy Initialization Matters[¶](#why-lazy-initialization-matters "Permanent
     link")
+  id: totrans-4
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 为什么懒加载很重要[¶](#why-lazy-initialization-matters "永久链接")
 - en: Initializing heavy resources like database connections, caches, or large in-memory
     structures at startup can slow down application launch and consume memory before
     it’s actually needed. Lazy initialization defers this work until the first time
     the resource is used, keeping startup fast and memory usage lean.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 在启动时初始化像数据库连接、缓存或大型内存结构等重型资源可能会减慢应用程序的启动速度，并在实际需要之前消耗内存。懒加载将这项工作推迟到第一次使用资源时，以保持启动快速和内存使用精简。
 - en: It’s also a practical pattern when you have logic that might be triggered multiple
     times but should only run once—ensuring that expensive operations aren’t repeated
     and that initialization remains safe and idempotent across concurrent calls.
+  id: totrans-6
   prefs: []
   type: TYPE_NORMAL
+  zh: 当你有可能会被多次触发但应该只运行一次的逻辑时，这也是一种实用的模式——确保昂贵操作不会被重复，并且初始化在并发调用中保持安全且幂等的。
 - en: Using `sync.Once` for Thread-Safe Initialization[¶](#using-synconce-for-thread-safe-initialization
     "Permanent link")
+  id: totrans-7
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用 `sync.Once` 进行线程安全初始化[¶](#using-synconce-for-thread-safe-initialization "永久链接")
 - en: 'Go provides the `sync.Once` type to implement lazy initialization safely in
     concurrent environments:'
+  id: totrans-8
   prefs: []
   type: TYPE_NORMAL
+  zh: Go 提供了 `sync.Once` 类型，以在并发环境中安全地实现懒加载：
 - en: '[PRE0]'
+  id: totrans-9
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: In this example, the function `expensiveInit()` executes exactly once, no matter
     how many goroutines invoke `getResource()` concurrently. This ensures thread-safe
     initialization without additional synchronization overhead.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这个例子中，函数 `expensiveInit()` 只执行一次，无论有多少 goroutine 并发调用 `getResource()`。这确保了线程安全的初始化，而无需额外的同步开销。
 - en: Using `sync.OnceValue` and `sync.OnceValues` for Initialization with Output
     Values[¶](#using-synconcevalue-and-synconcevalues-for-initialization-with-output-values
     "Permanent link")
+  id: totrans-11
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用 `sync.OnceValue` 和 `sync.OnceValues` 进行带有输出值的初始化[¶](#using-synconcevalue-and-synconcevalues-for-initialization-with-output-values
+    "永久链接")
 - en: 'Since Go 1.21, if your initialization logic returns a value, you might prefer
     using `sync.OnceValue` (single value) or `sync.OnceValues` (multiple values) for
     simpler, more expressive code:'
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 自 Go 1.21 版本以来，如果你的初始化逻辑返回一个值，你可能更愿意使用 `sync.OnceValue`（单个值）或 `sync.OnceValues`（多个值）来编写更简洁、更易于表达的代码：
 - en: '[PRE1]'
+  id: totrans-13
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: Here, `sync.OnceValue` provides a concise way to wrap one-time initialization
     logic and access the result without managing flags or mutexes manually. It simplifies
     lazy loading by directly returning the computed value on demand.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 在这里，`sync.OnceValue` 提供了一种简洁的方式来封装一次性初始化逻辑，并在需要时访问结果，而无需手动管理标志或互斥锁。它通过直接返回计算值来简化懒加载。
 - en: For cases where the initializer returns more than one value—such as a resource
     and an error—`sync.OnceValues` extends the same idea. It ensures the function
     runs exactly once and cleanly unpacks the results, keeping the code readable and
     thread-safe without boilerplate.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: 对于初始化器返回多个值的情况——例如资源和一个错误——`sync.OnceValues` 扩展了同样的概念。它确保函数只运行一次，并干净地解包结果，使代码可读且线程安全，无需样板代码。
 - en: '[PRE2]'
+  id: totrans-16
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: Choosing `sync.OnceValue` or `sync.OnceValues` helps you clearly express initialization
     logic with direct value returns, whereas `sync.Once` remains best suited for general
     scenarios requiring flexible initialization logic without immediate value returns.
+  id: totrans-17
   prefs: []
   type: TYPE_NORMAL
+  zh: 选择 `sync.OnceValue` 或 `sync.OnceValues` 可以帮助你清晰地表达带有直接值返回的初始化逻辑，而 `sync.Once`
+    则更适合需要灵活初始化逻辑且不立即返回值的一般场景。
 - en: Custom Lazy Initialization with Atomic Operations[¶](#custom-lazy-initialization-with-atomic-operations
     "Permanent link")
+  id: totrans-18
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 使用原子操作进行自定义懒加载[¶](#custom-lazy-initialization-with-atomic-operations "永久链接")
 - en: Yes, it’s technically possible to replace `sync.Once`, `sync.OnceValue`, or
     `sync.OnceFunc` with custom logic using low-level atomic operations like `atomic.CompareAndSwap`
     or `atomic.Load/Store`. In rare, performance-critical paths, this can avoid the
     small overhead or allocations that come with the standard types.
+  id: totrans-19
   prefs: []
   type: TYPE_NORMAL
+  zh: 是的，技术上可以用自定义逻辑替换 `sync.Once`、`sync.OnceValue` 或 `sync.OnceFunc`，使用低级原子操作如 `atomic.CompareAndSwap`
+    或 `atomic.Load/Store`。在罕见且性能关键的路由中，这可以避免标准类型带来的小开销或分配。
 - en: However, the trade-off is complexity. You lose the safety guarantees and clarity
     of the standard primitives, and it becomes easier to introduce subtle bugs—especially
     under concurrency. Unless profiling shows that sync.Once is a bottleneck, the
     standard versions are almost always the better choice.
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，代价是复杂性。您失去了标准原语的安全保证和清晰性，并且更容易引入微妙的错误——尤其是在并发的情况下。除非分析表明 `sync.Once` 是瓶颈，否则标准版本几乎总是更好的选择。
 - en: '**That said, it’s rarely worth the tradeoff.**'
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: '**尽管如此，这种权衡很少值得。**'
 - en: Manual atomic-based initialization is more error-prone, harder to read, and
     easier to get wrong—especially when concurrency and memory visibility guarantees
     are involved. For the vast majority of cases, `sync.Once*` is safer, clearer,
     and performant enough.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 手动基于原子的初始化更容易出错、更难阅读，也更易出错——尤其是在涉及并发和内存可见性保证的情况下。在绝大多数情况下，`sync.Once*` 更安全、更清晰，且性能足够。
 - en: Info
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: 信息
 - en: 'If you’re convinced that atomic-based lazy initialization is justified in your
     case, this blog post walks through the details and caveats:'
+  id: totrans-24
   prefs: []
   type: TYPE_NORMAL
+  zh: 如果您确信在您的案例中基于原子的延迟初始化是合理的，这篇博客文章将详细介绍细节和注意事项：
 - en: '[Lazy initialization in Go using atomics](https://goperf.dev/blog/2025/04/03/lazy-initialization-in-go-using-atomics/)'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: '[使用原子操作在Go中进行延迟初始化](https://goperf.dev/blog/2025/04/03/lazy-initialization-in-go-using-atomics/)'
 - en: Performance Considerations[¶](#performance-considerations "Permanent link")
+  id: totrans-26
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 性能考虑[¶](#performance-considerations "永久链接")
 - en: While lazy initialization can offer clear benefits, it also brings added complexity.
     It’s important to handle initialization carefully to avoid subtle issues like
     race conditions or concurrency bugs. Using built-in tools like `sync.Once` or
@@ -131,44 +188,61 @@
     it’s always a good idea to measure actual improvements through profiling, confirming
     lazy initialization truly enhances startup speed, reduces memory usage, or boosts
     your application's responsiveness.
+  id: totrans-27
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然延迟初始化可以提供明显的优势，但它也带来了额外的复杂性。小心处理初始化很重要，以避免像竞态条件或并发错误这样的微妙问题。使用内置工具如 `sync.Once`
+    或原子操作通常可以确保线程安全而无需太多麻烦。不过，始终通过分析来衡量实际改进是个好主意，以确认延迟初始化确实提高了启动速度、减少了内存使用或提高了应用程序的响应速度。
 - en: Benchmarking Impact[¶](#benchmarking-impact "Permanent link")
+  id: totrans-28
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 基准测试影响[¶](#benchmarking-impact "永久链接")
 - en: There is typically nothing specific to benchmark with lazy initialization itself,
     as the main benefit is deferring expensive resource creation. The performance
     gains are inherently tied to the avoided cost of unnecessary initialization, startup
     speed improvements, and reduced memory consumption, rather than direct runtime
     throughput differences.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 通常情况下，与延迟初始化本身相关的基准测试并不具体，因为其主要好处是推迟昂贵的资源创建。性能提升本质上与避免不必要的初始化成本、启动速度提升和减少内存消耗相关，而不是直接运行时吞吐量的差异。
 - en: When to Choose Lazy Initialization[¶](#when-to-choose-lazy-initialization "Permanent
     link")
+  id: totrans-30
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: '[何时选择延迟初始化](#when-to-choose-lazy-initialization "永久链接")'
 - en: When resource initialization is costly or involves I/O. Delaying construction
     avoids paying the cost of setup—like opening files, querying databases, or loading
     large structures—unless it’s actually needed.
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当资源初始化成本高昂或涉及I/O时。延迟构建可以避免支付设置成本——如打开文件、查询数据库或加载大型结构——除非实际上需要。
 - en: To improve startup performance and memory efficiency. Deferring work until first
     use allows your application to start faster and avoid allocating memory for resources
     that may never be used.
+  id: totrans-32
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 为了提高启动性能和内存效率。将工作推迟到首次使用，可以让您的应用程序启动更快，并避免为可能永远不会使用的资源分配内存。
 - en: When not all resources are needed immediately or at all during runtime. Lazy
     initialization helps you avoid initializing fields or services that only apply
     in specific code paths.
+  id: totrans-33
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 当在运行时不一定需要所有资源时。延迟初始化可以帮助您避免初始化仅在特定代码路径中适用的字段或服务。
 - en: To guarantee a block of code executes exactly once despite repeated calls. Using
     tools like `sync.Once` ensures thread-safe, one-time setup in concurrent environments.
+  id: totrans-34
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: 为了确保代码块在重复调用的情况下只执行一次。使用`sync.Once`等工具确保在并发环境中线程安全的单次设置。

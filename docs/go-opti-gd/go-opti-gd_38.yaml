@@ -1,55 +1,75 @@
 - en: 'QUIC in Go: Building Low-Latency Services with quic-go¶'
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: Go语言中的QUIC：使用quic-go构建低延迟服务[¶](#quic-in-go "永久链接")
 - en: 原文：[https://goperf.dev/02-networking/quic-in-go/](https://goperf.dev/02-networking/quic-in-go/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/02-networking/quic-in-go/](https://goperf.dev/02-networking/quic-in-go/)
 - en: QUIC has emerged as a robust protocol, solving many inherent limitations of
     traditional TCP connections. QUIC combines encryption, multiplexing, and connection
     migration into a unified protocol, designed to optimize web performance, particularly
     in real-time and mobile-first applications. In Go, [quic-go](https://github.com/quic-go/quic-go)
     is the main QUIC implementation and serves as a practical base for building efficient,
     low-latency network services with built-in encryption and stream multiplexing.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC已成为一种稳健的协议，解决了传统TCP连接的许多固有局限性。QUIC将加密、多路复用和连接迁移结合成一个统一的协议，旨在优化网络性能，尤其是在实时和以移动优先的应用程序中。在Go语言中，[quic-go](https://github.com/quic-go/quic-go)是主要的QUIC实现，并作为构建具有内置加密和流多路复用的有效、低延迟网络服务的实用基础。
 - en: Understanding QUIC[¶](#understanding-quic "Permanent link")
+  id: totrans-3
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 理解QUIC[¶](#understanding-quic "永久链接")
 - en: 'Originally developed at Google and later standardized by the IETF, QUIC rethinks
     the transport layer to overcome longstanding TCP limitations:'
+  id: totrans-4
   prefs: []
   type: TYPE_NORMAL
+  zh: 原先由谷歌开发，后来由IETF标准化，QUIC重新思考了传输层，以克服长期存在的TCP限制：
 - en: '**Head-of-line blocking:** TCP delivers a single ordered byte stream, so packet
     loss stalls everything behind it. QUIC splits data into independent streams, allowing
     others to proceed even when one is delayed.'
+  id: totrans-5
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**头阻塞**：TCP交付一个有序的字节流，因此数据包丢失会阻止其后的所有内容。QUIC将数据分成独立的流，即使其中一个延迟，其他流也可以继续进行。'
 - en: '**Per-packet encryption and header protection:** QUIC applies encryption at
     the packet level, including selective header protection tied to packet numbers—something
     DTLS’s record-based framing can’t support.'
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**按包加密和头部保护**：QUIC在数据包级别应用加密，包括与数据包编号相关的选择性头部保护——这是DTLS基于记录的帧格式所无法支持的。'
 - en: '**Built-in transport mechanisms:** QUIC handles stream multiplexing, flow control,
     and retransmissions as part of the protocol. DTLS, by contrast, only secures datagrams
     and leaves reliability and ordering to the application.'
+  id: totrans-7
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**内置传输机制**：QUIC作为协议的一部分处理流多路复用、流量控制和重传。相比之下，DTLS仅对数据报进行加密，并将可靠性和排序留给应用程序。'
 - en: '**Connection ID abstraction:** QUIC identifies sessions using connection IDs
     rather than IP and port tuples, allowing connections to persist across network
     changes. DTLS provides no such abstraction, making mobility difficult to implement.'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**连接ID抽象**：QUIC使用连接ID而不是IP和端口号元组来标识会话，这使得连接能够在网络变化中持续存在。DTLS没有提供这种抽象，使得移动性难以实现。'
 - en: 'QUIC vs. TCP: Key Differences[¶](#quic-vs-tcp-key-differences "Permanent link")'
+  id: totrans-9
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: QUIC与TCP：主要区别[¶](#quic-vs-tcp-key-differences "永久链接")
 - en: QUIC takes a fundamentally different approach from TCP. While TCP is built directly
     on IP and requires a connection-oriented handshake before data can flow, QUIC
     runs over UDP and handles its own connection logic, reducing setup overhead and
@@ -57,296 +77,421 @@
     independent streams that effectively eliminate the head-of-line blocking issue
     commonly experienced with TCP, where the delay or loss of one packet stalls subsequent
     packets.
+  id: totrans-10
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC与TCP采取了根本不同的方法。虽然TCP直接建立在IP之上，并且数据可以流动之前需要建立面向连接的手势，但QUIC在UDP之上运行并处理自己的连接逻辑，减少了设置开销并提高了启动延迟。这种架构选择使得QUIC能够提供多路复用、独立的流，有效地消除了TCP中常见的头阻塞问题，即一个数据包的延迟或丢失会阻止后续数据包。
 - en: QUIC integrates TLS 1.3 directly into its transport layer, eliminating the layered
     negotiation seen in TCP+TLS. This design streamlines the handshake process and
     enables 0-RTT data, where repeat connections can begin transmitting encrypted
     payloads immediately—something TCP simply doesn’t support.
+  id: totrans-11
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC直接将其传输层集成到TLS 1.3中，消除了TCP+TLS中看到的分层协商。这种设计简化了握手过程，并实现了0-RTT数据，即重复连接可以立即开始传输加密的有效载荷——这是TCP所不支持的功能。
 - en: Another key distinction is how connections are identified. TCP connections are
     bound to a specific IP and port, so any change in network interface results in
     a broken connection. QUIC avoids this by using connection IDs that remain stable
     across address changes, allowing sessions to continue uninterrupted when a device
     moves between networks—critical for mobile and latency-sensitive use cases.
+  id: totrans-12
   prefs: []
   type: TYPE_NORMAL
+  zh: 另一个关键的区别是连接的识别方式。TCP连接绑定到特定的IP和端口，因此任何网络接口的变化都会导致连接中断。QUIC通过使用在地址变化中保持稳定的连接ID来避免这种情况，允许设备在网络之间移动时无缝地继续会话——这对于移动和延迟敏感的使用案例至关重要。
 - en: Is QUIC Based on DTLS?[¶](#is-quic-based-on-dtls "Permanent link")
+  id: totrans-13
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: QUIC是基于DTLS的吗?[¶](#is-quic-based-on-dtls "永久链接")
 - en: Although QUIC and DTLS both use TLS cryptographic primitives over UDP, QUIC
     does *not* build on DTLS. Instead, QUIC incorporates **TLS 1.3 directly into its
     transport layer**, inheriting only the cryptographic handshake—not the record
     framing or protocol structure of DTLS.
+  id: totrans-14
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然QUIC和DTLS都使用TLS加密原语在UDP上操作，但QUIC**并不**基于DTLS。相反，QUIC直接将其传输层与TLS 1.3结合，仅继承加密握手——而不是DTLS的记录帧或协议结构。
 - en: QUIC defines its own packet encoding, multiplexing, retransmission, and encryption
     formats. It wraps TLS handshake messages within QUIC packets and tightly couples
     encryption state with transport features like packet numbers and stream IDs. In
     contrast, DTLS operates as a secured datagram layer atop UDP, providing encryption
     and authentication but leaving transport semantics—such as retransmit, ordering,
     or flow control—to higher layers.
+  id: totrans-15
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC定义了自己的数据包编码、多路复用、重传和加密格式。它将TLS握手消息封装在QUIC数据包中，并将加密状态与传输功能（如包号和流ID）紧密耦合。相比之下，DTLS作为UDP之上的安全数据报层运行，提供加密和认证，但将传输语义（如重传、排序或流量控制）留给高层。
 - en: 'The reasons for QUIC rejecting DTLS as its security base include:'
+  id: totrans-16
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC拒绝DTLS作为其安全基础的原因包括：
 - en: '**Tighter integration of handshake and transport**: QUIC merges TLS negotiation
     with transport state setup, enabling 0‑RTT reuse and 1‑RTT setup in fewer round
     trips. DTLS’s layered model introduces higher latency.'
+  id: totrans-17
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**握手和传输的更紧密集成**：QUIC将TLS协商与传输状态设置合并，使0-RTT重用和1-RTT设置在更少的往返中完成。DTLS的分层模型引入了更高的延迟。'
 - en: '**Fine-grained encryption control**: QUIC encrypts packet headers and payloads
     per-packet, bound to packet number and header offset. This is impossible with
     DTLS’s coarse record layer.'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**细粒度加密控制**：QUIC按包对数据包头和有效载荷进行加密，绑定到包号和头偏移。这在DTLS的粗粒度记录层中是不可能的。'
 - en: '**Native transport features**: QUIC implements multiplexed, independent streams,
     per-stream flow control, and resilient retransmission logic. DTLS treats reliability
     and ordering as the application''s responsibility.'
+  id: totrans-19
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**原生传输特性**：QUIC实现了多路复用、独立流、每流流量控制和弹性重传逻辑。DTLS将可靠性和排序视为应用程序的责任。'
 - en: '**Connection migration capability**: QUIC uses connection IDs decoupled from
     IP/port endpoints, enabling smooth network-interface switches. DTLS lacks this
     architectural property.'
+  id: totrans-20
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**连接迁移能力**：QUIC使用与IP/端口端点解耦的连接ID，允许平滑的网络接口切换。DTLS缺乏这种架构特性。'
 - en: In summary, QUIC uses TLS 1.3 for cryptographic handshake but **eschews DTLS
     entirely**, replacing it with a tightly integrated transport protocol. This design
     empowers QUIC to offer secure, low-latency, multiplexed, and mobile-friendly connections
     that DTLS—optimized for secure datagram channels—cannot match.
+  id: totrans-21
   prefs: []
   type: TYPE_NORMAL
+  zh: 总结来说，QUIC使用TLS 1.3进行加密握手，但**完全放弃了DTLS**，用紧密集成的传输协议来替代。这种设计使QUIC能够提供安全、低延迟、多路复用和移动友好的连接，这是DTLS（针对安全数据报通道优化）所无法比拟的。
 - en: Introducing quic-go[¶](#introducing-quic-go "Permanent link")
+  id: totrans-22
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 介绍quic-go[¶](#introducing-quic-go "永久链接")
 - en: quic-go implements the core IETF QUIC specification and supports most features
     required for production use, including TLS 1.3 integration, 0-RTT, stream multiplexing,
     and flow control. While some advanced capabilities like active connection migration
     are not yet implemented.
+  id: totrans-23
   prefs: []
   type: TYPE_NORMAL
+  zh: quic-go实现了核心的IETF QUIC规范，并支持生产所需的大多数功能，包括TLS 1.3集成、0-RTT、流多路复用和流量控制。虽然一些高级功能（如主动连接迁移）尚未实现。
 - en: Getting Started with quic-go[¶](#getting-started-with-quic-go "Permanent link")
+  id: totrans-24
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 开始使用quic-go[¶](#getting-started-with-quic-go "永久链接")
 - en: 'To start using `quic-go`, include it via Go modules:'
+  id: totrans-25
   prefs: []
   type: TYPE_NORMAL
+  zh: 要开始使用`quic-go`，通过Go模块包含它：
 - en: '[PRE0]'
+  id: totrans-26
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE0]'
 - en: Basic QUIC Server[¶](#basic-quic-server "Permanent link")
+  id: totrans-27
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 基本QUIC服务器[¶](#basic-quic-server "永久链接")
 - en: A basic QUIC server setup in Go is conceptually similar to writing a traditional
     TCP server using the `net` package, but with several important distinctions.
+  id: totrans-28
   prefs: []
   type: TYPE_NORMAL
+  zh: 在 Go 中设置基本的 QUIC 服务器与使用 `net` 包编写传统的 TCP 服务器在概念上相似，但有几个重要的区别。
 - en: The initialization phase still involves listening on an address, but uses `quic.ListenAddr()`
     instead of `net.Listen()`. Unlike TCP, QUIC operates over UDP and requires a TLS
     configuration from the start, as all QUIC connections are encrypted by design.
     There’s no need to manually wrap connections in TLS—QUIC handles encryption as
     part of the protocol.
+  id: totrans-29
   prefs: []
   type: TYPE_NORMAL
+  zh: 初始化阶段仍然涉及监听地址，但使用 `quic.ListenAddr()` 而不是 `net.Listen()`。与 TCP 不同，QUIC 在 UDP
+    上运行，并从一开始就需要 TLS 配置，因为所有 QUIC 连接都是设计上加密的。无需手动将连接包装在 TLS 中——QUIC 将加密作为协议的一部分处理。
 - en: '[PRE1]'
+  id: totrans-30
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE1]'
 - en: After accepting a connection, handling diverges more significantly from the
     traditional `net.Conn` model. A single QUIC connection supports multiple independent
     streams, each functioning like a lightweight, ordered, bidirectional byte stream.
     These are accepted and handled independently, allowing concurrent interactions
     over a single connection without head-of-line blocking.
+  id: totrans-31
   prefs: []
   type: TYPE_NORMAL
+  zh: 接受连接后，处理方式与传统 `net.Conn` 模型差异显著。单个 QUIC 连接支持多个独立的流，每个流都像一个轻量级、有序的双向字节流。这些流可以独立接受和处理，允许在单个连接上并发交互，而不会出现头阻塞。
 - en: '[PRE2]'
+  id: totrans-32
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE2]'
 - en: This separation of initialization and per-stream handling is one of QUIC's most
     powerful features. With TCP, one connection equals one stream. With QUIC, one
     connection can carry dozens of concurrent, fully independent streams with isolated
     flow control and recovery behavior, allowing high-efficiency communication patterns
     with minimal latency.
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: 初始化和每个流处理之间的这种分离是 QUIC 最强大的功能之一。与 TCP 不同，TCP 中一个连接等于一个流。在 QUIC 中，一个连接可以携带数十个并发、完全独立的流，具有独立的流量控制和恢复行为，允许以最低的延迟进行高效通信。
 - en: Multiplexed Streams[¶](#multiplexed-streams "Permanent link")
+  id: totrans-34
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 多路复用流[¶](#multiplexed-streams "永久链接")
 - en: QUIC inherently supports stream multiplexing, enabling simultaneous bidirectional
     communication without additional connection overhead. Streams operate independently,
     preventing head-of-line blocking, thus enhancing throughput and reducing latency.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC 本身支持流多路复用，允许在不增加额外连接开销的情况下进行双向通信。流独立操作，防止头阻塞，从而提高吞吐量并降低延迟。
 - en: '[PRE3]'
+  id: totrans-36
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE3]'
 - en: 'Performance: QUIC vs. HTTP/2 and TCP[¶](#performance-quic-vs-http2-and-tcp
     "Permanent link")'
+  id: totrans-37
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 性能：QUIC 与 HTTP/2 和 TCP 的比较[¶](#performance-quic-vs-http2-and-tcp "永久链接")
 - en: In performance benchmarks, QUIC frequently outperforms traditional HTTP/2 over
     TCP, particularly on lossy networks common in mobile environments. QUIC recovers
     faster from packet loss due to multiplexed streams and built-in congestion control
     algorithms like Cubic and BBR, integrated directly into the quic-go library.
+  id: totrans-38
   prefs: []
   type: TYPE_NORMAL
+  zh: 在性能基准测试中，QUIC 通常优于传统的基于 TCP 的 HTTP/2，尤其是在移动环境中常见的有损网络上。由于多路复用流和内置的拥塞控制算法（如 Cubic
+    和 BBR），这些算法直接集成到 quic-go 库中，QUIC 从数据包丢失中恢复得更快。
 - en: Connection Migration[¶](#connection-migration "Permanent link")
+  id: totrans-39
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 连接迁移[¶](#connection-migration "永久链接")
 - en: One significant advantage of the QUIC protocol is its support for seamless connection
     migration(1), designed to allow mobile devices to maintain connections while switching
     networks (e.g., from Wi-Fi to cellular). This is enabled by connection IDs, which
     abstract away the client's IP address and port, allowing the server to continue
     communication even if the client's network path changes.
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC 协议的一个显著优势是其对无缝连接迁移（1）的支持，旨在允许移动设备在网络切换（例如，从 Wi-Fi 切换到蜂窝网络）时保持连接。这是通过连接
+    ID 实现的，它抽象化了客户端的 IP 地址和端口，使得即使在客户端的网络路径发生变化的情况下，服务器也能继续通信。
 - en: See [9.2\. Initiating Connection Migration](https://datatracker.ietf.org/doc/html/rfc9000?section-9.2#name-initiating-connection-migra)
     and [9.3\. Responding to Connection Migration](https://datatracker.ietf.org/doc/html/rfc9000?section-9.2#name-responding-to-connection-mi)
     sections from [RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000).
+  id: totrans-41
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 请参阅 [RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000) 中的 [9.2. 启动连接迁移](https://datatracker.ietf.org/doc/html/rfc9000?section-9.2#name-initiating-connection-migra)
+    和 [9.3. 响应连接迁移](https://datatracker.ietf.org/doc/html/rfc9000?section-9.2#name-responding-to-connection-mi)
+    部分。
 - en: 'However, in practice, connection migration depends on the specific implementation.
     In quic-go (as of v0.52.0), full active migration is not yet implemented. Here''s
     what is supported:'
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 然而，在实践中，连接迁移取决于具体的实现。在 quic-go（截至 v0.52.0 版本）中，尚未实现完全的主动迁移。以下是支持的功能：
 - en: '**NAT rebinding works:** If a client''s IP or port changes due to NAT behavior
     or DHCP renewal, and the same connection ID is used, quic-go will continue the
     session without requiring a new connection. This is passive migration and requires
     no explicit action from the client.'
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**NAT重绑定工作**：如果客户端的IP或端口由于NAT行为或DHCP更新而更改，并且使用相同的连接ID，quic-go将无需新的连接继续会话。这是被动迁移，不需要客户端采取任何明确行动。'
 - en: '**Interface switching (active migration) is not supported:** Switching network
     interfaces—such as moving from Wi-Fi to LTE—requires sending packets from a new
     path and validating it with PATH_CHALLENGE and PATH_RESPONSE frames. The protocol
     defines this behavior, but quic-go does not implement it.'
+  id: totrans-44
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**接口切换（主动迁移）不受支持**：切换网络接口（例如，从Wi-Fi切换到LTE）需要从新路径发送数据包，并使用PATH_CHALLENGE和PATH_RESPONSE帧进行验证。该协议定义了这种行为，但quic-go没有实现它。'
 - en: Resilience in Practice[¶](#resilience-in-practice "Permanent link")
+  id: totrans-45
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 实践中的弹性[¶](#resilience-in-practice "永久链接")
 - en: QUIC is particularly effective in networks where reliability is difficult to
     guarantee—mobile clients on LTE, IoT nodes on lossy links, or any edge system
     moving between access points. Rather than relying on techniques like forward error
     correction (dropped during IETF standardization), QUIC builds resilience into
     the core transport through a combination of stream isolation, fine-grained recovery,
     and flexible routing.
+  id: totrans-46
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC在难以保证可靠性的网络中特别有效——例如在LTE上的移动客户端、在损耗链路上的物联网节点，或任何在接入点之间移动的边缘系统。QUIC不是依赖于诸如前向纠错（在IETF标准化过程中被丢弃）等技术，而是通过流隔离、精细恢复和灵活路由的组合将弹性构建到核心传输中。
 - en: 'QUIC connections are multiplexed: each stream runs independently with a separate
     flow control and delivery state. Packet loss on one stream doesn’t interfere with
     others, avoiding the head-of-line blocking inherent in TCP. This alone gives QUIC
     a noticeable advantage in throughput on degraded links.'
+  id: totrans-47
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC连接是复用的：每个流独立运行，具有独立的流量控制和交付状态。一个流上的数据包丢失不会干扰其他流，避免了TCP中固有的头阻塞问题。这本身就让QUIC在链路退化时的吞吐量上具有明显的优势。
 - en: Loss recovery in QUIC is driven by packet-level acknowledgments and RTT-based
     timers—no reliance on TCP-style retransmission logic. Lost packets are detected
     faster, and retransmissions are scoped to the specific frames involved.
+  id: totrans-48
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC中的损失恢复由数据包级别的确认和基于RTT的定时器驱动——不依赖于TCP风格的重新传输逻辑。丢失的数据包检测更快，重传的范围限定在特定的帧中。
 - en: '[PRE4]'
+  id: totrans-49
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE4]'
 - en: How QUIC ACKs Differ from TCP[¶](#how-quic-acks-differ-from-tcp "Permanent link")
+  id: totrans-50
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: QUIC的ACK与TCP的不同[¶](#how-quic-acks-differ-from-tcp "永久链接")
 - en: 'While TCP includes support for SACK (Selective Acknowledgment), there are critical
     distinctions that make QUIC’s loss recovery more robust and deterministic:'
+  id: totrans-51
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然TCP包括对SACK（选择性确认）的支持，但有一些关键的区别使得QUIC的损失恢复更加健壮和确定：
 - en: '**SACK in TCP is optional** and negotiated during handshake. QUIC’s ACK ranges
     are always enabled and part of the core protocol.'
+  id: totrans-52
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**TCP中的SACK是可选的**，并在握手过程中协商。QUIC的ACK范围始终启用，并作为核心协议的一部分。'
 - en: '**TCP acknowledges bytes**, while QUIC acknowledges whole packets by number.'
+  id: totrans-53
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**TCP确认字节**，而QUIC通过编号确认整个数据包。'
 - en: '**Retransmissions in TCP** are often byte-specific and tied to stream position.
     In QUIC, entire packets are retransmitted.'
+  id: totrans-54
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**TCP中的重传**通常是字节特定的，并与流位置相关联。在QUIC中，整个数据包都会被重传。'
 - en: '**QUIC ACKs are encrypted**, making them tamper-resistant and resilient to
     on-path interference.'
+  id: totrans-55
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '**QUIC的ACK是加密的**，这使得它们具有抗篡改性和对路径干扰的鲁棒性。'
 - en: '| Feature | TCP | QUIC |'
+  id: totrans-56
   prefs: []
   type: TYPE_TB
+  zh: '| 功能 | TCP | QUIC |'
 - en: '| --- | --- | --- |'
+  id: totrans-57
   prefs: []
   type: TYPE_TB
+  zh: '| --- | --- | --- |'
 - en: '| ACK granularity | Byte-level | Packet-level |'
+  id: totrans-58
   prefs: []
   type: TYPE_TB
+  zh: '| ACK粒度 | 字节级 | 数据包级 |'
 - en: '| ACK range support | Optional (via SACK) | Mandatory |'
+  id: totrans-59
   prefs: []
   type: TYPE_TB
+  zh: '| ACK范围支持 | 可选（通过SACK） | 强制 |'
 - en: '| Loss detection | Duplicate ACKs, timers | Gaps + RTT-based timers |'
+  id: totrans-60
   prefs: []
   type: TYPE_TB
+  zh: '| 损失检测 | 重复确认，定时器 | 空闲时间 + 基于RTT的定时器 |'
 - en: '| Retransmission granularity | Partial stream bytes | Full packet |'
+  id: totrans-61
   prefs: []
   type: TYPE_TB
+  zh: '| 重传粒度 | 部分流字节 | 整个数据包 |'
 - en: '| Encryption of ACKs | No | Yes |'
+  id: totrans-62
   prefs: []
   type: TYPE_TB
+  zh: '| ACK加密 | 否 | 是 |'
 - en: Connection Migration and Middlebox Resilience[¶](#connection-migration-and-middlebox-resilience
     "Permanent link")
+  id: totrans-63
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 连接迁移和中继盒弹性[¶](#connection-migration-and-middlebox-resilience "永久链接")
 - en: When a device moves between networks (e.g., Wi-Fi to LTE), QUIC's use of connection
     IDs allows it to maintain continuity. Connections aren't bound to IP-port pairs
     and don’t require a full reconnect. Although `quic-go` doesn’t yet support active
     migration, passive rebinding already works in practice.
+  id: totrans-64
   prefs: []
   type: TYPE_NORMAL
+  zh: 当设备在网络上移动（例如，从Wi-Fi切换到LTE）时，QUIC使用连接ID的功能使其能够保持连续性。连接不绑定到IP端口对，也不需要完全重新连接。尽管`quic-go`尚未支持主动迁移，但被动重绑定在实践中已经可行。
 - en: Because QUIC encrypts its transport metadata, it’s also more robust against
     middlebox interference. Encrypted packet numbers, ACKs, and control frames reduce
     the risk of unintended behavior by on-path devices, which can degrade TCP performance.
+  id: totrans-65
   prefs: []
   type: TYPE_NORMAL
+  zh: 因为QUIC加密了其传输元数据，它对中间盒干扰的抵抗力也更强。加密的数据包编号、ACK和控制帧减少了路径上设备意外行为的风险，这可能会降低TCP性能。
 - en: Congestion Control Flexibility[¶](#congestion-control-flexibility "Permanent
     link")
+  id: totrans-66
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
+  zh: 拥塞控制灵活性[¶](#congestion-control-flexibility "永久链接")
 - en: Finally, QUIC enables pluggable congestion control. The protocol doesn’t prescribe
     one algorithm—BBR, Cubic, and custom logic are all possible at the application
     layer. This allows fine-tuning behavior for different latency and throughput tradeoffs.
+  id: totrans-67
   prefs: []
   type: TYPE_NORMAL
+  zh: 最后，QUIC支持可插拔的拥塞控制。该协议不指定一个算法——BBR、Cubic和自定义逻辑在应用层都是可能的。这允许针对不同的延迟和吞吐量权衡进行精细调整。
 - en: 0-RTT Connections[¶](#0-rtt-connections "Permanent link")
+  id: totrans-68
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 0-RTT 连接[¶](#0-rtt-connections "永久链接")
 - en: QUIC supports 0-RTT handshakes, allowing clients to send application data during
     the initial handshake on repeat connections. This reduces startup latency significantly.
     However, because 0-RTT data can be replayed by an attacker, it must be used carefully—typically
     limited to idempotent operations and trusted clients.
+  id: totrans-69
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC支持0-RTT握手，允许客户端在重复连接的初始握手期间发送应用程序数据。这显著减少了启动延迟。然而，由于0-RTT数据可能被攻击者重放，它必须谨慎使用——通常限于幂等操作和受信任的客户端。
 - en: A replay attack occurs when an attacker captures valid network data—such as
     a request or handshake—and maliciously retransmits it to trick the server into
     executing it again. In the context of 0-RTT, since early data is sent before the
@@ -354,70 +499,104 @@
     potentially causing duplicated actions (like double-purchasing or unauthorized
     state changes). This is why 0-RTT data must be idempotent or explicitly protected
     against replay.
+  id: totrans-70
   prefs:
   - PREF_OL
   type: TYPE_NORMAL
+  zh: 重放攻击发生在攻击者捕获有效的网络数据——例如请求或握手——并恶意重新传输它以欺骗服务器再次执行它的情况下。在0-RTT的上下文中，由于早期数据在握手完成之前发送，它可能被不同连接的对手重放，这可能导致重复操作（如双重购买或未经授权的状态更改）。这就是为什么0-RTT数据必须是幂等的或明确地防止重放的原因。
 - en: '[PRE5]'
+  id: totrans-71
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE5]'
 - en: 0-RTT is particularly beneficial for latency-sensitive applications like gaming,
     VoIP, and real-time financial data feeds.
+  id: totrans-72
   prefs: []
   type: TYPE_NORMAL
+  zh: 0-RTT对于游戏、VoIP和实时金融数据流等对延迟敏感的应用程序特别有益。
 - en: <details class="example"><summary>Show the complete 0-RTT Server/Client examples</summary>
     <details class="example"><summary>0-RTT Server</summary>
+  id: totrans-73
   prefs: []
   type: TYPE_NORMAL
+  zh: <details class="example"><summary>显示完整的0-RTT服务器/客户端示例</summary> <details class="example"><summary>0-RTT
+    服务器</summary>
 - en: '[PRE6]</details> <details class="example"><summary>0-RTT Client</summary>'
+  id: totrans-74
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE6]</details> <details class="example"><summary>0-RTT 客户端</summary>'
 - en: '[PRE7]</details>'
+  id: totrans-75
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE7]</details>'
 - en: '**Expected Output**'
+  id: totrans-76
   prefs: []
   type: TYPE_NORMAL
+  zh: '**预期输出**'
 - en: 'When the server is started and the client is executed immediately afterward,
     you should see:'
+  id: totrans-77
   prefs: []
   type: TYPE_NORMAL
+  zh: 当服务器启动并且客户端随后立即执行时，你应该看到：
 - en: '***Server Console***'
+  id: totrans-78
   prefs: []
   type: TYPE_NORMAL
+  zh: '***服务器控制台***'
 - en: '[PRE8]'
+  id: totrans-79
   prefs: []
   type: TYPE_PRE
+  zh: '[PRE8]'
 - en: '***Client Console***'
+  id: totrans-80
   prefs: []
   type: TYPE_NORMAL
+  zh: '***客户端控制台***'
 - en: '[PRE9]</details>'
+  id: totrans-81
   prefs: []
   type: TYPE_NORMAL
+  zh: '[PRE9]</details>'
 - en: This confirms that early data was transmitted and accepted during the 0-RTT
     phase of a resumed session, without waiting for the full handshake to complete.
+  id: totrans-82
   prefs: []
   type: TYPE_NORMAL
+  zh: 这证实了在恢复会话的0-RTT阶段已传输并接受早期数据，而无需等待完整握手完成。
 - en: Final Thoughts on QUIC with Go[¶](#final-thoughts-on-quic-with-go "Permanent
     link")
+  id: totrans-83
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 关于使用Go的QUIC的最终思考[¶](#final-thoughts-on-quic-with-go "永久链接")
 - en: QUIC is a transformative protocol with significant design advantages over TCP
     and HTTP/2, especially in the context of mobile-first and real-time systems. Its
     ability to multiplex streams without head-of-line blocking, reduce handshake latency
     through 0-RTT, and recover gracefully from packet loss makes it particularly effective
     in environments with unstable connectivity—such as LTE, Wi-Fi roaming, or satellite
     uplinks.
+  id: totrans-84
   prefs: []
   type: TYPE_NORMAL
+  zh: QUIC是一个具有显著设计优势的变革性协议，与TCP和HTTP/2相比，特别是在以移动优先和实时系统为背景的情况下。它能够在没有头阻塞的情况下多路复用流，通过0-RTT减少握手延迟，并从数据包丢失中优雅地恢复，这使得它在具有不稳定连接性的环境中特别有效——如LTE、Wi-Fi漫游或卫星上行链路。
 - en: While the Go ecosystem benefits from quic-go as a mature userspace implementation,
     it's important to understand current limitations. Most notably, quic-go does not
     yet support full active connection migration as described in [RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000).
     Although it handles NAT rebinding passively—maintaining sessions across address
     changes within the same network—it lacks path validation and interface-switching
     logic required for full multi-homing or roaming support.
+  id: totrans-85
   prefs: []
   type: TYPE_NORMAL
+  zh: 虽然 Go 生态系统受益于成熟的用户空间实现 quic-go，但了解当前的局限性很重要。最值得注意的是，quic-go 还不支持 [RFC 9000](https://datatracker.ietf.org/doc/html/rfc9000)
+    中描述的完整主动连接迁移。尽管它能够被动处理 NAT 重新绑定——在相同网络内地址变化时维持会话——但它缺乏实现完整多宿主或漫游支持所需的路径验证和接口切换逻辑。
 - en: In parallel, a Linux kernel implementation of QUIC is under active development,
     aiming to provide native support for the protocol alongside TCP and UDP. This
     effort, [led by Lucien Xin](https://lwn.net/ml/all/cover.1725935420.git.lucien.xin@gmail.com/),
@@ -425,20 +604,28 @@
     socket-based API compatibility. If adopted, this would unlock new performance
     ceilings for QUIC under high load, bypassing userspace copy overhead and reducing
     syscall costs for data plane operations.
+  id: totrans-86
   prefs: []
   type: TYPE_NORMAL
+  zh: 同时，Linux 内核的 QUIC 实现正在积极开发中，旨在在 TCP 和 UDP 之外提供对协议的原生支持。这项由 [Lucien Xin](https://lwn.net/ml/all/cover.1725935420.git.lucien.xin@gmail.com/)
+    领导的工作，在内核内提出了完整的 QUIC 堆栈，包括 kTLS 集成和基于套接字的 API 兼容性。如果被采用，这将解锁在高负载下 QUIC 的新性能上限，绕过用户空间复制开销并降低数据平面操作的系统调用成本。
 - en: In short, QUIC’s architecture is well-positioned to outperform legacy transports—especially
     in variable network conditions. While quic-go already enables many of these benefits,
     it’s worth keeping in mind what’s implemented today vs. what’s defined by the
     spec. As ecosystem support deepens—from kernel integration to advanced path management—QUIC’s
     full potential will become more accessible to systems operating at the edge of
     latency, reliability, and mobility.
+  id: totrans-87
   prefs: []
   type: TYPE_NORMAL
+  zh: 简而言之，QUIC 的架构非常适合超越传统的传输协议——特别是在可变网络条件下。虽然 quic-go 已经使许多这些好处成为可能，但值得记住今天已实现的内容与规范中定义的内容之间的差异。随着生态系统支持的加深——从内核集成到高级路径管理——QUIC
+    的全部潜力将更容易为在延迟、可靠性和移动性边缘运行的系统所利用。
 - en: Using QUIC via the quic-go library gives developers access to a transport layer
     designed for modern network demands. Its built-in stream multiplexing, fast connection
     setup with 0-RTT, and ability to handle network path changes make it a strong
     fit for real-time systems and mobile applications where latency and reliability
     are critical.
+  id: totrans-88
   prefs: []
   type: TYPE_NORMAL
+  zh: 通过 quic-go 库使用 QUIC 为开发者提供了专为现代网络需求设计的传输层。其内置的流多路复用、0-RTT 快速连接设置以及处理网络路径变化的能力，使其非常适合对延迟和可靠性至关重要的实时系统和移动应用。

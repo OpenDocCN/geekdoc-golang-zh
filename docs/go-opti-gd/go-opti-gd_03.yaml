@@ -1,186 +1,280 @@
 - en: Common Go Patterns for Performance¶
+  id: totrans-0
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
+  zh: 性能的常见 Go 模式[¶]
 - en: 原文：[https://goperf.dev/01-common-patterns/](https://goperf.dev/01-common-patterns/)
+  id: totrans-1
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
+  zh: 原文：[https://goperf.dev/01-common-patterns/](https://goperf.dev/01-common-patterns/)
 - en: Optimizing Go applications requires understanding common patterns that help
     reduce latency, improve memory efficiency, and enhance concurrency. This guide
     organizes 15 key techniques into four practical categories.
+  id: totrans-2
   prefs: []
   type: TYPE_NORMAL
+  zh: 优化 Go 应用程序需要了解有助于减少延迟、提高内存效率和增强并发的常见模式。本指南将 15 个关键技术组织成四个实用类别。
 - en: '* * *'
+  id: totrans-3
   prefs: []
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: Memory Management & Efficiency[¶](#memory-management-efficiency "Permanent link")
+  id: totrans-4
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 内存管理与效率[¶](#memory-management-efficiency "永久链接")
 - en: These strategies help reduce memory churn, avoid excessive allocations, and
     improve cache behavior.
+  id: totrans-5
   prefs: []
   type: TYPE_NORMAL
+  zh: 这些策略有助于减少内存碎片，避免过度分配，并改善缓存行为。
 - en: '[Object Pooling](object-pooling/)'
+  id: totrans-6
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[对象池](object-pooling/)'
 - en: Reuse objects to reduce GC pressure and allocation overhead.
+  id: totrans-7
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 重复使用对象以减少 GC 压力和分配开销。
 - en: '[Memory Preallocation](mem-prealloc/)'
+  id: totrans-8
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[内存预分配](mem-prealloc/)'
 - en: Allocate slices and maps with capacity upfront to avoid costly resizes.
+  id: totrans-9
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 预先分配切片和映射的容量以避免昂贵的调整大小。
 - en: '[Struct Field Alignment](fields-alignment/)'
+  id: totrans-10
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[结构体字段对齐](fields-alignment/)'
 - en: Optimize memory layout to minimize padding and improve locality.
+  id: totrans-11
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 优化内存布局以最小化填充并提高局部性。
 - en: '[Avoiding Interface Boxing](interface-boxing/)'
+  id: totrans-12
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[避免接口装箱](interface-boxing/)'
 - en: Prevent hidden allocations by avoiding unnecessary interface conversions.
+  id: totrans-13
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 通过避免不必要的接口转换来防止隐藏的分配。
 - en: '[Zero-Copy Techniques](zero-copy/)'
+  id: totrans-14
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[零拷贝技术](zero-copy/)'
 - en: Minimize data copying with slicing and buffer tricks.
+  id: totrans-15
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 通过切片和缓冲技巧最小化数据复制。
 - en: '[Memory Efficiency and Go’s Garbage Collector](gc/)'
+  id: totrans-16
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[内存效率和 Go 的垃圾回收器](gc/)'
 - en: Reduce GC overhead by minimizing heap usage and reusing memory.
+  id: totrans-17
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 通过最小化堆使用和重用内存来减少 GC 开销。
 - en: '[Stack Allocations and Escape Analysis](stack-alloc/)'
+  id: totrans-18
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[堆分配和逃逸分析](stack-alloc/)'
 - en: Use escape analysis to help values stay on the stack where possible.
+  id: totrans-19
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 使用逃逸分析来帮助值尽可能保持在栈上。
 - en: '* * *'
+  id: totrans-20
   prefs: []
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: Concurrency and Synchronization[¶](#concurrency-and-synchronization "Permanent
     link")
+  id: totrans-21
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 并发与同步[¶](#concurrency-and-synchronization "永久链接")
 - en: Manage goroutines, shared resources, and coordination efficiently.
+  id: totrans-22
   prefs: []
   type: TYPE_NORMAL
+  zh: 高效管理 goroutines、共享资源和协调。
 - en: '[Goroutine Worker Pools](worker-pool/)'
+  id: totrans-23
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[Goroutine 工作池](worker-pool/)'
 - en: Control concurrency with a fixed-size pool to limit resource usage.
+  id: totrans-24
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 使用固定大小的池来控制并发，以限制资源使用。
 - en: '[Atomic Operations and Synchronization Primitives](atomic-ops/)'
+  id: totrans-25
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[原子操作和同步原语](atomic-ops/)'
 - en: Use atomic operations or lightweight locks to manage shared state.
+  id: totrans-26
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 使用原子操作或轻量级锁来管理共享状态。
 - en: '[Lazy Initialization (`sync.Once`)](lazy-init/)'
+  id: totrans-27
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[延迟初始化 (`sync.Once`)](lazy-init/)'
 - en: Delay expensive setup logic until it's actually needed.
+  id: totrans-28
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 延迟昂贵的设置逻辑，直到实际需要时。
 - en: '[Immutable Data Sharing](immutable-data/)'
+  id: totrans-29
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[不可变数据共享](immutable-data/)'
 - en: Share data safely between goroutines without locks by making it immutable.
+  id: totrans-30
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 通过使数据不可变，在 goroutines 之间安全地共享数据而不使用锁。
 - en: '[Efficient Context Management](context/)'
+  id: totrans-31
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[高效上下文管理](context/)'
 - en: Use `context` to propagate timeouts and cancel signals across goroutines.
+  id: totrans-32
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 使用 `context` 在 goroutines 之间传播超时和取消信号。
 - en: '* * *'
+  id: totrans-33
   prefs: []
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: I/O Optimization and Throughput[¶](#io-optimization-and-throughput "Permanent
     link")
+  id: totrans-34
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: I/O 优化和吞吐量[¶](#io-optimization-and-throughput "永久链接")
 - en: Reduce system call overhead and increase data throughput for I/O-heavy workloads.
+  id: totrans-35
   prefs: []
   type: TYPE_NORMAL
+  zh: 减少系统调用开销，并增加 I/O 密集型工作负载的数据吞吐量。
 - en: '[Efficient Buffering](buffered-io/)'
+  id: totrans-36
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[高效缓冲](buffered-io/)'
 - en: Use buffered readers/writers to minimize I/O calls.
+  id: totrans-37
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 使用缓冲读取器/写入器来最小化 I/O 调用。
 - en: '[Batching Operations](batching-ops/)'
+  id: totrans-38
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[批量操作](batching-ops/)'
 - en: Combine multiple small operations to reduce round trips and improve throughput.
+  id: totrans-39
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 将多个小操作组合起来以减少往返次数并提高吞吐量。
 - en: '* * *'
+  id: totrans-40
   prefs: []
   type: TYPE_NORMAL
+  zh: '* * *'
 - en: Compiler-Level Optimization and Tuning[¶](#compiler-level-optimization-and-tuning
     "Permanent link")
+  id: totrans-41
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
+  zh: 编译器级优化和调整[¶](#compiler-level-optimization-and-tuning "永久链接")
 - en: Tap into Go’s compiler and linker to further optimize your application.
+  id: totrans-42
   prefs: []
   type: TYPE_NORMAL
+  zh: 利用 Go 的编译器和链接器进一步优化您的应用程序。
 - en: '[Leveraging Compiler Optimization Flags](comp-flags/)'
+  id: totrans-43
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[利用编译器优化标志](comp-flags/)'
 - en: Use build flags like `-gcflags` and `-ldflags` for performance tuning.
+  id: totrans-44
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 使用构建标志如 `-gcflags` 和 `-ldflags` 进行性能调整。
 - en: '[Stack Allocations and Escape Analysis](stack-alloc/)'
+  id: totrans-45
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
+  zh: '[堆分配和逃逸分析](stack-alloc/)'
 - en: Analyze which values escape to the heap to help the compiler optimize memory
     placement.
+  id: totrans-46
   prefs:
   - PREF_IND
   type: TYPE_NORMAL
+  zh: 分析哪些值逃逸到堆中，以帮助编译器优化内存放置。

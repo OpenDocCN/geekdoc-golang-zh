@@ -1,332 +1,1246 @@
-- en: 'Optimizing TLS for Speed: Handshake, Reuse, and Cipher Choice'
-  id: totrans-0
+- en: Go中管理10K+并发连接
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
-  zh: 优化 TLS 以提高速度：握手、重用和加密套件选择
-- en: 原文：[https://goperf.dev/02-networking/tls-for-speed/](https://goperf.dev/02-networking/tls-for-speed/)
-  id: totrans-1
+- en: 原文：[https://goperf.dev/02-networking/10k-connections/](https://goperf.dev/02-networking/10k-connections/)
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
-  zh: 原文：[https://goperf.dev/02-networking/tls-for-speed/](https://goperf.dev/02-networking/tls-for-speed/)
-- en: 'TLS does what it’s supposed to: it keeps your connections private and trustworthy.
-    But it also slows things down — a lot more than most people realize. In Go, if
-    you care about how quickly your service responds, you can squeeze out better performance
-    by tuning how TLS negotiates and what it negotiates.'
-  id: totrans-2
+- en: <details class="info"><summary>为什么不是100K+或1百万连接？</summary>
   prefs: []
   type: TYPE_NORMAL
-  zh: TLS 做了它应该做的事情：它保护你的连接私密且值得信赖。但这也减慢了速度——比大多数人意识到的要多得多。在 Go 语言中，如果你关心你的服务响应速度，你可以通过调整
-    TLS 的协商方式和协商内容来提高性能。
-- en: 'Understanding TLS Overhead: Where Performance Suffers'
-  id: totrans-3
+- en: 虽然将挑战定义为“100K并发连接”很有吸引力，但实际工程往往从更实际的目标开始：10K到20K稳定、性能良好的连接。这并不是Go本身的限制，而是现实世界约束的反映：ulimit设置、临时端口可用性、TCP堆栈配置以及应用程序工作负载的性质都设定了硬边界。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 云环境引入了它们自己的考虑因素。例如，AWS Fargate明确地将软和硬nofile（打开文件数）限制设置为65,535，这为socket密集型应用程序提供了更多的空间，但仍然低于100K+的阈值。在EC2实例上，实际限制取决于基础操作系统和用户配置。默认情况下，许多Linux发行版为nofile设定了软限制1024和硬限制65535。即使这个硬限制也低于单个进程中处理10万个打开连接所需的限制。达到更高的限制需要内核级别的调整、容器运行时覆盖和多进程策略来分配文件描述符负载。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 处理简单回声逻辑的服务器与执行CPU密集型处理、结构化日志记录或实时转换的服务器表现截然不同。此外，平台级别的可调性也各不相同——Linux通过sysctl、epoll和reuseport提供了细粒度的控制，而macOS缺乏许多这些机制。在这种情况下，在具有实际工作负载的情况下实现并维持10K+并发连接是一项具有挑战性但实用的基准。</details>
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在Go中处理大量并发性通常被浪漫化——“goroutines很便宜，只需创建它们！”——但随着我们向六位数并发级别推进，现实变得更加严峻。仅通过扩展硬件来服务超过10,000个并发套接字并不是解决问题的方法——它需要一个与操作系统、Go运行时和网络堆栈协同工作的架构，而不是与之对抗。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 接受Go的并发模型[¶](#embracing-gos-concurrency-model "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 理解 TLS 过度开销：性能受影响的区域
-- en: 'Most of the slowdown in TLS happens right at the start. The handshake is a
-    back-and-forth process: picking algorithms, swapping keys, proving identities,
-    and setting up the session. That back-and-forth usually takes two full trips across
-    the network. In something like a trading platform or a real-time app, that delay
-    is noticeable.'
-  id: totrans-4
+- en: Go的轻量级goroutines和其强大的运行时调度器使其成为扩展网络应用程序的绝佳选择。Goroutines仅消耗几KB的堆栈空间，从理论上讲，这使得它们非常适合处理数万个并发连接。然而，现实迫使我们必须超越仅仅启动goroutines。虽然语言的抽象使并发几乎“神奇”，但在这种规模上实现真正的效率需要有意的设计。
   prefs: []
   type: TYPE_NORMAL
-  zh: TLS 的大部分减速发生在开始阶段。握手是一个往返过程：选择算法、交换密钥、证明身份和设置会话。这种往返通常需要网络上的两次完整往返。在像交易平台或实时应用这样的场景中，这种延迟是明显的。
-- en: To make TLS faster, the most effective place to start is cutting down the handshake
-    steps and making the crypto work less expensive.
-  id: totrans-5
+- en: 运行一个为每个连接生成一个goroutine的服务器意味着你非常依赖运行时调度器来处理数千个并发执行路径。虽然goroutine轻量级，但它们并非免费——每个goroutine都会增加内存消耗，并引入与并发性成比例的调度开销。因此，第一个应该采用的设计模式是确保每个连接遵循一个明确的生命周期，并且每个goroutine都能尽可能高效地完成任务。
   prefs: []
   type: TYPE_NORMAL
-  zh: 要使 TLS 更快，最有效的方法是减少握手步骤并使加密工作成本更低。
-- en: '[PRE0]'
-  id: totrans-6
+- en: 让我们考虑一个基本模型，其中我们接受连接并将它们的处理委托给单独的goroutine：
   prefs: []
-  type: TYPE_PRE
-  zh: '[PRE0]'
-- en: 'Session Resumption: Cutting Handshake Latency'
-  id: totrans-7
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: package main
+  prefs: []
+  type: TYPE_NORMAL
+- en: import (
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"log"'
   prefs:
-  - PREF_H2
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 会话恢复：减少握手延迟
-- en: Because every new TLS connection runs the entire handshake — negotiating ciphers,
-    exchanging keys, verifying certificates — it introduces noticeable latency. Session
-    resumption sidesteps most of that by reusing the cryptographic state from an earlier
-    session, making reconnects much faster.
-  id: totrans-8
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 因为每个新的 TLS 连接都会运行完整的握手——协商加密套件、交换密钥、验证证书——它引入了明显的延迟。会话恢复通过重用早期会话的加密状态来规避大部分延迟，使重新连接变得更快。
-- en: 'Session resumption is a mechanism in TLS to avoid repeating the full handshake
-    on reconnect. There are two main approaches: session IDs and session tickets.
-    Both rely on the idea that the server remembers (or encodes) the session’s cryptographic
-    state from a prior connection. When a client reconnects, it presents either the
-    session ID or the session ticket, allowing the server to restore the session state
-    and skip expensive asymmetric key exchange.'
-  id: totrans-9
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 会话恢复是 TLS 中的一种机制，用于避免在重新连接时重复完整的握手过程。主要有两种方法：会话 ID 和会话票据。两者都依赖于服务器记住（或编码）从先前的连接中会话的加密状态。当客户端重新连接时，它会提供会话
-    ID 或会话票据，允许服务器恢复会话状态并跳过昂贵的非对称密钥交换。
-- en: A session ticket is a data blob issued by the server to the client at the end
-    of the handshake. This ticket contains the encrypted session state (such as negotiated
-    cipher suite, keys, and session parameters) and is opaque to the client. On reconnect,
-    the client sends the ticket back, and the server decrypts it to resume the session
-    without performing a full handshake.
-  id: totrans-10
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 会话票据是服务器在握手结束时向客户端发出的数据块。此票据包含加密的会话状态（例如协商的加密套件、密钥和会话参数），对客户端来说是透明的。在重新连接时，客户端将票据发送回服务器，服务器将其解密以在无需进行完整握手的情况下恢复会话。
-- en: In Go, you enable session resumption by setting up session ticket keys. The
-    server uses these keys to encrypt and decrypt the session state that clients send
-    back when resuming a connection. You can generate a secure 32‑byte key at startup
-    with crypto/rand and reuse it if your service is running across multiple instances
-    behind a load balancer. Just make sure to rotate the key now and then to keep
-    it secure.
-  id: totrans-11
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 在 Go 语言中，你可以通过设置会话票据密钥来启用会话恢复。服务器使用这些密钥来加密和解密客户端在恢复连接时发送回的会话状态。你可以在启动时使用 crypto/rand
-    生成一个安全的 32 字节密钥，如果你的服务在负载均衡器后面的多个实例上运行，则可以重用它。只需确保定期更换密钥以保持其安全性。
-- en: '[PRE1]'
-  id: totrans-12
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE1]'
-- en: What makes session resumption effective is that it avoids re‑doing the slowest
-    parts of TLS. Instead of negotiating everything from scratch, the server decrypts
-    the ticket, verifies it, and restores the session. That eliminates at least one
-    full round trip and all the heavy asymmetric operations, which saves both time
-    and resources.
-  id: totrans-13
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 会话恢复之所以有效，是因为它避免了重新执行 TLS 中最慢的部分。服务器不是从头开始协商一切，而是解密票据、验证它并恢复会话。这至少消除了一个完整的往返和所有重型的非对称操作，从而节省了时间和资源。
-- en: Choosing Cipher Suites Wisely
-  id: totrans-14
+- en: '"net"'
   prefs:
-  - PREF_H2
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 聪明地选择加密套件
-- en: Cipher suites define the combination of algorithms used for key exchange, authentication,
-    encryption, and integrity checking. Selecting efficient cipher suites significantly
-    impacts performance.
-  id: totrans-15
+- en: '"sync/atomic"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '"time"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: )
   prefs: []
   type: TYPE_NORMAL
-  zh: 加密套件定义了用于密钥交换、身份验证、加密和完整性检查的算法组合。选择高效的加密套件对性能有重大影响。
-- en: Why prefer one over another? Some suites use RSA for key exchange, which is
-    much slower than elliptic-curve Diffie–Hellman (ECDHE) and lacks forward secrecy.
-    Suites with AES-GCM are faster on modern CPUs thanks to hardware acceleration,
-    whereas older CBC-mode suites are slower and more error-prone. ECC-based authentication
-    (ECDSA) also provides shorter signatures and lower computational cost compared
-    to RSA.
-  id: totrans-16
+- en: var activeConnections uint64
   prefs: []
   type: TYPE_NORMAL
-  zh: 为什么选择一个而不是另一个？一些套件使用 RSA 进行密钥交换，这比椭圆曲线 Diffie-Hellman (ECDHE) 慢得多，并且缺乏前向保密。具有
-    AES-GCM 的套件在现代 CPU 上由于硬件加速而更快，而较旧的 CBC 模式套件较慢且更容易出错。基于 ECC 的身份验证（ECDSA）与 RSA 相比，提供更短的签名和更低的计算成本。
-- en: 'To choose wisely:'
-  id: totrans-17
+- en: func main() {
   prefs: []
   type: TYPE_NORMAL
-  zh: 为了明智地选择：
-- en: Prioritize suites with ECDHE for forward secrecy and better performance.
-  id: totrans-18
+- en: listener, err := net.Listen("tcp", ":8080")
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'log.Fatalf("Error starting TCP listener: %v", err)'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: defer listener.Close()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: conn, err := listener.Accept()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'log.Printf("Error accepting connection: %v", err)'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: continue
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: atomic.AddUint64(&activeConnections, 1)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: go handleConnection(conn)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func handleConnection(conn net.Conn) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: defer func() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: conn.Close()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: atomic.AddUint64(&activeConnections, ^uint64(0)) // effectively decrements the
+    counter
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}()'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '// Imagine complex processing here—an echo server example:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: buffer := make([]byte, 1024)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: conn.SetDeadline(time.Now().Add(30 * time.Second)) // prevent idle hangs
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: n, err := conn.Read(buffer)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'log.Printf("Connection read error: %v", err)'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: _, err = conn.Write(buffer[:n])
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'log.Printf("Connection write error: %v", err)'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 每个连接都分配了自己的goroutine。这种方法在低并发情况下运行良好，并且很好地适应了Go的模型。但是，一旦你处理的是成千上万的连接，设计就必须考虑到系统限制。Goroutine虽然成本低，但并非免费。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 大规模并发管理[¶](#managing-concurrency-at-scale "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 仅接受连接是不够的；你需要控制之后发生的事情。无限制地创建goroutine会导致内存增长和调度器负载增加。为了保持系统稳定，并发性必须受到限制——通常使用信号量或类似的结构来限制在任何给定时间处理活跃工作的goroutine数量。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 例如，你可能会在为每个传入连接启动新的goroutine之前限制同时活跃的连接数。这种策略可能涉及一个充当信号量的带缓冲的channel：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: package main
+  prefs: []
+  type: TYPE_NORMAL
+- en: import (
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"net"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: )
+  prefs: []
+  type: TYPE_NORMAL
+- en: var connLimiter = make(chan struct{}, 10000) // Max 10K concurrent conns
+  prefs: []
+  type: TYPE_NORMAL
+- en: func main() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: ln, _ := net.Listen("tcp", ":8080")
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: defer ln.Close()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: conn, _ := ln.Accept()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: connLimiter <- struct{}{} // Acquire slot
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: go func(c net.Conn) {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: defer func() {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: c.Close()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: <-connLimiter // Release slot
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}()'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // Dummy echo logic
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: buf := make([]byte, 1024)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: c.Read(buf)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: c.Write(buf)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}(conn)'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这种模式不仅有助于防止资源耗尽，还能在高负载下优雅地降低服务质量。根据你的硬件和工作负载特性调整这些限制是一个持续调优的过程。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 信息
+  prefs: []
+  type: TYPE_NORMAL
+- en: 我们在这里使用`connLimiter`方法纯粹是为了说明目的，因为它阐明了这个想法。在现实生活中，你很可能会使用[golang.org/x/sync/errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup)来管理goroutine的数量，以及一些`SIGINT`和`SIGTERM`信号处理，以实现优雅的过程终止。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 操作系统和套接字调整[¶](#os-level-and-socket-tuning "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 在你的Go应用程序能够处理超过10,000个同时连接之前，操作系统必须为这种规模做好准备。在Linux上，这通常从提高打开文件描述符的限制开始。TCP堆栈也需要调整——默认设置通常不是为高连接负载设计的。如果没有这些调整，应用程序将在Go成为瓶颈之前就触及操作系统级别的上限。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Increase file descriptor limit
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: ulimit -n 200000
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 但这还没有结束。你还需要：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: sysctl -w net.core.somaxconn=65535
+  prefs: []
+  type: TYPE_NORMAL
+- en: sysctl -w net.ipv4.ip_local_port_range="10000 65535"
+  prefs: []
+  type: TYPE_NORMAL
+- en: sysctl -w net.ipv4.tcp_tw_reuse=1
+  prefs: []
+  type: TYPE_NORMAL
+- en: sysctl -w net.ipv4.tcp_fin_timeout=15
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`net.core.somaxconn=65535`: 这项设置控制着监听套接字的待处理连接队列（即队列长度）。如果这里设置值较小，当许多客户端同时尝试连接时，可能会导致连接丢失。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 优先选择具有 ECDHE 的套件以实现前向保密和更好的性能。
-- en: Prefer AES-GCM over AES-CBC or ChaCha20 unless targeting hardware that lacks
-    AES acceleration (where ChaCha20 may win).
-  id: totrans-19
+- en: '`net.ipv4.ip_local_port_range="10000 65535"`: 定义了用于出站连接的临时端口范围。更宽的范围可以防止从同一台机器发出大量出站连接时端口耗尽。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 优先选择 AES-GCM 而不是 AES-CBC 或 ChaCha20，除非目标是缺乏 AES 加速功能的硬件（在这种情况下 ChaCha20 可能更胜一筹）。
-- en: Avoid suites using only RSA for key exchange, because they lack forward secrecy
-    and require more expensive computations on the server side.
-  id: totrans-20
+- en: '`net.ipv4.tcp_tw_reuse=1`: 允许在安全的情况下重用`TIME_WAIT`状态下的套接字进行新连接。有助于减少套接字耗尽，尤其是在短连接的TCP连接中。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 避免仅使用 RSA 进行密钥交换的套件，因为它们缺乏前向保密，并且在服务器端需要更昂贵的计算。
-- en: The Go standard library ships with a solid set of secure and reasonably fast
-    defaults. For most applications, you can stick with those and be fine. But if
-    you’re tuning for a high‑performance environment, defining your own preferred
-    cipher suites gives you tighter control over what gets negotiated.
-  id: totrans-21
+- en: '`net.ipv4.tcp_fin_timeout=15`: 减少了在连接关闭后内核保持套接字在`FIN_WAIT2`状态的时间。更短的超时意味着更快的资源回收，这对于每分钟有数千个套接字轮换至关重要。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 调整这些参数有助于防止随着连接数增加，操作系统成为瓶颈。除此之外，设置如`TCP_NODELAY`之类的套接字选项可以通过禁用默认情况下缓冲小数据包的[Nagle算法](https://en.wikipedia.org/wiki/Nagle%27s_algorithm)来减少延迟。在Go中，这些选项可以通过net包应用，或者在需要更底层控制时，通过syscall包直接应用。
   prefs: []
   type: TYPE_NORMAL
-  zh: Go 的标准库提供了一套稳健的安全和合理快速的默认设置。对于大多数应用程序，你可以坚持使用这些设置，并且效果良好。但如果你正在为高性能环境进行调优，定义自己的首选加密套件可以让你更紧密地控制要协商的内容。
-- en: An optimized config favors AES‑GCM for its hardware acceleration and ECC for
-    its efficiency.
-  id: totrans-22
+- en: 在某些情况下，使用Go的`net.ListenConfig`允许你在创建监听器时注入自定义的套接字创建控制。这在需要设置监听器创建时的选项时特别有用：
   prefs: []
   type: TYPE_NORMAL
-  zh: 一个优化的配置优先选择 AES-GCM 以利用其硬件加速，并选择 ECC 以提高效率。
-- en: '[PRE2]'
-  id: totrans-23
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE2]'
-- en: These suites strike a good balance between security and speed, leveraging forward
-    secrecy and hardware-accelerated encryption. The second option, TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-    is a reasonable choice when clients may not support ECDSA certificates — it still
-    provides forward secrecy and efficient AES-GCM encryption while relying on the
-    more widely deployed RSA for authentication.
-  id: totrans-24
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 这些套件在安全性和速度之间取得了良好的平衡，利用了前向保密和硬件加速加密。第二个选项，TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256，当客户端可能不支持
-    ECDSA 证书时是一个合理的选择——它仍然提供了前向保密和高效的 AES-GCM 加密，同时依赖于更广泛部署的 RSA 进行身份验证。
-- en: Using ALPN Wisely
-  id: totrans-25
+- en: func main() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: lc := net.ListenConfig{
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Control: func(network, address string, c syscall.RawConn) error {'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var controlErr error
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: err := c.Control(func(fd uintptr) {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // Enable TCP_NODELAY on the socket
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: controlErr = syscall.SetsockoptInt(int(fd), syscall.IPPROTO_TCP, syscall.TCP_NODELAY,
+    1)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '})'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return err
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return controlErr
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '},'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: listener, err := lc.Listen(context.Background(), "tcp", ":8080")
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'log.Fatalf("Error creating listener: %v", err)'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: defer listener.Close()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // Accept connections in a loop…
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go调度器和内存压力[¶](#go-scheduler-and-memory-pressure "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 在纸上启动10,000个goroutine可能看起来很令人印象深刻，但重要的是这些goroutine的行为。如果它们大部分是空闲的——例如在网络或磁盘I/O上阻塞——Go的调度器会高效地处理它们，以最小的开销进行暂停和恢复。但是，当goroutine积极分配内存、在紧密循环中旋转或不断在通道和互斥锁上竞争时，事情就会变得昂贵。你将开始看到垃圾收集压力增加和调度器抖动，这两者都会降低性能。
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go的垃圾收集器很好地处理了短生命周期分配，但这并不是免费的。如果你正在启动通过内存——按请求、按消息或更糟糕的是按循环分配goroutine——GC压力会迅速增加。结果不仅仅是更频繁的收集，还有更高的延迟和丢失的CPU周期。吞吐量下降，系统花费更多时间清理而不是进行实际工作。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 为了管理这一点，你可以显式调整GC的积极性：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: GOGC=50
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 或者直接在你的代码库中：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: import "runtime/debug"
+  prefs: []
+  type: TYPE_NORMAL
+- en: func main() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: debug.SetGCPercent(50)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // rest of your application logic
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`GOGC`的默认值是100，这意味着与之前的GC周期相比，当堆大小加倍时触发GC。较低的值（如50）意味着更频繁但更短的GC周期，这有助于控制内存增长，但会增加CPU开销。'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 信息
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在某些情况下，你可能需要一个相反的——[增加`GOGC`值，完全关闭GC](../../01-common-patterns/gc/#gc-tuning-gogc)，或者更喜欢[GOMEMLIMIT=X和GOGC=off](../../01-common-patterns/gc/#gomemlimitx-and-gogcoff-configuration)配置。**在仔细分析之前不要做出决定！**
+  prefs: []
+  type: TYPE_NORMAL
+- en: 优化Goroutine行为[¶](#optimizing-goroutine-behavior "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 考虑将你的应用程序结构化，以便goroutines自然地阻塞，而不是积极等待或空转。例如，而不是在紧密循环中轮询通道，请有效地使用select语句：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: for {
+  prefs: []
+  type: TYPE_NORMAL
+- en: select {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'case msg := <-msgChan:'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: handleMsg(msg)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'case <-ctx.Done():'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 如果你的goroutines必须等待，请优先选择在通道或Go提供的同步原语（如互斥锁或条件变量）上阻塞，而不是积极轮询。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 池化和重用对象[¶](#pooling-and-reusing-objects "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '减少内存分配和垃圾回收开销的另一个关键技术[是使用 `sync.Pool`](../../01-common-patterns/object-pooling/):'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: var bufPool = sync.Pool{
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'New: func() any { return make([]byte, 1024) },'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func handleRequest() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: buf := bufPool.Get().([]byte)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: defer bufPool.Put(buf)  // (1)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // use buffer for request handling
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在这里要小心！它严格依赖于工作流程，当你必须将对象返回到池中时！
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 通过池来重用对象可以减少内存碎片。分配得越少，垃圾回收器运行得越少，影响也越小。这直接转化为负载下的更低延迟和更可预测的性能。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 连接生命周期管理[¶](#connection-lifecycle-management "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 连接不仅仅是被接受然后被遗忘——它要经历一个完整的生命周期：设置、数据交换、拆除。问题通常出现在安静阶段。未清理的空闲连接可能会占用内存并无限期地阻塞goroutines。强制执行读取和写入截止时间至关重要。心跳消息也有帮助——它们为你提供了一种在不等待操作系统超时的情况下检测死对等的方法。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在一个实际案例中，缓慢的客户端响应导致goroutines在读取中阻塞。随着时间的推移，它们积累起来，直到系统开始退化。添加截止时间和轻量级健康检查修复了泄漏。goroutines不再滞留，负载下的资源使用保持平稳。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 每个连接仍然在自己的goroutine中运行——但是有了适当的生命周期管理，扩展不会以稳定性为代价。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: for {
+  prefs: []
+  type: TYPE_NORMAL
+- en: conn, err := ln.Accept()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // handle error
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: go handle(conn)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在处理程序内部，使用计时器每几秒触发一次，触发周期性心跳，保持连接活跃和响应：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: ticker := time.NewTicker(5 * time.Second)
+  prefs: []
+  type: TYPE_NORMAL
+- en: defer ticker.Stop()
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在从客户端读取之前，服务器设置一个读取截止时间——如果在那个时间内没有接收到数据，操作将失败，连接将被清理。这防止了阻塞读取无限期地阻止goroutine：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: conn.SetReadDeadline(time.Now().Add(10 * time.Second))
+  prefs: []
+  type: TYPE_NORMAL
+- en: _, err := reader.ReadString('
+  prefs: []
+  type: TYPE_NORMAL
+- en: ''')'
+  prefs: []
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return // read timeout or client gone
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 同样，在发送心跳之前，服务器设置一个写入截止时间。如果客户端无响应或网络缓慢，写入将立即失败，避免资源泄漏：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: select {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'case <-ticker.C:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: conn.SetWriteDeadline(time.Now().Add(10 * time.Second))
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: conn.Write([]byte("ping"))
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'default:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // skip heartbeat if not due
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 循环处理传入的消息并发送周期性心跳，通过读取和写入截止时间在双方设定边界。这种设置使每个连接都处于活跃监控之下。静默故障不会持续存在，系统避免了为了性能而牺牲稳定性。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 实际调优和扩展陷阱[¶](#real-world-tuning-and-scaling-pitfalls "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 使用 ALPN 的明智之处
-- en: Application-Layer Protocol Negotiation (ALPN) lets clients and servers agree
-    upon the application protocol (like HTTP/2, HTTP/1.1, or gRPC) during the TLS
-    handshake, avoiding additional round trips or guessing after establishing the
-    connection. Without ALPN, a client would have to fall back to slower or less efficient
-    methods to detect the server’s supported protocol.
-  id: totrans-26
+- en: 扩展到10K+个连接不仅仅是代码的问题——它需要预测和缓解堆栈多层中的潜在陷阱。除了解决内存占用、文件描述符限制和阻塞I/O之外，一系列高并发回声服务器测试揭示了在实际负载下的额外性能考虑因素。
   prefs: []
   type: TYPE_NORMAL
-  zh: 应用层协议协商 (ALPN) 允许客户端和服务器在 TLS 握手期间就应用协议（如 HTTP/2、HTTP/1.1 或 gRPC）达成一致，避免了在建立连接后的额外往返或猜测。没有
-    ALPN，客户端将不得不回退到较慢或效率较低的方法来检测服务器支持协议。
-- en: In Go, the `NextProtos` field in `tls.Config` defines which application protocols
-    the server supports and in what order of preference. During the TLS handshake,
-    the client sends its own list, and the server picks the highest‑priority protocol
-    that both sides support, then confirms it.
-  id: totrans-27
+- en: 一个实验从一个简单的基于行的回声服务器开始。基线处理程序很简单：
   prefs: []
   type: TYPE_NORMAL
-  zh: 在 Go 中，`tls.Config` 中的 `NextProtos` 字段定义了服务器支持的应用协议及其优先顺序。在 TLS 握手过程中，客户端发送自己的列表，服务器选择双方都支持的最高优先级协议，然后确认它。
-- en: 'If you want to support `HTTP/2` with a fallback to `HTTP/1.1`, you should set
-    `NextProtos` explicitly, like this:'
-  id: totrans-28
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 如果你想要支持 `HTTP/2` 并回退到 `HTTP/1.1`，你应该显式设置 `NextProtos`，如下所示：
-- en: '[PRE3]'
-  id: totrans-29
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE3]'
-- en: The sequence of entries in `NextProtos` matters because the server walks the
-    list in order and chooses the first protocol also offered by the client. By putting
-    HTTP/2 (`h2`) at the top, the server ensures it prefers HTTP/2 when supported,
-    falling back to HTTP/1.1 only when necessary. If the order is incorrect, the server
-    may settle on a slower protocol or fail to agree entirely.
-  id: totrans-30
+- en: func handle(conn net.Conn) {
   prefs: []
   type: TYPE_NORMAL
-  zh: '`NextProtos` 中条目的顺序很重要，因为服务器会按顺序遍历列表，并选择客户端也提供的第一个协议。通过将 HTTP/2 (`h2`) 放在顶部，服务器确保在支持的情况下优先选择
-    HTTP/2，只有在必要时才回退到 HTTP/1.1。如果顺序不正确，服务器可能会选择一个较慢的协议，或者完全无法达成一致。'
-- en: When `NextProtos` is left empty, ALPN is effectively disabled. The client assumes
-    HTTP/1.1 because it never sees an indication of HTTP/2 support during the handshake.
-    Explicitly setting `NextProtos` advertises the server’s capabilities and avoids
-    unnecessary protocol downgrades.
-  id: totrans-31
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 当`NextProtos`留空时，ALPN实际上被禁用。客户端假设HTTP/1.1，因为它在握手过程中从未看到对HTTP/2支持的任何指示。显式设置`NextProtos`可以宣传服务器的能力，并避免不必要的协议降级。
-- en: Minimizing Certificate Verification Overhead
-  id: totrans-32
+- en: defer conn.Close()
   prefs:
-  - PREF_H2
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 最小化证书验证开销
-- en: 'Certificate verification tends to be CPU‑heavy because it involves several
-    expensive asymmetric cryptographic operations, which directly increase connection
-    latency. This cost can be reduced in two ways: by using smaller, faster‑to‑verify
-    ECC‑based (ECDSA) certificates instead of RSA, and by caching already‑validated
-    certificate chains to avoid repeating the same verification work on subsequent
-    connections.'
-  id: totrans-33
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 证书验证通常很耗时，因为它涉及几个昂贵的非对称加密操作，这直接增加了连接延迟。这种成本可以通过两种方式降低：使用更小、验证速度更快的基于ECC（ECDSA）证书而不是RSA，以及通过缓存已验证的证书链以避免在后续连接中重复相同的验证工作。
-- en: '[PRE4]'
-  id: totrans-34
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE4]'
-- en: 'A basic caching mechanism stores verification outcomes temporarily:'
-  id: totrans-35
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 基本的缓存机制临时存储验证结果：
-- en: '[PRE5]'
-  id: totrans-36
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE5]'
-- en: Warning
-  id: totrans-37
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 警告
-- en: While the snippet illustrates key concepts, it should not be used in production
-    as-is. Cryptographic code demands careful analysis and adaptation to the specific
-    environment and threat model. Always validate and test security-related code before
-    deployment to avoid introducing weaknesses.
-  id: totrans-38
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 虽然该片段说明了关键概念，但不应直接在生产环境中使用。加密代码需要仔细分析和适应特定环境和威胁模型。在部署前始终验证和测试与安全相关的代码，以避免引入弱点。
-- en: TLS Best Practices in Go
-  id: totrans-39
+- en: reader := bufio.NewReader(conn)
   prefs:
-  - PREF_H2
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: Go中的TLS最佳实践
-- en: The following configuration brings together these techniques into a tls.Config
-    that is optimized for both performance and security.
-  id: totrans-40
+- en: for {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: line, err := reader.ReadString('\n')
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'fmt.Printf("Connection closed: %v\n", err)'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: conn.Write([]byte(line)) // echo
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: 以下配置将这些技术结合在一起，形成一个针对性能和安全都进行了优化的tls.Config。
-- en: The `MinVersion` setting tells the server to reject older, broken versions of
-    TLS. Anything below TLS 1.2 — like SSLv3, TLS 1.0, or 1.1 — is riddled with weaknesses
-    and no longer considered safe. TLS 1.2 fixed many of those problems by introducing
-    AEAD ciphers like AES‑GCM and defenses against attacks such as BEAST and POODLE.
-  id: totrans-41
+- en: '```'
   prefs: []
   type: TYPE_NORMAL
-  zh: '`MinVersion`设置告诉服务器拒绝较旧、有缺陷的TLS版本。低于TLS 1.2的任何内容——如SSLv3、TLS 1.0或1.1——都存在许多弱点，不再被认为是安全的。TLS
-    1.2通过引入AEAD加密（如AES-GCM）和针对BEAST和POODLE等攻击的防御措施，解决了许多这些问题。'
-- en: The `CurvePreferences` field prioritizes fast and secure elliptic curves supported
-    by most clients. P-256 and X25519 are efficient, widely-supported, and often hardware-accelerated.
-    P-256 (also known as secp256r1) is an NIST-recommended curve with broad compatibility
-    and native support in most CPUs for fast computation. X25519 is a modern curve
-    designed for both speed and simplicity, offering constant-time operations to resist
-    side-channel attacks, and performs especially well on low-power or embedded devices.
-  id: totrans-42
+- en: 使用像`tcpkali`这样的工具：
   prefs: []
   type: TYPE_NORMAL
-  zh: '`CurvePreferences`字段优先考虑大多数客户端支持的快速且安全的椭圆曲线。P-256和X25519效率高、支持广泛，并且通常在硬件上加速。P-256（也称为secp256r1）是一个NIST推荐的曲线，具有广泛的兼容性，并在大多数CPU中提供原生支持，以实现快速计算。X25519是一个为速度和简单性而设计的现代曲线，提供恒定时间的操作以抵抗侧信道攻击，并在低功耗或嵌入式设备上表现特别出色。'
-- en: Te rest parts were discussed in details above.
-  id: totrans-43
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 其余部分已在上面详细讨论。
-- en: '[PRE6]'
-  id: totrans-44
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE6]'
-- en: TLS optimization is about balancing performance and security effectively. By
-    reducing handshake overhead through session reuse, wisely selecting cipher suites
-    with ECC and hardware acceleration, efficiently leveraging ALPN, and minimizing
-    certificate verification overhead through caching, Go applications can achieve
-    both security and speed. This approach makes TLS less a performance bottleneck
-    and more a seamless security foundation for modern network services.
-  id: totrans-45
+- en: tcpkali -m $'ping\n' -c 10000 --connect-rate=2000 --duration=60s 127.0.0.1:9000
   prefs: []
   type: TYPE_NORMAL
-  zh: TLS优化是关于有效平衡性能和安全的。通过通过会话重用减少握手开销，明智地选择带有ECC和硬件加速的加密套件，高效利用ALPN，以及通过缓存最小化证书验证开销，Go应用程序可以实现安全性和速度的双重目标。这种方法使TLS不再是性能瓶颈，而是现代网络服务的无缝安全基础。
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 测试增加到10,000个并发连接。在60秒的运行中，它发送了2.4 MiB的数据，接收了210.3 MiB的数据。每个连接平均约为0.4 kBps，总吞吐量为29.40
+    Mbps下行和0.33 Mbps上行。这一结果突出了服务器在高并发持续负载下对外出数据的有限响应能力，以及在`fd.Read`上存在大量背压。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 评估和基准测试服务器[¶](#instrumenting-and-benchmarking-the-server "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 信息
+  prefs: []
+  type: TYPE_NORMAL
+- en: 我们使用`c5.2xlarge`（8 CPU，16 GiB）AWS实例进行所有这些测试。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 为了更好地理解高负载下的系统行为，启用了Go内置的跟踪功能：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: import (
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"runtime/trace"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '"os"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '"log"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: )
+  prefs: []
+  type: TYPE_NORMAL
+- en: func main() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: f, err := os.Create("trace.out")
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil { log.Fatal(err) }
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: defer f.Close()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: trace.Start(f)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: defer trace.Stop()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // server logic ...
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在运行服务器并收集跟踪后，命令
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: go tool trace trace.out
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 揭示了运行时间的大部分被花费在`fd.Read`和`fd.Write`中被阻塞，这表明有机会更有效地平衡I/O操作。跟踪分析显示`fd.Read`占运行时间的23%，而`fd.Write`消耗了75%，表明在回显过程中存在显著的写入端背压。尽管`ulimit
+    -n`被设置为65535（AWS EC2实例的硬限制），但由于I/O阻塞和临时端口范围限制，系统仍然遇到了瓶颈。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 通过缓冲写入减少写入阻塞[¶](#reducing-write-blocking-with-buffered-writes "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 连接写入被包裹在一个`bufio.Writer`中，并定期刷新，而不是在每次写入后刷新。更新的片段：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: reader := bufio.NewReader(conn)
+  prefs: []
+  type: TYPE_NORMAL
+- en: writer := bufio.NewWriter(conn)
+  prefs: []
+  type: TYPE_NORMAL
+- en: count := 0
+  prefs: []
+  type: TYPE_NORMAL
+- en: const flushInterval = 10
+  prefs: []
+  type: TYPE_NORMAL
+- en: for {
+  prefs: []
+  type: TYPE_NORMAL
+- en: line, err := reader.ReadString('\n')
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: writer.WriteString(line)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: count++
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if count >= flushInterval {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: writer.Flush()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: count = 0
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 使用以下方法进行基准测试：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: tcpkali -m $'ping\n' -c 10000 --connect-rate=2000 --duration=60s 127.0.0.1:9000
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 展示了显著的改进——通过10,000个连接，吞吐量从大约33.8 MiB增加到超过1661 MiB接收和1369 MiB发送，每个连接的带宽达到5.3
+    kBps。总吞吐量上升至232.28 Mbps下行和191.41 Mbps上行。跟踪配置文件确认了在更重的并发负载下，I/O等待时间更加平衡。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 处理突发负载和CPU密集型工作负载[¶](#handling-burst-loads-and-cpu-bound-workloads "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 为了评估服务器在极端连接压力下的行为，执行了一个突发测试，以每秒5,000个连接的速度将连接数增加到30,000个：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: tcpkali -m $'ping\n' -c 30000 --connect-rate=5000 --duration=60s 127.0.0.1:9000
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 服务器干净利落地增加到30,000个并发连接，并持续了整整60秒。它处理了总共发送2580.3 MiB和接收1250.9 MiB的数据，保持了上游360.75
+    Mbps和下游174.89 Mbps的总吞吐量。每通道带宽自然下降到大约1.2 kBps，但所有通道的稳定性以及未丢失连接的情况表明，即使在规模扩大时，也有效地分配了负载并处理了稳定的I/O。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 为了模拟CPU密集型工作负载，服务器被修改为对每行输入计算SHA256哈希：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func hash(s string) string {
+  prefs: []
+  type: TYPE_NORMAL
+- en: h := sha256.Sum256([]byte(s))
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return hex.EncodeToString(h[:])
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '...'
+  prefs: []
+  type: TYPE_NORMAL
+- en: for {
+  prefs: []
+  type: TYPE_NORMAL
+- en: line, err := reader.ReadString('\n')
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: _ = hash(line) // simulate CPU-intensive processing
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: writer.WriteString(line)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: count++
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if count >= flushInterval {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: writer.Flush()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: count = 0
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在此配置中，使用相同的30,000个连接设置，吞吐量降至发送1068.3 MiB和接收799.3 MiB。总带宽降至上游149.35 Mbps和下游111.74
+    Mbps，每连接带宽下降到大约0.7 kBps。尽管服务器保持了完整的连接数和正常运行时间，但跟踪分析显示在runtime.systemstack_switch和GC相关函数上花费的时间增加。这清楚地证明了计算密集型任务对整体吞吐量的影响，并强调了在高并发操作时，在I/O和CPU工作负载之间进行仔细平衡的必要性。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 总结技术收益[¶](#summarizing-the-technical-gains "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 在四种不同的服务器配置中进行基准测试，揭示了缓冲、并发扩展和CPU密集型任务如何在负载下影响性能：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| 特性 | 基准（10K，无缓冲） | 10K 缓冲连接 | 30K 缓冲连接 | 30K + CPU负载（SHA256） |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 处理的连接数 | 10,000 | 10,000 | 30,000 | 30,000 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 发送的数据（60秒） | 2.4 MiB | 1369.1 MiB | 2580.3 MiB | 1068.3 MiB |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 接收的数据（60秒） | 210.3 MiB | 1661.4 MiB | 1250.9 MiB | 799.3 MiB |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 每通道带宽 | ~0.4 kBps | ~5.3 kBps | ~1.2 kBps | ~0.7 kBps |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 总带宽（↓/↑） | 29.40 / 0.33 Mbps | 232.28 / 191.41 Mbps | 174.89 / 360.75 Mbps
+    | 111.74 / 149.35 Mbps |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 数据包速率估计（↓/↑） | 329K / 29 数据包/秒 | 278K / 16K 数据包/秒 | 135K / 32K 数据包/秒 | 136K
+    / 13K 数据包/秒 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| I/O特性 | 严重的写回压 | 读写平衡 | 规模下的效率 | 来自CPU竞争的延迟 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| CPU和GC压力 | 低 | 低 | 中等 | 高（GC + 哈希计算） |'
+  prefs: []
+  type: TYPE_TB
+- en: 从10,000个无缓冲连接的基线开始，服务器显示的吞吐量有限——在60秒内仅发送了2.4 MiB，接收了210.3 MiB，并且有明显的写入端背压迹象。使用相同连接数引入缓冲写入后，发送和接收的数据量分别超过1369
+    MiB和1661 MiB，吞吐量提高了超过一个数量级，并平衡了I/O等待时间。进一步扩展到30,000个连接时，系统保持了稳定性，并提高了整体吞吐量，尽管每个连接的带宽有所降低。当每条消息添加SHA256哈希时，总吞吐量显著下降，证实了预期的CPU瓶颈，并强调了在设计高并发、I/O密集型服务时考虑计算延迟的必要性。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这些配置文件作为性能感知开发的实际参考，其中传输、内存和计算必须协同优化，以实现现实世界的可扩展性。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 如您所见，即使实现30,000个并发连接并保持可靠性能也是一个非同小可的任务。测试结果表明，一旦工作负载偏离了简单的回声服务器——例如，通过添加日志记录、CPU密集型处理或更复杂的读写逻辑——吞吐量和稳定性可以迅速下降。在规模上的性能高度依赖于工作流程特征，如I/O模式、同步频率和内存压力。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 综合来看，这些测试强调了在构建高性能、可扩展的网络安全系统时，进行工作负载感知的调整和平台特定调整的必要性。
+  prefs: []
+  type: TYPE_NORMAL

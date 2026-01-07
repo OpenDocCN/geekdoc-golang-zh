@@ -1,356 +1,777 @@
-- en: Zero-Copy Techniques
-  id: totrans-0
+- en: 结构体字段对齐¶
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
-  zh: 零拷贝技术
-- en: 原文：[https://goperf.dev/01-common-patterns/zero-copy/](https://goperf.dev/01-common-patterns/zero-copy/)
-  id: totrans-1
+- en: 原文：[https://goperf.dev/01-common-patterns/fields-alignment/](https://goperf.dev/01-common-patterns/fields-alignment/)
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
-  zh: 原文：[https://goperf.dev/01-common-patterns/zero-copy/](https://goperf.dev/01-common-patterns/zero-copy/)
-- en: When writing performance-critical Go code, how memory is managed often has a
-    bigger impact than it first appears. Zero-copy techniques are one of the more
-    effective ways to tighten that control. Instead of moving bytes from buffer to
-    buffer, these techniques work directly on existing memory—avoiding copies altogether.
-    That means less pressure on the CPU, better cache behavior, and fewer GC-triggered
-    pauses. For I/O-heavy systems—whether you’re streaming files, handling network
-    traffic, or parsing large datasets—this can translate into much higher throughput
-    and lower latency without adding complexity.
-  id: totrans-2
+- en: 在优化 Go 程序以获得性能时，结构体布局和内存对齐往往被忽视——然而，它们对内存使用和缓存效率有可测量的影响。Go 会根据平台特定的规则自动对齐结构体字段，插入填充以满足对齐约束。理解和控制内存对齐不仅是一个低级细节——它可以对您的
+    Go 程序的性能产生实际影响，尤其是在紧密循环或高吞吐量系统中。适当的对齐可以减少整体内存占用，更好地利用 CPU 缓存，并消除在负载下累积的微妙性能惩罚。
   prefs: []
   type: TYPE_NORMAL
-  zh: 当编写性能关键型的Go代码时，内存管理的影响往往比最初看起来更大。零拷贝技术是加强这种控制的有效方法之一。这些技术不是在缓冲区之间移动字节，而是直接在现有内存上工作——完全避免复制。这意味着对CPU的压力更小，缓存行为更好，以及更少的GC触发的暂停。对于I/O密集型系统——无论是流式传输文件、处理网络流量还是解析大型数据集——这可以转化为更高的吞吐量和更低的延迟，而不会增加复杂性。
-- en: Understanding Zero-Copy
-  id: totrans-3
+- en: 为什么对齐很重要[¶](#why-alignment-matters "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 理解零拷贝
-- en: In the usual I/O path, data moves back and forth between user space and kernel
-    space—first copied into a kernel buffer, then into your application’s buffer,
-    or the other way around. It works, but it’s wasteful. Every copy burns CPU cycles
-    and clogs up memory bandwidth. Zero-copy changes that. Instead of bouncing data
-    between buffers, it lets applications work directly with what’s already in place—no
-    detours, no extra copies. The result? Lower CPU load, better use of memory, and
-    faster I/O, especially when throughput or latency actually matter.
-  id: totrans-4
+- en: 现代处理器针对可预测的内存访问进行了优化。当结构体字段未对齐或跨越缓存行时，处理器通常需要做额外的工作来获取数据。这可能意味着额外的内存周期、更多的缓存未命中，以及整体性能的降低。在日常代码中，这些成本很容易被忽视，但在对吞吐量或延迟敏感的代码中会迅速显现。在
+    Go 中，结构体字段根据其类型要求进行对齐，编译器会插入填充字节以满足这些约束。如果字段排列不当，不必要的填充可能会显著增加结构体的大小，影响内存使用和带宽。
   prefs: []
   type: TYPE_NORMAL
-  zh: 在通常的I/O路径中，数据在用户空间和内核空间之间来回移动——首先复制到一个内核缓冲区，然后到你的应用程序的缓冲区，或者反过来。它有效，但效率低下。每次复制都会消耗CPU周期并阻塞内存带宽。零拷贝改变了这一点。它不是在缓冲区之间弹跳数据，而是让应用程序直接与现有的内容工作——没有绕路，没有额外的复制。结果是？更低的CPU负载，更好的内存使用，以及更快的I/O，尤其是在吞吐量或延迟真正重要的时候。
-- en: Common Zero-Copy Techniques in Go
-  id: totrans-5
+- en: 考虑以下两个结构体：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: type PoorlyAligned struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: flag bool
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: count int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: id byte
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: type WellAligned struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: count int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: flag bool
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: id byte
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在 64 位系统上，`PoorlyAligned` 由于字段之间的填充需要 24 字节，而 `WellAligned` 通过按从大到小的对齐要求排序字段，可以适应
+    16 字节的空间。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 基准测试影响[¶](#benchmarking-impact "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: Go中的常见零拷贝技术
-- en: Using `io.Reader` and `io.Writer` Interfaces
-  id: totrans-6
+- en: 我们通过分配每种结构体类型的 1000 万个实例，并测量分配时间和内存使用来对两种结构体布局进行了基准测试：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkPoorlyAligned(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
   prefs:
-  - PREF_H3
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 使用`io.Reader`和`io.Writer`接口
-- en: Using interfaces like `io.Reader` and `io.Writer` gives you fine-grained control
-    over how data flows. Instead of spinning up new buffers every time, you can reuse
-    existing ones and keep memory usage steady. In practice, this avoids unnecessary
-    garbage collection pressure and keeps your I/O paths clean and efficient—especially
-    when you’re dealing with high-throughput or streaming workloads.
-  id: totrans-7
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 使用像`io.Reader`和`io.Writer`这样的接口可以让你对数据流动有更精细的控制。不必每次都启动新的缓冲区，你可以重用现有的缓冲区并保持内存使用稳定。在实践中，这可以避免不必要的垃圾回收压力，并保持你的I/O路径清洁高效——尤其是在处理高吞吐量或流式工作负载时。
-- en: '[PRE0]'
-  id: totrans-8
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE0]'
-- en: '`io.CopyBuffer` reuses a provided buffer, avoiding repeated allocations and
-    intermediate copies. An in-depth `io.CopyBuffer` explanation is [available on
-    SO](https://stackoverflow.com/questions/71082021/what-exactly-is-buffer-last-parameter-in-io-copybuffer).'
-  id: totrans-9
-  prefs: []
-  type: TYPE_NORMAL
-  zh: '`io.CopyBuffer`重用提供的缓冲区，避免重复分配和中间复制。关于`io.CopyBuffer`的深入解释[可在SO上找到](https://stackoverflow.com/questions/71082021/what-exactly-is-buffer-last-parameter-in-io-copybuffer)。'
-- en: Slicing for Efficient Data Access
-  id: totrans-10
+- en: var items = make([]PoorlyAligned, 10_000_000)
   prefs:
-  - PREF_H3
+  - PREF_IND
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 高效数据访问的切片
-- en: 'Slicing large byte arrays or buffers instead of copying data into new slices
-    is a powerful zero-copy strategy:'
-  id: totrans-11
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 将大型字节数组或缓冲区切片而不是将数据复制到新的切片中是一种强大的零拷贝策略：
-- en: '[PRE1]'
-  id: totrans-12
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE1]'
-- en: Slices in Go are inherently zero-copy since they reference the underlying array.
-  id: totrans-13
-  prefs: []
-  type: TYPE_NORMAL
-  zh: Go中的切片天生就是零拷贝，因为它们引用了底层的数组。
-- en: Memory Mapping (`mmap`)
-  id: totrans-14
+- en: for j := range items {
   prefs:
-  - PREF_H3
+  - PREF_IND
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 内存映射（`mmap`）
-- en: 'Using memory mapping enables direct access to file contents without explicit
-    read operations:'
-  id: totrans-15
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 使用内存映射可以在不进行显式读取操作的情况下直接访问文件内容：
-- en: '[PRE2]'
-  id: totrans-16
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE2]'
-- en: This approach maps file contents directly into memory, entirely eliminating
-    copying between kernel and user-space.
-  id: totrans-17
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 这种方法直接将文件内容映射到内存中，完全消除了内核空间和用户空间之间的复制。
-- en: Benchmarking Impact
-  id: totrans-18
+- en: items[j].count = int64(j)
   prefs:
-  - PREF_H2
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 基准测试影响
-- en: 'Here''s a basic benchmark illustrating performance differences between explicit
-    copying and zero-copy slicing:'
-  id: totrans-19
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: 下面是一个基本的基准测试，展示了显式复制和零拷贝切片之间的性能差异：
-- en: '[PRE3]'
-  id: totrans-20
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE3]'
-- en: In `BenchmarkCopy`, each iteration copies a 64KB buffer into a fresh slice—allocating
-    memory and duplicating data every time. That cost adds up fast. `BenchmarkSlice`,
-    on the other hand, just re-slices the same buffer—no allocation, no copying, just
-    new view on the same data. The difference is night and day. When performance matters,
-    avoiding copies isn’t just a micro-optimization—it’s fundamental.
-  id: totrans-21
+- en: func BenchmarkWellAligned(b *testing.B) {
   prefs: []
   type: TYPE_NORMAL
-  zh: 在 `BenchmarkCopy` 中，每次迭代将64KB缓冲区拷贝到一个新的切片中——每次都分配内存和复制数据。这种成本很快就会累积。另一方面，`BenchmarkSlice`
-    只是对相同的缓冲区进行切片——没有分配，没有拷贝，只是对相同数据的新的视图。这种差异是巨大的。当性能很重要时，避免拷贝不仅仅是一个微优化——这是基础。
-- en: Info
-  id: totrans-22
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var items = make([]WellAligned, 10_000_000)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for j := range items {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: items[j].count = int64(j)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: Info
-- en: These two functions are not equivalent in behavior—`BenchmarkCopy` makes an
-    actual deep copy of the buffer, while `BenchmarkSlice` only creates a new slice
-    header pointing to the same underlying data. This benchmark is not comparing functional
-    correctness but is intentionally contrasting performance characteristics to highlight
-    the cost of unnecessary copying.
-  id: totrans-23
+- en: '```'
   prefs: []
   type: TYPE_NORMAL
-  zh: 这两个函数在行为上并不等价——`BenchmarkCopy` 对缓冲区进行实际的深度拷贝，而 `BenchmarkSlice` 只创建一个新的切片头，指向相同的基本数据。这个基准测试并不是比较功能正确性，而是有意对比性能特性，以突出不必要的拷贝成本。
-- en: '| Benchmark | Time per op (ns) | Bytes per op | Allocs per op |'
-  id: totrans-24
+- en: 基准测试结果
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| 基准测试 | 迭代次数 | 每次操作时间 (ns) | 每次操作字节数 | 每次操作分配数 |'
   prefs: []
   type: TYPE_TB
-  zh: '| Benchmark | 每次操作时间（ns） | 每次操作字节数 | 每次操作分配数 |'
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 差对齐-14 | 177 | 20,095,621 | 240,001,029 | 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| WellAligned-14 | 186 | 19,265,714 | 160,006,148 | 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: 在一个包含 1000 万个结构体的测试中，`WellAligned` 版本比其差对齐版本少使用了 80MB 的内存，并且运行速度也略快。这不仅仅关乎节省
+    RAM；它展示了结构体布局如何直接影响分配行为和内存带宽。当您处理大量数据或性能关键路径时，重新排列字段以获得更好的对齐可以带来可测量的收益，而所需的工作量却很小。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 避免并发工作负载中的伪共享[¶](#avoiding-false-sharing-in-concurrent-workloads "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 除了内存布局效率外，结构体对齐在并发系统中也起着至关重要的作用。当多个goroutine访问同一结构体上同一CPU缓存行的不同字段时，它们可能会遭受假共享——即对一个字段的更改会导致另一个字段的无效化，即使它们在逻辑上无关。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在现代CPU上，典型的缓存行宽度为64字节。当在内存中访问结构体时，CPU会加载包含它的整个缓存行，而不仅仅是特定的字段。这意味着同一64字节块内的两个无关字段都将位于同一行——即使它们被不同的goroutine独立使用。如果一个goroutine向其字段写入，缓存行就会失效，必须在其他核心上重新加载，导致由于假共享而性能下降。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 为了说明，我们比较了两个结构体——一个容易受到假共享的影响，另一个通过填充来分隔缓存行之间的字段：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: type SharedCounterBad struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: a int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: b int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: type SharedCounterGood struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: a int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: _ [56]byte // Padding to prevent a and b from sharing a cache line
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: b int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 每个字段由一个单独的goroutine增加一百万次：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkFalseSharing(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: var c SharedCounterBad  // (1)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var wg sync.WaitGroup
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Add(2)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: go func() {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for i := 0; i < 1_000_000; i++ {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: c.a++
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Done()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}()'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: go func() {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for i := 0; i < 1_000_000; i++ {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: c.b++
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Done()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}()'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Wait()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`FalseSharing`和`NoFalseSharing`基准测试是相同的，除了我们将使用`SharedCounterGood`作为`NoFalseSharing`基准测试。'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 基准测试结果：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| 基准测试 | 每次操作时间（ns） | 每次操作字节数 | 每次操作分配数 |'
+  prefs: []
+  type: TYPE_TB
 - en: '| --- | --- | --- | --- |'
-  id: totrans-25
   prefs: []
   type: TYPE_TB
-  zh: '| --- | --- | --- | --- |'
-- en: '| BenchmarkCopy | 4,246 | 65536 | 1 |'
-  id: totrans-26
+- en: '| FalseSharing | 996,234 | 55 | 2 |'
   prefs: []
   type: TYPE_TB
-  zh: '| BenchmarkCopy | 4,246 | 65536 | 1 |'
-- en: '| BenchmarkSlice | 0.592 | 0 | 0 |'
-  id: totrans-27
+- en: '| NoFalseSharing | 958,180 | 58 | 2 |'
   prefs: []
   type: TYPE_TB
-  zh: '| BenchmarkSlice | 0.592 | 0 | 0 |'
-- en: 'File I/O: Memory Mapping vs. Standard Read'
-  id: totrans-28
+- en: 在两个字段之间添加填充可以防止假共享，从而带来可测量的性能提升。带有填充的版本完成速度提高了约~3.8%（该值可能在重新运行之间变化，从3%到6%），这在紧密的并发循环或高频计数器中可能带来差异。这也展示了假共享可能由于无效化开销而不规则地影响内存使用。
+  prefs: []
+  type: TYPE_NORMAL
+- en: <details class="example"><summary>显示完整的基准测试文件</summary>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: package perf
+  prefs: []
+  type: TYPE_NORMAL
+- en: import (
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"sync"'
   prefs:
-  - PREF_H3
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 文件I/O：内存映射与标准读取
-- en: We also benchmarked file reading performance using `os.ReadAt` versus `mmap.Open`
-    for a 4MB binary file.
-  id: totrans-29
-  prefs: []
+- en: '"testing"'
+  prefs:
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 我们还使用 `os.ReadAt` 与 `mmap.Open` 对一个4MB的二进制文件进行了文件读取性能的基准测试。
-- en: '[PRE4]'
-  id: totrans-30
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE4]'
-- en: <details class="info"><summary>How to run the benchmark</summary>
-  id: totrans-31
+- en: )
   prefs: []
   type: TYPE_NORMAL
-  zh: <details class="info"><summary>如何运行基准测试</summary>
-- en: 'To run the benchmark involving `mmap`, you’ll need to install the required
-    package and create a test file:'
-  id: totrans-32
+- en: // types-simple-start
   prefs: []
   type: TYPE_NORMAL
-  zh: 要运行涉及 `mmap` 的基准测试，你需要安装所需的包并创建一个测试文件：
-- en: '[PRE5]</details>'
-  id: totrans-33
+- en: type PoorlyAligned struct {
   prefs: []
   type: TYPE_NORMAL
-  zh: '[PRE5]</details>'
-- en: Benchmark Results
-  id: totrans-34
+- en: flag bool
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: count int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: id byte
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: 基准测试结果
-- en: '| Benchmark | Time per op (ns) | Bytes per op | Allocs per op |'
-  id: totrans-35
-  prefs: []
-  type: TYPE_TB
-  zh: '| Benchmark | 每次操作时间（ns） | 每次操作字节数 | 每次操作分配数 |'
-- en: '| --- | --- | --- | --- |'
-  id: totrans-36
-  prefs: []
-  type: TYPE_TB
-  zh: '| --- | --- | --- | --- |'
-- en: '| ReadWithCopy | 94,650 | 0 | 0 |'
-  id: totrans-37
-  prefs: []
-  type: TYPE_TB
-  zh: '| ReadWithCopy | 94,650 | 0 | 0 |'
-- en: '| ReadWithMmap | 50,082 | 0 | 0 |'
-  id: totrans-38
-  prefs: []
-  type: TYPE_TB
-  zh: '| ReadWithMmap | 50,082 | 0 | 0 |'
-- en: The memory-mapped version (`mmap`) is nearly 2× faster than the standard read
-    call. This illustrates how zero-copy access through memory mapping can substantially
-    reduce read latency and CPU usage for large files.
-  id: totrans-39
+- en: type WellAligned struct {
   prefs: []
   type: TYPE_NORMAL
-  zh: 内存映射版本（`mmap`）比标准读取调用快近2倍。这说明了通过内存映射实现的零拷贝访问如何显著降低大文件的读取延迟和CPU使用率。
-- en: <details class="example"><summary>Show the complete benchmark file</summary>
-  id: totrans-40
+- en: count int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: flag bool
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: id byte
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: <details class="example"><summary>显示完整的基准测试文件</summary>
-- en: '[PRE6]</details>'
-  id: totrans-41
+- en: // types-simple-end
   prefs: []
   type: TYPE_NORMAL
-  zh: '[PRE6]</details>'
-- en: When to Use Zero-Copy
-  id: totrans-42
+- en: // simple-start
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkPoorlyAligned(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var items = make([]PoorlyAligned, 10_000_000)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for j := range items {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: items[j].count = int64(j)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkWellAligned(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var items = make([]WellAligned, 10_000_000)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for j := range items {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: items[j].count = int64(j)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // simple-end
+  prefs: []
+  type: TYPE_NORMAL
+- en: // types-shared-start
+  prefs: []
+  type: TYPE_NORMAL
+- en: type SharedCounterBad struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: a int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: b int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: type SharedCounterGood struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: a int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: _ [56]byte // Padding to prevent a and b from sharing a cache line
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: b int64
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // types-shared-end
+  prefs: []
+  type: TYPE_NORMAL
+- en: // shared-start
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkFalseSharing(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: var c SharedCounterBad  // (1)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var wg sync.WaitGroup
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Add(2)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: go func() {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for i := 0; i < 1_000_000; i++ {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: c.a++
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Done()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}()'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: go func() {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for i := 0; i < 1_000_000; i++ {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: c.b++
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Done()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}()'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Wait()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // shared-end
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkNoFalseSharing(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: var c SharedCounterGood
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var wg sync.WaitGroup
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Add(2)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: go func() {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for i := 0; i < 1_000_000; i++ {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: c.a++
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Done()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}()'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: go func() {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for i := 0; i < 1_000_000; i++ {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: c.b++
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Done()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}()'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wg.Wait()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```</details>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当对齐结构体[¶](#when-to-align-structs "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 何时使用零拷贝
-- en: 'Zero-copy techniques are highly beneficial for:'
-  id: totrans-43
+- en: 总是使结构体对齐。实现起来是免费的，并且通常会导致更好的内存效率，而无需更改任何逻辑——只需调整字段顺序即可。
   prefs: []
   type: TYPE_NORMAL
-  zh: 零拷贝技术在以下方面高度有益：
-- en: Network servers handling large amounts of concurrent data streams. Avoiding
-    unnecessary memory copies helps reduce CPU usage and latency, especially under
-    high load.
-  id: totrans-44
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 网络服务器处理大量并发数据流。避免不必要的内存拷贝有助于降低 CPU 使用率和延迟，尤其是在高负载下。
-- en: Applications with heavy I/O operations like file streaming or real-time data
-    processing. Zero-copy allows data to move through the system efficiently without
-    redundant allocations or copies.
-  id: totrans-45
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 拥有大量I/O操作的应用程序，如文件流或实时数据处理。零拷贝允许数据在系统中高效地移动，无需冗余分配或拷贝。
-- en: Warning
-  id: totrans-46
+- en: 结构体对齐的指南：
   prefs: []
   type: TYPE_NORMAL
-  zh: Warning
-- en: Zero-copy isn’t a free win. Slices share underlying memory, so reusing them
-    means you’re also sharing state. If one part of your code changes the data while
-    another is still reading it, you’re setting yourself up for subtle, hard-to-track
-    bugs. This kind of shared memory requires discipline—clear ownership and tight
-    control. It also adds complexity, which might not be worth it unless the performance
-    gains are real and measurable. Always benchmark before committing to it.
-  id: totrans-47
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 零拷贝并非免费的胜利。切片共享基本内存，因此重用它们意味着你也在共享状态。如果你的代码的一部分在另一部分仍在读取数据时更改数据，你将为自己设置微妙且难以追踪的bug。这种共享内存需要纪律——清晰的拥有权和严格控制。它还增加了复杂性，除非性能提升是真实且可衡量的，否则可能不值得。在做出承诺之前，始终进行基准测试。
-- en: Real-World Use Cases and Libraries
-  id: totrans-48
-  prefs:
-  - PREF_H3
-  type: TYPE_NORMAL
-  zh: 实际应用案例和库
-- en: 'Zero-copy strategies aren''t just theoretical—they''re used in production by
-    performance-critical Go systems:'
-  id: totrans-49
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 零拷贝策略不仅停留在理论层面——它们被性能关键型的 Go 系统在生产环境中使用：
-- en: '[fasthttp](https://github.com/valyala/fasthttp): A high-performance HTTP server
-    designed to avoid allocations. It returns slices directly and avoids `string`
-    conversions to minimize copying.'
-  id: totrans-50
+- en: 按照从大到小的顺序排列字段。从较大的字段开始可以帮助编译器避免插入填充以满足对齐要求。较小的字段可以自然地填补空隙。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '[fasthttp](https://github.com/valyala/fasthttp)：一个设计用来避免分配的高性能HTTP服务器。它直接返回切片，并避免`string`转换以最小化拷贝。'
-- en: '[gRPC-Go](https://github.com/grpc/grpc-go): Uses internal buffer pools and
-    avoids deep copying of large request/response messages to reduce GC pressure.'
-  id: totrans-51
+- en: 将相同大小的字段分组。这可以让编译器更有效地打包它们，并最小化浪费的空间。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '[gRPC-Go](https://github.com/grpc/grpc-go)：使用内部缓冲池，避免对大型请求/响应消息进行深度复制，以减少GC压力。'
-- en: '[MinIO](https://github.com/minio/minio): An object storage system that streams
-    data directly between disk and network using `io.Reader` without unnecessary buffer
-    replication.'
-  id: totrans-52
+- en: 当需要时有意添加填充。在并发代码中，将不同goroutine访问的字段分开可以防止假共享——这是一个微妙但代价高昂的问题，多个goroutine会争夺相同的缓存行。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '[MinIO](https://github.com/minio/minio): 一个对象存储系统，它使用 `io.Reader` 直接在磁盘和网络之间传输数据，无需不必要的缓冲区复制。'
-- en: '[Protobuf](https://github.com/protocolbuffers/protobuf) and [MsgPack](https://github.com/vmihailenco/msgpack)
-    libraries: Efficient serialization frameworks like `google.golang.org/protobuf`
-    and `vmihailenco/msgpack` support decoding directly into user-managed buffers.'
-  id: totrans-53
+- en: 避免混合大小不同的字段。混合大小会导致由于字段之间的额外对齐填充而造成内存使用效率低下。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '[Protobuf](https://github.com/protocolbuffers/protobuf) 和 [MsgPack](https://github.com/vmihailenco/msgpack)
-    库：高效的序列化框架，如 `google.golang.org/protobuf` 和 `vmihailenco/msgpack`，支持直接解码到用户管理的缓冲区。'
-- en: '[InfluxDB](https://github.com/influxdata/influxdb) and [Badger](https://github.com/hypermodeinc/badger):
-    These storage engines use `mmap` extensively for fast, zero-copy access to database
-    files.'
-  id: totrans-54
+- en: 使用[fieldalignment](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/fieldalignment)代码检查工具进行验证。此工具有助于在开发过程中自动捕获次优布局。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '[InfluxDB](https://github.com/influxdata/influxdb) 和 [Badger](https://github.com/hypermodeinc/badger)：这些存储引擎广泛使用
-    `mmap` 以实现快速、零拷贝访问数据库文件。'
-- en: These libraries show how zero-copy techniques help reduce allocations, GC overhead,
-    and system call frequency—all while increasing throughput.
-  id: totrans-55
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 这些库展示了零拷贝技术如何帮助减少分配、GC开销和系统调用频率，同时提高吞吐量。

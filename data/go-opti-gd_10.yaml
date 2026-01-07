@@ -1,302 +1,505 @@
-- en: Goroutine Worker Pools in Go
-  id: totrans-0
+- en: 内存效率：掌握Go的垃圾回收器[¶]
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
-  zh: Go中的Goroutine工作池
-- en: 原文：[https://goperf.dev/01-common-patterns/worker-pool/](https://goperf.dev/01-common-patterns/worker-pool/)
-  id: totrans-1
+- en: 原文：[https://goperf.dev/01-common-patterns/gc/](https://goperf.dev/01-common-patterns/gc/)
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
-  zh: '[原文：https://goperf.dev/01-common-patterns/worker-pool/](https://goperf.dev/01-common-patterns/worker-pool/)'
-- en: Go’s concurrency model makes it deceptively easy to spin up thousands of goroutines—but
-    that ease can come at a cost. Each goroutine starts small, but under load, unbounded
-    concurrency can cause memory usage to spike, context switches to pile up, and
-    overall performance to become unpredictable.
-  id: totrans-2
+- en: Go中的内存管理是自动化的——但它并非不可见。你进行的每一次分配都会对垃圾回收工作负载做出贡献。对象创建和丢弃的频率越高，运行时在回收内存时需要做的工作就越多。
   prefs: []
   type: TYPE_NORMAL
-  zh: Go的并发模型使得启动成千上万的goroutines变得容易，但这种容易可能会带来代价。每个goroutine开始时很小，但在负载下，无界的并发可能会导致内存使用激增，上下文切换堆积，整体性能变得不可预测。
-- en: A worker pool helps apply backpressure by limiting the number of active goroutines.
-    Instead of spawning one per task, a fixed pool handles work in controlled parallelism—keeping
-    memory usage predictable and avoiding overload. This makes it easier to maintain
-    steady performance even as demand scales.
-  id: totrans-3
+- en: 这在优先考虑低延迟、可预测的资源使用或高吞吐量的系统中尤其相关。调整您的分配模式并利用像弱引用这样的新功能可以帮助减轻垃圾回收器的压力，而不会增加您的代码复杂性。
   prefs: []
   type: TYPE_NORMAL
-  zh: 工作池通过限制活动goroutines的数量来帮助应用背压。而不是为每个任务启动一个，一个固定的池以受控的并行方式处理工作——保持内存使用可预测并避免过载。这使得即使在需求扩大的情况下，也能更容易地维持稳定的性能。
-- en: Why Worker Pools Matter
-  id: totrans-4
+- en: Go的垃圾回收器是如何工作的[¶](#how-gos-garbage-collector-works "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 为什么工作池很重要
-- en: While launching a goroutine for every task is idiomatic and often effective,
-    doing so at scale comes with trade-offs. Each goroutine requires stack space and
-    introduces scheduling overhead. Performance can degrade sharply when the number
-    of active goroutines grows, especially in systems handling unbounded input like
-    HTTP requests, jobs from a queue, or tasks from a channel.
-  id: totrans-5
+- en: 信息
   prefs: []
   type: TYPE_NORMAL
-  zh: 虽然为每个任务启动一个goroutine是惯例并且通常有效，但在规模上这样做会带来权衡。每个goroutine都需要堆栈空间并引入调度开销。当活动goroutine的数量增加时，性能可能会急剧下降，尤其是在处理无界输入的系统（如HTTP请求、队列中的作业或通道中的任务）时。
-- en: A worker pool maintains a fixed number of goroutines that pull tasks from a
-    shared job queue. This creates a backpressure mechanism, ensuring the system never
-    processes more work concurrently than it can handle. Worker pools are particularly
-    valuable when the cost of each task is predictable, and the overall system throughput
-    needs to be stable.
-  id: totrans-6
+- en: 强烈建议您阅读官方的[A Guide to the Go Garbage Collector](https://go.dev/doc/gc-guide)！该文档提供了对多个Go垃圾回收器内部结构的详细描述。
   prefs: []
   type: TYPE_NORMAL
-  zh: 工作池维护一定数量的goroutines，它们从共享的工作队列中提取任务。这创建了一个背压机制，确保系统不会同时处理超过其处理能力的更多工作。当每个任务的成本可预测，并且整个系统的吞吐量需要稳定时，工作池特别有价值。
-- en: Basic Worker Pool Implementation
-  id: totrans-7
-  prefs:
-  - PREF_H2
-  type: TYPE_NORMAL
-  zh: 基本工作池实现
-- en: 'Here’s a minimal implementation of a worker pool:'
-  id: totrans-8
+- en: Go使用一个**非代际、并发、三色标记-清除**垃圾回收器。以下是它在实际中的含义以及它的实现方式。
   prefs: []
   type: TYPE_NORMAL
-  zh: 这里是一个工作池的最小实现：
-- en: '[PRE0]'
-  id: totrans-9
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE0]'
-- en: Cryptography is for illustration purposes of CPU-bound code
-  id: totrans-10
-  prefs:
-  - PREF_OL
-  type: TYPE_NORMAL
-  zh: 密码学用于说明CPU密集型代码
-- en: In this example, five workers pull from the `jobs` channel and push results
-    to the `results` channel. The worker pool limits concurrency to five tasks at
-    a time, regardless of how many tasks are sent.
-  id: totrans-11
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 在这个例子中，五个工作者从`jobs`通道中提取任务，并将结果推送到`results`通道。工作池将并发限制为每次五项任务，无论发送了多少任务。
-- en: Worker Count and CPU Cores
-  id: totrans-12
+- en: 非代际[¶](#non-generational "永久链接")
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-  zh: 工作者数量和CPU核心
-- en: The optimal number of workers in a pool is closely tied to the number of CPU
-    cores, which you can obtain in Go using `runtime.NumCPU()` or `runtime.GOMAXPROCS(0)`.
-    For CPU-bound tasks—where each worker consumes substantial CPU time—you generally
-    want the number of workers to be equal to or slightly less than the number of
-    logical CPU cores. This ensures maximum core utilization without excessive overhead.
-  id: totrans-13
+- en: 许多现代垃圾回收器，如JVM或.NET CLR中的那些，在假设大多数对象年轻死亡的情况下将内存划分为*代际*（年轻和年老）。这些收集器专注于年轻代，导致收集周期更短。
   prefs: []
   type: TYPE_NORMAL
-  zh: 池中最佳的工作者数量与CPU核心数紧密相关，您可以在Go中使用`runtime.NumCPU()`或`runtime.GOMAXPROCS(0)`获取CPU核心数。对于每个工作者消耗大量CPU时间的CPU密集型任务——您通常希望工作者的数量等于或略少于逻辑CPU核心数。这确保了最大核心利用率而没有过多的开销。
-- en: If your tasks are I/O-bound (e.g., network calls, disk I/O, database queries),
-    the pool size can be larger than the number of cores. This is because workers
-    will spend much of their time blocked, allowing others to run. In contrast, CPU-heavy
-    workloads benefit from a smaller, tightly bounded pool that avoids contention
-    and context switching.
-  id: totrans-14
+- en: Go的垃圾回收器采用不同的方法。它平等地对待所有对象——没有代际分割——这不是因为代际垃圾回收器与短暂的暂停时间或并发扫描冲突，而是因为它尚未在迄今为止尝试的Go程序设计中显示出清晰、一致的好处。这种选择避免了提升逻辑和专用内存区域的复杂性。虽然这可能意味着总体上扫描更多的对象，但这种成本通过并发执行和高效的写屏障得到了缓解。
   prefs: []
   type: TYPE_NORMAL
-  zh: 如果你的任务是I/O密集型（例如，网络调用、磁盘I/O、数据库查询），池的大小可以大于核心数。这是因为工作者将花费大量时间处于阻塞状态，允许其他人运行。相比之下，CPU密集型工作负载受益于更小、紧密限定的池，这避免了竞争和上下文切换。
-- en: Why Too Many Workers Hurts Performance
-  id: totrans-15
+- en: 并发[¶](#concurrent "永久链接")
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-  zh: 为什么过多的工作者会损害性能
-- en: Adding more workers can seem like a straightforward way to boost throughput,
-    but the benefits taper off quickly past a certain point. Once you exceed the system’s
-    optimal level of concurrency, performance often degrades instead of improving.
-  id: totrans-16
+- en: Go的垃圾回收器与应用程序并发运行，这意味着它的大部分工作都是在不停止世界的情况下完成的。并发是通过使用多个阶段来实现的，这些阶段与正常程序执行交织在一起：
   prefs: []
   type: TYPE_NORMAL
-  zh: 添加更多的工作者似乎是一种提高吞吐量的简单方法，但超过某个点后，其好处会迅速减少。一旦超过系统的最佳并发水平，性能通常会下降而不是提高。
-- en: Scheduler contention increases as the Go runtime juggles more runnable goroutines
-    than it has logical CPUs to run them.
-  id: totrans-17
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 随着Go运行时需要处理比逻辑CPU更多的可运行goroutine，调度器竞争增加。
-- en: Context switching grows more frequent, burning CPU cycles without doing real
-    work.
-  id: totrans-18
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 上下文切换变得更加频繁，消耗CPU周期而不进行实际工作。
-- en: Memory pressure rises because each goroutine holds its own stack, even when
-    idle.
-  id: totrans-19
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 由于每个goroutine在空闲时也持有自己的栈，因此内存压力上升。
-- en: Cache thrashing becomes more likely as goroutines bounce across cores, disrupting
-    locality and degrading CPU cache performance.
-  id: totrans-20
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 随着goroutine在核心之间弹跳，缓存冲突的可能性增加，这会破坏局部性并降低CPU缓存性能。
-- en: 'The result: higher latency, increased GC activity, and reduced throughput—the
-    exact opposite of what a properly tuned worker pool is supposed to deliver.'
-  id: totrans-21
+- en: 尽管Go的垃圾回收器主要是并发的，但它仍然需要在几个点上进行短暂的停止世界（STW）暂停以保持正确性。这些暂停被保持得非常短——通常在100微秒以下——即使是在大型堆和数百个goroutine的情况下。
   prefs: []
   type: TYPE_NORMAL
-  zh: 结果：更高的延迟，增加的垃圾收集活动，以及降低的吞吐量——这与正确调优的工作池应该提供的效果正好相反。
-- en: Benchmarking Impact
-  id: totrans-22
+- en: STW对于确保在垃圾回收分析内存结构时内存结构不被修改是必不可少的。在大多数应用程序中，这些暂停是感觉不到的。然而，即使在延迟敏感系统中，亚毫秒级的暂停也可能很重要——因此，当优化尾部延迟或抖动时，理解和监控STW行为变得很重要。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**STW开始阶段：** 应用程序会短暂暂停以启动垃圾回收。运行时会扫描栈、全局变量和根对象。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**并发标记阶段**：垃圾回收器遍历堆，在程序继续运行的同时标记所有可达对象。这是工作量最大的阶段，但它是并发运行的，以避免长时间的停止世界暂停。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**STW 标记终止**：一旦标记基本完成，垃圾回收器会短暂暂停程序以完成任何剩余的工作，并在开始清除之前确保堆处于一致状态。这个暂停通常非常短——以微秒计。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**并发清除阶段**：垃圾回收器从不可达（白色）对象中回收内存，并将其返回到堆中以供重用，同时你的程序继续运行。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 写屏障确保在应用程序在并发标记期间修改对象时的正确性。这些屏障有助于跟踪扫描过程中创建或修改的引用，以便垃圾回收器不会错过它们。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 三色标记和清除[¶](#tri-color-mark-and-sweep "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 三色算法在垃圾回收期间将堆分成三个工作集：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**白色**：尚未到达的对象——如果它们保持白色，它们将被收集。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**灰色**：已经被发现（即，标记为可达）但尚未扫描其引用的对象。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**黑色**：既是可达的又被完全扫描的对象——它们被保留，不需要进一步处理。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 垃圾回收首先将所有根对象（栈、全局变量等）标记为灰色。然后遍历灰色集合：对于每个对象，它扫描其字段。任何仍然是白色的被引用对象都被添加到灰色集合中。一旦一个对象的引用被完全处理，它就被标记为黑色。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当没有灰色对象剩下时，任何仍然保持白色的对象在清除阶段都会被清理。这种模型确保没有活动对象被意外收集——即使引用在扫描过程中发生变化——这要归功于 Go
+    的写屏障，它维护了算法的核心不变性。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 一个关键的优化是**增量标记**：Go 将 GC 工作分散到避免长时间暂停，由精确的栈扫描和保守的写屏障支持。并发清除的使用进一步减少了延迟，允许在不停机的情况下回收内存。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这种设计使 Go 的垃圾回收器既安全又快速，对具有大堆和多个核心的服务器工作负载非常友好。
+  prefs: []
+  type: TYPE_NORMAL
+- en: GC 调优：GOGC[¶](#gc-tuning-gogc "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 基准测试影响
-- en: 'Worker pools shine in scenarios where the workload is CPU-bound or where concurrency
-    must be capped to avoid saturating a shared resource (e.g., database connections
-    or file descriptors). Benchmarks comparing unbounded goroutine launches vs. worker
-    pools typically show:'
-  id: totrans-23
+- en: Go 的垃圾回收器经过调整，能够在不进行手动配置的情况下提供良好的性能。默认的 `GOGC` 设置通常在内存消耗和 CPU 努力之间取得适当的平衡，能够很好地适应广泛的工作负载。在大多数情况下，手动调整它带来的好处很少——在许多情况下，它实际上会使事情变得更糟，通过增加暂停时间或内存压力。除非你已经分析了特定的瓶颈并理解了权衡，否则通常最好让
+    `GOGC` 保持原样。
   prefs: []
   type: TYPE_NORMAL
-  zh: 在工作负载是CPU密集型或必须限制并发以避免耗尽共享资源（例如数据库连接或文件描述符）的场景中，工作池表现出色。比较无界goroutine启动与工作池的基准测试通常显示：
-- en: Lower peak memory usage
-  id: totrans-24
+- en: 话虽如此，有一些特定的情况，调整`GOGC`可以带来显著的收益。例如，Uber在其Go服务中实施了动态GC调整[Uber实现了动态GC调整](https://www.uber.com/en-GB/blog/how-we-saved-70k-cores-across-30-mission-critical-services/)，以减少CPU使用并在这个过程中节省了数万个核心。他们的方法依赖于性能分析、指标收集和自动化，以根据实际的内存压力和工作负载特征安全地调整GC行为。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 另一个不寻常的案例来自Cloudflare。他们[对高并发加密工作负载进行了性能分析](https://blog.cloudflare.com/go-dont-collect-my-garbage/)，发现随着goroutine的增加，Go的GC成为瓶颈。他们的应用程序产生的垃圾最少，但GC开销随着并发性增长。通过将GOGC调整到一个更高的值——具体为11300——他们显著减少了GC频率并提高了吞吐量，与单核基线相比实现了超过22倍的性能提升。这个案例突出了在CPU密集型和低分配场景中允许更多的堆增长可以带来重大改进。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 因此，如果你决定调整垃圾回收器，请保持条理性：
+  prefs: []
+  type: TYPE_NORMAL
+- en: 首先进行性能分析。使用像`pprof`这样的工具来确认GC活动是否是瓶颈。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 降低峰值内存使用
-- en: More stable response times under load
-  id: totrans-25
+- en: 逐步更改设置。例如，将`GOGC`从100增加到150意味着GC将运行得更少，使用更少的CPU但更多的内存。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 在负载下的更稳定响应时间
-- en: Improved CPU cache locality
-  id: totrans-26
+- en: 验证影响。调整后，使用性能数据验证更改是否产生了积极的效果。没有这种确认，很容易使事情变得更糟。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 改进的CPU缓存局部性
-- en: <details class="example"><summary>Show the benchmark file</summary>
-  id: totrans-27
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: <details class="example"><summary>显示基准文件</summary>
-- en: '[PRE1]</details>'
-  id: totrans-28
+- en: 'GOGC=100  # Default: GC runs when heap grows 100% since last collection'
   prefs: []
   type: TYPE_NORMAL
-  zh: '[PRE1]</details>'
-- en: 'Results:'
-  id: totrans-29
+- en: 'GOGC=off  # Disables GC (use only in special cases like short-lived CLI tools)'
   prefs: []
   type: TYPE_NORMAL
-  zh: 结果：
-- en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
-    |'
-  id: totrans-30
-  prefs: []
-  type: TYPE_TB
-  zh: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
-    |'
-- en: '| --- | --- | --- | --- | --- |'
-  id: totrans-31
-  prefs: []
-  type: TYPE_TB
-  zh: '| --- | --- | --- | --- | --- |'
-- en: '| BenchmarkUnboundedGoroutines-14 | 2,274 | 2,499,213 ns | 639,350 | 39,754
-    |'
-  id: totrans-32
-  prefs: []
-  type: TYPE_TB
-  zh: '| BenchmarkUnboundedGoroutines-14 | 2,274 | 2,499,213 ns | 639,350 | 39,754
-    |'
-- en: '| BenchmarkWorkerPool-14 | 3,325 | 1,791,772 ns | 320,707 | 19,762 |'
-  id: totrans-33
-  prefs: []
-  type: TYPE_TB
-  zh: '| BenchmarkWorkerPool-14 | 3,325 | 1,791,772 ns | 320,707 | 19,762 |'
-- en: In our benchmark, each task performed a CPU-intensive operation (e.g., cryptographic
-    hashing, math, or serialization). With `workerCount = 10` on an Apple M3 Max machine,
-    the worker pool outperformed the unbounded goroutine model by a significant margin,
-    using fewer resources and completing work faster. Increasing the worker count
-    beyond the number of available cores led to worse performance due to contention.
-  id: totrans-34
+- en: '```'
   prefs: []
   type: TYPE_NORMAL
-  zh: 在我们的基准测试中，每个任务执行了CPU密集型操作（例如，加密散列、数学或序列化）。在Apple M3 Max机器上，`workerCount = 10`时，工作池比无界goroutine模型显著优于，使用更少的资源并更快地完成工作。将工作计数增加到可用核心数量以上会导致由于竞争而性能变差。
-- en: When To Use Worker Pools
-  id: totrans-35
+- en: 使用`GOMEMLIMIT`进行内存限制[¶](#memory-limiting-with-gomemlimit "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 除了`GOGC`之外，Go还提供了`GOMEMLIMIT`——这是一个软内存限制，限制了运行时将尝试保持在总堆大小之下的上限。这允许你显式地控制内存增长，在容器或具有严格内存预算的系统等环境中特别有用。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这有什么好处？在容器化环境中（如Kubernetes），内存限制通常在OS或编排器级别强制执行。如果你的应用程序超过了其内存配额，OOM杀手可能会突然终止容器。默认情况下，Go的GC并不了解这些限制。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 设置`GOMEMLIMIT`有助于防止这种情况。例如，如果你的容器有512MiB的内存限制，你可能设置：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: GOMEMLIMIT=400MiB
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这个缓冲区为Go运行时提供了在达到系统强加的内存上限之前行动的空间。它允许垃圾回收器随着总内存使用量的增长而变得更加激进，从而降低因内存不足而杀死进程的可能性。它还留出了非堆分配的空间——如goroutine栈、OS线程和其他内部运行时结构，这些不计算在堆大小之内，但仍然消耗实际内存。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 你也可以通过编程设置限制：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: import "runtime/debug"
+  prefs: []
+  type: TYPE_NORMAL
+- en: debug.SetMemoryLimit(2 << 30) // 2 GiB
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当堆使用接近限制时，GC 将变得更加激进，这可能会增加 CPU 负载。请小心不要设置限制得太低——特别是如果你的应用程序维护了一个大的活动对象集——否则可能会触发过多的
+    GC 循环。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 虽然 `GOGC` 根据堆增长控制 GC 运行的频率，但 `GOMEMLIMIT` 本身限制了堆的大小。这两个可以结合使用以实现更精确的控制：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: GOGC=100 GOMEMLIMIT=4GiB ./your-service
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这告诉 GC 使用默认的增长比率，并在堆使用接近 4 GiB 时开始收集。
+  prefs: []
+  type: TYPE_NORMAL
+- en: GOMEMLIMIT=X 和 GOGC=off 配置[¶](#gomemlimitx-and-gogcoff-configuration "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 在内存可用性固定且可预测的场景中——例如在容器或虚拟机内部，你可以同时使用这两个变量：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`GOMEMLIMIT=X` 告诉运行时目标一个特定的内存上限。例如，`GOMEMLIMIT=2GiB` 当总内存使用接近 2 GiB 时将触发垃圾回收。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`GOGC=off` 禁用了默认的 GC 调度算法，因此垃圾回收仅在内存限制达到时运行。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 此配置最大化内存使用效率，并避免了频繁 GC 循环的开销。它特别适用于高吞吐量或对延迟敏感的系统，在这些系统中，可预测的内存使用非常重要。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**示例：**'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: GOMEMLIMIT=2GiB GOGC=off ./my-app
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在这种配置下，内存使用量会自由增长，直到达到 2 GiB 的阈值。在那个点上，Go 执行完整的垃圾回收遍历。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 警告
+  prefs: []
+  type: TYPE_NORMAL
+- en: 总是使用你的实际工作负载进行基准测试。如果你的应用程序产生了大量的短生命周期分配，禁用自动 GC 可能会适得其反。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 使用 `runtime.ReadMemStats` 或 `pprof` 监控内存压力和 GC 暂停时间。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 当你的内存使用模式被充分理解和稳定时，这种方法效果最佳。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 降低 GC 压力的实用策略[¶](#practical-strategies-for-reducing-gc-pressure "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 何时使用工作池
-- en: 'Use a goroutine worker pool when:'
-  id: totrans-36
+- en: 优先使用栈分配[¶](#prefer-stack-allocation "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Go 在可能的情况下始终在栈上分配变量。避免将变量逃逸到堆上：
   prefs: []
   type: TYPE_NORMAL
-  zh: 在以下情况下使用goroutine工作池：
-- en: The workload is unbounded or high volume. A pool prevents uncontrolled goroutine
-    growth, which can lead to memory exhaustion, GC pressure, and unpredictable performance.
-  id: totrans-37
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 工作负载是无界的或高容量的。池可以防止goroutine无控制地增长，这可能导致内存耗尽、垃圾收集压力和不可预测的性能。
-- en: Unbounded concurrency risks resource saturation. Capping the number of concurrent
-    workers helps avoid overwhelming the CPU, network, database, or disk I/O—especially
-    under load.
-  id: totrans-38
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 无界并发可能导致资源饱和。限制并发工作者的数量有助于避免CPU、网络、数据库或磁盘I/O（尤其是在负载下）过载。
-- en: You need predictable parallelism for stability. Limiting concurrency smooths
-    out performance spikes and keeps system behavior consistent, even during traffic
-    surges.
-  id: totrans-39
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 您需要可预测的并行性以保持稳定性。限制并发可以平滑性能峰值并保持系统行为的一致性，即使在流量激增期间也是如此。
-- en: Tasks are relatively uniform and queue-friendly. When task cost is consistent,
-    a fixed pool size provides efficient scheduling with minimal overhead, ensuring
-    good throughput without complex coordination.
-  id: totrans-40
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 任务相对均匀且适合排队。当任务成本一致时，固定池大小可以提供高效的调度，最小化开销，确保良好的吞吐量而无需复杂的协调。
-- en: 'Avoid a worker pool when:'
-  id: totrans-41
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 在以下情况下避免使用工作池：
-- en: Each task must be processed immediately with minimal latency. Queuing in a worker
-    pool introduces delay. For latency-critical tasks, direct goroutine spawning avoids
-    the scheduling overhead.
-  id: totrans-42
+- en: '// BAD: returns pointer to heap-allocated struct'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func newUser(name string) *User {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'return &User{Name: name}  // escapes to heap'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '// BETTER: use value types if pointer is unnecessary'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func printUser(u User) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: fmt.Println(u.Name)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 使用 `go build -gcflags="-m"` 来查看逃逸分析诊断。有关更多详细信息，请参阅 [堆分配和逃逸分析](../stack-alloc/)。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 使用 `sync.Pool` 为短生命周期的对象[¶](#use-syncpool-for-short-lived-objects "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '`sync.Pool` 是用于临时、可重复使用的分配的理想选择，这些分配的 GC 成本很高。'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: var bufPool = sync.Pool{
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'New: func() any { return new(bytes.Buffer) },'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func handler(w http.ResponseWriter, r *http.Request) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: buf := bufPool.Get().(*bytes.Buffer)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: buf.Reset()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: defer bufPool.Put(buf)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // Use buf...
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 有关更多详细信息，请参阅 [对象池](../object-pooling/)。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 批量分配[¶](#batch-allocations "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 将分配组合成更少的对象以减少 GC 压力。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Instead of allocating many small structs, allocate a slice of structs
+  prefs: []
+  type: TYPE_NORMAL
+- en: users := make([]User, 0, 1000)  // single large allocation
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 有关更多详细信息，请参阅 [内存预分配](../mem-prealloc/)。
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go 中的弱引用[¶](#weak-references-in-go "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go 1.24 添加了 `weak` 包，提供了一种创建弱引用的标准方法——这些引用不会保持其目标对象存活。在像 Go 这样的垃圾收集系统中，强引用扩展了对象的生命周期：只要还有东西指向它，它就不会被收集。这通常是您想要的，但在像缓存、去重映射或对象图这样的结构中，这可能导致内存存活时间远长于预期。弱引用通过允许您在不阻止垃圾收集器回收它的情况下引用对象来解决这一问题。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 相比之下，弱引用会告诉垃圾收集器：“如果没有其他强引用，您可以收集这个对象。”这种模式对于构建不应干扰垃圾收集的内存敏感数据结构非常重要。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: package main
+  prefs: []
+  type: TYPE_NORMAL
+- en: import (
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"fmt"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '"runtime"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '"weak"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: )
+  prefs: []
+  type: TYPE_NORMAL
+- en: type Data struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: Value string
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func main() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'data := &Data{Value: "Important"}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: wp := weak.Make(data) // create weak pointer
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: fmt.Println("Original:", wp.Value().Value)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: data = nil // remove strong reference
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: runtime.GC()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if v := wp.Value(); v != nil {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: fmt.Println("Still alive:", v.Value)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '} else {'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: fmt.Println("Data has been collected")
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Original: Important'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Data has been collected
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在这个例子中，`wp` 持有一个对 `Data` 对象的弱引用。在强引用（`data`）超出作用域并且垃圾收集器运行后，`Data` 可能会被收集——此时
+    `wp.Value()` 将返回 nil。这种模式在像缓存或规范映射这样的内存敏感环境中特别有用，在这些环境中，您希望避免人为地延长对象的生命周期。始终在使用之前检查
+    `Value()` 的结果，因为目标可能已经被回收。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 基准测试影响[¶](#benchmarking-impact "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 依赖于合成基准测试来评估 Go 的垃圾收集器性能很诱人，但通用基准测试很少能捕捉到真实工作负载的细微差别。内存行为高度依赖于分配模式、对象生命周期、并发性以及短生命周期与长生命周期数据结构的使用频率。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 例如，在维护大型内存索引的 CPU 密集型微服务中，垃圾收集的影响将显著不同于具有最小堆使用的 I/O 重的 API 服务器。因此，调优决策应始终基于您的应用程序的配置文件数据。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 我们在更专注的文章中涵盖了目标用例及其垃圾收集性能权衡：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[对象池](../object-pooling/): 使用 `sync.Pool` 减少分配 churn'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 每个任务都必须立即处理，以最小化延迟。在工作池中排队会引入延迟。对于延迟关键的任务，直接创建goroutine可以避免调度开销。
-- en: You can rely on Go's scheduler for natural load balancing in low-load scenarios.
-    In light workloads, the overhead of managing a pool may outweigh its benefits.
-    Go’s scheduler can often handle lightweight parallelism efficiently on its own.
-  id: totrans-43
+- en: '[堆栈分配和逃逸分析](../stack-alloc/): 通过保持值在堆栈上最小化堆使用'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 在低负载场景下，您可以依赖Go的调度器进行自然负载平衡。在轻负载中，管理池的开销可能超过了其带来的好处。Go的调度器通常可以独立高效地处理轻量级并行。
-- en: Workload volume is small and bounded. Spinning up goroutines directly keeps
-    code simpler for limited, predictable workloads without risking uncontrolled growth.
-  id: totrans-44
+- en: '[内存预分配](../mem-prealloc/): 避免切片和映射的不必要增长'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 工作负载量小且有限。对于有限且可预测的工作负载，直接启动goroutines可以使代码更简单，而不会冒着无序增长的风险。
+- en: 当应用于正确的上下文时，这些技术可以产生可测量的差异，但它们不适合一刀切的基准测试。
+  prefs: []
+  type: TYPE_NORMAL

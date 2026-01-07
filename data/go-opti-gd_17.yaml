@@ -1,357 +1,450 @@
-- en: Leveraging Compiler Optimization Flags in Go
-  id: totrans-0
+- en: 高效的上下文管理
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
-  zh: 在 Go 中利用编译器优化标志
-- en: 原文：[https://goperf.dev/01-common-patterns/comp-flags/](https://goperf.dev/01-common-patterns/comp-flags/)
-  id: totrans-1
+- en: 原文：[https://goperf.dev/01-common-patterns/context/](https://goperf.dev/01-common-patterns/context/)
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
-  zh: '[https://goperf.dev/01-common-patterns/comp-flags/](https://goperf.dev/01-common-patterns/comp-flags/)'
-- en: 'When tuning Go applications for performance, most of the attention goes to
-    runtime behavior—profiling hot paths, trimming allocations, improving concurrency.
-    But there’s another layer that’s easy to miss: what the Go compiler does with
-    your code before it ever runs. The build process includes several optimization
-    passes, and understanding how to surface or influence them can give you clearer
-    insights into what’s actually happening under the hood. It’s not about tweaking
-    obscure flags to squeeze out extra instructions—it’s about knowing how the compiler
-    treats your code so you’re not working against it.'
-  id: totrans-2
+- en: 不论是处理 HTTP 请求、协调工作协程还是查询外部服务，通常都需要取消正在进行的操作或强制执行执行截止时间。Go 的 `context` 包正是为此而设计的——它提供了一种一致且线程安全的方式来管理操作生命周期、传播元数据和确保资源及时清理。
   prefs: []
   type: TYPE_NORMAL
-  zh: 当调整 Go 应用程序以获得性能时，大部分注意力都集中在运行时行为上——分析热点路径、减少分配、提高并发性。但还有一个容易被忽视的层面：Go 编译器在代码运行之前对代码做了什么。构建过程包括几个优化步骤，了解如何揭示或影响它们可以让你更清楚地了解底层实际发生了什么。这并不是关于调整晦涩的标志来挤出额外指令——这是关于了解编译器如何处理你的代码，这样你就不会与之作对。
-- en: While Go doesn’t expose the same granular set of compiler flags as C or Rust,
-    it still provides useful ways to influence how your code is built—especially when
-    targeting performance, binary size, or specific environments.
-  id: totrans-3
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 虽然 Go 没有像 C 或 Rust 那样提供相同粒度的编译器标志，但它仍然提供了有用的方法来影响代码的构建方式——特别是在针对性能、二进制大小或特定环境时。
-- en: Why Compiler Flags Matter
-  id: totrans-4
+- en: 为什么上下文很重要[¶](#why-context-matters "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 为什么编译器标志很重要
-- en: 'Go''s compiler (specifically `cmd/compile` and `cmd/link`) performs several
-    default optimizations: inlining, escape analysis, dead code elimination, and more.
-    However, there are scenarios where you can squeeze more performance or control
-    from your build using the right flags.'
-  id: totrans-5
+- en: Go 提供了两个基本上下文构造函数：`context.Background()` 和 `context.TODO()`。
   prefs: []
   type: TYPE_NORMAL
-  zh: Go 的编译器（特别是 `cmd/compile` 和 `cmd/link`）执行了几个默认优化：内联、逃逸分析、死代码消除等。然而，在某些情况下，你可以使用正确的标志从构建中获得更多的性能或控制。
-- en: 'Use cases include:'
-  id: totrans-6
+- en: '`context.Background()` 是通常用于应用程序顶层（如 `main`、`init` 或服务器设置）的根上下文，其中没有可用的现有上下文。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`context.TODO()` 是当不清楚使用哪个上下文或周围代码尚未完全配置上下文传播时使用的占位符。它作为提醒，表明上下文逻辑需要在以后填充。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Go 中的 `context` 包旨在携带截止时间、取消信号和其他请求范围值跨越 API 边界。它在需要协调和干净取消操作的同时并发的程序中特别有用。
   prefs: []
   type: TYPE_NORMAL
-  zh: 用例包括：
-- en: Reducing binary size for minimal containers or embedded systems
-  id: totrans-7
+- en: 典型的上下文工作流程从程序的入口点或请求点开始——例如 HTTP 处理程序、主函数或 RPC 服务器。从那里，使用 `context.Background()`
+    或 `context.TODO()` 创建一个基本上下文。然后可以使用以下构造函数扩展此上下文：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`context.WithCancel(parent)` 用于创建可取消的上下文。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 为最小容器或嵌入式系统减少二进制文件大小
-- en: Building for specific architectures or OSes
-  id: totrans-8
+- en: '`context.WithTimeout(parent, duration)` 用于在指定时间后自动取消。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 为特定架构或操作系统构建
-- en: Removing debug information for release builds
-  id: totrans-9
+- en: '`context.WithDeadline(parent, time)` 用于在固定时间取消。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 删除发布构建中的调试信息
-- en: Disabling optimizations temporarily for easier debugging
-  id: totrans-10
+- en: 使用 `context.WithValue(parent, key, value)` 来附加请求范围数据。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 临时禁用优化以简化调试
-- en: Enabling experimental or unsafe performance tricks (carefully)
-  id: totrans-11
-  prefs:
-  - PREF_UL
+- en: 这些函数中的每一个都返回一个新的上下文，该上下文包装其父上下文。取消信号、截止时间和值会自动传播到调用堆栈。当一个上下文被取消——无论是手动还是超时——任何监听
+    `<-ctx.Done()` 的 goroutine 或函数都会立即得到通知。
+  prefs: []
   type: TYPE_NORMAL
-  zh: 启用实验性或非安全性能技巧（谨慎使用）
-- en: Key Compiler and Linker Flags
-  id: totrans-12
+- en: 通过显式通过函数参数传递上下文，可以避免隐藏依赖并获取对并发操作执行生命周期的细粒度控制。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 上下文使用的实际示例[¶](#practical-examples-of-context-usage "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 关键编译器和链接器标志
-- en: '`-ldflags="-s -w"` — Strip Debug Info'
-  id: totrans-13
+- en: 以下示例展示了 `context.Context` 如何在各种实际场景中实现更好的控制、可观察性和资源管理。
+  prefs: []
+  type: TYPE_NORMAL
+- en: HTTP 服务器请求取消[¶](#http-server-request-cancellation "永久链接")
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-  zh: '`-ldflags="-s -w"` — 删除调试信息'
-- en: 'When you want to shrink binary size, especially in production or containers:'
-  id: totrans-14
+- en: 上下文帮助优雅地处理客户端提前断开连接时的取消操作。Go 中每个传入的 HTTP 请求都携带一个上下文，如果客户端关闭连接，则该上下文会被取消。通过检查
+    `<-ctx.Done()`，可以提前退出而不是进行不必要的操作：
   prefs: []
   type: TYPE_NORMAL
-  zh: 当你想要缩小二进制文件大小时，尤其是在生产或容器中：
-- en: '[PRE0]'
-  id: totrans-15
+- en: '```go'
   prefs: []
-  type: TYPE_PRE
-  zh: '[PRE0]'
-- en: '`-s`: Omit the symbol table'
-  id: totrans-16
+  type: TYPE_NORMAL
+- en: func handler(w http.ResponseWriter, req *http.Request) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: ctx := req.Context()
   prefs:
-  - PREF_UL
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: '`-s`: 省略符号表'
-- en: '`-w`: Omit DWARF debugging information'
-  id: totrans-17
+- en: select {
   prefs:
-  - PREF_UL
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: '`-w`: 省略 DWARF 调试信息'
-- en: 'Why it matters: This can reduce binary size by up to 30-40%, depending on your
-    codebase. It is useful in Docker images or when distributing binaries.'
-  id: totrans-18
+- en: 'case <-time.After(5 * time.Second):'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: fmt.Fprintln(w, "Response after delay")
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'case <-ctx.Done():'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: log.Println("Client disconnected")
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: 为什么这很重要：这可以将二进制文件大小减少 30-40%，具体取决于你的代码库。这在 Docker 镜像或分发二进制文件时很有用。
-- en: '`-gcflags` — Control Compiler Optimizations'
-  id: totrans-19
-  prefs:
-  - PREF_H3
-  type: TYPE_NORMAL
-  zh: '`-gcflags` — 控制编译器优化'
-- en: 'The `-gcflags` flag allows you to control how the compiler treats specific
-    packages. For example, you can disable optimizations for debugging:'
-  id: totrans-20
+- en: '```'
   prefs: []
   type: TYPE_NORMAL
-  zh: '`-gcflags` 标志允许你控制编译器如何处理特定的包。例如，你可以禁用调试时的优化：'
-- en: '[PRE1]'
-  id: totrans-21
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE1]'
-- en: '`-N`: Disable optimizations'
-  id: totrans-22
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: '`-N`: 禁用优化'
-- en: '`-l`: Disable inlining'
-  id: totrans-23
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: '`-l`: 禁用内联'
-- en: 'When to use: During debugging sessions with Delve or similar tools. Turning
-    off inlining and optimizations make stack traces and breakpoints more reliable.'
-  id: totrans-24
+- en: 在这个例子中，处理程序等待模拟的延迟或取消。如果客户端在超时之前关闭连接，`ctx.Done()` 会被触发，允许处理程序在不写入响应的情况下进行清理。
   prefs: []
   type: TYPE_NORMAL
-  zh: 何时使用：在 Delve 或类似工具的调试会话期间。关闭内联和优化可以使堆栈跟踪和断点更可靠。
-- en: Cross-Compilation Flags
-  id: totrans-25
+- en: 带超时的数据库操作[¶](#database-operations-with-timeouts "永久链接")
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-  zh: 跨编译器标志
-- en: Need to build for another OS or architecture?
-  id: totrans-26
+- en: 上下文提供了一种简单直接的方式来强制执行数据库查询的超时。许多驱动程序支持 `QueryContext` 或类似方法，这些方法尊重取消：
   prefs: []
   type: TYPE_NORMAL
-  zh: 需要为另一个操作系统或架构构建？
-- en: '[PRE2]'
-  id: totrans-27
+- en: '```go'
   prefs: []
-  type: TYPE_PRE
-  zh: '[PRE2]'
-- en: '`GOOS`, `GOARCH`: Set target OS and architecture'
-  id: totrans-28
+  type: TYPE_NORMAL
+- en: ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+  prefs: []
+  type: TYPE_NORMAL
+- en: defer cancel()
+  prefs: []
+  type: TYPE_NORMAL
+- en: rows, err := db.QueryContext(ctx, "SELECT * FROM users")
+  prefs: []
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs: []
+  type: TYPE_NORMAL
+- en: log.Fatal(err)
   prefs:
-  - PREF_UL
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: '`GOOS`, `GOARCH`: 设置目标操作系统和架构'
-- en: 'Common values: `windows`, `darwin`, `linux`, `amd64`, `arm64`, `386`, `wasm`'
-  id: totrans-29
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 常见值：`windows`, `darwin`, `linux`, `amd64`, `arm64`, `386`, `wasm`
-- en: Build Tags
-  id: totrans-30
-  prefs:
-  - PREF_H3
-  type: TYPE_NORMAL
-  zh: 构建标签
-- en: Build tags allow conditional compilation. Use `//go:build` or `// +build` in
-    your source code to control what gets compiled in.
-  id: totrans-31
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: 构建标签允许条件编译。在你的源代码中使用 `//go:build` 或 `// +build` 来控制编译的内容。
-- en: 'Example:'
-  id: totrans-32
+- en: defer rows.Close()
   prefs: []
   type: TYPE_NORMAL
-  zh: 示例：
-- en: '[PRE3]'
-  id: totrans-33
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE3]'
-- en: 'Then build with:'
-  id: totrans-34
+- en: '```'
   prefs: []
   type: TYPE_NORMAL
-  zh: 然后使用以下命令进行构建：
-- en: '[PRE4]'
-  id: totrans-35
+- en: 在这种情况下，如果数据库在两秒内没有响应，上下文会自动取消。查询会被终止，应用程序不会无限期地挂起。这有助于管理资源，并在高负载环境中避免级联故障。
   prefs: []
-  type: TYPE_PRE
-  zh: '[PRE4]'
-- en: '`-ldflags="-X ..."` — Inject Build-Time Variables'
-  id: totrans-36
+  type: TYPE_NORMAL
+- en: 分布式跟踪中的请求 ID 传播[¶](#propagating-request-ids-for-distributed-tracing "永久链接")
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-  zh: '`-ldflags="-X ..."` — 注入构建时变量'
-- en: 'You can inject version numbers or metadata into your binary at build time:'
-  id: totrans-37
+- en: 上下文允许在不同层级的分布式系统中传递跟踪信息。例如，在边缘生成的请求 ID 可以附加到上下文中，并在整个应用程序中进行记录或使用。
   prefs: []
   type: TYPE_NORMAL
-  zh: 你可以在构建时将版本号或元数据注入到你的二进制文件中：
-- en: '[PRE5]'
-  id: totrans-38
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE5]'
-- en: 'Then build with:'
-  id: totrans-39
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 然后使用以下命令进行构建：
-- en: '[PRE6]'
-  id: totrans-40
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE6]'
-- en: This sets the `version` variable at link time without modifying your source
-    code. It's useful for embedding release versions, commit hashes, or build dates.
-  id: totrans-41
+- en: func main() {
   prefs: []
   type: TYPE_NORMAL
-  zh: 这在链接时设置 `version` 变量，而不修改你的源代码。这对于嵌入发布版本、提交哈希或构建日期很有用。
-- en: '`-extldflags=''-static''` — Build Fully Static Binaries'
-  id: totrans-42
+- en: ctx := context.WithValue(context.Background(), "requestID", "12345")
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: handleRequest(ctx)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func handleRequest(ctx context.Context) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'log.Printf("Handling request with ID: %v", ctx.Value("requestID"))'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在这个例子中，`WithValue` 将请求 ID 附加到上下文中。`handleRequest` 函数使用 `ctx.Value` 获取它，从而在不修改函数签名的情况下实现一致的日志记录和可观察性。这种方法在中间件、日志记录和跟踪管道中很常见。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 并发工作管理[¶](#concurrent-worker-management "永久链接")
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-  zh: '`-extldflags=''-static''` — 构建完全静态的二进制文件'
-- en: The `-extldflags '-static'` option passes the `-static` flag to the external
-    system linker, instructing it to produce a **fully statically linked binary**.
-  id: totrans-43
+- en: 上下文提供了对多个工作 goroutine 的控制。通过使用 `WithCancel`，您可以从一个中心点向所有工作进程传播停止信号。
   prefs: []
   type: TYPE_NORMAL
-  zh: '`-extldflags ''-static''` 选项将 `-static` 标志传递给外部系统链接器，指示它生成一个**完全静态链接的二进制文件**。'
-- en: 'This is especially useful when you''re using CGO and want to avoid runtime
-    dynamic library dependencies:'
-  id: totrans-44
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 这在您使用 CGO 并希望避免运行时动态库依赖时特别有用：
-- en: '[PRE7]'
-  id: totrans-45
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE7]'
-- en: 'What it does:'
-  id: totrans-46
+- en: ctx, cancel := context.WithCancel(context.Background())
   prefs: []
   type: TYPE_NORMAL
-  zh: 它的作用：
-- en: Statically links all C libraries into the binary
-  id: totrans-47
+- en: for i := 0; i < 10; i++ {
+  prefs: []
+  type: TYPE_NORMAL
+- en: go worker(ctx, i)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Cancel workers after some condition or signal
+  prefs: []
+  type: TYPE_NORMAL
+- en: cancel()
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 每个工作函数都应该检查 `<-ctx.Done()`，并在上下文被取消时立即返回。这保持了系统的响应性，避免了悬挂的 goroutine，并允许并行工作的优雅终止。
+  prefs: []
+  type: TYPE_NORMAL
+- en: CLI 工具中的优雅关闭[¶](#graceful-shutdown-in-cli-tools "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 在命令行应用程序或长时间运行的后台进程中，上下文简化了操作系统信号处理和优雅关闭。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
+  prefs: []
+  type: TYPE_NORMAL
+- en: defer stop()
+  prefs: []
+  type: TYPE_NORMAL
+- en: <-ctx.Done()
+  prefs: []
+  type: TYPE_NORMAL
+- en: fmt.Println("Shutting down...")
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在这个模式中，`signal.NotifyContext` 返回一个在接收到中断信号（例如，Ctrl+C）时自动取消的上下文。监听 `<-ctx.Done()`
+    允许应用程序执行清理并优雅地退出，而不是突然终止。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 流式传输和实时数据处理管道[¶](#streaming-and-real-time-data-pipelines "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 上下文非常适合协调像 Kafka 消费者、WebSocket 读取器或自定义 pub/sub 管道等流式系统中的读取器。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func streamData(ctx context.Context, ch <-chan Data) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: select {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'case <-ctx.Done():'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'case data := <-ch:'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: process(data)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在这里，该函数处理来自通道的传入数据。如果上下文被取消（例如，在关闭或超时期间），循环会中断，goroutine 会干净地退出。这使得系统对控制信号的反应更加灵敏，并且在负载下更容易管理。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 中间件和速率限制[¶](#middleware-and-rate-limiting "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 上下文通常用于中间件链中，以强制执行配额、跟踪请求或在层之间携带速率限制决策。在一个典型的HTTP堆栈中，中间件可以根据自定义逻辑（例如基于IP的速率限制或用户配额检查）确定是否允许请求，并将该决策附加到上下文中，以便下游处理器可以检查它。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这里有一个简化的例子说明这可能如何工作：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func rateLimitMiddleware(next http.Handler) http.Handler {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // Suppose this is the result of some rate-limiting logic
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: rateLimited := true // or false depending on logic
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // Embed the result into the context
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: ctx := context.WithValue(r.Context(), "rateLimited", rateLimited)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // Pass the updated context to the next handler
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: next.ServeHTTP(w, r.WithContext(ctx))
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '})'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在下游处理器中，你可能可以这样检查该值：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func handler(w http.ResponseWriter, r *http.Request) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: ctx := r.Context()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if limited, ok := ctx.Value("rateLimited").(bool); ok && limited {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: http.Error(w, "Too many requests", http.StatusTooManyRequests)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: fmt.Fprintln(w, "Request accepted")
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这种模式避免了在中间件和处理器之间共享状态的需求。相反，上下文充当一个轻量级的通道，以安全且可组合的方式在请求管道的各个层之间传递元数据。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 基准测试影响[¶](#benchmarking-impact "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 当使用 `context.Context` 时，通常没有直接针对原始性能进行基准测试的内容。它的真正好处在于提高响应速度、避免不必要的计算，并实现干净的取消。影响体现在减少内存泄漏、减少卡住的goroutine以及更可预测的资源生命周期——这些指标最好通过实际的剖析和可观察性工具来观察。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 上下文使用最佳实践[¶](#best-practices-for-context-usage "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 总是显式传递 `context.Context`，通常作为函数的第一个参数。这使得上下文传播透明且可追踪，尤其是在API边界或服务层之间。不要在结构体字段或全局变量中存储上下文。这样做可能导致无意中重复使用过时的上下文，并使取消逻辑更难推理。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 将所有 C 库静态链接到二进制文件中
-- en: Produces a portable, self-contained executable
-  id: totrans-48
+- en: 仅使用1来传递请求范围元数据，而不是传递业务逻辑或应用程序状态。过度使用上下文进行通用数据存储会导致紧密耦合，并使测试和跟踪更困难。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 生成一个便携式、自包含的可执行文件
-- en: Ideal for minimal containers (like `scratch` or `distroless`)
-  id: totrans-49
+- en: 当需要时，检查 `ctx.Err()` 以区分 `context.Canceled` 和 `context.DeadlineExceeded`。这允许你的应用程序做出适当的响应——例如，区分用户发起的取消和超时。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 适用于最小化容器（如 `scratch` 或 `distroless`）
-- en: 'To go further and ensure your binary avoids relying on C library DNS resolution
-    (such as `glibc`''s `getaddrinfo`), you can use the `netgo` build tag. This forces
-    Go to use its pure Go implementation of the DNS resolver:'
-  id: totrans-50
+- en: 遵循这些实践有助于保持上下文使用可预测且符合惯例。
   prefs: []
   type: TYPE_NORMAL
-  zh: 要进一步确保你的二进制文件不依赖于 C 库的 DNS 解析（例如 `glibc` 的 `getaddrinfo`），你可以使用 `netgo` 构建标签。这强制
-    Go 使用其纯 Go 实现的 DNS 解析器：
-- en: '[PRE8]'
-  id: totrans-51
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE8]'
-- en: This step is especially important when building for minimal container environments,
-    where dynamic libc dependencies may not be available.
-  id: totrans-52
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 在构建最小化容器环境时，这一步尤其重要，因为在这些环境中可能不可用动态 libc 依赖。
-- en: Note
-  id: totrans-53
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 注意
-- en: Static linking requires static versions (`.a`) of the libraries you're using,
-    and may not work with all C libraries by default.
-  id: totrans-54
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 静态链接需要使用你使用的库的静态版本（`.a`），并且默认情况下可能不适用于所有 C 库。
-- en: 'Example: Static Build with libcurl via CGO'
-  id: totrans-55
-  prefs:
-  - PREF_H4
-  type: TYPE_NORMAL
-  zh: 示例：通过 CGO 使用 libcurl 进行静态构建
-- en: 'If you’re using libcurl via CGO, here’s how you can create a statically linked
-    Go binary:'
-  id: totrans-56
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 如果你正在通过 CGO 使用 libcurl，以下是创建静态链接的 Go 二进制文件的方法：
-- en: '[PRE9]'
-  id: totrans-57
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE9]'
-- en: 'Static Build Command:'
-  id: totrans-58
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 静态构建命令：
-- en: '[PRE10]'
-  id: totrans-59
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE10]'
-- en: Ensure the static version of libcurl (`libcurl.a`) is available on your system.
-    You may need to install development packages or build libcurl from source with
-    `--enable-static`.
-  id: totrans-60
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 确保系统上可用的 libcurl 的静态版本（`libcurl.a`）。你可能需要安装开发包或使用 `--enable-static` 从源代码构建 libcurl。

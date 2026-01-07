@@ -1,0 +1,390 @@
+- en: 在Go服务中调整DNS性能¶
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 原文：[https://goperf.dev/02-networking/dns_performance/](https://goperf.dev/02-networking/dns_performance/)
+  prefs:
+  - PREF_BQ
+  type: TYPE_NORMAL
+- en: DNS解析通常不会引起注意，但它仍然可能减慢Go应用程序的速度。即使在查找中的短暂延迟，在组件频繁通信的分布式或微服务架构中也会累积。了解Go在底层如何解析DNS以及如何调整它可以使您的服务更加响应迅速和可靠。
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go中DNS解析的工作原理：cgo与本地解析器[¶](#how-dns-resolution-works-in-go-cgo-vs-native-resolver
+    "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go支持两种处理DNS查询的不同方式：内置的**纯Go**解析器和基于**cgo**的解析器。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`纯Go`解析器是完全自包含的，避免使用任何外部DNS库。它从`/etc/resolv.conf`（在类Unix系统中）读取其配置，并直接与配置的名称服务器通信。这使得它简单且通常性能良好，尽管它有时难以处理更奇特或高度定制的DNS环境。'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 相反，基于**cgo**的解析器将DNS解析委托给操作系统的自身解析器（通过C标准库`libc`）。这提供了与复杂或自定义DNS环境的更好兼容性——例如涉及LDAP或组播DNS的环境——但它也带来了一定的权衡。cgo解析器由于调用外部C库而增加了开销，有时可能导致线程安全或不可预测的延迟峰值。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 可以通过环境变量显式配置Go以优先使用**纯Go**解析器：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: export GODEBUG=netdns=go
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 或者，强制使用cgo解析器：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: export GODEBUG=netdns=cgo
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 运行时依赖[¶](#runtime-dependencies "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 启用cgo会改变Go二进制文件与操作系统的交互方式。当cgo开启时，二进制文件不再独立存在——它动态链接到`libc`和系统加载器，这在`ldd`的输出中可以揭示。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: $ ldd ./app-cgo
+  prefs: []
+  type: TYPE_NORMAL
+- en: linux-vdso.so.1 (0x0000fa34ddbad000)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: libc.so.6 => /lib/aarch64-linux-gnu/libc.so.6 (0x0000fa34dd9b0000)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: /lib/ld-linux-aarch64.so.1 (0x0000fa34ddb70000)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 启用cgo的二进制文件依赖于系统的C运行时（`libc.so.6`）和动态加载器（`ld-linux`）。如果没有在宿主机上提供这些共享库，二进制文件将无法启动——这使得它不适合像scratch容器这样的简化环境。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 相比之下，纯Go二进制文件是完全自包含的，并且是静态链接的。如果您在它上面运行`ldd`，您将只看到：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: $ ldd ./app-pure
+  prefs: []
+  type: TYPE_NORMAL
+- en: not a dynamic executable
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这表明二进制文件所需的全部代码已经内置，运行时无需依赖共享库。正因为如此，纯Go构建非常适合最小化容器或没有C运行时的裸环境，提供了更好的可移植性和更少的操作意外。缺点是这些二进制文件无法利用需要cgo和宿主机的`libc`的系统级解析器功能。
+  prefs: []
+  type: TYPE_NORMAL
+- en: DNS缓存：为什么以及何时[¶](#dns-caching-why-and-when "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 缓存DNS结果可以防止应用程序反复发送相同的查询，这可以消除可感知的延迟。每次查找至少涉及一次网络往返，当在规模上发生时，累积成本可能会成为对服务性能的严重拖累。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 许多操作系统和托管环境已经包含某种形式的DNS缓存。在Windows上，`DNS客户端`服务保留本地缓存；在macOS上，`mDNSResponder`处理这个问题；在大多数Linux系统上，`systemd-resolved`或`nscd`通常提供缓存层。在云环境中，DNS查询通常通过同一数据中心附近的一个缓存解析器路由。这些机制确实有助于减少延迟，但它们对应用程序是透明的，并且对TTLs和策略的可见性和控制很少。在Linux上，如果`systemd-resolved`未启用，除非你明确配置，否则根本不会发生缓存。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 由于Go本身不包含任何DNS缓存，如果你想实现细粒度、应用级别的控制，你必须自己实现。一个选项是运行你自己的缓存DNS服务器；另一个选项是在你的代码中直接嵌入轻量级缓存，使用第三方库。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 使用[go-cache](https://github.com/patrickmn/go-cache)的简单DNS缓存示例：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: import (
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"github.com/patrickmn/go-cache"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '"net"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '"time"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: )
+  prefs: []
+  type: TYPE_NORMAL
+- en: var dnsCache = cache.New(5*time.Minute, 10*time.Minute)
+  prefs: []
+  type: TYPE_NORMAL
+- en: func LookupWithCache(host string) ([]net.IP, error) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: if cachedIPs, found := dnsCache.Get(host); found {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return cachedIPs.([]net.IP), nil
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: ips, err := net.LookupIP(host)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return nil, err
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: dnsCache.Set(host, ips, cache.DefaultExpiration)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return ips, nil
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 过度DNS缓存有其缺点——它可能导致你提供过时的记录，如果上游地址更改，还会使你的服务变得脆弱。调整你的缓存过期时间，使其反映你依赖的域名实际更改的频率是值得的。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 使用自定义拨号器和预解析IP[¶](#using-custom-dialers-and-pre-resolved-ips "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 在对延迟敏感的服务中，提前解析DNS或使用自定义拨号器来显式控制解析通常是有意义的。每次调用`net.Dial`或`net.DialContext`与主机名都会触发一个查找，这可能涉及系统调用、上下文切换，有时甚至如果缓存是冷的，还需要网络往返。在高吞吐量下，这种开销会累积。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 为了消除这种开销，你可以在启动时解析主机名并保存结果IP。这种方法在处理一组固定且很少更改的端点时特别有效。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: var serviceAddr string
+  prefs: []
+  type: TYPE_NORMAL
+- en: func init() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: ips, err := net.LookupIP("api.example.com")
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil || len(ips) == 0 {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: panic("Unable to resolve api.example.com")
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: serviceAddr = ips[0].String() // in real code, consider picking an IP randomly,
+    prefer IPv4 if needed, or iterate over ips with checks as appropriate
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 一个缺点是它会固定进程生命周期的IP地址，所以如果端点更改了地址，连接可能会开始失败。为了优雅地处理这个问题，你可以运行一个后台goroutine，定期刷新解析的IP地址。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 自定义拨号器更进一步：它们允许你根据每个连接控制DNS解析和套接字建立的方式。这将使你能够强制连接通过特定的解析器，硬编码预解析的IP地址，或者甚至通过直接拨打电话地址来完全绕过DNS。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: import (
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"net"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '"context"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '"time"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: )
+  prefs: []
+  type: TYPE_NORMAL
+- en: var dialer = &net.Dialer{
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Timeout:   5 * time.Second,'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'KeepAlive: 30 * time.Second,'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Resolver: &net.Resolver{'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'PreferGo: true,'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'Dial: func(ctx context.Context, network, address string) (net.Conn, error)
+    {'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return net.Dial(network, "8.8.8.8:53")
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '},'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '},'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func ConnectWithCustomDialer(ctx context.Context, address string) (net.Conn,
+    error) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return dialer.DialContext(ctx, "tcp", address)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 自定义拨号器也可以绕过不可靠的系统解析器或直接通过专用、更快的名称服务器进行 DNS 查询。它们让你能够精确控制解析过程，但这种控制也带来了额外的复杂性——你需要自己处理回退和刷新逻辑。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 指标和调试现实世界 DNS 变慢问题[¶](#metrics-and-debugging-real-world-dns-slowdowns "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 识别和调试由 DNS 引起的延迟需要深入的指标和有针对性的调试技术。测量 DNS 不仅仅是看它有多快——它有助于回答更深层次的问题：查找是否击中了操作系统或提供商的缓存？通往
+    DNS 服务器的网络路径是否不可靠？是否有特定的名称服务器比其他服务器慢？IPv6 和 IPv4 是否表现不同？没有可见性，DNS 问题可能会无声地降低性能和可靠性。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 指标[¶](#metrics "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 确保跟踪你的服务指标中的 DNS 解析时间，以便你可以看到查找实际上为每个请求增加了多少时间。最简单的方法是在查找之前和完成后记录持续时间的计时器包装你的
+    DNS 调用。随着时间的推移，这些测量有助于你识别趋势，发现间歇性缓慢，并将 DNS 延迟与系统的其他部分相关联。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: start := time.Now()
+  prefs: []
+  type: TYPE_NORMAL
+- en: ips, err := net.LookupIP("example.com")
+  prefs: []
+  type: TYPE_NORMAL
+- en: duration := time.Since(start)
+  prefs: []
+  type: TYPE_NORMAL
+- en: recordDNSLookupDuration("example.com", duration)
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 查看高百分位延迟，如第 95 或第 99 百分位，可以揭示平均数隐藏的间歇性变慢或不可靠的 DNS 行为。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 调试技巧[¶](#debugging-tips "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 面对无法解释的延迟峰值时，利用 Go 的内置调试模式：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: export GODEBUG=netdns=2
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 启用此功能会产生详细的 DNS 查询日志，显示每个请求从开始到结束的详细处理过程。你可以看到服务器响应缓慢的时间，查找失败并触发重试的时间，或者运行时意外回退到
+    cgo 解析器的时间。这种详细的洞察力使得定位标准指标经常忽略的难以捉摸的 DNS 问题变得容易得多。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 高级 DNS 性能技巧[¶](#advanced-dns-performance-tips "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 在你的服务附近运行本地 DNS 缓存解析器，例如 `dnsmasq` 或 `Unbound`，可以消除外部查找的额外延迟。如果安全和隐私是关注点，启用
+    DNS-over-HTTPS (DoH) 或 DNS-over-TLS (DoT) 也是一个选项，尽管由于加密，它会有一些额外的延迟。最后，审查和调整你的
+    `/etc/resolv.conf` —— 调整重试次数和超时设置 —— 有助于确保解析器在负载或故障条件下表现出可预测的行为。
+  prefs: []
+  type: TYPE_NORMAL

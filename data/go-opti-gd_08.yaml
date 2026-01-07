@@ -1,612 +1,733 @@
-- en: 'Memory Efficiency: Mastering Go’s Garbage Collector'
-  id: totrans-0
+- en: 避免接口封装[¶]
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
-  zh: 内存效率：掌握Go的垃圾回收器
-- en: 原文：[https://goperf.dev/01-common-patterns/gc/](https://goperf.dev/01-common-patterns/gc/)
-  id: totrans-1
+- en: 原文：[https://goperf.dev/01-common-patterns/interface-boxing/](https://goperf.dev/01-common-patterns/interface-boxing/)
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
-  zh: 原文：[https://goperf.dev/01-common-patterns/gc/](https://goperf.dev/01-common-patterns/gc/)
-- en: Memory management in Go is automated—but it’s not invisible. Every allocation
-    you make contributes to GC workload. The more frequently objects are created and
-    discarded, the more work the runtime has to do reclaiming memory.
-  id: totrans-2
+- en: Go 的接口使得编写灵活、解耦的代码变得容易。但在这便利的背后，有一个可能会影响性能的细节：当一个具体值被赋给接口时，Go 会将其封装在一个隐藏的结构体中——这个过程称为接口封装。
   prefs: []
   type: TYPE_NORMAL
-  zh: Go中的内存管理是自动化的——但它并非不可见。你进行的每一次分配都会对GC的工作负载做出贡献。对象创建和丢弃的频率越高，运行时在回收内存方面需要做的工作就越多。
-- en: This becomes especially relevant in systems prioritizing low latency, predictable
-    resource usage, or high throughput. Tuning your allocation patterns and leveraging
-    newer features like weak references can help reduce pressure on the GC without
-    adding complexity to your code.
-  id: totrans-3
+- en: 在许多情况下，封装是无害的。但在性能敏感的代码中——如紧密循环、热点路径或高吞吐量服务——它可能会引入隐藏的堆分配、额外的内存复制，并增加垃圾收集器的压力。这些影响在开发过程中往往不易察觉，只有在出现延迟峰值或内存膨胀时才会显现。
   prefs: []
   type: TYPE_NORMAL
-  zh: 这在优先考虑低延迟、可预测的资源使用或高吞吐量的系统中尤为重要。调整你的分配模式并利用像弱引用这样的新功能可以帮助减轻GC的压力，而不会增加你代码的复杂性。
-- en: How Go's Garbage Collector Works
-  id: totrans-4
+- en: 什么是接口封装?[¶](#what-is-interface-boxing "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: Go的垃圾回收器是如何工作的
-- en: Info
-  id: totrans-5
+- en: 接口封装是指将具体值转换为接口类型的过程。在 Go 中，接口值在内部表示为两个词：
   prefs: []
   type: TYPE_NORMAL
-  zh: 信息
-- en: Highly encourage you to read the official [A Guide to the Go Garbage Collector](https://go.dev/doc/gc-guide)!
-    The document provides a detailed description of multiple Go's GC internals.
-  id: totrans-6
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 强烈建议你阅读官方的[A Guide to the Go Garbage Collector](https://go.dev/doc/gc-guide)！该文档提供了对多个Go的GC内部结构的详细描述。
-- en: Go uses a **non-generational, concurrent, tri-color mark-and-sweep** garbage
-    collector. Here's what that means in practice and how it's implemented.
-  id: totrans-7
-  prefs: []
-  type: TYPE_NORMAL
-  zh: Go使用一个**非代、并发、三色标记-清除**垃圾收集器。以下是它在实际中的含义以及它的实现方式。
-- en: Non-generational
-  id: totrans-8
-  prefs:
-  - PREF_H3
-  type: TYPE_NORMAL
-  zh: 非代
-- en: Many modern GCs, like those in the JVM or .NET CLR, divide memory into *generations*
-    (young and old) under the assumption that most objects die young. These collectors
-    focus on the young generation, which leads to shorter collection cycles.
-  id: totrans-9
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 许多现代GC，如JVM或.NET CLR中的GC，基于大多数对象年轻时就死亡这一假设，将内存划分为*代*（年轻和年老）。这些收集器专注于年轻代，这导致了更短的收集周期。
-- en: Go’s GC takes a different approach. It treats all objects equally—no generational
-    segmentation—not because generational GC conflicts with short pause times or concurrent
-    scanning, but because it hasn’t shown clear, consistent benefits in real-world
-    Go programs with the designs tried so far. This choice avoids the complexity of
-    promotion logic and specialized memory regions. While it can mean scanning more
-    objects overall, this cost is mitigated by concurrent execution and efficient
-    write barriers.
-  id: totrans-10
-  prefs: []
-  type: TYPE_NORMAL
-  zh: Go的GC采取了一种不同的方法。它平等地对待所有对象——没有代分割——不是因为代GC与短暂的暂停时间或并发扫描冲突，而是因为到目前为止的设计在现实世界的Go程序中并没有显示出明确、一致的好处。这种选择避免了提升逻辑和专用内存区域的复杂性。虽然这可能意味着总体上需要扫描更多的对象，但这种成本通过并发执行和高效的写屏障得到了缓解。
-- en: Concurrent
-  id: totrans-11
-  prefs:
-  - PREF_H3
-  type: TYPE_NORMAL
-  zh: 并发
-- en: 'Go’s GC runs concurrently with your application, which means it does most of
-    its work without stopping the world. Concurrency is implemented using multiple
-    phases that interleave with normal program execution:'
-  id: totrans-12
-  prefs: []
-  type: TYPE_NORMAL
-  zh: Go的GC与你的应用程序并发运行，这意味着它的大部分工作都不需要停止世界。并发是通过多个阶段实现的，这些阶段与正常程序执行交织在一起：
-- en: Even though Go’s garbage collector is mostly concurrent, it still requires brief
-    Stop-The-World (STW) pauses at several points to maintain correctness. These pauses
-    are kept extremely short—typically under 100 microseconds—even with large heaps
-    and hundreds of goroutines.
-  id: totrans-13
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 尽管Go的垃圾收集器主要是并发的，但它仍然需要在几个点上进行短暂的停止世界（STW）暂停，以保持正确性。这些暂停被保持得非常短——通常在100微秒以下——即使是在大型堆和数百个goroutine的情况下。
-- en: STW is essential for ensuring that memory structures are not mutated while the
-    GC analyzes them. In most applications, these pauses are imperceptible. However,
-    even sub-millisecond pauses in latency-sensitive systems can be significant—so
-    understanding and monitoring STW behavior becomes important when optimizing for
-    tail latencies or jitter.
-  id: totrans-14
-  prefs: []
-  type: TYPE_NORMAL
-  zh: STW对于确保在GC分析内存结构时内存结构不被修改是必不可少的。在大多数应用程序中，这些暂停是感觉不到的。然而，在延迟敏感系统中，即使是亚毫秒的暂停也可能很重要——因此，当优化尾部延迟或抖动时，理解和监控STW行为变得很重要。
-- en: '**STW Start Phase:** The application is briefly paused to initiate GC. The
-    runtime scans stacks, globals, and root objects.'
-  id: totrans-15
+- en: 一个 **类型描述符**，它包含有关具体类型的信息（其身份和方法集）。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '**STW开始阶段**：应用程序会短暂暂停以启动GC。运行时会扫描栈、全局变量和根对象。'
-- en: '**Concurrent Mark Phase:** The garbage collector traverses the heap, marking
-    all reachable objects while the program continues running. This is the heaviest
-    phase in terms of work but runs concurrently to avoid long stop-the-world pauses.'
-  id: totrans-16
+- en: 一个 **数据指针**，它指向实际存储的值。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '**并发标记阶段**：垃圾收集器遍历堆，在程序继续运行的同时标记所有可达对象。这是工作量最大的阶段，但它是并发运行的，以避免长时间的停止世界暂停。'
-- en: '**STW Mark Termination:** Once marking is mostly complete, the GC briefly pauses
-    the program to finish any remaining work and ensure the heap is in a consistent
-    state before sweeping begins. This pause is typically very short—measured in microseconds.'
-  id: totrans-17
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: '**STW 标记终止**：一旦标记基本完成，GC 会短暂暂停程序以完成任何剩余的工作，并在开始清除之前确保堆处于一致状态。这种暂停通常非常短——以微秒计。'
-- en: '**Concurrent Sweep Phase:** The GC reclaims memory from unreachable (white)
-    objects and returns it to the heap for reuse, all while your program continues
-    running.'
-  id: totrans-18
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: '**并发清除阶段**：GC 从不可达（白色）对象中回收内存，并将其返回到堆中以供重用，同时你的程序继续运行。'
-- en: Write barriers ensure correctness while the application mutates objects during
-    concurrent marking. These barriers help track references created or modified mid-scan
-    so the GC doesn’t miss them.
-  id: totrans-19
+- en: 当你将值赋给接口变量时，Go 会创建这个两部分的结构。如果值是一个非指针类型——比如结构体或原始类型——并且尚未在堆上，Go **可能**会在堆上分配它的副本以满足接口赋值。这种行为在处理大值或存储在接口切片中的项目时尤其相关，其中每个元素都会单独封装。这些隐式分配可能会累积起来，并且是
+    Go 程序中隐藏内存压力的常见来源。
   prefs: []
   type: TYPE_NORMAL
-  zh: 写屏障确保在应用程序并发标记期间对象突变时的正确性。这些屏障有助于跟踪扫描过程中创建或修改的引用，以便垃圾回收器不会错过它们。
-- en: Tri-color Mark and Sweep
-  id: totrans-20
+- en: 这里有一个简单的例子：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: var i interface{}
+  prefs: []
+  type: TYPE_NORMAL
+- en: i = 42
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在这种情况下，整数 `42` 被封装在一个接口中：Go 存储了类型信息（`int`）和值 `42` 的副本。对于像 `int` 这样的小值来说，这并不昂贵，但对于大型结构体来说，成本就变得相当可观了。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 另一个例子：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: type Shape interface {
+  prefs: []
+  type: TYPE_NORMAL
+- en: Area() float64
   prefs:
-  - PREF_H3
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 三色标记和清除
-- en: 'The tri-color algorithm breaks the heap into three working sets during garbage
-    collection:'
-  id: totrans-21
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: 三色算法在垃圾回收期间将堆拆分为三个工作集：
-- en: '**White:** Objects that haven’t been reached—if they stay white, they’ll be
-    collected.'
-  id: totrans-22
+- en: type Square struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: Size float64
   prefs:
-  - PREF_UL
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: '**白色**：尚未到达的对象——如果它们保持白色，它们将被收集。'
-- en: '**Grey:** Objects that have been discovered (i.e., marked as reachable) but
-    haven’t had their references scanned yet.'
-  id: totrans-23
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func (s Square) Area() float64 { return s.Size * s.Size }
+  prefs: []
+  type: TYPE_NORMAL
+- en: func main() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: var shapes []Shape
   prefs:
-  - PREF_UL
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: '**灰色**：已发现的对象（即，标记为可达）但尚未扫描其引用。'
-- en: '**Black:** Objects that are both reachable and fully scanned—they’re retained
-    and don’t need further processing.'
-  id: totrans-24
+- en: for i := 0; i < 1000; i++ {
   prefs:
-  - PREF_UL
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: '**黑色**：既可达又完全扫描的对象——它们被保留，不需要进一步处理。'
-- en: 'Garbage collection starts by marking all root objects (stack, globals, etc.)
-    grey. It then walks the grey set: for each object, it scans its fields. Any referenced
-    objects that are still white are added to the grey set. Once an object’s references
-    are fully processed, it’s marked black.'
-  id: totrans-25
+- en: 's := Square{Size: float64(i)}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: shapes = append(shapes, s) // boxing occurs here
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: 垃圾回收首先将所有根对象（栈、全局变量等）标记为灰色。然后遍历灰色集：对于每个对象，它扫描其字段。任何仍为白色的引用对象都将添加到灰色集中。一旦一个对象的引用被完全处理，它就被标记为黑色。
-- en: When no grey objects remain, anything still white is unreachable and gets cleaned
-    up during the sweep phase. This model ensures that no live object is accidentally
-    collected—even if references change mid-scan—thanks to Go’s write barriers that
-    maintain the algorithm’s core invariants.
-  id: totrans-26
+- en: '```'
   prefs: []
   type: TYPE_NORMAL
-  zh: 当没有灰色对象剩余时，任何仍为白色的对象都是不可达的，并在清除阶段被清理。这种模型确保没有活动对象被意外收集——即使引用在扫描过程中发生变化——这得益于
-    Go 的写屏障，它维护算法的核心不变性。
-- en: 'A key optimization is **incremental marking**: Go spreads out GC work to avoid
-    long pauses, supported by precise stack scanning and conservative write barriers.
-    The use of concurrent sweeping further reduces latency, allowing memory to be
-    reclaimed without halting execution.'
-  id: totrans-27
+- en: 警告
   prefs: []
   type: TYPE_NORMAL
-  zh: 一个关键的优化是**增量标记**：Go 将 GC 工作分散以避免长时间暂停，这得益于精确的栈扫描和保守的写屏障。并发清除的使用进一步减少了延迟，允许在不停机的情况下回收内存。
-- en: This design gives Go a GC that’s safe, fast, and friendly to server workloads
-    with large heaps and many cores.
-  id: totrans-28
+- en: '**请注意此代码！** 在这个例子中，尽管 `shapes` 是一个接口切片，但每个 `Square` 值在追加到 `shapes` 时都会被复制到接口中。如果
+    `Square` 是一个大型结构体，这将引入 1000 个分配和大量的内存复制。'
   prefs: []
   type: TYPE_NORMAL
-  zh: 这种设计使 Go 的 GC 变得安全、快速，并且对具有大堆和多个核心的服务器工作负载友好。
-- en: 'GC Tuning: GOGC'
-  id: totrans-29
+- en: 为了避免这种情况，你可以传递指针：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: shapes = append(shapes, &s) // avoids large struct copy
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这样，接口中只存储了一个 8 字节的指针，减少了分配大小和复制开销。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 为什么这很重要[¶](#why-it-matters "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: GC 调优：GOGC
-- en: Go’s garbage collector is tuned to deliver good performance without manual configuration.
-    The default `GOGC` setting typically strikes the right balance between memory
-    consumption and CPU effort, adapting well across a wide range of workloads. In
-    most cases, manually tweaking it offers little benefit—and in many, it actually
-    makes things worse by increasing either pause times or memory pressure. Unless
-    you’ve profiled a specific bottleneck and understand the trade-offs, it’s usually
-    best to leave `GOGC` alone.
-  id: totrans-30
+- en: 在紧密循环或高吞吐量路径中，例如反序列化 JSON、渲染模板或处理大型集合时，接口封装可能会通过触发不必要的堆分配和增加垃圾收集压力来降低性能。这种开销在高并发或实时响应约束的系统中的成本尤其高昂。
   prefs: []
   type: TYPE_NORMAL
-  zh: Go 的垃圾回收器经过调整，在不进行手动配置的情况下提供良好的性能。默认的 `GOGC` 设置通常在内存消耗和 CPU 努力之间取得平衡，适应广泛的负载。在大多数情况下，手动调整它几乎没有好处——在许多情况下，它实际上会使事情变得更糟，通过增加暂停时间或内存压力。除非你已经分析了特定的瓶颈并理解了权衡，否则通常最好让
-    `GOGC` 保持原样。
-- en: That said, there are specific cases where tuning `GOGC` can yield significant
-    gains. For example, [Uber implemented dynamic GC tuning](https://www.uber.com/en-GB/blog/how-we-saved-70k-cores-across-30-mission-critical-services/)
-    across their Go services to reduce CPU usage and saved tens of thousands of cores
-    in the process. Their approach relied on profiling, metric collection, and automation
-    to safely adjust GC behavior based on actual memory pressure and workload characteristics.
-  id: totrans-31
+- en: 封装也可能使分析和基准测试产生误导，因为归因于看似无害的行的分配实际上可能源于对接口的隐式转换。
   prefs: []
   type: TYPE_NORMAL
-  zh: 话虽如此，在某些特定情况下调整 `GOGC` 可以带来显著的收益。例如，[Uber 在其 Go 服务中实施了动态 GC 调整](https://www.uber.com/en-GB/blog/how-we-saved-70k-cores-across-30-mission-critical-services/)
-    以减少 CPU 使用，并在过程中节省了数万个核心。他们的方法依赖于分析、指标收集和自动化，以根据实际的内存压力和工作负载特征安全地调整 GC 行为。
-- en: Another unusual case is from Cloudflare. They [profiled a high-concurrency cryptographic
-    workload](https://blog.cloudflare.com/go-dont-collect-my-garbage/) and found that
-    Go’s GC became a bottleneck as goroutines increased. Their application produced
-    minimal garbage, yet GC overhead grew with concurrency. By tuning GOGC to a much
-    higher value—specifically 11300—they significantly reduced GC frequency and improved
-    throughput, achieving over 22× performance gains compared to the single-core baseline.
-    This case highlights how allowing more heap growth in CPU-bound and low-allocation
-    scenarios can yield major improvements.
-  id: totrans-32
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 另一个不寻常的案例来自 Cloudflare。他们 [分析了高并发加密工作负载](https://blog.cloudflare.com/go-dont-collect-my-garbage/)
-    并发现，随着 goroutine 的增加，Go 的 GC 变成了瓶颈。他们的应用程序产生的垃圾最少，但 GC 开销随着并发性增长。通过将 GOGC 调整到一个更高的值——具体为
-    11300——他们显著减少了 GC 频率并提高了吞吐量，与单核基线相比实现了超过 22 倍的性能提升。这个案例突出了在 CPU 密集型和低分配场景中允许更多堆增长如何带来重大改进。
-- en: 'So, if you decide to tune the garbage collector, be methodical:'
-  id: totrans-33
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 因此，如果你决定调整垃圾收集器，请有计划地进行：
-- en: Always profile first. Use tools like `pprof` to confirm that GC activity is
-    a bottleneck.
-  id: totrans-34
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 总是先进行性能分析。使用 `pprof` 等工具确认 GC 活动是瓶颈。
-- en: Change settings incrementally. For example, increasing `GOGC` from 100 to 150
-    means the GC will run less frequently, using less CPU but more memory.
-  id: totrans-35
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 逐步更改设置。例如，将 `GOGC` 从 100 增加到 150 意味着 GC 将运行得更少，使用更少的 CPU 但更多的内存。
-- en: Verify impact. After tuning, validate with profiling data that the change had
-    a positive effect. Without that confirmation, it's easy to make things worse.
-  id: totrans-36
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 验证影响。调整后，使用分析数据验证更改是否产生了积极效果。没有这种确认，很容易使事情变得更糟。
-- en: '[PRE0]'
-  id: totrans-37
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE0]'
-- en: Memory Limiting with `GOMEMLIMIT`
-  id: totrans-38
-  prefs:
-  - PREF_H3
-  type: TYPE_NORMAL
-  zh: 使用 `GOMEMLIMIT` 进行内存限制
-- en: In addition to `GOGC`, Go provides `GOMEMLIMIT`—a soft memory limit that caps
-    the total heap size the runtime will try to stay under. This allows you to explicitly
-    control memory growth, especially useful in environments like containers or systems
-    with strict memory budgets.
-  id: totrans-39
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 除了 `GOGC` 之外，Go 还提供了 `GOMEMLIMIT`——这是一个软内存限制，它限制了运行时尝试保持在下的总堆大小。这允许你显式地控制内存增长，这在容器或具有严格内存预算的系统等环境中特别有用。
-- en: Why is this helpful? In containerized environments (like Kubernetes), memory
-    limits are typically enforced at the OS or orchestrator level. If your application
-    exceeds its memory quota, the OOM killer may abruptly terminate the container.
-    Go's GC isn't aware of those limits by default.
-  id: totrans-40
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 这有什么好处？在容器化环境中（如 Kubernetes），内存限制通常在操作系统或编排器级别强制执行。如果你的应用程序超过了其内存配额，OOM 杀手可能会突然终止容器。Go
-    的 GC 默认情况下并不了解这些限制。
-- en: 'Setting a `GOMEMLIMIT` helps prevent this. For example, if your container has
-    a 512MiB memory limit, you might set:'
-  id: totrans-41
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 设置 `GOMEMLIMIT` 有助于防止这种情况。例如，如果你的容器有 512MiB 的内存限制，你可能设置如下：
-- en: '[PRE1]'
-  id: totrans-42
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE1]'
-- en: This buffer gives the Go runtime room to act before reaching the hard system-imposed
-    memory cap. It allows the garbage collector to become more aggressive as total
-    memory usage grows, reducing the chances of the process being killed due to an
-    out-of-memory condition. It also leaves space for non-heap allocations—like goroutine
-    stacks, OS threads, and other internal runtime structures—which don’t count toward
-    heap size but still consume real memory.
-  id: totrans-43
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 这个缓冲区为 Go 运行时提供了在达到系统强加的内存上限之前进行操作的空间。它允许垃圾收集器在总内存使用量增长时变得更加激进，从而降低因内存不足而终止进程的可能性。它还留出了空间用于非堆分配——例如
-    goroutine 栈、OS 线程和其他内部运行时结构，这些结构不计入堆大小，但仍然消耗实际内存。
-- en: 'You can also set the limit programmatically:'
-  id: totrans-44
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 你也可以通过编程方式设置限制：
-- en: '[PRE2]'
-  id: totrans-45
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE2]'
-- en: The GC will become more aggressive as heap usage nears the limit, which can
-    increase CPU load. Be careful not to set the limit too low—especially if your
-    application maintains a large live set of objects—or you may trigger excessive
-    GC cycles.
-  id: totrans-46
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 当堆使用接近限制时，GC 将变得更加激进，这可能会增加 CPU 负载。请小心不要将限制设置得太低——特别是如果您的应用程序维护一个大型活动对象集——否则可能会触发过多的
-    GC 循环。
-- en: 'While `GOGC` controls how frequently the GC runs based on heap growth, `GOMEMLIMIT`
-    constrains the heap size itself. The two can be combined for more precise control:'
-  id: totrans-47
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 虽然 `GOGC` 根据堆增长频率控制 GC 的运行，但 `GOMEMLIMIT` 限制了堆的大小。这两个变量可以结合使用以实现更精确的控制：
-- en: '[PRE3]'
-  id: totrans-48
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE3]'
-- en: This tells the GC to operate with the default growth ratio and to start collecting
-    sooner if heap usage nears 4 GiB.
-  id: totrans-49
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 这告诉 GC 以默认的增长比率运行，并在堆使用接近 4 GiB 时开始收集。
-- en: GOMEMLIMIT=X and GOGC=off configuration
-  id: totrans-50
-  prefs:
-  - PREF_H3
-  type: TYPE_NORMAL
-  zh: GOMEMLIMIT=X 和 GOGC=off 配置
-- en: 'In scenarios where memory availability is fixed and predictable—such as within
-    containers or VMs, you can use these two variables together:'
-  id: totrans-51
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 在内存可用性固定且可预测的场景中——例如在容器或虚拟机中，你可以同时使用这两个变量：
-- en: '`GOMEMLIMIT=X` tells the runtime to aim for a specific memory ceiling. For
-    example, `GOMEMLIMIT=2GiB` will trigger garbage collection when total memory usage
-    nears 2 GiB.'
-  id: totrans-52
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: '`GOMEMLIMIT=X` 告诉运行时达到特定的内存上限。例如，`GOMEMLIMIT=2GiB` 将在总内存使用量接近 2 GiB 时触发垃圾回收。'
-- en: '`GOGC=off` disables the default GC pacing algorithm, so garbage collection
-    only runs when the memory limit is hit.'
-  id: totrans-53
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: '`GOGC=off` 禁用了默认的 GC 调度算法，因此垃圾回收仅在达到内存限制时运行。'
-- en: This configuration maximizes memory usage efficiency and avoids the overhead
-    of frequent GC cycles. It's especially effective in high-throughput or latency-sensitive
-    systems where predictable memory usage matters.
-  id: totrans-54
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 此配置最大化内存使用效率，并避免了频繁 GC 循环的开销。它特别适用于高吞吐量或对延迟敏感的系统，在这些系统中，可预测的内存使用很重要。
-- en: '**Example:**'
-  id: totrans-55
-  prefs: []
-  type: TYPE_NORMAL
-  zh: '**示例：**'
-- en: '[PRE4]'
-  id: totrans-56
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE4]'
-- en: With this setup, memory usage grows freely until the 2 GiB threshold is reached.
-    At that point, Go performs a full garbage collection pass.
-  id: totrans-57
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 在这种设置下，内存使用量自由增长，直到达到 2 GiB 的阈值。在那个时刻，Go 执行完整的垃圾回收过程。
-- en: Warning
-  id: totrans-58
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 警告
-- en: Always benchmark with your real workload. Disabling automatic GC can backfire
-    if your application produces a lot of short-lived allocations.
-  id: totrans-59
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 总是用您的实际工作负载进行基准测试。如果您的应用程序产生大量短生命周期的分配，禁用自动 GC 可能会适得其反。
-- en: Monitor memory pressure and GC pause times using `runtime.ReadMemStats` or `pprof`.
-  id: totrans-60
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 使用 `runtime.ReadMemStats` 或 `pprof` 监控内存压力和 GC 暂停时间。
-- en: This approach works best when your memory usage patterns are well understood
-    and stable.
-  id: totrans-61
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 当您的内存使用模式被充分理解和稳定时，这种方法效果最佳。
-- en: Practical Strategies for Reducing GC Pressure
-  id: totrans-62
+- en: 基准测试影响[¶](#benchmarking-impact "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 降低 GC 压力的实用策略
-- en: Prefer Stack Allocation
-  id: totrans-63
+- en: 对于基准测试，我们将定义一个接口和一个实现该接口的具有显著负载的结构体。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: type Worker interface {
+  prefs: []
+  type: TYPE_NORMAL
+- en: Work()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: type LargeJob struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: payload [4096]byte
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func (LargeJob) Work() {}
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 装箱大结构体[¶](#boxing-large-structs "永久链接")
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-  zh: 优先使用栈分配
-- en: 'Go allocates variables on the stack whenever possible. Avoid escaping variables
-    to the heap:'
-  id: totrans-64
+- en: 为了展示装箱大值与指针的实际影响，我们基准测试了将1000个大结构体赋值给接口切片的成本：
   prefs: []
   type: TYPE_NORMAL
-  zh: Go 在可能的情况下始终在栈上分配变量。避免将变量逃逸到堆上：
-- en: '[PRE5]'
-  id: totrans-65
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE5]'
-- en: Use `go build -gcflags="-m"` to view escape analysis diagnostics. See [Stack
-    Allocations and Escape Analysis](../stack-alloc/) for more details.
-  id: totrans-66
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 使用 `go build -gcflags="-m"` 查看逃逸分析诊断。有关更多详细信息，请参阅[栈分配和逃逸分析](../stack-alloc/)。
-- en: Use sync.Pool for Short-Lived Objects
-  id: totrans-67
+- en: func BenchmarkBoxedLargeSlice(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: jobs := make([]Worker, 0, 1000)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: jobs = jobs[:0]
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for j := 0; j < 1000; j++ {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var job LargeJob
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: jobs = append(jobs, job)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkPointerLargeSlice(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: jobs := make([]Worker, 0, 1000)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: jobs := jobs[:0]
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for j := 0; j < 1000; j++ {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: job := &LargeJob{}
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: jobs = append(jobs, job)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 基准测试结果
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | 每操作时间（ns） | 每操作字节（B） | 每操作分配（Allocs） |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BoxedLargeSliceGrowth | 404,649 | ~4.13 MB | 1011 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| PointerLargeSliceGrowth | 340,549 | ~4.13 MB | 1011 |'
+  prefs: []
+  type: TYPE_TB
+- en: 装箱大值要慢得多——在这个例子中大约19%——因为每个接口赋值都要复制整个4KB的结构体。然而，装箱指针避免了这种成本，并保持复制小（仅8字节）。虽然两种方法分配的总内存相同（因为所有值都逃逸到堆上），但在压力下指针装箱具有明显的性能优势。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 将值传递给接受接口的函数时[¶](#passing-to-a-function-that-accepts-an-interface "永久链接")
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-  zh: 用于短生命周期对象的 sync.Pool
-- en: '`sync.Pool` is ideal for temporary, reusable allocations that are expensive
-    to GC.'
-  id: totrans-68
+- en: 另一个常见的装箱来源是当将大值直接传递给接受接口的函数时。即使没有存储到切片中，在调用位置也会发生装箱。
   prefs: []
   type: TYPE_NORMAL
-  zh: '`sync.Pool` 是用于临时、可重用且 GC 成本高昂的分配的理想选择。'
-- en: '[PRE6]'
-  id: totrans-69
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE6]'
-- en: See [Object Pooling](../object-pooling/) for more details.
-  id: totrans-70
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 有关更多详细信息，请参阅[对象池](../object-pooling/)。
-- en: Batch Allocations
-  id: totrans-71
+- en: var sink Worker
+  prefs: []
+  type: TYPE_NORMAL
+- en: func call(w Worker) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: sink = w
   prefs:
-  - PREF_H3
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: 批量分配
-- en: Group allocations into fewer objects to reduce GC pressure.
-  id: totrans-72
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: 将内存分配分组到更少的对象中，以降低 GC 压力。
-- en: '[PRE7]'
-  id: totrans-73
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE7]'
-- en: See [Memory Preallocation](../mem-prealloc/) for more details.
-  id: totrans-74
+- en: func BenchmarkCallWithValue(b *testing.B) {
   prefs: []
   type: TYPE_NORMAL
-  zh: 有关更多详细信息，请参阅[内存预分配](../mem-prealloc/)。
-- en: Weak References in Go
-  id: totrans-75
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var j LargeJob
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: call(j)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkCallWithPointer(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: j := &LargeJob{}
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: call(j)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 基准测试结果
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | ns/op | B/op | allocs/op |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| CallWithValue | 422.5 | 4096 | 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| CallWithPointer | 379.9 | 4096 | 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: 将值传递给期望接口的函数会导致装箱，复制整个结构体并在堆上分配。在我们的基准测试中，这导致与使用指针相比大约11%的CPU成本增加。传递指针避免了复制结构体，减少了内存移动，并导致更小、更缓存友好的接口值，使其在性能敏感的场景中成为更有效的选择。
+  prefs: []
+  type: TYPE_NORMAL
+- en: <details class="example"><summary>显示完整的基准测试文件</summary>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: package perf
+  prefs: []
+  type: TYPE_NORMAL
+- en: import "testing"
+  prefs: []
+  type: TYPE_NORMAL
+- en: // interface-start
+  prefs: []
+  type: TYPE_NORMAL
+- en: type Worker interface {
+  prefs: []
+  type: TYPE_NORMAL
+- en: Work()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: type LargeJob struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: payload [4096]byte
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func (LargeJob) Work() {}
+  prefs: []
+  type: TYPE_NORMAL
+- en: // interface-end
+  prefs: []
+  type: TYPE_NORMAL
+- en: // bench-slice-start
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkBoxedLargeSlice(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: jobs := make([]Worker, 0, 1000)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: jobs = jobs[:0]
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for j := 0; j < 1000; j++ {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var job LargeJob
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: jobs = append(jobs, job)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkPointerLargeSlice(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: jobs := make([]Worker, 0, 1000)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: jobs := jobs[:0]
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for j := 0; j < 1000; j++ {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: job := &LargeJob{}
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: jobs = append(jobs, job)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // bench-slice-end
+  prefs: []
+  type: TYPE_NORMAL
+- en: // bench-call-start
+  prefs: []
+  type: TYPE_NORMAL
+- en: var sink Worker
+  prefs: []
+  type: TYPE_NORMAL
+- en: func call(w Worker) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: sink = w
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkCallWithValue(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var j LargeJob
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: call(j)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkCallWithPointer(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: j := &LargeJob{}
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: call(j)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // bench-call-end
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```</details>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当接口装箱可接受时[¶](#when-interface-boxing-is-acceptable "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: Go 中的弱引用
-- en: 'Go 1.24 added the `weak` package, providing a standardized way to create weak
-    references—pointers that don’t keep their target objects alive. In garbage-collected
-    systems like Go, strong references extend an object’s lifetime: as long as something
-    points to it, it won’t be collected. That’s usually what you want, but in structures
-    like caches, deduplication maps, or object graphs, this can lead to memory staying
-    alive much longer than intended. Weak references solve that by allowing you to
-    refer to an object without blocking the GC from reclaiming it when nothing else
-    is using it.'
-  id: totrans-76
+- en: 尽管在某些情况下接口装箱对性能有影响，但通常它是完全合理的——有时甚至是首选的。
   prefs: []
   type: TYPE_NORMAL
-  zh: Go 1.24 添加了 `weak` 包，提供了一种创建弱引用的标准方式——这些引用不会保持其目标对象存活。在像 Go 这样的垃圾回收系统中，强引用延长了对象的生命周期：只要有什么东西指向它，它就不会被回收。这通常是您想要的，但在像缓存、去重映射或对象图这样的结构中，这可能导致内存存活时间远超过预期。弱引用通过允许您在不阻止
-    GC 在没有其他东西使用它时回收对象的情况下引用对象来解决此问题。
-- en: 'A weak reference, by contrast, tells the garbage collector: “you can collect
-    this object if nothing else is strongly referencing it.” This pattern is important
-    for building memory-sensitive data structures that should not interfere with garbage
-    collection.'
-  id: totrans-77
+- en: 当抽象比性能更重要时[¶](#when-abstraction-is-more-important-than-performance "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 接口可以实现解耦和模块化。如果你正在设计一个干净、可测试的API，装箱的成本与抽象的好处相比可以忽略不计。
   prefs: []
   type: TYPE_NORMAL
-  zh: 与之相反，弱引用会告诉垃圾收集器：“如果没有任何其他强引用引用它，你可以收集这个对象。”这种模式对于构建不应干扰垃圾收集的内存敏感数据结构非常重要。
-- en: '[PRE8]'
-  id: totrans-78
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE8]'
-- en: '[PRE9]'
-  id: totrans-79
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE9]'
-- en: In this example, `wp` holds a weak reference to a `Data` object. After the strong
-    reference (`data`) goes out of scope and the garbage collector runs, the `Data`
-    may be collected—at which point `wp.Value()` will return nil. This pattern is
-    especially useful in memory-sensitive contexts like caches or canonicalization
-    maps, where you want to avoid artificially extending object lifetimes. Always
-    check the result of `Value()` before using it, since the target may have been
-    reclaimed.
-  id: totrans-80
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 在这个例子中，`wp` 持有一个对 `Data` 对象的弱引用。在强引用（`data`）超出作用域并且垃圾收集器运行后，`Data` 可能被收集——此时
-    `wp.Value()` 将返回 nil。这种模式在内存敏感的上下文中特别有用，如缓存或规范映射，在这些上下文中，你希望避免人为地延长对象的生命周期。始终在使用之前检查
-    `Value()` 的结果，因为目标可能已经被回收。
-- en: Benchmarking Impact
-  id: totrans-81
+- en: type Storage interface {
+  prefs: []
+  type: TYPE_NORMAL
+- en: Save([]byte) error
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func Process(s Storage) { /* ... */ }
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当值很小且装箱不涉及分配时[¶](#when-values-are-small-and-boxing-is-allocation-free "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 将小的、可复制的值如 `int`、`float64` 或小的结构体进行装箱通常不会引起内存分配。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: var i interface{}
+  prefs: []
+  type: TYPE_NORMAL
+- en: i = 123 // safe and cheap
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当值是短生命期时[¶](#when-values-are-short-lived "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 如果装箱值被短暂使用（例如，用于日志记录或基于接口的排序），开销很小。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: fmt.Println("value:", someStruct) // implicit boxing is fine
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当需要动态行为时[¶](#when-dynamic-behavior-is-required "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 接口允许运行时多态。如果你需要不同类型实现相同的行为，装箱是必要的且是惯用的。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: for _, s := range []Shape{Circle{}, Square{}} {
+  prefs: []
+  type: TYPE_NORMAL
+- en: fmt.Println(s.Area())
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当支持清晰度、可重用性或设计目标时使用装箱，仅在性能关键路径的代码中避免使用。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 如何避免接口装箱[¶](#how-to-avoid-interface-boxing "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 基准测试影响
-- en: It's tempting to rely on synthetic benchmarks to evaluate the performance of
-    Go's garbage collector, but generic benchmarks rarely capture the nuances of real-world
-    workloads. Memory behavior is highly dependent on allocation patterns, object
-    lifetimes, concurrency, and how frequently short-lived versus long-lived data
-    structures are used.
-  id: totrans-82
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 依赖于合成基准来评估 Go 的垃圾收集器性能很诱人，但通用的基准很少能捕捉到真实工作负载的细微差别。内存行为高度依赖于分配模式、对象生命周期、并发性以及短生命周期与长生命周期数据结构的使用频率。
-- en: For example, the impact of GC in a CPU-bound microservice that maintains large
-    in-memory indexes will differ dramatically from an I/O-heavy API server with minimal
-    heap usage. As such, tuning decisions should always be informed by your application's
-    profiling data.
-  id: totrans-83
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 例如，在维护大型内存索引的 CPU 密集型微服务中，GC 的影响与堆使用量极小的 I/O 重的 API 服务器相比将截然不同。因此，调优决策应始终基于你的应用程序的配置文件数据。
-- en: 'We cover targeted use cases and their GC performance trade-offs in more focused
-    articles:'
-  id: totrans-84
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 我们在更专注的文章中涵盖了目标用例及其 GC 性能权衡：
-- en: '[Object Pooling](../object-pooling/): Reducing allocation churn using `sync.Pool`'
-  id: totrans-85
+- en: 在赋值给接口时使用指针。如果方法集需要指针接收者或值较大，应显式传递指针以避免重复复制和堆分配。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '[对象池](../object-pooling/)：使用 `sync.Pool` 减少分配波动'
-- en: '[Stack Allocations and Escape Analysis](../stack-alloc/): Minimizing heap usage
-    by keeping values on the stack'
-  id: totrans-86
+- en: '```go'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for i := range tasks {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: result = append(result, &tasks[i]) // Avoids boxing copies
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '```'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 避免在热点路径中使用接口。如果已知具体的类型且稳定，应完全避免接口间接引用——尤其是在计算密集型或分配敏感的函数中。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '[栈分配和逃逸分析](../stack-alloc/)：通过在栈上保持值来最小化堆使用'
-- en: '[Memory Preallocation](../mem-prealloc/): Avoiding unnecessary growth of slices
-    and maps'
-  id: totrans-87
+- en: 使用特定类型的容器。在可行的情况下，而不是使用`[]interface{}`，更倾向于使用泛型切片或类型化集合。这保留了静态类型并减少了不必要的分配。
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '[内存预分配](../mem-prealloc/)：避免切片和映射不必要的增长'
-- en: When applied to the right context, these techniques can make a measurable difference,
-    but they don’t lend themselves to one-size-fits-all benchmarks.
-  id: totrans-88
-  prefs: []
+- en: 使用pprof进行基准测试和检查。使用`go test -bench`和`pprof`来观察分配发生的位置。如果分配点在`runtime.convT2E`（将T转换为接口），你很可能是进行了装箱。
+  prefs:
+  - PREF_UL
   type: TYPE_NORMAL
-  zh: 当应用于正确的上下文时，这些技术可以产生可测量的差异，但它们不适合所有基准测试。

@@ -1,426 +1,477 @@
-- en: 'Connection Lifecycle Observability: From Dial to Close'
-  id: totrans-0
+- en: GOMAXPROCS, epoll/kqueue和调度器级别的调整[¶]
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
-  zh: 连接生命周期可观察性：从拨号到关闭
-- en: 原文：[https://goperf.dev/02-networking/connection_observability/](https://goperf.dev/02-networking/connection_observability/)
-  id: totrans-1
+- en: '[https://goperf.dev/02-networking/a-bit-more-tuning/](https://goperf.dev/02-networking/a-bit-more-tuning/)'
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
-  zh: 原文：[https://goperf.dev/02-networking/connection_observability/](https://goperf.dev/02-networking/connection_observability/)
-- en: Many observability systems expose only high-level HTTP metrics, but deeper insight
-    comes from explicitly instrumenting each stage — DNS resolution, dialing, handshake,
-    negotiation, reads/writes, and teardown. Observing the full lifecycle of a network
-    connection provides the clarity needed to diagnose latency issues, identify failures,
-    and relate resource usage to external behavior.
-  id: totrans-2
+- en: 在高并发级别运行的Go应用程序经常遇到性能瓶颈，这些瓶颈并非由CPU饱和引起。这些限制通常源于运行时级别的机制：goroutines（G）如何通过操作系统线程（M）调度到逻辑处理器（P），阻塞操作如何影响线程可用性，以及运行时如何与内核设施（如`epoll`或`kqueue`）交互以进行I/O就绪。
   prefs: []
   type: TYPE_NORMAL
-  zh: 许多可观察性系统仅公开高级HTTP度量，但更深入的洞察来自于显式地测量每个阶段——DNS解析、拨号、握手、协商、读取/写入和拆除。观察网络连接的全生命周期提供了诊断延迟问题、识别故障以及将资源使用与外部行为相关联所需的清晰度。
-- en: DNS Resolution
-  id: totrans-3
+- en: 与表面代码优化不同，解决这些问题需要了解Go调度器的内部设计，特别是GOMAXPROCS如何控制执行并行性，以及线程竞争、缓存局部性和系统调用延迟如何在负载下出现。错误的运行时设置可能导致上下文切换过多、P停滞和吞吐量下降，尽管有可用的核心。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 系统级别的调整——通过CPU亲和性、线程固定和调度器内省——是提高多核环境中延迟和吞吐量的关键路径。当与精确基准测试和可观察性相结合时，这些调整使Go服务能够更可预测地扩展，并充分利用现代硬件架构。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 理解GOMAXPROCS[¶](#understanding-gomaxprocs "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: DNS解析
-- en: Every outbound connection begins with a name resolution step unless an IP is
-    already known. DNS latency and failures often dominate connection setup time and
-    can vary significantly depending on caching and resolver performance.
-  id: totrans-4
+- en: 在Go中，`GOMAXPROCS`定义了同时执行用户级Go代码（G）的最大操作系统线程数（M）。默认情况下，它设置为开发者的机器的逻辑CPU数量。在底层，调度器暴露了等于`GOMAXPROCS`的P（处理器）。每个P托管一个G的运行队列，并绑定到一个M来执行Go代码。
   prefs: []
   type: TYPE_NORMAL
-  zh: 每个出站连接都以名称解析步骤开始，除非已知IP地址。DNS延迟和故障通常主导连接设置时间，并且可能因缓存和解析器性能而显著变化。
-- en: 'Capturing DNS resolution duration, errors and resulting address provides visibility
-    into one of the least predictable phases. At this stage, it is valuable to:'
-  id: totrans-5
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 捕获DNS解析持续时间、错误和结果地址提供了对最不可预测阶段之一的可见性。在这个阶段，以下做法是有价值的：
-- en: measure the time from query issuance to receiving an answer
-  id: totrans-6
+- en: package main
+  prefs: []
+  type: TYPE_NORMAL
+- en: import (
+  prefs: []
+  type: TYPE_NORMAL
+- en: '"fmt"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '"runtime"'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: )
+  prefs: []
+  type: TYPE_NORMAL
+- en: func main() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: // Show current value
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: fmt.Printf("GOMAXPROCS = %d\n", runtime.GOMAXPROCS(0))
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // Set to 4 and confirm
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: prev := runtime.GOMAXPROCS(4)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: fmt.Printf("Changed from %d to %d\n", prev, runtime.GOMAXPROCS(0))
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当开发者增加`GOMAXPROCS`时，开发者允许更多的P（因此更多的OS线程）并行运行Go-routines。这通常能提升CPU密集型工作的性能。然而，更多的P也会带来更多的上下文切换、更多的缓存冲突，以及共享数据结构（例如，垃圾收集器的工作队列）的潜在竞争。重要的是要理解，盲目地超过最佳点实际上可能会降低延迟。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 深入Go的调度器内部[¶](#diving-into-gos-scheduler-internals "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go的调度器组织了三个核心参与者：G（goroutine）、M（OS线程）和P（逻辑处理器），[更多信息请见此处](../networking-internals/#goroutines-and-the-runtime-scheduler)。当一个goroutine执行阻塞系统调用时，它的M会从它的P上分离，将P返回给全局调度器，以便另一个M可以取走。这种设计防止了系统调用使CPU密集型goroutine饿死。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 调度器使用工作窃取：每个P维护一个本地运行队列，空闲的P将从忙碌的同伴那里窃取工作。如果开发者将GOMAXPROCS设置得太高，开发者将看到窃取工作与平衡这些运行队列的开销之间的回报递减。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 通过`GODEBUG`启用调度器跟踪可以揭示细粒度的指标：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: GODEBUG=schedtrace=1000,scheddetail=1 go run main.go
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`schedtrace=1000` 指示运行时每1000毫秒（1秒）打印一次调度器状态。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 测量从查询发布到收到答案的时间
-- en: log the resolved IP addresses
-  id: totrans-7
+- en: '`scheddetail=1` 启用每个逻辑处理器（P）的附加信息，例如单个运行队列长度。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 记录解析的IP地址
-- en: surface transient and permanent failures distinctly
-  id: totrans-8
+- en: 每个打印的跟踪包括如下统计信息：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'SCHED 3024ms: gomaxprocs=14 idleprocs=14 threads=26 spinningthreads=0 needspinning=0
+    idlethreads=20 runqueue=0 gcwaiting=false nmidlelocked=1 stopwait=0 sysmonwait=false'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'P0: status=0 schedtick=173 syscalltick=3411 m=nil runqsize=0 gfreecnt=6 timerslen=0'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '...'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'P13: status=0 schedtick=96 syscalltick=310 m=nil runqsize=0 gfreecnt=2 timerslen=0'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'M25: p=nil curg=nil mallocing=0 throwing=0 preemptoff= locks=0 dying=0 spinning=false
+    blocked=true lockedg=nil'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '...'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 第一行报告全局调度器状态，包括垃圾收集是否阻塞（gcwaiting）、是否需要自旋线程以及空闲线程计数。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 每个P行详细说明了逻辑处理器的调度活动，包括其被调度的次数（schedtick）、系统调用活动（syscalltick）、计时器和空闲goroutine槽位。
+  prefs: []
+  type: TYPE_NORMAL
+- en: M行对应于操作系统线程。每一行显示哪个goroutine（如果有）正在该线程上运行，线程是否空闲、自旋或阻塞，以及内存分配活动和锁状态。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这种视图不仅有助于发现经典的并发瓶颈，还能发现更深层次的问题：调度延迟、阻塞的系统调用、不进行有用工作的自旋线程，或不应空闲的CPU核心。输出揭示了仅从日志或指标中无法看到的模式。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`gomaxprocs=14`: 逻辑处理器（P）的数量。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 明确区分表面上的暂时性和永久性故障
-- en: In Go, this can be achieved by wrapping the `net.Resolver`.
-  id: totrans-9
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 在Go中，这可以通过包装`net.Resolver`来实现。
-- en: '[PRE0]'
-  id: totrans-10
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE0]'
-- en: This explicit measurement avoids relying on opaque metrics exposed by the OS
-    resolver or libraries.
-  id: totrans-11
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 这种显式测量避免了依赖于操作系统解析器或库暴露的模糊度量。
-- en: Dialing
-  id: totrans-12
-  prefs:
-  - PREF_H2
-  type: TYPE_NORMAL
-  zh: 拨号
-- en: After obtaining an address, the next phase is dialing — establishing a TCP (or
-    other transport) connection. Here, round-trip latency to the target, route stability,
-    and ephemeral port exhaustion can all surface.
-  id: totrans-13
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 获得地址后，下一个阶段是拨号——建立TCP（或其他传输）连接。在这里，往返延迟到目标、路由稳定性和临时端口耗尽都可能显现。
-- en: Observing the dial phase often involves intercepting `net.Dialer`.
-  id: totrans-14
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 观察拨号阶段通常涉及拦截`net.Dialer`。
-- en: '[PRE1]'
-  id: totrans-15
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE1]'
-- en: Why trace here? Dialing failures can indicate downstream unavailability, but
-    also local issues like SYN flood protection(1) or bad routing. Without a per-dial
-    timestamp and error trace, identifying the locus of failure is guesswork.
-  id: totrans-16
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 为什么在这里追踪？拨号失败可能表明下游不可用，但也可能是本地问题，如SYN洪水保护(1)或不良路由。没有每个拨号的时间戳和错误跟踪，确定失败位置就是猜测。
-- en: When dialing fails, sometimes it’s not because of the network or the server
-    being down, but because the local machine refuses to open more connections due
-    to resource exhaustion or protective rate limiting.
-  id: totrans-17
-  prefs:
-  - PREF_OL
-  type: TYPE_NORMAL
-  zh: 当拨号失败时，有时并不是因为网络或服务器故障，而是因为本地机器由于资源耗尽或保护性速率限制拒绝打开更多连接。
-- en: Handshake and Negotiation
-  id: totrans-18
-  prefs:
-  - PREF_H2
-  type: TYPE_NORMAL
-  zh: 握手和协商
-- en: For secure connections, the next stage — cryptographic handshake — dominates.
-    TLS negotiation can involve multiple round-trips, certificate validation, and
-    cipher negotiation. Measuring this stage separately is necessary because it isolates
-    pure network latency (dial) from cryptographic and policy enforcement costs (handshake).
-  id: totrans-19
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 对于安全连接，下一个阶段——加密握手——占主导地位。TLS协商可能涉及多次往返、证书验证和加密套件协商。单独测量这一阶段是必要的，因为它将纯网络延迟（拨号）与加密和政策执行成本（握手）隔离开。
-- en: The `crypto/tls` library in Go allows instrumentation of the handshake explicitly.
-  id: totrans-20
-  prefs: []
-  type: TYPE_NORMAL
-  zh: Go中的`crypto/tls`库允许显式地测量握手。
-- en: '[PRE2]'
-  id: totrans-21
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE2]'
-- en: A common misconception is that slow TLS handshakes always reflect bad network
-    conditions; in practice, slow certificate validation or [OCSP](https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol)/[CRL](https://en.wikipedia.org/wiki/Certificate_revocation_list)
-    checks are frequently to blame. Separating these phases helps pinpoint the cause.
-  id: totrans-22
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 一个常见的误解是，缓慢的TLS握手总是反映不良的网络条件；在实践中，缓慢的证书验证或[OCSP](https://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol)/[CRL](https://en.wikipedia.org/wiki/Certificate_revocation_list)检查通常是罪魁祸首。将这些阶段分开有助于确定原因。
-- en: Application Reads and Writes
-  id: totrans-23
-  prefs:
-  - PREF_H2
-  type: TYPE_NORMAL
-  zh: 应用读取和写入
-- en: Once the connection is established and negotiated, application-level traffic
-    proceeds as reads and writes. Observability at this stage is often the least precise
-    yet most critical for correlating client-perceived latency to backend processing.
-  id: totrans-24
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 一旦建立并协商了连接，应用层流量就作为读写进行。在这个阶段的可观察性通常是最不精确的，但对于将客户端感知的延迟与后端处理相关联来说是最关键的。
-- en: Instrumenting reads and writes directly yields fine-grained latency and throughput
-    metrics. Wrapping a connection is a common strategy.
-  id: totrans-25
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 直接对读写进行度量可以产生细粒度的延迟和吞吐量指标。包装连接是一种常见的策略。
-- en: '[PRE3]'
-  id: totrans-26
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE3]'
-- en: Why measure at this granularity? Reads and writes can block for reasons unrelated
-    to connection establishment — buffer backpressure, TCP window exhaustion, or application
-    pauses. Tracing them reveals whether observed slowness is due to I/O contention
-    or upstream latency.
-  id: totrans-27
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 为什么要在这种粒度上进行度量？读写可能会因为与连接建立无关的原因而阻塞——缓冲区后压力、TCP窗口耗尽或应用程序暂停。跟踪它们可以揭示观察到的缓慢是否由于I/O竞争或上游延迟。
-- en: Warning
-  id: totrans-28
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 警告
-- en: Such a granularity level can affect your system performance. See [Why reduce
-    logs?](#why-reduce-logs) for more details.
-  id: totrans-29
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 这样的粒度级别可能会影响您的系统性能。有关更多详细信息，请参阅[为什么减少日志？](#why-reduce-logs)。
-- en: Teardown
-  id: totrans-30
-  prefs:
-  - PREF_H2
-  type: TYPE_NORMAL
-  zh: 拆卸
-- en: Finally, connection closure often receives little attention, yet it can affect
-    resource usage and connection pool behavior. Observing how long a connection takes
-    to close and whether any errors surface during `Close()` is also useful. For TCP,
-    the closure can be delayed by the OS until all `FIN`/`ACK` sequences complete,
-    and sockets can linger in `TIME_WAIT`(1). Explicitly logging teardown metrics
-    helps identify resource leaks.
-  id: totrans-31
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 最后，连接关闭通常很少受到关注，但它可能会影响资源使用和连接池的行为。观察连接关闭所需的时间以及`Close()`期间是否出现任何错误也是有用的。对于TCP，关闭可以由操作系统延迟，直到所有`FIN`/`ACK`序列完成，并且套接字可以保持在`TIME_WAIT`(1)状态。明确记录拆卸指标有助于识别资源泄漏。
-- en: Waiting for enough time to pass to be sure that all remaining packets on the
-    connection have expired.
-  id: totrans-32
-  prefs:
-  - PREF_OL
-  type: TYPE_NORMAL
-  zh: 等待足够的时间过去，以确保连接上所有剩余的数据包都已过期。
-- en: '[PRE4]'
-  id: totrans-33
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE4]'
-- en: Correlating Spans and Errors
-  id: totrans-34
-  prefs:
-  - PREF_H2
-  type: TYPE_NORMAL
-  zh: 关联跨度与错误
-- en: Capturing individual phase durations is not enough unless correlated into a
-    coherent trace. Using a context-aware tracing library allows attaching phase spans
-    to a single logical transaction.
-  id: totrans-35
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 除非将单个阶段持续时间关联到一个连贯的跟踪中，否则捕获单个阶段持续时间是不够的。使用上下文感知的跟踪库可以将阶段跨度附加到单个逻辑事务上。
-- en: 'For example, with [OpenTelemetry](https://opentelemetry.io/):'
-  id: totrans-36
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 例如，使用[OpenTelemetry](https://opentelemetry.io/)：
-- en: '[PRE5]'
-  id: totrans-37
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE5]'
-- en: Wrapping each phase in a span enables stitching the timeline together and correlating
-    specific errors with their originating stage. This level of detail is important
-    when diagnosing production outages where symptoms often manifest far from their
-    root cause.
-  id: totrans-38
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 在每个阶段包装一个跨度可以连接时间线，并将特定错误与其起源阶段相关联。在诊断生产中断时，症状往往远在根本原因之外，这种详细程度非常重要。
-- en: Detecting and Explaining Hangs
-  id: totrans-39
-  prefs:
-  - PREF_H2
-  type: TYPE_NORMAL
-  zh: 检测和解释挂起
-- en: One of the more insidious problems in distributed systems is a hung connection
-    — no forward progress but no immediate failure. Granular observability can distinguish
-    between a hang during DNS, an unresponsive handshake, a blocked write due to full
-    buffers, or a delayed FIN. For example, if the dial phase logs complete but handshake
-    never finishes, attention should focus on certificate validation, MTU black holes,
-    or middlebox interference. By maintaining per-phase timeouts and alerts based
-    on historical baselines, such conditions can be detected and explained rather
-    than simply categorized as "slow." This explains not just what failed, but why
-    it failed.
-  id: totrans-40
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 分布式系统中的一个更隐蔽的问题是挂起的连接——没有前进但也没有立即失败。细粒度的可观察性可以区分DNS期间的挂起、无响应的手势、由于缓冲区满而阻塞的写入或延迟的FIN。例如，如果拨号阶段日志完成但握手从未完成，则应关注证书验证、MTU黑洞或中间盒干扰。通过维护基于历史基线的每个阶段的超时和警报，这些条件可以被发现和解释，而不仅仅是被分类为“慢”。这不仅解释了什么失败了，还解释了为什么失败了。
-- en: 'Beyond Logs: Metrics and Structured Events'
-  id: totrans-41
-  prefs:
-  - PREF_H2
-  type: TYPE_NORMAL
-  zh: 超越日志：指标和结构化事件
-- en: Most likely you will need to reduce the volume of logs without losing essential
-    information is critical for operating at scale. High-frequency, detailed logging
-    of connection lifecycle events incurs I/O, CPU, and storage overhead. Without
-    control mechanisms, it can overwhelm log aggregation systems, inflate costs, and
-    even obscure the signal with noise. Log verbosity must therefore be managed carefully
-    — keeping enough detail for diagnosis but avoiding excessive volume.
-  id: totrans-42
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 很可能你需要在不丢失关键信息的情况下减少日志的体积，这对于大规模操作至关重要。对连接生命周期事件的频繁、详细记录会产生I/O、CPU和存储开销。没有控制机制，它可能会压倒日志聚合系统，增加成本，甚至用噪声掩盖信号。因此，日志的详细程度必须谨慎管理——保留足够的细节以供诊断，但避免过大的体积。
-- en: '[Zap](https://github.com/uber-go/zap) is used in these examples to demonstrate
-    strategies for runtime configurability and structured logging, but the same principles
-    apply to any capable logging library. The ability to change levels dynamically,
-    emit structured data, and sample events makes it easier to implement these strategies.'
-  id: totrans-43
-  prefs: []
-  type: TYPE_NORMAL
-  zh: '[Zap](https://github.com/uber-go/zap)在这些示例中用于演示运行时配置性和结构化日志记录的策略，但相同的原理适用于任何有能力的日志库。能够动态更改级别、发出结构化数据和采样事件使得实现这些策略变得更容易。'
-- en: Why reduce logs?
-  id: totrans-44
-  prefs:
-  - PREF_H3
-  type: TYPE_NORMAL
-  zh: 为什么需要减少日志？
-- en: Logging at fine granularity across thousands of connections per second can quickly
-    generate terabytes of data, with much of it being repetitive and low-value. High
-    log throughput can also cause contention with the application’s main execution
-    paths, affecting latency. Furthermore, unbounded log growth burdens operators,
-    complicates incident triage, and increases retention costs.
-  id: totrans-45
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 在每秒数千个连接上以细粒度进行日志记录可以迅速生成数以千计的数据，其中大部分是重复的且价值较低。高日志吞吐量也可能与应用程序的主要执行路径发生竞争，影响延迟。此外，无界的日志增长会给操作员带来负担，使事件分类复杂化，并增加保留成本。
-- en: Techniques to control log volume
-  id: totrans-46
-  prefs:
-  - PREF_H3
-  type: TYPE_NORMAL
-  zh: 控制日志体积的技术
-- en: '**Configurable log levels**: adjust verbosity at runtime depending on the situation
-    — keeping production at `INFO` or `WARN` by default, switching to `DEBUG` or `TRACE`
-    during investigation.'
-  id: totrans-47
+- en: '`idleprocs=14`: 所有处理器都空闲，表示没有可运行的goroutines。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '**可配置的日志级别**：根据情况在运行时调整详细程度——默认情况下将生产设置为`INFO`或`WARN`，在调查期间切换到`DEBUG`或`TRACE`。'
-- en: '**Sampling**: log only a subset of events under high load or log every Nth
-    connection. Zap supports samplers that enforce rate limits and randomness.'
-  id: totrans-48
+- en: '`threads=26`: 创建的M的数量（操作系统线程）。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '**采样**：在高负载下仅记录事件的一部分或每N个连接记录一次。Zap支持强制执行速率限制和随机性的采样器。'
-- en: '**Metrics-first, logs-for-anomalies**: promote phase durations and counters
-    to metrics (e.g., Prometheus) and emit logs only when thresholds or percentiles
-    are breached.'
-  id: totrans-49
+- en: '`spinningthreads=0`: 没有线程正在积极寻找工作。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '**以指标优先，日志用于异常**：将阶段持续时间和计数器提升到指标（例如，Prometheus）中，仅在阈值或百分位数被突破时才发出日志。'
-- en: '**Aggregate phase data**: collect all phase timings and results per connection,
-    then emit a single structured log event at the end instead of logging each phase
-    as a separate line.'
-  id: totrans-50
+- en: '`needspinning=0`: 调度器不需要额外的自旋线程。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: '**聚合阶段数据**：收集每个连接的所有阶段时间和结果，然后在结束时发出单个结构化日志事件，而不是将每个阶段作为单独的行记录。'
-- en: By combining these approaches, it is possible to retain meaningful observability
-    with manageable overhead. Zap’s API simply illustrates how to implement these
-    patterns effectively — **the key takeaway is that the design itself, not the library
-    choice**, determines observability quality and cost.
-  id: totrans-51
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 通过结合这些方法，可以在可管理的开销下保留有意义的可观察性。Zap的API简单地说明了如何有效地实现这些模式——**关键要点是设计本身，而不是库的选择**，决定了可观察性的质量和成本。
-- en: 'Here are a few illustrative code snippets for these techniques:'
-  id: totrans-52
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 下面是一些这些技术的示例代码片段：
-- en: Configurable log level
-  id: totrans-53
+- en: '`idlethreads=20`: 当前空闲的操作系统线程数量。'
   prefs:
-  - PREF_H4
+  - PREF_UL
   type: TYPE_NORMAL
-  zh: 可配置的日志级别
-- en: '[PRE6]'
-  id: totrans-54
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE6]'
-- en: Sampling logs
-  id: totrans-55
+- en: '`runqueue=0`: 全局运行队列为空。'
   prefs:
-  - PREF_H4
+  - PREF_UL
   type: TYPE_NORMAL
-  zh: 采样日志
-- en: '[PRE7]'
-  id: totrans-56
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE7]'
-- en: Aggregate per-connection log
-  id: totrans-57
+- en: '`gcwaiting=false`: 垃圾收集器不会阻塞执行。'
   prefs:
-  - PREF_H4
+  - PREF_UL
   type: TYPE_NORMAL
-  zh: 按连接聚合日志
-- en: '[PRE8]'
-  id: totrans-58
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE8]'
-- en: While log statements and spans provide valuable information, a production-grade
-    observability system benefits greatly from structured metrics collection and structured
-    logging.
-  id: totrans-59
-  prefs: []
+- en: '`nmidlelocked=1`: 一个P被锁定到一个当前空闲的线程上。'
+  prefs:
+  - PREF_UL
   type: TYPE_NORMAL
-  zh: 虽然日志语句和跨度提供了有价值的信息，但生产级可观察性系统从结构化指标收集和结构化日志中获益良多。
-- en: Prometheus is well-suited for collecting and querying time-series metrics from
-    each phase, exposing them to dashboards and alerting rules. Instead of embedding
-    phase durations in unstructured logs, it is advisable to design and expose clearly
-    named metrics like `connection_dns_duration_seconds`, `connection_dial_errors_total`,
-    and similar counters. These names are proposed examples that follow Prometheus
-    naming conventions and should be defined explicitly in the implementation to ensure
-    clarity and consistency.
-  id: totrans-60
+- en: '`stopwait=0`: 没有goroutines正在等待停止世界。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`sysmonwait=false`: 系统监控器正在积极运行，而不是休眠。'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 全局运行队列包含未绑定到任何特定P或超出本地队列的goroutines。相比之下，每个逻辑处理器（P）维护一个它负责调度的goroutines的本地运行队列。为了提高性能，goroutines优先在本地队列中入队：本地队列避免了锁竞争并提高了缓存局部性。只有在P的本地队列已满或goroutine来自P外部（例如，来自系统调用）时，才将其放置在全局队列上。
   prefs: []
   type: TYPE_NORMAL
-  zh: Prometheus非常适合收集和查询每个阶段的时序指标，并将它们暴露给仪表板和警报规则。与其在非结构化日志中嵌入阶段持续时间，不如设计并暴露清晰命名的指标，如`connection_dns_duration_seconds`、`connection_dial_errors_total`和类似的计数器。这些名称是建议的示例，遵循Prometheus命名约定，应在实现中明确定义以确保清晰和一致性。
-- en: 'For structured logging, libraries such as Uber’s `zap` offer fast, JSON-encoded
-    logs that integrate cleanly with log aggregation systems like ELK or Splunk. Rather
-    than free-form `Printf`, one can emit structured key-value pairs:'
-  id: totrans-61
+- en: 这种双队列策略降低了P之间的同步开销，并在高并发下实现了高效的调度。了解本地与全局队列活动比率有助于诊断系统是否配置不足、不平衡或遭受过多的跨P迁移。
   prefs: []
   type: TYPE_NORMAL
-  zh: 对于结构化日志记录，像Uber的`zap`这样的库提供了快速、JSON编码的日志，可以与ELK或Splunk等日志聚合系统无缝集成。与自由形式的`Printf`不同，可以发出结构化的键值对：
-- en: '[PRE9]'
-  id: totrans-62
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE9]'
-- en: Structured logs reduce the burden on downstream parsers and make correlating
-    events between services more reliable. Combining these techniques — phase-level
-    instrumentation, Prometheus metrics, and structured logs — transforms opaque failures
-    into actionable insight. With this level of granularity and consistency, ambiguous
-    symptoms become precise diagnoses, ensuring that both developers and operators
-    can pinpoint not just that something is wrong, but exactly where and why.
-  id: totrans-63
+- en: 这些见解有助于量化goroutines的调度效率，实际利用了多少并行性，以及从逻辑处理器的角度来看，系统是否配置不足或过剩。在调整`GOMAXPROCS`、诊断尾部延迟或识别调度竞争时，在负载下观察这些模式至关重要。
   prefs: []
   type: TYPE_NORMAL
-  zh: 结构化日志减轻了下游解析器的负担，并使服务之间的事件关联更加可靠。结合这些技术——阶段级仪器、Prometheus指标和结构化日志——将模糊的失败转化为可操作的见解。在这个粒度和一致性的水平上，模糊的症状变成了精确的诊断，确保开发人员和运维人员不仅可以确定有问题，而且可以精确地指出问题所在以及原因。
+- en: Netpoller：深入Linux上的epoll和BSD上的kqueue[¶](#netpoller-deep-dive-into-epoll-on-linux-and-kqueue-on-bsd
+    "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 在任何处理高连接量的Go应用程序中，网络轮询器在幕后发挥着关键作用。在核心上，Go使用操作系统级别的多路复用设施——Linux上的`epoll`和BSD/macOS上的`kqueue`——以最小化线程的数量同时监控数千个套接字。运行时有效地利用了这些机制，但了解其如何以及为什么这样做揭示了调优的机会，尤其是在负载需求高的情况下。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当一个goroutine启动一个网络操作，如从TCP连接中读取时，运行时不会立即阻塞底层线程。相反，它将文件描述符注册到轮询器——使用边缘触发模式的`epoll_ctl`或`EV_SET`与`EVFILT_READ`——并将goroutine挂起。实际的线程（M）变得空闲，可以运行其他goroutines。当数据到达时，内核向轮询线程发出信号，然后轮询线程通过将其调度到P的运行队列上唤醒适当的goroutine。这个过程通过依赖每个P的通知列表来最小化竞争，并避免运行时锁瓶颈。
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go使用边缘触发通知，仅在状态转换时发出信号——例如新数据可用。这种设计要求在每次唤醒时完全清空套接字，否则可能会错过未来的事件。虽然比电平触发行为更复杂，但边缘触发模式在负载下显著减少了系统调用开销。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 下面是一个简化版的在读取操作期间底层发生的操作：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func pollAndRead(conn net.Conn) ([]byte, error) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: buf := make([]byte, 4096)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: n, err := conn.Read(buf)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if n > 0 {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return buf[:n], nil
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err != nil && !isTemporary(err) {
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return nil, err
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // Data not ready yet — goroutine will be parked until poller wakes it
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在内部，Go运行一个专门的轮询线程，该线程循环在`epoll_wait`或`kevent`上，每次收集一批事件（通常每次512个）。在调用返回后，运行时处理这些事件，将唤醒分布在逻辑处理器上，以防止任何单个P成为瓶颈。为了进一步促进调度公平性，轮询线程可能会定期在P之间轮换，这种行为由`GODEBUG=netpollWaitLatency`控制。
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go的运行时经过优化，以减少不必要的系统调用和上下文切换。所有文件描述符都设置为非阻塞，这使得轮询线程可以保持响应。为了避免多个线程在同一套接字上唤醒的“雷鸣之群”问题，轮询器确保一次只有一个goroutine处理给定的FD事件。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 设计更进一步，通过将环形事件缓冲区与缓存行对齐，并通过每个 P 列表分发唤醒，这些细节在规模上很重要。通过适当的对齐和局部性，Go 在数千个连接活跃时减少了
+    CPU 缓存竞争。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 对于想要检查轮询器行为的开发者，通过启用 `GODEBUG=netpoll=1` 的跟踪可以揭示系统级延迟和 epoll 活动。此外，`GODEBUG=netpollWaitLatency=200`
+    标志配置了轮询器每 200 微秒将任务转交给另一个 P 的意愿。这在调试空闲 P 饥饿或评估高吞吐量系统中的公平性时特别有帮助。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这是一个记录事件活动的简单实验：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: GODEBUG=netpoll=1 go run main.go
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 你会看到这样的日志行：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'runtime: netpoll: poll returned n=3'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'runtime: netpoll: waking g=102 for fd=5'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 大多数开发者无需考虑这种机制——他们也不应该考虑。但在边缘情况下，如高吞吐量 HTTP 代理或处理数十万个并发套接字的延迟敏感型服务时，这些细节变得很有价值。调整参数如
+    `GOMAXPROCS`、调整事件缓冲区大小或修改轮询器唤醒间隔可以带来可衡量的性能提升，尤其是在尾部延迟方面。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 例如，在一个处理数十万个并发 HTTP/2 流的系统中，在启用 `GODEBUG=netpollWaitLatency=100` 的同时增加 `GOMAXPROCS`，可以仅通过防止在
+    I/O 反压下发生轮询器饥饿，就将 99 分位读取延迟降低了超过 15%。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 与所有低级调整一样，这并不是关于盲目地改变旋钮。这是关于了解 Go 的 netpoller 在做什么，为什么它以这种方式构建，以及在哪里可以稍微调整边界以获得更多效率——当测量表明这是值得的时候。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 使用 `LockOSThread` 和 `GODEBUG` 标志进行线程固定[¶](#thread-pinning-with-lockosthread-and-godebug-flags
+    "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Go 提供了 `runtime.LockOSThread()` 这样的工具来将 goroutine 锁定到特定的操作系统线程，但在大多数实际应用中，这种收益微乎其微。基准测试一致显示，对于典型的服务器工作负载——尤其是那些
+    CPU 密集型的——Go 的调度器能够很好地处理线程放置，无需人工干预。引入线程固定通常会增加复杂性，而不会带来可衡量的收益。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 存在例外。在超低延迟或实时系统中，固定线程可以帮助通过避免线程迁移来减少抖动。但这些收益通常需要隔离的 CPU 核心、严格控制的环境和严格的延迟目标。在实践中，这意味着裸机。在共享基础设施上——尤其是在
+    AWS 这样的云环境中，核心是虚拟化的，并且存在嘈杂的邻居——线程固定很少带来可衡量的好处。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 如果你正在探索固定，仅仅假设有好处是不够的——你需要对其进行基准测试。启用`GODEBUG=schedtrace=1000,scheddetail=1`可以提供关于goroutine如何调度以及竞争或迁移是否真正成为问题的详细洞察。没有这样的证据，线程固定更有可能阻碍而不是帮助。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 下面是开发者可能谨慎固定线程的方法：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: runtime.LockOSThread()
+  prefs: []
+  type: TYPE_NORMAL
+- en: defer runtime.UnlockOSThread()
+  prefs: []
+  type: TYPE_NORMAL
+- en: // perform critical latency-sensitive work here
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 总是搭配广泛的指标收集和调度跟踪（`GODEBUG=schedtrace=1000,scheddetail=1`）来验证相对于Go稳健默认调度行为的实际收益。
+  prefs: []
+  type: TYPE_NORMAL
+- en: CPU亲和力和外部工具[¶](#cpu-affinity-and-external-tools "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 使用像`taskset`这样的外部工具或系统调用如`sched_setaffinity`可以将线程或进程绑定到特定的CPU核心。虽然理论上对缓存局部性和可预测性能有益，但广泛的基准测试一致表明，在大多数Go应用程序中，其实际价值有限。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 显式CPU亲和力管理通常仅在严格控制的环境中有所帮助：
+  prefs: []
+  type: TYPE_NORMAL
+- en: 实时延迟约束（微秒级抖动）。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 通过Linux内核的`isolcpus`等手段，使用专用和隔离的CPU。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 在NUMA硬件上避免线程迁移。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 谨慎使用CPU亲和力的示例：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func setAffinity(cpuList []int) error {
+  prefs: []
+  type: TYPE_NORMAL
+- en: pid := os.Getpid()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: var mask unix.CPUSet
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: for _, cpu := range cpuList {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: mask.Set(cpu)
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return unix.SchedSetaffinity(pid, &mask)
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func main() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: runtime.LockOSThread()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: defer runtime.UnlockOSThread()
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: if err := setAffinity([]int{2, 3}); err != nil {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: 'log.Fatalf("CPU affinity failed: %v", err)'
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: // perform critical work with confirmed benefit
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 没有专门的基准测试和验证，这些技术可能会降低性能，使其他进程饥饿，或者引入微妙的延迟退化。将线程固定和CPU亲和力视为高度专业化的工具——只有在经过细致的测量确认其益处后才能有效。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '* * *'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在调度器级别调整Go可以解锁显著的性能提升，但这需要深入了解P（处理器）、M（系统线程）和G（goroutine）。盲目增加`GOMAXPROCS`或未测量就固定线程可能会适得其反。建议将这些旋钮视为外科手术工具：使用`GODEBUG`跟踪来诊断，隔离亲和力或固定有意义的子系统，并始终通过基准测试和配置文件进行验证。
+  prefs: []
+  type: TYPE_NORMAL
+- en: Go的运行时一直在不断发展。在抢占式调度和用户级中断方面的未来工作承诺将进一步降低尾部延迟并提高公平性。在此之前，这些低级杠杆仍然是榨取开发者Go服务性能的强大方式之一。
+  prefs: []
+  type: TYPE_NORMAL

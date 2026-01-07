@@ -1,497 +1,579 @@
-- en: Atomic Operations and Synchronization Primitives
-  id: totrans-0
+- en: 栈分配和逃逸分析[¶](#stack-allocations-and-escape-analysis "永久链接")
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
-  zh: 原子操作与同步原语
-- en: 原文：[https://goperf.dev/01-common-patterns/atomic-ops/](https://goperf.dev/01-common-patterns/atomic-ops/)
-  id: totrans-1
+- en: 原文：[https://goperf.dev/01-common-patterns/stack-alloc/](https://goperf.dev/01-common-patterns/stack-alloc/)
   prefs:
   - PREF_BQ
   type: TYPE_NORMAL
-  zh: 原文：[https://goperf.dev/01-common-patterns/atomic-ops/](https://goperf.dev/01-common-patterns/atomic-ops/)
-- en: In high-concurrency systems, performance isn't just about what you do—it's about
-    what you avoid. Lock contention, cache line bouncing and memory fences quietly
-    shape throughput long before you hit your scaling ceiling. Atomic operations are
-    among the leanest tools Go offers to sidestep these pitfalls.
-  id: totrans-2
+- en: 当编写性能关键型的 Go 应用程序时，您可以进行的微妙但重要的优化之一是鼓励值在栈上而不是在堆上分配。栈分配更便宜、更快，且无垃圾回收——但 Go 并不总是自动将您的变量放在那里。这个决定是在
+    **逃逸分析** 期间由 Go 编译器做出的。
   prefs: []
   type: TYPE_NORMAL
-  zh: 在高并发系统中，性能不仅仅是关于你做了什么——还关于你避免了什么。锁竞争、缓存行弹跳和内存栅栏在触及你的扩展天花板之前就悄悄地塑造了吞吐量。原子操作是Go提供的最精简的工具之一，可以帮助你避开这些陷阱。
-- en: While Go provides the full suite of synchronization primitives, there's a class
-    of problems where locks feel like overkill. Atomics offers clarity and speed for
-    low-level coordination—counters, flags, and simple state machines, especially
-    under pressure.
-  id: totrans-3
+- en: 在本文中，我们将探讨逃逸分析是什么，如何阅读编译器的逃逸诊断，什么原因导致值逃逸，以及如何构建代码以最小化不必要的堆分配。我们还将对不同场景进行基准测试，以展示其在现实世界中的影响。
   prefs: []
   type: TYPE_NORMAL
-  zh: 虽然Go提供了完整的同步原语套件，但存在一类问题，其中锁定似乎过于冗余。原子操作为低级协调提供了清晰和速度——计数器、标志和简单的状态机，尤其是在压力之下。
-- en: Understanding Atomic Operations
-  id: totrans-4
+- en: 什么是逃逸分析？[¶](#what-is-escape-analysis "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 理解原子操作
-- en: Atomic operations allow safe concurrent access to shared data without explicit
-    locking mechanisms like mutexes. The `sync/atomic` package provides low-level
-    atomic memory primitives ideal for counters, flags, or simple state transitions.
-  id: totrans-5
+- en: 逃逸分析是 Go 编译器执行的一种静态分析，用于确定变量是否可以安全地分配在栈上，或者是否必须移动（“逃逸”）到堆上。
   prefs: []
   type: TYPE_NORMAL
-  zh: 原子操作允许在没有显式锁定机制（如互斥锁）的情况下安全地并发访问共享数据。`sync/atomic`包提供了适用于计数器、标志或简单状态转换的低级原子内存原语。
-- en: 'The key benefit of atomic operations is performance under contention. Locking
-    introduces coordination overhead—when many goroutines contend for a mutex, performance
-    can degrade due to context switching and lock queue management. Atomics avoids
-    this by operating directly at the hardware level using CPU instructions like `CAS`
-    (compare-and-swap). This makes them particularly useful for:'
-  id: totrans-6
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 原子操作的关键优势是在竞争条件下的性能。锁定引入了协调开销——当许多goroutine竞争互斥锁时，由于上下文切换和锁队列管理，性能可能会下降。原子操作通过直接在硬件级别使用CPU指令如`CAS`（比较并交换）来避免这种情况。这使得它们特别适用于：
-- en: High-throughput counters and flags
-  id: totrans-7
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 高吞吐量计数器和标志
-- en: Lock-free queues and freelists
-  id: totrans-8
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 无锁队列和自由列表
-- en: Low-latency paths where locks are too expensive
-  id: totrans-9
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 锁太昂贵时的低延迟路径
-- en: Memory Model and Comparison to C++
-  id: totrans-10
+- en: 这为什么很重要？[¶](#why-does-it-matter "永久链接")
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-  zh: 内存模型与C++的比较
-- en: 'Understanding memory models is crucial when reasoning about concurrency. In
-    C++, developers have fine-grained control over atomic operations via memory orderings,
-    which allows them to trade-off between performance and consistency. By default,
-    Go''s atomic operations enforce sequential consistency, which means they behave
-    like `std::memory_order_seq_cst` in C++. This is the strongest and safest memory
-    ordering:'
-  id: totrans-11
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 在推理并发时理解内存模型至关重要。在C++中，开发者可以通过内存顺序对原子操作进行细粒度控制，这使得他们可以在性能和一致性之间进行权衡。默认情况下，Go的原子操作强制执行顺序一致性，这意味着它们的行为类似于C++中的`std::memory_order_seq_cst`。这是最强和最安全的内存顺序：
-- en: All threads observe atomic operations in the same order.
-  id: totrans-12
+- en: '**栈分配**便宜：当函数返回时，内存会自动释放。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 所有线程以相同的顺序观察原子操作。
-- en: Full memory barrier are applied before and after each operation.
-  id: totrans-13
+- en: '**堆分配**更昂贵：它们涉及垃圾回收开销。'
   prefs:
   - PREF_UL
   type: TYPE_NORMAL
-  zh: 在每个操作前后应用完整的内存屏障。
-- en: Reads and writes are not reordered across atomic operations.
-  id: totrans-14
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: 读取和写入不会在原子操作之间重排。
-- en: '| C++ Memory Order | Go Equivalent | Notes |'
-  id: totrans-15
-  prefs: []
-  type: TYPE_TB
-  zh: '| C++ 内存顺序 | Go 等价 | 备注 |'
-- en: '| --- | --- | --- |'
-  id: totrans-16
-  prefs: []
-  type: TYPE_TB
-  zh: '| --- | --- | --- |'
-- en: '| `memory_order_seq_cst` | All `atomic.*` ops | Full sequential consistency
-    |'
-  id: totrans-17
-  prefs: []
-  type: TYPE_TB
-  zh: '| `memory_order_seq_cst` | 所有 `atomic.*` 操作 | 完全顺序一致性 |'
-- en: '| `memory_order_acquire` | Not exposed | Not available in Go |'
-  id: totrans-18
-  prefs: []
-  type: TYPE_TB
-  zh: '| `memory_order_acquire` | 未暴露 | Go中不可用 |'
-- en: '| `memory_order_release` | Not exposed | Not available in Go |'
-  id: totrans-19
-  prefs: []
-  type: TYPE_TB
-  zh: '| `memory_order_release` | 未暴露 | Go中不可用 |'
-- en: '| `memory_order_relaxed` | Not exposed | Not available in Go |'
-  id: totrans-20
-  prefs: []
-  type: TYPE_TB
-  zh: '| `memory_order_relaxed` | 未暴露 | Go中不可用 |'
-- en: Go does not expose weaker memory models like `relaxed`, `acquire`, or `release`.
-    This is an intentional simplification to promote safety and reduce the risk of
-    subtle data races. All atomic operations in Go imply synchronization across goroutines,
-    ensuring correct behavior without manual memory fencing.
-  id: totrans-21
+- en: 编译器根据变量的使用方式来决定每个变量的放置位置。如果一个变量可以保证不会超出其声明函数的生命周期，它就可以留在栈上。如果不能，它就会逃逸到堆上。
   prefs: []
   type: TYPE_NORMAL
-  zh: Go不暴露像`relaxed`、`acquire`或`release`这样的较弱的内存模型。这是一个有意简化的做法，旨在提高安全性和降低微妙的竞态条件风险。Go中的所有原子操作都隐含着跨goroutine的同步，确保正确的行为而无需手动内存栅栏。
-- en: This means you don’t have to reason about instruction reordering or memory visibility
-    at a low level—but it also means you can’t fine-tune for performance in the way
-    C++ or Rust developers might use relaxed atomics.
-  id: totrans-22
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 这意味着你不必在低级别上推理指令重排或内存可见性——但也意味着你无法像C++或Rust开发者可能使用松散原子操作那样进行性能微调。
-- en: Low-level access to relaxed memory ordering in Go exists internally (e.g., in
-    the runtime or through `go:linkname`), but it’s not safe or supported for use
-    in application-level code.
-  id: totrans-23
-  prefs: []
-  type: TYPE_NORMAL
-  zh: Go中存在对放松内存排序的低级访问（例如，在运行时或通过`go:linkname`），但它不安全或不支持在应用程序级代码中使用。
-- en: Common Atomic Operations
-  id: totrans-24
+- en: 示例：栈与堆[¶](#example-stack-vs-heap "永久链接")
   prefs:
   - PREF_H3
   type: TYPE_NORMAL
-  zh: 常见的原子操作
-- en: '`atomic.AddInt64`, `atomic.AddUint32`, etc.: Adds values atomically.'
-  id: totrans-25
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func allocate() *int {
+  prefs: []
+  type: TYPE_NORMAL
+- en: x := 42
   prefs:
-  - PREF_UL
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: '`atomic.AddInt64`, `atomic.AddUint32`等：原子地增加值。'
-- en: '`atomic.LoadInt64`, `atomic.LoadPointer`: Reads values atomically.'
-  id: totrans-26
+- en: return &x // x escapes to the heap
   prefs:
-  - PREF_UL
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: '`atomic.LoadInt64`, `atomic.LoadPointer`: 原子地读取值。'
-- en: '`atomic.StoreInt64`, `atomic.StorePointer`: Writes values atomically.'
-  id: totrans-27
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func noEscape() int {
+  prefs: []
+  type: TYPE_NORMAL
+- en: x := 42
   prefs:
-  - PREF_UL
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: '`atomic.StoreInt64`, `atomic.StorePointer`: 原子地写入值。'
-- en: '`atomic.CompareAndSwapInt64`: Conditionally updates a value atomically.'
-  id: totrans-28
+- en: return x // x stays on the stack
   prefs:
-  - PREF_UL
+  - PREF_IND
   type: TYPE_NORMAL
-  zh: '`atomic.CompareAndSwapInt64`: 条件性地原子更新一个值。'
-- en: When to Use Atomic Operations in Real Life
-  id: totrans-29
-  prefs:
-  - PREF_H3
-  type: TYPE_NORMAL
-  zh: 在实际生活中何时使用原子操作
-- en: High-throughput metrics and Counters
-  id: totrans-30
-  prefs:
-  - PREF_H4
-  type: TYPE_NORMAL
-  zh: 高吞吐量指标和计数器
-- en: 'Tracking request counts, dropped packets, or other lightweight stats:'
-  id: totrans-31
+- en: '}'
   prefs: []
   type: TYPE_NORMAL
-  zh: 跟踪请求数量、丢弃的数据包或其他轻量级统计信息：
-- en: '[PRE0]'
-  id: totrans-32
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE0]'
-- en: This code allows multiple goroutines to safely increment a shared counter without
-    using locks. `atomic.AddInt64` ensures each addition is performed atomically,
-    preventing race conditions and keeping performance high under heavy load.
-  id: totrans-33
+- en: '```'
   prefs: []
   type: TYPE_NORMAL
-  zh: 此代码允许多个goroutine在无需使用锁的情况下安全地递增共享计数器。`atomic.AddInt64`确保每次增加都是原子性的，防止竞态条件，并在高负载下保持高性能。
-- en: Fast, Lock-Free Flags
-  id: totrans-34
-  prefs:
-  - PREF_H4
-  type: TYPE_NORMAL
-  zh: 快速、无锁的标志
-- en: 'Simple boolean state shared across threads:'
-  id: totrans-35
+- en: 在 `allocate` 中，`x` 作为指针返回。由于指针逃逸了函数，Go 编译器将 `x` 放在堆上。在 `noEscape` 中，`x` 是一个普通值，不会逃逸。
   prefs: []
   type: TYPE_NORMAL
-  zh: 在线程间共享的简单布尔状态：
-- en: '[PRE1]'
-  id: totrans-36
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE1]'
-- en: This pattern allows one goroutine to signal another to stop. `atomic.LoadInt32`
-    reads the flag with synchronization guarantees, and `atomic.StoreInt32` sets the
-    flag in a way visible to all goroutines. It helps implement safe shutdown signals.
-  id: totrans-37
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 此模式允许一个goroutine向另一个goroutine发送停止信号。`atomic.LoadInt32`读取带有同步保证的标志，而`atomic.StoreInt32`以对所有goroutine可见的方式设置标志。它有助于实现安全的关闭信号。
-- en: Once-Only Initialization
-  id: totrans-38
-  prefs:
-  - PREF_H4
-  type: TYPE_NORMAL
-  zh: 单次初始化
-- en: 'For scenarios where `sync.Once` isn’t flexible enough—such as needing retryable
-    or restartable initialization – a more precise control can be achieved using atomic
-    operations:'
-  id: totrans-39
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 对于`sync.Once`不够灵活的场景——例如需要可重试或可重启的初始化——可以使用原子操作实现更精确的控制：
-- en: '[PRE2]'
-  id: totrans-40
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE2]'
-- en: 'This pattern uses an explicit three-state protocol:'
-  id: totrans-41
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 此模式使用一个显式的三状态协议：
-- en: '`0` = uninitialized'
-  id: totrans-42
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: '`0` = 未初始化'
-- en: '`1` = initialization in progress'
-  id: totrans-43
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: '`1` = 初始化进行中'
-- en: '`2` = initialized'
-  id: totrans-44
-  prefs:
-  - PREF_UL
-  type: TYPE_NORMAL
-  zh: '`2` = 已初始化'
-- en: The first goroutine that successfully flips the state from `0` to `1` takes
-    charge of the initialization. The rest wait in a lightweight spin loop, briefly
-    yielding with `runtime.Gosched()` until initialization completes. Once the state
-    flips to `2`, they read the resource and continue.
-  id: totrans-45
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 第一个成功将状态从`0`翻转至`1`的goroutine负责初始化。其余的goroutine在一个轻量级的自旋循环中等待，通过`runtime.Gosched()`短暂地让出CPU，直到初始化完成。一旦状态翻转至`2`，它们读取资源并继续。
-- en: Unlike `sync.Once`, this approach avoids mutex overhead and gives you full control
-    over how and when initialization happens. It’s well-suited for high-performance
-    paths or systems where partial or retryable initialization is necessary.
-  id: totrans-46
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 与`sync.Once`不同，这种方法避免了互斥锁的开销，并允许你完全控制初始化的方式和时机。它非常适合高性能路径或需要部分或可重试初始化的系统。
-- en: Lock-Free Queues or Freelist Structures
-  id: totrans-47
-  prefs:
-  - PREF_H4
-  type: TYPE_NORMAL
-  zh: 无锁队列或Freelist结构
-- en: 'Building high-performance data structures:'
-  id: totrans-48
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 构建高性能数据结构：
-- en: '[PRE3]'
-  id: totrans-49
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE3]'
-- en: This implements a lock-free stack (LIFO queue). It repeatedly tries to insert
-    a node at the head of the list by atomically replacing the head pointer only if
-    it hasn't changed—a classic `CAS` loop. It's commonly used in object pools and
-    work-stealing queues.
-  id: totrans-50
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 这实现了无锁栈（后进先出队列）。它通过原子地替换头指针（仅在它未改变的情况下）来重复尝试在列表头部插入一个节点——这是一个经典的`CAS`循环。它通常用于对象池和工作窃取队列。
-- en: Reducing Lock Contention
-  id: totrans-51
-  prefs:
-  - PREF_H4
-  type: TYPE_NORMAL
-  zh: 减少锁竞争
-- en: This approach is common in real-world systems to reduce unnecessary lock contention,
-    such as feature toggles, one-time initialization paths, or conditional caching
-    mechanisms. Atomics serves as a fast-path filter before acquiring a more expensive
-    lock.
-  id: totrans-52
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 这种方法在现实世界的系统中很常见，用于减少不必要的锁竞争，例如功能开关、一次性初始化路径或条件缓存机制。原子操作作为在获取更昂贵的锁之前的一个快速路径过滤器。
-- en: 'Combining atomics with mutexes to gate expensive work:'
-  id: totrans-53
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 将原子操作与互斥锁结合以控制昂贵的工作：
-- en: '[PRE4]'
-  id: totrans-54
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE4]'
-- en: This pattern is effective when `someFlag` is set by another goroutine, and the
-    current goroutine only uses it as a read-only signal to determine if it should
-    proceed. It avoids unnecessary lock acquisition in high-throughput paths, such
-    as short-circuiting when a feature is disabled or a task has already been completed.
-  id: totrans-55
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 当`someFlag`由另一个goroutine设置，而当前goroutine只将其用作只读信号以确定是否应该继续时，此模式是有效的。它避免了在高吞吐量路径中不必要的锁定获取，例如当功能被禁用或任务已完成时进行短路。
-- en: However, if the same goroutine is also responsible forsetting the flag, a simple
-    load followed by a lock is not safe. Another goroutine could interleave between
-    the check and the lock, leading to inconsistent behavior.
-  id: totrans-56
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 然而，如果同一个goroutine也负责设置标志，简单的加载后跟锁定是不安全的。另一个goroutine可能在检查和锁定之间交错，导致不一致的行为。
-- en: 'To make the operation safe and atomic, use `CompareAndSwap`:'
-  id: totrans-57
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 要使操作安全且原子，请使用`CompareAndSwap`：
-- en: '[PRE5]'
-  id: totrans-58
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE5]'
-- en: This version guarantees that only one goroutine proceeds and others exit early.
-    It ensures both the check and the update to `someFlag` happen atomically.
-  id: totrans-59
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 此版本保证只有一个goroutine继续进行，其他goroutine提前退出。它确保对`someFlag`的检查和更新是原子发生的。
-- en: Here, the atomic read acts as a fast gatekeeper. If the flag is unset, acquiring
-    the mutex is unnecessary. This avoids unnecessary locking in high-frequency code
-    paths, improving responsiveness under load.
-  id: totrans-60
-  prefs: []
-  type: TYPE_NORMAL
-  zh: 在这里，原子读取操作充当快速门卫。如果标志未设置，则获取互斥锁是不必要的。这避免了在高频代码路径中的不必要的锁定，提高了负载下的响应性。
-- en: Synchronization Primitives
-  id: totrans-61
+- en: 如何查看逃逸分析输出[¶](#how-to-view-escape-analysis-output "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 同步原语
-- en: This section is intentionally kept minimal. Go's synchronization primitives—such
-    as `sync.Mutex`, `sync.RWMutex`, and `sync.Cond`—are already thoroughly documented
-    and widely understood. They are essential tools for managing shared memory and
-    coordinating goroutines, but they are not the focus here.
-  id: totrans-62
+- en: 您可以使用 `-gcflags` 编译器选项来检查逃逸分析：
   prefs: []
   type: TYPE_NORMAL
-  zh: 本节有意保持简洁。Go的同步原语，如`sync.Mutex`、`sync.RWMutex`和`sync.Cond`，已经得到了充分的文档记录和广泛的理解。它们是管理共享内存和协调goroutines的基本工具，但这里并不是重点。
-- en: In the context of this article, we reference them only as a **performance comparison
-    baseline** against atomic operations. When appropriate, these primitives offer
-    clarity and correctness, but they often come at a higher cost in high-contention
-    scenarios, where atomics can provide leaner alternatives.
-  id: totrans-63
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 在本文的上下文中，我们仅将它们作为与原子操作的性能比较基准。当适当的时候，这些原语提供了清晰和正确性，但它们在高竞争场景中往往代价更高，而原子操作可以提供更精简的替代方案。
-- en: We’ll use them as contrast points to highlight when and why atomic operations
-    might offer performance advantages.
-  id: totrans-64
+- en: go build -gcflags="-m" ./path/to/pkg
   prefs: []
   type: TYPE_NORMAL
-  zh: 我们将使用它们作为对比点，以突出原子操作可能在何时以及为什么能提供性能优势。
-- en: Benchmarking Impact
-  id: totrans-65
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 或者对于特定的文件：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: go run -gcflags="-m" main.go
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 这将打印出类似以下的内容：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'main.go:10:6: moved to heap: x'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'main.go:14:6: can inline noEscape'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 寻找类似“移动到堆”的消息来识别逃逸点。
+  prefs: []
+  type: TYPE_NORMAL
+- en: 什么原因导致变量逃逸？[¶](#what-causes-variables-to-escape "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 基准测试影响
-- en: To understand the impact of atomic operations versus mutex locks, we can compare
-    the time taken to increment a shared counter across goroutines using a simple
-    benchmark.
-  id: totrans-66
+- en: 这里有一些常见的场景，这些场景会强制进行堆分配：
   prefs: []
   type: TYPE_NORMAL
-  zh: 要了解原子操作与互斥锁的影响，我们可以通过简单的基准测试比较跨goroutines增加共享计数器所需的时间。
-- en: '[PRE6]'
-  id: totrans-67
-  prefs: []
-  type: TYPE_PRE
-  zh: '[PRE6]'
-- en: 'Benchmark results:'
-  id: totrans-68
+- en: 将指针返回给局部变量[¶](#returning-pointers-to-local-variables "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: 基准测试结果：
-- en: '| Benchmark | Iterations | Time per op (ns) | Bytes per op | Allocs per op
-    |'
-  id: totrans-69
+- en: func escape() *int {
+  prefs: []
+  type: TYPE_NORMAL
+- en: x := 10
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return &x // escapes
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 在闭包中捕获变量[¶](#capturing-variables-in-closures "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func closureEscape() func() int {
+  prefs: []
+  type: TYPE_NORMAL
+- en: x := 5
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return func() int { return x } // x escapes
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 接口转换[¶](#interface-conversions "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 当一个值存储在接口中时，它可能会逃逸：
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func toInterface(i int) interface{} {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return i // escapes if type info needed at runtime
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 将值赋给全局变量或结构体字段[¶](#assignments-to-global-variables-or-struct-fields "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: var global *int
+  prefs: []
+  type: TYPE_NORMAL
+- en: func assignGlobal() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: x := 7
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: global = &x // escapes
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 大型复合字面量[¶](#large-composite-literals "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 即使它们没有严格逃逸，Go 也可能在堆上分配大的结构体或切片。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func makeLargeSlice() []int {
+  prefs: []
+  type: TYPE_NORMAL
+- en: s := make([]int, 10000) // may escape due to size
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: return s
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 基准测试栈与堆分配[¶](#benchmarking-stack-vs-heap-allocations "永久链接")
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 让我们运行一个基准测试来探索堆分配实际上何时发生——以及即使我们返回指针，它们何时不会发生。
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func StackAlloc() Data {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return Data{1, 2, 3} // stays on stack
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func HeapAlloc() *Data {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return &Data{1, 2, 3} // escapes to heap
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkStackAlloc(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: _ = StackAlloc()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkHeapAlloc(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: _ = HeapAlloc()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 基准测试结果
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | 迭代次数 | 每次操作时间 (ns) | 每次操作字节数 | 每次操作分配数 |'
   prefs: []
   type: TYPE_TB
-  zh: '| 基准测试 | 迭代次数 | 每次操作时间（ns） | 每次操作字节数 | 每次操作分配数 |'
 - en: '| --- | --- | --- | --- | --- |'
-  id: totrans-70
   prefs: []
   type: TYPE_TB
-  zh: '| --- | --- | --- | --- | --- |'
-- en: '| BenchmarkAtomicIncrement-14 | 39,910,514 | 80.40 | 0 | 0 |'
-  id: totrans-71
+- en: '| BenchmarkStackAlloc-14 | 1,000,000,000 | 0.2604 ns | 0 B | 0 |'
   prefs: []
   type: TYPE_TB
-  zh: '| 基准测试AtomicIncrement-14 | 39,910,514 | 80.40 | 0 | 0 |'
-- en: '| BenchmarkMutexIncrement-14 | 32,629,298 | 110.7 | 0 | 0 |'
-  id: totrans-72
+- en: '| BenchmarkHeapAlloc-14 | 1,000,000,000 | 0.2692 ns | 0 B | 0 |'
   prefs: []
   type: TYPE_TB
-  zh: '| 基准测试MutexIncrement-14 | 32,629,298 | 110.7 | 0 | 0 |'
-- en: Atomic operations outperform mutex-based increments in both throughput and latency.
-    The difference becomes more significant under higher contention, where avoiding
-    lock acquisition helps reduce context switching and scheduler overhead.
-  id: totrans-73
+- en: 你可能期望 `HeapAlloc` 总是在堆上分配内存——但在这里不是。这是因为编译器很聪明：在这个独立的基准测试中，`HeapAlloc` 返回的指针以任何有意义的方式都没有逃出函数。编译器可以看到它只用于基准测试，并且是短命的，因此它安全地将它放在栈上。
   prefs: []
   type: TYPE_NORMAL
-  zh: 原子操作在吞吐量和延迟方面都优于基于互斥锁的增量操作。在高竞争情况下，这种差异变得更加显著，避免锁定获取有助于减少上下文切换和调度开销。
-- en: <details class="example"><summary>Show the complete benchmark file</summary>
-  id: totrans-74
+- en: 强制堆分配[¶](#forcing-a-heap-allocation "永久链接")
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '```go'
   prefs: []
   type: TYPE_NORMAL
-  zh: <details class="example"><summary>显示完整的基准测试文件</summary>
-- en: '[PRE7]</details>'
-  id: totrans-75
+- en: var sink *Data
   prefs: []
   type: TYPE_NORMAL
-  zh: '[PRE7]</details>'
-- en: When to Use Atomic Operations vs. Mutexes
-  id: totrans-76
+- en: func HeapAllocEscape() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: d := &Data{1, 2, 3}
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: sink = d // d escapes to heap
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkHeapAllocEscape(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: HeapAllocEscape()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Benchmark | 迭代次数 | 每次操作时间 (ns) | 每次操作字节数 | 每次操作分配数 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| BenchmarkHeapAllocEscape-14 | 331,469,049 | 10.55 ns | 24 B | 1 |'
+  prefs: []
+  type: TYPE_TB
+- en: 如 `BenchmarkHeapAllocEscape` 所示，将指针赋值给全局变量会导致真正的堆逃逸。这引入了真正的开销：40 倍更慢的调用、24 字节的分配以及每次调用一个垃圾回收对象。
+  prefs: []
+  type: TYPE_NORMAL
+- en: <details class="example"><summary>显示基准测试文件</summary>
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```go'
+  prefs: []
+  type: TYPE_NORMAL
+- en: package main
+  prefs: []
+  type: TYPE_NORMAL
+- en: import "testing"
+  prefs: []
+  type: TYPE_NORMAL
+- en: type Data struct {
+  prefs: []
+  type: TYPE_NORMAL
+- en: A, B, C int
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // heap-alloc-start
+  prefs: []
+  type: TYPE_NORMAL
+- en: func StackAlloc() Data {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return Data{1, 2, 3} // stays on stack
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func HeapAlloc() *Data {
+  prefs: []
+  type: TYPE_NORMAL
+- en: return &Data{1, 2, 3} // escapes to heap
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkStackAlloc(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: _ = StackAlloc()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkHeapAlloc(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: _ = HeapAlloc()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // heap-alloc-end
+  prefs: []
+  type: TYPE_NORMAL
+- en: // escape-start
+  prefs: []
+  type: TYPE_NORMAL
+- en: var sink *Data
+  prefs: []
+  type: TYPE_NORMAL
+- en: func HeapAllocEscape() {
+  prefs: []
+  type: TYPE_NORMAL
+- en: d := &Data{1, 2, 3}
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: sink = d // d escapes to heap
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: func BenchmarkHeapAllocEscape(b *testing.B) {
+  prefs: []
+  type: TYPE_NORMAL
+- en: for b.Loop() {
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: HeapAllocEscape()
+  prefs:
+  - PREF_IND
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs:
+  - PREF_IND
+  type: TYPE_NORMAL
+- en: '}'
+  prefs: []
+  type: TYPE_NORMAL
+- en: // escape-end
+  prefs: []
+  type: TYPE_NORMAL
+- en: '```</details>'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 当何时优化栈分配[¶](#when-to-optimize-for-stack-allocation "永久链接")
   prefs:
   - PREF_H2
   type: TYPE_NORMAL
-  zh: 何时使用原子操作而不是互斥锁
-- en: 'Atomic operations shine in simple, high-frequency scenarios—counters, flags,
-    coordination signals—where the cost of a lock would be disproportionate. They
-    avoid lock queues and reduce context switching. But they come with limitations:
-    no grouping of multiple operations, no rollback, and increased complexity when
-    applied beyond their niche.'
-  id: totrans-77
+- en: 并非所有的逃逸都值得预防。以下是在关注栈分配时合理的情况，以及何时最好让值逃逸。
   prefs: []
   type: TYPE_NORMAL
-  zh: 原子操作在简单、高频场景中表现出色——计数器、标志、协调信号——在这些场景中，锁定的成本会不成比例。它们避免了锁队列和减少了上下文切换。但它们也有局限性：无法对多个操作进行分组，没有回滚，并且当应用于其领域之外时，增加了复杂性。
-- en: Mutexes remain the right tool for managing complex shared state, protecting
-    multi-step critical sections, and maintaining invariants. They're easier to reason
-    and generally safer when logic grows beyond a few lines.
-  id: totrans-78
+- en: 当何时避免逃逸
   prefs: []
   type: TYPE_NORMAL
-  zh: 互斥锁仍然是管理复杂共享状态、保护多步关键部分和维护不变性的正确工具。当逻辑超过几行时，它们更容易推理且通常更安全。
-- en: Choosing between atomics and locks isn't about ideology but scope. When the
-    job is simple, atomics get out of the way. When the job gets complex, locks keep
-    you safe.
-  id: totrans-79
+- en: 在性能关键路径上。在紧密循环或延迟敏感的代码中减少堆的使用可以降低垃圾回收压力并加快执行速度。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 对于短生命期、小对象。这些可以在不涉及垃圾回收器的情况下有效地在栈上分配，从而减少内存碎片。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 当你控制完整的调用链。如果对象保持在你的代码中，并且你可以重构它以避免逃逸，那么进行小的重构通常是值得的。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 如果分析显示存在垃圾回收瓶颈。逃逸分析帮助你针对并缩小在现实世界跟踪中识别出的内存密集型分配。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 当允许值逃逸是可行的
   prefs: []
   type: TYPE_NORMAL
-  zh: 在原子操作和锁之间进行选择并不是关于意识形态，而是关于范围。当任务简单时，原子操作不会妨碍；当任务变得复杂时，锁能确保你的安全。
+- en: 当从构造函数或工厂返回值时。从 `NewThing()` 返回指针是 Go 语言的惯例——即使它会导致逃逸，但它提高了清晰度和可用性。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 当对象必须超出函数的生命周期。如果你在全局存储数据、发送到 goroutine 或将其保存在结构体中，逃逸是必要的且正确的。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 当分配大小小且不频繁时。如果堆分配不在热点路径上，避免它的好处通常可以忽略不计。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 当防止逃逸损害可读性。为了保持所有内容在栈上而编写的尴尬代码可能会降低微优化带来的可维护性。
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

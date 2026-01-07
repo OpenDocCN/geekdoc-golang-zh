@@ -1,11 +1,7 @@
-- en: Go Optimization Guide
-  id: totrans-0
+- en: Go 优化指南
   prefs:
   - PREF_H1
   type: TYPE_NORMAL
-  zh: Go 优化指南
 - en: 来源：[https://goperf.dev/](https://goperf.dev/)
-  id: totrans-1
   prefs: []
   type: TYPE_NORMAL
-  zh: 来源：[https://goperf.dev/](https://goperf.dev/)

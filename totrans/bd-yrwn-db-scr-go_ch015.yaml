@@ -1,0 +1,179 @@
+- en: 14\. Query Language
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 14.1 Expression evaluation
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Both `SELECT` and `UPDATE` contain expressions on columns that need evaluation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Evaluating a tree is as obvious as it was discussed in the previous chapter.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`INSERT` contains expressions on constants that are evaluated with an empty
+    `env`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 14.2 Range queries
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Set up a range query
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Both `SELECT`, `UPDATE`, and `DELETE` can do range queries, the difference is
+    what to do with the results. `QLScan` is the common part that represents a range
+    query.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'It has 3 phases: `INDEX BY`, `LIMIT`, and `FILTER`. `Scanner` implements the
+    `INDEX BY`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Revisit the infinity encoding
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '`INDEX BY` takes 1 of the 3 forms defined in the last chapter.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`a > start AND a < end`: An interval of (*s**t**a**r**t*, *e**n**d*).'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '`a > s`: An open-ended interval of (*s*, +∞).'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '`a = p`: A prefix of the index.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Let’s say the index is (*a*, *b*). Queries using a prefix of the index are already
+    handled by the key encoding in chapter 10\. So …
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`a = p` is equivalent to `a >= p AND a <= p`, encoded as (*a*, *b*) ≥ (*p*, −∞)
+    and (*a*, *b*) ≤ (*p*, +∞).'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`a > s` is equivalent to `a > s AND () <= ()`, encoded as (*a*, *b*) > (*s*, −∞)
+    and (*a*,) < (+∞,).'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Since the use of the empty tuple `()`, `Key1` and `Key2` can now have a different
+    set of columns, so we have to modify the index selection to allow this.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 14.3 Results iterator
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Iterators all the way down
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The next phases are `LIMIT` and `FILTER`. The results are consumed from iterators.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Why use iterators instead of an array of results? Because a DB can potentially
+    work with larger-than-memory data, an iterator doesn’t require the results to
+    be ready in memory at once, it can even stream the results as they’re produced.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A chain of iterators for a `SELECT`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Iterator | Out | Role |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `BIter` | KV | Iterate through the B+tree. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `KVIter` | KV | Combine the snapshot with local updates. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `Scanner` | Row | Decode records and follow secondary indexes. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `qlScanIter` | Row | Offset, limit, and filter rows. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `qlSelectIter` | Row | Evaluate expressions in `SELECT`. |'
+  prefs: []
+  type: TYPE_TB
+- en: Transform data with iterators
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: An iterator takes another iterator as input to transform a stream of items.
+    This is a useful programming pattern.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`qlScanIter` is a bit more involved, as some bookkeeping is required for filtering.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: 14.4 Conclusions and next steps
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'We have multiple interfaces to a persistent, transactional DB:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: A KV that can be embedded in applications.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: A relational DB that can be embedded in applications.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: A SQL-like query language for the relational DB.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Without adding new functionality, we can create a *network protocol* to allow
+    the DB to run in a different process or machine. Network programming in Go is
+    high-level and easy, but you can always learn more with a “from scratch” attitude,
+    which you can find in the [“Build Your Own Redis”](https://build-your-own.org/redis/)
+    book.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since we have a basic parser and interpreter, we can take on compilers. You
+    can create a programming language and compile to machine code instead of merely
+    interpreting it. See the [“From Source Code To Machine Code”](https://build-your-own.org/compiler/)
+    book.
+  prefs: []
+  type: TYPE_NORMAL

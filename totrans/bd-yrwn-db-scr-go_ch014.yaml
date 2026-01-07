@@ -1,0 +1,307 @@
+- en: 13\. SQL Parser
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: SQL is easily parsed by computers while still looking like English.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 13.1 Syntax, parser, and interpreter
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Tree representation of computer languages
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: A query language is a string parsed into a tree structure for further processing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Example 1: `SELECT ... FROM foo WHERE a > b AND a < c`:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Example 2: Expression `a + b * c`:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: SQL is just a particular syntax; there are easier alternatives, such as the
+    pipeline-based [PRQL](https://prql-lang.org/), or even just [S-expression](https://en.wikipedia.org/wiki/S-expression).
+  prefs: []
+  type: TYPE_NORMAL
+- en: The S-expression is just nested parentheses, it’s the simplest syntax for arbitrary
+    tree structures. You can skip this chapter if you choose S-expression, but SQL
+    isn’t much harder, because everything is handled with nothing but top-down recursion.
+    The lesson in this chapter also applies to most computer languages.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Evaluate by visiting tree nodes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Both `SELECT` and `UPDATE` can contain arithmetic expressions on columns, which
+    are parsed into trees in the last example. Each tree node is an operator, and
+    its subtrees are operands. To evaluate a tree node, first evaluate its subtrees.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: In retrospect, this is the reason why trees are relevant, because trees represent
+    the evaluation order. A programming language also has control flows, variables,
+    etc., but once you represent it with a tree, the rest should be obvious.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 13.2 Query language specification
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Statements
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Not exactly SQL, just a look-alike.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Conditions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: A SQL DB will choose an index based on the `WHERE` clause if possible, and/or
+    fetch and filter the rows if the condition is not fully covered by the index.
+    This is automatic without any direct user control.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Here we’ll deviate from SQL: Instead of `WHERE`, we’ll use separate clauses
+    for indexing conditions and filtering conditions,'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The `INDEX BY` clause selects an index and controls the sort order.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The `FILTER` clause then filters the rows.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both are optional. And the primary key is selected if the `INDEX BY` is missing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: OLTP workloads often expect predictable performance; a sudden change in the
+    query plan is a production hazard. That’s why we make the index selection explicit
+    to save the DB from guessing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Expressions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: An expression is either a …
+  prefs: []
+  type: TYPE_NORMAL
+- en: column name,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: literal value like numbers or strings,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: binary or unary operator,
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: tuple.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Which is represented as a tree node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Different operators have different priorities (precedence), as listed above.
+    This complication is avoided in simpler grammars like S-expression. But operator
+    precedence can be handled with simple recursion, as you’ll see.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 13.3 Recursive descent
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Tree node structures
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Each statement is divided into smaller parts including the expression node `QLNode`,
+    so they are trees of components.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Split the input into smaller parts
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: All parsing is *top-down*. The topmost part is a statement, we’ll first determine
+    its type, then dispatch the work to the concrete function.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`pKeyword` matches and consumes keywords from the input to determine the next
+    part. Take a look at `pSelect`, its 3 parts are consumed by 3 functions.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`pSelectExprList` is the comma-separated expression list. Each list item is
+    dispatched to `pSelectExpr`. The comma determines where the list ends.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`pScan` is the last part of `SELECT`. It’s further divided into 3 smaller parts.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Without looking at every function, we’ve already got the idea of parsing:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Split the input into smaller and smaller parts until it ends as either an operator,
+    a name, or a literal value.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Determine the next part by looking at the next keywords.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '`SELECT` decomposed into smaller and smaller parts.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| `SELELT a, b` | `FROM` | `foo` | `INDEX BY x` | `FILTER y` | `LIMIT z` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `pSelectExprList` | `pExpect` | `pMustSym` | `pScan` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `pSelectExpr` |  | `pIndexBy` | `pExprOr` | `pLimit` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `pExprOr` |  | … | … | `pNum` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| … |  |'
+  prefs: []
+  type: TYPE_TB
+- en: Convert infix operators into a binary tree
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '`pExprOr` parses an arbitrary expression. Turning `1+2*3-4` into a tree regarding
+    operator precedence is not obvious, as it’s just an interleaved list of numbers
+    and operators. So let’s start with a simpler problem: only the `+` operator.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The expression `left + right` is represented as:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The *left* subtree can also represent an expression, so `LL + LR + R` becomes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'We can add more terms, and it’s still a binary tree. Pseudo-code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'This is described by a simple rule:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: The *left* subrule `expr` can expand to the rule itself, but the right subrule
+    `term` is the bottommost part that cannot expand any further.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Operator precedence with recursion
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Next problem: add the `*` operator. It has a higher priority, so `term` is
+    now expanded by a similar rule, and the bottommost part is now `factor`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Pseudo-code:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE19]'
+  prefs: []
+  type: TYPE_PRE
+- en: Visualization of the 2-rule expansion.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|  | a | + | b | × | c | - | d |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 1 | term | + |  | term |  | - | term |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 2 | factor |  | factor | × | factor |  | factor |'
+  prefs: []
+  type: TYPE_TB
+- en: The `OR` operator has the lowest priority, so `pExprOr` is the topmost function
+    for parsing an expression. It calls `pExprAnd` to handle the next priority, all
+    the way down to the highest priority `pExprUnop`, which calls `pExprAtom` to parse
+    a bottommost part (a name or a literal value).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE20]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is called *recursive descent*. In retrospect, it’s just divide and conquer,
+    where the “divide” is just checking for the next keyword.
+  prefs: []
+  type: TYPE_NORMAL

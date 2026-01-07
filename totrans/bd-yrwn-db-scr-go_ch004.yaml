@@ -1,0 +1,371 @@
+- en: 03\. B-Tree & Crash Recovery
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 3.1 B-tree as a balanced n-ary tree
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Height-balanced tree
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Many practical binary trees, such as the [AVL tree](https://build-your-own.org/redis/10_avltree)
+    or the RB tree, are called *height-balanced trees*, meaning that the height of
+    the tree (from root to leaves) is limited to *O*(log *N*), so a lookup is *O*(log *N*).
+  prefs: []
+  type: TYPE_NORMAL
+- en: A B-tree is also height-balanced; the height is the same for all leaf nodes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Generalizing binary trees
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: n-ary trees can be generalized from binary trees (and vice versa). An example
+    is the 2-3-4 tree, which is a B-tree where each node can have either 2, 3, or
+    4 children. The 2-3-4 tree is equivalent to the RB tree. However, we won’t go
+    into the details because they are not necessary for understanding B-trees.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Visualizing a 2-level B+tree of a sorted sequence [1, 2, 3, 4, 6, 9, 11, 12].
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: In a B+tree, only leaf nodes contain value, keys are duplicated in internal
+    nodes to indicate the key range of the subtree. In this example, node [1, 4, 9]
+    indicates that its 3 subtrees are within intervals [1, 4), [4, 9), and [9, +∞).
+    However, only 2 keys are needed for 3 intervals, so the first key (1) can be omitted
+    and the 3 intervals become (-∞, 4), [4, 9), and (9, +∞).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 3.2 B-tree as nest arrays
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Two-level nested arrays
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Without knowing the details of the RB tree or the 2-3-4 tree, the B-tree can
+    be understood from sorted arrays.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The problem with sorted arrays is the *O*(*N*) update. If we split the array
+    into *m* smaller non-overlapping ones, the update becomes *O*(*N*/*m*). But we
+    have to find out which small array to update/query first. So we need another sorted
+    array of references to smaller arrays, that’s the internal nodes in a B+tree.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: The lookup cost is still *O*(log *N*) with 2 binary searches. If we choose *m*
+    as √*N*, update become *O*(√*N*), that’s as good as 2-level sorted arrays can
+    be.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Multiple levels of nested arrays
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '*O*(√*N*) is unacceptable for databases, but if we add more levels by splitting
+    arrays even more, the cost is further reduced.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s say we keep splitting levels until all arrays are no larger than a constant
+    *s*, we end up with log (*N*/*s*) levels, and the lookup cost is *O*(log (*N*/*s*) + log (*s*)),
+    which is still *O*(log *N*).
+  prefs: []
+  type: TYPE_NORMAL
+- en: For insertion and deletion, after finding the leaf node, updating the leaf node
+    is constant *O*(*s*) most of the time. The remaining problem is to maintain the
+    invariants that nodes are not larger than *s* and are not empty.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 3.3 Maintaining a B+tree
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '3 invariants to preserve when updating a B+tree:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Same height for all leaf nodes.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Node size is bounded by a constant.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Node is not empty.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Growing a B-tree by splitting nodes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The 2nd invariant is violated by inserting into a leaf node, which is restored
+    by splitting the node into smaller ones.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: After splitting a leaf node, its parent node gets a new branch, which may also
+    exceed the size limit, so it may need to be split as well. Node splitting can
+    propagate to the root node, increasing the height by 1.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: This preserves the 1st invariant, since all leaves gain height by 1 simultaneously.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Shrinking a B-tree by merging nodes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Deleting may result in empty nodes. The 3rd invariant is restored by merging
+    empty nodes into a sibling node. Merging is the opposite of splitting. It can
+    also propagate to the root node, so the tree height can decrease.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'When coding a B-tree, merging can be done earlier to reduce wasted space: you
+    can merge a non-empty node when its size reaches a lower bound.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 3.4 B-Tree on disk
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: You can already code an in-memory B-tree using these principles. But B-tree
+    on disk requires extra considerations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Block-based allocation
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: One missing detail is how to limit node size. For in-memory B+tree, you can
+    limit the maximum number of keys in a node, the node size in bytes is not a concern,
+    because you can allocate as many bytes as needed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: For disk-based data structures, there are no `malloc/free` or garbage collectors
+    to rely on; space allocation and reuse is entirely up to us.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Space reuse can be done with a *free list* if all allocations are of the *same
+    size*, which we’ll implement later. For now, all B-tree nodes are the same size.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Copy-on-write B-tree for safe updates
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'We’ve seen 3 crash-resistant ways to update disk data: renaming files, logs,
+    LSM-trees. The lesson is **not to destroy any old data during an update**. This
+    idea can be applied to trees: make a copy of the node and modify the copy instead.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Insertion or deletion starts at a leaf node; after making a copy with the modification,
+    its parent node must be updated to point to the new node, which is also done on
+    its copy. The copying propagates to the root node, resulting in a new tree root.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The original tree remains intact and is accessible from the old root.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The new root, with the updated copies all the way to the leaf, shares all other
+    nodes with the original tree.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is a visualization of updating the leaf c. The copied nodes are in uppercase
+    (D, B, C), while the shared subtrees are in lowercase (a, e).
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is called a *copy-on-write* data structure. It’s also described as *immutable*,
+    *append-only* (not literally), or *persistent* (not related to durability). Be
+    aware that database jargon does not have consistent meanings.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '2 more problems remain for the copy-on-write B-tree:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to find the tree root, as it changes after each update? The crash safety
+    problem is reduced to a single pointer update, which we’ll solve later.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: How to reuse nodes from old versions? That’s the job of a free list.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Copy-on-write B-tree advantages
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: One advantage of keeping old versions around is that we got *snapshot isolation*
+    for free. A transaction starts with a version of the tree, and won’t see changes
+    from other versions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: And crash recovery is effortless; just use the last old version.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another one is that it fits the multi-reader-single-writer concurrency model,
+    and readers do not block the writer. We’ll explore these later.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Alternative: In-place update with double-write'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: While crash recovery is obvious in copy-on-write data structures, they can be
+    undesirable due to the high write amplification. Each update copies the whole
+    path (*O*(log *N*)), while most in-place updates touch only 1 leaf node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It’s possible to do in-place updates with crash recovery without copy-on-write:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Save a copy of the entire updated nodes somewhere. This is like copy-on-write,
+    but without copying the parent node.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '`fsync` the saved copies. (Can respond to the client at this point.)'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Actually update the data structure in-place.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '`fsync` the updates.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: After a crash, the data structure may be half updated, but we don’t really know.
+    What we do is blindly apply the saved copies, so that the data structure ends
+    with the updated state, regardless of the current state.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The saved updated copies are called [double-write](https://www.percona.com/blog/innodb-double-write/)
+    in MySQL jargon. But what if the double-write is corrupted? It’s handled the same
+    way as logs: checksum.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the checksum detects a bad double-write, ignore it. It’s before the 1st `fsync`,
+    so the main data is in a good and old state.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the double-write is good, applying it will always yield good main data.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Some DBs actually store the double-writes in logs, called [physical logging](https://wiki.postgresql.org/wiki/Full_page_writes).
+    There are 2 kinds of logging: *logical* and *physical*. Logical logging describes
+    high-level operations such as inserting a key, such operations can only be applied
+    to the DB when it’s in a good state, so only physical logging (low-level disk
+    page updates) is useful for recovery.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The crash recovery principle
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s compare double-write with copy-on-write:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Double-write makes updates *idempotent*; the DB can retry the update by applying
+    the saved copies since they are full nodes.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Copy-on-write *atomically* switches everything to the new version.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'They are based on different ideas:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Double-write ensures enough information to produce the new version.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Copy-on-write ensures that the old version is preserved.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'What if we save the *original* nodes instead of the updated nodes with double-write?
+    That’s the 3rd way to recover from corruption, and it recovers to the old version
+    like copy-on-write. We can combine the 3 ways into 1 idea: **there is enough information
+    for either the old state or the new state at any point**.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Also, some copying is always required, so larger tree nodes are slower to update.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ll use copy-on-write because it’s simpler, but you can deviate here.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 3.5 What we learned
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'B+tree principles:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: n-ary tree, node size is limited by a constant.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Same height for all leaves.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Split and merge for insertion and deletion.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Disk-based data structures:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Copy-on-write data structures.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Crash recovery with double-write.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'We can start coding now. 3 steps to create a persistent KV based on B+tree:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Code the B+tree data structure.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Move the B+tree to disk.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Add a free list.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL

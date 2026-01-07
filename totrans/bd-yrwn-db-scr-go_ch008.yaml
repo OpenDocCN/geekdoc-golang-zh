@@ -1,0 +1,385 @@
+- en: '07\. Free List: Recyle & Reuse'
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: The last step of the KV store is to reuse deleted pages, which is also a problem
+    for in-memory data structures.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 7.1 Memory management techniques
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: What we will do
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Memory (space) management can be either manual or automatic. A garbage collector
+    is automatic, it detects unused objects without any help from the programmer.
+    The next problem is how to deal with (reuse) unused objects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We don’t need a GC, because in a tree data structure, detecting unused nodes
+    is trivial, as we have already done with the `BTree.del` callback. What we’ll
+    do is reimplement those callbacks.
+  prefs: []
+  type: TYPE_NORMAL
+- en: List of unused objects
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: One of the reasons that disk space is managed in *pages* of the same size is
+    that they become *interchangeable* after they are deleted; the DB can reuse any
+    of them when it needs a page. This is simpler than generic memory management routines
+    such as `malloc`, which deal with arbitrary sizes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We need to store a list of unused pages, called a *free list* or *object pool*.
+    For in-memory data, this can simply be an array of pointers, or a linked list
+    embedded in objects.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Embedded linked list
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The simplest scheme is to use an embedded (intrusive) linked list. The list
+    pointer sits inside the object itself; it borrows space from the object, so no
+    extra space is needed for the data structure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: However, this conflicts with copy-on-write, as it overwrites *during* an update.
+  prefs: []
+  type: TYPE_NORMAL
+- en: External list
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The other scheme is to store pointers to unused pages in an external data structure.
+    The external data structure itself takes up space, which is a problem we’ll solve.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Let’s say our free list is just a log of unused page numbers; adding items is
+    just appending. The problem is how to remove items so that it doesn’t grow infinitely.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 7.2 Linked list on disk
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Free list requirements
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s image the free list as a sequence of items, like a log. In a copy-on-write
+    tree, each update requires new nodes and deletes old nodes, so the free list is
+    both added to and removed from per update. If items are removed from the end,
+    then the added items *overwrite* old data, requiring extra crash recovery mechanisms
+    discussed in chapter 03.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If items are removed from the beginning, how do you reclaim the space from the
+    removed items? We’re back to the original problem.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To solve the problem, the free list should also be page-based, so that it can
+    manage itself. A page-based list is just a linked list, except that a page can
+    hold multiple items, like a B+tree node. This is also called an *unrolled linked
+    list*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'In summary:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Our free list is a standalone data structure: a linked list of pages.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It will try to get a page from itself when it grows a new node.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Removed list nodes are added to itself for reuse.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each page can contain multiple items (page numbers).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Pages are updated in-place, but it’s still *append-only* within a page.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Items are appended to the tail node and consumed from the head.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It’s easier to make the tail node append-only this way.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Free list disk layout
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Each node starts with a pointer to the next node. Items are appended next to
+    it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: We also store pointers to both the head node and the tail node in the meta page.
+    The pointer to the tail node is needed for O(1) insertion.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Update free list nodes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Without the free list, the meta page is the only page that is updated *in-place*,
+    which is how copy-on-write made crash recovery easy. Now there are 2 more in-place
+    page updates in list nodes: the next pointer and the appended items.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Although list nodes are updated in-place, no data is overwritten within a page.
+    So if an update is interrupted, the meta page still points to the same data; no
+    extra crash recovery is needed. And unlike the meta page, atomicity is not required.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Following this analysis, the embedded list can also work iff the next pointer
+    is *reserved* in the B+tree node. Here you can deviate from the book. Although
+    this doubles write amplification.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 7.3 Free list implementation
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Free list interface
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`FreeList` is the extra data structure in `KV`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Like `BTree`, page management is isolated via 3 callbacks:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`get` reads a page; same as before,'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`new` appends a page; previously used for `BTree`.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`set` returns a writable buffer to capture in-place updates.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`del` is not there because the free list manages free pages itself.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Free list data structure
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Since a node contains a variable number of items up to `FREE_LIST_CAP`, we need
+    to know where the 1st item is in the head node (`headSeq`), and where the items
+    end in the tail node (`tailSeq`).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`headSeq`, `tailSeq` are indexes into the head and tail nodes, except that
+    they are monotonically increasing. So the wrapped-around index is:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: We make them monotonically increasing so that they become a unique identifier
+    of the list position; to prevent the list head from overrunning the list tail,
+    simply compare the 2 sequence numbers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: During an update, the list is both added to and removed from, and when we remove
+    from the head, we cannot remove what we just added to the tail. So we need to
+    …
+  prefs: []
+  type: TYPE_NORMAL
+- en: At the beginning of the update, save the original `tailSeq` to `maxSeq`.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: During the update, `headSeq` cannot overrun `maxSeq`.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: At the beginning of the next update, `maxSeq` is advanced to `tailSeq`.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: …
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Consuming from the free list
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Removing an item from the head node is simply advancing `headSeq`. And when
+    the head node becomes empty, move to the next node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: The free list self-manages; the removed head node is fed back to itself.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: What if the last node is removed? A linked list with 0 nodes implies nasty special
+    cases. In practice, it’s easier to **design the linked list to have at least 1
+    node** than to deal with special cases. That’s why we `assert(fl.headPage != 0)`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Pushing into the free list
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Appending an item to the tail node is simply advancing `tailSeq`. And when the
+    tail node is full, we immediately add a new empty tail node to ensure that there
+    is at least 1 node in case the previous tail node is removed as a head node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Again, the free list is self-managing: it will try to get a node from itself
+    for the new tail node before resorting to appending.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 7.4 KV with a free list
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Page management
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Now that pages can be reused, reused pages are overwritten in-place, so a map
+    is used to capture pending updates.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`BTree.new` is now `KV.pageAlloc`, it uses the free list before resorting to
+    appending.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`KV.pageWrite` returns a writable page copy to capture in-place updates.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Another change is that we may read a page again after it has been updated, so
+    `KV.pageRead` should consult the pending updates map first.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: Update the meta page
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The meta page now includes free list pointers (head and tail) that are updated
+    atomically along with the tree root.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: Remember that the free list always contains at least 1 node, we’ll assign an
+    empty node to it when initializing an empty DB.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Since `headSeq` is blocked by `maxSeq`, `maxSeq` is updated to `tailSeq` *between*
+    updates to allow reuse of pages from the last version.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: We still assume sequential access in this chapter. When we add concurrency later,
+    `headSeq` will be blocked by the oldest reader instead.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 7.5 Conclusion of the KV store
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'What we have done:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: File layout for a copy-on-write B+tree.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Durability and atomicity with `fsync`.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Managing disk pages with a free list.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'That’s enough for a KV store with `get`, `set`, `del`. But there is more in
+    part II:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Relational DB on KV store.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Concurrent transactions.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

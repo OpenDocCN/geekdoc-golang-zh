@@ -1,0 +1,337 @@
+- en: 04\. B+Tree Node and Insertion
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 4.1 Design B+tree nodes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: What we will do
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The first big step is just the B+tree data structures, other DB concerns will
+    be covered in later chapters. We’ll do it from the bottom up.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Design a node format that contains all the necessary bits.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Manipulate nodes in a copy-on-write fashion (insert and delete keys).
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Split and merge nodes.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Tree insertion and deletion.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The node format
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: All B+tree nodes are the same size for later use of the free list. Although
+    we won’t deal with disk data at this point, a concrete node format is needed because
+    it decides the node size in bytes and *when to split a node*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A node includes:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A fixed-size header, which contains:'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The type of node (leaf or internal).
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The number of keys.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A list of pointers to child nodes for internal nodes.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: A list of KV pairs.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: A list of offsets to KVs, which can be used to binary search KVs.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This is the format of each KV pair. Lengths followed by data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Simplifications and limits
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Our goal is to learn the basics, not to create a real DB. So some simplifications
+    are made.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The same format is used for both leaf nodes and internal nodes. This wastes
+    some space: leaf nodes don’t need pointers and internal nodes don’t need values.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: An internal node of *n* branches contains *n* keys, each key is duplicated from
+    the minimum key of the corresponding subtree. However, only *n* − 1 keys are needed
+    for *n* branches, as you’ll see in other B-tree introductions. The extra key makes
+    the visualization easier.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ll set the node size to 4K, which is the typical OS page size. However, keys
+    and values can be arbitrarily large, exceeding a single node. There should be
+    a way to store large KVs outside of nodes, or to make the node size variable.
+    This problem is solvable, but not fundamental. So we’ll skip it by limiting the
+    KV size so that they always fit inside a node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: The key size limit also ensures that an internal node can always host 2 keys.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In-memory data types
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In our code, a node is just a chunk of bytes interpreted by this format. Moving
+    data from memory to disk is simpler without a serialization step.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Decouple data structure from IO
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Space allocation/deallocation is required for both in-memory and on-disk data
+    structures. We can abstract this away with callbacks, which is a boundary between
+    the data structure and the rest of the DB.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'For an on-disk B+tree, the database file is an array of pages (nodes) referenced
+    by page numbers (pointers). We’ll implement these callbacks as follows:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`get` reads a page from disk.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`new` allocates and writes a new page (copy-on-write).'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`del` deallocates a page.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We can use fake callbacks (mocks) to test the data structure in memory without
+    the rest of the DB.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 4.2 Decode the node format
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Since the node type is just a chunk of bytes, we’ll define some helper functions
+    to access it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Header
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Child pointers
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: KV offsets and pairs
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The format packs everything back to back. Finding the nth KV can be done by
+    reading each KV pair one by one. To make it easier, we have included an offset
+    list to locate the nth KV in *O*(1). This also allows binary searches within a
+    node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Each offset is the *end* of the KV pair relative to the start of the 1st KV.
+    The start offset of the 1st KV is just 0, so we use the end offset instead, which
+    is the start offset of the next KV.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`kvPos` returns the position of the nth KV pair relative to the whole node.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: It also conveniently returns the node size (used space) with an off-by-one lookup.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: KV lookups within a node
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The “seek” operation is used for both range and point queries. So they are fundamentally
+    the same.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: The function is called `nodeLookupLE` because it uses the **L**ess-than-or-**E**qual
+    operator. For point queries, we should use the equal operator instead, which is
+    a step we can add later.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 4.2 Update B+tree nodes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Insert into leaf nodes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s consider inserting a key into a leaf node. The 1st step is to use `nodeLookupLE`
+    to get the insert position. Then copy everything to a new node with the extra
+    key. That’s copy-on-write.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: Node copying functions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '`nodeAppendRange` copies a range of KVs and `nodeAppendKV` copies a KV pair.
+    This must be done in order because these functions rely on the previous offset.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Update internal nodes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: For internal nodes, the link to the child node is always updated with the copy-on-write
+    scheme, which can become multiple links if the child node is split.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Note that the `tree.new` callback is used to allocate the child nodes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 4.3 Split B+tree nodes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Due to the size limits we imposed, a node can host at least 1 KV pair. In the
+    worst case, an oversized node will be split into 3 nodes, with a large KV in the
+    middle. So we may have to split it 2 times.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: Note that the returned nodes are allocated from memory; they are just temporary
+    data until `nodeReplaceKidN` actually allocates them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 4.4 B+tree insertion
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'We’ve implemented 3 node operations:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`leafInsert` updates a leaf node.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`nodeReplaceKidN` updates an internal node.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`nodeSplit3` splits an oversized node.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Let’s put them together for a full B+tree insertion, which starts with key lookups
+    in the root node until it reaches a leaf.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`leafUpdate` is similar to `leafInsert`; it updates an existing key instead
+    of inserting a duplicate key.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Internal nodes are handled recursively, each call returns an updated node, and
+    the caller will split it if it’s oversized and handle the allocation/deallocation.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 4.5 What’s next?
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'The work is almost done. We just need to add these in the next chapter:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Node merging and tree deletion.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: A high-level interface.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Fake node callbacks for tests.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL

@@ -1,0 +1,228 @@
+- en: 00\. Introduction
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Master fundamentals by building your own DB
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: What to learn?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Complex systems like databases are built on a few simple principles.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '**Atomicity & durability**. A DB is more than files!'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Persist data with `fsync`.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Crash recovery.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**KV store** based on **B-tree**.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Disk-based data structures.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Space management with a free list.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Relational DB** on top of KV.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: How tables and indexes are mapped to low-level B-trees.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: SQL-like **query language**; parser & interpreter.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '**Concurrency control** for transactions.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Code a database in 3000 LoC, incrementally
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: It’s amazing that an interesting and broad topic can be captured in 3000 LoC.
+    You may have experience with larger projects, but not all experience is equal.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| LoC | Step |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 366 | B+tree data structure. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 601 | Append-only KV. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 731 | Practical KV with a free list. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 1107 | Tables on KV. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 1294 | Range queries. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 1438 | Secondary indexes. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 1461 | Transactional interfaces. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 1702 | Concurrency control. |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 2795 | SQL-like query language. |'
+  prefs: []
+  type: TYPE_TB
+- en: 'Learn by doing: principles instead of jargon'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Database literature is full of confusing, overloaded jargon with no consistent
+    meaning. It’s easy to get lost when reading about it. On the other hand, Feymann
+    once said, “what I can’t build, I don’t understand”. Can you build a database
+    by reading about databases? Test your understanding!
+  prefs: []
+  type: TYPE_NORMAL
+- en: While there is a lot to learn, not all knowledge is equally important, **it
+    takes only a few principles to build a DB**, so anyone can try.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Topic 1: durability and atomicity'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: More than a data format
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Smartphones use SQLite (a file-based DB) heavily. Why store data in SQLite instead
+    of some other format, say JSON? Because you risk data loss if it crashes during
+    an update. The file can end up half-written, truncated, or even missing.
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are techniques to fix this, and they lead to databases.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Durability and atomicity with `fsync`
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Atomicity means that data is either updated or not, not in between. Durability
+    means that data is guaranteed to exist after a certain point. They are not separate
+    concerns, because we must achieved both.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The first thing to learn is the `fsync` syscall. A file write doesn’t reach
+    disk synchronously, there are multiple levels of buffering (OS page cache and
+    on-device RAM). `fsync` flushes pending data and waits until it’s done. This makes
+    writes durable, but what about atomicity?
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Topic 2: indexing data structures'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Control latency and cost with indexes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: A DB turns a query into a result without the user knowing how. But the result
+    is not the only concern, *latency* and *cost* (memory, IO, computation) are also
+    relevant, hence the distinction between analytical (OLAP) and transactional (OLTP).
+  prefs: []
+  type: TYPE_NORMAL
+- en: OLAP can involve large amounts of data, with aggregation or join operations.
+    Indexing can be limited or non-existent.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: OLTP touches small amounts of data using indexes. Low latency & cost.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The word “transactional” is not about DB transactions, it’s just a funny jargon.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In-memory data structures vs. on-disk data structures
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: There are extra challenges when putting an indexing data structure on disk.
+    (See my book “Build Your Own Redis” for a much easier in-memory DB).
+  prefs: []
+  type: TYPE_NORMAL
+- en: One of the problems is updating disk data *in-place*, because you have to deal
+    with corrupted states after a crash. Disks are not just slower RAM.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The R in RAM stands for “random”, which is another problem for disk-based data
+    because random access is much slower than sequential access, even on SSDs. So
+    data structures like binary trees are not viable while B-trees and LSM-trees are
+    OK. *Concurrent* access to data structures is also a topic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Topic 3: Relational DB on KV'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Two layers of DB interfaces
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: SQL is almost a synonym for database. But SQL is just a user interface, it’s
+    not fundamental to a DB. What’s important is the **functionalities** underneath.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another much simpler interface is key-value (KV). You can get, set, and delete
+    a single key, and most importantly, list a range of keys in sorted order. KV is
+    simpler than SQL because it’s one layer lower. Relational DBs are built on top
+    of KV-like interfaces called *storage engines*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Query languages: parsers and interpreters'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The last step is easy, despite the larger LoC. Both the parser and the interpreter
+    are coded with nothing but *recursion*! The lesson can be applied to almost any
+    computer language, or creating your own programming language or DSL (See my book
+    “From Source Code To Machine Code” for more challenges).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '*Build Your Own X* book series'
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: X includes Redis, web server and compiler. Read the web version on the website.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[https://build-your-own.org](https://build-your-own.org)'
+  prefs: []
+  type: TYPE_NORMAL

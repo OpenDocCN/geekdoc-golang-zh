@@ -1,0 +1,385 @@
+- en: 12\. Concurrency Control
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 12.1 Levels of concurrency
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'The problem: interleaved readers and writers'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Concurrent clients can enter and exit transactions at will, requesting reads
+    and writes in between. To simplify the analysis, let’s assume that enter/exit/read/write
+    are atomic steps, so that concurrent TXs are just interleaved steps.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ll also distinguish read-only TXs from read-write TXs. This is because …
+  prefs: []
+  type: TYPE_NORMAL
+- en: Concurrent readers are a much easier problem than concurrent writers.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Many apps are read-heavy, where read performance is more important.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Readers-writer lock (RWLock)
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Without knowing how to do concurrency, you can always add a mutex (lock) to
+    serialize any data access. For read performance, you can use a *readers-writer
+    lock* instead. It allows multiple concurrent readers, but only a single writer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: If there’s no writer, nothing can be changed, concurrent readers are OK.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: When a writer wants to enter, it waits until all readers have left.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Readers are blocked by a writer, but not by other readers.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The usefulness of this is limited; there is no concurrency between writers,
+    and long-running TXs are bad because readers and writers block each other.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Read-copy-update (RCU)
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: To prevent readers and writers from blocking each other, we can make readers
+    and writers work on their own version of the data.
+  prefs: []
+  type: TYPE_NORMAL
+- en: There is a pointer to the *immutable* data, readers just grab it as a snapshot.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A single writer updates its own *copy*, then flips the pointer to it.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We get this level of concurrency for free since we are copy-on-write. But a
+    single writer is still insufficient because the lifetime of a TX is controlled
+    by the client, which can be arbitrarily long.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Optimistic concurrency control
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Concurrent writers lead to conflicts, for example:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Seq | TX1 | TX2 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 1 | read `a` |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 2 |  | write `a := 1` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 3 | write `b := a` |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 4 | commit |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 5 |  | commit |'
+  prefs: []
+  type: TYPE_TB
+- en: TX1 depends on the same key that TX2 modifies, so they cannot both succeed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Note that some seemingly “write-only” operations actually have a read dependency.
+    For example, our update/delete interface reports whether the key is updated/deleted,
+    which depends on the previous state of the key. So the following scenario is also
+    a conflict.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Seq | TX1 | TX2 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 1 | write `a := 1` |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 2 |  | delete `a` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 3 | commit |  |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 4 |  | commit |'
+  prefs: []
+  type: TYPE_TB
+- en: One way to deal with conflicts is to just abort TX when a conflict is detected.
+  prefs: []
+  type: TYPE_NORMAL
+- en: TX starts.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Reads are on the snapshot, but writes are buffered locally.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Before committing, verify that there are no conflicts with committed TXs.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: TX ends.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If there’s a conflict, abort and rollback.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Otherwise, transfer buffered writes to the DB.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Note that *verify and commit* is an atomic step. This is called *optimistic*
+    concurrency control, because it assumes conflicts are rare and does nothing to
+    prevent them. We’ll implement this, but there are alternatives to know about.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Alternative: pessimistic concurrency control'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: With optimistic concurrency control, TXs cannot progress in case of a conflict,
+    which isn’t very helpful from the application’s PoV because all they can do is
+    retry in a loop. Another way to deal with conflicts is to prevent them via locking.
+    TXs will acquire locks on their dependencies so that potentially conflicting TXs
+    will wait for each other.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This sounds much nicer, especially in the last example where write/delete can
+    progress without problems. However, this still doesn’t guarantee progress because
+    TXs can now fail with *deadlocks*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: A deadlock is when 2 parties are waiting for each other to release a (different)
+    lock that they own. This also happens for more than 2 parties as long as there
+    is a cycle in the dependency graph. In concurrent programming, locks should be
+    acquired in a predefined order to avoid cycles. This isn’t the case for DBs as
+    the client can grab locks in any order, so a DB must detect and resolve deadlocks,
+    which is a graph problem.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Comparison of concurrency controls
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '|  | reader-reader | reader-writer | writer-writer | conflict |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| RWLock | pass | block | block | - |'
+  prefs: []
+  type: TYPE_TB
+- en: '| RCU | pass | pass | block | - |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Optimistic | pass | pass | pass | abort |'
+  prefs: []
+  type: TYPE_TB
+- en: '| Pessimistic | pass | lock | lock | prevent |'
+  prefs: []
+  type: TYPE_TB
+- en: 12.2 Snapshot isolation for readers
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Isolation level refers to how a TX sees changes from other TXs. This is not
+    an issue with copy-on-write since a TX operates on a *snapshot* of the B+tree.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Capture local updates
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: A transaction keeps a snapshot of the DB and local updates.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The snapshot is just a root pointer with copy-on-write.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The local updates are held in an in-memory B+tree.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Both trees are initialized at the start of the TX.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: To represent deleted keys, values in `KVTX.pending` are prefixed by a 1-byte
+    flag.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Read back your own write
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Within a TX, the client should be able to read back what it has just written,
+    even if it has not been committed, so queries should consult `KVTX.pending` before
+    `KVTX.snapshot`. That’s why writes are held in a B+tree instead of just a list.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: For range queries, a new iterator type is added to combine both trees.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Version numbers in the free list
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Since readers can hold old versions of the DB, the free list cannot give away
+    pages from those versions. We’ll solve this by assigning a monotonically increasing
+    version number to each version. This is also called a *timestamp* (logically).
+  prefs: []
+  type: TYPE_NORMAL
+- en: We keep track of ongoing TXs and the version numbers they’re based on.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Each page added to the free list is associated with the version number.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The list never gives away pages that are newer than the oldest TX.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This works by checking the version when consuming from the list head. Remember
+    that the free list is a FILO (first-in-last-out), so pages from the oldest version
+    will be consumed first.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Modification 1: Version numbers in `KVTX` and `KV`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Modification 2: Free list augmentation.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`maxVer` is maintained as the oldest version in `KV.ongoing` when a TX exits.
+    It prevents page reuse in addition to the existing `maxSeq`.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`curVar` is set to the next version by the writer on commit.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 12.3 Handle conflicts for writers
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Detect conflicts with history
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Modification 1: All reads are added to `KVTX.reads` (point and range queries).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Modification 2: Each successful commit is added to `KV.history`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Conflict detection works by checking for overlaps between its dependency and
+    the history that are newer than its base version.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: The history is trimmed when the oldest TX exits.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Serialize internal data structures
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In the analysis, TXs are simplified as interleaved steps, in reality, these
+    steps can run in parallel threads, which should be serialized as they share the
+    `KV` structure.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can use this lock for all `KVTX` methods. But there are ways to reduce the
+    locking. For example, we don’t have to serialize read/write methods because …
+  prefs: []
+  type: TYPE_NORMAL
+- en: Writes only work on `KVTX.pending`, they never touch `KV`.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Reads only touch `KV.mmap.chunks`, which are the slices returned by `mmap`.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The commit step may modify `KV.mmap.chunks` by appending, so we’ll use a local
+    copy for each TX. This slice is append-only, so a shallow copy is enough.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: This way, read/write methods do not require the lock and can run in parallel.
+    That’s good, because reads can trigger page faults and block the thread.
+  prefs: []
+  type: TYPE_NORMAL
+- en: So far, only `Begin`, `Commit`, and `Abort` are serialized. But considering
+    that `Commit` involves IO, we can go further by releasing the lock while waiting
+    for IO to allow other TXs to enter and read-only TXs to exit. The commit step
+    should still be serialized with other commit steps via another lock. This is left
+    as an exercise.
+  prefs: []
+  type: TYPE_NORMAL

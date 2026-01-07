@@ -1,0 +1,155 @@
+- en: 11\. Atomic Transactions
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 11.1 The all-or-nothing effect
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The secondary indexes from the last chapter require atomic multi-key updates.
+    This is not only necessary for internal DB consistency, but also useful for application
+    data consistency, think of account balances vs. account transactions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ll drop the get-set-del interface and add a new one to allow atomic execution
+    of a group of operations. Concurrency is discussed in the next chapter.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Commit and rollback
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: We’ll add interfaces to mark the beginning and end of the transaction. At the
+    end, updates either take effect (commit) or are discarded (rollback) due to errors
+    or user request (`Abort`).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Atomicity via copy-on-write
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: With copy-on-write, both commit and rollback are just updating the root pointer.
+    This is already implemented as error handling in chapter 06.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Previously, `updateOrRevert()` was called after a single key update. Now it’s
+    moved to `KVTX.Commit()`. The B+tree can be updated as many times as needed, it’s
+    the root pointer that matters.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Alternative: atomicity via logging'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In a copy-on-write tree, updates are captured by the root pointer, as opposed
+    to in-place updates where a log is required to capture updates.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The log is used to rollback updates if a transaction is aborted. The problem
+    is that IO errors prevent further updates, so rollback is left to the recovery
+    mechanism, this is also true with copy-on-write (see `updateOrRevert`).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Updates are considered durable once `fsync`’ed in the log. So the DB can return
+    success to the client after only 1 `fsync`, as long as the log is considered for
+    queries and eventually merged into the main datastore.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.2 Transactional interfaces
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Move tree operations to transactions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Tree operations are now associated with a transaction, so they are moved to
+    `KVTX`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Note that these functions no longer return errors because the actual disk update
+    is moved to `KVTX.Commit()`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Transactional table operations
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: For the table-based interfaces, just add a wrapper type to `KVTX`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: And move the table operations to that wrapper.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: These operations no longer deal with IO errors, so there is no error handling
+    for updating secondary indexes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 11.3 Optional optimizations
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: A working relational DB is a major milestone, although it only supports sequential
+    operations. For further challenges, there are some optimizations to consider.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reduce copying on multi-key updates
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Copy-on-write copies nodes from leaf to root in a single update, this is suboptimal
+    for multi-key updates because nodes in intermediate trees are allocated, updated
+    once, and then deleted within a transaction.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The optimization is to copy a node only once within a transaction and use in-place
+    updates on copied nodes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Range delete
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Although we can now do multi-key updates. Deleting a large number of keys, such
+    as dropping a table, is still problematic w.r.t. resource usage. The naive approach
+    to dropping a table is to iterate and delete keys one by one. This reads the entire
+    table into memory and does useless work as nodes are updated repeatedly before
+    being deleted.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Some DBs use separate files for each table, so this is not a problem. In our
+    case, a single B+tree is used for everything, so we can implement a *range delete*
+    operation that frees all leaf nodes with a range without even looking at them.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Compress common prefixes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In any sorted data, nearby keys are likely to share a common prefix. And in
+    typical relational DB usages, multi-column keys also result in shared prefixes.
+    So there’s an opportunity to compress keys within a node.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Prefix compression makes implementation more difficult (fun), especially when
+    the node size is not easily predictable for merge and split.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,193 @@
+- en: 10\. Secondary Indexes
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 10.1 Secondary indexes as extra keys
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Table schema
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: As mentioned in chapter 08, secondary indexes are just extra KV pairs containing
+    the primary key. Each index is distinguished by a key prefix in the B+tree.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: The first index is used as the primary key as it’s also an index.
+  prefs: []
+  type: TYPE_NORMAL
+- en: KV structures
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: For a secondary index, we could put the primary key in B+tree value, which is
+    used to find the full row. However, unlike the primary key, secondary indexes
+    don’t have the unique constraint, so there can be duplicate B+tree keys.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Instead of modifying our B+tree to support duplicates, we can also add the primary
+    key to the B+tree key to make it unique and leave the value empty.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: '|  | key | value |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| t1 | prefix1, k1, k2 | v1, v2 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| idx1 | prefix2, v1, k1, k2 | (empty) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| idx2 | prefix3, v2, k2, k1 | (empty) |'
+  prefs: []
+  type: TYPE_TB
+- en: 10.2 Using secondary indexes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Select an index by matching columns
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: To do a range query, we must select an index that matches the query keys, which
+    is stored in the `Scanner` type so that `Scanner.Deref()` can use it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: An index can be multiple columns. For example, index (*a*, *b*) can serve the
+    query (*a*, *b*) > (1, 2). It can also serve the query *a* > 1, because this is
+    the same as (*a*, *b*) > (1, +∞). The index selection is just matching the columns.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Encode missing columns as infinity
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In the last example, the query *a* > 1 with the index (*a*, *b*) uses only 1
+    of the columns, so we need to encode the rest as infinity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| Input query | Using the index |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *a* > 1 | (*a*, *b*) > (1, +∞) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *a* ≤ 1 | (*a*, *b*) < (1, +∞) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *a* ≥ 1 | (*a*, *b*) > (1, −∞) |'
+  prefs: []
+  type: TYPE_TB
+- en: '| *a* < 1 | (*a*, *b*) < (1, −∞) |'
+  prefs: []
+  type: TYPE_TB
+- en: This can be done by modifying our order-preserving encoding. First, we’ll choose
+    `"\xff"` as +∞ and `""` as -∞. As no columns are encoded as empty strings, we
+    can just ignore the missing columns in the -∞ cases. In the +∞ cases, we’ll prepend
+    a tag to each encoded column so that they don’t start with `"\xff"`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: We’ll prepend the column type code as the tag. This also makes debugging easier
+    since we can now decode stuff by looking at the hexdump.
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is a small extra step to support range queries on prefix columns.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 10.3 Maintaining secondary indexes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Sync with the primary data
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: An update may involve multiple B+tree keys with secondary indexes. When a row
+    is changed, we must remove old index keys and insert new ones. To do this, the
+    B+tree interface is extended to return the old value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Use the new information:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: Atomicity of multi-key updates
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Atomicity is not composable! We lost atomicity when multiple keys are involved,
+    even if individual KV operations are atomic. If the DB crashed or an error occurred
+    while updating a secondary index, it should revert to the previous state.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Achieving this with just get, set, del is tricky, which is why simple KV interfaces
+    are very limiting. Our next step is a *transactional* KV interface to allow atomic
+    operations on multiple keys or even concurrent readers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 10.4 Summary of tables and indexes on KV
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Rows and columns as KVs.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Range queries.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: B+tree iterators.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Order-preserving encoding.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Secondary indexes.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Index selection.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: A transactional interface is needed.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL

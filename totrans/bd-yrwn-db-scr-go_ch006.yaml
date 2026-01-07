@@ -1,0 +1,139 @@
+- en: 05\. B+Tree Deletion and Testing
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 5.1 High-level interfaces
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We’ll add the interfaces to use the B+tree as a KV.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Most of the details are introduced with the tree insertion, so there’s not much
+    more to learn from the deletion. Skip this chapter if you know the principle.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Keep the root node
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: There is some extra work in maintaining the root node for tree insertions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Create the root node if the tree is empty.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Add a new root if the root node is split.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Sentinel value
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'There is a trick when creating the first root: we inserted an empty key. This
+    is called a sentinel value, it’s used to remove an edge case.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If you examine the lookup function `nodeLookupLE`, you’ll see that it won’t
+    work if the key is out of the node range. This is fixed by inserting an empty
+    key into the tree, which is the lowest possible key by sort order, so that `nodeLookupLE`
+    will always find a position.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5.2 Merge nodes
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Node update functions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: We’ll need some new functions for the tree deletion.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Merge conditions
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Deleting may result in empty nodes, which can be merged with a sibling if it
+    has one. `shouldMerge` returns which sibling (left or right) to merge with.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Deleted keys mean unused space within nodes. In the worst case, a mostly empty
+    tree can still retain a large number of nodes. We can improve this by triggering
+    merges earlier — using 1/4 of a page as a threshold instead of the empty node,
+    which is a soft limit on the minimum node size.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5.3 B+tree deletion
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: This is similar to insertion, just replace splitting with merging.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Even if a node becomes empty, it may not be merged if it has no siblings. In
+    this case, the empty node is propagated to its parent and merged later.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 5.4 Test the B+tree
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The data structure only interacts with the rest of the DB via the 3 page management
+    callbacks. To test the B+tree, we can simulate pages in memory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`C.pages` is a map of allocated pages. It’s used to validate pointers and read
+    pages. The pointers are actually in-memory pointers, and the B+tree code doesn’t
+    care.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'To test the B+tree, we first need to update it under various scenarios and
+    then verify the result. The verification is generic, there are 2 things to verify:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The structure is valid.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Keys are sorted.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Node sizes are within limits.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The data matches a reference. We used a map to capture each update.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: The test cases are left as an exercise. The next thing is B+tree on disk.
+  prefs: []
+  type: TYPE_NORMAL

@@ -1,0 +1,214 @@
+- en: 09\. Range Queries
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 9.1 B+tree iterator
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The iterator interface
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The basic operations are *seek* and *iterate* for a range query. A B+tree position
+    is represented by the stateful iterator `BIter`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'For example, the query for `a <= key` looks like this:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Navigate a tree
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The position of the current key is needed to find its sibling key inside a node.
+    And if the sibling key is in the sibling node, we need to backtrack to the parent
+    node. Since we don’t use parent pointers, we need the entire path from root to
+    leaf.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Moving the iterator is like carrying when incrementing a number digit by digit.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: Seek to a key
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Seeking to a key is like a point query, with the path recorded.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`nodeLookupLE` is for less-than-and-equal, you’ll also need other operators.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 9.2 Order-preserving encoding
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Sort arbitrary data as byte strings
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Our B+tree deals with string keys of arbitrary bytes. But a column can be of
+    other types, such as numbers, and keys can be multiple columns. To support range
+    queries, serialized keys must be compared w.r.t. their data type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The obvious way is to replace `bytes.Compare` with a callback that decodes and
+    compares keys according to the table schema.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another way is to **choose a special serialization format so that the resulting
+    bytes reflect the sort order**. This is the shortcut we’ll take.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Numbers
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Let’s start with a simple problem: how to encode *unsigned integers* so that
+    they can be compared by `bytes.Compare`? `bytes.Compare` works byte by byte until
+    a difference is met. So the 1st byte is most significant in a comparison, if we
+    put the most significant (higher) bits of an integer first, they can be compared
+    byte-wise. That’s just big-endian integers.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Next, we’ll consider *signed integers*, which are represented by [two’s complement](https://en.wikipedia.org/wiki/Signed_number_representations#Two's_complement).
+    In two’s complement representation, the upper half of unsigned values is simply
+    offset to negative values. To ensure the correct order, the positive half is swapped
+    with the negative half, which is just flipping the most significant bit.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Some examples:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '| `int64` | Encoded bytes |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `MinInt64` | `00 00 00 00 00 00 00 00` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -2 | `7f ff ff ff ff ff ff fe` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| -1 | `7f ff ff ff ff ff ff ff` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 0 | `80 00 00 00 00 00 00 00` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| 1 | `80 00 00 00 00 00 00 01` |'
+  prefs: []
+  type: TYPE_TB
+- en: '| `MaxInt64` | `ff ff ff ff ff ff ff ff` |'
+  prefs: []
+  type: TYPE_TB
+- en: 'So the general ideas are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Arranging bits so that more significant bits come first (big-endian).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Remapping bits to unsigned integers in the correct order.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Exercise for the reader: Apply this to floats (sign + magnitude + exponent).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Strings
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The key can be multiple columns. But `bytes.Compare` only works with a single
+    string column, because it needs the length. We cannot simply concatenate string
+    columns, because this creates ambiguity. E.g., `("a", "bc")` vs. `("ab", "c")`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: There are 2 ways to encode strings with lengths, one way is to prepend the length,
+    this requires decoding. Another way is to put a delimiter at the end, such as
+    a null byte. The previous example is encoded as `"a\x00bc\x00"` and `"ab\x00c\x00"`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The problem with delimiters is that the input cannot contain the delimiter,
+    this is solved by *escaping* the delimiter. We’ll use byte 0x01 as the escaping
+    byte, and the escaping byte itself must be escaped. So we’ll need 2 transformations:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Note that the escape sequences still preserve the sort order.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Tuples
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: A multi-column comparison (tuple) is done column by column until a difference
+    is met. This is like a string comparison, except that each item is a typed value
+    instead of a byte. We can simply concatenate the encoded bytes of each column
+    as long as there is no ambiguity.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.3 Range query
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: '`Scanner` is a wrapper of the B+tree iterator. It decodes KVs into rows.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: The input is an interval of the primary key.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: For open-ended intervals, simply set `Key2` to the maximum/minimum value.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 9.4 What we learned
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: B+tree iterators.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Order-preserving encoding.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The next step is to add secondary indexes, which are just extra tables.
+  prefs: []
+  type: TYPE_NORMAL

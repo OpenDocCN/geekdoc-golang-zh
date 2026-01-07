@@ -1,0 +1,293 @@
+- en: 02\. Indexing Data Structures
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 2.1 Types of queries
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Most SQL queries can be broken down into 3 types:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Scan the whole data set. (No index is used).
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Point query: Query the index by a specific key.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Range query: Query the index by a range. (The index is sorted).'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: There are ways to make scanning fast, such as column-based storage. But a scan
+    is *O*(*N*) no matter how fast it is; our focus is on queries that can be served
+    in *O*(log *N*) using data structures.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'A range query consists of 2 phases:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Seek: find the starting key.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Iterate: find the previous/next key in sorted order.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: A point query is just seek without iterate; a sorting data structure is all
+    we need.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 2.2 Hashtables
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Hashtables are viable if you only consider point queries (get, set, del), so
+    we will not bother with them because of the lack of ordering.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'However, coding a hashtable, even an in-memory one, is still a valuable exercise.
+    It’s far easier than the B-tree we’ll code later, though some challenges remain:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: How to grow a hashtable? Keys must be moved to a larger hashtable when the load
+    factor is too high. Moving everything at once is prohibitively *O*(*N*). Rehashing
+    must be done progressively, even for in-memory apps like Redis.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'Other things mentioned before: in-place updates, space reuse, and etc.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 2.3 Sorted arrays
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Ruling out hashtables, let’s start with the simplest sorting data structure:
+    the sorted array. You can binary search on it in *O*(log *N*). For variable-length
+    data such as strings (KV), use an array of pointers (offsets) to do binary searches.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Updating a sorted array is *O*(*N*), either in-place or not. So it’s not practical,
+    but it can be extended to other updatable data structures.
+  prefs: []
+  type: TYPE_NORMAL
+- en: One way to reduce the update cost is to split the array into several smaller
+    non-overlapping arrays — nested sorted arrays. This extension leads to B+tree
+    (multi-level n-ary tree), with the additional challenge of maintaining these small
+    arrays (tree nodes).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another form of “updatable array” is the log-structured merge tree (LSM-tree).
+    Updates are first buffered in a smaller array (or other sorting data structures),
+    then merged into the main array when it becomes too large. The update cost is
+    amortized by propagating smaller arrays into larger arrays.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 2.4 B-tree
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: A B-tree is a balanced n-ary tree, comparable to balanced binary trees. Each
+    node stores variable number of keys (and branches) up to *n* and *n* > 2.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reducing random access with shorter trees
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: A disk can only perform a limited number of IOs per second (IOPS), which is
+    the limiting factor for tree lookups. Each level of the tree is a disk read in
+    a lookup, and n-ary trees are shorter than binary trees for the same number of
+    keys (log[*n*]*N* vs. log[2]*N*), thus n-ary trees are used for fewer disk reads
+    per lookup.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'How is the *n* chosen? There is a trade-off:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Larger *n* means fewer disk reads per lookup (better latency and throughput).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Larger *n* means larger nodes, which are slower to update (discussed later).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: IO in the unit of pages
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: While you can read any number of bytes at any offset from a file, disks do not
+    work that way. The basic unit of disk IO is not bytes, but sectors, which are
+    512-byte contiguous blocks on old HDDs.
+  prefs: []
+  type: TYPE_NORMAL
+- en: However, disk sectors are not an application’s concern because regular file
+    IOs do not interact directly with the disk. The OS caches/buffers disk reads/writes
+    in the *page cache*, which consists of 4K-byte memory blocks called *pages*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: In any way, there is a minimum unit of IO. DBs can also define their own unit
+    of IO (also called a page), which can be larger than an OS page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The minimum IO unit implies that tree nodes should be allocated in multiples
+    of the unit; a half used unit is half wasted IO. Another reason against small
+    *n*!
+  prefs: []
+  type: TYPE_NORMAL
+- en: The B+tree variant
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In the context of databases, B-tree means a variant of B-tree called B+tree.
+    In a B+tree, internal nodes do not store values, values exist only in leaf nodes.
+    This leads to shorter tree because internal nodes have more space for branches.
+  prefs: []
+  type: TYPE_NORMAL
+- en: B+tree as an in-memory data structure also makes sense because the minimum IO
+    unit between RAM and CPU caches is 64 bytes (cache line). The performance benefit
+    is not as great as on disk because not much can fit in 64 bytes.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Data structure space overhead
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Another reason why binary trees are impractical is the number of pointers; each
+    key has at least 1 incoming pointer from the parent node, whereas in a B+tree,
+    multiple keys in a leaf node share 1 incoming pointer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Keys in a leaf node can also be packed in a compact format or compressed to
+    further reduce the space.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 2.5 Log-structured storage
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Update by merge: amortize cost'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The most common example of log-structured storage is log-structure merge tree
+    (LSM-tree). Its main idea is neither log nor tree; it’s “merge” instead!
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Let’s start with 2 files: a small file holding the recent updates, and a large
+    file holding the rest of the data. Updates go to the small file first, but it
+    cannot grow forever; it will be merged into the large file when it reaches a threshold.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Merging 2 sorted files results in a newer, larger file that replaces the old
+    large file and shrinks the small file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Merging is *O*(*N*), but can be done concurrently with readers and writers.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Reduce write amplification with multiple levels
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Buffering updates is better than rewriting the whole dataset every time. What
+    if we extend this scheme to multiple levels?
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: In the 2-level scheme, the large file is rewritten every time the small file
+    reaches a threshold, the excess disk write is called *write amplification*, and
+    it gets worse as the large file gets larger. If we use more levels, we can keep
+    the 2nd level small by merging it into the 3rd level, similar to how we keep the
+    1st level small.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Intuitively, levels grow exponentially, and the power of two growth (merging
+    similarly sized levels) results in the least write amplification. But there is
+    a trade-off between write amplification and the number of levels (query performance).
+  prefs: []
+  type: TYPE_NORMAL
+- en: LSM-tree indexes
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Each level contains indexing data structures, which could simply be a sorted
+    array, since levels are never updated (except for the 1st level). But binary search
+    is not much better than binary tree in terms of random access, so a sensible choice
+    is to use B-tree inside a level, that’s the “tree” part of LSM-tree. Anyway, data
+    structures are much simpler because of the lack of updates.
+  prefs: []
+  type: TYPE_NORMAL
+- en: To better understand the idea of “merge”, you can try to apply it to hashtables,
+    a.k.a. log-structured hashtables.
+  prefs: []
+  type: TYPE_NORMAL
+- en: LSM-tree queries
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Keys can be in any levels, so to query an LSM-tree, the results from each level
+    are combined (n-way merge for range queries).
+  prefs: []
+  type: TYPE_NORMAL
+- en: For point queries, Bloom filters can be used as an optimization to reduce the
+    number of searched levels.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Since levels are never updated, there can be old versions of keys in older levels,
+    and deleted keys are marked with a special flag in newer levels (called tombstones).
+    Thus, newer levels have priority in queries.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The merge process naturally reclaims space from old or deleted keys. Thus, it’s
+    also called *compaction*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Real-world LSM-tree: SSTable, MemTable and log'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: These are jargons about LSM-tree implementation details. You don’t need to know
+    them to build one from principles, but they do solve some real problems.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Levels are split into multiple non-overlapping files called SSTables, rather
+    than one large file, so that merging can be done gradually. This reduces the free
+    space requirement when merging large levels, and the merging process is spread
+    out over time.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The 1st level is updated directly, a log becomes a viable choice because the
+    1st level is bounded in size. This is the “log” part of the LSM-tree, an example
+    of combining a log with other indexing data structures.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But even if the log is small, a proper indexing data structure is still needed.
+    The log data is *duplicated* in an in-memory index called MemTable, which can
+    be a B-tree, skiplist, or whatever. It’s a small, bounded amount of in-memory
+    data, and has the added benefit of accelerating the read-the-recent-updates scenario.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 2.6 Summary of indexing data structures
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'There are 2 options: B+tree and LSM-tree.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: LSM-tree solves many of the challenges from the last chapter, such as how to
+    update disk-based data structures and resue space. While these challenges remain
+    for B+tree, which will be explored later.
+  prefs: []
+  type: TYPE_NORMAL

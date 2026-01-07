@@ -1,0 +1,251 @@
+- en: 01\. From Files To Databases
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: Let’s start with files, and examine the challenges we face.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1.1 Updating files in-place
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Let’s say you need to save some data to disk; this is a typical way to do it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: This code creates the file if it does not exist, or truncates the existing one
+    before writing the content. And most importantly, the data is not persistent unless
+    you call `fsync` (`fp.Sync()` in Go).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'It has some serious limitations:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It updates the content as a whole; only usable for tiny data. This is why you
+    don’t use Excel as a database.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If you need to update the old file, you must read and modify it in memory, then
+    overwrite the old file. What if the app crashes while overwriting the old file?
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: If the app needs concurrent access to the data, how do you prevent readers from
+    getting mixed data and writers from conflicting operations? That’s why most databases
+    are client-server, you need a server to coordinate concurrent clients. (Concurrency
+    is more complicated without a server, see SQLite).
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 1.2 Atomic renaming
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Replacing data atomically by renaming files
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Many problems are solved by not updating data *in-place*. You can write a new
+    file and delete the old file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Not touching the old file data means:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If the update is interrupted, you can recover from the old file since it remains
+    intact.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Concurrent readers won’t get half written data.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The problem is how readers will find the new file. A common pattern is to rename
+    the new file to the old file path.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: Renaming a file to an existing one replaces it *atomically*; deleting the old
+    file is not needed (and not correct).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Pay attention to the meaning of the jargon, whenever you see “X is atomic”,
+    you should ask “X is atomic *with respect to* what?” In this case:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Rename is atomic w.r.t. concurrent readers; a reader opens either the old or
+    the new file.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Rename is NOT atomic w.r.t. power loss; it’s not even durable. You need an extra
+    `fsync` on the parent *directory*, which is discussed later.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Why does renaming work?
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Filesystems keep a mapping from file names to file data, so replacing a file
+    by renaming simply points the file name to the new data without touching the old
+    data. That’s why atomic renaming is possible in filesystems. And the operation
+    cost is constant regardless of the data size.
+  prefs: []
+  type: TYPE_NORMAL
+- en: On Linux, the replaced old file may still exist if it’s still being opened by
+    a reader; it’s just not accessible from a file name. Readers can safely work on
+    whatever version of the data it got, while writer won’t be blocked by readers.
+    However, there must be a way to prevent concurrent writers. The level of concurrency
+    is multi-reader-single-writer, which is what we will implement.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1.3 Append-only logs
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Safe incremental updates with logs
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: One way to do incremental updates is to just append the updates to a file. This
+    is called a “log” because it’s append-only. It’s safer than in-place updates because
+    no data is overwritten; you can always recover the old data after a crash.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'The reader must consider all log entries when using the log. For example, here
+    is a log-based KV with 4 entries:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: The final state is `a=3`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Logs are an essential component of many databases. However, a log is only a
+    description of each update, which means:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: It’s not an indexing data structure; readers must read all entries.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: It has no way to reclaim space from deleted data.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: So logs alone are not enough to build a DB, they must be combined with other
+    indexing data structures.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Atomic log updates with checksums
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'While a log won’t corrupt old data, you still have to deal with the last entry
+    if it gets corrupted after a crash. Many possibilities:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The last append simply does not happen; the log is still good.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The last entry is half written.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The size of the log is increased but the last entry is not there.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The way to deal with these cases is to add a checksum to each log entry. If
+    the checksum is wrong, the update did not happen, making log updates atomic (w.r.t.
+    both readers and durability).
+  prefs: []
+  type: TYPE_NORMAL
+- en: This scenario is about incomplete writes (*torn writes* in DB jargon) that occur
+    before a successful `fsync`. Checksums can also detect other forms of corruption
+    after `fsync`, but that’s not something a DB can recover from.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1.4 `fsync` gotchas
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: After renaming files or creating new files, you must call `fsync` on the parent
+    directory. A directory is a mapping from file names to files, and like file data,
+    it’s not durable unless you use `fsync`. See [this example](https://www.usenix.org/sites/default/files/conference/protected-files/osdi14_slides_pillai.pdf#page=31)
+    of `fsync` on the directory.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Another issue with `fsync` is error handling. If `fsync` fails, the DB update
+    fails, but what if you read the file afterwards? You may get the new data even
+    if `fsync` failed (because of the OS page cache)! This behavior is [filesystem
+    dependent](https://www.usenix.org/conference/atc20/presentation/rebello).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 1.5 Summary of database challenges
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'What we have learned:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Problems with in-place updates.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Avoid in-place updates by renaming files.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Avoid in-place updates using logs.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Append-only logs.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Incremental updates.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Not a full solution; no indexing and space reuse.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`fsync` usage.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'What remains a question:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Indexing data structures and how to update them.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Reuse space from append-only files.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Combining a log with an indexing data structure.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Concurrency.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL

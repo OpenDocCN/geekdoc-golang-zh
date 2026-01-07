@@ -1,0 +1,1 @@
+["```go\nwrites => | new updates | => | accumulated data |\n               file 1               file 2\n```", "```go\n |level 1|\n                    ||\n                    \\/\n           |------level 2------|\n                    ||\n                    \\/\n|-----------------level 3-----------------|\n```"]

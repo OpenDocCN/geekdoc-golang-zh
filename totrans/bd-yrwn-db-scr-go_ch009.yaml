@@ -1,0 +1,374 @@
+- en: 08\. Tables on KV
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 8.1 Encode rows as KVs
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Indexed queries: point and range'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: In a relational DB, data is modeled as 2D tables consisting of rows and columns.
+    Users speak their *intent* in SQL and the DB magically delivers results. What’s
+    less magic is that while a DB can execute arbitrary queries, not all queries are
+    practical (efficient & scalable) in OLTP workloads, and OLTP always requires users
+    to control *how* queries are executed via proper schema and index design.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'How an indexed query is executed boils down to 2 operations:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Point query: Find a row by a given key.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'Range query: Find rows by a range; iterate the result in sorted order.'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: That’s why B+trees and LSM-trees are considered, while hashtables are not.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The primary key as the “key”
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Let’s consider point queries first. To find a row, there must be a way to uniquely
+    identify the row, that’s the primary key, which is a subset of the columns.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: Intuitively, primary key columns go in the “key” and the rest go in the “value”.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|  | key | value |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| t1 | k1, k2 | v1, v2 |'
+  prefs: []
+  type: TYPE_TB
+- en: Some DBs allow tables without a primary key, what they do is add a hidden, auto-generated
+    primary key.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The secondary indexes as separate tables
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Besides the primary key, a table can be indexed in more than 1 way. This is
+    solved by an extra indirection: the secondary indexes.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Logically, each index is like a separate table:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: Which adds an extra key to find the unique row identifier (primary key).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|  | key | value |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| t1 | k1, k2 | v1, v2 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| idx1 | v1 | k1, k2 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| idx2 | v2, v1 | k1, k2 |'
+  prefs: []
+  type: TYPE_TB
+- en: The primary key is also an index, but with the unique constraint.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'Alternative: auto-generated row ID'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Some DBs use an auto-generated ID as the “true” primary key, as opposed to the
+    user-selected primary key. In this case, there is no distinction between primary
+    and secondaries; the user primary key is also an indirection.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|  | key | value |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| t1 | ID | k1, k2, v1, v2 |'
+  prefs: []
+  type: TYPE_TB
+- en: '| primary key | k1, k2 | ID |'
+  prefs: []
+  type: TYPE_TB
+- en: '| idx1 | v1 | ID |'
+  prefs: []
+  type: TYPE_TB
+- en: '| idx2 | v2, v1 | ID |'
+  prefs: []
+  type: TYPE_TB
+- en: The advantage is that the auto-generated ID can be a small, fixed-width integer,
+    while the user primary key can be arbitrarily long. This means that …
+  prefs: []
+  type: TYPE_NORMAL
+- en: For ID keys, internal nodes can store more keys (shorter tree).
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Secondary indexes are smaller as they don’t duplicate the user primary key.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 8.2 Databases schemas
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The table prefix
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: A DB can contain multiple tables and indexes. We’ll prepend an auto-generated
+    prefix to the keys so that they can share a single B+tree. This is less work than
+    keeping multiple trees.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '|  | key | value |'
+  prefs: []
+  type: TYPE_TB
+- en: '| --- | --- | --- |'
+  prefs: []
+  type: TYPE_TB
+- en: '| table1 | prefix1 + columns… | columns… |'
+  prefs: []
+  type: TYPE_TB
+- en: '| table2 | prefix2 + columns… | columns… |'
+  prefs: []
+  type: TYPE_TB
+- en: '| index1 | prefix3 + columns… | columns… |'
+  prefs: []
+  type: TYPE_TB
+- en: The prefix is a 32-bit auto-incrementing integer, you can also use the table
+    name instead, with the drawback that it can be arbitrarily long.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Data types
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'One advantage of relational DB over KV is that they support more data types.
+    To reflect this aspect, we’ll support 2 data types: string and integer.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: The cell `Value` is a tagged union of a particular type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Records
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: A `Record` represents a list of column names and values.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: Schemas
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: We’ll only consider the primary key in this chapter, leaving indexes for later.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: Internal tables
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Where to store table schemas? Since we’re coding a DB, we know how to store
+    stuff; we’ll store them in a predefined internal table.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The `def` column is JSON serialized `TableDef`. This is like:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: We’ll also need to keep some extra information, such as an auto-incrementing
+    counter for generating table prefixes. Let’s define another internal table for
+    this.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: 8.3 Get, update, insert, delete, create
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Point query and update interfaces
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Interfaces for reading and writing a single row:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`DB` is a wrapper of `KV`:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Query by primary key
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The `rec` argument is the input primary key. It’s also the output row.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: The code to handle the columns is just mandane, we’ll skip it.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: The next step is encoding and decoding, which can be any serialization scheme.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Read the schema
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: User-facing interfaces refer to tables by name, so we must get its schema first.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: Which is just a query to the internal table `@table` of JSON-encoded `TableDef`s.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: We can cache table schemas in memory to reduce the number of queries, since
+    no sane application needs a huge number of tables.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Insert or update a row
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'There are 3 SQL update statements that differ in how they treat an existing
+    row:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`INSERT` only adds new rows (identified by the primary key).'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`UPDATE` only modifies existing rows.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '`UPSERT` adds new rows or modifies existing rows.'
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: '(Note: `UPSERT` is PostgreSQL specific. In MySQL it’s `ON DUPLICATED KEY UPDATE`.
+    In SQLite it’s `INSERT OR REPLACE`).'
+  prefs: []
+  type: TYPE_NORMAL
+- en: This is implemented by extending `BTree.Insert` with a mode flag.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: The update function here only deals with a complete row. Partial updates (read-modify-write)
+    are implemented at a higher level (query language).
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE17]'
+  prefs: []
+  type: TYPE_PRE
+- en: Create a table
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The process of creating a table is rather boring:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Read `@table` to check for duplicate names.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Read the table prefix counter from `@meta`.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Increase and update the table prefix counter in `@meta`.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Insert the schema to `@table`.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '[PRE18]'
+  prefs: []
+  type: TYPE_PRE
+- en: This process involves updating 2 keys, so we’re losing atomicity here. This
+    will be fixed later when we add transactions.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 8.4 Conclusion of tables on KV
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: 'Tables on KV is not fundamentally different, it’s just extra steps of data
+    serialization and keeping schemas. However, the work is not done yet. The next
+    steps are:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Range queries.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Secondary indexes.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL

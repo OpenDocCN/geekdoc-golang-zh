@@ -1,0 +1,449 @@
+- en: 06\. Append-Only KV Store
+  prefs:
+  - PREF_H1
+  type: TYPE_NORMAL
+- en: 6.1 What we will do
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We’ll create a KV store with a copy-on-write B+tree backed by a file.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE0]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'The scope of this chapter is durability + atomicity:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The file is append-only; space reuse is left to the next chapter.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: We will ignore concurrency and assume sequential access within 1 process.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: 'We’ll implement the 3 B+tree callbacks that deal with disk pages:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE1]'
+  prefs: []
+  type: TYPE_PRE
+- en: 6.2 Two-phase update
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Atomicity + durability
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: As discussed in chapter 03, for a copy-on-write tree, the root pointer is updated
+    atomically. Then `fsync` is used to *request* and *confirm* durability.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The atomicity of the root pointer itself is insufficient; to make the whole
+    tree atomic, new nodes must be persisted *before* the root pointer. And **the
+    write order is not the order in which the data is persisted**, due to factors
+    like caching. So another `fsync` is used to ensure the order.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE2]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'Alternative: durability with a log'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'The alternative double-write scheme also has 2 `fsync`’ed phases:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Write the updated pages with checksum.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '`fsync` to make the update persistent (for crash recovery).'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Update the data in-place (apply the double-writes).
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '`fsync` for the order between 3 and 1 (reuse or delete the double-writes).'
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: 'A difference with copy-on-write is the order of the phases: the data is persistent
+    after the 1st `fsync`; the DB can return success and do the rest in the background.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The double-write is comparable to a log, which also needs only 1 `fsync` for
+    an update. And it can be an actual log to buffer multiple updates, which improves
+    performance. This is another example of logs in DBs, besides the LSM-tree.
+  prefs: []
+  type: TYPE_NORMAL
+- en: We won’t use a log as copy-on-write doesn’t need it. But a log still offers
+    the benefits discussed above; it’s one of the reasons logs are ubiquitous in databases.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Concurrency of in-memory data
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Atomicity for in-memory data (w.r.t. concurrency) can be achieved with a mutex
+    (lock) or some atomic CPU instructions. There is a similar problem: memory reads/writes
+    may not appear in order due to factors like out-of-order execution.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: For an in-memory copy-on-write tree, new nodes must be made visible to concurrent
+    readers *before* the root pointer is updated. This is called a *memory barrier*
+    and is analogous to `fsync`, although `fsync` is more than enforcing order.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Synchronization primitives such as mutexes, or any OS syscalls, will enforce
+    memory ordering in a portable way, so you don’t have to mess with CPU-specific
+    atomics or barriers (which are inadequate for concurrency anyway).
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.3 Database on a file
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: The file layout
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Our DB is a single file divided into “pages”. Each page is a B+tree node, except
+    for the 1st page; the 1st page contains the pointer to the latest root node and
+    other auxiliary data, we call this the *meta page*.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE3]'
+  prefs: []
+  type: TYPE_PRE
+- en: New nodes are simply appended like a log, but we cannot use the file size to
+    count the number of pages, because after a power loss the file size (metadata)
+    may become inconsistent with the file data. This is filesystem dependent, we can
+    avoid this by storing the number of pages in the meta page.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`fsync` on directory'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'As mentioned in chapter 01, `fsync` must be used on the parent directory after
+    a `rename`. This is also true when creating new files, because there are 2 things
+    to be made persistent: the file data, and the directory that references the file.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: We’ll preemptively `fsync` after potentially creating a new file with `O_CREATE`.
+    To `fsync` a directory, `open` the directory in `O_RDONLY` mode.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE4]'
+  prefs: []
+  type: TYPE_PRE
+- en: The directory fd can be used by `openat` to open the target file, which guarantees
+    that the file is from the same directory we opened before, in case the directory
+    path is replaced in between (race condition). Although this is not our concern
+    as we don’t expect multi-process operations.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`mmap`, page cache and IO'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '`mmap` is a way to read/write a file as if it’s an in-memory buffer. Disk IO
+    is implicit and automatic with `mmap`.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE5]'
+  prefs: []
+  type: TYPE_PRE
+- en: 'To understand `mmap`, let’s review some operating system basics. An OS page
+    is the minimum unit for mapping between virtual address and physical address.
+    However, the virtual address space of a process is not fully backed by physical
+    memory all the time; part of the process memory can be swapped to disk, and when
+    the process tries to access it:'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The CPU triggers a *page fault*, which hands control to the OS.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The OS then …
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Reads the swapped data into physical memory.
+  prefs:
+  - PREF_IND
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Remaps the virtual address to it.
+  prefs:
+  - PREF_IND
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: Hands control back to the process.
+  prefs:
+  - PREF_IND
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: The process resumes with the virtual address mapped to real RAM.
+  prefs:
+  - PREF_OL
+  type: TYPE_NORMAL
+- en: '`mmap` works in a similar way, the process gets an address range from `mmap`
+    and when it touches a page in it, it page faults and the OS reads the data into
+    a cache and remaps the page to the cache. That’s the automatic IO in a read-only
+    scenario.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: The CPU also takes note (called a dirty bit) when the process modifies a page
+    so the OS can write the page back to disk later. `fsync` is used to request and
+    wait for the IO. This is writing data via `mmap`, it is not very different from
+    `write` on Linux because `write` goes to the same page cache.
+  prefs: []
+  type: TYPE_NORMAL
+- en: You don’t have to `mmap`, but it’s important to understand the basics.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.4 Manage disk pages
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: We’ll use `mmap` to implement these page management callbacks. because it’s
+    just convenient.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE6]'
+  prefs: []
+  type: TYPE_PRE
+- en: Invoke `mmap`
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: A file-backed `mmap` can be either read-only, read-write, or copy-on-write.
+    To create a read-only `mmap`, use the `PROT_READ` and `MAP_SHARED` flags.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE7]'
+  prefs: []
+  type: TYPE_PRE
+- en: The mapped range can be larger than the current file size, which is a fact that
+    we can exploit because the file will grow.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '`mmap` a growing file'
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: '`mremap` remaps a mapping to a larger range, it’s like `realloc`. That’s one
+    way to deal with the growing file. However, the address may change, which can
+    hinder concurrent readers in later chapters. Our solution is to add new mappings
+    to cover the expanded file.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE8]'
+  prefs: []
+  type: TYPE_PRE
+- en: Adding a new mapping each time the file is expanded results in lots of mappings,
+    which is bad for performance because the OS has to keep track of them. This is
+    avoided with exponential growth, since `mmap` can go beyond the file size.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE9]'
+  prefs: []
+  type: TYPE_PRE
+- en: You may wonder why not just create a very large mapping (say, 1TB) and forget
+    about the growing file, since an unrealized virtual address costs nothing. This
+    is OK for a toy DB in 64-bit systems.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Capture page updates
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The `BTree.new` callback collects new pages from B+tree updates, and allocates
+    the page number from the end of DB.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE10]'
+  prefs: []
+  type: TYPE_PRE
+- en: Which are written (appended) to the file after B+tree updates.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE11]'
+  prefs: []
+  type: TYPE_PRE
+- en: '`pwritev` is variant of `write` with an offset and multiple input buffers.
+    We have to control the offset because we also need to write the meta page later.
+    Multiple input buffers are combined by the kernel.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.5 The meta page
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Read the meta page
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: We’ll also add some magic bytes to the meta page to identify the file type.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE12]'
+  prefs: []
+  type: TYPE_PRE
+- en: The meta page is reserved if the file is empty.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE13]'
+  prefs: []
+  type: TYPE_PRE
+- en: Update the meta page
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: Writing a small amount of page-aligned data to a real disk, modifying only a
+    single sector, is likely power-loss-atomic at the hardware level. Some [real databases](https://www.postgresql.org/message-id/flat/17064-bb0d7904ef72add3%40postgresql.org)
+    depend on this. That’s how we update the meta page too.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE14]'
+  prefs: []
+  type: TYPE_PRE
+- en: However, atomicity means different things at different levels, as you’ve seen
+    with `rename`. `write` is not atomic w.r.t. concurrent readers at the [system
+    call level](https://stackoverflow.com/questions/35595685/). This is likely how
+    the page cache works.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 'We’ll consider read/write atomicity when we add concurrent transations, but
+    we have already seen a solution: In an LSM-tree, the 1st level is the only thing
+    that is updated, and it’s duplicated as a MemTable, which moves the concurrency
+    problem to memory. We can keep an in-memory copy of the meta page and synchronize
+    it with a mutex, thus avoiding concurrent disk reads/writes.'
+  prefs: []
+  type: TYPE_NORMAL
+- en: Even if the hardware is not atomic w.r.t. power loss. Atomicity is achievable
+    with log + checksum. We could switch between 2 checksumed meta pages for each
+    update, to ensure that one of them is good after a power loss. This is called
+    *double buffering*, which is a rotating log with 2 entries.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.6 Error handling
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: Scenarios after IO errors
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: The bare minimum of error handling is to propagate errors with `if err != nil`.
+    Next, consider the possibility of using the DB after an IO error (`fsync` or `write`).
+  prefs: []
+  type: TYPE_NORMAL
+- en: Read after a failed update?
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: The reasonable choice is to behave as if nothing happened.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Update it again after a failure?
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the error persists, it’s expected to fail again.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: If the error is temporary, can we recover from the previous error?
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Restart the DB after the problem is resolved?
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: This is just crash recovery; discussed in chapter 03.
+  prefs:
+  - PREF_IND
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Revert to the previous version
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: There is a [survey](https://www.usenix.org/system/files/atc20-rebello.pdf) on
+    the handling of `fsync` failures. From which we can learn that the topic is filesystem
+    dependent. If we read after an `fsync` failure, some filesystems return the failed
+    data as the page cache doesn’t match the disk. So reading back failed writes is
+    problematic.
+  prefs: []
+  type: TYPE_NORMAL
+- en: But since we’re copy-on-write, this is not a problem; we can revert to the old
+    tree root to avoid the problematic data. The tree root is stored in the meta page,
+    but we never read the meta page from disk after opening a DB, so we’ll just revert
+    the *in-memory* root pointer.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE15]'
+  prefs: []
+  type: TYPE_PRE
+- en: So after a write failure, it’s still possible to use the DB in read-only mode.
+    Reads can also fail, but we’re using `mmap`, on a read error the process is just
+    killed by `SIGBUS`. That’s one of the drawbacks of `mmap`.
+  prefs: []
+  type: TYPE_NORMAL
+- en: Recover from temporary write errors
+  prefs:
+  - PREF_H3
+  type: TYPE_NORMAL
+- en: 'Some write errors are temporary, such as “no space left”. If an update fails
+    and then the next succeeds, the end state is still good. The problem is the intermediate
+    state: between the 2 updates, the content of the meta page *on disk* is unknown!'
+  prefs: []
+  type: TYPE_NORMAL
+- en: If `fsync` fails on the meta page, the meta page on disk can be either the new
+    or the old version, while the in-memory tree root is the old version. So the 2nd
+    successful update will overwrite the data pages of the newer version, which can
+    be left in a corrupted intermediate state if crashed.
+  prefs: []
+  type: TYPE_NORMAL
+- en: The solution is to rewrite the last known meta page on recovery.
+  prefs: []
+  type: TYPE_NORMAL
+- en: '[PRE16]'
+  prefs: []
+  type: TYPE_PRE
+- en: We rely on filesystems to report errors correctly, but there is [evidence](https://danluu.com/filesystem-errors/)
+    that they don’t. So can the system as a whole handle errors is still doubtful.
+  prefs: []
+  type: TYPE_NORMAL
+- en: 6.7 Summary of the append-only KV store
+  prefs:
+  - PREF_H2
+  type: TYPE_NORMAL
+- en: File layout for a copy-on-write B+tree.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Durability and atomicity with `fsync`.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: Error handling.
+  prefs:
+  - PREF_UL
+  type: TYPE_NORMAL
+- en: B+tree on disk is a major step. We just have to add a free list to make it practical.
+  prefs: []
+  type: TYPE_NORMAL
